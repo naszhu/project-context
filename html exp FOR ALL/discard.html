@@ -1,0 +1,117 @@
+
+
+<script>
+
+var v_study1 = {
+  type: jsPsychImageKeyboardResponse,
+  stimulus: jsPsych.timelineVariable('lb_Image'),
+  Choices: "NO_KEYS",
+  trial_duration: 2000,
+  post_trial_gap: 1000
+};
+
+// for 
+var test_procedure = {
+  timeline: [v_study1],
+  timeline_variables: [
+    {lb_Image: picname1},
+    {lb_Image: picname2}
+]
+};
+timeline.push(test_procedure);
+
+for (let i=0; i<num_item_test; i++){
+
+if(is_test_itrial[i]==1){
+  i_test_img = target_list_itrial[i_tar];
+  i_tar++
+  console.log(i_tar)
+} else{
+  i_test_img = foil_list_itrial[i_foil];
+  i_foil++
+}
+// i_test_img = test_list_itrial[i];
+// console.log(i_test_img);
+is_i_correct = target_list_itrial.includes(i_test_img);
+
+var test = {
+  type: jsPsychImageKeyboardResponse,
+  stimulus: picdir+i_test_img,
+  Choices: ['F',"K"],
+  data:{
+    task: 'response',
+    correct_response: jsPsych.timelineVariable('correct_response')
+  },
+  prompt:'<p>"F" for old&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"K" for new</p>',
+  on_finish: function(data){
+    data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+  },
+  post_trial_gap: 100
+};
+timeline.push(test);
+}
+
+
+////////////////
+for (let i=0; i<num_item_trial; i++){
+        var study = {
+          type: jsPsychImageKeyboardResponse,
+          stimulus: picdir+study_list_itrial[i],
+          Choices: "NO_KEYS",
+          trial_duration: 500,
+          post_trial_gap: 100,
+          data: {
+            type: "test"
+          }
+        };
+        timeline.push(study);
+      }
+
+
+
+//     function drawRect(c){
+//     var ctx = c.getContext('2d');
+//     ctx.drawImage(picdir+study_list[1]);
+//     ctx.beginPath();
+//     ctx.rect(30, 30, 200, 50);
+//     ctx.stroke();
+// }
+
+//     var triall = {
+//         type: jsPsychCanvasKeyboardResponse,
+//         canvas_size: [300, 300],
+//         stimulus: drawRect,
+//         choices: ['e','i'],
+//         prompt: '<p>Is this a circle or a rectangle? Press "e" for circle and "i" for rectangle.</p>',
+//         data: {shape: 'rectangle'}
+//     }
+//     timeline.push(triall);
+
+var loop_countingsum = {
+          timeline: [v_countingsum],
+          loop_function: function(data){
+
+            cur_response = Object.values(data.values()[0].response);
+            console.log(cur_response);
+            isdigits = /^[0-9]*$/.test(cur_response);
+            console.log(isdigits);
+              if(!isdigits){
+
+                var messageDiv = document.createElement("div");
+                messageDiv.innerHTML = `<div style="text-align:center ; font-size: larger; font-weight: bold; color: black;"><br> <br> <br> <br> <br>NOT digits!</div>`;
+                document.body.prepend(messageDiv);
+                var exp = document.getElementsByClassName("jspsych-content-wrapper")[0]
+                exp.style.visibility = "hidden";
+                setTimeout(function() {
+                document.body.removeChild(messageDiv); // Remove the div
+                exp.style.visibility = "visible";
+                jsPsych.resumeExperiment();
+                }, 1500);//remove after 1.5s
+
+                return true;
+              } else {
+                return false;
+              }
+          }
+      }
+</script>

@@ -1,0 +1,60 @@
+<script>
+
+const finalt_foward_list_obj = range(0,num_trials).map(itrial=> {
+
+var i_ft_Ttar = 0;//ident of final test Target-previous target
+var i_ft_Tnontar = 0;
+var i_ft_Tfoil = 0;
+var i_ft_F = 0;
+
+return(range(0,num_finaltest_eachpack).map(jpos=>{
+  iitem++;
+  itype = finalt_type_list_nf[itrial][jpos];
+  if (itype == "TARGET_target") { 
+
+    prespos_iposintrial = finalt_target_ind_chosen_nf[itrial][i_ft_Ttar];
+    i_test_img = finalt_target_list_nf[itrial][i_ft_Ttar];
+    cr = "j"; //j for old
+    console.log("tar",itrial,i_ft_Ttar)
+    i_ft_Ttar++;
+  } else if(itype = "TARGET_nontarget"){
+
+    prespos_iposintrial = finalt_nontarget_ind_chosen_nf[itrial][i_ft_Tnontar];
+    i_test_img = finalt_nontarget_list_nf[itrial][i_ft_Tnontar];
+    cr = "j"; //j for old
+    // console.log("testpos",iitem+1)
+    // console.log(finalt_nontarget_ind_chosen_nf)
+    console.log("test",itrial,i_ft_Tnontar)
+    i_ft_Tnontar++;
+  } else if(itype = "TARGET_foil"){
+
+    prespos_iposintrial = finalt_foil_ind_chosen_nf[itrial][i_ft_Tfoil]; //10 by 7
+    i_test_img = finalt_foil_list_nf[itrial][i_ft_Tfoil];
+    cr = "j"; //j for old
+    i_ft_Tfoil++;
+  } else if(itype = "FOIL"){
+
+    prespos_iposintrial = 0;
+    i_test_img = tot_finalt_foil_list_nf[itrial][i_ft_F];//there is another method to test here 10 by 21
+    cr = "f"; //f for new
+    i_ft_F++;
+  } else {
+
+    console.log("error!");
+    jsPsych.endExperiment("SYSTEM ERROR! THANKS FOR YOUR PARTICIPATION. YOUR CREDITS WILL BE GIVEN.")
+  }
+
+  return {
+    probetype: finalt_type_list_nf[itrial][jpos],
+    testimg: i_test_img, 
+    testimg_dir: picdir+i_test_img, 
+    correct_response: cr,
+    prespos_itrial: itrial+1,//
+    prespos_iposintrial: prespos_iposintrial,// which trial was it presented 1-10
+    testpos: iitem+1 //1-420
+  }
+  }))
+})
+
+
+</script>

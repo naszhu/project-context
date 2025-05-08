@@ -1,0 +1,105 @@
+<script>
+    for (let i=0; i<num_item_test; i++){
+
+        if(is_test_itrial[i]==1){
+
+          i_test_img = target_list_itrial[i_tar];
+          i_test_ind = target_list_ind[i_tar]+1; //tested position: indent (0,19) => (1,20)
+          i_lag = 20-i_test_ind+1; //lag, range from (1,20)
+          i_tar++;
+        } else{
+          i_test_img = foil_list_itrial[i_foil];
+          i_foil++;
+          i_test_ind = 0;
+          i_lag = 0;;
+        }
+        is_i_old = target_list_itrial.includes(i_test_img); //flaw may exist here
+        if (is_i_old) {cr="f"} else{cr="k"}
+        test_list_itrial_object.push(//object defined
+          {
+            isold: is_i_old,
+            testimg: i_test_img, 
+            testimg_dir: picdir+i_test_img, 
+            correct_response: cr,
+            prespos: i_test_ind,//
+            testpos: i+1, //1-20
+            lag: i_lag 
+            }
+          )
+    }
+
+    var tot_study_list_itrial_object = [];
+      for (let i=0; i<num_imgstudy_trial; i++){
+        tot_study_list_itrial_object.push({//object defined
+          studyimg_dir: picdir+study_list_itrial[i],
+          studyimg: study_list_itrial[i],
+          prespos: i+1, //in [1,20]
+          lag: num_imgstudy_trial-i //in 20-[0,19] => [1,20]
+        });
+      }
+
+
+      var iitem = 0; 
+    var finalt_foward_list_obj = [];
+    for (let itrial_prev=0; itrial_prev<num_trials; itrial_prev++){
+
+      let i_ft_Ttar = 0;//ident of final test Target-previous target
+      let i_ft_Tnontar = 0;
+      console.log("here")
+      let i_ft_Tfoil = 0;
+      let i_ft_F = 0;
+
+      for (let jpos=0; jpos<num_finaltest_eachpack; jpos++){
+
+        itype = finalt_type_list_nf[itrial_prev][jpos];
+        if (itype == "TARGET_target") { 
+          prespos_iposintrial = finalt_target_ind_chosen_nf[itrial_prev][i_ft_Ttar];
+          i_test_img = finalt_target_list_nf[itrial_prev][i_ft_Ttar];
+          cr = "j"; //j for old
+          // console.log("testpos",iitem+1)
+          // console.log(finalt_target_list_nf)
+          // console.log("ind",itrial_prev,i_ft_Ttar)
+          // console.log("img",i_test_img)
+          i_ft_Ttar++;
+        } else if(itype == "TARGET_nontarget"){
+
+          prespos_iposintrial = finalt_nontarget_ind_chosen_nf[itrial_prev][i_ft_Tnontar];
+          i_test_img = finalt_nontarget_list_nf[itrial_prev][i_ft_Tnontar];
+          cr = "j"; //j for old
+          // console.log("testpos",iitem+1)
+          // console.log(finalt_nontarget_list_nf)
+          // console.log("ind",itrial_prev,i_ft_Tnontar)
+          // console.log("img",i_test_img)
+          i_ft_Tnontar++;
+        } else if(itype == "TARGET_foil"){
+
+          prespos_iposintrial = finalt_foil_ind_chosen_nf[itrial_prev][i_ft_Tfoil]; //10 by 7
+          i_test_img = finalt_foil_list_nf[itrial_prev][i_ft_Tfoil];
+          cr = "j"; //j for old
+          i_ft_Tfoil++;
+        } else if(itype = "FOIL"){
+
+          prespos_iposintrial = 0;
+          i_test_img = tot_finalt_foil_list_nf[itrial_prev][i_ft_F];//there is another method to test here 10 by 21
+          cr = "f"; //f for new
+          i_ft_F++;
+        } else {
+
+          console.log("error!");
+          jsPsych.endExperiment("SYSTEM ERROR! THANKS FOR YOUR PARTICIPATION. YOUR CREDITS WILL BE GIVEN.")
+        }
+
+        finalt_foward_list_obj.push({
+          probetype: finalt_type_list_nf[itrial_prev][jpos],
+          testimg: i_test_img, 
+          testimg_dir: picdir+i_test_img, 
+          correct_response: cr,
+          prespos_itrial: itrial_prev+1,//
+          prespos_iposintrial: prespos_iposintrial,// which trial was it presented 1-10
+          testpos: iitem+1 //1-420
+        })
+        iitem++;
+      }
+    }
+    
+</script>

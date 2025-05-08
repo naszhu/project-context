@@ -1,0 +1,42 @@
+<script>
+
+
+
+function get_randind_three(){
+      allind_nf = range(0,10).map(i=>jsPsych.randomization.repeat(range(0,10),1)); //10 trials, for every 10 items, randomize indent 1-10, nonflat array
+      ind_nf = range(0,10).map(i=>allind_nf[i].slice(0,num_finaltest_each));
+      non_ind_nf = range(0,10).map(i=>allind_nf[i].slice(num_finaltest_each,10));
+      return({'chosen': ind_nf, 'nonchosen': non_ind_nf})
+    }
+
+const finalt_target_ind_all = get_randind_three();
+const finalt_target_ind_chosen_nf = finalt_target_ind_all["chosen"];
+const finalt_target_ind_nonchosen_nf = finalt_target_ind_all["nonchosen"];
+
+const finalt_nontarget_ind_all = get_randind_three();
+const finalt_nontarget_ind_chosen_nf = finalt_nontarget_ind_all["chosen"];
+const finalt_nontarget_ind_nonchosen_nf = finalt_nontarget_ind_all["nonchosen"];
+
+const finalt_foil_ind_all = get_randind_three();
+const finalt_foil_ind_chosen_nf = finalt_foil_ind_all["chosen"];
+const finalt_foil_ind_nonchosen_nf = finalt_foil_ind_all["nonchosen"];
+
+const finalt_target_list_nf = range(0,10).map(i=>range(0,num_finaltest_each).map(j=>tot_target_list_nf[i][finalt_target_ind_chosen_nf[i][j]])); //array 10 elements, 7 sub elemnets each
+const finalt_nontarget_list_nf = range(0,10).map(i=>range(0,num_finaltest_each).map(j=>tot_nontarget_list_nf[i][finalt_foil_ind_chosen_nf[j]]));
+const finalt_foil_list_nf = range(0,10).map(i=>range(0,num_finaltest_each).map(j=>tot_foil_list_nf[i][finalt_foil_ind_nonchosen_nf[j]]));
+
+// finalt_forward_list = range(0,10).map(finalt_target_list_nf[i].concat(finalt_nontarget_list_nf[i],finalt_foil_list_nf[i]))
+
+const finalt_type_ind = range(0,10).map(i=>jsPsych.randomization.repeat(["target","nontarget","foil"],7).concat()).flat();
+
+// a[1][2]
+
+// a = [[1,2,3,[2]],[2,4,5]]
+// [[1,2,3],
+//  [2,4,5]]
+// []
+
+
+
+
+</script>

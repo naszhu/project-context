@@ -1,0 +1,39 @@
+<!DOCTYPE html> <!-- Declaration defining this document as HTML5 -->
+<html> <!-- Root element of the HTML document -->
+<head> <!-- Contains meta-information about the document -->
+    <title>Page Title</title> <!-- Title of the document shown in the browser's title bar -->
+    <script src="https://unpkg.com/jspsych@7.3.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.0.0"></script>
+</head>
+<body> <!-- Section that contains all the content visible to users (text, images, etc.) -->
+</body>
+<script>
+    var timeline = [];
+
+    
+    // Initialize the experiment
+    jsPsych.init({
+        timeline: timeline
+    });
+    
+    // Create a trial
+    var trial = {
+        type: 'html-keyboard-response',
+        stimulus: 'Press any key to continue.',
+        prompt: "<p>This is a simple jsPsych experiment. Any key press will be logged.</p>",
+        data: { //one way to save data when experiment is ongoing
+            task_name: "counting_response" //freely write any data with your own data name and data content here 
+        },
+        on_finish: function(data) {
+            // Another way to handle the data at the end of this trial 
+            data.correct = jsPsych.pluginAPI.compareKeys(data.response, "F");
+        }
+    };
+
+    // Add the trial to the timeline
+    timeline.push(trial);
+
+    jsPsych.run(timeline);
+</script>
+</html> <!-- End of the HTML document -->
+

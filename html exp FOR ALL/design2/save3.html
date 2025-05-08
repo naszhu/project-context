@@ -1,0 +1,53 @@
+
+
+
+
+
+
+
+
+
+
+
+if (last_trial_probetype == "FOIL"){
+    str_start_FOIL = `<strong><FONT color=#C41E3A>`;
+    str_start_Tfoil = str_start_Tnontarget = str_start_Ttarget = `<strong><FONT color="white">`;
+} else if (last_trial_probetype == "TARGET_foil"){
+    str_start_Tfoil = `<strong><FONT color=#C41E3A>`;
+    str_start_FOIL = str_start_Tnontarget = str_start_Ttarget = `<strong><FONT color="white">`;
+} else if (last_trial_probetype == "TARGET_foil"){
+    str_start_Tnontarget= `<strong><FONT color=#C41E3A>`;
+    str_start_FOIL = str_start_Tfoil = str_start_Ttarget = `<strong><FONT color="white">`;
+} else {
+    str_start_Ttarget = `<strong><FONT color=#C41E3A>`;
+    str_start_FOIL = str_start_Tnontarget = str_start_Tfoil = `<strong><FONT color="white">`;
+}
+
+
+
+str_end = `</FONT></strong>`
+
+"".concat(`<table class="center">
+<tr>
+<td><strong>"S"</strong> for picture never presented or tested earlier<br>
+<strong>(Entirely new)</strong><br><br>`,
+str_start_FOIL,`This item had never been seen previously.`,str_end,`
+</td>
+
+<td><strong>"F"</strong> for NOT studied but tested earlier. <br>
+<strong>(Only tested as New before)</strong><br><br>`,
+str_start_Tfoil,`This item had been tested as new on list`,jsPsych.timelineVariable("prespos_itrial"),str_end,
+`</td>
+
+<td><strong>"J"</strong> for studied and NOT tested ealier.<br> 
+<strong>(Only studied before)</strong><br><br>`,
+str_start_Tnontarget,`This item had been studied but not tested on list`,jsPsych.timelineVariable("prespos_itrial"),str_end,
+`</td>
+
+<td><strong>"L"</strong> for studied and tested earlier.<br> 
+<strong>(OLD)</strong></strong><br><br>`,
+str_start_Ttarget,`This item had been studied and also tested on list`,jsPsych.timelineVariable("prespos_itrial"),str_end,
+`</td>
+
+</tr>
+</table>`)

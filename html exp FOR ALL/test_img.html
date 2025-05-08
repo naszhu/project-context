@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TEST img</title>
+    <script src="https://unpkg.com/jspsych@7.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.0.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-text"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-canvas-keyboard-response@1.1.1"></script>
+    <link href="https://unpkg.com/jspsych@7.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  </body>
+  
+  <script>
+   var jsPsych = initJsPsych({
+      on_finish: function() {
+        jsPsych.data.displayData();
+        // jsPsych.data.get().localSave('csv', 'ekstra.csv')
+      }
+    });
+    function readTextFile(file) {
+
+        const rawFile = new XMLHttpRequest();
+        let content = null;
+        rawFile.open("GET", file, false);
+        rawFile.onreadystatechange = function () {
+            if (rawFile.readyState === 4) {
+                if (rawFile.status === 200 || rawFile.status === 0) {
+                    content = rawFile.responseText;
+                }
+            }
+        };
+        rawFile.send(null);
+        return content;
+        };
+
+        let textFile = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/picnames.txt';
+    let rtf = readTextFile(textFile);
+    let rnl = rtf.replace(/\r/g, '');
+    var picnames = rnl.split('\n');
+    const picdir = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/images/';
+    var timeline = [];
+    
+    // for (let i=0;i<picnames.length;i++){
+        ipic = picnames.map(i=>picdir+i);
+        ipicobj = range(0,picnames.length).map(i=>{return({ipic: ipic[i]})})
+        // console.log(ipic)
+        // console.log("unloaded",picnames[i])
+        function range(start, end)
+    {
+        var array = new Array();
+        for(var i = start; i < end; i++)
+        {
+            array.push(i);
+        }
+        return array;
+    }
+        var preload_targets = {
+            type: jsPsychPreload,
+            images: jsPsych.timelineVariable('ipic'),
+            continue_after_error: true,
+            show_detailed_errors: true,
+            max_load_time: null}
+
+        var test_procedure = {
+            timeline: [preload_targets],
+            timeline_variables: ipicobj
+        }
+        timeline.push(preload_targets)
+    // }
+    // for (let i=0;i<picnames.length;i++){
+    //     var pres = {
+    //         type: jsPsychImageKeyboardResponse,
+    //         stimulus: picdir+picnames[i],
+    //         // continue_after_error: true,
+    //         // show_detailed_errors: true,
+    //         // max_load_time: null,
+    //         trial_duration:10,
+    //         Choices: "NO_KEYS"
+    //     }
+    //     timeline.push(pres)
+    //     console.log(picnames[i])
+    // }
+    // console.log("loaded:",picnames[i])
+    console.log("finish")
+    // }
+   
+
+
+    
+    // timeline.push(preload_targets);
+    jsPsych.run(timeline);
+
+
+  </script>
+</html>

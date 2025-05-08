@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://unpkg.com/jspsych@7.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.0.0"></script>
+    <link href="https://unpkg.com/jspsych@7.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body></body>
+  <script>
+
+    var jsPsych = initJsPsych({
+      on_finish: function() {
+        jsPsych.data.displayData();
+      }
+    });
+
+    // Stating all const variables here
+    const picname1 = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/images/'+'1 (1).jpg';
+    const picname2 = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/images/'+'1 (12).jpg';
+
+
+    /* Starting exp vars*/
+    var timeline = [];
+
+    var instructions = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+        <p>1.</p>
+        <p>Press any key to begin.</p>
+      `,
+      post_trial_gap: 2000
+    };
+    timeline.push(instructions);
+
+    var v_fixation = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: "NO_KEYS",
+      trial_duration: 1000,
+      data: {
+        task: 'fixation'
+      }
+    };
+    timeline.push(v_fixation);
+
+    var v_study1 = {
+      type: jsPsychImageKeyboardResponse,
+      stimulus: jsPsych.timelineVariable('lb_Image'),
+      Choices: "NO_KEYS",
+      trial_duration: 1000,
+      post_trial_gap: 1000
+    };
+
+    var v_study2 = {
+      type: jsPsychImageKeyboardResponse,
+      stimulus: jsPsych.timelineVariable('lb_Image'),
+      Choices: "NO_KEYS",
+      trial_duration: 1000,
+      post_trial_gap: 1000
+    };
+
+    var test_procedure = {
+      timeline: [v_study1],
+      timeline_variables: [
+        {lb_Image: picname1},
+        {lb_Image: picname2}
+    ]
+    };
+    timeline.push(test_procedure)
+
+    var v_test = {
+      type: jsPsychImageKeyboardResponse,
+      stimulus: picname1,
+      Choices: ['F',"J"],
+      data:{
+        task: 'response',
+        correct_response: jsPsych.timelineVariable('correct_response')
+      },
+      on_finish: function(data){
+        data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+      }
+    };
+    timeline.push(v_test);
+    
+    const timeline_nest_var_study=[]
+
+
+
+    jsPsych.run(timeline);
+  </script>
+</html>

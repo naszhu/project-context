@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://unpkg.com/jspsych@7.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.0.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+    <link href="https://unpkg.com/jspsych@7.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  </body>
+  
+  <script>
+
+    // 
+    // $(document).ready(function () {
+    //     $.get('https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/picnames.txt', function (response) {
+    //         let picnames = response.split("\n");
+    //         // console.log(picnames[0], picnames[1], picnames[2]);
+    //     })
+    // });
+
+    // myArray = new Array;
+    // $.get('https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/picnames.txt', function(data) {
+    // //Bind in div
+    // // $('#div').html(data.replace('\n',''));
+    //     //insert in Array
+    //     window.myArray = data.split('\n');
+    //     console.log(myArray);
+    //     // e.preventDefault();
+    // });
+    // // picnames=readTextFile('https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/picnames.txt');
+    // console.log(window.myArray);
+
+    function readTextFile(file) {
+            const rawFile = new XMLHttpRequest();
+            let content = null;
+            rawFile.open("GET", file, false);
+            rawFile.onreadystatechange = function () {
+                if (rawFile.readyState === 4) {
+                    if (rawFile.status === 200 || rawFile.status === 0) {
+                        content = rawFile.responseText;
+                    }
+                }
+            };
+            rawFile.send(null);
+            return content;
+        }
+
+    let textFile = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/picnames.txt';
+    let rtf = readTextFile(textFile);
+    let rnl = rtf.replace(/\r/g, '');
+    let picnames = rnl.split('\n');
+
+    console.log(picnames);
+
+    
+
+    let imageDir = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/images/';
+
+
+  </script>
+</html>
