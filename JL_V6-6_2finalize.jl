@@ -177,14 +177,130 @@ For E3 prediction trys:
 
 - match the change log file
 =========================================================================================================== =#
+# ENV["R_X11_FONT_PATH"] = "/usr/share/fonts/X11/75dpi"
+# ENV["R_HOME"] = "/opt/R/4.3.2/lib/R"
+
+
+# # RCall.inline_plot_device = false  # stops trying to open plot inline
+# using Pkg; Pkg.status("RCall")
+# # Pkg.build("RCall")
+
+
+
+# R"""
+# Sys.setenv(R_X11_FONT_PATH="/usr/share/fonts/X11/misc")
+# options(bitmapType = "cairo")
+# X11.options(display=":1")
+# """
+
+# R"""
+# options(device = function(...) X11(display=":1", family="sans", fonts=c("fixed", "fixed")))
+# """
+
+
+# R"""
+# options(bitmapType = "cairo")
+# """
+
+# R"""
+# Sys.setenv(DISPLAY=":1")
+# X11.options(display=":1")
+# X11.options()
+# X11()
+# library(ggplot2)
+# ggplot(data.frame(x=1:10, y=1:10), aes(x=x, y=y)) + geom_point()
+# """
+
 
 using RCall
-R"""
-library(ggplot2)
-ggplot(data.frame(x=1:10, y=1:10), aes(x=x, y=y)) + geom_point()
-"""
+# R"Sys.getenv('DISPLAY')"
+# R"capabilities('X11')"
+# R"X11.options()"
+# R"R.home()"
+# R"""
+# Sys.getenv("DISPLAY")
+# Sys.getenv("XAUTHORITY")
+# """
+# # pick a “safe” local path without spaces or syncing
+# local_pdf = "/home/lea/plot.pdf"
 
-using Pkg; Pkg.status("RCall")
+# @rput local_pdf
+# R"""
+# library(ggplot2)
+# library(dplyr)
+# cairo_pdf(local_pdf, width=6, height=4) 
+# # pdf("plot.pdf", width=6, height=4)
+# # Generate synthetic complex dataset
+# set.seed(123)
+# df <- data.frame(
+#   x = rnorm(1000),
+#   y = rnorm(1000),
+#   group = sample(LETTERS[1:4], 1000, replace = TRUE),
+#   category = sample(c("Type 1", "Type 2"), 1000, replace = TRUE),
+#   size = runif(1000, 1, 5)
+# )
+
+# # Complex ggplot
+# p <- ggplot(df, aes(x = x, y = y)) +
+#   geom_point(aes(color = group, size = size), alpha = 0.6, shape = 21, stroke = 0.5) +
+#   geom_smooth(method = "lm", aes(color = group), se = FALSE, linetype = "dashed", size = 0.8) +
+#   facet_wrap(~category) +
+#   scale_color_brewer(palette = "Set2") +
+#   scale_size_continuous(range = c(0.5, 6)) +
+#   theme_minimal(base_family = "Helvetica") +
+#   theme(
+#     strip.text = element_text(face = "bold", size = 14),
+#     axis.title = element_text(size = 12),
+#     legend.position = "bottom",
+#     panel.grid.major = element_line(color = "gray80")
+#   ) +
+#   labs(
+#     title = "Complex ggplot Test",
+#     subtitle = "Facets, smoothers, custom themes",
+#     x = "X Axis",
+#     y = "Y Axis",
+#     color = "Group",
+#     size = "Point Size"
+#   )
+
+# print(p)
+
+# # # ggsave("complex_plot.png", plot = p, width = 10, height = 6, dpi = 300)
+# """
+# pdf = "plot.pdf"
+# run(`xdg-open $pdf`)
+
+# R"""
+# library(gridExtra)
+# grid.arrange(p, p,p,ncol = 1)
+# """
+using RCall
+
+# const out = "/home/lea/plot.pdf"
+
+# R"""
+# # 1. Open a proper Cairo PDF device
+# # cairo_pdf("$out", width=6, height=4)
+
+# # 2. Draw something
+# plot(mtcars$mpg, mtcars$wt, main="MPG vs Weight")
+
+# # 3. Close the device
+# # dev.off()
+# """
+
+# Verify from Julia that the file now has content
+# println(stat("/home/lea/plot.pdf").size, " bytes")
+# run(`xdg-open /home/lea/plot.pdf`)
+
+using Base
+# R"""
+# Sys.getenv("XAUTHORITY")
+# Sys.getenv("DISPLAY")
+# Sys.getenv("R_X11_FONT_PATH")
+# capabilities("X11")
+# X11.options()
+# """
 
 # R"""
 # Sys.getenv("XAUTHORITY")
@@ -202,12 +318,12 @@ using Pkg; Pkg.status("RCall")
 
 
 using RCall
-R"""
-# library(ggplot2)
-# theme_set(theme_gray(base_family = "Liberation Sans"))
-# ggplot(data.frame(x=1:10, y=1:10), aes(x=x, y=y)) + geom_point()
-X11.options()
-"""
+# R"""
+# # library(ggplot2)
+# # theme_set(theme_gray(base_family = "Liberation Sans"))
+# # ggplot(data.frame(x=1:10, y=1:10), aes(x=x, y=y)) + geom_point()
+# X11.options()
+# """
 
 # using Pkg
 # using RCall
@@ -295,7 +411,7 @@ nC = w_context - nU
 
 
 is_finaltest = true
-n_simulations = is_finaltest ? 100 : 500;
+n_simulations = is_finaltest ? 20 : 20;
 # n_simulations= 50v
 context_tau = 100#foil odds should lower than this  
 firststg_allctx = false; #cancle this
@@ -1185,11 +1301,15 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
                 if j == 0
                     # println(j,!is_onlyaddtrace)
                     #u_star_context to 0.04
-                    if iprobe_img.list_number == 1
-                        iimage.context_features[ic] = rand() < u_star_context[iprobe_img.list_number] ? (rand() < c_context ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
-                    else
-                        iimage.context_features[ic] = rand() < u_star_context[end]+u_advFoilInitialT+0.1 ? (rand() < c_context ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
-                    end
+                    # if iprobe_img.list_number == 1
+                    # iimage.context_features[ic]
+                    # println("iprobe_img.list_number $(iprobe_img.list_number)")
+                    # u_star_context[iprobe_img.list_number]
+                    iprobe_img.context_features[ic]
+                        iimage.context_features[ic] = rand() < u_star_context[end] ? (rand() < c_context ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
+                    # else
+                        # iimage.context_features[ic] = rand() < u_star_context[end]+u_advFoilInitialT+0.1 ? (rand() < c_context ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
+                    # end
                     # iimage.context_features[ic] = rand() < 1 ? (rand() < 1 ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j;
                 end
 
@@ -1595,11 +1715,18 @@ end
 # ggplot()
 
 # """
-
+using DataFrames, CSV
 @rput DF
 @rput all_results #all intial results
 # using RCall
 # RCall.RBin
+# Write to a temporary CSV file
+csv_path1 = "DF.csv"
+csv_path2 = "all_results.csv"
+csv_path3 = "allresf.csv"
+CSV.write(csv_path1, DF)
+CSV.write(csv_path2, all_results)
+CSV.write(csv_path3, allresf)
 
 R"""
 library(dplyr)
@@ -1908,15 +2035,23 @@ list_rt=ggplot(data=df_rt_list,aes(x=list_number,y=rt,group=interaction(is_targe
 # grid.arrange(p4,p1,p_serial,p_in_20,p_in_20in10,p_in_20in10_break2,ncol = 2,nrow=3)
 # grid.arrange(p4,p1,p_serial,p_in_20,p_in_20in10,testpos_rt,list_rt,ncol = 2,nrow=4)
 # MARKING: inital test plots/figures here
-ensure_device(2)
-dev.set(2)  # Target window for Plot 1
+# ensure_device(2)
+# dev.set(2)  # Target window for Plot 1
 grid.arrange(p1,list_rt,p_in_20,testpos_rt,p_serial,p4,ncol = 2,nrow=4)
+
+# grid.arrange(p1,p_in_20,p_serial,p4,ncol = 2,nrow=2)
+# ggsave("/tmp/myplot.png", grid.arrange(p1,p_in_20,p_serial,p4,ncol = 2,nrow=2), width=12, height=10, dpi=300)
+
 # summary(all_results$diff_rt)
 # df_rt_list
 
-all_results%>%filter(!complete.cases(diff_rt))
+# all_results%>%filter(!complete.cases(diff_rt))
 # length(all_results$diff_rt)
 """
+
+# R"""
+# p_serial
+# """
 
 if is_finaltest
     @rput allresf
