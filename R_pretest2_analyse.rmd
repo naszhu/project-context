@@ -1,0 +1,288 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+The initial task of 
+
+```{r}
+library(dplyr)
+library(tidyverse)
+library(readr)
+'%notin%' <- function(x,y)!('%in%'(x,y))
+```
+
+
+```{r}
+
+df1 = read.csv("data/pretest2/visualexp-forward.csv")
+df2 = read.csv("data/pretest2/visualexp-bakcward.csv")
+df3 = read.csv("data/pretest2/visualexp-random.csv")
+df = df1%>% full_join(df2)%>%full_join(df3)%>%
+    mutate(correct=case_when(correct=="true"~1,
+                           correct=="false"~0,
+                           TRUE~99999999))%>%
+  filter(is_finished==1)
+
+df1%>% full_join(df2)%>%full_join(df3)%>%
+    mutate(correct=case_when(correct=="true"~1,
+                           correct=="false"~0,
+                           TRUE~99999999))%>% filter(id=="63852498bcb698988baa11c2")
+```
+
+```{r}
+mean(c("true","false","true"))
+names(df)
+ss=df %>% 
+  filter(all_accumulated_accuracy>0.9) %>%
+  filter(is_finished==1)%>%
+  group_by(ip,all_accumulated_accuracy)%>%
+  summarize(n=n())
+ss$ip
+```
+```{r}
+names(df)
+```
+
+## calculate mean
+```{r}
+dfnew=
+  df %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response","finalt_response","counting_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  group_by(condition,ip,task,trial,isold) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task,isold) %>% 
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,ip,task,isold,trial,ct)
+
+dfnew 
+
+
+ggplot(data=dfnew%>%
+        # filter(ip %notin% c("76.181.6.101"))%>%
+         # filter(ip %in% c("70.172.187.42"))%>%
+         mutate()
+       )+
+  geom_point(aes(trial,ct,group=ip))+
+  geom_line(aes(trial,ct,group=ip,color=ip))+
+  facet_grid(task~condition)+
+  labs(title="Data by task and condition for each participant")
+
+# df %>% filter(ip=="174.45.226.170")%>%group_by(condition,PROLIFIC_PID)%>%summarize(n=1)
+
+ggplot(data=dfnew%>%
+         filter(ip %notin% c("76.181.6.101"))%>%
+         # filter(ip %in% c("70.172.187.42"))%>%
+         group_by(condition,task,trial,isold)%>%
+         summarize(ct=mean(ct))%>%
+         mutate(type=case_when(isold=="true"~"hits",
+                               isold=="false"~"correct rejection",
+                               TRUE ~ ""))
+       )+
+  geom_point(aes(trial,ct))+
+  geom_line(aes(trial,ct,group=interaction(task,type),color=task,linetype=type))+
+  facet_grid(.~condition)+
+  labs(x="pretest trial number",title="Data by task and condition averaged for each participant")+
+  ylim(0.4,1)+
+  scale_linetype_manual(values=c(4,1,2))
+```
+
+
+## by probetype
+```{r}
+
+names(df_changed)
+dfnew2=df %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response","finalt_response","counting_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  group_by(condition,ip,task,trial,probetype) %>% 
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task) %>% 
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,ip,task,trial,probetype,ct)
+dfnew2
+
+ggplot(data=dfnew2%>%
+         filter(ip %notin% c("76.181.6.101"))%>%
+         # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+         # filter(ip %in% c("107.203.101.64","173.16.48.49","47.26.189.200","70.172.187.42" ))%>%
+         group_by(condition,task,trial,probetype)%>%
+         summarize(ct=mean(ct))%>%
+         group_by(condition,task,trial)%>%
+         mutate(newm=mean(ct))
+       )+
+  geom_point(aes(trial,ct),color="grey")+
+  geom_line(aes(trial,ct,group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  labs(x="pretest trial number",title="Data by task and condition averaged for each participant")+
+  geom_point(aes(trial,newm))+
+  geom_line(aes(trial,newm,group=probetype))
+```
+
+## flaw check
+
+```{r}
+names(df_changed)
+dfnew2=df %>% 
+  filter(task%in%c("finalt_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  group_by(condition,ip,task,trial,probetype) %>% 
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task) %>% 
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,ip,task,trial,probetype,ct)
+dfnew2
+
+ggplot(data=dfnew2%>%
+         # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+         filter(ip %in% c("107.203.101.64","173.16.48.49","47.26.189.200","70.172.187.42" ))%>%
+         group_by(condition,task,trial,probetype,ip)%>%
+         summarize(ct=mean(ct))
+       )+
+  geom_point(aes(trial,ct))+
+  geom_line(aes(trial,ct,group=interaction(probetype,task),color=probetype))+
+  facet_grid(ip~condition)+
+  labs(x="pretest trial number",title="Data by task and condition averaged for each participant")
+```
+
+## conditional plot
+```{r}
+# dfnew3 
+# names(df_changed)
+dfnew3=df %>% 
+  # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  select(condition,ip,task,probetype,trial,correct,stimulus_id)%>%
+  filter(task%in% c("pretest_response","finalt_response","counting_response"))%>%
+  filter(probetype%in% c("TARGET_target","TARGET_foil"))%>%
+  spread(key=task,value=correct)%>%
+  filter(!is.na(finalt_response) & !is.na(pretest_response))%>%
+  group_by(condition,probetype,trial,pretest_response) %>%
+  summarize(conditoned_acc = mean(finalt_response))%>%
+  mutate(pretest_response = as.factor(pretest_response) )
+
+dfnew3
+# df_changed%>% filter(ip %in% c("66.110.249.9","174.45.226.170"))
+df_changed %>% 
+  # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+   filter(ip %notin% c("76.181.6.101"))%>%
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  select(condition,ip,task,probetype,trial,correct,stimulus_id)%>%
+  filter(task%in% c("pretest_response","finalt_response","counting_response"))%>%
+  filter(probetype%in% c("TARGET_target","TARGET_foil"))%>%
+  spread(key=task,value=correct)%>%
+  filter(!is.na(finalt_response) & !is.na(pretest_response))%>%
+  group_by(condition,probetype,trial,pretest_response) %>%
+  summarize(conditoned_acc = mean(finalt_response),n=n())%>%
+  mutate(pretest_response = as.factor(pretest_response) )
+```
+
+
+
+
+```{r}
+ggplot(data=dfnew3)+
+  geom_point(aes(trial,conditoned_acc))+
+  geom_line(aes(trial,conditoned_acc,group=pretest_response,color=pretest_response))+
+  facet_grid(probetype~condition)+
+  labs()
+```
+
+## serial position plot
+```{r}
+dfnew4 = df %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  # mutate(test_serial_position = case_when(task=="pretest_response" ~ as.character(testpos),
+  #                                         task=="finalt_response" ~ prespos_iposintrial_test))%>%
+  group_by(condition,ip,task,trial,isold,testpos) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  # group_by(condition,ip,task,testpos) %>%  # counting summary exclude trial, isold
+  # mutate(ct = case_when(task=="counting_response"~mean(ct),
+  #                          TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,task,isold,trial,testpos,ct)%>% #exclude ip
+  group_by(condition,task,trial,testpos,isold)%>%
+  summarise(ct = mean(ct))
+
+ggplot(data=dfnew4)+
+  geom_point(aes(testpos,ct))+
+  geom_line(aes(testpos,ct,group=isold,color=isold))+
+  facet_grid(trial~condition)
+```
+
+```{r}
+df$id
+dfnew5 = df %>% 
+  filter(ip %notin% c("76.181.6.101"))%>%
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  # mutate(test_serial_position = case_when(task=="pretest_response" ~ as.character(testpos),
+  #                                         task=="finalt_response" ~ prespos_iposintrial_test))%>%
+  group_by(condition,ip,task,isold,testpos) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  # group_by(condition,ip,task,testpos) %>%  # counting summary exclude trial, isold
+  # mutate(ct = case_when(task=="counting_response"~mean(ct),
+  #                          TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,task,isold,testpos,ct)%>% #exclude ip
+  group_by(condition,task,testpos,isold)%>%
+  summarise(ct = mean(ct))%>%
+  mutate(testpos=as.factor(testpos))
+
+ggplot(data=dfnew5)+
+  geom_point(aes(testpos,ct))+
+  geom_line(aes(testpos,ct,group=isold,color=isold))+
+  facet_grid(.~condition)+
+  ylim(0.5,1)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

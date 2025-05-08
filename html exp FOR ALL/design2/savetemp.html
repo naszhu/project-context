@@ -1,0 +1,22 @@
+<script>
+
+
+const tot_word_rplist_nf = range(0,5).map(i=>{range(0,2).map(j=>{
+      word_pairs_obj_i = word_pairsRP_obj_all_rand.slice(i*10,10+i*10);//same for j=0,1
+      
+      if (j==0){
+        word_pairs_list_i = word_pairs_obj_i.map(inow=>inow.left);
+      }
+      else{
+        word_pairs_list_i = word_pairs_obj_i.map(inow=>inow.right);
+      }
+      pairs_which = j+1;//[0,1]+1; the 1st, or 2nd in the pair
+
+      ii++;
+      return({
+        word: word_pairs_list_i,
+        pairs_which: pairs_which,
+        
+      })
+    })} );//10 foils per trial  
+</script>

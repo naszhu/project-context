@@ -1,0 +1,500 @@
+<html>
+
+<head>
+      <title>Memory_picture_word_experiment</title>
+      <script src="https://unpkg.com/jspsych@7.0.0/dist/index.browser.min.js"></script>
+      <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.0.0/dist/index.browser.min.js"></script>
+      <script src="https://unpkg.com/plugin-survey-text-timer@0.2.0/dist/index.browser.min.js"></script>
+      <script src="https://unpkg.com/@jspsych/plugin-preload@1.0.0/dist/index.browser.min.js"></script>
+      <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice@1.0.0/dist/index.browser.min.js"></script>
+      <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.0/dist/index.browser.min.js"></script>
+      <!-- <script src="./index.browser.min.js"></script> -->
+      <script src="https://unpkg.com/plugin-survey-text-button@0.4.0/dist/index.browser.min.js"></script>
+      <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.1.2/dist/index.browser.min.js"></script>
+      <script src="https://unpkg.com/plugin-survey-text-button@0.4.0/dist/index.browser.min.js"></script>
+      <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.2"></script>
+      <link
+        href="https://unpkg.com/jspsych@7.0.0/css/jspsych.css"
+        rel="stylesheet"
+        type="text/css"
+      />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
+    </head>
+  
+    <body></body>
+    <script>
+        var all_image_list = ['1 (1).jpg']
+
+const timeout = 30 * 60 * 1000; //  minutes in milliseconds
+
+let lastActivityTime = Date.now();
+
+window.setInterval(function() {
+  const currentTime = Date.now();
+  if (currentTime - lastActivityTime > timeout) {
+    alert(`
+      Dear participant,
+
+      We regret to inform you that the experiment has been terminated automatically due to an extended period of inactivity. Please close the page to finalize the results. And we kindly request you do not try to do this experiment again.
+
+      We would like to thank you for your participation. Although you were unable to complete this particular experiment, we hope that you will consider joining us for future experiments. Thank you again for your time and effort, you may close the page now.
+    `);
+  }
+}, 1000);
+
+document.addEventListener('click', function() {
+  lastActivityTime = Date.now();
+});
+        // specify word list 22 first letter
+        var word_list = [["answer","accident","area","attack","action"], 
+                        ["brother","baby" ,"blood","brain","bottle"], 
+                        ["case","cause","chance","child","coffee"], 
+                        ["door","doctor","dance", "dress","doubt"],
+                        ["evening","earth","enemy","energy","engine"], 
+                        ["father","friend","fight","figure","future"], 
+                        ["guess","game","gold","group","green"], 
+                        ["home","house","hope","honey","heart"], 
+                        ["idea","issue","image","item","impact"], 
+                        ["judge","jacket","juice","jazz","journey"],
+                        ["kitchen","king","ketchup","kite","kettle"],
+                        ["luck","light","laugh", "level","lake" ], 
+                        ["money","mind","moment","movie","mouth"], 
+                        ["name","number","notice","nature","nurse"], 
+                        ["office","offer","opinion","ocean","outfit"], 
+                        ["people","place","problem","phone"  ,"point"], 
+                        ["room","reason","report","river","rain"], 
+                        ["school","stuff","story","street","sound"], 
+                        ["thought","town","table","train","trip"], 
+                        ["unit","union","urban","utility","usher"], 
+                        ["voice","victim","video","village","vision" ], 
+                        ["work","world","week","water","window"]]
+        
+        var first_letter_list = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","r","s","t","u","v","w"]
+        var word_list_typing_study_15 = [];
+        var unique_first_letter_list = [];
+        var unique_first_letter_index_list=[];
+        var word_list_recog_15=[];
+        var word_list_test_15 = [];
+        var remain_7_letters_list = [];
+        var remain_7_letters_index_list =[];
+        var all_remain_words =[];
+
+        // find 15 first letters 
+        unique_first_letter_list = _.sampleSize(first_letter_list, 15)
+        console.log(unique_first_letter_list) // letter in it, not index
+
+
+        // find the one word within each 15 first letters'  array 
+        //form the 15 unique first letter list
+        const char2index = (c) => {
+            let idx = c.charCodeAt(0) - 97
+            if ('qrstuvw'.indexOf(c) !== -1) {
+                return idx -1;
+            }
+            return idx
+        }
+        for (let index of unique_first_letter_list ){
+            // console.log(index]), 'a' -> 0
+            word_index = Math.floor(Math.random() * 5)
+            // console.log(word_list[index])
+            word_study_typing = word_list[char2index(index)][word_index]
+            word_list_typing_study_15.push(word_study_typing)
+        }
+        console.log(word_list_typing_study_15)
+
+        // find the 7 remain letters
+        for (let l = 0; l< 22; l++ ) {
+            if ((unique_first_letter_list.indexOf(first_letter_list[l])) == -1){
+                // console.log(first_letter_list[l])
+                remain_7_letters_list.push(first_letter_list[l])
+                remain_7_letters_index_list.push(l)
+            }
+        }
+        console.log(remain_7_letters_list)
+        console.log(remain_7_letters_index_list)
+
+        // find the words in the 7 remain letters
+        for (let index of remain_7_letters_index_list){
+            one_line_remain_words= word_list[index]
+            // console.log(one_line_remain_words)
+            all_remain_words = all_remain_words.concat(one_line_remain_words)
+            //console.log(one_line_remain_words, all_remain_words)
+        }
+        recog_words=_.sampleSize(all_remain_words,15)
+        console.log(recog_words) //there is a problem why there is overlap between recog and unique 
+
+        // form the study list of A: 15 unique first letter words for typing + B: 15 remain words for recognition
+        var study_list = [];
+        study_list= study_list.concat(word_list_typing_study_15,recog_words)
+        study_list= _.shuffle(study_list)
+        console.log(study_list)
+
+        // form the test list C (another 15 words from the all_remain_words that not overlap with recog_words) C:15  
+        var foils_list = [];
+        for (let l =0; l<35; l++){ // 35 = 7 * 5
+            if ((recog_words.indexOf(all_remain_words[l])) == -1){
+                foils_list.push(all_remain_words[l])
+            }
+        }
+        console.log(foils_list)
+        foils_list = _.shuffle(foils_list)
+        foils_list = foils_list.slice(0,15);
+        console.log(foils_list)
+
+        // preparing 45 words for test containing the 15 typing words+ 15 recog words+ 15 test words
+        // Q: first 7 words from 45 testing should not be the last 7 words in A+B (mixed, shuffled)
+
+        /* A: 
+        1. divide 45 testing into 2 parts: 7+38
+        2. prepare 'last 7 words in A+B', -> words not in 'last 7 words in A+B (list D)' (can be in C)
+        3. select 23 words xcept the last 7 words in 30
+        4. random shuffle 23+15=38 (A+B-D+C) words
+        5. select the 7 words out of the 38 words to be the first 7 words in the test list
+        6. prepare other 45-7= 38 words and shuffle
+        */ 
+
+        // cut the last 7 words in A+B (mixed, shuffled)
+        var last_7_study_words=[];
+        last_7_study_words = study_list.slice(-7);
+        last_7_study_words=_.shuffle(last_7_study_words);
+        console.log(last_7_study_words);
+
+        var first_23_study_words=[];
+        first_23_study_words = study_list.slice(0,23);
+
+        var first_part_test_list =[];
+        first_part_test_list = first_part_test_list.concat(foils_list,first_23_study_words);
+        first_part_test_list= _.shuffle(first_part_test_list)
+        console.log(foils_list,first_23_study_words);
+
+        var full_test_list=[];
+        full_test_list=full_test_list.concat(first_part_test_list,last_7_study_words);
+        console.log(first_part_test_list,last_7_study_words);    
+        
+        /*
+        *
+        * start the actualy experiment trial
+        * /
+        /* initialize jsPsych */
+    var jsPsych = initJsPsych({
+        override_safe_mode: true/*,
+            on_finish: function() {
+            jsPsych.data.get().localSave('json','mydata.json');
+
+            }*/
+    });
+
+    /* create timeline */
+    var timeline = [];
+    var information_page = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [
+            {
+            prompt: `<h1 style='text-align: left;color: crimson;background: white;font: caption-;''> INDIANA UNIVERSITY STUDY INFORMATION SHEET FOR RESEARCH MEMORY TEST FOR WORD AND </h1> <br>
+
+             <h1 style='color: black;text-align: left;background: white;font: caption;'> You are being asked to participate in a research study. Scientists do research to answer important questions that might help change or improve the way we do things in the future. This document will give you information about the study to help you decide whether you want to participate. Please read this form, and ask any questions you have, before agreeing to be in the study.</h1><br>
+
+             <h1 style='color: black;text-align: left;background: white;font: caption;'> All research is voluntary. You can choose not to take part in this study. If you decide to participate, you can change your mind later and leave the study at any time. You will not be penalized or lose any benefits if you decide not to participate or choose to leave the study later.</h1> <br> 
+
+             <h1 style='color: black;text-align: left;background: white;font: caption;'> This research is intended for individuals 18 years of age or older. If you are under age 18, do not complete the survey. This research is for residents of the United States. If you are not a U.S. resident, do not complete the survey.</h1> <br> 
+
+             <h1 style='color: black;text-align: left;background: white;font: caption;'> The purpose of this study is to investigate how people remember words and pictures.</h1> <br> <h1 style='color: black;text-align: left;background: white;font: caption;'> We are asking you if you want to be in this study because you registered for this study on SONA. The study is being conducted by Dr. Richard Shiffrin, a professor in the departments of Psychological and Brain Science, Cognitive Science, and Statistics.</h1> <br> 
+
+             <h1 style='color: black;text-align: left;background: white;font: caption;'> 
+            If you agree to be in the study, you will do the following things. First, the experiment will ask for you to input your ID in Prolific.  
+            The study will take place in the web and the time to complete it will vary among different participants and different experiments length, but it will take 45-50 mins in average. First, you will be shown a list of words to remember. Then you will be given additional instructions telling you the way your memory will be tested. Then you will be shown a long series of pictures to remember, followed by tests of your memory. The memory tests are simple and are of two types. Sometimes you will be shown a word’s first letter, and you will try to type the word beginning with that letter, if you can remember it, or press the space bar if you cannot. Other times you will be shown a word or a picture and decide whether it was one you studied. About half the time it will have been one you studied and about half the time a new word or picture. Before agreeing to participate, please consider the risks and potential benefits of taking part in this study. While participating in the study, the only potential risk is loss of confidentiality.  </h1> <br> 
+             
+             <h1 style='color: black;text-align: left;background: white;font: caption;'> To protect against loss of confidentiality, any identifiable information from the data that could lead back to you will be removed within two days of your completion of the study.We don’t think you will have any personal benefits from taking part in this study, but we hope to learn things that will help researchers in the future.
+             </h1> <br> 
+             
+             <h1 style='color: black;text-align: left;background: white;font: caption;'>You will be paid for participating in this study. You will be paid $7.87 for your participation in the study. There is no cost to participate in this study. We will protect your information and make every effort to keep your personal information confidential, but we cannot guarantee absolute confidentiality. No information which could identify you will be shared in publications about this study. </h1><br>
+
+             <h1 style='color: black;text-align: left;background: white;font: caption;'> We will protect your information and make every effort to keep your personal information confidential, but we cannot guarantee absolute confidentiality. No information which could identify you will be shared in publications about this study. Your personal information may be shared outside the research study if required by law. We also may need to share your research records with other groups for quality assurance or data analysis. These groups include the Indiana University Institutional Review Board or its designees, and state or federal agencies who may need to access the research records (as allowed by law). </h1><br>
+
+             <h1 style='color: black;text-align: left;background: white;font: caption;'> If you have questions about the study or encounter a problem with the research, contact the researcher. For questions about the study, contact either Yiyan Tan at yiytan@iu.edu, or Dr. Richard Shiffrin at shiffrin@indiana.edu. For questions about your rights as a research participant, to discuss problems, complaints, or concerns about a research study, or to obtain information or to offer input, please contact the IU Human Research Protection Program office at 800-696-2949 or at irb@iu.edu.</h1><br>
+             
+             <h1 style='color: black;text-align: left;background: white;font: caption;'> Thank you for agreeing to participate in our research. Before you begin, please note that the data you provide may be collected and used by Prolific as per its privacy agreement. Additionally, this research is for subjects over the age of 18*; if you are under the age of 18, please do not complete this survey.</h1><br>
+             `,
+            
+            name: 'consent', 
+            options: ['I have read and understand this information and agree to join this study'], 
+            required: true
+            }, 
+  ],
+};
+timeline.push(information_page);
+var myduration = 1;
+    /* define welcome message trial */
+    var welcome = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+        <h1 style='font-size: x-large ;color: black;text-align: left;background: white;'> You will be shown a series of words. Try to study them for a later test of your memory.<br> <br >Please hit the enter or return key to begin.</h1><br>
+      `,
+        choices: ['Enter'],
+    };
+    timeline.push(welcome);
+
+    /* get ID */
+    var get_id = {
+        type: jsPsychSurveyTextTimer,
+        questions: [
+            { prompt: 'What is your prolific ID?', required: true, name: 'id' }
+        ]
+    }
+    timeline.push(get_id)
+
+    var ISI = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: '',
+        choices: "NO_KEYS",
+        trial_duration: 100 / myduration,
+    };
+
+    // the first study phase
+    for (let i = 0; i < 30; i++){
+        //start with fixation
+        timeline.push(ISI);
+        // A, B mixed and show it to the parcitipants
+        var words = study_list[i];
+            var word = {
+                type: jsPsychHtmlKeyboardResponse,
+                stimulus: ['<div style="font-size:60px;">', words, '</div>'].join(''),
+                choices: "NO_KEYS",
+                trial_duration: 3000 / myduration
+            };
+            timeline.push(word);
+    }
+
+    // break after the fist study phase
+    var fixation_for_group1_after_study = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: '<p style="font-size: larger ;text-align: left;"> We will now test your memory in two ways. If we show you a word’s first letter, try to remember the word you studied that began with that letter, and type that word on your keyboard. If you try but cannot recall the word, then press the enter/return key. You will then see the next test. <br> <br> A second kind of memory test will be mixed with these first letter tests: If you are shown an entire word, then you should press the <strong> 1 </strong> key on the keyboard if you remember studying it, and press the <strong > 0 </strong> key is you don’t recall seeing it. About half the whole word tests will be ones you studied.</p>',
+            choices: ["Enter"],
+        };
+        timeline.push(fixation_for_group1_after_study);
+
+
+    // create a new list for test phase
+    var test_phase =[];
+
+    // create the trial for typing words
+    for (let i = 0; i <15; i++) {
+        test_phase.push(ISI);
+        var study_word_first_letter= word_list_typing_study_15[i][0]
+        var word_typing_trial ={
+            type:jsPsychSurveyText,
+            questions:[
+                { prompt:'<p> This is the first letter of a word you studied, try to type the entire word.</p>'+ "<strong>"+study_word_first_letter.toUpperCase()+"</strong>"
+                }
+            ],
+            trial_duration:30000 / myduration,
+            data:{
+                task:'word typing memory',
+                correct_response:word_list_typing_study_15[i]
+            }
+        }
+        test_phase.push(word_typing_trial);
+    }
+    console.log(word_list_typing_study_15);
+    console.log(full_test_list);
+
+    // create the trial for recognition words 
+    for (let i = 0; i < 30; i++) {
+        timeline.push(ISI);
+        var test_recog_words = full_test_list[i]
+        var word_recog_trial = {
+            type:jsPsychHtmlKeyboardResponse,
+            stimulus: "Press the <strong> 1 </strong> key on the keyboard if you remember studying it, and press the <strong> 0 </strong> key is you don’t recall seeing it. <br><br><br> <big style='font-size: 40px'> <strong>" + test_recog_words + '</strong> </big>',
+            choices:['1','0'] ,
+            //timing_response: 400,
+            on_finish: function(data) {
+
+            console.log(data)
+            if (data.rt < 500) {
+            // Create a div element to contain the message
+            var messageDiv = document.createElement("div");
+
+            // Set the content of the div
+            messageDiv.innerHTML = `
+            <div style="text-align:center ; font-size: larger; font-weight: bold; color: black;">
+            <br> <br> <br> <br> <br>
+            PLEASE LOOK CAREFULLY AT EACH OBJECT BEFORE MAKING YOUR RESPONSE. 
+            </div>
+            `;
+
+            // Add the div to the body
+            document.body.prepend(messageDiv);
+            var exp = document.getElementsByClassName("jspsych-content-wrapper")[0]
+            exp.style.visibility = "hidden";
+
+            // Delay the removal of the div by 4 seconds
+            setTimeout(function() {
+            // Remove the div
+            document.body.removeChild(messageDiv);
+            exp.style.visibility = "visible";
+            //jsPsych.resumeExperiment();
+            }, 4000);
+
+            }
+            },
+            data:{
+                task:'recognition words',
+                judement:recog_words.includes(test_recog_words),
+                correct_respons: test_recog_words,
+            } 
+        }
+        test_phase.push(word_recog_trial);
+    }
+
+    test_phase= _.shuffle(test_phase);
+    timeline=timeline.concat(test_phase);
+
+    var fixation_for_group1_before_image_study = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: '<p style="font-size: larger ;text-align: left;"> You will be shown a series of pictures. Press the <strong> F </strong> key if you think it has a <strong> biological feature </strong>, press <strong> J </strong> key if you think it <strong> does not have a biological feature</strong>. <br> <br>The pictures will pass quickly, but try to give your best guess for each one. Do not worry if you miss a few, but if you miss too many the experiment will end. These responses should help you remember the pictures for a later test of your memory for the pictures. <p>',
+            choices: ["Enter"],
+        };
+    timeline.push(fixation_for_group1_before_image_study);
+
+
+    var PicBreak = {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: "<strong>"+"<strong>"+"Break"+"</strong>"+"</strong>"+"<br>When you want to proceed, please press the continue button.<br><br>",
+        choices: ['Continue'],
+        };
+
+        // create a list contains all the pictures
+        all_image_list = _.shuffle(all_image_list);
+         
+        // randomly choose xxx image
+        var bioButtonCount = 250;
+        for (let i=0; i<250; i++) {
+        timeline.push(ISI);
+        var image_study_trial = {
+            type: jsPsychImageKeyboardResponse,
+            stimulus: 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master'+all_image_list[i],
+            choices: ['F', 'J'],
+            response_ends_trial: false,
+            trial_duration: 1500/myduration,
+            on_finish: function(data) {
+                if (data.key_press !== 'F' && data.key_press !== 'J') {
+                    bioButtonCount -= 1;
+                if (bioButtonCount < 0) {
+                    // Display the message to the participants
+                    document.body.innerHTML = `
+                    <div style="text-align: left; font-size: larger; font-weight: bold; color: black;">
+                        <br> <br> <br>
+                        <br> <br> <br>
+                        Unfortunately, it seems that you were unable to successfully complete the experiment by accurately identifying the biological characteristics of the presented images.The experiment has been terminated automatically. Please click the "I understand" button to confirm and close the page to finalize the results.
+                        <br> <br> 
+                        We would like to thank you for your participation. Although you were unable to complete this particular experiment, we hope that you will consider joining us for future experiments. Thank you again for your time and effort, you may close the page now.
+                    </div>
+                    <br>
+                    <div style="text-align: center;">
+                        <button id="confirm-button" style="font-size: larger; font-weight: bold;">I understand</button>
+                    </div>
+                    `;
+
+                    // Add an event listener to the confirm button
+                    document.getElementById("confirm-button").addEventListener("click", function() {
+                    // End the experiment
+                    jsPsych.endExperiment();
+                    });
+                }
+                }
+            }
+        };
+            timeline.push(image_study_trial);
+            //console.log(all_image_list[i])
+        }
+
+        var target_image_list = all_image_list.slice(0,250);
+
+        target_image_list=_.shuffle(target_image_list);
+
+        // create the xx foli images list
+        var image_foil_list = [];
+        for (let l =250; l<500; l++){
+            if ((target_image_list.indexOf(all_image_list[l])) == -1){
+                image_foil_list.push(all_image_list[l])
+            }
+        }
+        image_foil_list= _.shuffle(image_foil_list);
+
+        var image_test_list =[];
+        image_test_list = image_test_list.concat(target_image_list,image_foil_list);
+        image_test_list=_.shuffle(image_test_list)
+
+        var fixation_for_group1_before_image_test = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: '<p style="font-size: larger ;text-align: left;"> You will be shown a series of pictures, about half from the list you studied and about half new pictures. <br> <br> If you remember studying this picture before, then you should press the <strong> 1 </strong> key on the keyboard.Press the <strong> 0 </strong> key if you don’t recall seeing it. <br> <br> Every <strong> 50 </strong> pictures you will be able to take a short break if you need one. Take enough time to give a good guess about whether the picture had been studied. <p>',
+            choices: ["Enter"],
+        };
+        timeline.push(fixation_for_group1_before_image_test);
+
+        // create the picture test trial
+        for (let l=1;l< 501; l++){
+            if (l %50 == 0){
+                timeline.push(PicBreak)
+            }
+            var image_test_trial ={
+                type:jsPsychImageKeyboardResponse,
+                stimulus: 'https://raw.githubusercontent.com/Ir1d/imgs/master/'+image_test_list[l],
+                choices:['1','0'],
+                //timing_response: 500,
+                on_finish: function(data) {
+
+                console.log(data)
+                if (data.rt < 500) {
+                // Create a div element to contain the message
+                    var messageDiv = document.createElement("div");
+
+                    // Set the content of the div
+                    messageDiv.innerHTML = `
+                    <div style="text-align:center ; font-size: larger; font-weight: bold; color: black;">
+                        <br> <br> <br> <br> <br>
+                        PLEASE LOOK CAREFULLY AT EACH OBJECT BEFORE MAKING YOUR RESPONSE. 
+                    </div>
+                    `;
+
+                    // Add the div to the body
+                    document.body.prepend(messageDiv);
+                    var exp = document.getElementsByClassName("jspsych-content-wrapper")[0]
+                    exp.style.visibility = "hidden";
+
+                    // Delay the removal of the div by 4 seconds
+                    setTimeout(function() {
+                    // Remove the div
+                    document.body.removeChild(messageDiv);
+                    exp.style.visibility = "visible";
+                    //jsPsych.resumeExperiment();
+                    }, 4000);
+
+                }
+                },
+                data:{
+                task:'recognition pictures',
+                correct_response:target_image_list.includes(image_test_list[l]),
+                right_picture: image_test_list[l],
+            } 
+            }
+            timeline.push(image_test_trial);
+        }
+
+
+        var thankyoupage = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `
+    <p style="font-family: Arial, sans-serif; font-size: 16px; text-align: center; color: #333">
+    Thank you for taking the time to participate in our experiment, you may close the page now. We appreciate your efforts and are glad to have you as a participant. Your hard work and dedication have not gone unnoticed and we would like to extend our heartfelt gratitude for your contribution. We believe that you have done an excellent job and are proud to have you as a part of our team. Thank you again for your participation and we hope to see you in future experiments.
+    </p>
+`,
+        choices: "ALL_KEYS",
+        };
+        timeline.push(thankyoupage);
+
+        /* start the experiment */
+         jsPsych.run(timeline);
+
+    </script>
+</html>

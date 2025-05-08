@@ -1,0 +1,640 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" >
+    <meta charset="UTF-8">
+    <title>Category Explorer</title>
+    <script src="../jspsych6.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="jstat.min.js"></script>
+    <script src="../plugins6/jspsych-categorize-html.js"></script>
+    <script src="highcharts.js"></script>
+    <script src="highcharts-more.js"></script>
+    <script src="highcharts-exporting.js"></script>
+
+    <link rel="stylesheet" href="css/jspsych6.css"></link>
+</head>
+<style>
+h2 {text-align: center;}
+.drop-region {
+	background-color: #fff;
+	border-radius:20px;
+	box-shadow:0 0 35px rgba(0,0,0,0.05);
+	width:400px;
+	padding:60px 40px;
+	text-align: center;
+	cursor:pointer;
+	transition:.3s;
+}
+.drop-region:hover {
+	box-shadow:0 0 45px rgba(0,0,0,0.1);
+}
+
+.image-preview {
+	margin-top:20px;
+}
+.image-preview .image-view {
+    display: inline-block;
+	position:relative;
+	margin-right: 13px;
+	margin-bottom: 13px;
+}
+.image-preview  .image-view img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.plot
+{
+  position: relative;
+  top: 0; left: 0;
+  width: 80%; height: 40%;
+}
+
+.image-preview .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    background: rgba(255,255,255,0.5);
+}
+</style>
+<body style="padding:100px;background-color:#fafafa;font-family: 'Segoe UI', sans-serif;">
+  </div>
+
+</body>
+
+<script>
+// TO Do:
+//maybe also a prompt line like "Press X if you see top" - experimenter would have to supply these
+//could make it so that if you click on a picture, you delete it or can change its categorization
+//Maybe give people a statistical test like a T-test between pairs of items?
+// add customizable trim rather than always 0.1; read with parseFloat("12.4")
+
+// after look at plots, return to category setup - repopulate with old design
+//this could possibly be done with var state = document.getElementById("stimulusConstruction").cloneNode(true)
+//and then document.getElementById("stimulusConstruction").replaceWith(state)
+// but this doesn't seem to replace everything, like the event listeners so they may have to be added back in by hand?
+// plus not all content could be read in
+// could add back in listener with: document.getElementById("runButton").addEventListener ("click", function(){runExperiment()})
+
+
+var testy;
+var dropRegion=[];
+var imagePreviewRegion=[];
+var trials;
+var timeline;
+var dataSubset;
+var whichCategory;
+var container;
+var doubleSplit;
+var trim=0.1;  //what percentage of RTs to trim on both sides
+var acceptableLabels =false;
+var reps;
+var prompter;
+var state;
+
+function Create2DArray(rows) {
+  var arr = [];
+  for (var i=0;i<rows;i++) {
+     arr[i] = [];
+  }
+  return arr;
+}
+
+var allImages = Create2DArray(10);  //number is parentheses is the maximum number of CATEGORIES
+
+
+function plotResults(data,id,object){
+  var div = document.createElement('div');
+  var uniqueXs = [...new Set(data.values().map(item => item[object["xAxis"]]))];  //find all unique values for Xaxis
+  var uniqueSeries = [...new Set(data.values().map(item => item[object["series"]]))]; //find all unique values for series
+
+  var means = new Array(uniqueSeries.length);
+  var errorBars=new Array(uniqueSeries.length);
+  var mySeries=new Array(uniqueSeries.length*2); //double length because of error bars
+  mySeries=[]; //will contain the whole object with all series in it. double length because of error bars
+
+  for (lines=0;lines<uniqueSeries.length;lines++)
+      {
+        means[lines]=[];
+        errorBars[lines]=[];
+        for (Xs = 0; Xs < uniqueXs.length; ++Xs)
+        {
+          //below, putting object["xAxis"] in []s allows it to be used as an attribute name
+          var selection=data.filter({[object["xAxis"]]:uniqueXs[Xs],[object["series"]]:uniqueSeries[lines]}).select(object["yAxis"])
+          means[lines].push(selection.mean()); //multiply by 2 to leave room for error bars after lines
+          errorBars[lines].push([selection.mean()-selection.sd(),selection.mean()+selection.sd()]);
+        };
+        mySeries.push({name:uniqueSeries[lines],data:means[lines]});
+        if (id!="correct") //error bars for percent correct would be wrong
+          {
+              mySeries.push({name:uniqueSeries[lines]+" error",data:errorBars[lines],type:"errorbar"});
+          }
+      }
+
+  document.body.appendChild(div); //create a new div because jspsych seems to have erased all others
+  div.id = id;
+  div.className = 'plot';
+  $( ".jspsych-content-wrapper" ).hide(); //was remove() removes all jspsch stuff to show results.  "." refers to a class, not an individual id
+  $("#"+id).show();
+  Highcharts.chart(id, {
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: object.title
+      },
+      subtitle: {
+          text: 'Error bars show +- 1 standard deviations'
+      },
+      xAxis: {
+          categories: uniqueXs,
+          crosshair: true,
+          title: {
+            enabled: true,
+            text: object.xAxisLabel,
+            style: {
+                    fontWeight: 'normal',
+                    fontSize:'2em' //size for X-axis legend
+                    }
+                  },
+          labels: {
+              style: {
+                  fontSize: '2em'} //make the X axis labels pretty big
+              }
+
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: object.yAxisLabel
+          }
+      },
+      tooltip: {
+          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+              '<td style="padding:0"><b>{point.y:.1f} msec.</b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true,
+          formatter: function () {  //this code leaves some series (the error bars) out of the tool tip
+               var s = '<b> '+object["xAxis"]+': ' + this.x + '</b>';
+               $.each(this.points, function () {
+                   if (this.series.type != 'errorbar') {
+                       s += '<br/> '+ object["series"] + this.series.name + ': ' + this.y + ''; //had 'msec.' at end before but not appropriate for percent correct
+                   }
+               });
+               return s;
+           },
+        },
+      plotOptions: {
+          column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+          }
+      },
+    legend: {
+      title: {
+          text: object.legendLabel + '<br/><span style="font-size: 12px; color: #666; font-weight: normal">(Click to hide)</span>',
+          style: {
+              fontStyle: 'italic'
+          }
+      },
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'top',
+      x: -10,
+      y: 100,
+      itemStyle:{
+              fontSize:'2em' // to make the legend items large
+              }
+    },
+      series: mySeries
+  });
+}
+
+function createSetup()
+{
+    container=document.createElement("div");
+    container.id="stimulusConstruction";
+    document.body.appendChild(container);
+    var instructionText=document.createElement("div");
+    instructionText.style.maxWidth = "95%";  // Set to 95% of the parent container's width
+    instructionText.style.wordWrap = "break-word";  // Break long words to prevent overflow
+    instructionText.innerHTML="<h2>Category Explorer</h2><br>";
+    instructionText.innerHTML += 'This app lets you run yourself in a categorization experiment of your own design. First decide how many different categories '+
+    'you want for your experiment.  Then drag pictures (jpeg, jpg, gif, or png files) from your computer into whichever category box they belong, and specify the correct key response to give for each picture. Give the categories descriptive labels '+
+    'instead of names like "Category 1 Label" by clicking the "Category 1 label" text and supplying your own label.  If you want, you can specify a prompt that subjects will see on every trial by typing text in the "prompt for subjects" box.  When you hit the "Run Experiment" button, the computer will randomly present each of the pictures you supplied for the number '+
+    'of repetitions that you specified in the "Number of repetitions of each image" box. After the last image presentation, the computer will display ' +
+    'plots that show your accuracy and average correct response time for each category label.  If you have two-word category labels, then the computer will '+
+    'show your results broken down in two ways.  For example, if your category labels are "abstract big","abstract small","concrete big", and "concrete small", '+
+    'plots will pair big and small items for "abstract" and big and small items for "concrete".  If you do not want your results to be broken down in two '+
+    'ways, use only single word category labels, or use hyphens between the words like "abstract-small".<br><br>';
+    container.appendChild(instructionText);
+
+    var numCatsText=document.createTextNode("Number of categories:");
+    container.appendChild(numCatsText);
+    var numCatsDom=document.createElement("input");
+    numCatsDom.setAttribute("value", "2");
+    numCatsDom.setAttribute("id","numCats");
+    numCatsDom.style.width="50px";
+    container.appendChild(numCatsDom);
+    numCategories=parseInt(document.getElementById("numCats").value);
+    document.getElementById("numCats").onchange = function() {
+      numCategories=parseInt(document.getElementById("numCats").value);
+      createCategories()};
+    //numCatsDom.addEventListener('onselectionchange', createCategories());
+
+    var repsText=document.createTextNode("Number of repetitions of each image:");
+    container.appendChild(repsText);
+    var numReps=document.createElement("input");
+    numReps.setAttribute("value", "1");
+    numReps.setAttribute("id","numReps");
+    numReps.style.width="50px";
+    container.appendChild(numReps);
+    var newLine = document.createElement("br");
+    container.appendChild(newLine);
+
+    var promptPrompt=document.createTextNode("prompt for subject:");
+    container.appendChild(promptPrompt);
+    var promptText=document.createElement("input");
+    promptText.setAttribute("value", "Press a key to guess the category");
+    promptText.setAttribute("id","promptText");
+    promptText.style.width="600px";
+    container.appendChild(promptText);
+    var newLine2 = document.createElement("br");
+    container.appendChild(newLine2);
+
+    var button = document.createElement("button");
+    button.innerHTML = "Run Experiment";
+    button.setAttribute("id","runButton");
+    container.appendChild(button);
+    button.addEventListener ("click", function(){runExperiment()}); //runExperiment later on
+    var infoButton=document.createElement("button");
+    infoButton.innerHTML = "Examples of Categorization Tasks";
+    infoButton.setAttribute("id","infoButton");
+    container.appendChild(infoButton);
+    infoButton.addEventListener ("click", function(){infoTab()}); //information about possible experiment
+
+    var brandDiv = document.createElement('div');
+    brandDiv.setAttribute("id","branding");
+    var a = document.createElement('a');
+    var l1 = document.createTextNode("Built by ");
+    var a= document.createElement("a");
+    var l2=document.createTextNode("Robert Goldstone");
+    var b=document.createElement("a");
+    var l3=document.createTextNode(".  Visit our Percepts and Concepts Laboratory");
+    var newLine3 = document.createElement("br");
+    a.href = "https://scholar.google.com/citations?user=PJma-ZgAAAAJ&hl=en&oi=ao";
+    a.appendChild(l2);
+    b.href="https://pc.cogs.indiana.edu/";
+    b.appendChild(l3);
+    var c=document.createElement("a");
+    var l4=document.createTextNode(".  Powered by jsPsych");
+    c.href="https://www.jspsych.org/";
+    c.appendChild(l4);
+    brandDiv.appendChild(newLine3);
+    brandDiv.appendChild(l1);
+    brandDiv.appendChild(a);
+    brandDiv.appendChild(b);
+    brandDiv.appendChild(c);
+    container.appendChild(brandDiv);
+}
+
+function createCategories()
+{
+  var oldCats = document.getElementsByClassName('drop-region');
+  while(oldCats[0]) {
+      oldCats[0].parentNode.removeChild(oldCats[0]); //remove all categories to start fresh
+    };
+  var currentDiv = document.getElementById("branding");
+
+  for (var i = 0; i < numCategories; i++)
+    {
+      testy = document.createElement('div');
+      testy.innerHTML="&nbsp &nbsp &nbsp &nbsp"+
+            "<div contenteditable='true' id='category-label-"+i+"'>Category " + (i+1).toString() + " label </div>"+
+            "<div class='image-preview' id='image-preview-"+i+"'></div>";
+      testy.className = 'drop-region';
+      testy.id='drop-region-'+i; //could be unique content name
+      container.insertBefore(testy,currentDiv);
+
+      var emptyButton = document.createElement("button");
+      emptyButton.innerHTML = "Empty Category";
+      emptyButton.className = "empty-button";
+      emptyButton.setAttribute("data-category", i); // Assign a data attribute to identify which category to empty
+      testy.appendChild(emptyButton);
+
+      dropRegion[i] = testy;
+      imagePreviewRegion[i] = document.getElementById("image-preview-"+i);
+
+      dropRegion[i].addEventListener('dragenter', preventDefault, false)
+      dropRegion[i].addEventListener('dragleave', preventDefault, false)
+      dropRegion[i].addEventListener('dragover', preventDefault, false)
+      dropRegion[i].addEventListener('drop', preventDefault, false)
+      dropRegion[i].addEventListener('drop', handleDrop);
+
+      emptyButton.addEventListener("click", function(e) {
+            var categoryIndex = e.target.getAttribute("data-category");
+            var imagePreview = document.getElementById("image-preview-" + categoryIndex);
+            while (imagePreview.firstChild) {
+                imagePreview.removeChild(imagePreview.firstChild);
+            }
+        });
+    };
+
+}
+
+function infoTab() {
+     window.open(
+       "https://pcl.sitehost.iu.edu/robsexperiments/categoryExplorer/examples.html", "_blank");
+ }
+
+
+var one_trial;
+var imyg;
+
+  function getImages(containerID)
+  {
+    var elm = [];
+    var elms = document.getElementById(containerID).getElementsByClassName("image-view");
+    for (var i = 0; i < elms.length; i++) {
+        elm.push({src: elms[i].childNodes[0],category:elms[i].childNodes[2]}); //create an object with image and category
+      }
+    return(elm);
+  }
+
+
+
+// open file selector when clicked on the drop region
+var fakeInput = document.createElement("input");
+fakeInput.type = "file";
+fakeInput.accept = "image/*";
+fakeInput.multiple = true;
+// dropRegionConsistent.addEventListener('click', function() { //include this if you want to be able to click on box to give file system dialog
+// 	fakeInput.click();
+// });
+// dropRegionInconsistent.addEventListener('click', function() {
+// 	fakeInput.click();
+// });
+// fakeInput.addEventListener("change", function() {
+// 	var files = fakeInput.files;
+// 	handleFiles(files);
+// });
+
+
+function preventDefault(e) {
+	e.preventDefault();
+  	e.stopPropagation();
+}
+
+
+
+
+
+function handleDrop(e) {
+	var dt = e.dataTransfer,
+		files = dt.files;
+    whichCategory=e.currentTarget.id;
+
+	if (files.length) {
+
+		handleFiles(files);
+
+	} else {
+
+		// check for img
+		var html = dt.getData('text/html'),
+	        match = html && /\bsrc="?([^"\s]+)"?\s*/.exec(html),
+	        url = match && match[1];
+
+	    if (url) {
+	        uploadImageFromURL(url);
+	        return;
+	    }
+	}
+
+
+	function uploadImageFromURL(url) {
+		var img = new Image;
+        var c = document.createElement("canvas");
+        var ctx = c.getContext("2d");
+
+        img.onload = function() {
+            c.width = this.naturalWidth;     // update canvas size to match image
+            c.height = this.naturalHeight;
+            ctx.drawImage(this, 0, 0);       // draw in image
+            c.toBlob(function(blob) {        // get content as PNG blob
+
+            	// call our main function
+                handleFiles( [blob] );
+
+            }, "image/png");
+        };
+        img.onerror = function() {
+            alert("Error in uploading");
+        }
+        img.crossOrigin = "";              // if from different origin
+        img.src = url;
+	}
+
+}
+
+
+function handleFiles(files) {
+	for (var i = 0, len = files.length; i < len; i++) {
+		if (validateImage(files[i]))
+			previewAnduploadImage(files[i]);
+	}
+}
+
+function validateImage(image) {
+	// check the type
+	var validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+	if (validTypes.indexOf( image.type ) === -1) {
+		alert("Invalid File Type");
+		return false;
+	}
+	// check the size
+	var maxSizeInBytes = 10e6; // 10MB
+	if (image.size > maxSizeInBytes) {
+		alert("File too large");
+		return false;
+	}
+	return true;
+}
+
+function previewAnduploadImage(image) {
+
+	// container
+	var imgView = document.createElement("div");
+	imgView.className = "image-view";
+
+  imagePreviewRegion[parseInt(whichCategory.substr(-1))].appendChild(imgView);
+
+	// previewing image
+	var img = document.createElement("img");
+	imgView.appendChild(img);
+
+	// progress overlay
+	var overlay = document.createElement("div");
+	overlay.className = "overlay";
+	imgView.appendChild(overlay);
+
+	// read the image...
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		img.src = e.target.result;
+    //document.getElementById("goeshere").appendChild(img); //confirming that image is now accessible
+	}
+	reader.readAsDataURL(image);
+
+  var category=prompt("What is the correct key to press for this stimulus?");
+  var textnode = document.createTextNode(category);
+  imgView.appendChild(textnode);
+}
+
+createSetup();
+createCategories();
+var timeline = [];
+var trials;
+
+
+
+function runExperiment()
+{
+  state = document.getElementById("stimulusConstruction").cloneNode(true); //to remember what experiment setup was
+  oldNumCategories=numCategories;
+  var x = document.getElementById("stimulusConstruction");
+  var firstLabel = document.getElementById("category-label-0").innerText;
+  if (firstLabel=="Category 1 label")
+    {
+      alert("Give informative category labels by editing the default labels.");
+    }
+    else {
+      x.style.display = "none";
+      reps=parseInt(document.getElementById("numReps").value);
+      prompter=document.getElementById("promptText").value;
+      trials=
+         {
+           type: 'categorize-html',
+           timeline:[],
+           choices: [jsPsych.ALL_KEYS],
+           correct_text: "<p class='prompt'>Correct, this is a %ANS%.</p>",
+           incorrect_text: "<p class='prompt'>Incorrect, this is a %ANS%.</p>",
+           prompt: "<p>"+prompter+"</p>"
+           //data:{block:block},
+         };
+      //if call once somebody is done inputting images, then these variables will be array of images
+      doubleSplit=false;
+
+      for (var i = 0; i< numCategories; i++)
+        {
+          var categoryLabel = document.getElementById("category-label-"+i);
+          var oneCategory=getImages("image-preview-"+i);
+          var subCategories = categoryLabel.innerText.split(" ");
+          if (subCategories.length>1) {doubleSplit=true;}
+          for (var j = 0; j< oneCategory.length; j++)
+            {
+              allImages[i][j]=oneCategory[j];
+              allImages[i][j].src.style.maxWidth = '600px'; //in case picture files are too big
+              allImages[i][j].src.style.maxHeight = '600px';
+              one_trial={
+                stimulus:allImages[i][j].src.outerHTML,
+                key_answer:allImages[i][j].category.data.toUpperCase().charCodeAt(), //49 = "1"
+                text_answer:allImages[i][j].category.data,
+                on_finish: function(data){  //needed because correct is boolean
+                      if(data.correct){
+                        data.right = 1;
+                      } else {
+                        data.right = 0;
+                      }},
+                data:{picureNum:j,categoryLabel: subCategories[0],series:(subCategories[1]==undefined) ? " " : subCategories[1],categoryNumber:i,task:" "}
+              };
+              trials.timeline.push(one_trial);
+            };
+        };
+        trials.timeline=jsPsych.randomization.repeat(trials.timeline,reps); //20=number of trials
+
+
+      //to get category out, need to use consistentImages[0].category.data , and image is consistentImages[0].image.src
+
+        timeline=[];
+
+        //timeline.push(survey_multi_choice);
+        //timeline.push(instructions);
+        timeline.push(trials);
+
+        jsPsych.init({
+          //show_progress_bar: true,
+          //preload_audio:audioFiles,
+          timeline: timeline,
+          on_finish: function(){
+            dataSubset=jsPsych.data.get().filter({correct: true,task:" "});
+            //next 5 lines are for trimming;
+            var trimmed=dataSubset.values().sort((a, b) => (a.rt > b.rt) ? 1 : -1);  //sort list from lowest to highest
+            var numtoTrim=Math.floor(trim*trimmed.length);
+            var minRT=trimmed[numtoTrim].rt; //get value of lowest acceptable RT
+            var maxRT=trimmed[trimmed.length-1-numtoTrim].rt; //get highest acceptable rt
+            dataSubset=dataSubset.filterCustom(function(trial){ //filter out times below min and above max
+                  return ((trial.rt >= minRT)&&(trial.rt<=maxRT));
+              });
+            if (!doubleSplit)
+              {
+                plotResults(dataSubset,"rt",{"xAxis":"categoryLabel","series":"task","legendLabel":" ","xAxisLabel":"Categories","yAxisLabel":"Response Time (msec.)","yAxis":"rt","title":"Results"});
+              }
+              else {
+                plotResults(dataSubset,"rt",{"xAxis":"categoryLabel","series":"series","legendLabel":" ","xAxisLabel":"Categories","yAxisLabel":"Response Time (msec.)","yAxis":"rt","title":"Results"});
+              };
+            dataSubset=jsPsych.data.get().filter({task:" "}); //go back to untrimmed data
+            if (!doubleSplit)
+              {
+                plotResults(dataSubset,"correct",{"xAxis":"categoryLabel","series":"task","legendLabel":" ","xAxisLabel":"Categories","yAxisLabel":"Percent Correct","yAxis":"right","title":"Results"});
+              }
+              else {
+                plotResults(dataSubset,"correct",{"xAxis":"categoryLabel","series":"series","legendLabel":" ","xAxisLabel":"Categories","yAxisLabel":"Percent Correct","yAxis":"right","title":"Results"});
+              };
+
+              var button = document.createElement("button");
+              button.innerHTML = "Return to Category Setup";
+              document.body.appendChild(button);
+              button.addEventListener ("click", function(){
+                $("#correct").hide();
+                $("#rt").hide();
+                button.parentNode.removeChild(button); //remove all categories to start fresh
+                createSetup();
+                createCategories();
+                document.getElementById("stimulusConstruction").replaceWith(state); //to make it like it used to be
+                numCategories=oldNumCategories;
+                document.getElementById("runButton").addEventListener ("click", function(){runExperiment()}); //add in listeners
+                document.getElementById("infoButton").addEventListener ("click", function(){infoTab()});
+                document.getElementById("numCats").onchange = function() {
+                  numCategories=parseInt(document.getElementById("numCats").value);
+                  createCategories()};
+                container=state;
+              }); //runExperiment later on
+            //will need to ignore stimulus because it is too big
+            //save_data(jsPsych.data.get().filter({test_part:"test"}).ignore("test_part").ignore("trial_type").ignore("time_elapsed").ignore("internal_node_id").values())
+        //jsPsych.data.displayData()
+        }});
+    }
+
+}
+
+// a = [0,5,29,3,4]
+// b = [9,4,5,6,4,2,3,1,2,4]
+// mA = jStat.mean(a)
+// mB = jStat.mean(b)
+// S2=(jStat.sum(jStat.pow(jStat.subtract(a,mA),2)) + jStat.sum(jStat.pow(jStat.subtract(b,mB),2)))/(a.length+b.length-2)
+// t = (mA - mB)/Math.sqrt(S2/a.length+S2/b.length) // t-statistic 1.1260915960439553
+// jStat.studentt.cdf(-Math.abs(t), a.length+b.length-2) * 2 // two side p-value 0.28048607589867075
+// possibly https://github.com/mljs/anova for running a repeated measures anova
+
+
+
+</script>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My experiment</title>
+        <script src="https://unpkg.com/jspsych@7.3.3"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.0.0"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.0.0"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.3"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.3"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-fullscreen@1.2.1"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice@1.1.3"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-browser-check@1.0.3"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-canvas-keyboard-response@1.1.1"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.2.0"></script>
+        <link href="https://unpkg.com/jspsych@7.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+        <!-- <script type = "text/javascript" src = "G:/我的云端硬盘/shulai@iu.edu 2022-09-04 14 28/IUB/Project-context/html exp/main.js"></script> -->
+    </head>
+    <body>
+        
+    </body>
+    
+    <script>
+        let textFile = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/picnames.txt';
+        let textFile2 = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/ps.txt';
+        let rtf = readTextFile(textFile);
+        let rnl = rtf.replace(/\r/g, '');
+        var picnames = rnl.split('\n').slice(0,2362-1); 
+        const picdir = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/images/';
+
+        const fixation_duration = 500;
+        console.log(picnames)
+
+        picdir_arr = picnames.map(iname=> picdir+iname)
+
+
+        var jsPsych = initJsPsych({
+            on_trial_finish: function(data){
+                // jsPsych.data.get().addToLast({timepassed_mins: ((Date.now()-lastActivityTime)/1000/60).toFixed(2) });//adding passed time
+                data.width =  window.innerWidth;
+                data.height = window.innerHeight;
+            },
+            on_finish: function() {
+                // jsPsych.data.displayData();
+                // console.log(jsPsych.data.get().last(4).trials[0].testpos)
+                // jsPsych.data.get().localSave('csv', 'ekstra.csv')
+                // if (jsPsych.data.get().last(4).trials[0].testpos==420) {
+                //     window.location = "";
+                //     }
+                }
+        });
+
+        var fixation = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: '<div style="font-size:60px;">+</div>',
+            choices: "NO_KEYS",
+            trial_duration: fixation_duration,
+            data: {
+                task: 'fixation'
+            }
+            };
+
+        
+        timeline=[];
+
+        const list1_study = [
+            { image: picdir_arr[1] },
+            { image: picdir_arr[2] },
+            // ...
+            { image: picdir_arr[3] }
+            ];
+
+        const list1_test = [
+        { image: picdir_arr[2], correct_response: 'f' },
+        { image: picdir_arr[3], correct_response: 'j' },
+        // ...
+        { image: picdir_arr[5], correct_response: 'f' }
+        ];
+
+        const list2_study = [
+            { image: picdir_arr[1] },
+            { image: picdir_arr[2] },
+            // ...
+            { image: picdir_arr[3] }
+            ];
+
+        const list2_test = [
+        { image: picdir_arr[2], correct_response: 'f' },
+        { image: picdir_arr[3], correct_response: 'j' },
+        // ...
+        { image: picdir_arr[5], correct_response: 'f' }
+        ];
+
+        const all_lists = [
+        { study: list1_study, test: list1_test },
+        { study: list2_study, test: list2_test }
+        ];
+
+        const study_trial = {
+            type: jsPsychImageKeyboardResponse,
+            stimulus: jsPsych.timelineVariable('image'),
+            choices: [' '],
+            trial_duration: 1000
+            };
+
+        const test_trial = {
+            type: jsPsychImageKeyboardResponse,
+            stimulus: jsPsych.timelineVariable('image'),
+            choices: ['f', 'j'],
+            data: {
+                correct_response: jsPsych.timelineVariable('correct_response')
+            }
+            };
+        
+        const test_timeline = all_lists.map(list => {
+            return {
+                timeline: [
+                {//The following are comparable to push the 'final' stuff into the timeline variable; as if creating a new timeline varible element
+                    timeline: [study_trial],
+                    timeline_variables: list.study,
+                    randomize_order: false
+                },
+                {
+                    timeline: [test_trial],
+                    timeline_variables: list.test,
+                    randomize_order: false
+                }
+                ]
+            };
+            });
+        
+        
+        timeline.push(test_timeline)
+        //// EXPERIMENT START
+        /////The followings are just a test
+        
+
+
+
+
+
+
+        timeline.push(fixation);
+        jsPsych.run(timeline);
+
+
+        //********************************************************************************************************
+    //                    Functions
+    //********************************************************************************************************
+    //
+    // Brief description of this section and its purpose.
+    // Additional details or important information.
+    // List of key tasks or functions performed here.
+    //
+    //********************************************************************************************************
+    JT = x=>jsPsych.timelineVariable(x);
+    JRR = (x,y)=>jsPsych.randomization.repeat(x,y);
+
+    function repeatedArray(x,a) {return Array.from({ length: a }, () => x)};
+
+function average(arr) {
+    const sum = arr.reduce((acc, value) => {
+        // Convert boolean to 0 or 1 for calculation
+        const numericValue = typeof value === 'boolean' ? (value ? 1 : 0) : value;
+        return acc + numericValue;
+    }, 0);
+
+    return sum / arr.length;
+}
+
+function range(start, end)
+{
+    var array = new Array();
+    for(var i = start; i < end; i++)
+    {
+        array.push(i);
+    }
+    return array;
+}
+
+function copyobj(obj_f){
+    return (Object.assign({},obj_f))//this could've been done better with spread operator ...
+    }
+
+    function copyarobj(arobj_f){
+    return(range(0,arobj_f.length).map(i=>copyobj(arobj_f[i])))
+    }
+    function randomize_ar_inside_nfar(nfar){//randomize 1*1 nonflat ar
+    return range(0,nfar.length).map(i=>jsPsych.randomization.sampleWithoutReplacement(nfar[i],nfar[i].length));
+}
+
+function readTextFile(file) {
+
+    const rawFile = new XMLHttpRequest();
+        let content = null;
+        rawFile.open("GET", file, false);
+        rawFile.onreadystatechange = function () {
+            if (rawFile.readyState === 4) {
+                if (rawFile.status === 200 || rawFile.status === 0) {
+                    content = rawFile.responseText;
+                }
+            }
+        };
+        rawFile.send(null);
+        return content;
+};
+
+function warningfunc(message,timedur){
+
+    var messageDiv = document.createElement("div");
+    messageDiv.innerHTML = message;
+    // messageDiv.className="jspsych-content-wrapper"
+    messageDiv.style.padding = `350px 0`;
+    messageDiv.style.textAlign = "center";
+    messageDiv.style.margin = "0px"
+    // messageDiv.style.height = "100vh";
+    messageDiv.style.display = "flex";
+    messageDiv.style.justifyContent = "center";
+    var exp = document.getElementsByClassName("jspsych-content-wrapper")[0]
+    exp.style.visibility = "hidden";
+    jsPsych.pauseExperiment() 
+    document.body.prepend(messageDiv);
+    setTimeout(function() {
+        document.body.removeChild(messageDiv); // Remove the div
+        exp.style.visibility = "visible";
+        jsPsych.resumeExperiment();
+    }, timedur);//remove after 1.5s
+}
+
+function arrsum(ar){return(ar.reduce((a,b)=>a+b,0))};
+
+function combinedReorderArray(reorder) {
+    // let reverseReorder = reorder;
+    let original = new Array(reorder.length);
+    let original2 = new Array(reorder.length);
+    let left = 0;
+    let right = reorder.length - 1;
+
+    for (let i = 0; i < reorder.length; i += 2) {
+        if (left == right) {
+            original[left] = original2[left] = reorder[i];
+        } else {
+            original[left] = original2[right] = reorder[i];
+            // Ensure we don't go out of bounds when the original array has an odd length
+            if (i + 1 < reorder.length) {
+                original[right] = original2[left] = reorder[i + 1];
+            }
+        }
+        left++;
+        right--;
+    }
+
+    return [original,original2];
+}
+
+
+
+function startExperimentTimer() {
+
+    const experimentTimerInterval = window.setInterval(function() {
+
+        const currentTime = Date.now();
+        if (currentTime - lastActivityTime > timeout) {
+        alert(`
+            Dear participant,
+
+            We regret to inform you that the experiment has been terminated automatically due to exceeding the allowed time. Please close the page to finalize the results. And we kindly request you not to attempt this experiment again.
+
+            We would like to thank you for your participation. Although you were unable to complete this particular experiment, we hope that you will consider joining us for future experiments. Thank you again for your time and effort; you may close the page now.
+        `);
+        clearInterval(experimentTimerInterval);
+        console.log(currentTime - lastActivityTime);
+        window.onbeforeunload = null;
+        window.location = "https://www.google.com";
+        window.close = true;
+        jsPsych.endExperiment();
+        }
+    }, 1000);
+}
+
+    </script>

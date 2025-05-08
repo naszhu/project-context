@@ -1,0 +1,1627 @@
+
+ # File now
+   # Example of a valid .lintr file
+    
+linters: with_defaults(
+  line_length_linter = line_length_linter(80),
+  object_name_linter = NULL
+)   
+
+```{r}
+# .libPaths()
+# output: html_document
+```
+
+```{r} 
+# options(lintr.linter_file = NULL) # Disable .lintr file
+# lintr::lint("your_file.R", linters = with_defaults(line_length_linter = NULL)) # Disable line length linter
+library(ggplot2) 
+# library()
+library(dplyr)
+# library(gridExtrau
+library(tidyr)  
+# library(rstudioapi)
+
+```
+
+
+# Read Data
+
+```{r}
+# filepath=c("data-design3/ekstra_debugv1.csv")
+# setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+getwd()
+# df_pl = read.csv("data-design3/IMUSE-V1toV2,n30.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+df_pl1 = read.csv("data-design3/IMUSE-V1.3andHigher,n48.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+  mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))%>%mutate(codeversion=1.3)
+# df_pl2$codeversion
+df_pl2 = read.csv("data-design3/IMUSE-V1toV2,n30.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+  mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))
+
+df_pl3 = read.csv("data-design3/IMUSE-v1.4n20.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+  mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))
+
+df_pltest2 = read.csv("data-design3/IMUSE-V5_second 12.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+  mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))
+
+df_pltest3 = read.csv("data-design3/IMUSE-V5_first35.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+  mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))
+df_pltest4 = read.csv("data-design3/IMUSE-V5_third .csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+  mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))
+df_pltest=rbind(df_pltest2,df_pltest3 )
+
+df_pl=rbind(df_pl1,df_pl2,df_pl3,df_pltest2,df_pltest3,df_pltest4)
+# df_pl=rbind(df_pltest2,df_pltest3,df_pltest4)
+# df_pl=rbind(df_pl1,df_pl2)
+# df_pl1
+# df_pl2
+names(df_pl)
+df_pl
+
+#67d9bb21800df9410d2d2a16; 566a19b57da035000fb39b89
+df_pl%>%filter(is_finished==1)%>%
+  group_by(subject_id)%>%
+  summarize(nn=n())
+  # filter(nn>1265)
+
+df_pltest %>% filter(is_finished==1, PROLIFIC_PID!="")%>%
+  group_by(PROLIFIC_PID)%>%
+  summarize(n=n(),ac=mean(all_accumulated_accuracy))
+
+df_pltest3 %>% filter(is_finished==1, PROLIFIC_PID!="")%>%
+  group_by(PROLIFIC_PID)%>%
+  summarize(n=n(),ac=mean(all_accumulated_accuracy))
+
+#detect the duplicated lins in df_pl and delete them (can use dplyr or tyidr etc)
+# Create a function that takes two numbers and returns their sum
+
+
+# df %>% filter
+# df_pl%>%filter(subject_id=="566a19b57da035000fb39b89")%>%
+#   filter(task=="surveyatend")
+# 
+# df_pl %>% unique()%>%filter(subject_id=="566a19b57da035000fb39b89")%>%
+#   filter(task=="surveyatend")
+# df_pl%>%filter(subject_id=="566a19b57da035000fb39b89")%>%
+#   filter(task=="surveyatend")
+
+
+```
+
+
+
+
+ individual diff
+
+initial test
+
+6100434d983910e711b3a504 #this subject had bluetooth keyboard not working well in fiinal test
+:: "I experienced a technical issue with my own keyboard (as it's bluetooth) it died and wasn't registering my answers for a portion of the last section.
+67d220de3ad5d3f4be7836bd	#didn't finish all, returned its data
+67f909f80373c9f5af736a5a #got veryvery low allaccuracy - 20% and chekcing the data, it is especially bad at final test, but good in intial test
+67ecdf3dcb59c5e0f274ad2d #did the experiment twice:
+    recorded_at
+    <chr>
+    nm
+    <int>
+    2025-04-14 08:09:41	5			
+    2025-04-14 08:47:36	324			
+    2025-04-14 09:12:40	1263	
+
+
+## Add firestone data
+lost:
+67e4ae4138a215b586f1355c
+6767e3338fb21303557a8903
+67eade9122bddfb4cd165d09
+
+
+```{r}
+# library(jsonlite)
+file_name <- "test1.overall_export_metadata"
+full_file_path <- "/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Prj_tmp/data/participants_finished_final_trials_finished.csv"
+
+dreal = read.csv(full_file_path) #%>%filter(subject_id%in%c("67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548") )
+common_cols <- intersect(names(df_pl), names(dreal))
+
+print(paste("Common columns:", paste(common_cols, collapse=", ")))
+
+target_classes <- lapply(df_pl[common_cols], function(col) class(col)[1])
+
+
+f2_aligned <- dreal %>%
+  mutate(across(all_of(common_cols), ~ {
+
+    col_name <- cur_column()
+    target_class <- target_classes[[col_name]]
+    current_col_data <- .x
+    switch(target_class,
+           "character" = as.character(current_col_data),
+           "numeric"   = as.numeric(current_col_data),
+           "integer"   = as.integer(current_col_data),
+           "logical"   = as.logical(current_col_data),
+           "factor"    = factor(current_col_data), #
+           current_col_data
+           )
+  }))
+f2_aligned%>%group_by(subject_id)%>%
+  summarize(n=n())
+
+# df_pl_combine = bind_rows(df_pl, dreal)
+
+
+df_pl_combine%>%filter(subject_id=="thisis_cool")%>%arrange(trial_index) 
+df_pl_combine%>%group_by(subject_id)%>%
+  summarize(n=n(),
+    ac=mean(all_accumulated_accuracy),
+            isf=mean(is_finished))
+
+df_pl_combine%>%filter(subject_id%in%c("67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548"))
+
+dreal%>%group_by(subject_id)%>%
+  summarize(n=n())
+```
+## dreal-finaldatasave- a full new way of binding
+```{r}
+
+file_name <- "test1.overall_export_metadata"
+full_file_path <- "/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Prj_tmp/data/participants_finished_final_trials_finished.csv"
+full_file_path_er <- "/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Prj_tmp/data/participants_trials_backup_ealier.csv"
+full_file_path_backup <- "/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Prj_tmp/data/participants_trials_backup_backup.csv"
+
+# dreal_earlier = read.csv(full_file_path_er)%>% 
+passlist = c("673ccb0691efe91cd015dcf7","67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548")
+dreal_er = read.csv(full_file_path_er)%>% 
+  mutate(is_finished=case_when(subject_id%in%passlist ~ 1,
+                               TRUE ~ is_finished))%>%
+  filter(is_finished==1)
+
+
+passlist2=c("5f9389fafdbecb173b329cca", "5fb39a485655aa025926ad30", "6307f3c967020d1202332b77", 
+  "63268ad93b6ecc1acf782a21", "63c1d184883ce15537788b40", "65c118f1cd19001157ace3a0", 
+  "66cfb3d040139a5cfd914312", "66e8661e0c5e57cda7bf2d39", "673a27fe372ce97a95aecf5c", 
+  "6741ce8667002c96f0362d34", "6751acc5dc78128951a34f1f", "67558204d75dd7351fe9d17e", 
+  "678c0d73fea9aaf55cd880be", "67c1a72590fcbf99458bb1f2", "67dc0e92b55a4d630f52e765", 
+  "67e069199f5b036960b0cc5f", "67e2fdf2d328f1e3dd7045b6", "67e8446d006a6c155f71bd2d", 
+  "67e9875c5b9b26c19a3bdf88", "67eaf90db55644f3c56fffa9", "67eb2ab3bd8cba1852857e2d", 
+  "67edb211a7c1d23c1535d6b2", "67eefac7eaf3702ddd603092", "67f05ce092cdcc0392692398", 
+  "67fff6438bb63725ca004b27")
+
+
+dreal_backup = read.csv(full_file_path_backup)%>%filter(is_finished==1)%>%
+  mutate(is_finished=case_when(subject_id%in%passlist2 ~ 1,
+                               TRUE ~ is_finished))%>%
+  filter(is_finished==1)
+
+
+
+dreal_backup 
+dreal0 = read.csv(full_file_path)
+
+
+dreal = full_join(dreal0,dreal_er)
+
+
+# keep a copy of the original
+dreal_orig <- dreal
+
+# align classes, but only map "true"/"false" strings when target is logical
+f2_aligned <- dreal %>%
+  mutate(across(all_of(common_cols), ~{
+    col <- cur_column()
+    tgt <- target_classes[[col]]
+    x   <- .
+
+    # if original is character, detect "true"/"false"
+    if (is.character(x)) {
+      xl <- tolower(x)
+      bool_idx <- xl %in% c("true","false","t","f")
+      if (any(bool_idx)) {
+        if (tgt %in% c("numeric","integer")) {
+          # map to "1"/"0" for numeric/integer
+          x[bool_idx] <- ifelse(xl[bool_idx] %in% c("true","t"), "1", "0")
+        } else if (tgt == "logical") {
+          # map to logical TRUE/FALSE
+          x[bool_idx] <- xl[bool_idx]
+        } else if (tgt == "character") {
+          # just lowercase for character
+          x[bool_idx] <- xl[bool_idx]
+        }
+      }
+    }
+
+    # convert to target class
+    switch(tgt,
+      character = as.character(x),
+      numeric   = as.numeric(x),
+      integer   = as.integer(x),
+      logical   = as.logical(x),
+      factor    = factor(x),
+      x
+    )
+  }))
+
+# 2) which cols changed class?
+orig_cls <- sapply(dreal_orig[common_cols], class)
+new_cls  <- sapply(f2_aligned[common_cols], class)
+changed  <- common_cols[orig_cls != new_cls]
+cat("Columns with changed classes:\n")
+print(data.frame(column = changed, before = orig_cls[changed], after = new_cls[changed]))
+
+# 3) sample before/after values
+for (col in changed) {
+  cat("\n---", col, "---\n")
+  print(tibble(
+    row    = 1:5,
+    before = dreal_orig[[col]][1:5],
+    after  = f2_aligned[[col]][1:5]
+  ))
+}
+
+# 4) print levels of all factor‐able cols in df_pl, dreal_orig, and f2_aligned
+factor_cols <- intersect(common_cols, names(target_classes)[target_classes == "factor"])
+for (col in factor_cols) {
+  cat("\n=== Levels for column:", col, "===\n")
+  cat("df_pl:\n");      print(levels(as.factor(df_pl[[col]])))
+  cat("dreal_orig:\n"); print(levels(as.factor(dreal_orig[[col]])))
+  cat("f2_aligned:\n"); print(levels(as.factor(f2_aligned[[col]])))
+}
+
+# 5) summary as before
+f2_aligned %>%
+  group_by(subject_id) %>%
+  summarise(n = n())
+
+
+combined_df = full_join(df_pl,f2_aligned)
+
+f2_aligned %>% 
+  filter(is_finished==1)%>%
+  group_by(subject_id)%>%
+  summarize(n=n(), all_accumulated_accuracy= mean(all_accumulated_accuracy))
+
+read.csv(full_file_path)%>%filter(subject_id=="680ebf035ab59d342f31726e")
+ 
+# [1] "680ebf035ab59d342f31726e" "67dc712c511053c8d90e2c29"
+# [3] "67ed4e79983b8a8ba5517548" "67eac4d6bf3d1c4df7bd65df"
+# dreal = full_join(dreal0,dreal_er)%>%full_join(dreal_backup)
+# dreal_er%>%
+combined_df%>%
+  select(subject_id,is_finished)%>%
+  filter(subject_id=="67eac4d6bf3d1c4df7bd65df")
+ 
+
+
+```
+
+
+
+# A tibble: 5 × 2
+  subject_id                   n
+  <chr>                    <int>
+1 67d220de3ad5d3f4be7836bd   210
+2 67db99eb2c3fa60d9e043a59   210
+3 67dc0e92b55a4d630f52e765   240
+4 67dea0a9723c135ffffe14f0   570
+5 67eec102d37d56b29145e034    30
+
+## print all levels
+```{r}
+levels(as.factor(f2_aligned$current_assignmentTypesWithinList )) ==
+levels(as.factor(df_pl$current_assignmentTypesWithinList ))
+
+levels(as.factor(f2_aligned$is_currentObjAppear1 ))==
+levels(as.factor(df_pl$is_currentObjAppear1 ))
+
+
+levels(as.factor(f2_aligned$type_comment ))==
+levels(as.factor(df_pl$type_comment ))
+
+
+
+```
+
+
+## data clean
+```{r}
+levels(as.factor(df_pl$task ))
+
+df_rt_pl =
+  combined_df %>% filter(task%in% c("initialTest_response","finalTest")) %>% 
+  filter(is_finished==1)%>%
+  mutate(rt=as.numeric(rt))%>%
+  filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")%>%
+  filter(subject_id!=c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a"))%>%
+    filter(subject_id!="")%>%
+  filter(!is.na(rt),rt<3000)%>%
+  # filter(id!=)%>%
+    select(task,subject_id,  rt, condition, stimulusConditions, stimulusConditionName_nPlusOneTrial, listNum_appear0_initial,correct,type_comment,listNum_infinalOrder,listNum_appear1_initial,listNum_appear2_initial, anRepeatedItem, testPos_final,testPos_appear0_initial,testPos_appear1_initial,testPos_appear2_initial,studyPos_appear0_initial,studyPos_appear1_initial,studyPos_appear2_initial ,is_finished,all_accumulated_accuracy, type_code_studiedCurr,type_code_testiedCurr,type_code_testiedNext,is_currentObjAppear1,current_assignmentTypesWithinList,listNum_infinalOrder, stimulusConditions)%>%
+    mutate(type_comment_fn=case_when(
+                                stimulusConditions=="B"~
+                                  "Target: : started and tested at (n) ; Appear once",
+                                stimulusConditions == "Cn"~
+                                  "Studied-only (n); Foil (n+1)",
+                                stimulusConditions =="Dn" ~ 
+                                  "Target: studied and tested at (n), Foil (n+1)",
+                                stimulusConditions=="A"~
+                                  "Studied-only (n); Appear once",
+                                stimulusConditions=="Fnn"~
+                                  "Foil(n), Foil (n+1)",
+                                stimulusConditions=="Fn"~
+                                  "Foil(n); Appear once",
+                                stimulusConditions=="FF" ~
+                                  "Final Foil"))%>%
+      mutate(typecomment_in = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target",
+                                is_currentObjAppear1=="false" & type_comment=="current target, in next trial, from last trial"  ~ "Inherented Foil - Last Target",
+                                                                is_currentObjAppear1=="false" & type_comment=="studied only, in next trial, from last trial"  ~ "Inherented Foil - Last Studied Only",
+                                                                is_currentObjAppear1=="false" & type_comment=="tested only, in next trial, from last trial"  ~ "Inherented Foil - Last Foil",
+                                
+                                  current_assignmentTypesWithinList =="T_foil"  ~"New Foil"))
+  # mutate(type_comment=case_when(type_comment=="current target, in next trial" ~ "Target: studied and tested at (n), Foil (n+1)",
+  #                               type_comment=="current target, not in next trial"~
+  #                                 "Target: : started and tested at (n) ; Appear once",
+  #                               type_comment == "studied only, in next trial"~
+  #                                 "Studied-only (n); Foil (n+1)",
+  #                               type_comment=="studied only, not in trial"~
+  #                                 "Studied-only (n); Appear once",
+  #                               type_comment=="tested only, in next trial"~
+  #                                 "Foil(n), Foil (n+1)",
+  #                               type_comment=="tested only, not in next trial"~
+  #                                 "Foil(n); Appear once",
+  #                               type_comment=="final Foil" ~ "Final Foil"))
+
+
+
+# df_rt_pl_final =
+  # df_pl %>% filter(task%in% c("finalTest")) %>% 
+    # select(subject_id,  rt, condition, stimulusConditions, stimulusConditionName_nPlusOneTrial, listNum_appear0_initial,correct)
+
+now=df_pl%>%filter(task=="detailSeenImages")
+now$response
+
+# ss=df_pl%>%filter(task=="surveyatend",subject_id=="6100434d983910e711b3a504")
+# ss$response
+
+df_pl%>%filter(subject_id=="67f909f80373c9f5af736a5a")
+
+# show all accumulated accuracy
+df_pl %>% group_by(subject_id)%>%filter(is_finished==1)%>%
+  summarise(accmean=mean(all_accumulated_accuracy))
+
+# show endsurvey Question answer
+df_pl%>%filter(task=="surveyatend")%>%select(subject_id,response,accumulated_accuracy)
+
+#present if they have seen images before
+df_pl%>%filter(task%in%c("survey_HaveSeenImages","detailSeenImages"))%>%select(subject_id,HaveSeenImages,response,accumulated_accuracy)
+
+#show if they once exited from full screen
+df_pl %>% 
+  filter(is_finished==1,subject_id!="",trial_index>=5,trial_index<1100)%>%
+  group_by(subject_id)%>%
+  summarize(wd = mean(width), ht=mean(height),is_changedfullscreen=mean(is_changedfullscreen))
+
+df_pl%>%filter(subject_id=="6732ca9052a3b5780ec6068a")%>%select(width,height,trial_index)
+
+#trial 1261 somehow detect different window size
+df_pl%>%filter(subject_id=="6732ca9052a3b5780ec6068a")%>%select(width,height,trial_index, task,stimulus)%>%
+  filter(height!=1080)
+names(df_pl)
+
+#see how many trials have rt>3500 in inital test
+# 0.009826912 rate of NA response
+#0.009826912 for that pass rt of 3500s
+# 0.004913456 for that pass rt 3000
+
+dhowmany = df_rt_pl%>%filter(task=="initialTest_response")%>%
+  filter(!is.na(rt),rt>3000)
+  # filter(is.na(rt))
+dhowmany
+dhowmany_base = df_rt_pl%>%filter(task=="initialTest_response")
+dhowmany_base
+
+length(dhowmany$task)/length(dhowmany_base$task)
+
+df_pl%>%filter(subject_id=="67dc0e92b55a4d630f52e765")
+
+d1ta = df_rt_pl%>%
+  # filter(listNum_appear0_initial!=1 )%>%
+# d1ta = df_pl2%>% 
+  # filter(!is.na(rt),rt<3000)%>%
+  mutate(colorskeme = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
+                                is_currentObjAppear1=="false"  ~ paste("Foil from last trial",type_comment),
+                                  current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
+  filter(task=="initialTest_response")%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
+         summarise(cr = mean(correct))%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme)%>%
+         summarise(cr = mean(cr))%>%
+  mutate(listNum_appear0_initial=as.factor(listNum_appear0_initial))
+  # mutate(type_comment=as.factor(type_comment))
+  
+  
+ggplot(data=d1ta)+
+  geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+ 
+  geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
+  facet_grid(.~task)+
+  scale_color_manual(values=c("blue","green","green","green","purple")) 
+
+df_pl %>% filter(subject_id=="67acacf033444654db29a196")
+
+df_pl_combine%>%filter(codeversion==2)
+
+df_rt_pl%>%group_by(subject_id)%>%
+  summarize(n=n(), acc=mean(all_accumulated_accuracy))%>%
+  arrange(acc)
+# c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a") #final acc =0.2...
+```
+
+
+```{r}
+#correct treatment of rt
+  df_pl %>% filter(task%in% c("initialTest_response","finalTest")) %>% 
+  filter(is_finished==1)%>%
+  filter(subject_id!="")%>%
+  mutate(rt=as.numeric(rt))%>%
+  filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")%>%
+  filter(is.na(rt)|rt>3000)%>%
+  select(rt,subject_id,task)
+  
+#incorrect treatment of rt
+    df_pl %>% filter(task%in% c("initialTest_response","finalTest")) %>% 
+  filter(is_finished==1)%>%
+      filter(subject_id!="")%>%
+  # mutate(rt=as.numeric(rt))%>%
+  filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")%>%
+  filter(is.na(rt)|rt>3000)%>%
+      select(rt,subject_id)
+    
+    #original data after filter
+    df_pl %>% filter(task%in% c("initialTest_response","finalTest")) %>% 
+  filter(is_finished==1)%>%
+      filter(subject_id!="")%>%
+  # mutate(rt=as.numeric(rt))%>%
+  filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")
+```
+
+```{r}
+dreal %>%
+  # filter(is_finished==1)%>%
+  filter(codeversion==2)%>%
+  # mutate(subject_id=as.factor(subject_id))%>%
+  group_by(subject_id)%>%
+  # filter(Prolific)
+  summarize(n=n())
+
+# dreal$PROLIFIC_PID
+c("67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548")
+```
+
+
+## participant txt
+```{r}
+
+txtdf=combined_df %>%
+  filter(is_finished==1)%>%
+  filter(codeversion==2.3)%>%
+  mutate(subject_id=as.factor(subject_id))%>%
+  group_by(subject_id)%>%
+  summarize(n=n(),all_accumulated_accuracy=mean(all_accumulated_accuracy))%>%
+  ungroup()
+txtdf
+# txtdf%>%filter(subject_id!="67f909f80373c9f5af736a5a")
+# txtdf%>%filter(subject_id=="673b60db7ecbdd53ec64a428")
+df_pl %>%
+  filter(is_finished==0)%>%
+  group_by(PROLIFIC_PID)%>%
+  summarize(nm=n())
+
+df_pl%>% filter(PROLIFIC_PID=="67ecdf3dcb59c5e0f274ad2d")%>%
+  group_by(recorded_at)%>%
+  summarize(nm=n())
+
+df_pl%>% filter(PROLIFIC_PID%in%c("67dc0e92b55a4d630f52e765","67d220de3ad5d3f4be7836bd","67c8eac5e82d76f9507e9534","67ecdf3dcb59c5e0f274ad2d"))%>%
+  group_by(recorded_at,PROLIFIC_PID)%>%
+  summarize(nm=n(),isf=mean(is_finished))
+
+df_pltest %>%filter(PROLIFIC_PID=="67e8282387a710f6404aeb35")
+
+# df_pl%>% filter(PROLIFIC_PID=="673b60db7ecbdd53ec64a428")
+
+
+write.table(txtdf$subject_id, file = "output.txt", sep = "\t", row.names = FALSE, quote = FALSE)
+
+# txtdf
+# df_rt_pl$rt
+# f2_aligned %>% select(subject_id)%>%
+#   group_by(subject_id)%>%
+#   summarize(n=n(), isf=mean(is_finished ))%>%
+#   filter(subject_id=="67eb2ab3bd8cba1852857e2d")
+# %>% filter(subject_id=="67eb2ab3bd8cba1852857e2d")
+
+mt= read.csv(full_file_path_backup) 
+
+mt %>%filter(subject_id=="6786cd9fca3e75e900edbd1c")%>%
+  select(trial_index)%>%
+  arrange(trial_index)
+
+df_rt_pl%>%group_by(subject_id)%>%
+  summarize(n=n())
+```
+## a complicated name check
+
+```{r}
+allapproved = txtdf$subject_id
+inprolific = "
+67eb2ab3bd8cba1852857e2d
+5 May 2025, 01:52
+00:42:00
+COMPLETED
+
+67e069199f5b036960b0cc5f
+5 May 2025, 01:52
+00:59:25
+COMPLETED
+
+67e9875c5b9b26c19a3bdf88
+5 May 2025, 01:52
+00:40:56
+COMPLETED
+
+678c0d73fea9aaf55cd880be
+5 May 2025, 01:52
+00:41:24
+COMPLETED
+
+63c1d184883ce15537788b40
+5 May 2025, 01:52
+01:20:50
+COMPLETED
+
+680ebf035ab59d342f31726e
+5 May 2025, 01:52
+00:47:42
+NO CODE
+
+673a27fe372ce97a95aecf5c
+5 May 2025, 01:52
+00:36:34
+COMPLETED
+
+6741ce8667002c96f0362d34
+5 May 2025, 01:52
+00:38:01
+COMPLETED
+
+67e8446d006a6c155f71bd2d
+5 May 2025, 01:52
+00:37:40
+COMPLETED
+
+66e8661e0c5e57cda7bf2d39
+5 May 2025, 01:52
+00:41:23
+COMPLETED
+
+6751acc5dc78128951a34f1f
+5 May 2025, 01:52
+00:31:24
+COMPLETED
+
+67eaf90db55644f3c56fffa9
+5 May 2025, 01:53
+00:40:12
+COMPLETED
+
+67e2fdf2d328f1e3dd7045b6
+5 May 2025, 01:53
+00:33:01
+COMPLETED
+
+67fff6438bb63725ca004b27
+5 May 2025, 01:53
+00:42:55
+COMPLETED
+
+67f05ce092cdcc0392692398
+5 May 2025, 01:53
+00:38:50
+COMPLETED
+
+67edb211a7c1d23c1535d6b2
+5 May 2025, 01:53
+00:45:54
+COMPLETED
+
+63268ad93b6ecc1acf782a21
+5 May 2025, 01:53
+00:33:08
+COMPLETED
+
+65c118f1cd19001157ace3a0
+5 May 2025, 01:53
+00:38:19
+COMPLETED
+
+5f9389fafdbecb173b329cca
+5 May 2025, 01:55
+00:35:27
+COMPLETED
+
+5fb39a485655aa025926ad30
+67dc712c511053c8d90e2c29
+2 May 2025, 19:46
+00:47:58
+COMPLETED
+
+67ed4e79983b8a8ba5517548
+2 May 2025, 19:46
+00:38:29
+COMPLETED
+
+67eac4d6bf3d1c4df7bd65df
+2 May 2025, 20:09
+00:47:16
+COMPLETED
+
+67eefac7eaf3702ddd603092
+3 May 2025, 22:25
+01:16:36
+COMPLETED
+
+66cfb3d040139a5cfd914312
+4 May 2025, 00:37
+00:51:56
+COMPLETED
+
+67eade9122bddfb4cd165d09
+4 May 2025, 20:06
+00:40:03
+COMPLETED
+
+6767e3338fb21303557a8903
+4 May 2025, 20:06
+00:46:54
+COMPLETED
+
+67e4ae4138a215b586f1355c
+4 May 2025, 20:06
+00:43:44
+COMPLETED
+
+67c1a72590fcbf99458bb1f2
+4 May 2025, 22:39
+00:51:58
+COMPLETED
+
+6307f3c967020d1202332b77
+4 May 2025, 22:40"
+
+a_ids <- unlist(regmatches(inprolific, gregexpr("\\b[0-9a-f]{24}\\b", inprolific)))
+
+
+write.table(a_ids[a_ids %in%allapproved], file = "output.txt", sep = "\t", row.names = FALSE, quote = FALSE)
+
+extra_from_chat=c("673ccb0691efe91cd015dcf7","67558204d75dd7351fe9d17e","67dc0e92b55a4d630f52e765")
+
+data_lost = c("67e4ae4138a215b586f1355c","6767e3338fb21303557a8903","67eade9122bddfb4cd165d09")
+
+a_ids[!(a_ids %in%allapproved)& !(a_ids%in%data_lost)]#prolific approved list that is not in all_approvied list, and not datalost
+# [1] "680ebf035ab59d342f31726e"
+
+
+a_ids[!(allapproved %in%a_ids)] 
+a_ids[!(a_ids %in%allapproved)]
+txtdf%>%filter(subject_id=="67dc0e92b55a4d630f52e765")
+
+names_from_backup=c("5f9389fafdbecb173b329cca", "5fb39a485655aa025926ad30", "6307f3c967020d1202332b77", 
+  "63268ad93b6ecc1acf782a21", "63c1d184883ce15537788b40", "65c118f1cd19001157ace3a0", 
+  "66cfb3d040139a5cfd914312", "66e8661e0c5e57cda7bf2d39", "673a27fe372ce97a95aecf5c", 
+  "6741ce8667002c96f0362d34", "6751acc5dc78128951a34f1f", "67558204d75dd7351fe9d17e", 
+  "678c0d73fea9aaf55cd880be", "67c1a72590fcbf99458bb1f2", "67dc0e92b55a4d630f52e765", 
+  "67e069199f5b036960b0cc5f", "67e2fdf2d328f1e3dd7045b6", "67e8446d006a6c155f71bd2d", 
+  "67e9875c5b9b26c19a3bdf88", "67eaf90db55644f3c56fffa9", "67eb2ab3bd8cba1852857e2d", 
+  "67edb211a7c1d23c1535d6b2", "67eefac7eaf3702ddd603092", "67f05ce092cdcc0392692398", 
+  "67fff6438bb63725ca004b27")
+
+# names_from_backup[!(names_from_backup%in%allapproved)]
+# the following are from proved list, but not in data and are not lost data for some reason
+# [1] "680ebf035ab59d342f31726e" "67dc712c511053c8d90e2c29"
+# [3] "67ed4e79983b8a8ba5517548" "67eac4d6bf3d1c4df7bd65df"
+# d %>%filter(subject_id%in%c("67dc712c511053c8d90e2c29"))
+
+dreal_er%>%filter(subject_id=="67dc712c511053c8d90e2c29")%>%
+  filter(is_finished==1)
+combined_df%>%filter(subject_id=="67dc712c511053c8d90e2c29")%>%
+  filter(is_finished==1)
+df_rt_pl%>%filter(subject_id=="67dc712c511053c8d90e2c29")
+  # filter(is_finished==1)
+
+combined_df %>%
+  filter(is_finished==1)%>%
+  # filter(codeversion==2)%>%
+  mutate(subject_id=as.factor(subject_id))%>%
+  group_by(subject_id)%>%
+  summarize(n=n(),all_accumulated_accuracy=mean(all_accumulated_accuracy))%>%
+  ungroup()
+```
+
+
+
+
+```{r}
+# 5) columns in main_df but not in other_df (and vice versa)
+main_cols  <- names(df_pl)
+other_cols <- names(f2_aligned )
+extra_in_main  <- setdiff(main_cols, other_cols)
+extra_in_other <- setdiff(other_cols, main_cols)
+
+extra_in_other
+extra_in_main
+df_pl[!(is.na(df_pl$rt_key_end)),]
+df_pl%>%select(rt_key_end,rt_key_start, rt,rt_keypresses )%>%
+  filter(complete.cases( rt_key_end,rt_keypresses,rt_key_start))
+```
+
+## final test
+
+```{r}
+ggplot(data=df_rt_pl)+
+  geom_density(aes(x=rt,group=c(subject_id),color=subject_id))+
+  facet_grid(task ~.)+
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1), legend.position = "none")
+
+
+
+d1t = df_rt_pl%>% 
+  filter(task=="initialTest_response")%>%
+         group_by(task,subject_id, condition,stimulusConditionName_nPlusOneTrial, listNum_appear0_initial)%>%
+         summarise(cr = mean(correct))
+
+# ggplot(data=d1t)+
+#   geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(subject_id,task,stimulusConditionName_nPlusOneTrial ),color= stimulusConditionName_nPlusOneTrial))+ 
+#   facet_grid(subject_id~task)+
+#   theme(legend.position = "none")
+
+d1t = df_rt_pl%>% 
+ mutate(colorskeme = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
+                                is_currentObjAppear1=="false"  ~ paste("Foil from last trial",type_comment),
+                                  current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
+  filter(task=="initialTest_response")%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
+         summarise(cr = mean(correct))%>%
+  mutate(listNum_appear0_initial=as.factor(listNum_appear0_initial))
+  # mutate(type_comment=as.factor(type_comment))
+
+# ggplot(data=d1t)+
+#    geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+ 
+#   geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
+#   facet_grid(subject_id~task)+
+#   scale_color_manual(values=c("blue","green","green","green","purple"))+
+#   theme(legend.position = "none")
+
+
+d1t = df_rt_pl%>% 
+ mutate(colorskeme = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
+                                is_currentObjAppear1=="false"  ~ "Foil from last trial",
+                                  current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
+  filter(task=="initialTest_response")%>%
+  filter(colorskeme=="Foil from last trial")%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
+         summarise(cr = mean(correct))%>%
+  mutate(listNum_appear0_initial=as.factor(listNum_appear0_initial))
+  # mutate(type_comment=as.factor(type_comment))
+
+ggplot(data=d1t)+
+   geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,colorskeme,subject_id),color= subject_id,linetype=colorskeme))+
+  # geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
+  facet_grid(factor(as.numeric(as.factor(subject_id)) %/% 5) ~ task) +
+  theme(legend.position = "none")
+  
+  # scale_color_manual(values=c("blue","green","purple"))
+
+levels(as.factor(df_pl$codeversion ))
+  
+#   x=c(
+# 152497,
+# 154621,
+# 156734,
+# 158849,
+# 160967,
+# 163083,
+# 165208
+# )
+# for (i in 1:length(x)){
+#   if(i>=2){
+#     print(x[i]-x[i-1])
+#   }
+# }
+# x[2]-x[1]
+mu=seq(0.1,5,by=0.01)
+sigma1 = seq(0.01,0.09, by=0.01)
+sigma2 = seq(1,2, by=0.01)
+sigma3=seq(10,20,length.out=100)
+plot(mu, mu/sigma1)
+plot(mu, mu/sigma2)
+plot(mu, mu/sigma3)
+```
+
+
+
+## avg initial result
+# Use radiant's `radiant.plot` to display multiple plots in one chunk
+library(radiant.plot)
+
+# Create a list of plots
+plots <- list(
+  ggplot(data=d1ta) +
+    geom_line(aes(x=listNum_appear0_initial, y=cr, group=interaction(task, colorskeme), color=colorskeme, linetype=colorskeme)) +
+    geom_point(aes(x=listNum_appear0_initial, y=cr, group=interaction(task, colorskeme), color=colorskeme, shape=colorskeme), size=4) +
+    facet_grid(. ~ task) +
+    scale_color_manual(values=c("blue", "green", "green", "green", "purple")),
+
+  ggplot(data=d1taf) +
+    geom_line(aes(x=listNum_appear1_initial, y=cr, group=interaction(task, type_comment), color=type_comment, linetype=type_comment)) +
+    geom_point(aes(x=listNum_appear1_initial, y=cr, group=interaction(task, type_comment), color=type_comment, shape=type_comment)) +
+    facet_grid(. ~ task) +
+    scale_color_manual(values=c("blue", "blue", "red", "green", "green", "purple", "purple"))
+)
+
+```{r}
+# dreal%>%
+#   filter(subject_id%in%c("67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548"))
+```
+
+## dreal
+
+```{r}
+d1ta=
+  f2_aligned%>%
+filter(task%in% c("initialTest_response","finalTest")) %>% 
+  filter(is_finished==1)%>%
+  mutate(rt=as.numeric(rt))%>%
+  # filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")%>%
+    filter(subject_id!="")%>%
+  filter(!is.na(rt),rt<3000)%>%
+  # filter(id!=)%>%
+      mutate(typecomment_in = case_when(current_assignmentTypesWithinList ==
+                                          "T_target" & is_currentObjAppear1=="true" ~"Target",
+                                is_currentObjAppear1==
+                                  "false" & type_comment=="current target, in next trial, 
+                                from last trial"  ~ "Inherented Foil - Last Target",
+                                                                is_currentObjAppear1==
+                                  "false" & type_comment=="studied only, in next trial, 
+                                from last trial"  ~ "Inherented Foil - Last Studied Only",
+                                                                is_currentObjAppear1=="false" &
+                                  type_comment=="tested only,
+                                in next trial, from last trial"  ~ "Inherented Foil - Last Foil",
+                                
+                                  current_assignmentTypesWithinList =="T_foil"  ~"New Foil"))%>%
+  filter(!is.na(rt),rt<3000)%>%
+  filter(task=="initialTest_response")%>%
+  # mutate(colorskeme=type_comment)%>%
+  mutate(colorskeme=typecomment_in)%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
+         summarise(cr = mean(correct))%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme)%>%
+         summarise(cr = mean(cr))%>%
+  mutate(listNum_appear0_initial=as.factor(listNum_appear0_initial))
+  # mutate(type_comment=as.factor(type_comment))
+
+levelsStr = c("New Foil", "Target", "Inherented Foil - Last Foil" ,
+             "Inherented Foil - Last Target" ,"Inherented Foil - Last Studied Only") 
+ggplot(data=d1ta)+
+  geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+ 
+  geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
+  facet_grid(.~task)+
+  scale_color_manual(
+  values = c("Inherented Foil - Last Foil" = "green", "Inherented Foil - Last Studied Only" = "green", "Inherented Foil - Last Target" = "green","New Foil" = "blue","Target"=  "purple"),
+  breaks =  levelsStr# change order in legend
+)+
+  scale_shape_discrete(breaks=levelsStr)+
+  scale_linetype_discrete(breaks=levelsStr)
+```
+
+```{r}
+df_rt_pl%>%
+  # filter(subject_id%in%c("67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548"))%>%
+# d1ta = df_pl3%>%
+  # filter(listNum_appear0_initial!=1 )%>%
+# d1ta = df_pl2%>% 
+  filter(!is.na(rt),rt<3000)%>%
+  filter(task=="initialTest_response")%>%
+  # mutate(colorskeme=type_comment)%>%
+  mutate(colorskeme=typecomment_in)%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
+         summarise(cr = mean(correct))%>%
+  group_by(subject_id)%>%
+  summarise(n=n())
+```
+
+
+## *Display all plots
+plot_all(plots)
+```{r}
+# library(radiant)
+# library(radiant.plot)
+# d1ta = df_rt_pl%>%
+d1ta = df_rt_pl%>%
+  # filter(subject_id%in%c("67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548"))%>%
+# d1ta = df_pl3%>%
+  # filter(listNum_appear0_initial!=1 )%>%
+# d1ta = df_pl2%>% 
+  filter(!is.na(rt),rt<3000)%>%
+  filter(task=="initialTest_response")%>%
+  # mutate(colorskeme=type_comment)%>%
+  mutate(colorskeme=typecomment_in)%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
+         summarise(cr = mean(correct))%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme)%>%
+         summarise(cr = mean(cr))%>%
+  mutate(listNum_appear0_initial=as.factor(listNum_appear0_initial))
+  # mutate(type_comment=as.factor(type_comment))
+  
+#   [1] "Inherented Foil - Last Foil"       
+# [2] "Inherented Foil - Last Studied Only"
+# [3] "Inherented Foil - Last Target"      
+# [4] "New Foil"                           
+# [5] "Target"
+levelsStr = c("New Foil", "Target", "Inherented Foil - Last Foil" ,
+             "Inherented Foil - Last Target" ,"Inherented Foil - Last Studied Only") 
+ggplot(data=d1ta)+
+  geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+ 
+  geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
+  facet_grid(.~task)+
+  scale_color_manual(
+  values = c("Inherented Foil - Last Foil" = "green", "Inherented Foil - Last Studied Only" = "green", "Inherented Foil - Last Target" = "green","New Foil" = "blue","Target"=  "purple"),
+  breaks =  levelsStr# change order in legend
+)+
+  scale_shape_discrete(breaks=levelsStr)+
+  scale_linetype_discrete(breaks=levelsStr)
+
+d1ta = df_rt_pl%>%
+  # filter(listNum_appear0_initial!=1 )%>%
+# d1ta = df_pl2%>% 
+  # mutate(colorskeme = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
+  #                               is_currentObjAppear1=="false"  ~ paste("Foil from last trial",type_comment),
+  #                                 current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
+  filter(task=="initialTest_response")%>%
+         group_by(task, condition, listNum_appear2_initial,type_comment,subject_id)%>%
+         summarise(cr = mean(correct))%>%
+         group_by(task, condition, listNum_appear2_initial,type_comment)%>%
+         summarise(cr = mean(cr))%>%
+        mutate(listNum_appear2_initial=as.integer(listNum_appear2_initial))%>%
+  filter(listNum_appear2_initial%in%2:10)
+        
+  # mutate(listNum_appear1_initial=as.factor(listNum_appear2_initial))
+  # mutate(type_comment=as.factor(type_comment))
+  
+
+d1ta 
+
+ggplot(data=d1ta)+
+  geom_line(aes(x=listNum_appear2_initial, y= cr ,group=interaction(task,type_comment),color= type_comment,linetype=type_comment))+ 
+  geom_point(aes(x=listNum_appear2_initial,y=cr,group=interaction(task,type_comment),color=type_comment,shape=type_comment),size =4 )+
+  facet_grid(.~task)+scale_x_continuous(breaks=1:10)
+
+# d1ta %>% filter(listNum_appear2_initial==2, type_comment=="current target, in next trial, from last trial" )
+  # scale_color_manual(values=c("blue","green","green","green","purple"))
+# levels(as.factor(df_rt_pl$type_comment ))
+# ggplot(data=d1ta)+
+#   geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+ 
+#   geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,type_comment),color=type_comment))+
+#   facet_grid(.~task)+
+#   scale_color_manual(values=c("blue","green","blue","green","purple","green","purple"))
+
+ 
+d1ta = df_rt_pl%>% 
+  filter(task=="initialTest_response")%>%
+         group_by(task, condition,type_comment, studyPos_appear0_initial,subject_id )%>%
+  mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>%
+         summarise(cr = mean(correct))%>%
+           group_by(task, condition,type_comment, studyPos_appear0_initial )%>%
+         summarise(cr = mean(cr))
+  
+ggplot(data=d1ta)+
+  geom_line(aes(x=studyPos_appear0_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+ 
+  geom_point(aes(x=studyPos_appear0_initial,y=cr,group=interaction(task,type_comment),shape=type_comment,color=type_comment))+
+  facet_grid(.~task)+
+  scale_color_manual(values=c("blue","green","blue","green","purple","green","purple"))
+
+d1ta = df_rt_pl%>% 
+  
+  filter(listNum_appear0_initial!=1 )%>%
+  filter(task=="initialTest_response")%>%
+    mutate(type_comment = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
+                                is_currentObjAppear1=="false"  ~ paste("Foil from last trial",type_comment),
+                                  current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
+         group_by(task, condition,type_comment, testPos_appear0_initial,subject_id )%>%
+         summarise(cr = mean(correct))%>%
+           group_by(task, condition,type_comment, testPos_appear0_initial )%>%
+         summarise(cr = mean(cr))%>%
+  mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))
+  
+ggplot(data=d1ta)+
+  geom_line(aes(x=testPos_appear0_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+
+  geom_point(aes(x=testPos_appear0_initial,y=cr,group=interaction(task,type_comment),shape=type_comment,color=type_comment),size=5)+
+  facet_grid(.~task)
+  # scale_color_manual(values=c("blue","green","green","green","purple"))
+d1ta = df_rt_pl%>%
+  filter(listNum_appear0_initial!=1 )%>%
+  filter(task=="initialTest_response")%>%
+    mutate(type_comment = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
+                                is_currentObjAppear1=="false"  ~ paste("Foil from last trial",type_comment),
+                                  current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
+  mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))%>%
+  mutate(ilgroup= case_when(listNum_appear0_initial > 5 ~1,
+                            TRUE~2) )%>%
+         group_by(task, condition,type_comment, testPos_appear0_initial,subject_id, ilgroup)%>%
+         summarise(cr = mean(correct))%>%
+           group_by(task, condition,type_comment, testPos_appear0_initial ,ilgroup)%>%
+         summarise(cr = mean(cr))%>%
+  mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))
+  d1ta
+
+ggplot(data=d1ta)+
+  geom_line(aes(x=testPos_appear0_initial, y= cr ,group=interaction(task,type_comment,ilgroup ),color= type_comment,linetype=type_comment))+
+  geom_point(aes(x=testPos_appear0_initial,y=cr,group=interaction(task,type_comment,ilgroup),shape=type_comment,color=type_comment),size=2)+
+  facet_grid(task~ilgroup)
+
+
+d1ta = df_rt_pl%>%
+  # filter(listNum_appear0_initial!=1 )%>%
+  filter(task=="initialTest_response")%>%
+    mutate(type_comment = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
+                                is_currentObjAppear1=="false"  ~ paste("Foil from last trial",type_comment),
+                                  current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
+  mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))%>%
+  mutate(ilgroup= listNum_appear0_initial)%>%
+  # mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))
+  mutate(tsgroup= case_when(testPos_appear0_initial<=10 ~ 1,
+                            testPos_appear0_initial<=20 & testPos_appear0_initial>10 ~ 2,
+                             TRUE ~ 3))%>%
+  filter(ilgroup<=6)%>%
+         group_by(task, condition,type_comment, tsgroup,subject_id, ilgroup)%>%
+         summarise(cr = mean(correct))%>%
+           group_by(task, condition,type_comment, tsgroup ,ilgroup)%>%
+         summarise(cr = mean(cr))
+  d1ta
+
+ggplot(data=d1ta)+
+  geom_line(aes(x=tsgroup, y= cr ,group=interaction(task,type_comment,ilgroup ),color= type_comment,linetype=type_comment))+
+  geom_point(aes(x=tsgroup,y=cr,group=interaction(task,type_comment,ilgroup),shape=type_comment,color=type_comment),size=2)+
+  facet_grid(task~ilgroup)+
+  scale_color_manual(values=c("blue","green","green","green","purple"))
+```
+
+
+/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context
+## avg final result
+
+listNum_infinalOrder,listNum_appear1_initial, anRepeatedItem
+[1] "Final Foil"                   
+[2] "Foil(n), Foil (n+1)"          
+[3] "Foil(n); Appear once"         
+[4] "Studied-only (n); Appear once"
+[5] "Studied-only (n); Foil (n+1)" 
+[6] "Target: studied and tested at (n), Foil (n+1)"         
+[7] "Target: : started and tested at (n) ; Appear once"    
+```{r}
+ds=df_rt_pl%>%filter(task=="finalTest")
+
+levels(as.factor(ds$type_comment_fn))
+
+df_pl%>% 
+  filter(task=="finalTest")%>%
+  # mutate(listNum_appear1_initial=as.numeric(listNum_infinalOrder),
+  #        case_when(is.na(listNum_appear1_initial)~0,
+  #                  TRUE ~ listNum_appear1_initial))%>%
+  # mutate(type_comment=type_comment_fn)%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial)%>%
+         summarize(n=n())
+
+
+df_rt_pl %>% 
+  filter(task=="finalTest")%>%
+  # mutate(listNum_appear1_initial=as.numeric(listNum_infinalOrder),
+  #        case_when(is.na(listNum_appear1_initial)~0,
+  #                  TRUE ~ listNum_appear1_initial))%>%
+  mutate(type_comment=type_comment_fn)%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial)%>%
+         summarize(n=n())
+df_rt_pl%>%
+  group_by(subject_id)%>%
+  summarize(n=n())
+```
+
+
+## final data for dreal only
+
+only for firebase data
+
+```{r}
+levelsStr_fn = c("Target: studied and tested at (n), Foil (n+1)", 
+                 "Studied-only (n); Foil (n+1)", 
+             "Target: : started and tested at (n) ; Appear once" ,
+             "Foil(n), Foil (n+1)",
+             "Foil(n); Appear once", 
+             "Studied-only (n); Appear once",
+             "Final Foil"
+)
+
+d1taf = f2_aligned%>% 
+    mutate(type_comment_fn=case_when(
+                                stimulusConditions=="B"~
+                                  "Target: : started and tested at (n) ; Appear once",
+                                stimulusConditions == "Cn"~
+                                  "Studied-only (n); Foil (n+1)",
+                                stimulusConditions =="Dn" ~ 
+                                  "Target: studied and tested at (n), Foil (n+1)",
+                                stimulusConditions=="A"~
+                                  "Studied-only (n); Appear once",
+                                stimulusConditions=="Fnn"~
+                                  "Foil(n), Foil (n+1)",
+                                stimulusConditions=="Fn"~
+                                  "Foil(n); Appear once",
+                                stimulusConditions=="FF" ~
+                                  "Final Foil"))%>%
+  filter(task=="finalTest")%>%
+  mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  # mutate(listNum_appear1_initial=as.numeric(listNum_infinalOrder),
+  #        case_when(is.na(listNum_appear1_initial)~0,
+  #                  TRUE ~ listNum_appear1_initial))%>%
+  mutate(type_comment=type_comment_fn)%>%
+  # mutate(type_comment=type_comment)%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial, subject_id)%>%
+         summarise(cr = mean(correct))%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial)%>%
+         summarise(cr = mean(cr))%>%
+  mutate(task=as.factor(task),type_comment=as.factor(type_comment))
+
+# tag each row with its row number
+d1taf_rows <- d1taf %>% mutate(row_id = row_number())
+
+# find the “bad” ones
+bad_points <- d1taf_rows %>%
+  filter(
+    is.na(listNum_appear1_initial) |    # missing x
+    is.na(cr)                    |    # missing y
+    !type_comment %in% levelsStr_fn      # shape would be NA
+  )
+
+if (nrow(bad_points) == 0) {
+  cat("No rows will be dropped by geom_point().\n")
+} else {
+  cat("Rows dropped by geom_point():\n")
+  print(bad_points)
+}
+
+ggplot(data=d1taf)+
+  geom_line(aes(x=listNum_appear1_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment),size=1)+ 
+  
+    geom_point(aes(x=listNum_appear1_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=4)+ 
+  facet_grid(.~task)+
+  scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="purple","Studied-only (n); Foil (n+1)"="green",
+             "Target: : started and tested at (n) ; Appear once" ="purple",
+             "Foil(n), Foil (n+1)" ="blue",
+             "Foil(n); Appear once" ="blue",
+             "Studied-only (n); Appear once" = "green",
+             "Final Foil"="red" ),breaks=levelsStr_fn )+
+  scale_shape_discrete(breaks=levelsStr_fn)+
+  scale_linetype_discrete(breaks=levelsStr_fn)+
+  theme(main="Final Teste by intial position chunk")
+```
+
+```{r}
+f2_aligned %>% 
+  filter(task=="finalTest")%>%
+  # mutate(listNum_appear1_initial=as.numeric(listNum_infinalOrder),
+  #        case_when(is.na(listNum_appear1_initial)~0,
+  #                  TRUE ~ listNum_appear1_initial))%>%
+  # mutate(type_comment=type_comment_fn)%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial, subject_id)%>%
+         summarise(cr = mean(correct))%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial)%>%
+         summarise(cr = mean(cr))
+```
+
+
+## FINAL plot 
+```{r,fig.width=8, fig.height=5}
+levelsStr_fn = c("Target: studied and tested at (n), Foil (n+1)", 
+                 "Studied-only (n); Foil (n+1)", 
+             "Target: : started and tested at (n) ; Appear once" ,
+             "Foil(n), Foil (n+1)",
+             "Foil(n); Appear once", 
+             "Studied-only (n); Appear once",
+             "Final Foil"
+)
+
+############ First plot
+d1taf = df_rt_pl%>% 
+  mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  filter(task=="finalTest")%>%
+  # mutate(listNum_appear1_initial=as.numeric(listNum_infinalOrder),
+  #        case_when(is.na(listNum_appear1_initial)~0,
+  #                  TRUE ~ listNum_appear1_initial))%>%
+  mutate(type_comment=type_comment_fn)%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial, subject_id)%>%
+         summarise(cr = mean(correct))%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial)%>%
+         summarise(cr = mean(cr))
+
+# 2. identify the rows that will be dropped by geom_point()
+dropped <- d1taf %>%
+  mutate(row_id = row_number()) %>%
+  filter(
+    is.na(listNum_appear1_initial) |   # missing x
+    is.na(cr)                     |   # missing y
+    !type_comment %in% levelsStr_fn     # not covered by your manual scales
+  )
+
+cat("Rows dropped due to missing values:\n")
+print(dropped)
+
+ggplot(data=d1taf)+
+  geom_line(aes(x=listNum_appear1_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment),size=1)+ 
+  
+    geom_point(aes(x=listNum_appear1_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=4)+ 
+  facet_grid(.~task)+ 
+  scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="purple","Studied-only (n); Foil (n+1)"="green", 
+             "Target: : started and tested at (n) ; Appear once" ="purple",
+             "Foil(n), Foil (n+1)" ="blue",
+             "Foil(n); Appear once" ="blue", 
+             "Studied-only (n); Appear once" = "green",
+             "Final Foil"="red" ),breaks=levelsStr_fn )+
+  scale_shape_discrete(breaks=levelsStr_fn)+
+  scale_linetype_discrete(breaks=levelsStr_fn)+
+  theme(main="Final Teste by intial position chunk")
+
+############ second plot
+d1taf = df_rt_pl%>% 
+    mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  filter(task=="finalTest")%>%
+  # mutate(listNum_appear1_initial=as.numeric(listNum_infinalOrder),
+  #        case_when(is.na(listNum_appear1_initial)~0,
+  #                  TRUE ~ listNum_appear1_initial))%>%
+  mutate(type_comment=type_comment_fn)%>%
+         group_by(task, condition,type_comment, listNum_infinalOrder, subject_id)%>%
+         summarise(cr = mean(correct))%>%
+         group_by(task, condition,type_comment, listNum_infinalOrder)%>%
+         summarise(cr = mean(cr))
+
+
+ggplot(data=d1taf)+
+  geom_line(aes(x=listNum_infinalOrder, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment),size=1)+ 
+    geom_point(aes(x=listNum_infinalOrder, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=4)+ 
+  facet_grid(.~task)+ 
+  scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="purple","Studied-only (n); Foil (n+1)"="green", 
+             "Target: : started and tested at (n) ; Appear once" ="purple",
+             "Foil(n), Foil (n+1)" ="blue",
+             "Foil(n); Appear once" ="blue", 
+             "Studied-only (n); Appear once" = "green",
+             "Final Foil"="red" ),breaks=levelsStr_fn )+
+  scale_shape_discrete(breaks=levelsStr_fn)+
+  scale_linetype_discrete(breaks=levelsStr_fn)+
+  theme(main="Final Teste by test position chunk")
+
+
+
+d1taf2 = df_rt_pl%>% 
+    mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  filter(task=="finalTest")%>%
+         group_by(task, condition,type_comment, testPos_appear1_initial )%>%
+         summarise(cr = mean(correct))
+
+ggplot(data=d1taf2)+
+  geom_line(aes(x=testPos_appear1_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+ 
+    geom_point(aes(x=testPos_appear1_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment))+ 
+  scale_color_manual(values=c("blue","blue","red","green","green","purple","purple"))+
+  facet_grid(.~task)
+
+d1taf = df_rt_pl%>% 
+  filter(task=="finalTest")%>%
+         group_by(task, condition,type_comment, listNum_infinalOrder)%>%
+         summarise(cr = mean(correct))%>%
+  mutate(type_comment=case_when(type_comment=="current target, in next trial" ~ "Target_n, Foil n+1",
+                                type_comment=="current target, not in next trial"~
+                                  "Target_n only",
+                                type_comment == "studied only, in next trial"~
+                                  "Studied-only n, foil n+1",
+                                type_comment=="studied only, not in trial"~
+                                  "Studied-only n only",
+                                type_comment=="tested only, in next trial"~
+                                  "Foil n, foil n+1",
+                                type_comment=="tested only, not in next trial"~
+                                  "Foil n only",))
+
+ggplot(data=d1taf)+
+  geom_line(aes(x=listNum_infinalOrder, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+ 
+    geom_point(aes(x=listNum_infinalOrder, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment))+ 
+  facet_grid(.~task)+ 
+  scale_color_manual(values=c("blue","blue","red","green","green","purple","purple"))
+
+
+```
+
+
+
+
+## individual difference plot
+d2_2=dfchanged%>%filter(task%in%c("pretest_response"))%>%
+  select(testpos,ip,probetype,correct,trialnum,testpos)%>%
+  arrange(ip,trialnum,testpos)%>%
+  # group_by(trial)%>%
+  mutate(last_type=lag(probetype),last_correct=lag(correct))%>%
+  filter(!is.na(last_type))%>%
+  group_by(testpos,ip,trialnum,last_correct,last_type,probetype)%>%
+  summarize(cr=mean(correct))%>%
+  group_by(testpos,ip,trialnum,last_correct,last_type,probetype)%>%                           
+  summarize(mcr=mean(cr),last_correct=as.factor(last_correct))
+
+d3_2=d2_2%>%filter(trialnum!=1)%>%
+  group_by(probetype,ip,last_correct,last_type)%>%
+  summarize(mcr=mean(mcr))%>%
+  pivot_wider(names_from = last_correct,values_from = mcr)%>%
+  filter(complete.cases(`0`))%>%
+  mutate(diff=`1`-`0`)%>%
+  filter(probetype=="TARGET_foil",last_type=="TARGET_foil")%>%
+  ungroup()%>%
+  # select(ip,diff)%>%
+  mutate(ip = fct_reorder(ip, diff))
+
+d3
+
+ggplot(data=d3_2,
+       aes(x=ip,y=diff))+
+  geom_hline(yintercept = 0,color="red")+
+  geom_point()+
+  geom_line()
+
+```{r}
+library(tidyverse)
+names(df_rt_pl)
+d1t_indv = df_rt_pl%>% 
+  filter(task=="initialTest_response")%>%
+      mutate(listNum_appear0_initial=as.numeric(listNum_appear0_initial))%>%
+      # arrange(ip, listNum_appear0_initial,)%>%
+      filter(listNum_appear0_initial<=4)%>%
+      mutate(colorskeme = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
+                                is_currentObjAppear1=="false"  ~ paste("Foil from last trial",type_comment),
+                                  current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
+          group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
+          #task and condition is useless here because they only have one level
+         summarise(cr = mean(correct), se = sd(correct) / sqrt(n()))%>%
+         filter(colorskeme=="Target studied from current list",listNum_appear0_initial %in% c(2,3) )%>%
+        mutate(subject_id = reorder(subject_id, cr))
+
+
+
+p_indvdiff = ggplot(data=d1t_indv, aes(x=subject_id, group=interaction(condition,task,colorskeme, listNum_appear0_initial),color=colorskeme))+
+  geom_line(aes(y=cr))+
+  geom_point(aes(y=cr,shape=colorskeme),size =4 )+
+  geom_errorbar(aes(ymin=cr-se, ymax=cr+se), width=.1, position=position_dodge(0.05)) +
+  facet_grid(listNum_appear0_initial~.)+
+  scale_color_manual(values=c("blue","green","green","green","purple"))+
+  theme(legend.position = "none")
+p_indvdiff
+
+
+d1t_indv = df_rt_pl%>% 
+  filter(task=="initialTest_response")%>%
+      mutate(listNum_appear0_initial=as.numeric(listNum_appear0_initial))%>%
+      # arrange(ip, listNum_appear0_initial,)%>%
+      filter(listNum_appear0_initial%in%c(2,3))%>%
+      # mutate(colorskeme = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
+      #                           is_currentObjAppear1=="false"  ~ paste("Foil from last trial",type_comment),
+      #                             current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
+      mutate(colorskeme = case_when(
+                type_comment %in% c("current target, in next trial","current target, not in next trial" ) ~"Target studied from current list",
+                type_comment %in% c("tested only, in next trial","tested only, not in next trial" )  ~ "Foil current trial",
+                TRUE~ paste("foil-lastTrial",type_comment)))%>%
+          # group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
+          # task and condition is useless here because they only have one level
+         # summarise(cr = mean(correct), se = sd(correct) / sqrt(n()))%>%
+         select(task,condition,colorskeme,subject_id,correct,listNum_appear0_initial)%>%
+         group_by(task, condition, colorskeme,subject_id,listNum_appear0_initial)%>%
+         summarise(correct = mean(correct))%>% #because each categories of that subject has more than 1 trial, so calculate performace of particiaptn i on specific condition first (.e.g average 3 trials performance in this condition)
+        pivot_wider(names_from = listNum_appear0_initial, values_from = c(correct))%>% 
+        ungroup()%>%
+        # %>%
+        mutate(cr_diff = `3` - `2`) %>%
+        #%>%   
+filter(!is.na(rt))%>%
+# filter(!is.na(rt),rt<3000)%>%
+        mutate(colorskeme=as.factor(colorskeme), subject_id=as.factor(subject_id))%>%
+          group_by(task, condition,colorskeme,subject_id)%>%
+          summarise(mean_cr_diff = mean(cr_diff), se_cr_diff = sd(cr_diff) / sqrt(n()))%>%
+          # %>%
+        #  filter(listNum_appear0_initial %in% c(2,3) )%>%
+        mutate(colorskeme = factor(colorskeme, levels = c(levels(colorskeme)[5], levels(colorskeme)[-5])))%>%
+        mutate(subject_id = reorder(subject_id, mean_cr_diff))
+
+# d1t_indv$cr_diff
+d1_density=d1t_indv %>% 
+group_by(colorskeme) %>%
+  summarise(density_data = list(density(mean_cr_diff, na.rm = TRUE))) %>%
+  mutate(density_x = map(density_data, ~ .x$x),
+    density_y = map(density_data, ~ .x$y)) %>%
+  select(-density_data) %>%
+  unnest(c(density_x, density_y))
+
+d1_density
+
+density_y = d1_density %>%
+  group_by(colorskeme) %>%
+  filter(density_y == max(density_y)) 
+
+ggplot(data=d1t_indv)+
+  geom_density(aes(x=mean_cr_diff, fill=colorskeme,color=colorskeme,), alpha=0.5) +
+  # stat_density(aes(x=mean_cr_diff, fill=colorskeme), geom="line", position="identity") +
+  geom_vline(data = density_y, aes(xintercept = density_x, color = colorskeme), linetype="dashed") +
+  geom_text(data = density_y, 
+        aes(x = density_x, label = round(density_x, 2), y = 0.5), angle = 90, vjust = -0.5, hjust = 1.2, size=5)+
+  # facet_wrap(~colorskeme, scales = "free") +
+  facet_wrap(~colorskeme) +
+  theme_minimal() +
+  theme(text = element_text(size = 12), legend.position = "null")+
+  scale_fill_manual(values=c("purple","blue","green","green","green"))
+
+# p_indvdiff = ggplot(data=d1t_indv, aes(x=subject_id,y=cr,
+#                             group=interaction(condition,task,colorskeme),color=colorskeme))+
+#   geom_line(aes(y=cr))+
+#   geom_point(aes(y=cr,shape=colorskeme),size =4 )+
+#   geom_errorbar(aes(ymin=cr-se, ymax=cr+se), width=.1, position=position_dodge(0.05)) +
+#   facet_grid(colorskeme~.)+
+#   scale_color_manual(values=c("blue","green","green","green","purple"))+
+#   theme(text = element_text(size = 30))+
+#   geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+#   scale_x_discrete(labels = function(x) substr(x, 1, 3))
+#   # theme(legend.position = "none")
+#   # ylim(c(-1.5,1.5))
+# p_indvdiff
+
+
+  # theme(legend.position = "none")
+```
+
+## Distribution plot for only 1 condition
+```{r}
+d1t_indv = df_rt_pl%>% 
+  filter(task=="initialTest_response")%>%
+      mutate(listNum_appear0_initial=as.numeric(listNum_appear0_initial))%>%
+      mutate(colorskeme = case_when(
+                type_comment %in% c("current target, in next trial","current target, not in next trial" ) ~"Target studied from current list",
+                type_comment %in% c("tested only, in next trial","tested only, not in next trial" )  ~ "Foil current trial",
+                TRUE~ paste("foil-lastTrial",type_comment)))%>%
+
+         select(task,condition,colorskeme,subject_id,correct,listNum_appear0_initial)%>%
+         filter(listNum_appear0_initial %in% c(2,3) )%>%
+         group_by(task, condition, colorskeme,subject_id,listNum_appear0_initial)%>%
+         summarise(mean_cr_diff = mean(correct))%>%
+        ungroup()%>%
+  mutate(colorskeme=as.factor(colorskeme))%>%
+        mutate(colorskeme = factor(colorskeme, levels = c(levels(colorskeme)[5], levels(colorskeme)[-5])))%>%
+        mutate(subject_id = reorder(subject_id, mean_cr_diff))
+d1t_indv
+# d1t_indv$cr_diff
+# d1_density=d1t_indv %>% 
+# group_by(colorskeme) %>%
+#   summarise(density_data = list(density(mean_cr_diff, na.rm = TRUE))) %>%
+#   mutate(density_x = map(density_data, ~ .x$x),
+#     density_y = map(density_data, ~ .x$y)) %>%
+#   select(-density_data) %>%
+#   unnest(c(density_x, density_y))
+
+# d1_density
+# 
+# density_y = d1_density %>%
+#   group_by(colorskeme) %>%
+#   filter(density_y == max(density_y)) 
+
+ggplot(data=d1t_indv)+
+  geom_density(aes(x=mean_cr_diff, fill=colorskeme,color=colorskeme, group=interaction(colorskeme,listNum_appear0_initial)), alpha=0.5) +
+  # stat_density(aes(x=mean_cr_diff, fill=colorskeme), geom="line", position="identity") +
+  # facet_wrap(~listNum_appear0_initial) +
+  theme_minimal() +
+    facet_grid(listNum_appear0_initial~colorskeme) +
+  theme(text = element_text(size = 10))+
+  scale_fill_manual(values=c("purple","blue","green","green","green"))
+
+```
+
+
+
+#inferential statistics
+```{r}
+#performance in category
+d_perform = df_rt_pl%>% 
+  filter(task=="initialTest_response")%>%
+      mutate(listNum_appear0_initial=as.numeric(listNum_appear0_initial))%>%
+      filter(listNum_appear0_initial%in%c(2,3))%>%
+      mutate(colorskeme = case_when(
+                type_comment %in% c("current target, in next trial","current target, not in next trial" ) ~"Target studied from current list",
+                type_comment %in% c("tested only, in next trial","tested only, not in next trial" )  ~ "Foil current trial",
+                TRUE~ paste("foil-lastTrial",type_comment)))%>%
+                filter(!is.na(rt))%>%
+         select(colorskeme,subject_id,correct,listNum_appear0_initial)%>%
+         group_by(colorskeme,subject_id,listNum_appear0_initial)%>%
+         summarise(correct = mean(correct))
+
+
+
+d_perform
+
+# Perform paired t-test for each colorskeme category
+# library(dplyr)
+# library(tidyr)
+
+# Reshape data for paired t-test
+d_perform_wide <- d_perform %>%
+  pivot_wider(names_from = listNum_appear0_initial, values_from = correct, names_prefix = "list_") %>%
+  filter(!is.na(list_2) & !is.na(list_3)) # Ensure no missing values for paired t-test
+
+# Perform paired t-test for each colorskeme
+t_test_results <- d_perform_wide %>%
+  group_by(colorskeme) %>%
+  summarise(
+    t_test = list(t.test(list_2, list_3, paired = TRUE, alternative = "two.sided")),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    p_value = map_dbl(t_test, ~ .x$p.value),
+    t_statistic = map_dbl(t_test, ~ .x$statistic)
+  )
+
+# Display results
+t_test_results %>%
+  select(colorskeme, t_statistic, p_value)
+
+ 
+```
+
+
+Foil current trial                                   0.983  
+foil-lastTrial current target, in next trial, from … 0.00731
+foil-lastTrial studied only, in next trial, from la… 0.968  
+foil-lastTrial tested only, in next trial, from las… 0.834 
+Target studied from current list                     0.00814
+
+## bayesian way
+```{r}
+ # Perform Bayesian paired t-test for each colorskeme category
+  library(BayesFactor)
+
+  # Reshape data for Bayesian paired t-test
+  d_perform_wide <- d_perform %>%
+    pivot_wider(names_from = listNum_appear0_initial, values_from = correct, names_prefix = "list_") %>%
+    filter(!is.na(list_2) & !is.na(list_3)) # Ensure no missing values
+
+  # Perform Bayesian paired t-test for each colorskeme
+  bayesian_results <- d_perform_wide %>%
+    group_by(colorskeme) %>%
+    summarise(
+      bf = list(ttestBF(x = list_2, y = list_3, paired = TRUE)),
+      .groups = "drop"
+    ) %>%
+    mutate(
+      bf_value = map_dbl(bf, ~ exp(.x@bayesFactor$bf))
+    )
+
+# BF > 1: Evidence favors the alternative hypothesis.
+# BF < 1: Evidence favors the null hypothesis.
+# BF ≈ 1: Evidence is inconclusive.
+  # Display results
+  bayesian_results %>%
+    select(colorskeme, bf_value)
+
+```

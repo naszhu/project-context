@@ -1,0 +1,2 @@
+1. there is word and context, concatenated into episodic image. 
+2. 10 lists of 20 images

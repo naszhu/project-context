@@ -1,0 +1,919 @@
+
+
+
+
+
+
+
+    const timeout = 60 * 60 * 1000; //  minutes in milliseconds
+    const isfullscreen = true;
+    const condi = "b";//f, b, r
+    let lastActivityTime = Date.now();
+    
+    document.body.style.backgroundColor = "white";
+    
+    window.setTimeout(function() {
+      const currentTime = Date.now();
+      if (currentTime - lastActivityTime > timeout) {
+        alert(`
+          Dear participant,
+
+          We regret to inform you that the experiment has been terminated automatically due to an extended period of inactivity. Please close the page to finalize the results. And we kindly request you do not try to do this experiment again.
+
+          We would like to thank you for your participation. Although you were unable to complete this particular experiment, we hope that you will consider joining us for future experiments. Thank you again for your time and effort, you may close the page now.
+        `);
+        jsPsych.endExperiment();
+      }
+    }, 1000);
+    
+    var jsPsych = initJsPsych({
+      on_finish: function() {
+        jsPsych.data.displayData();
+        // jsPsych.data.get().localSave('csv', 'ekstra.csv')
+      }
+    });
+    var timeline = [];
+    // jsPsych.data.get().addToAll({condition: condi});
+    var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+    var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+    // var condition = condi;
+    
+    jsPsych.data.addProperties({
+      subject_id: subject_id,
+      study_id: study_id,
+      session_id: session_id,
+      condition: condi
+    });
+
+    var enter_fullscreen = {
+      type: jsPsychFullscreen,
+      fullscreen_mode: isfullscreen
+    }
+    
+    var enterid = {
+      type: jsPsychSurveyText,
+      questions: [{prompt: "What is your prolific ID?"}],
+      on_finish:function(data){
+        data.id=data.response["Q0"]
+      },
+      data: {
+        task: "enterid"
+      }
+    }
+    timeline.push(enterid); 
+ 
+    var browser_check = {
+      type: jsPsychBrowserCheck,
+      // allow_window_resize: false,
+      // minimum_width: 1920,
+      // minimum_height: 1080,
+      inclusion_function: (data) => {
+        return data.browser == 'chrome' && data.mobile === false
+      },
+      exclusion_message: (data) => {
+        if(data.mobile){
+          return '<p color: black;background: white;>You must use a desktop/laptop computer to participate in this experiment.</p>';
+        } else if(data.browser !== 'chrome'){
+          return '<p color: black;background: white;>You must use Chrome as your browser to complete this experiment.</p>'
+        }
+      }
+    };
+    timeline.push(browser_check);
+
+    // window.onbeforeunload = function() {
+    //   return "Do you really want to leave?";
+    //   //if we return nothing here (just calling return;) then there will be no pop-up question at all
+    //   //return;
+    // };
+
+ 
+
+    var fixation = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: "NO_KEYS",
+      trial_duration: fixation_duration,
+      data: {
+        task: 'fixation'
+      }
+    };
+
+
+
+    function range(start, end)
+    {
+        var array = new Array();
+        for(var i = start; i < end; i++)
+        {
+            array.push(i);
+        }
+        return array;
+    }
+
+    function readTextFile(file) {
+
+      const rawFile = new XMLHttpRequest();
+      let content = null;
+      rawFile.open("GET", file, false);
+      rawFile.onreadystatechange = function () {
+          if (rawFile.readyState === 4) {
+              if (rawFile.status === 200 || rawFile.status === 0) {
+                  content = rawFile.responseText;
+              }
+          }
+      };
+      rawFile.send(null);
+      return content;
+    };
+
+    function warningfunc(message,timedur){
+
+      var messageDiv = document.createElement("div");
+      messageDiv.innerHTML = message;
+      // messageDiv.className="jspsych-content-wrapper"
+      messageDiv.style.padding = `350px 0`;
+      messageDiv.style.textAlign = "center";
+      messageDiv.style.margin = "0px"
+      // messageDiv.style.height = "100vh";
+      messageDiv.style.display = "flex";
+      messageDiv.style.justifyContent = "center";
+      var exp = document.getElementsByClassName("jspsych-content-wrapper")[0]
+      exp.style.visibility = "hidden";
+      jsPsych.pauseExperiment() 
+      document.body.prepend(messageDiv);
+      setTimeout(function() {
+        document.body.removeChild(messageDiv); // Remove the div
+        exp.style.visibility = "visible";
+        jsPsych.resumeExperiment();
+      }, timedur);//remove after 1.5s
+    }
+
+    function arrsum(ar){return(ar.reduce((a,b)=>a+b,0))};
+
+    let textFile = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/picnames.txt';
+    let rtf = readTextFile(textFile);
+    let rnl = rtf.replace(/\r/g, '');
+    var picnames = rnl.split('\n').slice(0,2362-1); 
+
+    // console.log(picnames.findIndex(iobj=>iobj=="Thumbs.db"))
+    // console.log(picnames)
+    /******************
+      Stating constants
+      Stating all const variables here
+    **********************/
+    var is_debug = true;
+    var num_trials_useddebug = 10;
+    if (is_debug) {
+      var study_duration = 100;
+      var prompt_duration = 100;
+      var counting_duration = 100;
+      var fixation_duration = 100;
+      var counting_gap = 0;
+      var posgap_duration = 0;
+      var rtfastcut_duration = 0;
+      var response_rtlimit_duration = 100;
+      var responsekeys = "NO_KEYS";
+      var choiceenter = "NO_KEYS";
+      var instruction_duration = 100; //1 hour
+      var finaltest_rtlimit_duration = 100;
+      var warning_duration = 10;
+      var feedbackmes_duration = 10;
+    } else{
+      var study_duration = 2000;
+      var prompt_duration = 3000;
+      var counting_duration = 2000;
+      var counting_gap = 1000;
+      var fixation_duration = 1000;
+      var posgap_duration = 100;
+      var rtfastcut_duration = 150;
+      var response_rtlimit_duration = 3500; //3.5s to respond each question
+      var responsekeys = ['f','j'];
+      var choiceenter = 'enter';
+      var instruction_duration = 1000*60*60; //1 hour
+      var finaltest_rtlimit_duration = 4000;
+      var warning_duration = 1500;
+      var feedbackmes_duration = 2000; 
+    }
+    // console.log(fixation_duration)
+
+
+    const picdir = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/images/';
+    const num_imgstudy_trial = 20; //number of item studided per trial
+    const num_item_test = 20; //number of item tested per trial
+    const num_trials=10; //number of trials
+ //same as above, but created to only used in for loop below
+    const num_study_tot=20*10; //20 item per trial, 10 trials 
+    const num_foil_tot=10*10; //100 foils
+    const num_digits_pres = 8; // present n digits each trial to fill 24s
+    // const num_digits = 6; //6 digits: 4,5,6,7,8,9
+    const num_pretest_tot = num_study_tot+num_foil_tot;
+    const num_finalt_foil = 210; //210 foils in final tests
+    const picnames_random = jsPsych.randomization.repeat(picnames, 1);
+    const tot_study_list = picnames_random.slice(0,num_study_tot);//200
+    const tot_study_list_nf = range(0,10).map(i=>tot_study_list.slice(i*20,i*20+20));//increment by 20, 20 items per list
+    const tot_foil_list = picnames_random.slice(num_study_tot,num_study_tot+num_foil_tot); //100 foils sliced from tot random list
+    const tot_finalt_foil_list = picnames_random.slice(num_pretest_tot,num_pretest_tot+num_finalt_foil); //210
+    const tot_finalt_foil_list_nf = range(0,10).map(i=>tot_finalt_foil_list.slice(i*21,i*21+21));//21 foils per trial
+    const tot_foil_list_nf = range(0,10).map(i=>tot_foil_list.slice(i*10,i*10+10));//10 foils per trial
+    const tot_digit_list_nf = range(0,10).map(i=>jsPsych.randomization.sampleWithReplacement(range(4,10),num_digits_pres)); //create nf easier for final test algorithm coding
+    const tot_digit_list = tot_digit_list_nf.flat();
+    // console.log(tot_digit_list_nf)
+    // range(0,100).map(i=>jsPsych.randomization.sampleWithoutReplacement(range(0,10),1)[0]);//10 lists 100 digits
+    var tot_target_list_nf = []; //nonflat array
+    var tot_nontarget_list_nf = []; // nonflat array
+    var tot_pretest_list_nf = [];
+    const tot_correct_sum = range(0,10).map(i=>arrsum(tot_digit_list.slice(i*10,(i+1)*10)));
+    // digit_list_itrial = digit_list_itrial.reduce((a,b)=>a+b,0); 
+
+    // const finaltest_list = ;
+    // console.log(target_list);
+    // console.log(tot_foil_list);
+    /* Starting exp vars*/
+    var preloass= {
+        type: jsPsychPreload,
+        images: picnames_random.slice(0,num_pretest_tot+num_finalt_foil).map(i_pic=>picdir+i_pic),
+        message: "loading pictures...",
+        show_detailed_errors: false,
+        error_message: "The experiment failed to load due to some glitch. The experiment has to end now",
+        on_error: function(filepath){
+          jsPsych.endExperiment();
+        }
+
+    }
+    timeline.push(preloass)
+    // console.log(fixation_duration)
+    
+    var instructions = {
+        type: jsPsychSurveyMultiChoice,
+        questions: [
+          {
+          prompt: `<h1 style='text-align: left;color: crimson;background: white;font: caption-;''> INDIANA UNIVERSITY STUDY INFORMATION SHEET FOR RESEARCH MEMORY TEST FOR WORD AND </h1> <br>
+
+            <h1 style='color: black;text-align: left;background: white;font: caption;'> You are being asked to participate in a research study. Scientists do research to answer important questions that might help change or improve the way we do things in the future. This document will give you information about the study to help you decide whether you want to participate. Please read this form, and ask any questions you have, before agreeing to be in the study.</h1><br>
+
+            <h1 style='color: black;text-align: left;background: white;font: caption;'> All research is voluntary. You can choose not to take part in this study. If you decide to participate, you can change your mind later and leave the study at any time. You will not be penalized or lose any benefits if you decide not to participate or choose to leave the study later.</h1> <br> 
+
+            <h1 style='color: black;text-align: left;background: white;font: caption;'> This research is intended for individuals 18 years of age or older. If you are under age 18, do not complete the survey. This research is for residents of the United States. If you are not a U.S. resident, do not complete the survey.</h1> <br> 
+
+            <h1 style='color: black;text-align: left;background: white;font: caption;'> The purpose of this study is to investigate how people remember words and pictures.</h1> <br> <h1 style='color: black;text-align: left;background: white;font: caption;'> We are asking you if you want to be in this study because you registered for this study on Prolific. The study is being conducted by Dr. Richard Shiffrin, a professor in the department of Psychological and Brain Science and the Program in Cognitive Science.</h1> <br> 
+
+
+            
+            <h1 style='color: black;text-align: left;background: white;font: caption;'> To protect against loss of confidentiality, any identifiable information from the data that could lead back to you will be removed within two days of your completion of the study.We don’t think you will have any personal benefits from taking part in this study, but we hope to learn things that will help researchers in the future.
+            </h1> <br> 
+            
+                        <h1 style='color: black;text-align: left;background: white;font: caption;'><strong>You will be paid for participating in this study.</strong> We pay at an hourly rate of $10.50, and the payment will be disbursed within 5 days after completing the experiment, there is no cost to participate in this study. <strong>This experiment takes about 25 mins, and you will be paid 4.37</strong> </h1><br>
+            <h1 style='color: black;text-align: left;background: white;font: caption;'> 
+          <strong>If you agree to be in the study, you will do the following things.</strong> First, the experiment will ask for you to input your ID in Prolific. You must use desktop or PC to do this experiment. You must use Chrome as your browser.
+          The experiment contains practice trials and real trials. In these trials, you will see a list of pictures to remember. After each list, you will see some digits to add up. Then type the sum. You will then see test pictures. If a picture was one you had studied in the preceding list, you will press the J key, and if not, press the F key.  
+          </h1> <br> 
+            <h1 style='color: black;text-align: left;background: white;font: caption;'> We will protect your information and make every effort to keep your personal information confidential, but we cannot guarantee absolute confidentiality. No information which could identify you will be shared in publications about this study. Your personal information may be shared outside the research study if required by law. We also may need to share your research records with other groups for quality assurance or data analysis. These groups include the Indiana University Institutional Review Board or its designees, and state or federal agencies who may need to access the research records (as allowed by law). </h1><br>
+
+            <h1 style='color: black;text-align: left;background: white;font: caption;'> If you have questions about the study or encounter a problem with the research, contact the researcher. For questions about the study, contact either Shuchun Lai at shulai@iu.edu , or Dr. Richard Shiffrin at shiffrin@indiana.edu.
+            For questions about your rights as a research participant, to discuss problems, complaints, or concerns about a research study, or to obtain information or to offer input, please contact the IU Human Research Protection Program office at 800-696-2949 or at irb@iu.edu. </h1><br>
+            
+            <h1 style='color: black;text-align: left;background: white;font: caption;'> Thank you for agreeing to participate in our research. Before you begin, please note that the data you provide may be collected and used by Prolific as per its privacy agreement. Additionally, this research is for subjects over the age of 18*; if you are under the age of 18, please do not complete this survey.</h1><br>
+            `,
+          
+          name: 'consent', 
+          options: ['I have read and understand this information and agree to join this study'], 
+          required: true
+          }, 
+      ],
+    };
+    timeline.push(instructions);
+    timeline.push(enter_fullscreen);
+    
+
+    var fixation = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: "NO_KEYS",
+      trial_duration: fixation_duration,
+      data: {
+        task: 'fixation'
+      }
+    };
+
+    var instructions_practice = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+      <p style='text-align: justify;color: black;background: white;font: caption-;''>(1) A list of pictures will appear on the screen one at a time. Study the pictures as they appear.</p>
+      <p style='text-align: justify;color: black;background: white;font: caption-;''>(2) Then, after a brief blank period, you will see a series of numbers. Add those as they come, and when you see the words “TYPE THE SUM”, use the number keys to type your answer. </p>
+      <p style='text-align: justify;color: black;background: white;font: caption-;''>(3) Then, you will see a series of test pictures. Following each, press the <strong>“J”</strong> to indicate you <strong>have seen</strong> this picture in the study list, and press the <strong>“F”</strong> key to indicate you <strong>have not seen</strong> this picture in the study list that was just presented.</p>
+      <p style='text-align: justify;color: black;background: white;font: caption-;''>There will be a practice list followed by ten lists of pictures, each followed by a test.</p>
+      <p style='text-align: justify;color: black;background: white;font: caption-;''>Do not worry if you were unsure about many test pictures.That is normal but make your best guess. </p>
+      <p style='text-align: justify;color: black;background: white;font: caption-;''> Please start the practice list now by pressing the enter key. </p>
+
+      `,
+      post_trial_gap: posgap_duration,
+      trial_duration: instruction_duration,
+      choices: choiceenter
+    };
+    
+
+    var instructions_test = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+      <p style='text-align: justify;color: black;background: white;font: caption-;''>
+        Now you have finished the practice. When ready, start the study list with the ‘enter’ key.</p>
+      `,
+      post_trial_gap: posgap_duration,
+      trial_duration: instruction_duration,
+      choices: choiceenter
+    };
+
+
+    var instructions_finaltest = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+      <p style='text-align: justify;color: black;background: white;font: caption-;''>
+        You will now see a series of test pictures. This time you will press the “F” key to indicate <FONT COLOR="red"> you have seen this picture <strong> some time during the experiment on ANY</strong> list </FONT>. You will press the “K” key to indicate that you have not seen this pictures on ANY list. When ready, start the study list with the ‘enter’ key.</p>
+      `,
+      post_trial_gap: posgap_duration,
+      trial_duration: instruction_duration,
+      choices: choiceenter
+    };
+
+
+    /**********************************************************************************
+    trials for tests started
+     **********************************************************************************/
+    for (let i_trial=0; i_trial<num_trials; i_trial++){
+      
+      // console.log("trialnum",i_trial)
+      const study_list_itrial = tot_study_list.slice(i_trial*20,i_trial*20+20);
+      const random_list_ind = jsPsych.randomization.repeat(range(0,20),1); //presented position stored for selected target, 20 study select 10 targets// original: jsPsych.randomization.sampleWithoutReplacement(range(0,20),10); 
+      const target_list_ind = random_list_ind.slice(0,10); //get 10 random indent 
+      const nontarget_list_ind = random_list_ind.slice(10,20);//get the rest non chosen target indent
+      const target_list_itrial = target_list_ind.map(i=>study_list_itrial[i]); //random select 10 targets from study list randomly
+      const nontarget_list_itrial = nontarget_list_ind.map(i=>study_list_itrial[i]); //get the nontargets names for the current trial
+      const foil_list_itrial = tot_foil_list.slice(i_trial*10,i_trial*10+10); //10 foils
+      const digit_list_itrial = tot_digit_list_nf[i_trial];
+      // console.log(digit_list_itrial,tot_digit_list_nf)
+      const raw_istest= Array(10).fill(0).concat(Array(10).fill(1));//get array 0 0 0... 1 1 1
+      const is_test_itrial = jsPsych.randomization.repeat(raw_istest,1); //length 20 test list
+      // console.log(is_test_ind); get length 20 random array of 0 and 1 (half half) 
+      tot_target_list_nf.push(target_list_itrial);
+      tot_nontarget_list_nf.push(nontarget_list_itrial); //push array in, so get nonflat array
+      const digits_list_sum_itrial = tot_correct_sum[i_trial]; 
+
+
+
+      // var preload_targets = {
+      //   type: jsPsychPreload,
+      //   images: target_list_itrial.map(i_pic=>picdir+i_pic),
+      // }
+      // var preload_foils = {
+      //   type: jsPsychPreload,
+      //   images: foil_list_itrial.map(i_pic=>picdir+i_pic),
+      // }
+      // timeline.push(preload_targets,preload_foils);
+
+      // const test_conct = target_list_itrial.concat(foil_list_itrial);
+      // const test_list_itrial_object = jsPsych.randomization.repeat(test_conct,1);
+      // const is_test = jsPsych.randomization.sampleWithoutReplacement([0,1],1);
+      // console.log(test_conct);
+      // console.log(test_list_itrial_object);
+      // console.log(is_test);
+      
+      const tot_study_list_itrial_object = range(0,num_imgstudy_trial).map(i=>
+      {return({
+        studyimg_dir: picdir+study_list_itrial[i],
+        studyimg: study_list_itrial[i],
+        prespos: i+1, //in [1,20]
+        lag: num_imgstudy_trial-i //in 20-[0,19] => [1,20]
+        })
+      })
+      // console.log(tot_study_list_itrial_object)
+
+      //following get stimuli list for tests
+      var i_tar=0;
+      var i_foil=0;
+      // var test_list_itrial_object = [];//stimuli list
+      const test_list_itrial_object = range(0,num_item_test).map(
+        i=>{
+          if(is_test_itrial[i]==1){
+
+            i_test_img = target_list_itrial[i_tar];
+            i_test_ind = target_list_ind[i_tar]+1; //tested position: indent (0,19) => (1,20)
+            i_lag = 20-i_test_ind+1; //lag, range from (1,20)
+            // console.log(i_tar)
+            i_tar++;
+            } else{
+
+            i_test_img = foil_list_itrial[i_foil];
+            i_test_ind = 0;
+            i_lag = 0;;
+            i_foil++;
+            }
+            is_i_old = target_list_itrial.includes(i_test_img); //flaw may exist here
+            if (is_i_old) {cr="j"} else{cr="f"}//old-j, new f
+            return(//object defined
+            {
+              isold: is_i_old,
+              testimg: i_test_img, 
+              testimg_dir: picdir+i_test_img, 
+              correct_response: cr,
+              prespos: i_test_ind,//
+              testpos: i+1, //1-20
+              lag: i_lag 
+              }
+            )
+        }
+      )
+      tot_pretest_list_nf.push(test_list_itrial_object.map(iobj=>iobj.testimg));
+
+      // console.log(test_list_itrial_object)
+
+      const digit_list_object = range(0,num_digits_pres).map(i=>{
+        return {
+          digits: digit_list_itrial[i],
+          prespos: i+1 //[1,20]
+        }
+      }); //must write return when {} is included in outside of array function, or automatic return first value when no outside {}, so in this case, return can follow with direct {} in side
+      // console.log(digit_list_object)
+
+      //
+      // var digit_list_object = []; 
+      // for (let i=0; i<num_digits; i++){ //10 digits
+
+      //   i_digit = digit_list_itrial[i];
+      //   digit_list_object.push(
+      //     {
+      //       digits: i_digit
+      //     }
+      //   )
+      // };
+      
+
+      // digit_list_itrial = digit_list_object.map(iobj=>iobj["digits"][0])
+
+
+    /**********************************************************************************
+    Following are procedures
+     **********************************************************************************/
+
+      var ISI = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: '',
+        choices: "NO_KEYS",
+        trial_duration: 100,
+      };
+
+      var v_study = {
+        type: jsPsychImageKeyboardResponse,
+        stimulus: jsPsych.timelineVariable('studyimg_dir'),
+        choices: "NO_KEYS",
+        trial_duration: study_duration,
+        post_trial_gap: posgap_duration,
+        data: {
+          task: "pretest_study",
+          trialnum: i_trial+1,
+          prespos: jsPsych.timelineVariable('prespos'), //presentation position
+          stimulus_id: jsPsych.timelineVariable('studyimg'),
+          lag: jsPsych.timelineVariable('lag') 
+        }
+      };
+
+      var v_counting = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: jsPsych.timelineVariable('digits'),
+        choices: "NO_KEYS",
+        trial_duration: counting_duration,
+        post_trial_gap: counting_gap,
+        data: {
+          task: "counting", 
+          trialnum: i_trial+1
+          // prespos: jsPsych.timelineVariable('prespos'),
+          // stimulus_id: jsPsych.timelineVariable('studyimg')
+        },
+        on_finish: function(data){
+          // console.log(digits_list_sum_itrial);
+        }
+      };
+
+
+      var v_countingsum_nd = {
+        type: jsPsychSurveyText,
+        questions: [
+          {prompt: 'Please enter the sum using your number keyboard'}
+        ],
+        on_finish: function(data){
+          console.log(digits_list_sum_itrial);
+          // console.log(current_digit_response)
+          ans = Object.values(data.response)[0]
+          data.correct = ans==data.correct_response
+          console.log(data.correct_response);
+        },
+        data: {
+          task: "counting_response",
+          correct_response: digits_list_sum_itrial,
+          // is_correct: ;
+          trialnum: i_trial+1
+        }
+      };
+
+      var v_countingsum_debug = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: "tempdebug",
+        on_finish: function(data){
+          // console.log(data.response)
+
+        },
+        data: {
+          task: "counting_response",
+          correct_response: digits_list_sum_itrial,
+          trialnum: i_trial+1
+        },
+        choices: "NO_KEYS",
+        trial_duration: 100
+      };
+
+      if (is_debug) v_countingsum=v_countingsum_debug;
+      else v_countingsum = v_countingsum_nd;
+
+      
+      var prompt_countingfeedback_correct = {
+        on_start: function(){
+        },
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: "<p background:white>CORRECT!</p>",
+        choices: "NO_KEYS",
+        trial_duration: feedbackmes_duration,
+        data:{
+          task: "promptfeedback"
+        },
+        post_trial_gap: posgap_duration
+      };
+
+      var prompt_countingfeedback_incorrect = {
+        on_start: function(){
+        },
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: "INCORRECT!",
+        choices: "NO_KEYS",
+        trial_duration: feedbackmes_duration,
+        data:{
+          task: "promptfeedback"
+        },
+        post_trial_gap: posgap_duration
+      };
+      
+      var warning_nondigits = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: 'NOT digits!',
+        choices: "NO_KEYS",
+        trial_duration: 300,
+        data:{
+          task: "warning message"
+        }
+      };
+
+      var if_correct = {
+        timeline: [prompt_countingfeedback_correct],
+        conditional_function: function(){
+            var data = jsPsych.data.get().last(1).values()[0];
+            if(data.correct){
+                return true;
+            } else {
+                return false;
+            }
+        }
+      }
+
+      var if_incorrect = {
+        timeline: [prompt_countingfeedback_incorrect],
+        conditional_function: function(){
+            var data = jsPsych.data.get().last(2).values()[0];
+            if(data.correct){//if correct, skip
+                return false;
+            } else {
+                return true;
+            }
+        }
+      }
+
+
+
+      var prompt_digits = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: 'Summing up the digits as they appear',
+        choices: "NO_KEYS",
+        trial_duration: prompt_duration,
+        data:{
+          task: "prompt"
+        },
+        post_trial_gap: posgap_duration
+      };
+
+      var prompt_recognize = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: 'Now judge if you have seen this pictures from the list you JUST studied before the digits',
+        choices: "NO_KEYS",
+        trial_duration: prompt_duration,
+        data:{
+          task: "prompt"
+        },
+        post_trial_gap: posgap_duration
+      };
+
+      var v_test = {
+        on_start: function(trial){
+          // console.log(trial.data.correct_response)
+        },
+        type: jsPsychImageKeyboardResponse,
+        stimulus: jsPsych.timelineVariable('testimg_dir'),
+        choices: responsekeys,
+        data:{
+          task: 'pretest_response',
+          correct_response: jsPsych.timelineVariable('correct_response'),
+          isold: jsPsych.timelineVariable('isold'),
+          prespos: jsPsych.timelineVariable('prespos'),
+          testpos: jsPsych.timelineVariable('testpos'),
+          lag: jsPsych.timelineVariable('lag'),
+          trialnum: i_trial+1,
+          stimulus_id: jsPsych.timelineVariable('testimg'),
+        },
+        prompt:'<p color: black;background: white;><strong>"F" for new&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"J" for old</strong></p>',
+        trial_duration: response_rtlimit_duration,
+        on_finish: function(data){
+          data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+          // console.log(data.key_press)
+          // console.log(data.response)
+          // console.log(data.rt)
+          if (data.response == null){
+            // console.log("out")
+            warningfunc(`<div font-size: larger; font-weight: bold; color: black;"> You need to respond faster!  </div>`,warning_duration)
+          }
+          if (data.rt < rtfastcut_duration & data.response!=null){
+            // console.log("out")
+            warningfunc(`<div style= "text-align:center" ; font-size: larger; font-weight: bold; color: black; class="center-screen" ><br> <br> <br> <br> <br> Too fast!  </div>`,warning_duration)
+          }
+        }, 
+        post_trial_gap: posgap_duration
+      };
+
+      var study_procedure = {
+        timeline: [v_study],
+        timeline_variables: tot_study_list_itrial_object
+      };
+
+      var counting_procedure = {
+        timeline: [v_counting],
+        timeline_variables: digit_list_object
+      };
+
+
+      var loop_countingsum = {
+          timeline: [v_countingsum],
+          loop_function: function(data){
+
+            // console.log()
+
+            if (is_debug) return(false)
+
+            var cur_response = Object.values(data.values()[0].response);
+            // console.log(cur_response);
+            isdigits = /^[0-9]*$/.test(cur_response);
+            // console.log(isdigits);
+              if(!isdigits){
+                warningfunc(`<div style="text-align:center ; font-size: larger; font-weight: bold; color: black;"><br> <br> <br> <br> <br> Not Digits! </div>`,warning_duration)
+                return true;
+              } else {
+
+                // currentans = data.values()[0].response;
+                return false;
+              }
+          }
+      }
+
+      var test_procedure = {
+        timeline: [v_test],
+        timeline_variables: test_list_itrial_object
+      };
+
+      // console.log("dd")
+      if (i_trial>=num_trials_useddebug) continue;
+
+      // timeline.push(counting_procedure,loop_countingsum,if_correct,if_incorrect);
+      // timeline.push(test_procedure)
+
+      if (i_trial==0){//practice instruction
+        timeline.push(instructions_practice,ISI,fixation,study_procedure,prompt_digits,fixation,counting_procedure,loop_countingsum,if_correct,if_incorrect,prompt_recognize,fixation,test_procedure);
+        // timeline.push(test_procedure);
+      } else if (i_trial==1) { //formal test instruction
+        timeline.push(instructions_test,ISI,fixation,study_procedure,prompt_digits,fixation,counting_procedure,loop_countingsum,if_correct,if_incorrect,prompt_recognize,fixation,test_procedure);
+      } else{ //no instruction
+        timeline.push(ISI,fixation,study_procedure,prompt_digits,fixation,counting_procedure,loop_countingsum,if_correct,if_incorrect,prompt_recognize,fixation,test_procedure);
+      }
+
+      // timeline.push(ISI,fixation,loop_countingsum,fixation,test_procedure);
+      
+    }
+    // /**********************************************************************************
+    // Following are final tests
+    //  **********************************************************************************/
+    //  tot_study_list
+    //  tot_foil_list
+    //  tot_foil_list_nf
+    //  tot_digit_list
+    // tot_digit_list_nf
+    //  tot_target_list_nf
+    //  tot_nontarget_list_nf
+    // tot_finalt_foil_list
+
+    const num_finaltest_eachtypeinpack = 7;//test 7 from each trial from studied nontested (10), studied tested (10), foils (10)// 21 FOIL to equal 3 types of target
+    const num_finaltest_eachpack = 42; //7*3 = 21 *2=42
+    
+
+    function get_randind_three(){
+      allind_nf = range(0,10).map(i=>jsPsych.randomization.repeat(range(0,10),1)); //10 trials, for every 10 items, randomize indent 1-10, nonflat array
+      ind_nf = range(0,10).map(i=>allind_nf[i].slice(0,num_finaltest_eachtypeinpack));
+      non_ind_nf = range(0,10).map(i=>allind_nf[i].slice(num_finaltest_eachtypeinpack,10));
+      return({'chosen': ind_nf, 'nonchosen': non_ind_nf})
+    }
+
+    const finalt_target_ind_all = get_randind_three();
+    const finalt_target_ind_chosen_nf = finalt_target_ind_all["chosen"]; //This indent e.g. if is 8 in first trial i.e.[1][8], means it is the 8th target being tested in first trial (but not the 8th tested item)
+    const finalt_target_ind_nonchosen_nf = finalt_target_ind_all["nonchosen"];
+
+    const finalt_nontarget_ind_all = get_randind_three();
+    const finalt_nontarget_ind_chosen_nf = finalt_nontarget_ind_all["chosen"];
+    const finalt_nontarget_ind_nonchosen_nf = finalt_nontarget_ind_all["nonchosen"];
+
+    const finalt_foil_ind_all = get_randind_three();
+    const finalt_foil_ind_chosen_nf = finalt_foil_ind_all["chosen"];
+    const finalt_foil_ind_nonchosen_nf = finalt_foil_ind_all["nonchosen"];
+
+    const finalt_target_list_nf = range(0,10).map(i=>range(0,num_finaltest_eachtypeinpack).map(j=>tot_target_list_nf[i][finalt_target_ind_chosen_nf[i][j]])); //array 10 elements, 7 sub elemnets each
+    const finalt_nontarget_list_nf = range(0,10).map(i=>range(0,num_finaltest_eachtypeinpack).map(j=>tot_nontarget_list_nf[i][finalt_nontarget_ind_chosen_nf[i][j]]));
+    const finalt_foil_list_nf = range(0,10).map(i=>range(0,num_finaltest_eachtypeinpack).map(j=>tot_foil_list_nf[i][finalt_foil_ind_chosen_nf[i][j]]));
+
+    // finalt_forward_list = range(0,10).map(finalt_target_list_nf[i].concat(finalt_nontarget_list_nf[i],finalt_foil_list_nf[i]))
+
+    const finalt_type_list_nf = range(0,10).map(i=>jsPsych.randomization.repeat(["TARGET_target","TARGET_nontarget","TARGET_foil","FOIL","FOIL","FOIL"],num_finaltest_eachtypeinpack));//21 foil, 7 other type each for each list/trial before, arranged in order; 10 * 28 dimension
+
+    var iitem = -1; //-1 becuase iitem++ is before return
+    const finalt_allcondi_list_obj_nf = range(0,num_trials).map(itrial=> {
+
+      var i_ft_Ttar = 0;//ident of final test Target-previous target
+      var i_ft_Tnontar = 0;
+      var i_ft_Tfoil = 0;
+      var i_ft_F = 0;
+      return(range(0,num_finaltest_eachpack).map(jpos=>{
+
+        iitem++;
+        itype = finalt_type_list_nf[itrial][jpos];
+        prespos_iposintrial_study = null;//null for intialization
+        prespos_iposintrial_test = null;
+        if (itype == "TARGET_target") { 
+
+          // prespos_iposintrial_test = finalt_target_ind_chosen_nf[itrial][i_ft_Ttar];
+          i_test_img = finalt_target_list_nf[itrial][i_ft_Ttar];
+          prespos_iposintrial_test = tot_pretest_list_nf[itrial].findIndex(iobj=>iobj==i_test_img) + 1; //presented position in test +1 
+          // console.log(tot_pretest_list_nf[itrial],i_test_img,prespos_iposintrial_test);
+          prespos_iposintrial_study = tot_study_list_nf[itrial].findIndex(iobj=>iobj==i_test_img)+1;//presented position in study
+          cr = "j"; //j for old
+          i_ft_Ttar++;
+        } else if(itype == "TARGET_nontarget"){
+
+          i_test_img = finalt_nontarget_list_nf[itrial][i_ft_Tnontar];
+          prespos_iposintrial_study = tot_pretest_list_nf[itrial].findIndex(iobj=>iobj==i_test_img) + 1;
+          cr = "j"; //j for old
+          i_ft_Tnontar++;
+        } else if(itype == "TARGET_foil"){
+
+          prespos_iposintrial_test = finalt_foil_ind_chosen_nf[itrial][i_ft_Tfoil]; //10 by 7
+          i_test_img = finalt_foil_list_nf[itrial][i_ft_Tfoil];
+          cr = "j"; //j for old
+          i_ft_Tfoil++;
+        } else if(itype == "FOIL"){
+
+          i_test_img = tot_finalt_foil_list_nf[itrial][i_ft_F];//there is another method to test here 10 by 21
+          cr = "f"; //f for new
+          i_ft_F++;
+        } else {
+
+          console.log("error!");
+          // jsPsych.endExperiment('SYSTEM ERROR! THANKS FOR YOUR PARTICIPATION. YOUR CREDITS WILL BE GIVEN.')
+        }
+
+        if (i_test_img == undefined)  {console.log("ERROR!")}
+        
+        // if (i_test_img==)
+        return {
+          probetype: finalt_type_list_nf[itrial][jpos],
+          testimg: i_test_img, 
+          testimg_dir: picdir+i_test_img, 
+          correct_response: cr,
+          prespos_itrial: itrial+1,//
+          prespos_iposintrial_study: prespos_iposintrial_study,
+          prespos_iposintrial_test: prespos_iposintrial_test,// which trial was it presented 1-10
+          // testpos: iitem+1 //1-420
+        }
+        }))
+    });
+
+    
+    // console.log(tot_pretest_list_nf)
+    // console.log()
+    
+    function assign_testpot(arr) {
+      // arrnew = arr;
+      arrnew=[];
+      for (let i=0;i<arr.length;i++){
+        objnow = Object.assign({}, arr[i]);
+        objnow["testpos"]=i+1;
+        arrnew.push(objnow);
+      }
+      return(arrnew)
+    }
+    
+    const finalt_forward_list_obj = assign_testpot(finalt_allcondi_list_obj_nf.flat());
+    // console.log(finalt_forward_list_obj)
+    const finalt_backward_list_obj = assign_testpot(range(0,num_trials).map(i=>finalt_allcondi_list_obj_nf[num_trials-1-i]).flat()) //use num_trials because nf obj list packed by it (10)
+    const finalt_random_list_obj = assign_testpot(jsPsych.randomization.repeat(finalt_allcondi_list_obj_nf.flat(),1));
+    if (condi=="f") condi_list=finalt_forward_list_obj;
+    else if(condi == "b") condi_list = finalt_backward_list_obj;
+    else if(condi == "r") condi_list = finalt_random_list_obj;
+
+    // // console.log(finalt_allcondi_list_obj_nf.flat())
+    // // console.log(finalt_forward_list_obj)
+    // // console.log(finalt_backward_list_obj)
+    // // console.log(finalt_random_list_obj)
+
+    
+    // var preload_final = {
+    //     type: jsPsychPreload,
+    //     images: finalt_target_list_nf.flat().map(i_pic=>picdir+i_pic),
+    // }
+    // timeline.push(preload_final)
+
+
+    var v_finaltest = {
+      type: jsPsychImageKeyboardResponse,
+      stimulus: jsPsych.timelineVariable('testimg_dir'),
+      choices: responsekeys,
+      data:{
+        task: 'finalt_response',
+        correct_response: jsPsych.timelineVariable('correct_response'),
+        probetype: jsPsych.timelineVariable('probetype'),
+        prespos_itrial: jsPsych.timelineVariable('prespos_itrial'),
+        prespos_iposintrial_test: jsPsych.timelineVariable('prespos_iposintrial_test'),
+        testpos: jsPsych.timelineVariable('testpos'),
+        prespos_iposintrial_study: jsPsych.timelineVariable('prespos_iposintrial_study'),
+        // lag: jsPsych.timelineVariable('lag'),
+        stimulus_id: jsPsych.timelineVariable('testimg'),
+      },
+      prompt:'<p color: black;background: white;><strong>"F" for new&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"J" for old</strong></p>',
+      trial_duration: finaltest_rtlimit_duration,
+      on_finish: function(data){
+        data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+        if (data.response == null & (!is_debug)){
+          // console.log("out")
+          warningfunc(`<div font-size: larger; font-weight: bold; color: black; background: white; "> You need to respond faster!  </div>`,warning_duration)
+        }
+        if (data.rt < rtfastcut_duration & data.response!=null & (!is_debug)){
+          // console.log("out")
+          warningfunc(`<div style= "text-align:center" ; font-size: larger; font-weight: bold; color: black; background: white; class="center-screen" ><br> <br> <br> <br> <br> Too fast!  </div>`,warning_duration)
+        }
+      },
+      post_trial_gap: posgap_duration
+    };
+
+    
+    //finalt_forward_list_obj; finalt_backward_list_obj; finalt_random_list_obj
+    var finaltest_procedure = {
+      timeline: [v_finaltest],
+      timeline_variables: condi_list,
+      on_finish: function(data){
+        data.timelasted=Date.now()-lastActivityTime;
+      }
+    };
+
+    var final_instruction = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: "<p color: black; background: white;>YOU FINISHED! Press 'enter' to end experiment and exit from full screen</p>",
+      choices: 'enter',
+      data:{
+        task:"instruction"
+      },
+      on_finish: function(data){
+        // jsPsych.data.get().localSave('csv', 'ekstra.csv');
+        jsPsych.endExperiment();
+      }
+    }
+
+    var exit_fullscreen = {
+      type: jsPsychFullscreen,
+      fullscreen_mode: false,
+      delay_after: 0
+    }
+
+
+    timeline.push(instructions_finaltest,finaltest_procedure);
+    timeline.push(final_instruction,exit_fullscreen);
+    
+    jsPsych.run(timeline);

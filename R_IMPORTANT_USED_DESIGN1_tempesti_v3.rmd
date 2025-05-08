@@ -1,0 +1,2770 @@
+
+THis is a version of test finally used in first design
+*IMPORTANTUSE
+
+# library
+```{r}
+# library(Rmisc)
+library(dplyr)
+library(tidyverse)
+library(readr)
+'%notin%' <- function(x,y)!('%in%'(x,y));
+```
+
+```{r}
+filepath=c("data/backup3/visualexp-forward.csv","data/backup3/visualexp-bakcward.csv","data/backup3/visualexp-random.csv",
+      "data/backup2/visualexp-random.csv","data/backup/visualexp-random.csv","data/backup/visualexp-forward.csv",
+      "data/backup/visualexp-bakcward.csv")
+# df = readr::read_csv(filepath)
+# lapply(filepath,read.csv)
+```
+
+# Read files
+
+```{r}
+
+df1 = read.csv("data/backup3/visualexp-forward.csv")%>%
+  mutate(responsesum=as.integer(responsesum))
+df2 = read.csv("data/backup3/visualexp-bakcward.csv")%>%
+  mutate(responsesum=as.integer(responsesum))
+df3 = read.csv("data/backup3/visualexp-random.csv")%>%
+  mutate(responsesum=as.integer(responsesum))
+
+df11 = read.csv("data/backup2/visualexp-random.csv")%>%
+  mutate(responsesum=as.integer(responsesum))
+df111 = read.csv("data/backup/visualexp-random.csv")%>%
+  mutate(responsesum=as.integer(responsesum))
+df22 = read.csv("data/backup/visualexp-forward.csv")
+df33 = read.csv("data/backup/visualexp-bakcward.csv")
+
+# df2222 <- 
+#     c("data/backup3/visualexp-forward.csv","data/backup3/visualexp-bakcward.csv","data/backup3/visualexp-random.csv",
+#       "data/backup2/visualexp-random.csv","data/backup/visualexp-random.csv","data/backup/visualexp-forward.csv",
+#       "data/backup/visualexp-bakcward.csv")%>% 
+#     map_df(~read_csv(.))%>%
+# df44 = read.csv("data/pretest3_random/visualexp-random (2).csv")%>%
+#   mutate(responsesum=as.integer(responsesum))
+# df55= read.csv("data/backup2/visualexp-random.csv")%>%
+#   mutate(responsesum=as.integer(responsesum))
+# df3$responsesum
+# df44$responsesum%>%as.factor()%>%summary()
+# df3$responsesum%>%as.factor()%>%summary()
+
+df = df1%>% full_join(df2)%>%full_join(df3)%>%
+  full_join(df11)%>%full_join(df111)%>%
+  full_join(df22)%>%full_join(df33)%>%
+  # full_join(df44)%>%full_join(df55)%>%
+    mutate(correct=case_when(correct=="true"~1,
+                           correct=="false"~0,
+                           TRUE~NA))%>%
+filter(is_finished==1,codeversion==3)%>%
+  filter(ip%notin%c("68.80.89.47"))
+
+
+
+dfimp=
+  df%>% 
+  filter(is_finished==1,codeversion==3)%>%
+  # group_by(condition,PROLIFIC_PID,all_accumulated_accuracy,recorded_at)%>%
+  group_by(condition,PROLIFIC_PID,all_accumulated_accuracy)%>%
+  filter(all_accumulated_accuracy>0.5)%>%
+  summarize(n=n())%>%
+  # group_by(condition)%>%
+  # summarize(n=n())%>%
+  # filter(PROLIFIC_PID%in%c("5884593bd920ed0001fdccb4"))%>%
+  mutate()
+dfimp
+
+
+df1
+```
+
+
+
+
+```{r}
+dfimp=
+  df%>% 
+  filter(is_finished==1,codeversion==3)%>%
+  # group_by(condition,PROLIFIC_PID,all_accumulated_accuracy,recorded_at)%>%
+  group_by(condition,PROLIFIC_PID,all_accumulated_accuracy)%>%
+  summarize(n=n())%>%
+  # group_by(condition)%>%
+  # summarize(n=n())%>%
+  # filter(PROLIFIC_PID%in%c("6414be45ec452483d7579868"))%>%
+  filter(all_accumulated_accuracy<0.6)%>%
+  filter(condition=="r")%>%
+  mutate()
+dfimp
+```
+
+
+
+## check and get txt file
+```{r}
+# now$`Participant id`
+# now = read_csv("data/temp2/export5.csv")%>%
+#   filter(Status=="AWAITING REVIEW")%>%
+#   mutate(id = `Participant id`)%>%
+#   mutate(acc = case_when(id%in%dfimp$PROLIFIC_PID ~1))%>%
+#   select(id,acc)%>%
+#   filter(acc==1)
+#   # filter(id ==)
+# write.table(now$id, file = "data/temp2/out.txt", sep = "\t",quote=FALSE,row.names = FALSE)
+# 
+# dfimp$all_accumulated_accuracy[dfimp$PROLIFIC_PID=="63ced96b01986b01ef133497"]
+```
+
+## tempsave
+```{r}
+# df$correct
+names(df)
+df$codeversion
+dfimp=df%>% 
+  filter(is_finished==1,codeversion==3)%>%
+  group_by(condition,PROLIFIC_PID,all_accumulated_accuracy)%>%
+  summarize(n=n())%>%
+  # filter(id=="63052f20afc39e87110eb83e")%>%
+  mutate()
+
+df%>%
+  filter(PROLIFIC_PID=="63052f20afc39e87110eb83e")%>%
+  # select(-response,-user_agent,-c(source_code_version,recorded_at,ip))%>%
+  mutate()
+
+summary(as.factor(df$correct))
+df%>%filter(correct==99999999)
+
+df%>% #check number of participant in each condition
+  filter(is_finished==1,codeversion==3)%>%
+  group_by(condition,id)%>%
+  summarize(n=n())%>%
+  group_by(condition)%>%
+  summarize(n=n())
+
+df$codeversion
+```
+
+## check set up data**
+```{r}
+df%>%filter(is_finished==1,codeversion==3) %>%
+  filter(all_accumulated_accuracy>0.6)%>%
+  group_by(PROLIFIC_PID)%>%
+  summarize(n=n())%>%
+  filter(n>1410)
+
+#done twice: 62b0ff84054c6ca32f481c65;63e5a6690eeedc20da056717
+df%>%filter(is_finished==1,codeversion==3) %>%
+  filter(all_accumulated_accuracy>0.6)%>%
+  group_by(condition,PROLIFIC_PID,recorded_at)%>%
+  filter(PROLIFIC_PID%in%c("62b0ff84054c6ca32f481c65","63e5a6690eeedc20da056717"))%>%
+  summarize(n=n())
+
+
+# 62b0ff84054c6ca32f481c65: delete f condition
+# 63e5a6690eeedc20da056717: delete r condition
+dfchanged = df %>%
+  mutate(rt=as.numeric(rt))%>%
+  filter(is_finished==1,codeversion==3) %>%
+  filter(all_accumulated_accuracy>0.67)%>%
+  # filter(all_accumulated_accuracy>0.6)%>%
+  filter(ip %notin% c("68.80.89.47"))%>%
+  filter(!(PROLIFIC_PID=="62b0ff84054c6ca32f481c65" & condition=="f"))%>%
+  filter(!(PROLIFIC_PID=="63e5a6690eeedc20da056717" & condition=="r"))%>%
+   mutate(condition=case_when(condition=="b"~"backward",condition=="f"~"forward",condition=="r"~"random"))%>%
+  filter(ip%notin%c("172.58.12.116", "68.9.164.176",  "70.187.57.217", "73.104.3.163" ))%>%
+  select(-c(width,height,webaudio,browser,browser_version,mobile,os,fullscreen,vsync_rate,microphone,trial_index,internal_node_id,webcam,run_id,recorded_at,source_code_version,user_agent,device,platform,platform_version,accept_language,subject_id,study_id,session_id,failed_images,failed_audio,failed_video,question_order,stimulus,referer,STUDY_ID,SESSION_ID,trial_type,starts_with("tot") ,jspsych.survey.multi.choice.response.0))%>%
+  # filter(ip%notin%c("68.9.164.176","166.194.147.4","198.54.106.254","172.58.12.116","70.187.57.217","65.188.39.31")) %>% #filtered by rt
+  mutate()
+  # filter(is_finished==1,codeversion==3) %>%
+  # filter(all_accumulated_accuracy>0.6)%>%
+  # group_by(condition,PROLIFIC_PID,recorded_at)%>%
+  # filter(PROLIFIC_PID%in%c("62b0ff84054c6ca32f481c65","63e5a6690eeedc20da056717"))%>%
+  # summarize(n=n())
+# dfchanged%>%filter(task=="finalt_response",response=="null")
+# df%>%filter(task=="finalt_response")
+dfchanged%>% #check number of participant in each condition
+  filter(is_finished==1,codeversion==3)%>%
+  group_by(condition,id)%>%
+  summarize(n=n())%>%
+  group_by(condition)%>%
+  summarize(n=n())
+```
+
+
+## throw out people
+```{r}
+dfnew=
+  dfchanged %>% 
+  # filter(is_finished==1)%>%
+  # filter(all_accumulated_accuracy>0.65)%>%
+  filter(task%in%c("pretest_response","finalt_response","counting_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  group_by(condition,ip,task,trial,isold) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task,isold) %>% 
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,ip,task,isold,trial,ct)
+
+dfnew %>%filter(condition=="b")%>%
+  filter(task%in%c("pretest_response","finalt_response"))%>%
+  filter(ct<0.5)%>%
+  group_by(ip,condition)%>%
+  # summarize(ctmean=mean(ct),n=n())%>%
+  mutate()
+
+df %>%
+  # filter(task=="finalt_response"&ct<0.25,trial==5)%>%
+  filter(ip=="68.225.203.42")%>%
+  mutate()
+
+# 47.158.129.211 excluded for low pretest, 68.225.203.42  low counting and final test 
+ggplot(data=dfnew%>%
+         # filter()
+         # filter(ip %in% c("47.158.129.211","71.76.240.3","73.135.216.181"))%>%
+         filter(ip %notin% c("47.158.129.211","68.225.203.42"))%>%
+         mutate()
+       )+
+  geom_point(aes(trial,ct,group=ip))+
+  geom_line(aes(trial,ct,group=ip,color=ip))+
+  facet_grid(task~condition)+
+  labs(title="Data by task and condition for each participant")+
+  theme(legend.position = "none")
+
+# df %>% filter(ip=="174.45.226.170")%>%group_by(condition,PROLIFIC_PID)%>%summarize(n=1)
+
+ggplot(data=dfnew%>%
+         filter(ip %notin% c("68.80.89.47"))%>%
+         group_by(condition,task,trial,isold)%>%
+         summarize(ct=mean(ct))%>%
+         mutate(type=case_when(isold=="true"~"hits",
+                               isold=="false"~"correct rejection",
+                               TRUE ~ ""))
+       )+
+  geom_point(aes(trial,ct))+
+  geom_line(aes(trial,ct,group=interaction(task,type),color=task,linetype=type))+
+  facet_grid(.~condition)+
+  labs(x="pretest trial number",title="Data by task and condition averaged for each participant")+
+  ylim(0.4,1)+
+  scale_linetype_manual(values=c(4,1,2))+
+  xlab("initial test trial")
+```
+## CT- filter by trial variation
+
+filter out pretest too large between trial variation
+```{r}
+dfnew22=
+  dfchanged %>% 
+  filter(task%in%c("finalt_response")) %>% 
+  # mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = prespos_itrial) %>%
+  group_by(condition,ip,task,trial) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  ungroup()%>%
+  select(condition,ip,task,trial,ct)
+
+# 47.158.129.211 excluded for low pretest, 68.225.203.42  low counting and final test 
+ggplot(data=dfnew22%>%
+         # filter()%>%
+         mutate(),
+       aes(trial,ct,group=ip))+
+  geom_point()+
+  geom_line(aes(color=ip))+
+  facet_grid(task~condition)+
+  labs(title="Data by task and condition for each participant")+
+  theme(legend.position = "none")
+
+
+
+data_sd <- dfnew22 %>%
+  group_by(ip, condition) %>%  # Group by participant
+  summarize(sd_ct = sd(ct))  # Calculate standard deviation across lists
+
+# 2. Define a threshold for acceptable variation
+sd_threshold <- 0.125  # Adjust this value based on your data and criteria
+
+# 3. Identify participants exceeding the threshold
+participants_to_exclude <- data_sd %>%
+  filter(sd_ct > sd_threshold) %>%
+  pull(ip)
+participants_to_exclude
+
+
+ggplot(data=dfnew22%>%
+         filter(ip %in% participants_to_exclude)%>%
+         mutate(),
+       aes(trial,ct,group=ip))+
+  geom_point()+
+  geom_line(aes(color=ip))+
+  facet_grid(task~condition)+
+  labs(title="Data by task and condition for each participant")+
+  theme(legend.position = "none")
+
+```
+
+# Individual differences
+
+```{r}
+dfnew220=
+  dfchanged %>% 
+  filter(task%in%c("pretest_response","finalt_response")) %>% 
+  # mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = prespos_itrial) %>%
+  # mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  # mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  group_by(condition,ip,task) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  select(condition,ip,task,ct)%>%
+  group_by(ip,condition)%>%
+  mutate(avgct=mean(ct))%>%
+  ungroup()%>%
+  mutate(task=case_when(task=="finalt_response"~"final test",
+                        task=="pretest_response"~"initial test"))%>%
+  mutate(ip=reorder(ip,avgct))
+
+# 47.158.129.211 excluded for low pretest, 68.225.203.42  low counting and final test 
+ggplot(data=dfnew220,
+       aes(x=ip,y=ct,group=interaction(task)))+
+  geom_point(aes(color=task))+
+  geom_segment(data=dfnew220%>%group_by(condition,ip)%>%summarize(y1=min(ct),y2=max(ct)),aes(x = ip, xend = ip, y = y1, yend = y2,group=interaction(condition))) +
+  # geom_line(aes(color=task))+
+  facet_grid(.~condition)+
+  labs(title="Individual differences for intial and final task response",y="correction rate",x="participants")+
+  theme(text=element_text(size=25))
+  # theme(legend.position = "none")
+```
+
+
+## by probetype **
+```{r}
+
+# names(df_changed)
+dfnew2=dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response","finalt_response","counting_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  group_by(condition,ip,task,trial,probetype) %>% 
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task) %>% 
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,ip,task,trial,probetype,ct)
+dfnew2
+
+ggplot(data=dfnew2%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+         # filter(ip %in% c("107.203.101.64","173.16.48.49","47.26.189.200","70.172.187.42" ))%>%
+         group_by(condition,task,trial,probetype)%>%
+         summarize(ct=mean(ct))%>%
+         group_by(condition,task,trial)%>%
+         mutate(newm=mean(ct))
+       )+
+  geom_point(aes(trial,ct),color="grey")+
+  geom_line(aes(trial,ct,group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  labs(x="pretest trial number",title="Data by task and condition averaged for each participant")+
+  geom_point(aes(trial,newm))+
+  geom_line(aes(trial,newm,group=probetype))+
+  xlab("initial test trial")
+```
+
+
+
+### rt filter, density plot
+```{r}
+participant_medians <- dfchanged %>%
+  filter(task%in%c("pretest_response")) %>% 
+  group_by(ip) %>%
+  filter(!is.na(rt))%>%#excluded data of [1] 0.002987786
+  summarise(median_RT = median(rt))
+  
+Q1 <- quantile(participant_medians$median_RT, 0.25)
+Q3 <- quantile(participant_medians$median_RT, 0.75)
+IQR <- Q3 - Q1
+
+lower_bound <- Q1 - 1.5 * IQR
+upper_bound <- Q3 + 1.5 * IQR
+
+# Identifying outliers
+outlier_ips <- participant_medians %>%
+  filter(median_RT < lower_bound | median_RT > upper_bound) %>%
+  pull(ip) # Extracting just the participant IDs
+
+outlier_ips
+
+outlier_ips <- participant_medians %>%
+  filter(median_RT > 1100) %>%
+  pull(ip) # Extracting just the participant IDs
+
+outlier_ips
+
+
+# ggplot(data=participant_medians)+density()
+plot(density(participant_medians$median_RT))
+
+ggplot(dfchanged %>%
+        filter(task%in%c("pretest_response")) %>% 
+        group_by(ip,condition) %>%
+        filter(!is.na(rt))%>%#excluded data of [1] 0.002987786
+        summarise(median_RT = median(rt)),
+       aes(x=median_RT))+
+  geom_density()+
+  geom_vline(data= dfchanged %>%
+        filter(task%in%c("pretest_response")) %>% 
+        group_by(condition) %>%
+        filter(!is.na(rt))%>%summarise(mrt=median(rt)) ,aes(xintercept = mrt,color=condition), linetype = "dashed") +
+  facet_grid(condition~.)
+  
+```
+
+### RT
+```{r}
+
+dfnew2_2=dfchanged %>% 
+  filter(task%in%c("pretest_response","finalt_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  
+         filter(ip%notin%c("172.58.12.116", "68.9.164.176",  "70.187.57.217", "73.104.3.163"))%>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  filter(correct==1)%>%
+  filter(rt<3000)%>%
+  filter(!is.na(rt))%>%#excluded data of [1] 0.002987786
+  group_by(condition,ip,task,trial,probetype) %>%
+  summarise(ct = mean(rt)) %>%
+  group_by(condition,ip,task) %>%
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,ip,task,trial,probetype,ct)
+dfnew2_2
+
+ggplot(data=dfnew2_2%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+         # filter(ip %in% c("107.203.101.64","173.16.48.49","47.26.189.200","70.172.187.42" ))%>%
+         # filter(ip%notin%c("172.58.12.116", "68.9.164.176",  "70.187.57.217", "73.104.3.163"))%>%
+         group_by(condition,task,trial,probetype)%>%
+         summarize(ct=mean(ct))%>%
+         group_by(condition,task,trial)%>%
+         mutate(newm=mean(ct))
+       )+
+  geom_point(aes(trial,ct),color="grey")+
+  geom_line(aes(trial,ct,group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  labs(x="initial test list number",y="Correct response time",title="Correct rt by task and condition averaged for each participant")+
+  geom_point(aes(trial,newm))+
+  geom_line(aes(trial,newm,group=probetype))
+
+
+dfnew2_2=dfchanged %>% 
+  filter(task%in%c("pretest_response","finalt_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  filter(correct==1)%>%
+  # filter(rt<3000)%>%
+  filter(!is.na(rt))%>%#excluded data of [1] 0.002987786
+  group_by(condition,ip,task,trial) %>%
+  summarise(ct = mean(rt)) %>%
+  # group_by(condition,ip,task) %>% 
+  # mutate(ct = case_when(task=="counting_response"~mean(ct),
+  #                          TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,ip,task,trial,ct)
+dfnew2_2
+
+
+
+
+# ggplot(data=dfnew2_2%>%
+#          # filter(ct>1570)%>%
+#        filter(ip%in%c("172.58.12.116", "68.9.164.176",  "70.187.57.217", "73.104.3.163" ))%>%
+#          mutate()
+#        )+
+#   geom_point(aes(trial,ct),color="grey")+
+#   geom_line(aes(trial,ct,group=interaction(ip),color=ip))+
+#   facet_grid(task~condition)+
+#    theme(legend.position = "none")
+# 
+# 
+# ggplot(data=dfnew2_2%>%
+#          # filter(ct>1570)%>%
+#        filter(ip%notin%c("172.58.12.116", "68.9.164.176",  "70.187.57.217", "73.104.3.163" ))%>%
+#        # filter(ip%notin%c("68.9.164.176","166.194.147.4","198.54.106.254","172.58.12.116","70.187.57.217","65.188.39.31"))%>%
+#          mutate()
+#        )+
+#   geom_point(aes(trial,ct),color="grey")+
+#   geom_line(aes(trial,ct,group=interaction(ip),color=ip))+
+#   facet_grid(task~condition)+
+#    theme(legend.position = "none")
+  # labs(x="initial test list number",y="Correct response time",title="Correct rt by task and condition averaged for each participant")+
+  # geom_point(aes(trial,newm))+
+  # geom_line(aes(trial,newm,group=probetype))
+```
+
+
+## conditional plot
+```{r}
+# dfnew3 
+# names(df_changed)
+dfnew3=dfchanged %>% 
+  # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  select(condition,ip,task,probetype,trial,correct,stimulus_id)%>%
+  filter(task%in% c("pretest_response","finalt_response","counting_response"))%>%
+  filter(probetype%in% c("TARGET_target","TARGET_foil"))%>%
+  spread(key=task,value=correct)%>%
+  filter(!is.na(finalt_response) & !is.na(pretest_response))%>%
+  group_by(condition,ip,probetype,trial,pretest_response) %>%
+  summarize(conditoned_acc = mean(finalt_response))%>%
+  group_by(condition,probetype,trial,pretest_response) %>%
+  summarize(conditoned_acc = mean(conditoned_acc))%>%
+  mutate(pretest_response = as.factor(pretest_response) )
+
+dfnew3
+# df_changed%>% filter(ip %in% c("66.110.249.9","174.45.226.170"))
+dfchanged %>% 
+  # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+   filter(ip %notin% c("68.80.89.47"))%>%
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  select(condition,ip,task,probetype,trial,correct,stimulus_id)%>%
+  filter(task%in% c("pretest_response","finalt_response","counting_response"))%>%
+  filter(probetype%in% c("TARGET_target","TARGET_foil"))%>%
+  spread(key=task,value=correct)%>%
+  filter(!is.na(finalt_response) & !is.na(pretest_response))%>%
+  group_by(condition,probetype,trial,pretest_response) %>%
+  summarize(conditoned_acc = mean(pretest_response),n=n())%>%
+  mutate(pretest_response = as.factor(pretest_response) )
+
+ggplot(data=dfnew3)+
+  geom_point(aes(trial,conditoned_acc))+
+  geom_line(aes(trial,conditoned_acc,group=pretest_response,color=pretest_response))+
+  facet_grid(probetype~condition)+
+  labs(x="by test position")
+```
+### averaged conditional plot
+```{r}
+dfnew31=dfchanged %>% 
+  # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  select(condition,ip,task,probetype,trial,correct,stimulus_id)%>%
+  filter(task%in% c("pretest_response","finalt_response","counting_response"))%>%
+  filter(probetype%in% c("TARGET_target","TARGET_foil"))%>%
+  spread(key=task,value=correct)%>%
+  filter(!is.na(finalt_response) & !is.na(pretest_response))%>%
+  group_by(condition,ip,probetype,trial,pretest_response) %>%
+  summarize(conditoned_acc = mean(finalt_response))%>%
+  group_by(condition,probetype,trial,pretest_response) %>%
+  summarize(conditoned_acc = mean(conditoned_acc))%>%
+  mutate(pretest_response = as.factor(pretest_response) )%>%
+  group_by(condition,probetype,pretest_response)%>%
+  summarize(conditoned_acc = mean(conditoned_acc))
+
+dfnew31
+
+
+ggplot(data=dfnew31)+
+  geom_point(aes(condition,conditoned_acc,group=interaction(pretest_response,probetype),color=pretest_response,shape=probetype),size=5)+labs(x="condition (backward, forward, random)")+ geom_text(aes(condition,conditoned_acc,label = round(conditoned_acc,2)), vjust = -0.5, size = 3)
+```
+
+
+# overall trial trend plot
+```{r}
+dfnew4 = dfchanged %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  mutate(trial=trialnum)%>%
+  # filter(trial!=1)%>%
+  group_by(ip,task,trial,isold) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ctr = mean(correct)) %>%
+  ungroup()%>%
+  select(task,isold,trial,ctr)%>% 
+  group_by(task,trial,isold)%>%
+  summarise(ct = mean(ctr),sdd=sd(ctr),se=sdd/sqrt(n()))%>%
+  mutate(trial=as.factor(trial))
+
+ggplot(data=dfnew4)+
+  geom_point(aes(trial,ct))+
+  geom_line(aes(trial,ct,group=isold,color=isold))+
+  geom_errorbar(aes(x=trial,ymin=ct-se,ymax=ct+se))+
+  # facet_grid(trial~.)+
+  ggtitle("serial position")+ylim(0.5,1)
+
+
+dfnew4 = dfchanged %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  mutate(trial=trialnum)%>%
+  # filter(trial!=1)%>%
+  group_by(ip,task,trial,isold) %>% 
+  # select(condition,ip,task,correct)%>%
+  # summarise(ctr = mean(correct)) %>%
+  # ungroup()%>%
+  # select(task,isold,trial,ctr)%>% 
+  # group_by(task,trial,isold)%>%
+  summarise(ct = mean(correct),sdd=sd(correct),se=sdd/sqrt(n()))%>%
+  mutate(trial=as.factor(trial))
+# 
+# ggplot(data=dfnew4%>%filter(ip%in%ipx))+
+#   geom_point(aes(trial,ct,group=ip))+
+#   geom_line(aes(trial,ct,group=isold,color=isold))+
+#   # geom_errorbar(aes(x=trial,ymin=ct-se,ymax=ct+se))+
+#   facet_grid(ip~.)+
+#   ggtitle("serial position")+ylim(0.5,1)
+
+ipx=dfnew4$ip[1:100]
+```
+
+
+
+# serial position plot
+```{r}
+dfnew4 = dfchanged %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  # mutate(test_serial_position = case_when(task=="pretest_response" ~ as.character(testpos),
+  #                                         task=="finalt_response" ~ prespos_iposintrial_test))%>%
+  group_by(condition,ip,task,trial,isold,testpos) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  # group_by(condition,ip,task,testpos) %>%  # counting summary exclude trial, isold
+  # mutate(ct = case_when(task=="counting_response"~mean(ct),
+  #                          TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,task,isold,trial,testpos,ct)%>% #exclude ip
+  group_by(condition,task,trial,testpos,isold)%>%
+  summarise(ct = mean(ct))
+
+ggplot(data=dfnew4)+
+  geom_point(aes(testpos,ct))+
+  geom_line(aes(testpos,ct,group=isold,color=isold))+
+  facet_grid(trial~condition)
+
+
+dfnew4 = dfchanged %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  # mutate(test_serial_position = case_when(task=="pretest_response" ~ as.character(testpos),
+  #                                         task=="finalt_response" ~ prespos_iposintrial_test))%>%
+  group_by(ip,task,trialnum,isold,testpos) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  # group_by(condition,ip,task,testpos) %>%  # counting summary exclude trial, isold
+  # mutate(ct = case_when(task=="counting_response"~mean(ct),
+  #                          TRUE~ct))%>%
+  ungroup()%>%
+  select(task,isold,trialnum,testpos,ct)%>% #exclude ip
+  group_by(task,trialnum,testpos,isold)%>%
+  summarise(ct = mean(ct))
+
+ggplot(data=dfnew4)+
+  geom_point(aes(testpos,ct))+
+  geom_line(aes(testpos,ct,group=isold,color=isold))+
+  facet_grid(trialnum~.)+ggtitle("serial position")
+
+
+
+dfnew4 = dfchanged %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  mutate(trial=testpos)%>%
+  filter(response!="null")%>%
+  # filter(testpos!=1)%>%
+  group_by(ip,task,trial,isold) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  ungroup()%>%
+  select(task,isold,trial,ct)%>% #exclude ip
+  group_by(task,trial,isold)%>%
+  summarise(ct = mean(ct))
+
+ggplot(data=dfnew4)+
+  geom_point(aes(trial,ct))+
+  geom_line(aes(trial,ct,group=isold,color=isold))+
+  # facet_grid(trial~.)+
+  ggtitle("serial position")+ylim(0.5,1)
+
+
+
+```
+
+## sign test
+```{r}
+# library(BSDA)
+# dfnew4 =
+  dfchanged %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  # mutate(trial=testpos,isold=probetype)%>%
+  filter(response!="null")%>%
+  filter(testpos!=1)%>%
+  mutate(grouphalf=case_when(testpos<=5~"before",testpos>5~"after"))%>%
+  group_by(ip,task,grouphalf,probetype) %>% 
+  summarise(ct = mean(correct)) %>%ungroup()%>%
+  pivot_wider(names_from = grouphalf,values_from = ct)%>%
+  mutate(diff=after-before)%>%
+  group_by(probetype)%>%
+  summarize(success=sum(diff>0),n=sum(diff>0)+sum(diff<0)) %>%
+  filter(n!=0)%>%
+  group_by(probetype)%>%
+  mutate(sign_test_pvalue=binom.test(success,n,p=0.5,alternative="greater")$p.value)%>%
+  ungroup()
+  # mutate(ip=fct_reorder(ip,sign_test_pvalue))
+
+dfchanged %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  # mutate(trial=testpos,isold=probetype)%>%
+  filter(response!="null")%>%
+  filter(testpos!=1)%>%
+  mutate(grouphalf=case_when(testpos<=6~"before",testpos>6~"after"))%>%
+  group_by(ip,task,grouphalf,probetype) %>% 
+  summarise(ct = mean(correct)) %>%ungroup()%>%
+  pivot_wider(names_from = grouphalf,values_from = ct)%>%
+  mutate(diff=after-before)%>%
+  group_by(probetype)%>%
+  summarize(success=sum(diff>0),n=n()) %>%
+  filter(n!=0)%>%
+  group_by(probetype)%>%
+  mutate(sign_test_pvalue=binom.test(success,n,p=0.5,alternative="greater")$p.value)%>%
+  ungroup()
+
+dfchanged%>%group_by(condition,ip)%>%
+  filter(is_finished==1)%>%
+  summarize(n=n())%>%
+  group_by(condition)%>%
+  summarize(n=n())
+
+
+# sign test for 1-20
+dfchanged %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  # mutate(trial=testpos,isold=probetype)%>%
+  filter(response!="null")%>%
+  filter(testpos!=1)%>%
+  mutate(grouphalf=case_when(testpos<=6~"before",testpos>6~"after"))%>%
+  group_by(ip,task,grouphalf,probetype) %>% 
+  summarise(ct = mean(correct)) %>%ungroup()%>%
+  pivot_wider(names_from = grouphalf,values_from = ct)%>%
+  mutate(diff=after-before)%>%
+  group_by(probetype)%>%
+  summarize(success=sum(diff>0),n=n()) %>%
+  filter(n!=0)%>%
+  group_by(probetype)%>%
+  mutate(sign_test_pvalue=binom.test(success,n,p=0.5,alternative="greater")$p.value)%>%
+  ungroup()
+```
+
+
+
+## store serial position data
+```{r}
+dfnow = dfchanged %>% 
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  # mutate(test_serial_position = case_when(task=="pretest_response" ~ as.character(testpos),
+  #                                         task=="finalt_response" ~ prespos_iposintrial_test))%>%
+  group_by(ip,task,trial,isold) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  # group_by(condition,ip,task,testpos) %>%  # counting summary exclude trial, isold
+  # mutate(ct = case_when(task=="counting_response"~mean(ct),
+  #                          TRUE~ct))%>%
+  ungroup()%>%
+  select(task,isold,trial,ct)%>% #exclude ip
+  group_by(task,trial,isold)%>%
+  summarise(ct = mean(ct))%>%
+  mutate(is_target=as.logical(isold),list_number=trial,meanx=ct, list_number=as.integer(list_number))%>%
+  ungroup()%>%
+  select(list_number,is_target,meanx)
+dfnow
+save(dfnow, file = "SAVED_data_initialtest.RData")
+# getwd()
+```
+
+
+
+```{r}
+# df$id
+dfnew5 = dfchanged %>% 
+  filter(task%in%c("pretest_response")) %>% 
+  filter(trialnum!=1)%>%
+  group_by(condition,ip,task,isold,testpos,probetype) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  # group_by(condition,ip,task,testpos) %>%  # counting summary exclude trial, isold
+  # mutate(ct = case_when(task=="counting_response"~mean(ct),
+  #                          TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,task,isold,testpos,ct,probetype)%>% #exclude ip
+  group_by(condition,task,testpos,isold,probetype)%>%
+  summarise(ct = mean(ct))%>%
+  mutate(testpos=as.factor(testpos))
+
+ggplot(data=dfnew5)+
+  geom_point(aes(testpos,ct))+
+  geom_line(aes(testpos,ct,group=isold,color=probetype))+
+  facet_grid(.~condition)+
+  ylim(0.6,1)+
+  labs(title="serial position curve for intial test by test position")
+
+
+dfnew5 = dfchanged %>% 
+  filter(task%in%c("pretest_response")) %>% 
+  group_by(ip,task,isold,testpos,probetype) %>% 
+  summarise(ct = mean(correct)) %>%
+  ungroup()%>%
+  select(task,isold,testpos,ct,probetype)%>% #exclude ip
+  group_by(task,testpos,isold,probetype)%>%
+  summarise(ct = mean(ct))%>%
+  mutate(testpos=as.factor(testpos))
+
+ggplot(data=dfnew5)+
+  geom_point(aes(testpos,ct))+
+  geom_line(aes(testpos,ct,group=isold,color=probetype))+
+  # facet_grid(.~)+
+  ylim(0.6,1)+
+  labs(title="serial position curve for intial test by test position")
+```
+
+
+
+```{r}
+names(df)
+dfnew5 = dfchanged %>% 
+  filter(ip %notin% c("68.80.89.47"))%>%
+  filter(is_finished==1)%>%
+  filter(task%in%c("pretest_response")) %>% 
+  select(condition,ip,task,isold,prespos,correct,probetype)%>% #exclude i
+  group_by(condition,ip,task,isold,prespos,probetype) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  # group_by(condition,ip,task,testpos) %>%  # counting summary exclude trial, isold
+  # mutate(ct = case_when(task=="counting_response"~mean(ct),
+  #                          TRUE~ct))%>%
+  select(condition,task,isold,prespos,ct,probetype)%>% #exclude ip
+  ungroup()%>%
+  group_by(condition,task,prespos,isold,probetype)%>%
+  summarise(ct = mean(ct))%>%
+  mutate(prespos=as.numeric(prespos))
+
+ggplot(data=dfnew5)+
+  geom_point(aes(prespos,ct,color=probetype))+
+  geom_line(aes(prespos,ct,group=probetype,color=probetype))+
+  facet_grid(.~condition)+
+  ylim(0.6,1)+
+  labs(title="serial position curve for intial test by study position")
+```
+
+
+
+
+
+```{r}
+names(df)
+# dfnew6$prespos_iposintrial_study
+dfnew6 = dfchanged %>% 
+  filter(ip %notin% c("68.80.89.47"))%>%
+  filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  # filter(prespos_iposintrial_study=="null")%>%
+  # mutate(pos=case_when(probetype%in%c("TARGET_target","TARGET_nontarget")~prespos_iposintrial_study,
+  #                      TRUE ~ prespos_iposintrial_test)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  group_by(condition,ip,task,isold,prespos_iposintrial_study,prespos_iposintrial_test,probetype) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  # group_by(condition,ip,task,testpos) %>%  # counting summary exclude trial, isold
+  # mutate(ct = case_when(task=="counting_response"~mean(ct),
+  #                          TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,task,isold,prespos_iposintrial_study,ct,probetype)%>% #exclude ip
+  group_by(condition,task,prespos_iposintrial_study,isold,probetype)%>%
+  summarise(ct = mean(ct))%>%
+  mutate(prespos_iposintrial_study=as.numeric(prespos_iposintrial_study))
+
+ggplot(data=dfnew6)+
+  geom_point(aes(prespos_iposintrial_study,ct))+
+  geom_line(aes(prespos_iposintrial_study,ct,group=interaction(isold,probetype),color=probetype,linetype=isold))+
+  facet_grid(.~condition)+
+  # ylim(0.5,1)+
+  labs(title="final test serial position by intial study position")
+
+```
+
+
+
+```{r}
+dfnew7 = dfchanged %>% 
+  filter(ip %notin% c("68.80.89.47"))%>%
+  filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  # filter(prespos_iposintrial_test!="null")%>%
+  # mutate(pos=case_when(probetype%in%c("TARGET_target","TARGET_nontarget")~prespos_iposintrial_study,
+  #                      TRUE ~ prespos_iposintrial_test)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  group_by(condition,ip,task,isold,prespos_iposintrial_study,prespos_iposintrial_test,probetype) %>% 
+  # select(condition,ip,task,correct)%>%
+  summarise(ct = mean(correct)) %>%
+  # group_by(condition,ip,task,testpos) %>%  # counting summary exclude trial, isold
+  # mutate(ct = case_when(task=="counting_response"~mean(ct),
+  #                          TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,task,isold,prespos_iposintrial_test,ct,probetype)%>% #exclude ip
+  group_by(condition,task,prespos_iposintrial_test,isold,probetype)%>%
+  summarise(ct = mean(ct))%>%
+  mutate(prespos_iposintrial_test=as.numeric(prespos_iposintrial_test))
+# dfnew6
+ggplot(data=dfnew7)+
+  geom_point(aes(prespos_iposintrial_test,ct,color=probetype))+
+  geom_line(aes(prespos_iposintrial_test,ct,group=interaction(isold,probetype),color=probetype,linetype=isold))+
+  facet_grid(.~condition)+
+  # ylim(0.5,1)+
+  labs(title="final test serial position by intial test position")
+```
+
+
+## final test random comparison **
+
+```{r}
+dfnew8=dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  mutate(new_cuts = cut_number(testpos,n=10))%>%
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+  summarise(ct = mean(correct)) %>%
+  ungroup()%>%
+  select(condition,ip,task,new_cuts,probetype,ct)
+dfnew8
+
+ggplot(data=dfnew8%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+         # filter(ip %in% c("107.203.101.64","173.16.48.49","47.26.189.200","70.172.187.42" ))%>%
+         group_by(condition,task,new_cuts,probetype)%>%
+         summarize(ct=mean(ct))%>%
+         group_by(condition,task,new_cuts)%>%
+         mutate(newm=mean(ct))
+       )+
+  geom_point(aes(new_cuts,ct),color="grey")+
+  geom_line(aes(new_cuts,ct,group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  labs(x="final test testing position number 1-420",title="performance of final test by final test position")+
+  geom_point(aes(new_cuts,newm))+
+  geom_line(aes(new_cuts,newm,group=probetype))+
+  scale_x_discrete(guide = guide_axis(angle = 45))
+```
+#* filter out random
+```{r}
+
+
+
+dfuse =  dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  # mutate(new_cuts = cut_number(testpos,n=10))%>%
+  
+  mutate(new_cuts_finalp = cut(testpos, breaks = 10, labels = 1:10))%>%
+  mutate(new_cuts_finalp=as.integer(new_cuts_finalp))%>%
+  pivot_longer(cols=c(new_cuts_finalp,prespos_itrial),names_to = "cuttingtype",values_to="new_cuts")%>%
+  mutate(cuttingtype=case_when(cuttingtype=="new_cuts_finalp"~"final_test_position",
+                               cuttingtype=="prespos_itrial"~"inital_test_position"))%>%
+  mutate(task=cuttingtype)%>%
+  
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+    summarise(cto = mean(correct)) %>%
+  select(condition,ip,task,new_cuts,probetype,cto)%>%
+  group_by(condition,task,new_cuts,probetype)%>%
+  summarise(ct=mean(cto),sigma=sd(cto)*(n()-1)/n())%>%
+  select(condition,task,new_cuts,probetype,ct,sigma)%>%
+  group_by(condition,task,new_cuts)%>% #calculating mean out of probetype
+  mutate(ctm=mean(ct))%>%
+  ungroup()
+
+dfuse
+dfuse_withip = dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  # mutate(new_cuts = cut_number(testpos,n=10))%>%
+  
+  mutate(new_cuts_finalp = cut(testpos, breaks = 10, labels = 1:10))%>%
+  mutate(new_cuts_finalp=as.integer(new_cuts_finalp))%>%
+  pivot_longer(cols=c(new_cuts_finalp,prespos_itrial),names_to = "cuttingtype",values_to="new_cuts")%>%
+  mutate(cuttingtype=case_when(cuttingtype=="new_cuts_finalp"~"final_test_position",
+                               cuttingtype=="prespos_itrial"~"inital_test_position"))%>%
+  mutate(task=cuttingtype)%>%
+  
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+  summarise(cto = mean(correct)) %>%
+  group_by(condition,ip,task,new_cuts)%>% #calculating mean out of probetype
+  mutate(ctm=mean(cto))%>%
+  ungroup()
+
+
+#dfuse2 is for random ocnidtion only  
+dfuse2 = dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  # mutate(new_cuts = cut_number(testpos,n=10))%>%
+  
+  mutate(new_cuts_finalp = cut(testpos, breaks = 10, labels = 1:10))%>%
+  mutate(new_cuts_finalp=as.integer(new_cuts_finalp))%>%
+  pivot_longer(cols=c(new_cuts_finalp,prespos_itrial),names_to = "cuttingtype",values_to="new_cuts")%>%
+  mutate(cuttingtype=case_when(cuttingtype=="new_cuts_finalp"~"final_test_position",
+                               cuttingtype=="prespos_itrial"~"inital_test_position"))%>%
+  mutate(task=cuttingtype)%>%
+  
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+  summarise(ct = mean(correct)) %>%
+  ungroup()%>%
+  select(condition,ip,task,new_cuts,probetype,ct)%>%
+  group_by(condition,task,new_cuts,probetype)%>% 
+         summarize(ct=mean(ct))%>%filter(condition=="random")%>%
+  ungroup()
+
+####### method 1, just subtracting the pointwise value
+# 1. Calculate average random condition performance for each participant
+  # select(condition,ip,task,new_cuts,probetype,ct)
+
+dflabel4= data.frame(task=rep(c("final_test_position","inital_test_position"),2),
+                     # label1=paste(c("first saw","last saw","first saw","first saw","first-saw","first-last-saw","first-saw","last-first-saw","first-saw","random"),"in final"),
+                     label2=c("list 10,9...","list1,2...","list1,2...","list1,2.."),
+                     condition=rep(c("backward","forward"),each=2))
+
+random_baseline <- dfuse %>%
+  filter(condition == "random") %>% 
+  select(-condition)
+
+# 2. Join baseline data back to the main data
+data_corrected <- dfuse %>% 
+  filter(condition!="random")%>%
+  left_join(random_baseline,by = c("task","new_cuts","probetype"))
+data_corrected 
+
+# 3. Calculate corrected correction rates
+data_plot <- data_corrected %>%
+  mutate(corrected_ct = ct.x - ct.y, correct_ct_mean=ctm.x-ctm.y)
+  # mutate(corrected_ct = ct.x, correct_ct_mean=ctm.x)
+
+ggplot(data=data_plot, aes(as.factor(new_cuts),corrected_ct))+
+  geom_point(color="grey")+
+  geom_line(aes(group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  labs(x="inital(second row) and final(first row) test position",title="performance of final test by final test position 
+       (performance forward/backward 
+       subtract by random condition)")+
+  # scale_x_discrete(guide = guide_axis(angle = 45))+
+  # ylim(-0.2,0.2)+
+  geom_point(data=data_plot,aes(new_cuts,correct_ct_mean),color="black")+
+  geom_line(data=data_plot,aes(new_cuts,correct_ct_mean, group=probetype),color="black")+
+  theme(text = element_text(size = 20))+
+  geom_text(data = dflabel4, aes(x = -Inf, y =Inf, hjust=-0.1, vjust=3, label = label2),alpha=0.5,inherit.aes = FALSE,size=10)
+  # geom_point(data=dfuse2,aes(new_cuts,ct),color="grey")+
+  # geom_line(data=dfuse2,aes(new_cuts,ct,group=interaction(probetype),color=probetype))
+
+
+
+###### method 2 calculating z, calculating z for each condition for each indv first then average
+
+random_baseline <- dfuse %>%
+  filter(condition == "random") %>% 
+  select(-condition)
+
+# 2. Join baseline data back to the main data
+data_corrected <- dfuse_withip %>% 
+  filter(condition!="random")%>%
+  # select(-sigma)%>% #remove sigma from  
+  left_join(random_baseline,by = c("task","new_cuts","probetype"))
+data_corrected 
+#cto is individual mean ct, ct is random averaged ct in each condi averaging indv, sigma is random sigma in each condi averageing indv, ctm is original mean of each condi without averaging indv
+
+
+# 3. Calculate corrected correction rates
+data_plot <- data_corrected %>%
+  mutate(corrected_ct = (cto - ct)/sigma, correct_ct_mean=ctm.x-ctm.y)%>%
+  group_by(condition,task,new_cuts,probetype)%>%
+  summarize(corrected_ct=mean(corrected_ct),correct_ct_mean=mean(correct_ct_mean))
+
+
+
+ggplot(data=data_plot, aes(as.factor(new_cuts),corrected_ct))+
+  geom_point(color="grey")+
+  geom_line(aes(group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  # scale_x_discrete(guide = guide_axis(angle = 45))+
+  # ylim(-0.5,0.8)+
+  geom_point(data=data_plot%>%group_by(condition,task,new_cuts)%>%summarize(correct_ct_mean=mean(corrected_ct)),aes(new_cuts,correct_ct_mean),color="black")+
+  geom_line(data=data_plot%>%group_by(condition,task,new_cuts)%>%summarize(correct_ct_mean=mean(corrected_ct)),aes(new_cuts,correct_ct_mean,group=task))+
+  labs(y="z-score standarized by random condition",
+       x="inital(second row) and final(first row) test position",
+       title="performance Z-score of final test by final test position 
+       (performance forward/backward 
+       standarized by random condition)")+
+  theme(text = element_text(size = 20))+
+  # annotate(data=dfnew44%>%filter(task=="finalT-by-final-test"),"text", x = 1, y = 0.3, label = "inital", color = "red")+
+  # geom_text(data = dflabel4, aes(x = -Inf, y =-Inf, hjust=-0.05, vjust=-0.5, label = label1),alpha=0.5,inherit.aes = FALSE)+
+  geom_text(data = dflabel4, aes(x = -Inf, y =Inf, hjust=-0.1, vjust=3, label = label2),alpha=0.5,inherit.aes = FALSE,size=10)
+  # geom_point(data=dfuse2,aes(new_cuts,ct),color="grey")+
+  # geom_line(data=dfuse2,aes(new_cuts,ct,group=interaction(probetype),color=probetype))
+
+
+
+```
+
+
+#see problem
+```{r}
+dfuse =  dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  
+  mutate(new_cuts_finalp = cut(testpos, breaks = 10, labels = 1:10))%>%
+  mutate(new_cuts_finalp=as.integer(new_cuts_finalp))%>%
+  pivot_longer(cols=c(new_cuts_finalp,prespos_itrial),names_to = "cuttingtype",values_to="new_cuts")%>%
+  mutate(cuttingtype=case_when(cuttingtype=="new_cuts_finalp"~"final_test_position",
+                               cuttingtype=="prespos_itrial"~"inital_test_position"))%>%
+  mutate(task=cuttingtype)%>%
+  
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+    summarise(cto = mean(correct)) %>%
+  select(condition,ip,task,new_cuts,probetype,cto)%>%
+  group_by(condition,task,new_cuts,probetype)%>%
+  summarise(ct=mean(cto),sigma=sd(cto)*(n()-1)/n())%>%
+  select(condition,task,new_cuts,probetype,ct,sigma)%>%
+  group_by(condition,task,new_cuts)%>% #calculating mean out of probetype
+  mutate(ctm=mean(ct))%>%
+  ungroup()
+
+dfuse
+# dfuse2=dfuse%>%
+#   mutate("forward-random"=)
+
+ggplot(data=dfuse,aes(as.factor(new_cuts),ct,group=interaction(condition,task,probetype))) +
+  geom_line(aes(color=probetype))+
+  geom_point(aes(color=probetype))+
+  # geom_line(data=)
+  facet_grid(task ~ condition)+
+  xlab(label="Final test position (top row); Inital test position(bottom row)")+
+    ylab(label="probability correct")
+
+#dfuse2 is for random ocnidtion only  
+dfuse2 = dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  # mutate(new_cuts = cut_number(testpos,n=10))%>%
+  
+  mutate(new_cuts_finalp = cut(testpos, breaks = 10, labels = 1:10))%>%
+  mutate(new_cuts_finalp=as.integer(new_cuts_finalp))%>%
+  pivot_longer(cols=c(new_cuts_finalp,prespos_itrial),names_to = "cuttingtype",values_to="new_cuts")%>%
+  mutate(cuttingtype=case_when(cuttingtype=="new_cuts_finalp"~"final_test_position",
+                               cuttingtype=="prespos_itrial"~"inital_test_position"))%>%
+  mutate(task=cuttingtype)%>%
+  
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+  summarise(ct = mean(correct)) %>%
+  ungroup()%>%
+  select(condition,ip,task,new_cuts,probetype,ct)%>%
+  group_by(condition,task,new_cuts,probetype)%>% 
+         summarize(ct=mean(ct))%>%filter(condition=="random")%>%
+  ungroup()
+
+####### method 1, just subtracting the pointwise value
+# 1. Calculate average random condition performance for each participant
+  # select(condition,ip,task,new_cuts,probetype,ct)
+
+dflabel4= data.frame(task=rep(c("final_test_position","inital_test_position"),2),
+                     # label1=paste(c("first saw","last saw","first saw","first saw","first-saw","first-last-saw","first-saw","last-first-saw","first-saw","random"),"in final"),
+                     label2=c("list 10,9...","list1,2...","list1,2...","list1,2.."),
+                     condition=rep(c("backward","forward"),each=2))
+
+random_baseline <- dfuse %>%
+  filter(condition == "random") %>% 
+  select(-condition)
+
+# 2. Join baseline data back to the main data
+data_corrected <- dfuse %>% 
+  filter(condition!="random")%>%
+  left_join(random_baseline,by = c("task","new_cuts","probetype"))
+data_corrected 
+
+# 3. Calculate corrected correction rates
+data_plot <- data_corrected %>%
+  mutate(corrected_ct = ct.x - ct.y, correct_ct_mean=ctm.x-ctm.y)
+  # mutate(corrected_ct = ct.x, correct_ct_mean=ctm.x)
+
+ggplot(data=data_plot, aes(as.factor(new_cuts),corrected_ct))+
+  geom_point(color="grey")+
+  geom_line(aes(group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  labs(x="inital(second row) and final(first row) test position",title="performance of final test by final test position 
+       (performance forward/backward 
+       subtract by random condition)")+
+  # scale_x_discrete(guide = guide_axis(angle = 45))+
+  # ylim(-0.2,0.2)+
+  geom_point(data=data_plot,aes(new_cuts,correct_ct_mean),color="black")+
+  geom_line(data=data_plot,aes(new_cuts,correct_ct_mean, group=probetype),color="black")+
+  theme(text = element_text(size = 20))+
+  geom_text(data = dflabel4, aes(x = -Inf, y =Inf, hjust=-0.1, vjust=3, label = label2),alpha=0.5,inherit.aes = FALSE,size=10)
+  # geom_point(data=dfuse2,aes(new_cuts,ct),color="grey")+
+  # geom_line(data=dfuse2,aes(new_cuts,ct,group=interaction(probetype),color=probetype))
+
+data_plot <- data_corrected %>%
+  mutate(corrected_ct = ct.y, correct_ct_mean=ctm.y)
+  # mutate(corrected_ct = ct.y, correct_ct_mean=ctm.x)
+
+ggplot(data=data_plot, aes(as.factor(new_cuts),corrected_ct))+
+  geom_point(color="grey")+
+  geom_line(aes(group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  labs(x="inital(second row) and final(first row) test position",title="performance of final test by final test position 
+       (performance forward/backward 
+       subtract by random condition)")+
+  # scale_x_discrete(guide = guide_axis(angle = 45))+
+  # ylim(-0.2,0.2)+
+  geom_point(data=data_plot,aes(new_cuts,correct_ct_mean),color="black")+
+  geom_line(data=data_plot,aes(new_cuts,correct_ct_mean, group=probetype),color="black")+
+  theme(text = element_text(size = 20))+
+  geom_text(data = dflabel4, aes(x = -Inf, y =Inf, hjust=-0.1, vjust=3, label = label2),alpha=0.5,inherit.aes = FALSE,size=10)
+  # geom_point(data=dfuse2,aes(new_cuts,ct),color="grey")+
+  # geom_line(data=dfuse2,aes(new_cuts,ct,group=interaction(probetype),color=probetype))
+
+```
+
+
+
+```{r}
+d2=dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  # mutate(new_cuts = cut_number(testpos,n=10))%>%
+  
+  mutate(new_cuts_finalp = cut(testpos, breaks = 10, labels = 1:10))%>%
+  ungroup()%>%
+  filter(new_cuts_finalp==prespos_itrial)
+
+d1=dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  # mutate(new_cuts = cut_number(testpos,n=10))%>%
+  
+  mutate(new_cuts_finalp = cut(testpos, breaks = 10, labels = 1:10))%>%
+  ungroup()
+
+length(d2$condition)/length(d1$condition)/4
+  
+```
+
+
+## filter by joint distribution
+
+```{r}
+
+
+dfuse =  dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  # mutate(new_cuts = cut_number(testpos,n=10))%>%
+  
+  mutate(new_cuts_finalp = cut(testpos, breaks = 10, labels = 1:10))%>%
+  mutate(new_cuts_finalp=as.integer(new_cuts_finalp))%>%
+  mutate(new_cuts_finalp=case_when(new_cuts_finalp%in%c(1,2) ~ 1,
+                                  new_cuts_finalp%in%c(3,4,5) ~ 2,
+                                  new_cuts_finalp%in%c(6,7,8) ~ 3,
+                                  new_cuts_finalp%in%c(9,10) ~ 4, ))%>%
+  mutate(prespos_itrial=case_when(prespos_itrial%in%c(1,2) ~ 1,
+                                  prespos_itrial%in%c(3,4,5) ~ 2,
+                                  prespos_itrial%in%c(6,7,8) ~ 3,
+                                  prespos_itrial%in%c(9,10) ~ 4, ))%>%
+  mutate(new_cuts=paste(prespos_itrial,new_cuts_finalp,sep="-"))%>% #intial + final positions
+  # pivot_longer(cols=c(new_cuts_finalp,prespos_itrial),names_to = "cuttingtype",values_to="new_cuts")%>%
+  # mutate(cuttingtype=case_when(cuttingtype=="new_cuts_finalp"~"final_test_position",
+                               # cuttingtype=="prespos_itrial"~"inital_test_position"))%>%
+  # mutate(task=cuttingtype)%>%
+  
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+    summarise(cto = mean(correct)) %>%
+  select(condition,ip,task,new_cuts,probetype,cto)%>%
+  group_by(condition,task,new_cuts,probetype)%>%
+  summarise(ct=mean(cto))%>%
+  select(condition,task,new_cuts,probetype,ct)%>%
+  group_by(condition,task,new_cuts)%>% #calculating mean out of probetype
+  mutate(ctm=mean(ct))%>%
+  ungroup()
+
+dfuse
+dfuse_nonrandomgroup = dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  # mutate(new_cuts = cut_number(testpos,n=10))%>%
+
+  mutate(new_cuts_finalp = cut(testpos, breaks = 10, labels = 1:10))%>%
+  mutate(new_cuts_finalp=as.integer(new_cuts_finalp))%>%
+  mutate(new_cuts_finalp=case_when(new_cuts_finalp%in%c(1,2) ~ 1,
+                                  new_cuts_finalp%in%c(3,4,5) ~ 2,
+                                  new_cuts_finalp%in%c(6,7,8) ~ 3,
+                                  new_cuts_finalp%in%c(9,10) ~ 4, ))%>%
+  mutate(prespos_itrial=case_when(prespos_itrial%in%c(1,2) ~ 1,
+                                  prespos_itrial%in%c(3,4,5) ~ 2,
+                                  prespos_itrial%in%c(6,7,8) ~ 3,
+                                  prespos_itrial%in%c(9,10) ~ 4, ))%>%
+  mutate(new_cuts=paste(prespos_itrial,new_cuts_finalp,sep="-"))%>%
+  # pivot_longer(cols=c(new_cuts_finalp,prespos_itrial),names_to = "cuttingtype",values_to="new_cuts")%>%
+  # mutate(cuttingtype=case_when(cuttingtype=="new_cuts_finalp"~"final_test_position",
+                               # cuttingtype=="prespos_itrial"~"inital_test_position"))%>%
+  # mutate(task=cuttingtype)%>%
+  
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+  summarise(cto = mean(correct)) %>%
+  group_by(condition,task,new_cuts,probetype)%>%
+  summarise(ct=mean(cto))%>%
+  group_by(condition,task,new_cuts)%>% #calculating mean out of probetype
+  mutate(ctm=mean(ct))%>%
+  ungroup()%>%
+  filter(condition!="random")
+
+# c(new_cuts_finalp,prespos_itrial)
+random_baseline <- dfuse %>%
+  filter(condition == "random") %>% 
+  select(-condition)
+  # filter(new_cuts%in%levels(dfuse_withip$new_cuts%>%as.factor()))
+# levels(dfuse$new_cuts%>%as.factor())
+random_baseline
+
+# 2. Join baseline data back to the main data
+data_corrected <- dfuse_nonrandomgroup %>% 
+  # filter(condition!="random")%>%
+  # select(-sigma)%>% #remove sigma from  
+  left_join(random_baseline,by = c("task","new_cuts","probetype"))%>%
+  # separate(new_cuts, into = c("I-position", "F-position"), sep = "(?<=\\d)-(?=\\d)")%>%
+  separate(new_cuts, into = c("I-position", "F-position"), sep = "-", remove = TRUE)%>%
+  pivot_longer(cols=c("I-position","F-position"),names_to = "cc",values_to = "new_cuts")%>%
+  mutate(task=cc)%>%
+  filter(!is.na(new_cuts))
+data_corrected 
+#cto is individual mean ct, ct is random averaged ct in each condi averaging indv, sigma is random sigma in each condi averageing indv, ctm is original mean of each condi without averaging indv
+
+
+# 3. Calculate corrected correction rates
+data_plot <- data_corrected %>%
+  mutate(corrected_ct = (ct.x-ct.y), correct_ct_mean=ctm.x-ctm.y)%>%
+  # mutate(corrected_ct = (ct.x-ct.y)/(1-ct.y), correct_ct_mean=(ctm.x-ctm.y)/(1-ctm.y))%>%
+  group_by(condition,task,new_cuts,probetype)%>%
+  summarize(corrected_ct=mean(corrected_ct),correct_ct_mean=mean(correct_ct_mean))
+
+dflabel4= data.frame(task=rep(c("F-position","I-position"),2),
+                     # label1=paste(c("first saw","last saw","first saw","first saw","first-saw","first-last-saw","first-saw","last-first-saw","first-saw","random"),"in final"),
+                     label2=c("list 10,9...","list1,2...","list1,2...","list1,2.."),
+                     condition=rep(c("backward","forward"),each=2))
+
+ggplot(data=data_plot, aes(as.factor(new_cuts),corrected_ct))+
+  geom_point(color="grey")+
+  geom_line(aes(group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  # scale_x_discrete(guide = guide_axis(angle = 45))+
+  # ylim(-1,1)+
+  geom_point(data=data_plot%>%group_by(condition,task,new_cuts)%>%summarize(correct_ct_mean=mean(corrected_ct)),aes(new_cuts,correct_ct_mean),color="black")+
+  geom_line(data=data_plot%>%group_by(condition,task,new_cuts)%>%summarize(correct_ct_mean=mean(corrected_ct)),aes(new_cuts,correct_ct_mean,group=task))+
+  labs(y="a_jk",
+       x="inital(second row) and final(first row) test position",
+       title="performance of final test by final test position")+
+  theme(text = element_text(size = 20))+
+  # annotate(data=dfnew44%>%filter(task=="finalT-by-final-test"),"text", x = 1, y = 0.3, label = "inital", color = "red")+
+  # geom_text(data = dflabel4, aes(x = -Inf, y =-Inf, hjust=-0.05, vjust=-0.5, label = label1),alpha=0.5,inherit.aes = FALSE)+
+  geom_text(data = dflabel4, aes(x = -Inf, y =Inf, hjust=-0.1, vjust=3, label = label2),alpha=0.5,inherit.aes = FALSE,size=10)
+  # geom_point(data=dfuse2,aes(new_cuts,ct),color="grey")+
+  # geom_line(data=dfuse2,aes(new_cuts,ct,group=interaction(probetype),color=probetype))
+
+
+
+#m1
+
+# random_baseline <- dfuse %>%
+#   filter(condition == "random") %>% 
+#   select(-condition)%>%
+#   filter(new_cuts%in%levels(dfuse_withip$new_cuts%>%as.factor()))
+# 
+# # 2. Join baseline data back to the main data
+# data_corrected <- dfuse %>% 
+#   filter(condition!="random")%>%
+#   left_join(random_baseline,by = c("task","new_cuts","probetype"))%>%
+#   separate(new_cuts, into = c("I-position", "F-position"), sep = "(?<=\\d)-(?=\\d)")%>%
+#   pivot_longer(cols=c("I-position","F-position"),names_to = "cc",values_to = "new_cuts")%>%
+#   mutate(task=cc)
+# data_corrected 
+# 
+# # 3. Calculate corrected correction rates
+# data_plot <- data_corrected %>%
+#   mutate(corrected_ct = ct.x - ct.y, correct_ct_mean=ctm.x-ctm.y)
+# 
+# ggplot(data=data_plot, aes(as.factor(new_cuts),corrected_ct))+
+#   geom_point(color="grey")+
+#   geom_line(aes(group=interaction(probetype),color=probetype))+
+#   facet_grid(task~condition)+
+#   labs(x="inital(second row) and final(first row) test position",title="performance of final test by final test position")+
+#   # scale_x_discrete(guide = guide_axis(angle = 45))+
+#   # ylim(-0.2,0.2)+
+#   geom_point(data=data_plot,aes(new_cuts,correct_ct_mean),color="black")+
+#   geom_line(data=data_plot,aes(new_cuts,correct_ct_mean, group=probetype),color="black")+
+#   theme(text = element_text(size = 20))+
+#   geom_text(data = dflabel4, aes(x = -Inf, y =Inf, hjust=-0.1, vjust=3, label = label2),alpha=0.5,inherit.aes = FALSE,size=10)
+#   # geom_point(data=dfuse2,aes(new_cuts,ct),color="grey")+
+#   # geom_line(data=dfuse2,aes(new_cuts,ct,group=interaction(probetype),color=probetype))
+
+```
+
+
+
+### rt
+```{r}
+dfnew88=dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  mutate(new_cuts = cut_number(testpos,n=10))%>%
+  filter(!is.na(rt))%>%#excluded data of [1] 0.002987786
+  filter(correct==1)%>%
+  # filter(rt<3000)%>%
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+  summarise(ct = mean(rt)) %>%
+  ungroup()%>%
+  select(condition,ip,task,new_cuts,probetype,ct)
+dfnew88
+
+ggplot(data=dfnew88%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+         # filter(ip %in% c("107.203.101.64","173.16.48.49","47.26.189.200","70.172.187.42" ))%>%
+         group_by(condition,task,new_cuts,probetype)%>%
+         summarize(ct=mean(ct))%>%
+         group_by(condition,task,new_cuts)%>%
+         mutate(newm=mean(ct))
+       )+
+  geom_point(aes(new_cuts,ct),color="grey")+
+  geom_line(aes(new_cuts,ct,group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  labs(x="final test testing position number 1-420",y="correct rt", title="performance of final test by final test position")+
+  geom_point(aes(new_cuts,newm))+
+  geom_line(aes(new_cuts,newm,group=probetype))+
+  scale_x_discrete(guide = guide_axis(angle = 45))
+```
+
+
+
+## by test position seprated by hits/correct rejection
+
+```{r}
+df_final = dfchanged %>% 
+  filter(task%in% c("finalt_response"))%>%
+  mutate(new_cuts = cut_interval(testpos,n=10,labels=FALSE))%>%
+  mutate(correct_final=correct)%>%
+  select(condition,ip,probetype,correct_final,stimulus_id,new_cuts)
+
+df_intial= dfchanged %>% 
+  filter(task%in% c("pretest_response"))%>%
+  mutate(correct_initial=correct)%>%
+  select(condition,ip,probetype,correct_initial,stimulus_id)
+
+dfchanged2=left_join(df_final,df_intial,by=c("stimulus_id","probetype","ip","condition"))%>%
+  filter(!is.na(correct_initial))%>%
+  arrange(condition,ip,probetype)
+dfchanged2
+
+dfnew10=dfchanged2 %>% 
+    # filter(condition=="b")
+  # group_by(condition,probetype,trial,pretest_response) %>%
+  group_by(condition,ip,probetype,new_cuts,correct_initial) %>% #mean stimulu_id
+  dplyr::summarize(conditoned_acc = mean(correct_final))%>%
+  group_by(condition,probetype,new_cuts,correct_initial)%>% #mean ip
+  dplyr::summarize(conditoned_acc = mean(conditoned_acc))%>%
+  mutate(correct_initial = as.factor(correct_initial) )
+dfnew10
+
+
+```
+
+
+```{r}
+
+ggplot(data=dfnew10
+       )+
+  geom_point(aes(as.factor(new_cuts),conditoned_acc),color="grey")+
+  geom_line(aes(new_cuts,conditoned_acc,group=interaction(correct_initial),color=correct_initial))+
+  facet_grid(probetype~condition)+
+  labs(x="final test testing position number 1-420 grouped to 10 chunks",title="performance of final test by final test position (in 10 chunks for 420 test total)")
+  # scale_x_discrete(guide = guide_axis(angle = 45))
+```
+
+
+
+## d'
+
+
+P(FA)=incorrect_n/foil_n; given foil, incorrect 
+incorrect_n = given foil, how many correct (grouped by correct)
+Foil_n = regardless of correct or not, (so not grouped by correct)
+
+HITS: given target, correct
+```{r}
+dfchanged %>% 
+  # filter(is_finished==1)%>%
+  dplyr::filter(task%in%c("finalt_response")) %>% 
+  dplyr::filter(probetype=="FOIL")%>%
+  dplyr::select(condition,ip,testpos,task,probetype,correct)%>%
+  dplyr::group_by(condition,ip,task) %>% 
+  dplyr::mutate(new_cuts = cut_number(testpos,n=10))%>%
+  dplyr::group_by(condition,ip,task,new_cuts,probetype)%>%
+  dplyr::mutate(n_probe=n())%>%
+  # dplyr::filter(correct==0)%>%
+  # mutate(probetype=as.factor(probetype),new_cuts=as.factor(new_cuts),
+         # ip=as.factor(ip),condition=as.factor(condition),correct=as.factor(correct))%>%
+  dplyr::group_by(condition,ip,new_cuts,probetype,correct) %>%
+  dplyr::summarize(n_incorrect=n(),n_probe=mean(n_probe))%>%
+  ungroup()%>%
+  tidyr::complete(new_cuts, fill = list(n_incorrect = 0))%>%
+  filter(correct==0)%>%
+  arrange(condition,ip,new_cuts)
+  # count(new_cuts,ip,condition,probetype,.drop=FALSE)
+  
+# is.na(dfchanged$probetype 
+dfchanged%>%
+  dplyr::filter(task%in%c("finalt_response")) %>% 
+  # filter(is.na(probetype)
+  select(probetype) 
+
+dftemp = dfchanged%>%filter(ip=="104.139.101.32")
+write.csv(dftemp,"show.csv")
+
+```
+
+
+```{r}
+dfchanged$probetype%>%as.factor()%>%summary()
+dfnew9=dfchanged %>% 
+  # filter(is_finished==1)%>%
+  dplyr::filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  dplyr::mutate(new_cuts = cut_number(testpos,n=10))%>%
+  group_by(condition,ip,task,new_cuts,probetype,correct) %>% 
+  dplyr::mutate(n_correct_in_probetype=n())%>%
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+  dplyr::mutate(n_probe = n(),
+         p_all = n_correct_in_probetype/n_probe)%>%
+  dplyr::mutate(p.FA = case_when(probetype=="FOIL"&correct==0 ~ p_all,
+                          TRUE~NA),
+         p.HITs = case_when(probetype%in%c("TARGET_foil","TARGET_nontarget","TARGET_target")&correct==1 ~ p_all,
+                            TRUE~NA),
+         p.temp=case_when(probetype=="FOIL"&correct==0 ~ p_all,
+                          probetype%in%c("TARGET_foil","TARGET_nontarget","TARGET_target")&correct==1 ~ p_all,
+                          TRUE~NA))%>% ##old new, each line a value, not overlapped
+  select(condition,ip,task,new_cuts,probetype,p.temp)%>%
+  filter(!is.na(p.temp)) %>%
+  group_by(condition,ip,task,new_cuts,probetype)%>%
+  dplyr::summarize(probability = mean(p.temp))%>%
+  ungroup()%>% 
+  spread(probetype,probability)%>%#true for old, false for new 
+  # filter(!is.na(p.temp)) %>%
+  mutate(d.prime_target = qnorm(1-FOIL)-qnorm(1-TARGET_foil),
+         d.prime_nontarget=qnorm(1-FOIL)-qnorm(1-TARGET_target),
+         d.prime_foiltarget=qnorm(1-FOIL)-qnorm(1-TARGET_nontarget)) 
+  # filter(!is.na(c(d.prime,d.prime_nontarget,d.prime_foiltarget)),d.prime!=Inf)
+dfnew9
+# dfnew9%>%
+#          # filter(ip %notin% c("68.80.89.47"))%>%
+#          # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+#          # filter(ip %in% c("107.203.101.64","173.16.48.49","47.26.189.200","70.172.187.42" ))%>%
+#          group_by(condition,task,new_cuts)%>%
+#          summarize(m_dprime=mean(d.prime))
+
+# ggplot(data=dfnew9%>%
+#          group_by(condition,task,new_cuts)%>%
+#          summarySE(measurevar="d.prime",groupvars=c("condition","task","new_cuts"))%>%
+#          ungroup(),
+#        aes(x=new_cuts,y=d.prime)
+#        )+
+#   facet_grid(task~condition)+
+#   geom_point()+
+#   # geom_jitter()+
+#   geom_line(aes(group=interaction(condition,task)))+
+#   geom_errorbar(aes(ymin=d.prime-se, ymax=d.prime+se), width=.1) +
+#   # geom_line(aes(x=new_cuts,y=d.prime))+
+#   labs(x="final test testing position number 1-420",title="performance of final test by final test position")+scale_x_discrete(guide = guide_axis(angle = 45))
+```
+
+
+
+
+
+
+
+##d' again
+hits: old
+p(new|new) = 1- p(old|new)
+
+### measure 1 - average
+```{r}
+dfnew11=dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  mutate(new_cuts = cut_number(testpos,n=5))%>%
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+  summarise(ct = mean(correct)) %>%
+  ungroup()%>%
+  select(condition,ip,task,new_cuts,probetype,ct)%>%
+  spread(probetype,ct)%>%
+  mutate(performance_study_only=(TARGET_nontarget+FOIL)/2,
+         performance_studyandtest=(TARGET_target+FOIL)/2,
+         performance_testonly = (TARGET_foil+FOIL)/2)%>%
+  select(condition,ip,task,new_cuts,performance_study_only,performance_studyandtest,performance_testonly)%>%
+  gather(performance_study_only,performance_studyandtest,performance_testonly,key="type",value= "averaged_performance")
+  
+  
+dfnew11
+
+ggplot(data=dfnew11%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+         # filter(ip %in% c("107.203.101.64","173.16.48.49","47.26.189.200","70.172.187.42" ))%>%
+         group_by(condition,task,new_cuts,type)%>%
+         summarize(ct=mean(averaged_performance))%>%
+         group_by(condition,task,new_cuts)%>%
+         mutate(newm=mean(ct))
+       )+
+  geom_point(aes(new_cuts,ct),color="grey")+
+  geom_line(aes(new_cuts,ct,group=interaction(type),color=type))+
+  facet_grid(task~condition)+
+  labs(x="final test testing position number 1-420",title="averaged performance [(hits+correct rejection)/2] of final test by final test position",
+       y="averaged performance")+
+  # geom_point(aes(new_cuts,newm))+
+  # geom_line(aes(new_cuts,newm,group=type))+
+  scale_x_discrete(guide = guide_axis(angle = 45))
+```
+## d''
+  mutate(TARGET_foil=max(83/84,TARGET_foil),
+         TARGET_nontarget=min(83/84,TARGET_nontarget),TARGET_target=min(83/84,TARGET_target))%>%
+  mutate(false_alarm = max(1/84,1-FOIL))%>% #1/(TARGET_foil2*n)
+  
+  
+  
+  
+
+```{r}
+dfnew12=
+  dfchanged %>% 
+  # filter(is_finished==1)%>%
+  filter(task%in%c("finalt_response")) %>% 
+  group_by(condition,ip,task) %>% 
+  mutate(new_cuts = cut_number(testpos,n=5))%>%
+  group_by(condition,ip,task,new_cuts,probetype) %>% 
+  summarise(ct = mean(correct),n=n()) %>%
+  ungroup()%>%
+  select(condition,ip,task,new_cuts,probetype,ct)%>%#n=42
+  mutate(ct = case_when(probetype=="FOIL"&ct==1~83/84,probetype!="FOIL"&ct==1~83/84,TRUE~ct))%>%
+  spread(probetype,ct)%>%
+  mutate(false_alarm=1-FOIL)%>%
+  mutate(z_hits_tf=qnorm(1-TARGET_foil),
+         z_hits_tnt=qnorm(1-TARGET_nontarget),
+         z_hits_tt=qnorm(1-TARGET_target),
+         z_false_alarm=qnorm(1-false_alarm))%>%
+  mutate(`d'_testonly`=z_false_alarm-z_hits_tf,
+         `d'_studyonly`=z_false_alarm-z_hits_tnt,
+         `d'_studyntest`=z_false_alarm-z_hits_tt)%>%
+  select(condition,ip,task,new_cuts,`d'_testonly`,`d'_studyonly`,`d'_studyntest`)%>%
+  gather(`d'_testonly`,`d'_studyonly`,`d'_studyntest`,key="type",value= "d_prime")
+  
+  
+dfnew12
+
+
+ggplot(data=dfnew12%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         # filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+         # filter(ip %in% c("107.203.101.64","173.16.48.49","47.26.189.200","70.172.187.42" ))%>%
+         group_by(condition,task,new_cuts,type)%>%
+         summarize(ct=mean(d_prime))%>%
+         group_by(condition,task,new_cuts)%>%
+         mutate(newm=mean(ct))
+       )+
+  geom_point(aes(new_cuts,ct),color="grey")+
+  geom_line(aes(new_cuts,ct,group=interaction(type),color=type))+
+  facet_grid(task~condition)+
+  labs(x="final test testing position number 1-420",title="d prime of final test by final test position",
+       y="d prime")+
+  # geom_point(aes(new_cuts,newm))+
+  # geom_line(aes(new_cuts,newm,group=type))+
+  scale_x_discrete(guide = guide_axis(angle = 45))
+```
+
+# conditional relationship
+
+```{r}
+d1=dfchanged%>%filter(task%in%c("pretest_response"))%>%
+  select(testpos,ip,probetype,correct,trialnum)%>%
+  arrange(ip,trialnum,testpos)%>%
+  # group_by(trial)%>%
+  mutate(last_type=lag(probetype),last_correct=lag(correct))%>%
+  filter(!is.na(last_type))%>%
+  group_by(testpos,ip,trialnum,last_correct,last_type,probetype)%>%
+  summarize(cr=mean(correct))%>%
+  group_by(testpos,trialnum,last_correct,last_type,probetype)%>%                           
+  summarize(mcr=mean(cr),last_correct=as.factor(last_correct))
+
+ggplot(data=d1,aes(x=testpos,y=mcr,
+                   group=interaction(probetype,trialnum,last_type,last_correct)))+
+  geom_line(aes(linetype=last_correct,color=interaction(last_type)))+
+  facet_grid(trialnum~probetype)
+
+
+ggplot(data=d1%>%group_by(testpos,trialnum,last_correct,last_type)%>%summarize(mcr=mean(mcr)),aes(x=testpos,y=mcr,
+                   group=interaction(trialnum,last_type,last_correct)))+
+  geom_line(aes(color=interaction(last_type,last_correct)))+
+  facet_grid(trialnum~.)
+
+ggplot(data=d1%>%filter(trialnum!=1)%>%
+         group_by(testpos,last_correct,last_type,probetype)%>%summarize(mcr=mean(mcr)),aes(x=testpos,y=mcr,
+                   group=interaction(last_type,last_correct,probetype)))+
+  geom_line(aes(color=interaction(last_type),linetype=last_correct))+
+  facet_grid(probetype~.)
+
+
+ggplot(data=d1%>%
+         filter(trialnum!=1)%>%group_by(testpos,last_correct,last_type,probetype)%>%summarize(mcr=mean(mcr))%>%
+         pivot_wider(names_from = last_correct,values_from = mcr)%>%mutate(diff=`1`-`0`)%>%filter(complete.cases(`0`))
+       ,aes(x=testpos,y=diff,
+                   group=interaction(last_type,probetype)))+
+  geom_line(aes(color=interaction(last_type)))+
+  facet_grid(probetype~.)+geom_hline(yintercept = 0,color="red")
+
+
+ggplot(data=d1%>%filter(trialnum!=1)%>%group_by(probetype,trialnum,last_correct,last_type)%>%summarize(mcr=mean(mcr)),
+       aes(x=trialnum,y=mcr,group=interaction(probetype,last_type,last_correct)))+
+  geom_line(aes(linetype=probetype,color=interaction(last_type,last_correct)))
+
+ggplot(data=d1%>%filter(trialnum!=1)%>%group_by(probetype,last_correct,last_type)%>%summarize(mcr=mean(mcr)),
+       aes(x=interaction(last_type,last_correct),y=mcr,
+                   group=interaction(probetype)))+
+  geom_line(aes(linetype=probetype))
+
+ggplot(data=d1%>%filter(trialnum!=1)%>%group_by(probetype,last_correct,last_type)%>%summarize(mcr=mean(mcr)),
+       aes(x=last_type,y=mcr,
+                   group=interaction(probetype,last_correct)))+
+  geom_line(aes(linetype=last_correct))+
+  facet_grid(probetype~.)
+
+ggplot(data=d1%>%filter(trialnum!=1)%>%group_by(probetype,last_correct,last_type)%>%summarize(mcr=mean(mcr)),
+       aes(x=last_correct,y=mcr,
+                   group=interaction(probetype,last_type)))+
+  geom_line(aes(linetype=last_type))+
+  facet_grid(probetype~.)
+   # mutate(testpos)
+d1
+
+# dt=d1%>%group_by(ip)%>%mutate(n=n())
+# data.frame(dt)%>%mutate(a=n!=200)%>%filter(n!=200)
+
+d2=dfchanged%>%filter(task%in%c("pretest_response"))%>%
+  select(testpos,ip,probetype,correct,trialnum)%>%
+  arrange(ip,trialnum,testpos)%>%
+  # group_by(trial)%>%
+  mutate(last_type=lag(probetype),last_correct=lag(correct))%>%
+  filter(!is.na(last_type))%>%
+  group_by(testpos,ip,trialnum,last_correct,last_type,probetype)%>%
+  summarize(cr=mean(correct))%>%
+  group_by(testpos,ip,trialnum,last_correct,last_type,probetype)%>%                           
+  summarize(mcr=mean(cr),last_correct=as.factor(last_correct))
+
+d3=d2%>%filter(trialnum!=1)%>%
+  group_by(probetype,ip,last_correct,last_type)%>%
+  summarize(mcr=mean(mcr))%>%
+  pivot_wider(names_from = last_correct,values_from = mcr)%>%
+  filter(complete.cases(`0`))%>%
+  mutate(diff=`1`-`0`)%>%
+  filter(probetype=="TARGET_foil",last_type=="TARGET_foil")%>%
+  ungroup()%>%
+  # select(ip,diff)%>%
+  mutate(ip = fct_reorder(ip, diff))
+
+d3
+
+ggplot(data=d3,
+       aes(x=ip,y=diff))+
+  geom_hline(yintercept = 0,color="red")+
+  geom_point()+
+  geom_line()
+
+ggplot(data=d3,
+       aes(x=ip,y=diff,
+                   group=interaction(probetype,last_type)))+
+  # geom_point(aes(color=last_type))+
+  geom_line()+
+  facet_grid(last_type+probetype~.)+
+  theme(legend.position = "none")+
+  geom_hline(yintercept = 0,color="red")
+
+
+d2_2=dfchanged%>%filter(task%in%c("pretest_response"))%>%
+  select(testpos,ip,probetype,correct,trialnum,testpos)%>%
+  # arrange(ip,trialnum,testpos)%>%
+  # group_by(trial)%>%
+  mutate(last_type=lag(probetype),last_correct=lag(correct))%>%
+  filter(!is.na(last_type))%>%
+  group_by(testpos,ip,trialnum,last_correct,last_type,probetype)%>%
+  summarize(cr=mean(correct))%>%
+  group_by(testpos,ip,trialnum,last_correct,last_type,probetype)%>%                           
+  summarize(mcr=mean(cr),last_correct=as.factor(last_correct))
+
+d3_2=d2_2%>%filter(trialnum!=1)%>%
+  group_by(probetype,ip,last_correct,last_type)%>%
+  summarize(mcr=mean(mcr))%>%
+  pivot_wider(names_from = last_correct,values_from = mcr)%>%
+  filter(complete.cases(`0`))%>%
+  mutate(diff=`1`-`0`)%>%
+  filter(probetype=="TARGET_foil",last_type=="TARGET_foil")%>%
+  ungroup()%>%
+  # select(ip,diff)%>%
+  mutate(ip = fct_reorder(ip, diff))
+
+d3
+
+ggplot(data=d3_2,
+       aes(x=ip,y=diff))+
+  geom_hline(yintercept = 0,color="red")+
+  geom_point()+
+  geom_line()
+```
+
+
+
+## error bar
+
+```{r}
+
+d2=
+  dfchanged%>%filter(task%in%c("pretest_response"))%>%
+  select(testpos,ip,probetype,correct,trialnum)%>%
+  filter(trialnum!=1)%>%
+  arrange(ip,trialnum,testpos)%>%
+  # group_by(trial)%>%
+  mutate(last_type=lag(probetype),last_correct=lag(correct))%>%
+  mutate(last_correct=as.factor(last_correct))%>%
+  filter(!is.na(last_type))%>%
+  group_by(ip,last_correct,last_type,probetype)%>%
+  summarize(cr=mean(correct),sdc=sd(correct),se=sdc/sqrt(n()))%>%
+  select(-sdc)%>%#filter(se==0)
+  pivot_wider(names_from = last_correct,values_from = c(cr,se))%>%
+  filter(complete.cases(se_0))%>%
+  mutate(diff=cr_1-cr_0,se=sqrt(se_1^2+se_0^2))%>%
+  filter(probetype=="TARGET_target",last_type=="TARGET_target")%>%
+  ungroup()%>%
+  # select(ip,diff)%>%
+  mutate(ip = fct_reorder(ip, diff))%>%
+  select(-cr_0,-cr_1,-se_0,-se_1)
+
+# d2
+
+
+d2_avgperf=
+  dfchanged%>%filter(task%in%c("pretest_response"))%>%
+  select(testpos,ip,probetype,correct,trialnum)%>%
+  filter(trialnum!=1)%>%
+  # arrange(ip,trialnum,testpos,last_type,probetype)%>%
+  mutate(last_type=lag(probetype),last_correct=lag(correct))%>%
+  mutate(last_correct=as.factor(last_correct))%>%
+  filter(!is.na(last_type))%>% #excluding first trial
+  group_by(ip)%>%
+  summarize(cr=mean(correct),sdc=sd(correct),se=sdc/sqrt(n()))%>%
+  # filter(probetype=="TARGET_target")%>%
+  # filter(probetype=="TARGET_foil",last_type=="TARGET_target")%>%
+  mutate(perf=cr,perf_se=se)%>%
+  select(ip,perf,perf_se)
+
+d2_2=d2%>%left_join(d2_avgperf,by="ip")%>%ungroup()%>%mutate(ip = fct_reorder(ip, diff))
+  
+ggplot(data=d2_2,
+       aes(x=ip,y=diff))+
+  geom_hline(yintercept = 0,color="red")+
+  geom_errorbar(aes(ymin=diff-se,ymax=diff+se)) +
+  geom_point()+
+  geom_point(aes(x=ip,y=perf),color="blue")+
+  geom_errorbar(aes(ymin=perf-perf_se,ymax=perf+perf_se),color="blue") +
+  geom_line()
+
+```
+
+
+```{r}
+d2=
+  dfchanged%>%filter(task%in%c("pretest_response"))%>%
+  select(testpos,ip,probetype,correct,trialnum)%>%
+  filter(trialnum!=1)%>%
+  arrange(ip,trialnum,testpos)%>%
+  # group_by(trial)%>%
+  mutate(last_type=lag(probetype),last_correct=lag(correct))%>%
+  mutate(last_correct=as.factor(last_correct))%>%
+  filter(!is.na(last_type))%>%
+  group_by(ip,last_correct,last_type,probetype)%>%
+  summarize(cr=mean(correct),sdc=sd(correct),se=sdc/sqrt(n()))%>%
+  select(-sdc)%>%#filter(se==0)
+  pivot_wider(names_from = last_correct,values_from = c(cr,se))%>%
+  filter(complete.cases(se_0))%>%
+  mutate(diff=cr_1-cr_0,se=sqrt(se_1^2+se_0^2))%>%
+  # filter(probetype=="TARGET_target",last_type=="TARGET_target")%>%
+  ungroup()%>%
+  # select(ip,diff)%>%
+  mutate(ip = fct_reorder(ip, diff))%>%
+  select(-cr_0,-cr_1,-se_0,-se_1)
+
+# d2
+
+
+d2_avgperf=
+  dfchanged%>%filter(task%in%c("pretest_response"))%>%
+  select(testpos,ip,probetype,correct,trialnum)%>%
+  filter(trialnum!=1)%>%
+  # arrange(ip,trialnum,testpos,last_type,probetype)%>%
+  mutate(last_type=lag(probetype),last_correct=lag(correct))%>%
+  mutate(last_correct=as.factor(last_correct))%>%
+  filter(!is.na(last_type))%>% #excluding first trial
+  group_by(ip)%>%
+  summarize(cr=mean(correct),sdc=sd(correct),se=sdc/sqrt(n()))%>%
+  # filter(probetype=="TARGET_target")%>%
+  # filter(probetype=="TARGET_foil",last_type=="TARGET_target")%>%
+  mutate(perf=cr,perf_se=se)%>%
+  select(ip,perf,perf_se)
+
+d2_2=d2%>%left_join(d2_avgperf,by="ip")%>%ungroup()%>%mutate(ip = fct_reorder(ip, diff))
+  
+ggplot(data=d2_2,
+       aes(x=ip,y=diff))+
+  geom_hline(yintercept = 0,color="red")+
+  geom_errorbar(aes(ymin=diff-se,ymax=diff+se)) +
+  geom_point()+
+  # geom_point(aes(x=ip,y=perf),color="blue")+
+  # geom_errorbar(aes(ymin=perf-perf_se,ymax=perf+perf_se),color="blue") +
+  geom_line()+
+  facet_grid(last_type+probetype~.)
+```
+
+
+# Figure 1
+```{r}
+#make those by intial test order
+dfnew4=dfchanged %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  mutate(listnumber_1to10=case_when(task=="finalt_response"~prespos_itrial,
+         task=="pretest_response"~trialnum))%>%
+  mutate(listnumber_1to10=as.numeric(listnumber_1to10))%>%
+  group_by(ip,task,listnumber_1to10,condition,probetype)%>%
+  summarise(accuracy1=mean(correct))%>%
+  group_by(task,listnumber_1to10,condition,probetype)%>%
+  summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+  mutate(`by-initial-test` = accuracy,se_initial=se)%>%
+  select(task,listnumber_1to10,condition,probetype,`by-initial-test`,se_initial)
+dfnew4
+
+#make that by final test order
+dfnew42= dfchanged %>% filter(task%in% c("finalt_response"))%>% 
+  group_by(ip,condition,task)%>%
+  # group_by(condition,ip,task) %>% 
+  # mutate(new_cuts = cut_number(testpos,n=10))%>%
+  mutate(listnumber_1to10 = cut(testpos, breaks = 10, labels=1:10)) %>%
+  mutate(listnumber_1to10=as.numeric(listnumber_1to10))%>%
+  # mutate(listnumber_1to10 = listgroup_finaltest) %>%
+  group_by(ip,task,listnumber_1to10,condition,probetype)%>%
+  summarise(accuracy1=mean(correct))%>%
+  group_by(task,listnumber_1to10,condition,probetype)%>%
+  summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+  mutate(`by-final-test`=accuracy,se_final=se)%>%
+  select(task,listnumber_1to10,condition,probetype,`by-final-test`,se_final)
+dfnew42
+
+dftp0 = dfnew4%>%left_join(dfnew42,by=c("task","listnumber_1to10","condition","probetype"))
+
+dftp1=dftp0%>%pivot_longer(cols=c(`by-final-test`,`by-initial-test`),
+               names_to = "name",values_to = "accuracy")%>%filter(complete.cases(accuracy))%>%
+  select(-c(se_initial,se_final))
+dftp1
+
+dftp2 = dftp0%>%
+  pivot_longer(cols=starts_with("se"),names_to = "name",values_to = "se")%>%
+  mutate(name=case_when(name=="se_initial"~"by-initial-test",
+                        name=="se_final"~"by-final-test"))%>%filter(complete.cases(se))%>%
+  select(-starts_with("by"))
+dftp2
+
+dfnew44=dftp2%>%left_join(dftp1,by=c("task","listnumber_1to10","condition","probetype","name"))%>%
+  mutate(task=case_when(task=="finalt_response"~paste("finalT",name,sep="-"),
+                        task=="pretest_response"~paste("initialT",name,sep="-")))%>%
+  mutate(probetype=as.factor(probetype))
+  
+dfnew44
+
+# dfnew4avg=dfcg2%>%filter(task%in% c("pretest_response"))%>% 
+#   mutate(listnumber_1to10=as.numeric(listnumber_1to10))%>%
+#   group_by(PROLIFIC_PID,task,listnumber_1to10,condition,probetype)%>%
+#   summarise(accuracy1=mean(correct_all))%>%
+#   group_by(task,listnumber_1to10,probetype)%>%
+#   summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+#   # mutate(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+#   # group_by(task,listnumber_1to10,probetype,condition)%>%
+#   # summarise(accuracy=mean(accuracy),sd=mean(sd),se=mean(se))%>%
+#   mutate(task="initialT-by-initial-test",condition="Averaged")
+
+dflabel4= data.frame(task=rep(c("Final Test, final order","Final Test, initial order"),3),
+                     label1=paste(c("first saw","Recent list","first saw","first saw","first-saw","ss"),"in final"),
+                     label2=c("list10,9,...,2,1","list1,2,...,9,10","list1,2,...,9,10","list1,2,...,9,10","random tested","list1,2..."),
+                     condition=rep(c("backward","forward","random"),each=2))
+dflabel4
+# ggplot(data=dfnew44,aes(listnumber_1to10,accuracy,group=interaction(task,probetype,condition)))+
+#   # geom_line(aes(shape=probetype,color=probetype))+
+#   geom_point(data=dfnew44%>%filter(task!="initialT-by-initial-test"),aes(shape=probetype,color=probetype))+
+#   geom_line(data=dfnew44%>%filter(task!="initialT-by-initial-test"),aes(color=probetype,linetype=probetype)) +
+#   # geom_line(data=dfnew4avg,aes(color=probetype,linetype=probetype))+
+#   geom_line(data=dfnew44%>%filter(task=="initialT-by-initial-test"),aes(linetype=probetype),color="black",alpha=0.3) +
+#   # geom_errorbar(data=dfnew4avg,aes(ymin=accuracy-se,ymax=accuracy+se,color=probetype),alpha=0.8,width=0.2)+
+#   # geom_ribbon(data=dfnew4avg,aes(ymin=accuracy-se,ymax=accuracy+se,fill=probetype),alpha=0.1)+
+#   geom_ribbon(data=dfnew44%>%filter(task!="initialT-by-initial-test"),aes(ymin=accuracy-se,ymax=accuracy+se,fill=probetype),alpha=0.1)+
+#   labs(x="List number (by final/initial test position, see column panel label)",
+#        title=paste("Accuracy plot;" ,""," 
+#        Column panels: 
+#        left:Final Test result by final test position, 
+#        middle: Final test result by inital test position,
+#        right: Inital test result by inital test position"))+
+#   # theme_light()+
+#   theme(text=element_text(size=15),plot.title=element_text(size=13))+
+#   facet_grid(condition~task)+
+#   scale_x_continuous(breaks=1:10,labels=1:10)+
+#   # annotate(data=dfnew44%>%filter(task=="finalT-by-final-test"),"text", x = 1, y = 0.3, label = "inital", color = "red")+
+#   # geom_text(data = dflabel4, aes(x = -Inf, y =-Inf, hjust=-0.05, vjust=-0.5, label = label1),alpha=0.5,inherit.aes = FALSE)+
+#   # geom_text(data = dflabel4, aes(x = -Inf, y =Inf, hjust=-0.1, vjust=1.5, label = label2),alpha=0.5,inherit.aes = FALSE)+
+#   ylim(0,0.6)
+
+dfnew44=dfnew44%>%mutate(task=case_when(task=="initialT-by-initial-test"~"Initial Test",
+                         task=="finalT-by-final-test"~"Final Test, final order",
+                         task=="finalT-by-initial-test"~"Final Test, initial order"))
+ggplot(data=dfnew44,aes(listnumber_1to10,accuracy,group=interaction(task,probetype,condition)))+
+  geom_point(data=dfnew44%>%filter(task!="Initial Test"),aes(shape=probetype,color=probetype))+
+  geom_line(data=dfnew44%>%filter(task!="Initial Test"),aes(color=probetype,linetype=probetype)) +
+  geom_line(data=dfnew44%>%filter(task=="Initial Test"),aes(linetype=probetype),color="black",alpha=0.3) +
+  geom_ribbon(data=dfnew44%>%filter(task!="Initial Test"),aes(ymin=accuracy-se,ymax=accuracy+se,fill=probetype),alpha=0.3)+
+  theme(text=element_text(size=20),plot.title=element_text(size=13))+
+  facet_grid(condition~task)+
+  scale_x_continuous(breaks=1:10,labels=1:10)+
+  ylim(0.4,1.2)+
+  # geom_text(data = dflabel4, aes(x = -Inf, y =-Inf, hjust=-0.05, vjust=-0.5, label = label1),alpha=0.4,inherit.aes = FALSE,size=8)+
+  geom_text(data = dflabel4, aes(x = -Inf, y =Inf, hjust=-0.1, vjust=1.5, label = label2),alpha=0.4,inherit.aes = FALSE,size=8)+
+  labs(x="List number (by final or initial test position, see column panel label)")
+
+```
+```{r}
+dfchanged%>%filter(task=="pretest_response")
+```
+
+
+# Figure 2
+```{r}
+dfcg2=dfchanged%>%mutate(correct_all=correct,wordcondi=probetype,ftl=	
+stimulus_id)
+  
+df_correctfinal = dfcg2 %>% filter(task%in%c("finalt_response"))  %>%
+  mutate(word_tomatch = ftl)%>%
+  mutate(listgroup_finaltest = cut(testpos, breaks = 10, labels=1:10)) %>%
+  mutate(listgroup_finaltest=as.numeric(listgroup_finaltest))%>%
+  mutate(correct_finalt = correct_all)%>%
+  select(PROLIFIC_PID,condition,word_tomatch,correct_finalt,listgroup_finaltest,probetype)
+df_correctfinal
+
+df_intialtest_test = dfcg2 %>% filter(task%in%c("pretest_response")) %>%
+  mutate(word_tomatch=ftl,correct_pretest=correct_all)%>%
+  mutate(listnumber_1to10=trialnum)%>%
+  select(PROLIFIC_PID,condition,listnumber_1to10,task,wordcondi,word_tomatch,correct_pretest)
+df_intialtest_test
+
+#here, get study only
+wordlists_intest = df_intialtest_test %>%group_by(PROLIFIC_PID)%>%summarize(word_tomatch=list(word_tomatch))
+
+df_intialtest_study = dfcg2 %>% filter(task%in%c("pretest_study")) %>%
+  left_join(wordlists_intest,by="PROLIFIC_PID")%>%
+  rowwise()%>%
+  filter(!(ftl %in% unlist(word_tomatch)))%>% #filter out those pretest in study but tested, only leave those not tested
+  mutate(word_tomatch=ftl,correct_pretest=correct_all)%>%
+  mutate(listnumber_1to10=trialnum)%>%
+  mutate(wordcondi="TARGET_nontarget")%>%
+  select(PROLIFIC_PID,condition,listnumber_1to10,task,wordcondi,word_tomatch,correct_pretest)
+df_intialtest_study
+
+# df_intialtest %>% select(PROLIFIC_PID,condition,task,wordcondi,wordchosen_initial,wordchosen_finaltest,word_response,correct_all,is_test)
+# df_conditioned_joined$correct_finalt%>%summary()
+
+df_conditioned_joined =
+  df_correctfinal %>%
+  left_join(df_intialtest_test,by = c("PROLIFIC_PID","word_tomatch","condition")) %>%
+  left_join(df_intialtest_study,by = c("PROLIFIC_PID","word_tomatch","condition")) %>%
+  mutate(wordcondi=case_when(task.y=="pretest_study"~wordcondi.y,task.x=="pretest_response"~wordcondi.x))%>%
+  mutate(correct_pretest=case_when(task.y=="pretest_study"~correct_pretest.y,task.x=="pretest_response"~correct_pretest.x))%>%
+  mutate(listnumber_1to10=case_when(task.y=="pretest_study"~listnumber_1to10.y,task.x=="pretest_response"~listnumber_1to10.x))%>%
+    # select(PROLIFIC_PID,condition,word_tomatch,correct_finalt,correct_pretest,listgroup_finaltest,listnumber_1to10,wordcondi,probetype)
+    # here, wordcondi match probetype
+    select(PROLIFIC_PID,condition,word_tomatch,correct_finalt,correct_pretest,listgroup_finaltest,listnumber_1to10,probetype)%>%
+    mutate(wordcondi=probetype)%>%
+  # mutate(task=case_when(task.y=="pretest_study"~task.y,task.x=="pretest_response"~task.x,t))
+  mutate(correct_pretest = case_when(is.na(correct_pretest)~"not tested",
+                                     correct_pretest==1~"tested and correct",
+                                     correct_pretest==0~"tested and incorrect"))%>%
+    mutate(listnumber_1to10=case_when(is.na(listnumber_1to10)~0,
+                                      TRUE~listnumber_1to10))%>%
+  # filter(correct_pretest=="tested and correct")%>%
+  mutate(testing_situation = wordcondi)%>%
+  # mutate(listgroup_finaltest=as.factor(listgroup_finaltest))%>%
+  pivot_longer(cols = c("listnumber_1to10","listgroup_finaltest"),names_to = "grouping_criteria",values_to = "listnum"  )%>%
+  mutate(grouping_criteria=case_when(grouping_criteria=="listnumber_1to10"~"Intial test order",
+                                     TRUE~"Final test order"))%>%
+  # mutate(listnum=case_when(listnum%in%c(1,2)~"1-2",
+  #                          listnum%in%c(3,4)~"3-4",
+  #                          listnum%in%c(5,6)~"5-6",
+  #                          listnum%in%c(7,8)~"7-8"))%>%
+  mutate()
+df_conditioned_joined
+
+dfnew33 = df_conditioned_joined %>%
+  group_by(PROLIFIC_PID,condition,wordcondi,grouping_criteria,listnum,correct_pretest,testing_situation)%>%
+  summarize(acc1 = mean(correct_finalt))%>%
+  # filter(wordcondi=="repeat",correct_pretest=="tested and correct")%>%
+  group_by(condition,wordcondi,grouping_criteria,listnum,correct_pretest,testing_situation)%>%
+  summarize(acc = mean(acc1),sd=sd(acc1),se=sd/sqrt(n()))%>%
+  mutate(listnum=as.factor(listnum))%>%
+  mutate()
+  # mutate(correct_pretest=as.character(correct_pretest))%>%
+  # mutate(correct_pretest=case_when(is.na(correct_pretest)~"not tested",correct_pretest=="TRUE"~"tested and correct",correct_pretest=="FALSE"~"tested and incorrect"))%>%
+  # mutate(is_test=as.factor(is_test))
+dfnew33%>%filter()
+#weirld-tested and correct; in repeat condition list 2,4,...
+
+dflabel4= data.frame(grouping_criteria=rep(c("Final test order","Intial test order"),3),
+                     label1=paste(c("list 10,9,...,2,1","list 1,2,...,9,10","list 1,2,..,9,10","list 1,2,...,9,10","random tested","list 1, 2, ..., 9, 10")),
+                     condition=rep(c("backward","forward","random"),each=2))
+dflabel4
+
+ggplot(data=dfnew33,aes(listnum,acc,group=interaction(wordcondi,condition,grouping_criteria,correct_pretest,testing_situation)))+
+  geom_point(aes(color=testing_situation),size=1.5,alpha=0.9)+
+  geom_line(aes(color=testing_situation),size=1)+
+  # geom_errorbar(aes(ymin=acc-se,ymax=acc+se,color=correct_pretest),alpha=0.3,width=0.2)+
+  # geom_ribbon(aes(ymin=acc-se,ymax=acc+se,fill=testing_situation),alpha=0.25)+
+  # facet_grid(condition~grouping_criteria)+
+  facet_grid(condition~grouping_criteria+correct_pretest)+
+  theme(strip.text.y = element_text(angle = 0))+
+  # theme(legend.position = "none")+
+  labs(
+    fill="Condition in initial test",
+    color="Type of test",
+    linetype="Condition in initial test",
+    shape="Condition in initial test",
+    x="List group (by initial or final test order, see column panel name); 
+    Number 0 in the 4th column panel means that the foil item tested 
+    does not have an associated initial test order",
+  title="Accuracy of final test conditioned on intial test",x="Test list number")+
+  guides(color=guide_legend(direction = "vertical"),
+         fill=guide_legend(direction = "vertical"),
+         # linetype=guide_legend(direction = "vertical"),
+         # shape=guide_legend(direction = "vertical")
+         )+
+  scale_color_manual(values = c("black","green","blue","red","orange"))+
+  theme(legend.position = "top",text=element_text(size=20),axis.text.x = element_text(hjust=0.4,size=15))+
+  geom_text(data = dflabel4, aes(x = -Inf, y =-Inf, hjust=-0.05, vjust=-0.5, label = label1),alpha=0.5,inherit.aes = FALSE,size=6)+
+  # geom_text(data = dflabel4, aes(x = -Inf, y =Inf, hjust=-0.1, vjust=1.5, label = label2),alpha=0.5,inherit.aes = FALSE)+
+  ylim(c(-0.1,1.2))
+```
+
+```{r}
+dfchanged%>%filter(task=="pretest_response",is.na(rt))
+```
+
+# ***************
+
+
+# Figure 1
+serial position - initial test
+```{r}
+
+# dfchanged 
+# names to be used: prespos, testpos
+dim(dfchanged%>%filter(task=="pretest_response",response=="null"))[1]/dim(dfchanged%>%filter(task=="pretest_response"))[1] #filtered out 0.4% of data
+
+dfserial=dfchanged%>%
+  filter(task=="pretest_response")%>%
+  filter(response!="null")%>%
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position,ip,position_type,correct,probetype)%>%
+  group_by(position,ip,position_type,probetype)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position,position_type,probetype)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(probetype=case_when(probetype=="TARGET_foil"~"Foil - Correct rejection",
+                             probetype=="TARGET_target"~"Target - Hits"))%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Initial Test Position",
+                                 TRUE~"Initial Study Position"))
+
+dfserial_meandf=dfchanged%>%
+  filter(task=="pretest_response")%>%
+  filter(response!="null")%>%
+  select(testpos,ip,correct,probetype)%>%
+  group_by(testpos,ip)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(testpos)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(position_type="Initial Test Position",position=testpos,probetype="Average")%>%
+  select(position,position_type,probetype,meancr,se)
+dfserial_meandf
+dfserial_all=rbind(dfserial,dfserial_meandf)
+  
+  
+ggplot(data=dfserial_all, aes(position,meancr,group=interaction(position_type)))+
+  # geom_line(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  # geom_point(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  geom_point(aes(color=probetype,group=probetype))+
+  geom_line(aes(color=probetype,group=probetype))+
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),alpha=0.3)+
+  facet_grid(.~position_type)+
+  labs(x="Initial Study position (left column), Initial Test position (right column)",
+       y="performance (Hits/Correct Rejection)",
+       caption="Figure 1 Within Initial-List Results in the Initial Session",
+       color="Type",fill="Type")+
+  scale_color_manual(values=c("black","#E69F00","#56B4E9"))+
+  scale_fill_manual(values=c("black","#E69F00","#56B4E9"))+
+  theme(
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+    plot.margin = margin(t = 10, b = 40) 
+  )
+# dfserial
+```
+
+
+# Figure 2 - final test within list
+
+```{r}
+df_initial=dfchanged%>%
+  filter(task=="pretest_response")%>%
+  # filter(response!="null")%>%
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position,ip,position_type,condition,stimulus_id)
+
+wordlists_intest = dfchanged%>%
+  filter(task=="pretest_response")%>%group_by(ip)%>%summarize(words=list(stimulus_id))
+
+
+df_initial_study =
+  dfchanged%>%filter(task=="pretest_study")%>%
+  left_join(wordlists_intest,by="ip")%>%
+  rowwise()%>%
+  filter(!(stimulus_id%in%unlist(words)))%>%#here get study only
+  mutate(position=prespos,position_type="prespos")%>%
+  select(position,position_type,ip,condition,stimulus_id)
+  
+df_initial_all=rbind(df_initial,df_initial_study)  
+
+df_final = dfchanged%>%
+  filter(task=="finalt_response")%>%
+  filter(probetype!="FOIL") %>% #foil doesn't have inital test position 
+  filter(response!="null")%>%
+  select(ip,correct,condition,probetype,stimulus_id)
+
+#now, combine initial test positions with final test correct, 
+# intial test add column position_type (intial/final), position
+# final test add column correct(1/0) and probetype (3 kinds of Target and foil)
+
+
+df_finalwithin=
+  df_final%>%left_join(df_initial_all,by=c("ip","stimulus_id","condition"))%>%
+  filter(!is.na(correct))%>%
+  group_by(position,ip,position_type,condition,probetype)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position,position_type,condition,probetype)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  # mutate(probetype=case_when(probetype=="TARGET_foil"~"Foil - Correct rejection",
+                             # probetype=="TARGET_target"~"Target - Hits"))%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Initial Test Position",
+                                 position_type=="prespos"~"Initial Study Position"))
+
+df_finalwithin
+
+ggplot(data=df_finalwithin,
+       aes(position,meancr,group=interaction(position_type,condition)))+
+  # geom_line(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  # geom_point(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  geom_point(aes(color=probetype,group=probetype))+
+  geom_line(aes(color=probetype,group=probetype))+
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),alpha=0.3)+
+  facet_grid(condition~position_type)+
+  labs(x="Initial Study position (left column), Initial Test position (right column)",
+       y="Hit Rate)",
+       caption="Figure 2 Within Initial-List Results Seen in Final Testing",
+       color="Type",fill="Type")+
+  # scale_color_manual(values=c("black","#E69F00","#56B4E9"))+
+  # scale_fill_manual(values=c("black","#E69F00","#56B4E9"))+
+  theme(
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+    plot.margin = margin(t = 10, b = 40) 
+  )
+
+```
+## 2b
+```{r}
+df_initial=dfchanged%>%
+  # filter(trialnum!=1)%>%
+  filter(task=="pretest_response")%>%
+  # filter(response!="null")%>%
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position,ip,position_type,stimulus_id)
+
+wordlists_intest = dfchanged%>%
+  filter(task=="pretest_response")%>%group_by(ip)%>%summarize(words=list(stimulus_id))
+
+
+df_initial_study =
+  dfchanged%>%filter(task=="pretest_study")%>%
+  # filter(trialnum!=1)%>%
+  left_join(wordlists_intest,by="ip")%>%
+  rowwise()%>%
+  filter(!(stimulus_id%in%unlist(words)))%>%#here get study only
+  mutate(position=prespos,position_type="prespos")%>%
+  select(position,position_type,ip,stimulus_id)
+  
+df_initial_all=rbind(df_initial,df_initial_study)  
+
+df_final = dfchanged%>%
+  filter(task=="finalt_response")%>%
+  # filter(prespos_itrial!=1)%>%
+  filter(probetype!="FOIL") %>% #foil doesn't have inital test position 
+  filter(response!="null")%>%
+  select(ip,correct,probetype,stimulus_id)
+
+#now, combine initial test positions with final test correct, 
+# intial test add column position_type (intial/final), position
+# final test add column correct(1/0) and probetype (3 kinds of Target and foil)
+
+
+df_finalwithin=
+  df_final%>%left_join(df_initial_all,by=c("ip","stimulus_id"))%>%
+  filter(!is.na(correct))%>%
+  group_by(position,ip,position_type,probetype)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position,position_type,probetype)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(probetype=case_when(probetype=="TARGET_foil"~"Foil, neither studied nor tested  - Correct rejection",
+                             probetype=="TARGET_target"~"Target, Studied and tested - HITS",
+                             probetype=="TARGET_nontarget"~"Target, Studied only - HITS"))%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Initial Test Position",
+                                 position_type=="prespos"~"Initial Study Position"))
+
+df_finalwithin
+
+ggplot(data=df_finalwithin,
+       aes(position,meancr,group=interaction(position_type)))+
+  # geom_line(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  # geom_point(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  geom_point(aes(color=probetype,group=probetype))+
+  geom_line(aes(color=probetype,group=probetype))+
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),alpha=0.3)+
+  facet_grid(.~position_type)+
+  labs(x="Initial Study position (left column), Initial Test position (right column)",
+       y="Hit Rate)",
+       caption="Figure 2 Within Initial-List Results Seen in Final Testing",
+       color="Type",fill="Type")+
+  # scale_color_manual(values=c("black","#E69F00","#56B4E9"))+
+  # scale_fill_manual(values=c("black","#E69F00","#56B4E9"))+
+  theme(
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+    plot.margin = margin(t = 10, b = 40) 
+  )
+
+```
+
+
+# Figure 3 - final test
+```{r}
+
+# dfchanged 
+# names to be used: prespos, testpos
+dfserial=
+  dfchanged%>%
+  filter(task=="finalt_response")%>%
+  mutate(testpos=cut_number(testpos,10,labels=1:10))%>%
+  mutate(testpos=as.factor(testpos),prespos=as.factor(prespos_itrial))%>%
+  filter(response!="null")%>%
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position,ip,position_type,correct,condition,probetype)%>%
+  group_by(position,ip,position_type,condition,probetype)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position,position_type,condition,probetype)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(probetype=case_when(probetype=="FOIL"~"Foil - Correct rejection",
+                             TRUE~paste(probetype," - Hits")))%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Final Test List Position",
+                                 TRUE~"Initial Study List Position"))
+
+dfserial_meandf=dfchanged%>%
+  filter(task=="finalt_response")%>%
+  mutate(testpos=cut_number(testpos,10,labels=1:10))%>%
+  mutate(testpos=as.factor(testpos),prespos=as.factor(prespos_itrial))%>%
+  filter(response!="null")%>%
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position_type,position,ip,correct,condition,probetype)%>%
+  group_by(position_type,position,ip,condition)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position_type,position,condition)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(probetype="Average")%>%
+  select(position,position_type,condition,probetype,meancr,se)%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Final Test List Position",
+                                 TRUE~"Initial Study List Position"))
+dfserial_meandf
+dfserial_all=rbind(dfserial,dfserial_meandf)%>%
+  mutate(position_type=as.factor(position_type))%>%
+  mutate(position_type=factor(position_type,levels=rev(levels(position_type))))
+  
+  
+ggplot(data=dfserial_all, aes(position,meancr,group=interaction(position_type,condition)))+
+  # geom_line(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  # geom_point(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  geom_point(aes(color=probetype,group=probetype))+
+  geom_line(aes(color=probetype,group=probetype))+
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),alpha=0.3)+
+  facet_grid(condition~position_type)+
+  labs(x="Final test position cut in 10 chunks (left column), Initial test list order (right column)",
+       y="performance (Hits/Correct Rejection)",
+       caption="Figure 3. Between List Final Test Results seen in Final Testing",
+       color="Type",fill="Type")+
+  scale_color_manual(values=c("black","#56B4E9","#E69F00","#009E73","#F0E442"))+
+  scale_fill_manual(values=c("black","#56B4E9","#E69F00","#009E73","#F0E442"))+
+  theme(
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+    plot.margin = margin(t = 10, b = 40) 
+  )
+# dfserial
+```
+
+# Figure 4 - Initial by list number
+```{r}
+names(dfchanged)
+dff4=dfchanged%>%
+  filter(task=="pretest_response")%>%
+  select(trialnum,ip,correct,condition,probetype)%>%
+  group_by(trialnum,ip,condition,probetype)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(trialnum,condition,probetype)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(trialnum=as.factor(trialnum))
+  # mutate(probetype=case_when(probetype=="TARGET_foil"~"Foil - Correct rejection",
+                             # probetype=="TARGET_target"~"Target - Hits"))%>%
+  # mutate(position_type=case_when(position_type=="testpos"~"Initial Test Position",
+                                 # TRUE~"Initial Study Position"))
+
+ggplot(dff4,aes(trialnum,meancr,group=interaction(condition,probetype)))+
+  geom_line(aes(color=probetype))+
+  geom_point(aes(color=probetype))+
+  facet_grid(condition~.)+
+  scale_color_manual(values=c("#56B4E9","#E69F00"))+
+  scale_fill_manual(values=c("#56B4E9","#E69F00"))+
+  labs(x="List Number",
+       caption="Figure 4 Initial Results By List Number")+
+    theme(
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+    plot.margin = margin(t = 10, b = 40) 
+  )
+```
+
+# Figure 3++
+
+```{r}
+dfserial=
+  dfchanged%>%
+  filter(task=="finalt_response")%>%
+  mutate(testpos=cut_number(testpos,10,labels=1:10))%>%
+  mutate(testpos=as.factor(testpos),prespos=as.factor(prespos_itrial))%>%
+  filter(response!="null")%>%
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position,ip,position_type,correct,condition,probetype)%>%
+  group_by(position,ip,position_type,condition,probetype)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position,position_type,condition,probetype)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(probetype=case_when(probetype=="FOIL"~"Foil - Correct rejection",
+                             TRUE~paste(probetype," - Hits")))
+
+dfserial_meandf=dfchanged%>%
+  filter(task=="finalt_response")%>%
+  mutate(testpos=cut_number(testpos,10,labels=1:10))%>%
+  mutate(testpos=as.factor(testpos),prespos=as.factor(prespos_itrial))%>%
+  filter(response!="null")%>%
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position_type,position,ip,correct,condition,probetype)%>%
+  group_by(position_type,position,ip,condition)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position_type,position,condition)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(probetype="Average")%>%
+  select(position,position_type,condition,probetype,meancr,se)
+dfserial_meandf
+
+
+df_initialtestbyinitial=dfchanged%>%
+  filter(task=="pretest_response")%>%
+  select(trialnum,ip,correct,condition,probetype)%>%
+  group_by(trialnum,ip,condition,probetype)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(trialnum,condition,probetype)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(trialnum=as.factor(trialnum))%>%
+  mutate(position=trialnum,position_type="ir")%>%
+  select(position,position_type,condition,probetype,meancr,se)%>%
+  mutate(probetype=case_when(probetype=="FOIL"~"Foil - Correct rejection",
+                             TRUE~paste(probetype," - Hits")))
+  
+dfserial_all=rbind(dfserial,dfserial_meandf,df_initialtestbyinitial)%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Final Test Result
+Final Test List Position",
+                                 position_type=="ir"~"Initial Test Result 
+Initial List Position",
+                                 position_type=="prespos"~"Final Test Result
+Initial Study List Position"))%>%
+  mutate(position_type=as.factor(position_type))%>%
+  mutate(position_type=factor(position_type,levels=rev(levels(position_type))))
+
+
+ggplot(data=dfserial_all, aes(position,meancr,group=interaction(position_type,condition)))+
+  # geom_line(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  # geom_point(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  geom_point(aes(color=probetype,group=probetype))+
+  geom_line(aes(color=probetype,group=probetype))+
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),alpha=0.3)+
+  facet_grid(condition~position_type)+
+  labs(x="Initial test list order (left 2 columns), Final test position cut in 10 chunks (right column)",
+       y="performance (Hits/Correct Rejection)",
+       caption="Figure 3. Between List Initial and Final Test Results by List Position",
+       color="Type",fill="Type")+
+  scale_color_manual(values=c("black","#56B4E9","#E69F00","#009E73","#F0E442"))+
+  scale_fill_manual(values=c("black","#56B4E9","#E69F00","#009E73","#F0E442"))+
+  theme(
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+    plot.margin = margin(t = 10, b = 40),
+    text=element_text(size=15)
+  )
+```
+## 3.2
+
+```{r}
+dfserial=
+  dfchanged%>%
+  filter(task=="finalt_response")%>%
+  mutate(testpos=cut_number(testpos,10,labels=1:10))%>%
+  mutate(testpos=as.factor(testpos),prespos=as.factor(prespos_itrial))%>%
+  filter(response!="null")%>%
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position,ip,position_type,correct,condition,probetype)%>%
+  group_by(position,ip,position_type,condition,probetype)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position,position_type,condition,probetype)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+    mutate(probetype=case_when(probetype=="TARGET_foil" ~ "TARGET_test only (previous foil)",
+                             probetype=="TARGET_nontarget" ~"TARGET_study only",
+                             probetype=="TARGET_target"~"TARGET_studyandtest",
+                             TRUE~probetype))%>%
+  mutate(probetype=case_when(probetype=="FOIL"~"Foil - Correct rejection",
+                             TRUE~paste(probetype," - Hits")))%>%
+  filter(!(condition=="backward"&position_type=="prespos"),
+         !(condition=="forward"&position_type=="prespos"))
+
+dfserial_meandf=dfchanged%>%
+  filter(task=="finalt_response")%>%
+  mutate(testpos=cut_number(testpos,10,labels=1:10))%>%
+  mutate(testpos=as.factor(testpos),prespos=as.factor(prespos_itrial))%>%
+  filter(response!="null")%>%
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position_type,position,ip,correct,condition,probetype)%>%
+  group_by(position_type,position,ip,condition)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position_type,position,condition)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(probetype="Average")%>%
+  select(position,position_type,condition,probetype,meancr,se)%>%
+  filter(!(condition=="backward"&position_type=="prespos"),
+         !(condition=="forward"&position_type=="prespos"))
+dfserial_meandf
+
+
+df_initialtestbyinitial=dfchanged%>%
+  filter(task=="pretest_response")%>%
+  select(trialnum,ip,correct,probetype)%>%
+  group_by(trialnum,ip,probetype)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(trialnum,probetype)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(trialnum=as.factor(trialnum))%>%
+  mutate(position=trialnum,position_type="ir")%>%
+  mutate(condition="All conditions")%>%
+  select(position,position_type,probetype,meancr,se,condition)%>%
+  # mutate(probetype=case_when(probetype=="TARGET_foil" ~ "TARGET_test only (previous foil)",
+  #                            probetype=="TARGET_nontarget" ~"TARGET_study only",
+  #                            probetype=="TARGET_target"~"TARGET_studyandtest",
+  #                            TRUE~probetype))%>%
+  mutate(probetype=case_when(probetype=="FOIL"~"Foil - Correct rejection",
+                             TRUE~paste(probetype," - Hits"))) %>% mutate(condition=as.factor(condition))%>%
+  mutate(condition=factor(condition,levels=levels(condition)[c(1,2,3)]))
+  # mutate(probetype=factor(probetype,levels=levels(probetype)[c(1,2,3)]))
+  
+
+
+##############figure 3
+# plot previous version
+ggplot(data=df_initialtestbyinitial%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Final Result
+Final Test Position",
+                                 position_type=="ir"~"Initial Result 
+Initial List Position",
+                                 position_type=="prespos"~"Final Result
+Initial List Position"))%>%
+  mutate(position_type=as.factor(position_type))%>%
+  mutate(position_type=factor(position_type,levels=rev(levels(position_type))))%>%
+  mutate(probetype=case_when(probetype=="TARGET_foil  - Hits"~ "foil",
+                             TRUE ~ "target"))%>%
+  mutate(conditionnow=paste(condition," - ",position_type)), aes(position,meancr,group=interaction(position_type,conditionnow)))+
+  # geom_line(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  # geom_point(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  geom_point(aes(color=probetype,group=probetype))+
+  geom_line(aes(color=probetype,group=probetype))+
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),alpha=0.3)+
+  # facet_grid(~.)+
+  labs(x="List number in inital test",
+       y="performance (Hits/Correct Rejection)",
+       caption="Figure 3. Between List Initial Test Results",
+       color="Type",fill="Type")+
+  scale_color_manual(values=c("#56B4E9","#E69F00","#009E73","#F0E442"))+
+  scale_fill_manual(values=c("#56B4E9","#E69F00","#009E73","#F0E442"))+
+  theme(
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+    plot.margin = margin(t = 10, b = 40),
+    text=element_text(size=15),
+    strip.text.y=element_text(angle=0,hjust=0.5)
+  )
+
+
+
+
+#############figure 4
+dfserial_all=rbind(dfserial,dfserial_meandf)%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Final Test Position",
+                                 # position_type=="ir"~"Initial Result
+# Initial List Position",
+                                 position_type=="prespos"~"Initial List Position"))%>%
+  mutate(position_type=as.factor(position_type))%>%
+  mutate(position_type=factor(position_type,levels=rev(levels(position_type))))%>%
+  mutate(conditionnow=paste(condition," - ",position_type))%>%
+  mutate(conditionnow=as.factor(conditionnow))%>%
+  mutate(conditionnow=factor(conditionnow,levels=levels(conditionnow)[c(1,4,2,3)]))
+
+levels(dfserial_all$conditionnow)
+# dfserial_all$conditionnow %>%as.factor()%>%summary
+ggplot(data=dfserial_all %>% filter(conditionnow!="random  -  Initial List Position"), 
+       aes(position,meancr,group=interaction(position_type,conditionnow)))+
+  # geom_line(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  # geom_point(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  geom_point(aes(color=probetype,group=probetype))+
+  geom_line(aes(color=probetype,group=probetype))+
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),alpha=0.3)+
+  facet_wrap(conditionnow~.,nrow=3)+
+  labs(x="Final test position and Initial test list position",
+       y="performance (Hits/Correct Rejection)",
+       caption="Figure 4. Between List Final Test Results by Final Test Position",
+       color="Type",fill="Type")+
+  scale_color_manual(values=c("black","#56B4E9","#E69F00","#009E73","#F0E442"))+
+  scale_fill_manual(values=c("black","#56B4E9","#E69F00","#009E73","#F0E442"))+
+  theme(
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+    plot.margin = margin(t = 10, b = 40),
+    text=element_text(size=15),
+    strip.text.y=element_text(angle=0,hjust=0.5)
+  )
+
+#############figure 5
+ggplot(data=dfserial_all %>% filter(conditionnow=="random  -  Initial List Position"), 
+       aes(position,meancr,group=interaction(position_type,conditionnow)))+
+  # geom_line(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  # geom_point(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  geom_point(aes(color=probetype,group=probetype))+
+  geom_line(aes(color=probetype,group=probetype))+
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),alpha=0.3)+
+  facet_wrap(conditionnow~.,nrow=3)+
+  labs(x="Final test position",
+       y="performance (Hits/Correct Rejection)",
+       caption="Figure 5. Random condition - Between List Final Test Results by Initial Test Position",
+       color="Type",fill="Type")+
+  scale_color_manual(values=c("black","#56B4E9","#E69F00","#009E73","#F0E442"))+
+  scale_fill_manual(values=c("black","#56B4E9","#E69F00","#009E73","#F0E442"))+
+  theme(
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+    plot.margin = margin(t = 10, b = 40),
+    text=element_text(size=15),
+    strip.text.y=element_text(angle=0,hjust=0.5)
+  )
+
+
+
+ggplot(data=dfserial_all, aes(position,meancr,group=interaction(position_type,conditionnow)))+
+  # geom_line(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  # geom_point(data=dfserial_meandf,aes(position,meancr,group=condition),color="black")+
+  geom_point(aes(color=probetype,group=probetype))+
+  geom_line(aes(color=probetype,group=probetype))+
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),alpha=0.3)+
+  facet_wrap(conditionnow~.,nrow=2)+
+  labs(x="Initial test list position",
+       y="performance (Hits/Correct Rejection)",
+       caption="Figure 4. Between List Final Test Results by List Position",
+       color="Type",fill="Type")+
+  scale_color_manual(values=c("black","#56B4E9","#E69F00","#009E73","#F0E442"))+
+  scale_fill_manual(values=c("black","#56B4E9","#E69F00","#009E73","#F0E442"))+
+  theme(
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+    plot.margin = margin(t = 10, b = 40),
+    text=element_text(size=15),
+    strip.text.y=element_text(angle=0,hjust=0.5)
+  )
+```
+
+
+
+
+
+
+
+
+
+
+

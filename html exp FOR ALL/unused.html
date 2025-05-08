@@ -1,0 +1,18 @@
+var trial = {
+    timeline: [
+      {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: '+',
+        choices: ['F','J']
+      },
+      {
+        type:jsPsychImageKeyboardResponse,
+        stimulus: jsPsych.timelineVariable('cc'),
+        choices: ['F','J']
+      },
+    ],
+    timeline_variables: [
+      {cc: picname},
+      {cc: picname}
+    ]
+  }
