@@ -1,0 +1,56 @@
+function simulate_multiple_lists(n_lists, g, c, u_star, w, n_words, n_units_time, n_probes, n_simulations)
+    # all_counts = [];
+    all_tar_counts = Array{Float64}(undef, n_lists, n_probes);
+    all_foil_counts = Array{Float64}(undef, n_lists, n_probes);
+    is_target_values = Array{Float64}(undef, n_lists, n_probes);
+    all_all_results = Array{Any}(undef, n_lists, n_probes, n_simulations);
+    all_means = nothing;
+
+    for i in 1:n_lists
+        results = nothing;
+
+        ilist_decisions = Array{String}(undef, n_probes, n_simulations);
+        for j in 1:n_simulations
+            results, _ = simulate_rem(g, c, u_star, w, n_words, n_units_time, n_probes);
+            all_all_results[i, :, j] = results;
+            ilist_decisions[:, j] = [x.decision for x in results];
+        end
+
+        ilist_target_count = [count(x -> x.decision == "old" & x.is_target, all_all_results[i, iprob, :]) for iprob in 1:n_probes];
+        ilist_foil_count = [count(x -> x.decision == "new" & !x.is_target, all_all_results[i, iprob, :]) for iprob in 1:n_probes];
+        # ilist_count2 = [count(x -> x == "new", ilist_decisions[iword,:]) for iword in 1:n_words];
+        # println(ilist_count,ilist_count2,n_simulations)
+        all_tar_counts[i,:] = ilist_target_count;
+        all_foil_counts[i,:] = ilist_foil_count;
+    end
+
+    all_means_tar = all_counts ./ n_simulations
+    all_means_foil = all_counts ./ n_simulations
+
+    # for i in 1:n_lists
+    #     for j in 1:n_probes
+    #         # Assuming you want to take the is_target value from the first simulation
+    #         # of each probe in each list.
+    #         is_target_values[i, j] = all_all_results[i, j, 1].is_target
+    #     end
+    # end
+    # is_target_values = [all_all_results[i, j, 1].is_target for i in 1:n_lists, j in 1:n_probes]
+    # return all_means_tar, all_means_foil, all_all_results
+
+    # Create an empty DataFrame to store the results
+    cols = [:list_number, :simulation_number, :decision, :is_target, :probe, :odds, :likelihood_ratios] # Add more columns as needed
+    all_results_df = DataFrame(;cols...)
+
+    for list_num in 1:nlists
+        for sim_num in 1:nsimulations
+            results, _ = simulate_rem(g, c, u_star, w, n_words, n_units_time, n_probes);
+            for res in results
+                row = [list_num, sim_num, res.decision, res.is_target, res.probe, res.odds, res.likelihood_ratios] # Add more fields as needed
+                push!(all_results_df, row)
+            end
+        end
+    end
+
+    return all_results_df
+
+end

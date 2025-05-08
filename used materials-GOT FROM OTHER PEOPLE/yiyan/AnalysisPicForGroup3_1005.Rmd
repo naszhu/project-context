@@ -1,0 +1,1453 @@
+---
+title: "AnalysisForGroup1_0821.Rmd"
+output: html_document
+date: "2023-02-24"
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+```
+
+```{r}
+# getwd()
+# names=list.files("full_splitted_data_group1")
+df = list.files(path = "./", pattern = "*.csv") %>% 
+  map_df(~read_csv(.))
+file_names <- list.files(path = "./", pattern = "*.csv", full.names = TRUE)
+names(df)
+```
+
+
+```{r}
+df%>%
+  filter(duplicated(.[["response"]])
+```
+
+
+
+
+
+```{r 20231022}
+library(dplyr)
+library(jsonlite)
+
+# Add chunkg to df
+parnum <- length(levels(as.factor(df$run_id)))
+chunkg <- rep(rep(1:3, c(15,16,5)), parnum)
+df$chunkg <- chunkg
+
+num_run_id <- length(levels(as.factor(df$run_id)))
+
+# Function to safely parse JSON and extract the word
+safe_json_parse <- function(response) {
+  tryCatch({
+    word <- fromJSON(response)$Q0
+    if(word != "") {
+      return(word)
+    } else {
+      return(NA_character_)
+    }
+  }, error = function(e) {
+    return(NA_character_)
+  })
+}
+
+# Apply the function to extract free recall words
+df$free_recall_word <- sapply(df$response, safe_json_parse)
+
+library(dplyr)
+
+# Helper function to check if word has been processed before
+process_word <- function(word, processed_words) {
+  if (word %in% processed_words) {
+    return(0) # Word already processed
+  } else {
+    # processed_words <- c(processed_words, word) # Add the word to the processed list and return 1
+    processed_words <- append(processed_words, word) # Add the word to the
+    return(list(1, processed_words))
+  }
+}
+
+# Apply the function to extract free recall words
+df$free_recall_word <- sapply(df$response, safe_json_parse)
+
+# Lists to keep track of processed words for each condition
+processed_words_A <- list()
+processed_words_B <- list()
+processed_words_C <- list()
+processed_words_E <- list()
+
+df_A2E <- df %>%
+  group_by(run_id) %>%
+  mutate(
+    right_FR_words = list(unique(unlist(strsplit(as.character(free_recall_word[task == "FR_task" & free_recall == TRUE]), ", ")))),
+    cued_third_words = list(unique(as.character(correct_response[task == "cued_third"]))),
+    non_cued_FR_words = list(setdiff(right_FR_words[[1]], cued_third_words[[1]])),
+    
+    # Store the recall_correctness value for the cued_third task
+    cued_third_recall_correctness = recall_correctness,
+    
+    # Extract word from free_recall_word format
+    extracted_word = ifelse(!is.na(free_recall_word) & grepl("\"Q0\":\"[^\"]+\"", free_recall_word),
+                            gsub(".*\"Q0\":\"([^\"]+)\".*", "\\1", free_recall_word),
+                            free_recall_word),
+    
+    A = ifelse(task == "FR_task" & free_recall == TRUE & extracted_word %in% non_cued_FR_words[[1]], 
+               sapply(extracted_word, process_word, processed_words_A), 0),
+    
+    B = ifelse(task == "cued_third" & cued_third_recall_correctness == 1 & extracted_word %in% right_FR_words[[1]], 1, 0),
+    
+    C = ifelse(task == "cued_third" & cued_third_recall_correctness == 0 & extracted_word %in% right_FR_words[[1]],
+               sapply(extracted_word, process_word, processed_words_C), 0),
+    D = A + B + C,
+    
+    E = ifelse(task == "cued_third" & recall_correctness == 1 & !extracted_word %in% right_FR_words[[1]],
+               sapply(extracted_word, process_word, processed_words_E)[[1]], 0)
+  ) %>% ungroup()
+
+#list_columns <- sapply(df, class) == "list"
+#list_column_names <- names(df)[list_columns]
+#for (col_name in list_column_names) {
+#  df[[col_name]] <- sapply(df[[col_name]], toString)
+#}
+#write.csv(df_A2E, "output_filename4.csv", row.names = FALSE)
+
+```
+
+```{r 20231022}
+library(dplyr)
+
+
+df <- df %>%
+  mutate(B = ifelse(task == "FR_task" & 
+                    free_recall == TRUE & 
+                    sapply(strsplit(as.character(free_recall_word), ", "), 
+                           function(x) any(x %in% cued_third_words[[1]])) & 
+                    any(recall_correctness[task == "cued_third"] == 1), 
+                  1, 0))
+
+df <- df %>%
+  group_by(free_recall_word) %>%
+  mutate(B = ifelse(task == "FR_task" & 
+                    free_recall == TRUE & 
+                    sapply(strsplit(as.character(free_recall_word), ", "), 
+                           function(x) any(x %in% cued_third_words[[1]])) & 
+                    any(recall_correctness[task == "cued_third"] == 1), 
+                  1, 0)) %>%
+  ungroup()
+
+process_word_B <- function(word, word_list) {
+  if (word %in% word_list) {
+    return(1)
+  } else {
+    return(0)
+  }
+}
+
+df <- df %>%
+  mutate(B = ifelse(task == "FR_task" & 
+                    free_recall == TRUE & 
+                    sapply(strsplit(as.character(free_recall_word), ", "), 
+                           function(x) any(x %in% cued_third_words[[1]])) & 
+                    any(task == "cued_third" & recall_correctness == 1), 
+                  sapply(free_recall_word, process_word_B, cued_third_words[[1]]), 0))
+
+# df_A2E <- df %>%
+#   group_by(run_id) %>%
+#   mutate(
+#     right_FR_words = list(unique(unlist(strsplit(as.character(free_recall_word[task == "FR_task" & free_recall == TRUE]), ", ")))),
+#     cued_third_words = list(unique(as.character(correct_response[task == "cued_third"]))),
+#     non_cued_FR_words = list(setdiff(right_FR_words[[1]], cued_third_words[[1]])),
+#     
+#     # Extract word from free_recall_word format
+#     extracted_word = ifelse(!is.na(free_recall_word) & grepl("\"Q0\":\"[^\"]+\"", free_recall_word),
+#                             gsub(".*\"Q0\":\"([^\"]+)\".*", "\\1", free_recall_word),
+#                             free_recall_word),
+#     
+#     A = ifelse(task == "FR_task" & free_recall == TRUE & extracted_word %in% non_cued_FR_words[[1]], 
+#                sapply(extracted_word, process_word, processed_words_A), 0),
+#     
+#     B = ifelse(task == "FR_task" & free_recall == TRUE & 
+#                sapply(strsplit(as.character(extracted_word), ", "), function(x) any(x %in% cued_third_words[[1]])) & 
+#                recall_correctness[task == "cued_third"] == 1,
+#                1, 0),
+#     
+#     C = ifelse(task == "FR_task" & free_recall == TRUE & extracted_word %in% cued_third_words[[1]] & recall_correctness == 0,
+#                sapply(extracted_word, process_word, processed_words_C), 0),
+#     
+#     D = A + B + C,
+#     
+#     E = ifelse(task == "cued_third" & recall_correctness == 1 & !extracted_word %in% right_FR_words[[1]],
+#                sapply(extracted_word, process_word, processed_words_E), 0)
+#   ) %>%
+#   ungroup()
+
+# Changes:
+# 1. Added an 'extracted_word' calculation to get the word from the format.
+# 2. Updated conditions B, C, and E to use 'extracted_word' instead of 'free_recall_word'.
+
+list_columns <- sapply(df, class) == "list"
+list_column_names <- names(df)[list_columns]
+for (col_name in list_column_names) {
+  df[[col_name]] <- sapply(df[[col_name]], toString)
+}
+write.csv(df, "output_filename3.csv", row.names = FALSE)
+
+```
+
+
+
+
+
+df_A2E <- df %>%
+  group_by(run_id) %>%
+  mutate(
+    right_FR_words = list(unique(unlist(strsplit(as.character(free_recall_word[task == "FR_task" & free_recall == TRUE]), ", ")))),
+    cued_third_words = list(unique(strsplit(as.character(correct_response[task == "cued_third"]), ", ")[[1]])),
+    non_cued_FR_words = list(setdiff(right_FR_words[[1]], cued_third_words[[1]])),
+    
+    # For conditions A to E, use the process_word function to determine the value
+    A = ifelse(task == "FR_task" & free_recall == TRUE & free_recall_word %in% non_cued_FR_words[[1]], 
+               sapply(free_recall_word, process_word, processed_words_A), 0),
+    
+    B = ifelse(task == "FR_task" & free_recall == TRUE & free_recall_word %in% cued_third_words[[1]] & recall_correctness == 1,
+               sapply(free_recall_word, process_word, processed_words_B), 0),
+    
+    C = ifelse(task == "FR_task" & free_recall == TRUE & free_recall_word %in% cued_third_words[[1]] & recall_correctness == 0,
+               sapply(free_recall_word, process_word, processed_words_C), 0),
+    
+    D = A + B + C,
+    
+    E = ifelse(task == "cued_third" & recall_correctness == 1 & !free_recall_word %in% right_FR_words[[1]],
+               sapply(free_recall_word, process_word, processed_words_E), 0)
+  ) %>%
+  ungroup()
+
+list_columns <- sapply(df, class) == "list"
+list_column_names <- names(df)[list_columns]
+for (col_name in list_column_names) {
+  df[[col_name]] <- sapply(df[[col_name]], toString)
+}
+write.csv(df, "output_filename3.csv", row.names = FALSE)
+
+df$cued_third_words <- lapply(df$cued_third_words, function(x) unlist(strsplit(x, ", ")))
+subset_3 = df[df$free_recall_word %in% df$cued_third_words[[1]], ]
+print(nrow(subset_3))
+
+
+# Test the conditions separately
+df %>%
+  mutate(
+    test1 = task == "FR_task",
+    test2 = free_recall == TRUE,
+    test3 = free_recall_word %in% cued_third_words[[1]],
+    test4 = recall_correctness == 1
+  ) %>%
+  filter(test1 & test2 & test3 & test4)
+
+print(dim(df))
+
+print(sum(is.na(df$task)))
+print(sum(is.na(df$free_recall)))
+print(sum(is.na(df$free_recall_word)))
+print(sum(is.na(df$recall_correctness)))
+
+table(df$task == "FR_task")
+table(df$free_recall == TRUE)
+table(df$free_recall_word %in% cued_third_words[[1]])
+table(df$recall_correctness == 1)
+
+
+df_temp <- df %>%
+  group_by(run_id) %>%
+  mutate(
+    right_FR_words = list(unique(unlist(strsplit(as.character(free_recall_word[task == "FR_task" & free_recall == TRUE]), ", ")))),
+    cued_third_words = list(unique(as.character(correct_response[task == "cued_third"]))),
+    non_cued_FR_words = list(setdiff(right_FR_words[[1]], cued_third_words[[1]]))
+  )
+
+print(head(df_temp$cued_third_words, 20))
+
+
+```
+
+df_A2E <- df %>%
+  group_by(run_id) %>%
+  mutate(
+    right_FR_words = list(unlist(strsplit(as.character(free_recall_word[task == "FR_task" & free_recall == TRUE]), ", "))),
+    cued_third_words = list(unique(as.character(correct_response[task == "cued_third"]))),
+    non_cued_FR_words = list(setdiff(right_FR_words[[1]], cued_third_words[[1]])),
+    A = ifelse(task == "FR_task" & free_recall == TRUE & free_recall_word %in% non_cued_FR_words[[1]], 1, 0),
+    B = ifelse(task == "FR_task" & free_recall == TRUE & free_recall_word %in% cued_third_words[[1]] & recall_correctness == 1, 1, 0),
+    C = ifelse(task == "FR_task" & free_recall == TRUE & free_recall_word %in% cued_third_words[[1]] & recall_correctness == 0, 1, 0),
+    D = A + B + C,
+    E = ifelse(task == "cued_third" & recall_correctness == 1 & !free_recall_word %in% right_FR_words[[1]], 1, 0)
+  ) %>%
+  ungroup()
+  
+# calculate P(D)
+df_A2Er <- df_A2E %>%
+  group_by(chunkg) %>%
+  summarize(
+    num_A = sum(A == 1, na.rm = TRUE),
+    num_B = sum(B == 1, na.rm = TRUE),
+    num_C = sum(C == 1, na.rm = TRUE),
+    num_D = sum(D == 1, na.rm = TRUE),
+    num_E = sum(E == 1, na.rm = TRUE)
+  )
+
+
+# Compute P(D) for each chunkg
+df_A2Er$rate_A <- round(df_A2Er$num_A / num_run_id * 15,3)
+
+list_columns <- sapply(df, class) == "list"
+list_column_names <- names(df)[list_columns]
+for (col_name in list_column_names) {
+  df[[col_name]] <- sapply(df[[col_name]], toString)
+}
+write.csv(df, "output_filename3.csv", row.names = FALSE)
+
+  
+```
+  
+
+df <- df %>%
+  group_by(run_id) %>%
+  mutate(
+    right_FR_words = list(unlist(strsplit(as.character(free_recall_word[task == "FR_task" & free_recall == TRUE]), ", "))),
+    cued_third_words = list(unique(as.character(correct_response[task == "cued_third"]))),
+    non_cued_FR_words = list(setdiff(right_FR_words[[1]], cued_third_words[[1]])),
+    A = ifelse(task == "FR_task" & free_recall == TRUE & free_recall_word %in% non_cued_FR_words[[1]], 1, 0),
+    B = ifelse(task == "FR_task" & free_recall == TRUE & free_recall_word %in% cued_third_words[[1]] & recall_correctness == 1, 1, 0),
+    C = ifelse(task == "FR_task" & free_recall == TRUE & free_recall_word %in% cued_third_words[[1]] & recall_correctness == 0, 1, 0),
+    D = A + B + C,
+    E = ifelse(task == "cued_third" & recall_correctness == 1 & !free_recall_word %in% right_FR_words[[1]], 1, 0)
+  ) %>%
+ 
+df_rates <- df %>%
+  group_by(chunkg) %>%
+  summarise(
+    rateA = ifelse(chunkg == 2, sum(A) / 15, ifelse(chunkg == 3, sum(A) / 5, NA)),
+    rateB = ifelse(chunkg == 2, sum(B) / 15, ifelse(chunkg == 3, sum(B) / 5, NA)),
+    rateC = ifelse(chunkg == 2, sum(C) / 15, ifelse(chunkg == 3, sum(C) / 5, NA)),
+    rateD = ifelse(chunkg == 2, sum(D) / 15, ifelse(chunkg == 3, sum(D) / 5, NA)),
+    rateE = ifelse(chunkg == 2, sum(E) / 15, ifelse(chunkg == 3, sum(E) / 5, NA))
+  )
+
+# If you want the rates to be merged back into the original dataframe:
+df <- left_join(df, df_rates, by = "chunkg")
+
+
+list_columns <- sapply(df, class) == "list"
+list_column_names <- names(df)[list_columns]
+for (col_name in list_column_names) {
+  df[[col_name]] <- sapply(df[[col_name]], toString)
+}
+write.csv(df, "output_filename3.csv", row.names = FALSE)
+```
+
+
+
+library(dplyr)
+
+df <- df %>%
+  group_by(run_id) %>%
+  mutate(
+    # Get the words from free_recall_word where task is "FR_task" and free_recall == TRUE
+    right_FR_words = list(unlist(strsplit(as.character(free_recall_word[task == "FR_task" & free_recall == TRUE]), ", "))),
+
+    # Get the words from correct_response where task is "cued_third"
+    cued_third_words = list(unique(as.character(correct_response[task == "cued_third"]))),
+
+    # Words from FR_task that are not in cued_third responses
+    non_cued_FR_words = list(setdiff(right_FR_words[[1]], cued_third_words[[1]])),
+
+    # A = # free recalled not subsequently tested
+    A = ifelse(task == "FR_task" & free_recall == TRUE & free_recall_word %in% non_cued_FR_words[[1]], 1, 0),
+
+    # B = # free recalled words that are subsequently tested for cued recall and are correctly recalled.
+    B = ifelse(task == "FR_task" & free_recall == TRUE & 
+               sapply(strsplit(as.character(free_recall_word), ", "), function(x) any(x %in% cued_third_words[[1]])) & 
+               recall_correctness[task == "cued_third"] == 1, 1, 0),
+
+    # C = # free recalled that are subsequently tested for cued recall and are not correctly recalled.
+    C = ifelse(task == "FR_task" & free_recall == TRUE & 
+               sapply(strsplit(as.character(free_recall_word), ", "), function(x) any(x %in% cued_third_words[[1]])) & 
+               recall_correctness[task == "cued_third"] == 0, 1, 0),
+
+    # D = A + B + C = total words free recalled 
+    D = A + B + C,
+
+    # Words that are correctly recalled during the "cued_third" task
+    cued_correct_words = list(correct_response[task == "cued_third" & recall_correctness == 1]),
+
+    # Words that are correctly recalled during the "cued_third" task BUT not free recalled
+    not_free_recalled = list(setdiff(cued_correct_words[[1]], right_FR_words[[1]])),
+
+    # E = # words cued recalled correctly not free recalled
+    E = ifelse(task == "cued_third" & correct_response %in% not_free_recalled[[1]], 1, 0)
+  ) %>%
+  ungroup()
+
+df_rates <- df %>%
+  group_by(chunkg) %>%
+  summarise(
+    rateA = ifelse(chunkg == 2, sum(A) / 15, ifelse(chunkg == 3, sum(A) / 5, NA)),
+    rateB = ifelse(chunkg == 2, sum(B) / 15, ifelse(chunkg == 3, sum(B) / 5, NA)),
+    rateC = ifelse(chunkg == 2, sum(C) / 15, ifelse(chunkg == 3, sum(C) / 5, NA)),
+    rateD = ifelse(chunkg == 2, sum(D) / 15, ifelse(chunkg == 3, sum(D) / 5, NA)),
+    rateE = ifelse(chunkg == 2, sum(E) / 15, ifelse(chunkg == 3, sum(E) / 5, NA))
+  )
+
+
+list_columns <- sapply(df, class) == "list"
+list_column_names <- names(df)[list_columns]
+for (col_name in list_column_names) {
+  df[[col_name]] <- sapply(df[[col_name]], toString)
+}
+write.csv(df, "output_filename2.csv", row.names = FALSE)
+
+```
+
+
+
+# Identify words retrieved during the FR_task that are considered "right" (i.e., exist in the cued_third_words) and are in the cued_third responses
+# B = # free recalled words that are subsequently tested for cued recall and are correctly recalled.
+df$B <- ifelse(df$task == "FR_task" & df$free_recall == TRUE & 
+               sapply(strsplit(as.character(df$free_recall_word), ", "), 
+                      function(x) any(x %in% cued_third_words)) & 
+               df$recall_correctness[df$task == "cued_third"] == 1, 1, 0)
+
+# C = # free recalled that are subsequently tested for cued recall and are not correctly recalled.
+df$C <- ifelse(df$task == "FR_task" & df$free_recall == TRUE & 
+               sapply(strsplit(as.character(df$free_recall_word), ", "), 
+                      function(x) any(x %in% cued_third_words)) & 
+               df$recall_correctness[df$task == "cued_third"] == 0, 1, 0)
+
+# D = A + B + C = total words free recalled 
+df$D <- df$A + df$B + df$C
+
+# Words that are correctly recalled during the "cued_third" task
+cued_correct_words <- df$correct_response[df$task == "cued_third" & df$recall_correctness == 1]
+
+# Words that are correctly recalled during the "cued_third" task BUT not free recalled
+not_free_recalled <- setdiff(cued_correct_words, right_FR_words)
+
+# Define E as the number of unique words in not_free_recalled
+df$E <- ifelse(df$task == "cued_third" & df$correct_response %in% not_free_recalled, 1, 0)
+
+write.csv(df, "output_dataframe.csv", row.names = FALSE)
+
+
+```
+
+# Calculate A, B, C, D, and E for each participant
+results <- df %>%
+  mutate(
+    # A: Words in free_recall_word that are marked TRUE in free_recall and do not overlap with words in correct_response when the task is "cued_third"
+    A = ifelse(task == "FR_task" & free_recall == TRUE & !free_recall_word %in% df$correct_response[df$task == "cued_third"], 1, 0),
+    
+    # B: Free Recalled and Correctly Cued Recalled
+    B = ifelse(task == "FR_task" & free_recall_word %in% unique(df$correct_response[df$task == "cued_third" & df$recall_correctness == 1]), 1, 0),
+    
+    # C: Free Recalled but Incorrectly Cued Recalled
+    C = ifelse(task == "FR_task" & free_recall_word %in% unique(df$correct_response[df$task == "cued_third" & df$recall_correctness == 0]), 1, 0),
+    
+    # D: Total Words Free Recalled
+    D = ifelse(A == 1 | B == 1 | C == 1, 1, 0),
+    
+    # E: Correctly Cued Recalled but Not Free Recalled
+    E = ifelse(task == "cued_third" & !correct_response %in% unique(df$free_recall_word[df$task == "FR_task"]) & recall_correctness == 1, 1, 0)
+  ) %>%
+
+# View the results
+print(results)
+
+
+
+```
+
+```{r 20231012}
+# Loading required libraries
+library(jsonlite)
+library(dplyr)
+
+# Your provided function to safely parse JSON
+safe_json_parse <- function(response) {
+  tryCatch({
+    word <- fromJSON(response)$Q0
+    if (word != "") {
+      return(word)
+    } else {
+      return(NA_character_)
+    }
+  }, error = function(e) {
+    return(NA_character_)
+  })
+}
+
+# Assuming your data is named df
+df$response_word <- sapply(df$response, safe_json_parse)
+
+# Extracting the study words and S5 subset
+study_words <- df %>% filter(task == "study word") %>% pull(correct_response)
+s5_set <- df %>% filter(task == "cued_third") %>% pull(correct_response)
+
+# Calculating R5(i), R10(i), and R(i)
+df <- df %>% group_by(run_id) %>%
+  mutate(R5_i = sum(response_word %in% s5_set & free_recall == TRUE),
+         R10_i = sum(response_word %in% study_words & !response_word %in% s5_set & free_recall == TRUE),
+         R_i = R5_i + R10_i)
+
+# Cued Recall calculations
+df <- df %>% mutate(nj_i = sum(response_word %in% s5_set),
+                   nc_i = sum(task == "cued_third" & recall_correctness == 1 & response_word %in% s5_set),
+                   n_star_i = 5 - nj_i,
+                   nc_star_i = sum(task == "cued_third" & recall_correctness == 1 & !response_word %in% s5_set))
+
+# Now, aggregating across all participants
+
+results <- df %>% summarise(
+  R5 = sum(R5_i),
+  R10 = sum(R10_i),
+  R = sum(R_i),
+  N = n_distinct(run_id),
+  p_FR5 = R5 / (5 * N),
+  p_FR10 = R10 / (10 * N),
+  p_FR = R / (15 * N),
+  nj = sum(nj_i),
+  n_star = sum(n_star_i),
+  nc = sum(nc_i),
+  nc_star = sum(nc_star_i),
+  p_cued_recall = (nc + nc_star) / (5 * N),
+  p_cued_recall_given_prior_free_recall = nc / nj,
+  p_cued_recall_given_no_prior_free_recall = nc_star / n_star
+)
+
+print(results)
+
+
+```
+
+```{r}
+# Load necessary libraries
+library(jsonlite)
+
+# Function to safely parse JSON and extract the word
+safe_json_parse <- function(response) {
+  tryCatch({
+    word <- fromJSON(response)$Q0
+    if(word != "") {
+      return(word)
+    } else {
+      return(NA_character_)
+    }
+  }, error = function(e) {
+    return(NA_character_)
+  })
+}
+
+# Assuming df is the dataframe with the data
+df$response_parsed <- sapply(df$response, safe_json_parse)
+
+# Identify S5 words
+#s5_set <- unique(df[df$task == "cued_third",]$correct_response)
+s5_set <- df %>% filter(task == "cued_third") %>% pull(correct_response)
+
+# Free Recall Calculations
+df$R5 <- ifelse(df$task == "FR_task" & df$free_recall == TRUE & df$response_parsed %in% s5_set, 1, 0)
+df$R10 <- ifelse(df$task == "FR_task" & df$free_recall == TRUE & !df$response_parsed %in% s5_set, 1, 0)
+
+# Aggregate Calculations
+total_R5 <- sum(df$R5)
+total_R10 <- sum(df$R10)
+total_R <- total_R5 + total_R10
+
+# Cued Recall Calculations
+nc <- sum(df[df$task == "cued_third",]$recall_correctness)
+nj <- nrow(df[df$task == "cued_third" & df$response_parsed %in% s5_set,])
+nc_star <- sum(df[df$task == "cued_third",]$recall_correctness) - nc
+n_star <- 5 - nj
+
+# Participants
+N <- length(unique(df$run_id))
+
+# Probabilities
+p_FR5 <- total_R5 / (5 * N)
+p_FR10 <- total_R10 / (10 * N)
+p_FR <- total_R / (15 * N)
+p_cued_recall <- (nc + nc_star) / (5 * N)
+p_cued_recall_given_prior_free_recall <- nc / nj
+p_cued_recall_given_no_prior_free_recall <- nc_star / n_star
+
+# Print results
+print(paste("p(FR5): ", p_FR5))
+print(paste("p(FR10): ", p_FR10))
+print(paste("p(FR): ", p_FR))
+print(paste("p(cued recall): ", p_cued_recall))
+print(paste("p(cued recall given prior free recall): ", p_cued_recall_given_prior_free_recall))
+print(paste("p(cued recall given no prior free recall): ", p_cued_recall_given_no_prior_free_recall))
+
+```
+
+```{r}
+# Required libraries
+library(jsonlite)
+library(dplyr)
+
+# Provided function to safely parse JSON and extract the word
+safe_json_parse <- function(response) {
+  tryCatch({
+    word <- fromJSON(response)$Q0
+    if(word != "") {
+      return(word)
+    } else {
+      return(NA_character_)
+    }
+  }, error = function(e) {
+    return(NA_character_)
+  })
+}
+
+# Assuming your data is in a dataframe called df
+# Extracting free recall words
+df$recall_word <- sapply(df$response, safe_json_parse)
+
+# Identify S5 words
+s5_set <- df %>%
+  filter(task == "cued_third") %>%
+  select(correct_response) %>%
+  unique() %>%
+  .$correct_response
+
+# Calculating R5(i), R10(i) and R(i) for each participant
+results <- df %>%
+  filter(task == "FR_task", free_recall == TRUE) %>%
+  group_by(run_id) %>%
+  summarise(
+    R5 = sum(recall_word %in% s5_set),
+    R10 = sum(!(recall_word %in% s5_set)),
+    R = n()
+  )
+
+# Calculating nj(i), nc(i), n*(i), and nc*(i) for each participant
+cued_results <- df %>%
+  filter(task == "cued_third") %>%
+  group_by(run_id) %>%
+  summarise(
+    nj = sum(recall_word %in% s5_set),
+    nc = sum(recall_word %in% s5_set & recall_correctness == 1),
+    n_star = 5 - nj,
+    nc_star = sum(!(recall_word %in% s5_set) & recall_correctness == 1)
+  )
+
+# Merging the free recall and cued recall results
+combined_results <- merge(results, cued_results, by = "run_id")
+
+# Aggregating across all participants
+N <- length(unique(df$run_id))
+total_results <- summarise(
+  combined_results,
+  R5 = sum(R5),
+  R10 = sum(R10),
+  R = sum(R),
+  nj = sum(nj),
+  nc = sum(nc),
+  n_star = sum(n_star),
+  nc_star = sum(nc_star),
+  p_FR5 = R5 / (5 * N),
+  p_FR10 = R10 / (10 * N),
+  p_FR = R / (15 * N),
+  p_cued_recall = (nc + nc_star) / (5 * N),
+  p_cued_given_prior_free_recall = nc / nj,
+  p_cued_given_no_prior_free_recall = nc_star / n_star
+)
+
+print(total_results)
+
+```
+
+```{r }
+library(dplyr)
+library(jsonlite)
+
+# Extract the list of correct_response words for the cued_third task type
+cued_third_words <- df %>%
+  filter(task == "cued_third") %>%
+  pull(correct_response)
+
+# Filter rows for the FR_task where the free_recall column is TRUE and 
+# the word from the response column is in cued_third_words
+G1_data <- df %>%
+  filter(task == "FR_task", free_recall == "TRUE") %>%
+  rowwise() %>%
+  mutate(word = fromJSON(response)$Q0) %>%
+  filter(word %in% cued_third_words)
+
+# Count unique words
+G1 <- nrow(G1_data)
+
+print(G1)
+
+# ... (keep the earlier code unchanged)
+
+# For G3: Words in free recall and later got tested
+G3_data <- df %>%
+  filter(task == "FR_task", free_recall == "TRUE") %>%
+  rowwise() %>%
+  mutate(word = fromJSON(response)$Q0) %>%
+  filter(word %in% cued_third_words) # Using the cued_third_words from earlier
+
+G3 <- nrow(G3_data)
+
+# For G4: Words from G3 that are correct in cued recall, ensuring unique words from cued_third
+unique_cued_third_correct <- df %>%
+  filter(task == "cued_third", recall_correctness == 1) %>%
+  distinct(correct_response)
+
+G4_data <- G3_data %>%
+  inner_join(unique_cued_third_correct, 
+             by = c("word" = "correct_response"))
+
+G4 <- nrow(G4_data)
+
+
+print(G3)
+print(G4)
+
+# G2: Words in cued recall but not in free recall
+G2 <- df %>%
+  filter(task == "cued_third", recall_correctness == 1 & is.na(free_recall)) %>%
+  nrow()
+
+# G5: Words tested in cued recall but not correct in free recall
+G5 <- df %>%
+  filter(task == "cued_third", is.na(free_recall)) %>%
+  nrow()
+
+# G6: Cued recall correct from G5
+G6 <- df %>%
+  filter(task == "cued_third", recall_correctness == 1 & is.na(free_recall)) %>%
+  nrow()
+
+# Calculate probabilities as described
+P_G1 <- G1 / nrow(df %>% filter(task == "cued_third"))
+P_G2 <- G2 / nrow(df %>% filter(task == "cued_third"))
+P_G4_G3 <- G4 / G3
+P_G6_G5 <- G6 / G5
+
+print(P_G1)
+print(P_G2)
+print(P_G4_G3)
+print(P_G6_G5)
+
+library(dplyr)
+library(jsonlite)
+library(tidyr)
+
+# Form a dataframe for easy representation
+results <- data.frame(
+  Metrics = c("G1", "G2", "G3", "G4", "G5", "G6", "P(G4|G3)", "P(G6|G5)"),
+  Values = round(c(G1, G2, G3, G4, G5, G6, P_G4_G3, P_G6_G5), 3)
+)
+
+# Print the results
+print(results)
+
+```
+
+```{r new analysis}
+parnum <- length(levels(as.factor(df$run_id)))
+chunkg <- rep(rep(1:3, c(15,16,5)), parnum)
+length(chunkg)
+df$chunkg <- chunkg
+
+num_run_id <- length(levels(as.factor(df$run_id)))
+
+
+# calculate P(D) last 5 cued recall
+df_D <- df %>%
+  group_by(chunkg) %>%
+  summarize(
+    num_correct_cue = sum(recall_correctness == 1, na.rm = TRUE),
+    num_recall = sum(task == "cued_third", na.rm = TRUE)
+  )
+
+# Compute P(D) for each chunkg
+df_D$p_D <- round(df_D$num_correct_cue / df_D$num_recall,3)
+#df_D$p_D <- round(df_D$num_correct_cue / (num_run_id * 15),3)
+#plot.ts(df_D$p_D)
+
+# calculate P(D_FR)
+df_DFR <- df %>%
+  group_by(chunkg) %>%
+  summarize(
+    num_correct_cue = sum(free_recall == "TRUE", na.rm = TRUE),
+    num_recall = sum(task =="FR_task", na.rm = TRUE)
+  )
+
+# Compute P(D) for each chunkg
+#df_DFR$p_DFR <- round(df_DFR$num_correct_cue / df_DFR$num_recall,3)
+df_DFR$p_DFR <- round(df_DFR$num_correct_cue / (num_run_id * 15), 3)
+
+
+# G1= The word in cued recall and in free recall (in the study list) 
+# G2= the word in cued recall but not in free recall
+
+df_G <- df %>%
+  group_by(chunkg) %>%
+  summarize(
+    num_G1 = sum(recall_correctness == 1, na.rm = TRUE),
+    num_recall = sum(task == "cued_third", na.rm = TRUE)
+  )
+
+
+# G3= The word in free recall and also get tested 
+# G4=  number of G3 that is correct when tested with cued recall
+# G5= the word get tested in  cued recall but not correct in free recall 
+# G6 = cued recall correct from G5
+# 
+# 
+# G1+G2= cued_recal_number
+# 
+# G1+G2/Number_of_cued_recall_words = Cued_recall_correctness
+# 
+# G1/Number_of_cued_recall_words 
+# 
+# G2/Number_of_cued_recall_words
+# 
+# The word in free_recall and later get tested that is right=  G4/ G3
+# 
+# G6/G5 = prob of they get cued recall correct but didn't in free recall
+
+
+
+# Combine the results into one table
+#combined_df <- bind_cols(df_D$num_correct_cue, df_D$num_recall,df_D$p_D)
+
+# Combine the results into one table
+combined_df <- bind_cols( num_run_id * 15, df_D$p_D,df_DFR$num_correct_cue, df_DFR$p_DFR)
+
+# Rename columns for clarity
+colnames(combined_df) <- c("num_words", "free_recall_correctness","num_cued_recall", "cued_recall_correctness")
+
+# Print the updated combined table
+print(combined_df)
+
+```
+
+```{r new analysis with new seperationg}
+parnum <- length(levels(as.factor(df$run_id)))
+chunkg <- rep(rep(1:10, c(5,5,5,5,5,10,10,10,10,10)), parnum)
+length(chunkg)
+df$chunkg <- chunkg
+
+# calculate P(Hn)
+df_hn <- df%>%
+  group_by(chunkg) %>%
+  summarize(num_hits = sum(hits == 1, na.rm = TRUE),
+            num_recog = sum(correct_response == "true", na.rm = TRUE))
+# Step 3: Compute P(Hn) for each chunkg
+df_hn$p_hn <- round(df_hn$num_hits / df_hn$num_recog,3)
+plot.ts(df_hn$p_hn)
+
+# calculate how often they say old when it's new 
+df_fa <- df%>%
+  group_by(chunkg) %>%
+  summarize(num_old = sum(false_alarm == 1, na.rm = TRUE),
+            num_foil = sum(correct_response == "false", na.rm = TRUE))
+# Step 3: Compute P(Hn) for each chunkg
+df_fa$p_f <- round(df_fa$num_old / df_fa$num_foil,3)
+plot.ts(df_fa$p_f)
+
+# calculate P(D)
+df_D <- df %>%
+  group_by(chunkg) %>%
+  summarize(
+    num_correct_cue = sum(recall_correctness == 1, na.rm = TRUE),
+    num_recall = sum(task %in% c("cued_first", "cued_second", "cued_third"), na.rm = TRUE)
+  )
+
+# Compute P(D) for each chunkg
+df_D$p_D <- round(df_D$num_correct_cue / df_D$num_recall,3)
+plot.ts(df_D$p_D)
+
+# Combine the results into one table
+combined_df <- bind_cols(df_hn, df_fa$p_f, df_D$p_D)
+
+# Rename columns for clarity
+colnames(combined_df) <- c("Chunk_Group", "num_hits", "num_recog","P_hn","P_fn","P_D","Diff")
+
+# Create the Diff column
+combined_df$Diff <- round(df_hn$p_hn - df_fa$p_f,3)
+
+# Calculate d' (d-prime)
+d_prime <- round(qnorm(df_hn$p_hn) - qnorm(df_fa$p_f),3)
+
+# Add the d' values to the combined_df table
+combined_df$D_prime <- d_prime
+
+# Print the updated combined table
+print(combined_df)
+
+
+# Print the combined table
+print(combined_df)
+
+#combined_df_numbers <- as.data.frame(sapply(combined_df, as.numeric))
+
+
+```
+
+
+```{r}
+library(dplyr)
+library(readr)
+
+# Get a list of all CSV files in the current directory
+file_names <- list.files(pattern = "*.csv", full.names = TRUE)
+
+# Read in the CSV files that have at least 500 rows
+df <- lapply(file_names, function(x) {
+  if(nrow(read_csv(x)) >= 75) {
+    read_csv(x)
+  }
+}) %>% 
+  bind_rows()
+
+```
+
+```{r plot}
+parnum <- length(levels(as.factor(file_names)))
+chunkg <- rep(rep(1:21, c(1, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,25, 25)), parnum)
+length(chunkg)
+df$chunkg <- chunkg
+
+# calculate P(H)
+df_hn <- df%>%
+  group_by(chunkg) %>%
+  summarize(num_hits = sum(hits == 1, na.rm = TRUE),
+            num_recog = sum(correct_response == TRUE, na.rm = TRUE))
+# Step 3: Compute P(Hn) for each chunkg
+df_hn$p_hn <- df_hn$num_hits / df_hn$num_recog
+
+#compuate P(F) 
+df_Fn <- df%>%
+  group_by(chunkg) %>%
+  summarize(num_fa = sum(false_alarm == 1, na.rm = TRUE),
+            num_foil = sum( correct_response == FALSE, na.rm = TRUE))
+df_Fn$p_Fn <- df_Fn$num_fa / df_Fn$num_foil
+
+ df_combined<- data.frame(
+  P_Hn=paste0(round(df_hn$p_hn, 2), " (", df_hn$num_recog, ")"),
+  P_Fn=paste0(round(df_Fn$p_Fn, 2), " (", df_Fn$num_foil, ")"))
+
+# Calculate new column
+df_combined$P_Hn_Fn_avg <- paste0(
+  round((as.numeric(df_hn$p_hn) + (1 - as.numeric(df_Fn$p_Fn))) / 2, 2), 
+  " (", df_hn$num_recog, ")"
+)
+
+# Add labels to each column
+colnames(df_combined) <- c(
+  "P(H)",
+  "P(F)",
+  "(P(H)+(1-P(F))/2"
+)
+
+# Delete the first row
+df_combined <- df_combined[-1,]
+
+# Write df_combined to a csv file
+#write.csv(df_combined, "df_picture_combined_group1.csv", row.names = TRUE)
+
+```
+
+```{r plot fail}
+# Add row names
+row.names(df_combined) <- c("1-25", "26-50", "51-75", "76-100", "101-125", "126-150", "151-175", "176-200", "201-225", "226-250", "251-275", "276-300", "301-325", "326-350", "351-375","376-400", "401-425", "426-450", "451-475", "476-500")
+
+
+x_vals <- seq(from = 12.5, to = 487.5, length.out = 20)
+
+
+
+
+
+```
+
+
+```{r regroup the data and compute all the probability 6 groups}
+
+parnum <- length(levels(as.factor(df$run_id)))
+chunkg <- rep(rep(1:6, c(10,10,5,20,20,10)), parnum)
+length(chunkg)
+df$chunkg <- chunkg
+
+# calculate P(Hn)
+df_hn <- df%>%
+  group_by(chunkg) %>%
+  summarize(num_hits = sum(hits == 1, na.rm = TRUE),
+            num_recog = sum(correct_response == "true", na.rm = TRUE))
+# Step 3: Compute P(Hn) for each chunkg
+df_hn$p_hn <- df_hn$num_hits / df_hn$num_recog
+plot.ts(df_hn$p_hn)
+
+# calculate how often they say old when it's new 
+df_hn_new <- df%>%
+  group_by(chunkg) %>%
+  summarize(num_old = sum(false_alarm == 1, na.rm = TRUE),
+            num_foil = sum(correct_response == "false", na.rm = TRUE))
+# Step 3: Compute P(Hn) for each chunkg
+df_hn_new$p_hn <- df_hn_new$num_old / df_hn_new$num_foil
+plot.ts(df_hn$p_hn)
+
+
+# calculate P(Hn|Tn-1)
+dfCor <- df %>%
+group_by(run_id) %>%
+mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_response))) 
+
+df_hn_tn1 <- dfCor %>% 
+  group_by(chunkg) %>%
+  summarize(num_hits = sum(hits == 1 & correct_respons_shift == "true", na.rm = TRUE),num_recog_tn1 = sum(correct_respons_shift == "true", na.rm = TRUE)) %>%
+  mutate(p_hn_given_tn1 = num_hits / num_recog_tn1)
+
+# calculate P(Hn|Fn-1)
+dfFoil <- df %>%
+group_by(run_id) %>%
+mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_response))) 
+
+df_hn_fn1 <- dfFoil %>% 
+  group_by(chunkg) %>%
+  summarize(num_hits = sum(hits == 1 & correct_respons_shift == "false", na.rm = TRUE),num_foils_tn1 = sum(correct_respons_shift == "false", na.rm = TRUE)) %>%
+  mutate(p_hn_given_fn1 = num_hits / num_foils_tn1)
+
+
+# calculate P(Hn|Cn-1)
+dfCue <- df %>%
+  group_by(run_id) %>%
+  mutate(
+    correct_response_choice = ifelse(is.na(correct_response), 1, NA),
+    correct_response_shift = lag(correct_response_choice, default = NA)
+  ) 
+
+  dfCue1 <- dfCue %>%
+  group_by(chunkg)%>%
+  summarize(num_hits = sum(hits == 1 & correct_response_shift == "true", na.rm = TRUE),num_cued_recall = sum(correct_response_shift == 1, na.rm = TRUE)) %>%
+    mutate(p_hn_given_cn1 = num_hits/num_cued_recall)
+  
+
+# Compute P(Hn|Tn-1 or Cn-1)
+dfCorCue <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_response)),
+         correct_response_choice = ifelse(is.na(correct_response), 1, NA),
+         correct_response_shift = lag(correct_response_choice, default = NA))
+
+dfCorCue2 <- dfCorCue %>%
+  group_by(chunkg) %>%
+  summarize(num_hits = sum(hits == 1 & (correct_respons_shift == TRUE | correct_response_shift == 1), na.rm = TRUE),
+            num_recog_cue = sum(!is.na(correct_respons_shift) | !is.na(correct_response_shift), na.rm = TRUE)) %>%
+  mutate(p_hn_given_tn1_cn1 = num_hits / num_recog_cue)
+
+# calculate P(D)
+df_D <- df %>%
+  group_by(chunkg) %>%
+  summarize(
+    num_correct_cue = sum(recall_correctness == 1, na.rm = TRUE),
+    num_recall = sum(task %in% c("cued_first", "cued_second", "cued_third"), na.rm = TRUE)
+  )
+
+# Compute P(D) for each chunkg
+df_D$p_D <- df_D$num_correct_cue / df_D$num_recall
+plot.ts(df_D$p_D)
+
+
+#P(D|Tn-1)
+df_D_tn1 <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_response)))
+
+df_hn_tn2 <- df_D_tn1 %>% 
+  group_by(chunkg) %>%
+  summarize(num_cued = sum(recall_correctness == 1 & correct_respons_shift == TRUE, na.rm = TRUE),num_recog_tn1 = sum(correct_respons_shift == TRUE, na.rm = TRUE)) %>%
+  mutate(p_D_given_tn1 = num_cued / num_recog_tn1)
+
+#P(D|Fn-1)
+df_D_fn1 <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_response)))
+
+df_hn_fn2 <- df_D_fn1 %>% 
+  group_by(chunkg) %>%
+  summarize(num_cued = sum(recall_correctness == 1 & correct_respons_shift == FALSE, na.rm = TRUE),num_foil_tn1 = sum(correct_respons_shift == FALSE, na.rm = TRUE)) %>%
+  mutate(p_D_given_fn1 = num_cued / num_foil_tn1)
+
+# P(D|Cn-1)
+df_D_Cue <- df %>%
+group_by(run_id) %>%
+mutate(correct_response_choice = ifelse(is.na(correct_response), 1, NA),correct_response_shift = lag(correct_response_choice, default = NA))
+
+df_D_cue1 <- df_D_Cue %>%
+group_by(chunkg) %>%
+summarize(num_cued = sum(recall_correctness == 1 & correct_response_shift == TRUE, na.rm = TRUE),num_cued_recall = sum(correct_response_shift == 1, na.rm = TRUE)) %>%
+mutate(p_D_given_cn1 = num_cued / num_cued_recall)
+
+#P(D|Tn-1 or Cn-1)
+dfDCorCue <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_response)),
+         correct_response_choice = ifelse(is.na(correct_response), 1, NA),
+         correct_response_shift = lag(correct_response_choice, default = NA))
+
+dfDCorCue2 <- dfDCorCue %>%
+  group_by(chunkg) %>%
+  summarize(num_cued = sum(recall_correctness == 1 & (correct_respons_shift == TRUE | correct_response_shift == 1), na.rm = TRUE),
+            num_recog_cue = sum(!is.na(correct_respons_shift) | !is.na(correct_response_shift), na.rm = TRUE)) %>%
+  mutate(p_D_given_tn1_cn1 = num_cued / num_recog_cue)
+
+#compuate P(Fn) 
+df_Fn <- df%>%
+  group_by(chunkg) %>%
+  summarize(num_fa = sum(false_alarm == 1, na.rm = TRUE),
+            num_foil = sum( correct_response == FALSE, na.rm = TRUE))
+df_Fn$p_Fn <- df_Fn$num_fa / df_Fn$num_foil
+plot.ts(df_Fn$p_Fn)
+
+
+#P(Fn|Tn-1)
+df_fn_tn <- df %>%
+group_by(run_id) %>%
+mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_response))) 
+
+df_fn_tn1 <- df_fn_tn %>% 
+group_by(chunkg) %>%
+summarize(num_fa = sum(false_alarm == 1 & correct_respons_shift == TRUE, na.rm = TRUE),num_recog_tn1 = sum(correct_respons_shift == TRUE, na.rm = TRUE)) %>%
+mutate(p_fn_given_tn1 = num_fa / num_recog_tn1)
+
+#P(Fn|Fn-1)
+df_fn_fn <- df %>%
+group_by(run_id) %>%
+mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_response))) 
+
+df_fn_fn1 <- df_fn_fn %>% 
+group_by(chunkg) %>%
+summarize(num_fa = sum(false_alarm == 1 & correct_respons_shift == FALSE, na.rm = TRUE),num_foil_fn1 = sum(correct_respons_shift == FALSE, na.rm = TRUE)) %>%
+mutate(p_fn_given_fn1 = num_fa / num_foil_fn1)
+
+
+# calculate P(Fn|Cn-1)
+df_fn_cue <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_response_choice = ifelse(is.na(correct_response), 1, NA),correct_response_shift = lag(correct_response_choice, default = NA))
+
+  df_fn_cue1 <- df_fn_cue %>%
+  group_by(chunkg)%>%
+  summarize(num_fa = sum(false_alarm == 1 & correct_response_shift == TRUE, na.rm = TRUE),num_cued_recall = sum(correct_response_shift == 1, na.rm = TRUE)) %>%
+    mutate(p_fn_given_cn1 = num_fa/num_cued_recall)
+  
+
+# Compute P(Fn|Tn-1 or Cn-1)
+df_fn_tncn <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_response)),
+         correct_response_choice = ifelse(is.na(correct_response), 1, NA),
+         correct_response_shift = lag(correct_response_choice, default = NA))
+
+df_fn_tncn1 <- df_fn_tncn %>%
+  group_by(chunkg) %>%
+  summarize(num_fa = sum(false_alarm == 1 & (correct_respons_shift == TRUE | correct_response_shift == 1), na.rm = TRUE),
+            num_recog_cue = sum(!is.na(correct_respons_shift) | !is.na(correct_response_shift), na.rm = TRUE)) %>%
+  mutate(p_fn_given_tncn = num_fa / num_recog_cue)
+```
+
+```{r group into 2 parts}
+
+parnum <- length(levels(as.factor(df$run_id)))
+chunkg <- rep(rep(1:3, c(19,19,7)), parnum)
+length(chunkg)
+df$chunkg <- chunkg
+
+# calculate P(Hn)
+df_hn <- df%>%
+  group_by(chunkg) %>%
+  summarize(num_hits = sum(hits == 1, na.rm = TRUE),
+            num_recog = sum(correct_respons == TRUE, na.rm = TRUE))
+# Step 3: Compute P(Hn) for each chunkg
+df_hn$p_hn <- df_hn$num_hits / df_hn$num_recog
+plot.ts(df_hn$p_hn)
+
+# calculate P(Hn|Tn-1)
+dfCor <- df %>%
+group_by(run_id) %>%
+mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_respons))) 
+
+df_hn_tn1 <- dfCor %>% 
+  group_by(chunkg) %>%
+  summarize(num_hits = sum(hits == 1 & correct_respons_shift == TRUE, na.rm = TRUE),num_recog_tn1 = sum(correct_respons_shift == TRUE, na.rm = TRUE)) %>%
+  mutate(p_hn_given_tn1 = num_hits / num_recog_tn1)
+
+# calculate P(Hn|Fn-1)
+dfFoil <- df %>%
+group_by(run_id) %>%
+mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_respons))) 
+
+df_hn_fn1 <- dfFoil %>% 
+  group_by(chunkg) %>%
+  summarize(num_hits = sum(hits == 1 & correct_respons_shift == FALSE, na.rm = TRUE),num_foils_tn1 = sum(correct_respons_shift == FALSE, na.rm = TRUE)) %>%
+  mutate(p_hn_given_fn1 = num_hits / num_foils_tn1)
+
+
+# calculate P(Hn|Cn-1)
+dfCue <- df %>%
+  group_by(run_id) %>%
+  mutate(
+    correct_response_choice = ifelse(is.na(correct_respons), 1, NA),
+    correct_response_shift = lag(correct_response_choice, default = NA)
+  ) 
+
+  dfCue1 <- dfCue %>%
+  group_by(chunkg)%>%
+  summarize(num_hits = sum(hits == 1 & correct_response_shift == TRUE, na.rm = TRUE),num_cued_recall = sum(correct_response_shift == 1, na.rm = TRUE)) %>%
+    mutate(p_hn_given_cn1 = num_hits/num_cued_recall)
+  
+
+# Compute P(Hn|Tn-1 or Cn-1)
+dfCorCue <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_respons)),
+         correct_response_choice = ifelse(is.na(correct_respons), 1, NA),
+         correct_response_shift = lag(correct_response_choice, default = NA))
+
+dfCorCue2 <- dfCorCue %>%
+  group_by(chunkg) %>%
+  summarize(num_hits = sum(hits == 1 & (correct_respons_shift == TRUE | correct_response_shift == 1), na.rm = TRUE),
+            num_recog_cue = sum(!is.na(correct_respons_shift) | !is.na(correct_response_shift), na.rm = TRUE)) %>%
+  mutate(p_hn_given_tn1_cn1 = num_hits / num_recog_cue)
+
+# calculate P(D)
+df_D <- df%>%
+  group_by(chunkg) %>%
+  summarize(num_correct_cue = sum(recall_correctness == 1, na.rm = TRUE),
+            num_recall = sum( task == "word typing memory", na.rm = TRUE))
+# Step 3: Compute P(Hn) for each chunkg
+df_D$p_D <- df_D$num_correct_cue / df_D$num_recall
+plot.ts(df_D$p_D)
+
+#P(D|Tn-1)
+df_D_tn1 <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_respons)))
+
+df_hn_tn2 <- df_D_tn1 %>% 
+  group_by(chunkg) %>%
+  summarize(num_cued = sum(recall_correctness == 1 & correct_respons_shift == TRUE, na.rm = TRUE),num_recog_tn1 = sum(correct_respons_shift == TRUE, na.rm = TRUE)) %>%
+  mutate(p_D_given_tn1 = num_cued / num_recog_tn1)
+
+#P(D|Fn-1)
+df_D_fn1 <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_respons)))
+
+df_hn_fn2 <- df_D_fn1 %>% 
+  group_by(chunkg) %>%
+  summarize(num_cued = sum(recall_correctness == 1 & correct_respons_shift == FALSE, na.rm = TRUE),num_foil_tn1 = sum(correct_respons_shift == FALSE, na.rm = TRUE)) %>%
+  mutate(p_D_given_fn1 = num_cued / num_foil_tn1)
+
+# P(D|Cn-1)
+df_D_Cue <- df %>%
+group_by(run_id) %>%
+mutate(correct_response_choice = ifelse(is.na(correct_respons), 1, NA),correct_response_shift = lag(correct_response_choice, default = NA))
+
+df_D_cue1 <- df_D_Cue %>%
+group_by(chunkg) %>%
+summarize(num_cued = sum(recall_correctness == 1 & correct_response_shift == TRUE, na.rm = TRUE),num_cued_recall = sum(correct_response_shift == 1, na.rm = TRUE)) %>%
+mutate(p_D_given_cn1 = num_cued / num_cued_recall)
+
+#P(D|Tn-1 or Cn-1)
+dfDCorCue <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_respons)),
+         correct_response_choice = ifelse(is.na(correct_respons), 1, NA),
+         correct_response_shift = lag(correct_response_choice, default = NA))
+
+dfDCorCue2 <- dfDCorCue %>%
+  group_by(chunkg) %>%
+  summarize(num_cued = sum(recall_correctness == 1 & (correct_respons_shift == TRUE | correct_response_shift == 1), na.rm = TRUE),
+            num_recog_cue = sum(!is.na(correct_respons_shift) | !is.na(correct_response_shift), na.rm = TRUE)) %>%
+  mutate(p_D_given_tn1_cn1 = num_cued / num_recog_cue)
+
+#compuate P(Fn) 
+df_Fn <- df%>%
+  group_by(chunkg) %>%
+  summarize(num_fa = sum(false_alarm == 1, na.rm = TRUE),
+            num_foil = sum( correct_respons == FALSE, na.rm = TRUE))
+df_Fn$p_Fn <- df_Fn$num_fa / df_Fn$num_foil
+plot.ts(df_Fn$p_Fn)
+
+
+#P(Fn|Tn-1)
+df_fn_tn <- df %>%
+group_by(run_id) %>%
+mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_respons))) 
+
+df_fn_tn1 <- df_fn_tn %>% 
+group_by(chunkg) %>%
+summarize(num_fa = sum(false_alarm == 1 & correct_respons_shift == TRUE, na.rm = TRUE),num_recog_tn1 = sum(correct_respons_shift == TRUE, na.rm = TRUE)) %>%
+mutate(p_fn_given_tn1 = num_fa / num_recog_tn1)
+
+#P(Fn|Fn-1)
+df_fn_fn <- df %>%
+group_by(run_id) %>%
+mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_respons))) 
+
+df_fn_fn1 <- df_fn_fn %>% 
+group_by(chunkg) %>%
+summarize(num_fa = sum(false_alarm == 1 & correct_respons_shift == FALSE, na.rm = TRUE),num_foil_fn1 = sum(correct_respons_shift == FALSE, na.rm = TRUE)) %>%
+mutate(p_fn_given_fn1 = num_fa / num_foil_fn1)
+
+
+# calculate P(Fn|Cn-1)
+df_fn_cue <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_response_choice = ifelse(is.na(correct_respons), 1, NA),correct_response_shift = lag(correct_response_choice, default = NA))
+
+  df_fn_cue1 <- df_fn_cue %>%
+  group_by(chunkg)%>%
+  summarize(num_fa = sum(false_alarm == 1 & correct_response_shift == TRUE, na.rm = TRUE),num_cued_recall = sum(correct_response_shift == 1, na.rm = TRUE)) %>%
+    mutate(p_fn_given_cn1 = num_fa/num_cued_recall)
+  
+
+# Compute P(Fn|Tn-1 or Cn-1)
+df_fn_tncn <- df %>%
+  group_by(run_id) %>%
+  mutate(correct_respons_shift = ifelse(row_number() == 1, NA, lag(correct_respons)),
+         correct_response_choice = ifelse(is.na(correct_respons), 1, NA),
+         correct_response_shift = lag(correct_response_choice, default = NA))
+
+df_fn_tncn1 <- df_fn_tncn %>%
+  group_by(chunkg) %>%
+  summarize(num_fa = sum(false_alarm == 1 & (correct_respons_shift == TRUE | correct_response_shift == 1), na.rm = TRUE),
+            num_recog_cue = sum(!is.na(correct_respons_shift) | !is.na(correct_response_shift), na.rm = TRUE)) %>%
+  mutate(p_fn_given_tncn = num_fa / num_recog_cue)
+
+# Extract values from each dataframe and combine into a new dataframe
+df_combined_2 <- data.frame(
+  P_Hn=paste0(round(df_hn$p_hn, 2), " (", df_hn$num_recog, ")"),
+  P_Hn_Tn1=paste0(round(df_hn_tn1$p_hn_given_tn1, 2), " (", df_hn_tn1$num_recog_tn1, ")"),
+  P_Hn_Fn1=paste0(round(df_hn_fn1$p_hn_given_fn1, 2), " (", df_hn_fn1$num_foils_tn1, ")"),
+  P_Hn_Cn1=paste0(round(dfCue1$p_hn_given_cn1, 2), " (", dfCue1$num_cued_recall, ")"),
+  P_Hn_Tn1_or_Cn1=paste0(round(dfCorCue2$p_hn_given_tn1_cn1, 2), " (", dfCorCue2$num_recog_cue, ")"),
+  P_D=paste0(round(df_D$p_D, 2), " (", df_D$num_recall, ")"),
+  P_D_Tn1=paste0(round(df_hn_tn2$p_D_given_tn1, 2), " (", df_hn_tn2$num_recog_tn1, ")"),
+  P_D_Fn1=paste0(round(df_hn_fn2$p_D_given_fn1, 2), " (", df_hn_fn2$num_foil_tn1, ")"),
+  P_D_Cn1=paste0(round(df_D_cue1$p_D_given_cn1, 2), " (", df_D_cue1$num_cued_recall, ")"),
+  P_D_Tn1_or_Cn1=paste0(round(dfDCorCue2$p_D_given_tn1_cn1, 2), " (", dfDCorCue2$num_recog_cue, ")"),
+  P_Fn=paste0(round(df_Fn$p_Fn, 2), " (", df_Fn$num_foil, ")"),
+  P_Fn_Tn1=paste0(round(df_fn_tn1$p_fn_given_tn1, 2), " (", df_fn_tn1$num_recog_tn1, ")"),
+  P_Fn_Fn1=paste0(round(df_fn_fn1$p_fn_given_fn1, 2), " (", df_fn_fn1$num_foil_fn1, ")"),
+  P_Fn_Cn1=paste0(round(df_fn_cue1$p_fn_given_cn1, 2), " (", df_fn_cue1$num_cued_recall, ")"),
+  P_Fn_Tn1_or_Cn1=paste0(round(df_fn_tncn1$p_fn_given_tncn, 2), " (", df_fn_tncn1$num_recog_cue, ")")
+)
+
+# Calculate new column
+df_combined_2$P_Hn_Fn_avg <- paste0(
+  round((as.numeric(df_hn$p_hn) + (1 - as.numeric(df_Fn$p_Fn))) / 2, 2), 
+  " (", df_hn$num_recog, ")"
+)
+
+# Add labels to each column
+colnames(df_combined_2) <- c(
+  "P(H)",
+  "P(H|T)",
+  "P(H|F)",
+  "P(H|C)",
+  "P(H|T or C)",
+  "P(D)",
+  "P(D|T)",
+  "P(D|F)",
+  "P(D|C)",
+  "P(D|T or C)",
+  "P(F)",
+  "P(F|T)",
+  "P(F|F)",
+  "P(F|C)",
+  "P(F|T or C)",
+  "(P(H)+(1-P(F))/2"
+)
+
+# Delete the first row
+#df_combined_2 <- df_combined_12[-1,]
+
+# Add row names
+#row.names(df_combined_2) <- c("1 ~ 19","20 ~ 38", "last 7")
+
+# Write df_combined to a csv file
+#write.csv(df_combined, "df_combined_group1.csv", row.names = TRUE)
+
+
+```
+
+
+```{r}
+# Extract values from each dataframe and combine into a new dataframe
+df_combined_12 <- data.frame(
+  P_Hn=paste0(round(df_hn$p_hn, 2), " (", df_hn$num_recog, ")"),
+  P_Hn_Tn1=paste0(round(df_hn_tn1$p_hn_given_tn1, 2), " (", df_hn_tn1$num_recog_tn1, ")"),
+  P_Hn_Fn1=paste0(round(df_hn_fn1$p_hn_given_fn1, 2), " (", df_hn_fn1$num_foils_tn1, ")"),
+  P_Hn_Cn1=paste0(round(dfCue1$p_hn_given_cn1, 2), " (", dfCue1$num_cued_recall, ")"),
+  P_Hn_Tn1_or_Cn1=paste0(round(dfCorCue2$p_hn_given_tn1_cn1, 2), " (", dfCorCue2$num_recog_cue, ")"),
+  P_D=paste0(round(df_D$p_D, 2), " (", df_D$num_recall, ")"),
+  P_D_Tn1=paste0(round(df_hn_tn2$p_D_given_tn1, 2), " (", df_hn_tn2$num_recog_tn1, ")"),
+  P_D_Fn1=paste0(round(df_hn_fn2$p_D_given_fn1, 2), " (", df_hn_fn2$num_foil_tn1, ")"),
+  P_D_Cn1=paste0(round(df_D_cue1$p_D_given_cn1, 2), " (", df_D_cue1$num_cued_recall, ")"),
+  P_D_Tn1_or_Cn1=paste0(round(dfDCorCue2$p_D_given_tn1_cn1, 2), " (", dfDCorCue2$num_recog_cue, ")"),
+  P_Fn=paste0(round(df_Fn$p_Fn, 2), " (", df_Fn$num_foil, ")"),
+  P_Fn_Tn1=paste0(round(df_fn_tn1$p_fn_given_tn1, 2), " (", df_fn_tn1$num_recog_tn1, ")"),
+  P_Fn_Fn1=paste0(round(df_fn_fn1$p_fn_given_fn1, 2), " (", df_fn_fn1$num_foil_fn1, ")"),
+  P_Fn_Cn1=paste0(round(df_fn_cue1$p_fn_given_cn1, 2), " (", df_fn_cue1$num_cued_recall, ")"),
+  P_Fn_Tn1_or_Cn1=paste0(round(df_fn_tncn1$p_fn_given_tncn, 2), " (", df_fn_tncn1$num_recog_cue, ")")
+)
+
+# Calculate new column
+df_combined_12$P_Hn_Fn_avg <- paste0(
+  round((as.numeric(df_hn$p_hn) + (1 - as.numeric(df_Fn$p_Fn))) / 2, 2), 
+  " (", df_hn$num_recog, ")"
+)
+
+# Add labels to each column
+colnames(df_combined_12) <- c(
+  "P(H)",
+  "P(H|T)",
+  "P(H|F)",
+  "P(H|C)",
+  "P(H|T or C)",
+  "P(D)",
+  "P(D|T)",
+  "P(D|F)",
+  "P(D|C)",
+  "P(D|T or C)",
+  "P(F)",
+  "P(F|T)",
+  "P(F|F)",
+  "P(F|C)",
+  "P(F|T or C)",
+  "(P(H)+(1-P(F))/2"
+)
+
+# Delete the first row
+df_combined_12 <- df_combined_12[-1,]
+
+# Add row names
+row.names(df_combined_12) <- c("1-19","20-38","last 7")
+
+# Write df_combined to a csv file
+#write.csv(df_combined, "df_combined_group1.csv", row.names = TRUE)
+
+
+```

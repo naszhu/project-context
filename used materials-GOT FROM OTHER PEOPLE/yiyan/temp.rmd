@@ -1,0 +1,141 @@
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+```
+
+
+```{r}
+# getwd()
+# names=list.files("full_splitted_data_group1")
+df = list.files(path = "./", pattern = "*.csv") %>% 
+  map_df(~read_csv(.))
+file_names <- list.files(path = "./", pattern = "*.csv", full.names = TRUE)
+names(df)
+```
+
+
+```{r}
+df$response[1]%>%class
+df1 = df%>%
+  filter(task%in%c("FR_task","cued_third"))%>%
+  # summarize(n=n())
+  group_by(response,run_id,task,free_recall,recall_correctness)%>%
+  mutate(n=n())%>%
+  distinct(response,run_id,task,n)%>%
+  ungroup()
+df1 
+
+dfnew = df1
+for (i in 2:10){
+  deletedrows = df1[df1$n==i,] %>% mutate(free_recall=FALSE)
+  deletedrows
+  dfnew = dfnew %>%
+    add_row(deletedrows)%>%
+    arrange(run_id,task)
+}
+
+  # unique()
+  # filter(n()>1)%>%
+  # mutate(n_removed = case_when((n()>1) & (response!="NA") & response!='{"Q0":""}' &  ~ "duplicated",
+                               # TRUE ~ "ok"))
+  # filter(duplicated(.[["response"]]))
+which(df$response=="{\"Q0\":\"kitchen\"}")
+```
+
+
+```{r}
+df1 = df%>%
+  filter(task%in%c("FR_task","cued_third"))%>%
+  group_by(response,run_id,task,free_recall,recall_correctness)%>%
+  mutate(n_removed = case_when((n()>1) & (response!="NA") & response!='{"Q0":""}'  ~ "duplicated",
+                               TRUE ~ "ok"))
+df1[df1$n_removed=="duplicated",]
+
+
+df %>% 
+  filter(task%in%c("FR_task","cued_third"))%>%
+  group_by(response,run_id,task,free_recall,recall_correctness)%>%
+  add_tally()
+                               
+```
+
+```{r}
+
+
+```
+
+
+```{r}
+safe_json_parse <- function(response) {
+  tryCatch({
+    # print( fromJSON(response)$Q0)
+    word <- fromJSON(response)$Q0
+    if(word != "") {
+      return(word)
+    } else {
+      return(NA_character_)
+    }
+  }, error = function(e) {
+    return(NA_character_)
+  })
+}
+df$free_recall_word <- sapply(df$response, safe_json_parse)
+
+# df_A2E <- df %>%
+#   group_by(run_id) %>%
+#   mutate(
+#     right_FR_words = list(unique(unlist(strsplit(as.character(free_recall_word[task == "FR_task" & free_recall == TRUE]), ", ")))))
+    # cued_third_words = list(unique(as.character(correct_response[task == "cued_third"]))),
+    # non_cued_FR_words = list(setdiff(right_FR_words[[1]], cued_third_words[[1]])))
+# df_A2E$cued_third_words
+
+```
+
+    A = ifelse(task == "FR_task" & free_recall == TRUE & extracted_word %in% non_cued_FR_words[[1]], 
+               sapply(extracted_word, process_word, processed_words_A), 0),
+    
+    B = ifelse(task == "cued_third" & cued_third_recall_correctness == 1 & extracted_word %in% right_FR_words[[1]], 1, 0),
+    
+    C = ifelse(task == "cued_third" & cued_third_recall_correctness == 0 & extracted_word %in% right_FR_words[[1]],
+               sapply(extracted_word, process_word, processed_words_C), 0),
+    D = A + B + C,
+    
+    E = ifelse(task == "cued_third" & recall_correctness == 1 & !extracted_word %in% right_FR_words[[1]],
+               sapply(extracted_word, process_word, processed_words_E)[[1]], 0)
+```{r}
+# df%>%filter(run_id==3,response=="{\"Q0\":\"river\"}")
+# df$response
+# df$response[1]%>%class
+df1 = df%>%
+  filter(task%in%c("FR_task","cued_third"))%>%
+  group_by(response,run_id,task,free_recall,recall_correctness)%>%
+  # mutate(n_removed = case_when((n()>1) & (response!="NA") & response!='{"Q0":""}'  ~ "duplicated",
+  # TRUE ~ "ok"))%>%
+  mutate(count_duplicated = row_number()) %>%
+  mutate(count_duplicated = case_when(response%in%c("NA",'{"Q0":""}',NA)  ~ 1,
+                                      TRUE ~ count_duplicated))%>%
+  mutate(FR_correct= case_when(count_duplicated>1&task=="FR_task"~0,
+                               TRUE ~ free_recall))%>%
+  mutate(CR_correct= case_when(count_duplicated>1&task=="cued_third"~0,
+                               TRUE ~ recall_correctness))%>%
+  
+
+df1
+
+```
+
+
+
+
+
+
+
+
+
+
+
+

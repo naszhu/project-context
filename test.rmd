@@ -1,0 +1,9 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Or add an even simpler one:
+```{r test}
+print("Testing chunk execution")
+2 * 3
+```
+Does even this extremely simple chunk hang?

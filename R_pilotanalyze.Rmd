@@ -1,0 +1,193 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+The initial task of 
+
+```{r}
+library(dplyr)
+library(tidyverse)
+library(readr)
+'%notin%' <- function(x,y)!('%in%'(x,y))
+```
+
+
+```{r}
+# code of data from 10/26/23 has changes: 1. the backward list named "visualexp_1026", and it has the post-test itrialtested position mistaken. 2. All 3 data list has mistaken sum of digits and mistaken feedbacksgetwd() 3. I manually changed 6431b44f10493845f0904891 to have prolific id to backward, and also added the one file ekstra to backward; this participant send me data through gmail.(not saved data for some reason on server)
+df = readr::read_csv(paste("./data/pretest/",list.files(path = "./data/pretest"),sep=""))
+names(df)
+```
+
+## Correction on counting sum 
+```{r}
+df_changed = df %>% 
+  # filter(task %in% c("counting")) %>%
+  # mutate(ss = stimulus %in% as.character(0:10))
+  mutate(tempstimu=case_when(stimulus %in% as.character(0:100) ~ stimulus,
+                             TRUE ~ "0"))%>%
+  mutate(tasknew = case_when(tasknew=task=="counting_response"~"counting",
+                             TRUE ~ task))%>%
+  group_by(condition,ip,tasknew,trialnum,prespos_itrial) %>%
+  mutate(counting_sum_new=sum(as.numeric(tempstimu)))%>%
+  mutate(response_number = substring(response,8,9))%>%
+  mutate(correct = case_when(task=="counting_response" & response_number==as.character(counting_sum_new)~1,
+                             task=="counting_response" & response_number!=as.character(counting_sum_new)~0,
+                             TRUE ~ correct))%>%
+  ungroup()
+
+df_changed%>%filter(task=="counting_response") %>% 
+  select(ip,correct,counting_sum_new,response,response_number,condition)
+
+summary(as.factor(df_changed$PROLIFIC_PID))
+```
+
+
+## calculate mean
+```{r}
+dfnew=df_changed %>% 
+  filter(task%in%c("pretest_response","finalt_response","counting_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  group_by(condition,ip,task,trial) %>% 
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task) %>% 
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,ip,task,trial,ct)
+
+dfnew
+
+```
+
+## plot
+```{r}
+ggplot(data=dfnew%>%
+         # filter(ip!=("66.110.249.9"))%>%
+         mutate()
+       )+
+  geom_point(aes(trial,ct,group=ip))+
+  geom_line(aes(trial,ct,group=ip,color=ip))+
+  facet_grid(task~condition)+
+  labs(title="Data by task and condition for each participant")
+
+# df %>% filter(ip=="174.45.226.170")%>%group_by(condition,PROLIFIC_PID)%>%summarize(n=1)
+
+ggplot(data=dfnew%>%
+         filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+         group_by(condition,task,trial)%>%
+         summarize(ct=mean(ct))
+       )+
+  geom_point(aes(trial,ct))+
+  geom_line(aes(trial,ct,group=interaction(task),color=task))+
+  facet_grid(.~condition)+
+  labs(x="pretest trial number",title="Data by task and condition averaged for each participant")
+```
+
+
+
+
+
+```{r}
+names(df_changed)
+dfnew2=df_changed %>% 
+  filter(task%in%c("pretest_response","finalt_response","counting_response")) %>% 
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  group_by(condition,ip,task,trial,probetype) %>% 
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task) %>% 
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()%>%
+  select(condition,ip,task,trial,probetype,ct)
+dfnew2
+
+ggplot(data=dfnew2%>%
+         filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+         group_by(condition,task,trial,probetype)%>%
+         summarize(ct=mean(ct))
+       )+
+  geom_point(aes(trial,ct))+
+  geom_line(aes(trial,ct,group=interaction(probetype),color=probetype))+
+  facet_grid(task~condition)+
+  labs(x="pretest trial number",title="Data by task and condition averaged for each participant")
+```
+
+
+```{r}
+# dfnew3 
+# names(df_changed)
+dfnew3=df_changed %>% 
+  filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  select(condition,ip,task,probetype,trial,correct,stimulus_id)%>%
+  filter(task%in% c("pretest_response","finalt_response","counting_response"))%>%
+  filter(probetype%in% c("TARGET_target","TARGET_foil"))%>%
+  spread(key=task,value=correct)%>%
+  filter(!is.na(finalt_response) & !is.na(pretest_response))%>%
+  group_by(condition,probetype,trial,pretest_response) %>%
+  summarize(conditoned_acc = mean(finalt_response))%>%
+  mutate(pretest_response = as.factor(pretest_response) )
+
+dfnew3
+df_changed%>% filter(ip %in% c("66.110.249.9","174.45.226.170"))
+df_changed %>% 
+  filter(ip %notin% c("66.110.249.9","174.45.226.170"))%>%
+  mutate(trialnum=replace_na(trialnum,0),prespos_itrial=replace_na(prespos_itrial,0)) %>%
+  mutate(trial = as.factor(trialnum+prespos_itrial)) %>%
+  select(condition,ip,task,probetype,trial,correct,stimulus_id)%>%
+  filter(task%in% c("pretest_response","finalt_response","counting_response"))%>%
+  filter(probetype%in% c("TARGET_target","TARGET_foil"))%>%
+  spread(key=task,value=correct)%>%
+  filter(!is.na(finalt_response) & !is.na(pretest_response))%>%
+  group_by(condition,probetype,trial,pretest_response) %>%
+  summarize(conditoned_acc = mean(finalt_response),n=n())%>%
+  mutate(pretest_response = as.factor(pretest_response) )
+```
+
+
+
+
+```{r}
+ggplot(data=dfnew3)+
+  geom_point(aes(trial,conditoned_acc))+
+  geom_line(aes(trial,conditoned_acc,group=pretest_response,color=pretest_response))+
+  facet_grid(probetype~condition)+
+  labs()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

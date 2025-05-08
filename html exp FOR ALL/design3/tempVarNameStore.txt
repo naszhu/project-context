@@ -1,0 +1,22 @@
+
+
+
+
+
+
+
+                obj.is_studied = 
+                obj.is_fromLastList = 
+
+                
+
+--> let gpt have a consistent code nameing rule 
+-> make gpt to not start by trying to conforting, rather, focusing on rational reasoning
+
+
+** insert test position in next list of the item  
+testPos_NextList
+
+!! test if the is_testnextlist is consistent with next list test position
+
+!! Check if when final_position=0; it is chosen. Because I used default assignment of 0 positions rather than specific assignment of 0 in later core algorithm part

@@ -1,0 +1,6 @@
+<h1 text-align: left>(1) A list of pictures will appear on the screen one at a time. Study the pictures as they appear.</h1>
+        <h1 text-align: left>(2) Then, after a brief blank period, you will see a series of numbers. Add those as they come, and when you see the words “TYPE THE SUM”, use the number keys to type your answer. </h1>
+        <h1 text-align: left>(3) Then, you will see a series of test pictures. Following each, press the <strong>“K”</strong> to indicate you <strong>have seen</strong> this picture in the study list, and press the <strong>“F”</strong> key to indicate you <strong>have not seen</strong> this picture in the study list that was just presented.</h1>
+        <h1 text-align: left>There will be a practice list followed by ten lists of pictures, each followed by a test.</h1>
+        <h1 text-align: left>Do not worry if you were unsure about many test pictures.That is normal but make your best guess. </h1>
+        <h1 text-align: left> Please start the practice list now by pressing the enter key. </h1>

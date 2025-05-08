@@ -1,0 +1,1609 @@
+---
+title: "R_design2_codeversion3.rmd"
+author: "Shuchun Lea Lai"
+date: "2023-12-23"
+output: html_document
+---
+
+
+```{r}
+# library(Rmisc)
+library(dplyr)
+library(tidyverse)
+library(readr)
+'%notin%' <- function(x,y)!('%in%'(x,y));
+```
+
+
+# read file
+```{r}
+filepath=c("data-design2/visualexp-bakcward.csv","data-design2/stored/save1_fromcodev12.csv","data-design2/visualexp-forward.csv","data-design2/visualexp-frandom.csv","data-design2/visualexp-random.csv")
+# df = readr::read_csv(filepath)
+
+df1 = read.csv("data-design2/stored/12-27-23, to v6-backup2.csv")%>%
+  mutate(responsesum=as.integer(responsesum))
+# df1$responsesum%>%summary()
+# df2$responsesum%>%summary()
+df2 = read.csv("data-design2/stored/1-2-24,to v6 visualexp-bakcward.csv")%>%
+  mutate(responsesum=as.integer(responsesum))
+df3 = read.csv("data-design2/stored/1-2-24,to v6 visualexp-forward.csv")%>%
+  mutate(responsesum=as.integer(responsesum))
+
+df11 = read.csv("data-design2/stored/1-2-24,to v6, visualexp-frandom.csv")%>%
+  mutate(responsesum=as.integer(responsesum))
+df111 = read.csv("data-design2/stored/1-2-24,to v6 visualexp-random.csv")%>%
+  mutate(responsesum=as.integer(responsesum))
+# df2222 <- 
+#     c("data/backup3/visualexp-forward.csv","data/backup3/visualexp-bakcward.csv","data/backup3/visualexp-random.csv",
+#       "data/backup2/visualexp-random.csv","data/backup/visualexp-random.csv","data/backup/visualexp-forward.csv",
+#       "data/backup/visualexp-bakcward.csv")%>% 
+#     map_df(~read_csv(.))%>%
+# df44 = read.csv("data/pretest3_random/visualexp-random (2).csv")%>%
+#   mutate(responsesum=as.integer(responsesum))
+# df55= read.csv("data/backup2/visualexp-random.csv")%>%
+#   mutate(responsesum=as.integer(responsesum))
+# df3$responsesum
+# df44$responsesum%>%as.factor()%>%summary()
+# df3$responsesum%>%as.factor()%>%summary()
+
+df = df2%>% full_join(df1)%>%full_join(df3)%>%
+  full_join(df11)%>%full_join(df111)%>%suppressMessages()%>%filter(codeversion>=6)
+  
+df$codeversion%>%summary()
+# df = readr::read_csv(filepath)
+```
+#check 
+```{r}
+df%>%filter(PROLIFIC_PID=="60955a048531613c66404fb2")%>%select(task,rt,listnumber_1to10,is_finished)
+```
+
+## check instructions time passed
+```{r}
+levels(df$task%>%as.factor())
+d1=df%>%filter(task%in%c("instructions_practice","finalt_instructions") )%>%filter(is_finished==1)%>%group_by(task,PROLIFIC_PID)%>%
+  summarize(n=n(),rt_mins=(sum(as.numeric(rt))/1000/60)%>%round(digits=2))%>%
+  select(PROLIFIC_PID,rt_mins)%>%
+  pivot_wider(names_from=task,values_from=rt_mins,names_prefix ="rt")
+d2=df%>%filter(task%in%c("instructions_practice","finalt_instructions") )%>%filter(is_finished==1)%>%group_by(task,PROLIFIC_PID,condition)%>%
+  summarize(n=n())%>%
+  pivot_wider(names_from=task,values_from=n,names_prefix ="n")
+d1%>%full_join(d2)
+# %>%filter(nfinalt_instructions>5|ninstructions_practice>5|rtfinalt_instructions>4|rtinstructions_practice>4)
+```
+5fb6da2d039b27111314d871	9.42	NA	fr	38	NA
+60045900ccb68e4bdd23111e	5.33	NA	fr	12	NA
+6019bbb66e5c2815ba3728b6	16.13	NA	br	82	NA
+
+
+
+
+
+	6019bbb66e5c2815ba3728b6 - 82 times - 16 mins
+	
+6019bbb66e5c2815ba3728b6	16.13	9.84	br	82	
+6019bbb66e5c2815ba3728b6	16.13	9.84	b	NA
+this person tried the another study after doing 2 trials of the first study
+
+
+6109e48eb4c9d05a861796c3	4.20	9.08	f	11	
+6109e48eb4c9d05a861796c3	4.20	9.08	b	NA
+this person just won't pass instructions 
+
+6501ffd0811ee51f40dbc8f1	1.62	3.48	b	9	
+6501ffd0811ee51f40dbc8f1	1.62	3.48	br	NA
+this person won't pass instructions
+
+
+
+## inspection on one person 
+```{r}
+df%>%filter(PROLIFIC_PID%in%c("6501ffd0811ee51f40dbc8f1"))%>% 
+  # filter(is_finished!=0)%>% #this is non
+  # filter(rt!="null"&rt!="")%>%
+  select(trial_index,codeversion,PROLIFIC_PID,task,prespos,testpos_final,is_finished,condition,timepassed_mins,rt,stimulus)
+```
+
+	
+
+## check who repeated study
+```{r}
+df_f=df%>%filter(is_finished==1) %>%
+  group_by(PROLIFIC_PID) %>%
+  summarize(n=n())
+df_nf = df%>%filter(is_finished==0)%>%
+  group_by(PROLIFIC_PID)%>%
+  summarize(n=n())
+
+df_nf%>%filter(PROLIFIC_PID%in%df_f$PROLIFIC_PID) #those who repeat have other numbers of trials
+
+df%>%filter(PROLIFIC_PID%in%c("5f121091e95fdc03b5e897d0","6019bbb66e5c2815ba3728b6","6505a9419139e34c5f6b1ffc","5d42486206811e001ada5b4b"))%>%
+  filter(is_finished!=1)%>% #these people have repeated data
+  select(trial_index,codeversion,PROLIFIC_PID,task,prespos,testpos_final,is_finished,condition,stimulus)
+
+df%>%filter(PROLIFIC_PID%in%c("5f121091e95fdc03b5e897d0"))%>%
+  filter(is_finished!=0)%>% #this is non
+  
+  select(trial_index,codeversion,PROLIFIC_PID,task,prespos,testpos_final,is_finished,condition,stimulus)
+
+
+
+df%>%filter(PROLIFIC_PID%in%c("5f0d2ad60ad0d6730c380b05"))%>% #who wrote "i hate you"
+  # filter(is_finished!=0)%>% #this is non
+  filter(rt!="null"&rt!="")%>%
+  select(trial_index,codeversion,PROLIFIC_PID,task,prespos,testpos_final,is_finished,condition,timepassed_mins,rt,stimulus)
+```
+5d42486206811e001ada5b4b	20	-didn't pass instructions		
+5f121091e95fdc03b5e897d0	572			
+6019bbb66e5c2815ba3728b6	28	
+6505a9419139e34c5f6b1ffc	12
+
+"5f121091e95fdc03b5e897d0", did half, have to exclude!!
+
+"6019bbb66e5c2815ba3728b6",  did two trials, it's ok
+
+"6505a9419139e34c5f6b1ffc" didn't pass practice
+
+
+
+
+```{r}
+dfimp=
+  df%>% 
+  # filter(is_finished==1,codeversion%in%c(3,4,5))%>%
+  filter(is_finished==1 & codeversion>5 | PROLIFIC_PID=="631b4849c2daec6a4966605c")%>% #version 1,2 had different list numbers
+  # group_by(condition,PROLIFIC_PID,all_accumulated_accuracy,recorded_at)%>%
+  group_by(condition,PROLIFIC_PID,all_accumulated_accuracy,run_id,codeversion)%>%
+  summarize(n=n())%>%
+  # group_by(condition)%>%
+  # summarize(n=n())%>%
+  filter(PROLIFIC_PID%notin%c("5c1ffe5295f978000173df84","649d257f5e8bfe6ee264e160"))%>%
+  # filter(all_accumulated_accuracy<0.6)%>%
+  # filter(condition=="b")%>%
+  mutate()
+dfimp
+```
+
+
+
+
+
+# important, initialize data**
+
+```{r}
+df%>%filter(PROLIFIC_PID%in%c("6505afbedfdaf655c3cb53fb","63062501b80b139870ea2af4","642b18ded89b632c7b5547e8"))%>%group_by(PROLIFIC_PID,condition)%>%summarise()
+dfcg%>%filter(PROLIFIC_PID=="")
+```
+
+exclude:
+"6505afbedfdaf655c3cb53fb","63062501b80b139870ea2af4","642b18ded89b632c7b5547e8"
+
+```{r}
+
+listwrongcompletioncode = c("631b4849c2daec6a4966605c","655341eb4e3bc14629ff1f23","5e9679a26b86610fdf2c766a","56caf7b564c068000c4d798a","650afc00d748aa554ebde221")
+databad = c("63d193c45e01ccb694993e7f","6505afbedfdaf655c3cb53fb","63062501b80b139870ea2af4","642b18ded89b632c7b5547e8")
+dfcg =
+  df %>%
+  filter(PROLIFIC_PID!="")%>%
+  filter(PROLIFIC_PID%notin%c("5f121091e95fdc03b5e897d0"))%>%# did half study
+  # filter(PROLIFIC_PID%notin%databad)%>%#those that got too low acc
+  filter( (is_finished==1 & codeversion>=6) |
+  PROLIFIC_PID%in%listwrongcompletioncode)%>%
+  mutate(testpos_final=case_when(PROLIFIC_PID%in%listwrongcompletioncode & !is.na(testpos_final)~testpos_final+1,
+                                 TRUE~testpos_final))%>%
+  mutate(listnumber_1to10=as.factor(listnumber_1to10))%>%
+  mutate(condition=case_when(condition=="b"~"Backward",condition=="f"~"Forward",condition=="r"~"Random",
+                             condition=="fr"~"FRandom",condition=="br"~"BRandom"))%>%
+  mutate(condition = fct_relevel(condition, "Forward", "Backward", "Random","FRandom","BRandom"))%>%
+  mutate(ExpandRow = if_else(wordcondi == "repeat" & task == "finalt_response", TRUE, FALSE)) %>% 
+  pivot_longer(
+    cols = c(word1_response, word2_response),
+    names_to = "word_repeat_response",
+    values_to = "word_response_finalt") %>%
+  filter(!(word_repeat_response == "word1_response" & !(wordcondi == "repeat" & task == "finalt_response")))%>%
+  mutate(
+    word_repeat_response = if_else(
+      wordcondi == "repeat" & task == "finalt_response",
+      word_repeat_response,
+      as.character(NA)  # or simply NA if you prefer to have NA values
+    )
+  ) %>%
+  mutate(correct_all = case_when(
+    task%in%c("pretest_response","counting_response") ~ correct,
+    task=="finalt_response" & word_repeat_response=="word1_response" ~ is_correct_word1_precise,
+    task=="finalt_response" & word_repeat_response=="word2_response" ~ is_correct_word2_precise,
+    task=="finalt_response" & wordcondi=="unique" ~ is_correct_unique_precise,#one of answer is correct then this is correct
+    TRUE ~ NA
+  ))%>%
+  mutate(correct_all=as.logical(correct_all))%>%
+  # mutate(codeversion=as.factor(codeversion))%>%
+  # select(-ExpandRow, -word1_response, -word2_response) %>%
+  # filter(ip%notin%c("76.112.5.227"))%>%
+  mutate()
+# summary(dfcg$correct_all)
+
+dfcg %>% filter(task=="pretest_response") %>% select(correct_all,correct)
+  
+dfcg %>% select(wordcondi,testpos_final,wordchosen_finaltest,word_response,word_repeat_response,word_response_finalt,task,correct_all)%>%
+  filter(task=="finalt_response")
+
+
+dfcg%>%select(trial_index, PROLIFIC_PID,task,wordcondi,task,correct,is_correct_word1_precise,is_correct_word2_precise,is_correct_unique_precise,correct_all,word_repeat_response,listnumber_1to10,condition,word_response_finalt)
+
+dfcg %>% 
+  # filter(is_finished==1,codeversion%in%c(3,4,5))%>%
+  filter(codeversion>=6)%>%
+  # filter(is_finished==1 & codeversion>5 | PROLIFIC_PID=="631b4849c2daec6a4966605c")%>% #version 1,2 had different list numbers
+  # group_by(condition,PROLIFIC_PID,all_accumulated_accuracy,recorded_at)%>%
+  group_by(condition,PROLIFIC_PID,all_accumulated_accuracy,run_id,codeversion)%>%
+  summarize(n=n())%>%
+  filter(!is.na(all_accumulated_accuracy))%>%
+  # group_by(condition)%>%
+  # summarize(n=n())%>%
+  # filter(PROLIFIC_PID%notin%c("5c1ffe5295f978000173df84","649d257f5e8bfe6ee264e160"))%>%
+  # filter(all_accumulated_accuracy<0.6)%>%
+  # filter(condition=="b")%>%
+  mutate()
+# dfcg%>%select(PROLIFIC_PID,task,wordcondi,task,listnumber_1to10,condition)
+
+
+dfcg %>% 
+  # filter(is_finished==1,codeversion%in%c(3,4,5))%>%
+  filter(codeversion>=6)%>%
+  # filter(is_finished==1 & codeversion>5 | PROLIFIC_PID=="631b4849c2daec6a4966605c")%>% #version 1,2 had different list numbers
+  # group_by(condition,PROLIFIC_PID,all_accumulated_accuracy,recorded_at)%>%
+  group_by(condition,PROLIFIC_PID,codeversion)%>%
+  summarize(n=n())%>%
+  group_by(condition,codeversion)%>%
+  summarize(n=n())%>%
+  mutate()
+```
+
+
+
+
+
+
+
+
+#*** read data for once, quick
+```{r}
+# write.csv(dfcg,"design2-cuedrecall/design2_save.csv")
+# dfcg=read.csv("design2-cuedrecall/design2_save.csv")
+```
+
+
+## check number of participants
+```{r}
+dfcg %>% group_by(condition,PROLIFIC_PID)%>%summarise(n=n())%>%group_by(condition)%>%summarize(n=n())
+```
+
+
+
+
+
+##check time passed in second part
+```{r}
+# dfcg$timepassed_mins
+# dfcg$testpos_final
+# dfcg$stimulus
+dfcg%>%select(task,timepassed_mins,testpos_final,PROLIFIC_PID,condition)%>%filter(task=="surveyatend"|(task=="finalt_feedback"&testpos_final==1))%>%select(-testpos_final)%>%
+  pivot_wider(names_from = task,values_from = timepassed_mins)%>%
+  mutate(timetaken=surveyatend-finalt_feedback)%>%
+  group_by(condition)%>%
+  summarise(mt=mean(timetaken))
+# ?pivot_wider
+# 
+# dfcg%>%filter(PROLIFIC_PID=="56b43607c54e3c000d3c9b0b")
+```
+
+
+## check correction rate
+```{r}
+dcc1=dfcg%>%
+  # filter(PROLIFIC_PID=="63d193c45e01ccb694993e7f")%>%
+  # filter(codeversion>=6)%>%
+  filter(PROLIFIC_PID%in%c("65844606be824c211f82f3be","
+64226a9ac7739618beeee60d","
+63614899ad49a91f1ef09067","5b0481dced352a0001609c38","5d42486206811e001ada5b4b","647c65c5acb91c89819c7970","63f77b9ca8439f6e1620c1cd"))%>%
+  # select(is_correct_word1_precise,is_correct_word2_precise,is_correct_first,is_correct_second,PROLIFIC_PID,codeversion,condition )%>%
+  select(is_correct_word1_precise,is_correct_word2_precise,PROLIFIC_PID,codeversion,condition )%>%
+  
+  filter(complete.cases(.)) %>% pivot_longer(cols=starts_with("is_"),names_to = "type",values_to = "cr")%>%mutate(cr=as.numeric(cr))%>%
+  group_by(type,PROLIFIC_PID,codeversion,condition)%>%
+  summarize(cr=mean(as.numeric(cr)))%>%
+  mutate(codeversion=as.factor(codeversion))
+dcc1
+ggplot(data=dcc1,aes(PROLIFIC_PID,cr,group=interaction(type,condition,codeversion)))+
+  geom_point(aes(shape=as.factor(codeversion),color=type))+
+  facet_grid(.~condition)+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
+
+
+
+```{r}
+dfcg%>%filter(task=="finalt_instructions")%>%select(PROLIFIC_PID,rt)
+```
+
+
+## check for final surveys
+```{r}
+dfcg%>% filter(task%in%c("penpapertrial","surveyatend"))%>%select(codeversion,task,condition,PROLIFIC_PID,response)%>%filter(response!='{"surveyend":""}')
+```
+
+
+
+
+surveyatend	Backward	6575fb72b7ba850ce7a79a72	{"surveyend":"The instructions were explained more than it needed to be"}	
+surveyatend	Backward	61fa92ff5719bc09cb834baa	{"surveyend":"Second part of the test (instructions and feedback) was understandable, but I had to read it twice. No there is not enough time to read the feedback on each trial in the second part."}	-$1
+surveyatend	Backward	5fe0d610dd8cf1a331961cbe	{"surveyend":"Not enough time to read the feedback entirely.. "}	-$0.3
+surveyatend	Backward	59dba8575cddae0001ff0780	{"surveyend":"I did find the instructions difficult to understand. I had to read them multiple times to try and make sense of them. There was enough time to read everything. The trial is very difficult to remeber all the words in the limited time"}	-$0.5
+surveyatend	Backward	5d546feb05470f001b8d1436	{"surveyend":"Yes instructions were understandable, but feedback was quick. "}	-$0.3
+surveyatend	Backward	5d42486206811e001ada5b4b	{"surveyend":"everything was very understandable+"}	
+
+
+surveyatend	FRandom	650afc00d748aa554ebde221	{"surveyend":"it was understandable, but difficult"}	
+surveyatend	BRandom	5e9679a26b86610fdf2c766a	{"surveyend":"Yes, I understood. It was very difficult for me to remember. After seeing the correct answer, I immediately recognized all words though "}	[$0.3]
+surveyatend	FRandom	628f8ebcf49cbc7cc6e7d873	{"surveyend":"I did have enough time to read feedback but I found it hard to remember the words for the second half especially. "}$0.3
+
+surveyatend	Forward	5b0481dced352a0001609c38	{"surveyend":"Everything was understandable"}	
+surveyatend	Forward	5de8bc74553cee8280a7dd84	{"surveyend":"I'd say the instructions were understandable. I think most of the timing was fine, maybe a little bit more time to see what was right/wrong in the second half when you are only recalling words."}	$0.3
+surveyatend	Forward	63d1401242635aaffe867c4c	{"surveyend":"I mostly understood the directions in the second part. I don't know what you meant by adjoining lists, though. I tried my best because I figured you just wanted me to come up with any words I remembered with those letters, so I did. I couldn't keep any of the lists straight by the end anyway."}	$0.3
+surveyatend	Forward	54283748fdf99b152ef9a368	{"surveyend":"The feedback was a little fast, but I could read most of it. The instructions were clear otherwise."}	$0.3
+surveyatend	Forward	65614c86be0b8460a11d0b64	{"surveyend":"When I tried to advance past the first set of instructions i was told I hadn't read them for long enough. The amount of time \\"left\\" seemed to change every time I attempted to advance until finally I let it go for several minutes. I found this incredibly frustrating and probably put me in a worse state for the test"}	$0.3
+penpapertrial	Forward	654656fff30bb961559e71af	{"penPaperUsage":"I would make up songs to help remember words and wrote a few down I did not know"}	
+surveyatend	Forward	655a35db05bf46b182b8b187	{"surveyend":"N/A"}	
+surveyatend	Forward	5bde6c564842880001308324	{"surveyend":"The feedback on the last part went too quickly for me. I'm a slower reader. I realized partway through to just look at the right half for the correct answers. Everything was understandable."}	$0.4
+
+
+
+## check rates for participants
+
+```{r}
+dfnew2=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  filter(codeversion>=6)%>%
+  # mutate(word_repeat_response = case_when(!is.na(word_repeat_response)~paste("finat-repeat-",word_repeat_response,sep=""),
+  # is.na(word_repeat_response)~task))%>%
+  group_by(PROLIFIC_PID,task,wordcondi,condition)%>%
+  summarise(accuracy=mean(correct_all))
+  
+dfnew2
+
+
+ggplot(data=dfnew2,aes(PROLIFIC_PID,accuracy,group=interaction(task,wordcondi,PROLIFIC_PID,condition)))+
+  geom_point(aes(color=wordcondi))+
+  # geom_line(aes(color=word_repeat_response, linetype=wordcondi)) + 
+  facet_grid(condition~task)
+```
+
+# check accuracy each overall ****
+```{r}
+dfnew2=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # select(wordcondi,task,wordcondi,word_repeat_response)
+  # filter(codeversion>=6)%>%
+#   filter(PROLIFIC_PID%in%c("65844606be824c211f82f3be","
+# 64226a9ac7739618beeee60d","
+# 63614899ad49a91f1ef09067","5b0481dced352a0001609c38"))%>%
+  filter(PROLIFIC_PID%in%c("6505afbedfdaf655c3cb53fb","60955a048531613c66404fb2","63062501b80b139870ea2af4"))%>%
+  mutate(word_repeat_response = case_when(!is.na(word_repeat_response)~paste("finat-repeat-",word_repeat_response,sep=""),
+  is.na(word_repeat_response)~task))%>%
+  group_by(PROLIFIC_PID,task,condition,word_repeat_response)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(PROLIFIC_PID,condition)%>%
+  mutate(overallmean=mean(accuracy))
+
+  
+dfnew2
+
+
+ggplot(data=dfnew2,aes(group=interaction(task,word_repeat_response,PROLIFIC_PID,condition)))+
+  geom_point(aes(PROLIFIC_PID,accuracy,shape=word_repeat_response),color="blue")+
+  # geom_line(aes(color=word_repeat_response, linetype=wordcondi)) + 
+  geom_point(aes(PROLIFIC_PID,overallmean),color="black")+
+  facet_grid(condition~.)+theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_hline(yintercept=0.15)
+```
+printout results
+
+## export csv to approve par **
+```{r}
+dftemp=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # select(wordcondi,task,wordcondi,word_repeat_response)
+  # filter(codeversion>=6)%>%
+#   filter(PROLIFIC_PID%in%c("65844606be824c211f82f3be","
+# 64226a9ac7739618beeee60d","
+# 63614899ad49a91f1ef09067","5b0481dced352a0001609c38"))%>%
+  mutate(word_repeat_response = case_when(!is.na(word_repeat_response)~paste("finat-repeat-",word_repeat_response,sep=""),
+  is.na(word_repeat_response)~task))%>%
+  group_by(PROLIFIC_PID,task,codeversion,condition,word_repeat_response)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(PROLIFIC_PID,codeversion,condition)%>%
+  mutate(overallmean=mean(accuracy))%>% group_by(condition,codeversion,PROLIFIC_PID) %>% summarise(mm=mean(overallmean))
+# write.csv(dftemp,"data-design2/out.csv")
+```
+
+```{r}
+tempdemo=read.csv("data-design2/export_frbr.csv")
+outnow2=tempdemo%>% filter(Status=="AWAITING REVIEW") %>% 
+  mutate(PROLIFIC_PID=Participant.id)%>%
+  select(PROLIFIC_PID) %>% left_join(dftemp,by=c("PROLIFIC_PID"))
+# write.csv(outnow2,"data-design2/out2.csv")
+# system("open data-design2/out2.csv")
+```
+
+
+# plot average performance for each sub. 
+```{r}
+dfnew2_10=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # filter(PROLIFIC_PID%in%c("5f121091e95fdc03b5e897d0"))%>%
+  # select(wordcondi,task,wordcondi,word_repeat_response)
+  # filter(codeversion>=6)%>%
+#   filter(PROLIFIC_PID%in%c("65844606be824c211f82f3be","
+# 64226a9ac7739618beeee60d","
+# 63614899ad49a91f1ef09067","5b0481dced352a0001609c38"))%>%
+  mutate(word_repeat_response = case_when(!is.na(word_repeat_response)~paste("finat-repeat-",word_repeat_response,sep=""),
+  is.na(word_repeat_response)~task))%>%
+  group_by(PROLIFIC_PID,task,condition,word_repeat_response)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(PROLIFIC_PID,condition)%>%
+  mutate(overallmean=mean(accuracy))
+
+  
+# to check for bonus payment
+dfnew2_10%>%group_by(condition)%>%
+  top_n(12,overallmean)%>%group_by(condition,PROLIFIC_PID)%>%summarise(overallmean=mean(accuracy))
+
+
+ggplot(data=dfnew2_10,aes(group=interaction(task,word_repeat_response,PROLIFIC_PID,condition)))+
+  geom_point(aes(PROLIFIC_PID,accuracy,shape=word_repeat_response),color="blue")+
+  # geom_line(aes(color=word_repeat_response, linetype=wordcondi)) +
+  geom_point(aes(PROLIFIC_PID,overallmean),color="black")+
+  facet_grid(condition~.)+theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_hline(yintercept=0.15)
+```
+
+
+#see 
+```{r}
+# dfnew2=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+#   filter(codeversion<5)%>%
+#   mutate(word_repeat_response = case_when(!is.na(word_repeat_response)~paste("finat-repeat-",word_repeat_response,sep=""),
+#   is.na(word_repeat_response)~task))%>%
+#   filter(is_repeat_word1_reverse==1)%>%
+#   group_by(PROLIFIC_PID,task,wordcondi,condition,word_repeat_response)%>%
+#   summarise(accuracy=n())
+#   
+# dfnew2
+# 
+# 
+# ggplot(data=dfnew2,aes(PROLIFIC_PID,accuracy,group=interaction(task,wordcondi,word_repeat_response,PROLIFIC_PID,condition)))+
+#   geom_point(aes(color=wordcondi,shape=word_repeat_response))+
+#   # geom_line(aes(color=word_repeat_response, linetype=wordcondi)) + 
+#   facet_grid(condition~task)+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+
+```{r}
+# dfnew2=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+#   filter(codeversion==5)%>%
+#   mutate(word_repeat_response = case_when(!is.na(word_repeat_response)~paste("finat-repeat-",word_repeat_response,sep=""),
+#   is.na(word_repeat_response)~task))%>%
+#   
+#   filter(is_repeat_word1_reverse==1)%>%
+#   group_by(PROLIFIC_PID,task,wordcondi,condition,word_repeat_response)%>%
+#   summarise(accuracy=n())
+#   
+# dfnew2
+# 
+# 
+# ggplot(data=dfnew2,aes(PROLIFIC_PID,accuracy,group=interaction(task,wordcondi,word_repeat_response,PROLIFIC_PID,condition)))+
+#   geom_point(aes(color=wordcondi,shape=word_repeat_response))+
+#   # geom_line(aes(color=word_repeat_response, linetype=wordcondi)) + 
+#   facet_grid(condition~task)+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+
+
+
+```{r}
+dd=dfcg %>% 
+  # filter(codeversion==5)%>%
+  select(stimulus,rt,task,trial_index,PROLIFIC_PID,all_accumulated_accuracy)%>%
+  filter(trial_index==420)
+dd
+# mutate( )
+names(dfcg)
+
+
+dfcg %>% 
+    filter(if_any(everything(), ~ str_detect(., regex("^<p style='text-align: justify;color:"))))%>%
+  select(stimulus,rt,task,trial_index,PROLIFIC_PID,all_accumulated_accuracy)
+
+```
+
+
+
+# fig1-average perforamance - for subjects
+
+## for each par
+```{r}
+# dfcg$all_accumulated_accuracy
+dfnew1=
+  dfcg %>% filter(task%in% c("finalt_response","pretest_response","counting_response"))%>% 
+  mutate(wordcondi=case_when(is.na(wordcondi)~"na",
+  TRUE~wordcondi))%>%
+  filter(codeversion>=6)%>%
+  filter(all_accumulated_accuracy<0.3)%>%
+#     filter(PROLIFIC_PID%in%c("65844606be824c211f82f3be","
+# 64226a9ac7739618beeee60d","
+# 63614899ad49a91f1ef09067","5b0481dced352a0001609c38","5d42486206811e001ada5b4b","647c65c5acb91c89819c7970","63f77b9ca8439f6e1620c1cd"))%>%
+  group_by(PROLIFIC_PID,task,wordcondi,listnumber_1to10,condition)%>%
+  summarise(accuracy=mean(correct_all))
+levels(dfnew1$PROLIFIC_PID%>%as.factor())
+
+ggplot(data=dfnew1,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,PROLIFIC_PID,condition)))+
+  geom_point()+
+  geom_line(aes(color=PROLIFIC_PID,linetype=wordcondi)) +
+  facet_grid(condition~task)+
+  # theme(legend.position = "none")
+  theme(legend.position = "bottom")
+```
+## check after that to exclude!!!
+```{r}
+dfnew2_10=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  filter(PROLIFIC_PID%in%c("59d9d9cd8fd07a0001842484", "60b9051c231093597299280d", "63d79678fb8c1b9072646c0a", "644695d12dd99a1712dd84c0", "650beb3afdc0195ec4ffda89","6575fb72b7ba850ce7a79a72"))%>%
+  mutate(word_repeat_response = case_when(!is.na(word_repeat_response)~paste("finat-repeat-",word_repeat_response,sep=""),
+  is.na(word_repeat_response)~task))%>%
+  group_by(PROLIFIC_PID,task,condition,word_repeat_response)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(PROLIFIC_PID,condition)%>%
+  mutate(overallmean=mean(accuracy))
+  
+  
+dfnew2_10
+
+
+ggplot(data=dfnew2_10,aes(group=interaction(task,word_repeat_response,PROLIFIC_PID,condition)))+
+  geom_point(aes(PROLIFIC_PID,accuracy,shape=word_repeat_response),color="blue")+
+  # geom_line(aes(color=word_repeat_response, linetype=wordcondi)) + 
+  geom_point(aes(PROLIFIC_PID,overallmean),color="black")+
+  facet_grid(condition~.)+theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_hline(yintercept=0.15)
+```
+!need to be excluded
+"6505afbedfdaf655c3cb53fb","63062501b80b139870ea2af4","642b18ded89b632c7b5547e8"
+
+## for each par, not by condition
+```{r}
+dfnew1_1=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # filter(codeversion>=6)%>%
+  filter(all_accumulated_accuracy<0.4)%>%
+#     filter(PROLIFIC_PID%in%c("65844606be824c211f82f3be","
+# 64226a9ac7739618beeee60d","
+# 63614899ad49a91f1ef09067","5b0481dced352a0001609c38","5d42486206811e001ada5b4b","647c65c5acb91c89819c7970","63f77b9ca8439f6e1620c1cd"))%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition)%>%
+  summarise(accuracy=mean(correct_all))
+
+ggplot(data=dfnew1_1,aes(listnumber_1to10,accuracy,group=interaction(task,PROLIFIC_PID,condition)))+
+  geom_point()+
+  geom_line(aes(color=PROLIFIC_PID)) +
+  facet_grid(condition~task)+  
+  theme(legend.position = "none")
+  # theme(legend.position = "bottom")
+```
+
+# avg performance not by subjects ^^
+
+
+```{r}
+dfcg%>%group_by(PROLIFIC_PID,condition)%>%summarise()%>%group_by(condition)%>%summarize(n=n())
+
+dfnew1_2=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # filter(codeversion>=6)%>%
+  # filter(all_accumulated_accuracy>0.4)%>%
+#     filter(PROLIFIC_PID%in%c("65844606be824c211f82f3be","
+# 64226a9ac7739618beeee60d","
+# 63614899ad49a91f1ef09067","5b0481dced352a0001609c38","5d42486206811e001ada5b4b","647c65c5acb91c89819c7970","63f77b9ca8439f6e1620c1cd"))%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy))
+
+ggplot(data=dfnew1_2,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,condition)))+
+  geom_point()+
+  geom_line(aes(color=wordcondi)) +
+  facet_grid(condition~task)+
+  labs(x="intial test list number, 1-8")
+
+# dfnew1_2=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+#   # filter(codeversion>=6)%>%
+#   # filter(all_accumulated_accuracy>0.2)%>%
+# #     filter(PROLIFIC_PID%in%c("65844606be824c211f82f3be","
+# # 64226a9ac7739618beeee60d","
+# # 63614899ad49a91f1ef09067","5b0481dced352a0001609c38","5d42486206811e001ada5b4b","647c65c5acb91c89819c7970","63f77b9ca8439f6e1620c1cd"))%>%
+#   group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+#   summarise(accuracy=mean(correct_all))%>%
+#   group_by(task,listnumber_1to10,condition,wordcondi)%>%
+#   summarise(accuracy=mean(accuracy))
+# 
+# ggplot(data=dfnew1_2,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,condition)))+
+#   geom_point()+
+#   geom_line(aes(color=wordcondi)) +
+#   facet_grid(condition~task)
+```
+
+### average,repeat first/second word *1
+```{r}
+dfcg
+dfcg%>%filter(word_repeat_response!="word2_response")%>%
+  group_by(PROLIFIC_PID,condition)%>%summarise()%>%group_by(condition)%>%summarize(n=n())
+
+dfnew1_2=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # filter(word_repeat_response!="word2_response"|is.na(word_repeat_response))%>%
+  # select(word_repeat_response)
+  mutate(wordcondi=case_when(!is.na(word_repeat_response)~paste(wordcondi,word_repeat_response,sep=" finalt-"),
+                             task=="pretest_response" & wordcondi=="repeat"~"repeat initial-test",
+         TRUE~wordcondi))%>%
+  # filter(codeversion>=6)%>%
+  # filter(all_accumulated_accuracy>0.4)%>%
+#     filter(PROLIFIC_PID%in%c("65844606be824c211f82f3be","
+# 64226a9ac7739618beeee60d","
+# 63614899ad49a91f1ef09067","5b0481dced352a0001609c38","5d42486206811e001ada5b4b","647c65c5acb91c89819c7970","63f77b9ca8439f6e1620c1cd"))%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy))
+
+ggplot(data=dfnew1_2,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,condition)))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  facet_grid(condition~task)+
+  labs(x="intial test list number, 1-8")+
+  theme(text=element_text(size=15))
+```
+### average, break by two 
+```{r}
+
+
+dfnew1_222=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  mutate(listnumber_1to10=as.numeric(listnumber_1to10))%>%
+  mutate(listnumber_1to10=case_when(listnumber_1to10<=4~1,
+                                    listnumber_1to10>4 ~ 2))%>%
+  # filter(word_repeat_response!="word2_response"|is.na(word_repeat_response))%>%
+  # select(word_repeat_response)
+  mutate(wordcondi=case_when(!is.na(word_repeat_response)~paste(wordcondi,word_repeat_response,sep=" finalt-"),
+                             task=="pretest_response" & wordcondi=="repeat"~"repeat initial-test",
+         TRUE~wordcondi))%>%
+  # filter(codeversion>=6)%>%
+  # filter(all_accumulated_accuracy>0.4)%>%
+#     filter(PROLIFIC_PID%in%c("65844606be824c211f82f3be","
+# 64226a9ac7739618beeee60d","
+# 63614899ad49a91f1ef09067","5b0481dced352a0001609c38","5d42486206811e001ada5b4b","647c65c5acb91c89819c7970","63f77b9ca8439f6e1620c1cd"))%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy))
+
+ggplot(data=dfnew1_222,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,condition)))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  facet_grid(condition~task)+
+  labs(x="intial test list number, 1-8")+
+  theme(text=element_text(size=15))+
+  scale_x_continuous(breaks=c(1,2))
+```
+
+
+### RT *2
+
+```{r}
+
+dfnew1_5=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  filter(PROLIFIC_PID!="")%>%
+  mutate(rt=as.numeric(rt))%>%
+  filter(rt<30000)%>%
+  # filter(correct_all==TRUE)%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(rtm=mean(rt))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(rtm=mean(rtm))
+# dfnew1_5
+
+ggplot(data=dfnew1_5,aes(listnumber_1to10,rtm,group=interaction(task,wordcondi,condition)))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  facet_grid(condition~task)+
+  labs(x="intial test list number, 1-8")+
+  theme(text=element_text(size=16))
+
+```
+
+```{r}
+
+dfnew1_5=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  filter(PROLIFIC_PID!="")%>%
+  mutate(rt=as.numeric(rt))%>%
+  filter(rt<30000)%>%
+  # filter(correct_all==TRUE)%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(rtm=mean(rt))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(rtm=mean(rtm))
+# dfnew1_5
+
+ggplot(data=dfnew1_5,aes(listnumber_1to10,rtm,group=interaction(task,wordcondi,condition)))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  facet_grid(condition~task)+
+  labs(x="intial test list number, 1-8")+
+  theme(text=element_text(size=16))
+
+```
+
+
+
+
+
+### f-b forward-backward
+```{r}
+# dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+#   # filt
+#   mutate(wordcondi=case_when(!is.na(word_repeat_response)~paste(wordcondi,word_repeat_response),
+#                              task=="pretest_response" & wordcondi=="repeat"~"initial test-repeat",
+#          TRUE~wordcondi))%>%
+#   group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+#   summarise(accuracy=mean(correct_all))%>%
+#   group_by(task,listnumber_1to10,condition,wordcondi)%>%
+#   summarise(accuracy=mean(accuracy))%>%
+#     pivot_wider(names_from = condition,values_from=accuracy)%>%
+#   mutate("F-B"=Forward-Backward,"FR-BR"=FRandom-BRandom)%>%
+#   pivot_longer(cols=c("F-B","FR-BR"),names_to = "Type",values_to = "accuracy")
+#   # ?pivot_wider
+
+dfnew1_12=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # filt
+  mutate(wordcondi=case_when(!is.na(word_repeat_response)~paste(wordcondi,word_repeat_response),
+                             task=="pretest_response" & wordcondi=="repeat"~"initial test-repeat",
+         TRUE~wordcondi))%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy))%>%
+    pivot_wider(names_from = condition,values_from=accuracy)%>%
+  mutate("F-B"=Forward-Backward,"FR-BR"=FRandom-BRandom)%>%
+  pivot_longer(cols=c("F-B","FR-BR"),names_to = "type",values_to = "accuracy")
+
+ggplot(data=dfnew1_12,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,type)))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  facet_grid(type~task)+
+  labs(x="intial test list number, 1-8")+
+  theme(text=element_text(size=15))
+```
+
+
+# average by final test position 
+mutate(new_cuts = cut_number(testpos,n=5))
+
+```{r}
+dftemp=  dfcg %>% filter(task%in% c("finalt_response"))%>% 
+  group_by(PROLIFIC_PID)%>%
+  # mutate(cuts = cut_number(testpos_final ,n=8)) %>%
+  mutate(cuts = cut_interval(testpos_final,n=8)) %>%
+  # summarise(mm=mean(testpos_final))
+  select(PROLIFIC_PID,testpos_final,task,listnumber_1to10,condition,wordcondi,correct_all,cuts)
+
+dfcg %>% filter(task%in% c("finalt_response"))%>% 
+  group_by(PROLIFIC_PID,listnumber_1to10)%>%
+  # mutate(cuts = cut_number(testpos_final ,n=8)) %>%
+  # mutate(cuts = cut_interval(testpos_final,n=8)) %>%
+  summarise(mm=n())
+  # summarise(mm=mean(testpos_final))
+  # select(PROLIFIC_PID,testpos_final,task,listnumber_1to10,condition,wordcondi,correct_all,cuts)
+
+dftemp
+dftemp$cuts %>%levels()
+```
+
+
+```{r}
+# dfnew1_3=
+dfnew1_3=  dfcg %>% filter(task%in% c("finalt_response"))%>% 
+  group_by(PROLIFIC_PID)%>%
+  mutate(listnumber_1to10 = cut_interval(testpos_final,n=8)) %>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy))
+
+ggplot(data=dfnew1_3,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,condition)))+
+  geom_point()+
+  geom_line(aes(color=wordcondi)) +
+  facet_grid(condition~task)+
+  labs(x="final test position in 8 chunks")+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  
+```
+### only first word, final test position *1
+```{r}
+
+dfnew1_4=  dfcg %>% filter(task%in% c("finalt_response"))%>% 
+  # filter(word_repeat_response!="word2_response"|is.na(word_repeat_response))%>%
+   mutate(wordcondi=case_when(!is.na(word_repeat_response)~paste(wordcondi,word_repeat_response),
+         TRUE~wordcondi))%>%
+  group_by(PROLIFIC_PID)%>%
+  mutate(listnumber_1to10 = cut_interval(testpos_final,n=8)) %>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy))
+
+ggplot(data=dfnew1_4,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,condition)))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  facet_grid(condition~task)+
+  labs(x="final test position in 8 chunks")+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),text=element_text(size=15))+
+  ylim(0,0.6)
+
+```
+
+### rt *2
+
+```{r}
+
+dfnew1_10=  dfcg %>% filter(task%in% c("finalt_response"))%>% 
+  filter(PROLIFIC_PID!="")%>%
+  mutate(rt=as.numeric(rt))%>%
+  # filter(word_repeat_response!="word2_response"|is.na(word_repeat_response))%>%
+   # mutate(wordcondi=case_when(!is.na(word_repeat_response)~paste(wordcondi,word_repeat_response),
+         # TRUE~wordcondi))%>%
+  group_by(PROLIFIC_PID)%>%
+  mutate(listnumber_1to10 = cut_interval(testpos_final,n=8)) %>%
+  filter(rt<25000,rt>1000)%>%
+  # filter(correct_all==TRUE)%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(mrt=mean(rt))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(mRT=mean(mrt))
+
+ggplot(data=dfnew1_10,aes(listnumber_1to10,mRT,group=interaction(task,wordcondi,condition)))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  facet_grid(condition~task)+
+  labs(x="final test position in 8 chunks")+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),text=element_text(size=15))
+  # ylim(4000,11000)
+
+```
+
+### f-b
+dfnew1_12=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # filt
+  mutate(wordcondi=case_when(!is.na(word_repeat_response)~paste(wordcondi,word_repeat_response),
+                             task=="pretest_response" & wordcondi=="repeat"~"initial test-repeat",
+         TRUE~wordcondi))%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy))%>%
+    pivot_wider(names_from = condition,values_from=accuracy)%>%
+  mutate("F-B"=Forward-Backward,"FR-BR"=FRandom-BRandom)%>%
+  pivot_longer(cols=c("F-B","FR-BR"),names_to = "type",values_to = "accuracy")
+
+ggplot(data=dfnew1_12,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,type)))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  facet_grid(type~task)+
+  labs(x="intial test list number, 1-8")+
+  theme(text=element_text(size=15))
+  
+```{r}
+dfnew1_44=  dfcg %>% filter(task%in% c("finalt_response"))%>% 
+  # filter(word_repeat_response!="word2_response"|is.na(word_repeat_response))%>%
+   mutate(wordcondi=case_when(!is.na(word_repeat_response)~paste(wordcondi,word_repeat_response),
+         TRUE~wordcondi))%>%
+  group_by(PROLIFIC_PID)%>%
+  mutate(listnumber_1to10 = cut_interval(testpos_final,n=8)) %>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy))%>%
+  pivot_wider(names_from = condition,values_from=accuracy)%>%
+  mutate("F-B"=Forward-Backward,"FR-BR"=FRandom-BRandom)%>%
+  pivot_longer(cols=c("F-B","FR-BR"),names_to = "type",values_to = "accuracy")
+
+ggplot(data=dfnew1_44,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,type)))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  facet_grid(type~task)+
+  labs(x="final test position in 8 chunks")+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),text=element_text(size=15))
+  # ylim(0,0.6)
+
+```
+# average initial and final combined**
+
+```{r}
+dfcg %>% filter(task%in% c("finalt_response"))%>% 
+  mutate(task="finalT-by-final-test")%>%
+  group_by(PROLIFIC_PID)%>%
+  mutate(listnumber_1to10 = cut_interval(testpos_final,n=8,labels=FALSE)) %>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy))
+?cut_interval
+```
+
+
+## acc-break by 8
+```{r}
+# dfcg1 = dfcg%>%filter(word_response_finalt!="none")
+dfnew4=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # mutate(task=case_when(task=="finalt_response"~"finalT-by-inital-list",
+                        # task=="pretest_response"~"initialT-by-intial-list"))%>%
+  # filter(PROLIFIC_PID!="")%>%
+  mutate(listnumber_1to10=as.numeric(listnumber_1to10))%>%
+  # mutate(listnumber_1to10=case_when(listnumber_1to10<=4~1,
+                                    # listnumber_1to10>4 ~ 2))%>%
+  filter(word_repeat_response!="word2_response"|is.na(word_repeat_response))%>% ## keep the NAs and those that are not word2_response, word1 resposne and na left
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy1=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+  mutate(`by-initial-test` = accuracy,se_initial=se)%>%
+  select(task,listnumber_1to10,condition,wordcondi,`by-initial-test`,se_initial)
+# dfnew4
+
+dfnew42= dfcg %>% filter(task%in% c("finalt_response"))%>% 
+  # mutate(task="finalT-by-final-test")%>%
+  group_by(PROLIFIC_PID)%>%
+  mutate(listnumber_1to10 = cut_interval(testpos_final,n=8,labels=FALSE)) %>%
+  filter(word_repeat_response!="word2_response"|is.na(word_repeat_response))%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy1=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+  mutate(`by-final-test`=accuracy,se_final=se)%>%
+  select(task,listnumber_1to10,condition,wordcondi,`by-final-test`,se_final)
+# dfnew42
+
+dftp0 = dfnew4%>%left_join(dfnew42,by=c("task","listnumber_1to10","condition","wordcondi"))
+
+dftp1=dftp0%>%pivot_longer(cols=c(`by-final-test`,`by-initial-test`),
+               names_to = "name",values_to = "accuracy")%>%filter(complete.cases(accuracy))%>%
+  select(-c(se_initial,se_final))
+# dftp1
+
+dftp2 = dftp0%>%
+  pivot_longer(cols=starts_with("se"),names_to = "name",values_to = "se")%>%
+  mutate(name=case_when(name=="se_initial"~"by-initial-test",
+                        name=="se_final"~"by-final-test"))%>%filter(complete.cases(se))%>%
+  select(-starts_with("by"))
+# dftp2
+
+dfnew44=dftp2%>%left_join(dftp1,by=c("task","listnumber_1to10","condition","wordcondi","name"))%>%
+  mutate(task=case_when(task=="finalt_response"~paste("finalT",name,sep="-"),
+                        task=="pretest_response"~paste("initialT",name,sep="-")))%>%
+  mutate(wordcondi=as.factor(wordcondi))
+  
+dfnew44
+
+
+ggplot(data=dfnew44,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,condition)))+
+  # geom_line(aes(shape=wordcondi,color=wordcondi))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  geom_errorbar(aes(ymin=accuracy-se,ymax=accuracy+se,color=wordcondi),alpha=0.8,width=0.2)+
+  geom_ribbon(aes(ymin=accuracy-se,ymax=accuracy+se,fill=wordcondi),alpha=0.1)+
+  labs(x="List number (by final/initial test position, see column panel label)",
+       title="Accuracy of lists break by 8\n In final test, only first word answered for repeat condition is plotted here")+
+  theme_light()+
+  theme(text=element_text(size=15),plot.title=element_text(size=13))+
+  facet_grid(condition~task)+
+  scale_x_continuous(breaks=1:8,labels=1:8)
+# ?scale_x_discrete
+```
+
+
+
+## acc-breakby2
+```{r}
+
+
+dfnew4=dfcg %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # mutate(task=case_when(task=="finalt_response"~"finalT-by-inital-list",
+                        # task=="pretest_response"~"initialT-by-intial-list"))%>%
+  # filter(PROLIFIC_PID!="")%>%
+  mutate(listnumber_1to10=as.numeric(listnumber_1to10))%>%
+  mutate(listnumber_1to10=case_when(listnumber_1to10<=4~1,
+                                    listnumber_1to10>4 ~ 2))%>%
+  filter(word_repeat_response!="word2_response"|is.na(word_repeat_response))%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy1=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+  mutate(`by-initial-test` = accuracy,se_initial=se)%>%
+  select(task,listnumber_1to10,condition,wordcondi,`by-initial-test`,se_initial)
+# dfnew4
+
+dfnew42= dfcg %>% filter(task%in% c("finalt_response"))%>% 
+  # mutate(task="finalT-by-final-test")%>%
+  group_by(PROLIFIC_PID)%>%
+  mutate(listnumber_1to10 = cut_interval(testpos_final,n=2,labels=FALSE)) %>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy1=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+  mutate(`by-final-test`=accuracy,se_final=se)%>%
+  select(task,listnumber_1to10,condition,wordcondi,`by-final-test`,se_final)
+# dfnew42
+
+dftp0 = dfnew4%>%left_join(dfnew42,by=c("task","listnumber_1to10","condition","wordcondi"))
+
+dftp1=dftp0%>%pivot_longer(cols=c(`by-final-test`,`by-initial-test`),
+               names_to = "name",values_to = "accuracy")%>%filter(complete.cases(accuracy))%>%
+  select(-c(se_initial,se_final))
+# dftp1
+
+dftp2 = dftp0%>%
+  pivot_longer(cols=starts_with("se"),names_to = "name",values_to = "se")%>%
+  mutate(name=case_when(name=="se_initial"~"by-initial-test",
+                        name=="se_final"~"by-final-test"))%>%filter(complete.cases(se))%>%
+  select(-starts_with("by"))
+# dftp2
+
+dfnew444=dftp2%>%left_join(dftp1,by=c("task","listnumber_1to10","condition","wordcondi","name"))%>%
+  mutate(task=case_when(task=="finalt_response"~paste("finalT",name,sep="-"),
+                        task=="pretest_response"~paste("initialT",name,sep="-")))%>%
+  mutate(wordcondi=as.factor(wordcondi))
+  
+dfnew444
+
+
+ggplot(data=dfnew444%>%
+         mutate(listnumber_1to10=as.factor(listnumber_1to10))%>%
+         mutate()
+       ,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,condition)))+
+  # geom_line(aes(shape=wordcondi,color=wordcondi))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  geom_errorbar(aes(ymin=accuracy-se,ymax=accuracy+se,color=wordcondi),alpha=0.8,width=0.2)+
+  geom_ribbon(aes(ymin=accuracy-se,ymax=accuracy+se,fill=wordcondi),alpha=0.2,width=0.1)+
+  labs(x="List number (by Final test or Initial test position, see column panel label)",
+       title="Accuracy of lists break by 2\n 
+       Only first word answered for repeat condition is included")+
+  theme_light()+
+  theme(text=element_text(size=15),plot.title=element_text(size=13))+
+  facet_grid(condition~task)+
+  # scale_x_continuous(breaks=c(0.))+
+  # xlim(0,3)+
+  scale_x_discrete(breaks=c("1","2"),labels=c("1-4","5-8"))+
+  scale_color_brewer(palette = "Set1")+
+  theme()
+
+
+```
+```{r}
+dfcg%>%
+  filter(task=="finalt_response")%>%
+  select(word_response_finalt)
+```
+```{r}
+dfcg%>%filter(task%in%c("finalt_response","pretest_response"))
+  
+  dfcg%>%filter((task=="finalt_response" & word_response_finalt!="none")|(task=="pretest_response"&response!="{\"Q0\":\"none\"}" ))
+```
+
+
+## rt-breakby2
+
+!!The answer none part is incorrect because "word_response_finalt" is only for repeat condition in final test to use
+
+
+```{r}
+answernone=1
+
+
+if (answernone==0){
+  dfcg1 = dfcg%>%filter((task=="finalt_response" & word_response_finalt!="none")|(task=="pretest_response"&response!="{\"Q0\":\"none\"}" ))
+  textnone="when they answered none"
+} else if (answernone==1){
+  dfcg1 = dfcg%>%filter((task=="finalt_response" & word_response_finalt=="none")|(task=="pretest_response"&response=="{\"Q0\":\"none\"}" ))
+  textnone="when they didn't answered none"
+} else if (answernone==3){
+  dfcg1 = dfcg
+  textnone="when included answers of none and that not"
+}
+
+# dfcg1 = dfcg%>%filter(word_response_finalt!="none")
+dfnew4=dfcg1 %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # mutate(task=case_when(task=="finalt_response"~"finalT-by-inital-list",
+                        # task=="pretest_response"~"initialT-by-intial-list"))%>%
+  filter(PROLIFIC_PID!="")%>%
+  mutate(listnumber_1to10=as.numeric(listnumber_1to10))%>%
+  mutate(listnumber_1to10=case_when(listnumber_1to10<=4~1,
+                                    listnumber_1to10>4 ~ 2))%>%
+  filter(word_repeat_response!="word2_response"|is.na(word_repeat_response))%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  mutate(rt=as.numeric(rt))%>%
+  filter(rt<30000)%>%
+  summarise(accuracy1=median(rt))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+  mutate(`by-initial-test` = accuracy,se_initial=se)%>%
+  select(task,listnumber_1to10,condition,wordcondi,`by-initial-test`,se_initial)
+# dfnew4
+
+dfnew42= dfcg1 %>% filter(task%in% c("finalt_response"))%>% 
+  # mutate(task="finalT-by-final-test")%>%
+  group_by(PROLIFIC_PID)%>%
+  filter(PROLIFIC_PID!="")%>%
+  mutate(listnumber_1to10 = cut_interval(testpos_final,n=2,labels=FALSE)) %>%
+  mutate(rt=as.numeric(rt))%>%
+  filter(rt<30000)%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy1=mean(rt))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+  mutate(`by-final-test`=accuracy,se_final=se)%>%
+  select(task,listnumber_1to10,condition,wordcondi,`by-final-test`,se_final)
+# dfnew42
+
+dftp0 = dfnew4%>%left_join(dfnew42,by=c("task","listnumber_1to10","condition","wordcondi"))
+
+dftp1=dftp0%>%pivot_longer(cols=c(`by-final-test`,`by-initial-test`),
+               names_to = "name",values_to = "accuracy")%>%filter(complete.cases(accuracy))%>%
+  select(-c(se_initial,se_final))
+# dftp1
+
+dftp2 = dftp0%>%
+  pivot_longer(cols=starts_with("se"),names_to = "name",values_to = "se")%>%
+  mutate(name=case_when(name=="se_initial"~"by-initial-test",
+                        name=="se_final"~"by-final-test"))%>%filter(complete.cases(se))%>%
+  select(-starts_with("by"))
+# dftp2
+
+dfnew4445=dftp2%>%left_join(dftp1,by=c("task","listnumber_1to10","condition","wordcondi","name"))%>%
+  mutate(task=case_when(task=="finalt_response"~paste("finalT",name,sep="-"),
+                        task=="pretest_response"~paste("initialT",name,sep="-")))%>%
+  mutate(wordcondi=as.factor(wordcondi))
+  
+dfnew444
+
+
+ggplot(data=dfnew4445%>%
+         mutate(listnumber_1to10=as.factor(listnumber_1to10))%>%
+         mutate()
+       ,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,condition)))+
+  # geom_line(aes(shape=wordcondi,color=wordcondi))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  geom_errorbar(aes(ymin=accuracy-se,ymax=accuracy+se,color=wordcondi),alpha=0.8,width=0.2)+
+  geom_ribbon(aes(ymin=accuracy-se,ymax=accuracy+se,fill=wordcondi),alpha=0.2,width=0.1)+
+  labs(x="List number (by Final test or Initial test position, see column panel label)",
+       y="mean of median RT",
+       title=paste("Response time of lists break by 2",textnone,"\n Only first word answered for repeat condition is plotted here"))+
+  theme_light()+
+  theme(text=element_text(size=15),plot.title=element_text(size=13))+
+  facet_grid(condition~task)+
+  # scale_x_continuous(breaks=c(0.))+
+  # xlim(0,3)+
+  scale_x_discrete(breaks=c("1","2"),labels=c("1-4","5-8"))+
+  scale_color_brewer(palette = "Set1")+
+  theme()
+
+```
+
+## rt-break by 8
+
+
+
+```{r}
+
+answernone=3
+
+if (answernone==0){
+  dfcg1 = dfcg%>%filter((task=="finalt_response" & word_response_finalt!="none")|(task=="pretest_response"&response!="{\"Q0\":\"none\"}" ))
+  textnone="when they answered none"
+} else if (answernone==1){
+  dfcg1 = dfcg%>%filter((task=="finalt_response" & word_response_finalt=="none")|(task=="pretest_response"&response=="{\"Q0\":\"none\"}" ))
+  textnone="when they didn't answered none"
+} else if (answernone==3){
+  dfcg1 = dfcg
+  textnone="when included answers of none and that not"
+}
+# dfcg1=dfcg
+
+
+dfnew4=dfcg1 %>% filter(task%in% c("finalt_response","pretest_response"))%>% 
+  # mutate(task=case_when(task=="finalt_response"~"finalT-by-inital-list",
+                        # task=="pretest_response"~"initialT-by-intial-list"))%>%
+  # filter(PROLIFIC_PID!="")%>%
+  mutate(listnumber_1to10=as.numeric(listnumber_1to10))%>%
+  # mutate(listnumber_1to10=case_when(listnumber_1to10<=4~1,
+                                    # listnumber_1to10>4 ~ 2))%>%
+  filter(word_repeat_response!="word2_response"|is.na(word_repeat_response))%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  mutate(rt=as.numeric(rt))%>%
+  filter(rt<30000)%>%
+  summarise(accuracy1=mean(rt))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+  mutate(`by-initial-test` = accuracy,se_initial=se)%>%
+  select(task,listnumber_1to10,condition,wordcondi,`by-initial-test`,se_initial)
+dfnew4
+
+dfnew42= dfcg1 %>% filter(task%in% c("finalt_response"))%>% 
+  # mutate(task="finalT-by-final-test")%>%
+  group_by(PROLIFIC_PID)%>%
+  mutate(listnumber_1to10 = cut_interval(testpos_final,n=8,labels=FALSE)) %>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi)%>%
+  mutate(rt=as.numeric(rt))%>%
+  filter(rt<30000)%>%
+  summarise(accuracy1=mean(rt))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi)%>%
+  summarise(accuracy=mean(accuracy1),sd=sd(accuracy1),se=sd/sqrt(n()))%>%
+  mutate(`by-final-test`=accuracy,se_final=se)%>%
+  select(task,listnumber_1to10,condition,wordcondi,`by-final-test`,se_final)
+dfnew42
+
+dftp0 = dfnew4%>%left_join(dfnew42,by=c("task","listnumber_1to10","condition","wordcondi"))
+
+dftp1=dftp0%>%pivot_longer(cols=c(`by-final-test`,`by-initial-test`),
+               names_to = "name",values_to = "accuracy")%>%filter(complete.cases(accuracy))%>%
+  select(-c(se_initial,se_final))
+# dftp1
+
+dftp2 = dftp0%>%
+  pivot_longer(cols=starts_with("se"),names_to = "name",values_to = "se")%>%
+  mutate(name=case_when(name=="se_initial"~"by-initial-test",
+                        name=="se_final"~"by-final-test"))%>%filter(complete.cases(se))%>%
+  select(-starts_with("by"))
+# dftp2
+
+dfnew449=dftp2%>%left_join(dftp1,by=c("task","listnumber_1to10","condition","wordcondi","name"))%>%
+  mutate(task=case_when(task=="finalt_response"~paste("finalT",name,sep="-"),
+                        task=="pretest_response"~paste("initialT",name,sep="-")))%>%
+  mutate(wordcondi=as.factor(wordcondi))
+  
+# dfnew449
+
+
+ggplot(data=dfnew449,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,condition)))+
+  # geom_line(aes(shape=wordcondi,color=wordcondi))+
+  geom_point(aes(shape=wordcondi,color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi)) +
+  geom_errorbar(aes(ymin=accuracy-se,ymax=accuracy+se,color=wordcondi),alpha=0.8,width=0.2)+
+  geom_ribbon(aes(ymin=accuracy-se,ymax=accuracy+se,fill=wordcondi),alpha=0.1)+
+  labs(x="List number (by final/initial test position, see column panel label)",
+       y="response time",
+       title=paste("Response time of lists break by 8",textnone,"\n Only first word answered for repeat condition is plotted here"))+
+  # theme_light()+
+  theme(text=element_text(size=15),plot.title=element_text(size=13))+
+  facet_grid(condition~task)+
+  scale_x_continuous(breaks=1:8,labels=1:8)
+  # ylim(0,10000)
+  # scale
+```
+
+
+
+# intial test_paired result 
+```{r}
+
+dfnew2=dfcg %>% filter(task%in% c("pretest_response","finalt_response"))%>% 
+  # filter(pairs_which_1or2==2)%>%
+  group_by(PROLIFIC_PID,task,listnumber_1to10,condition,wordcondi,pairs_which_1or2)%>%
+  summarise(accuracy=mean(correct_all))%>%
+  group_by(task,listnumber_1to10,condition,wordcondi,pairs_which_1or2)%>%
+  summarise(accuracy=mean(accuracy))%>%
+  mutate(pairs_which_1or2=as.factor(pairs_which_1or2))
+
+ggplot(data=dfnew2,aes(listnumber_1to10,accuracy,group=interaction(task,wordcondi,pairs_which_1or2,condition)))+
+  geom_point(aes(color=wordcondi))+
+  geom_line(aes(color=wordcondi,linetype=pairs_which_1or2)) +
+  facet_grid(condition~task)+
+  scale_linetype_manual(name = "Which pair in group",
+                        values=c(2,1),
+                          labels=c("first list in pair","second list in pair"))
+```
+# conditioned datatset
+
+how to check if string pattern match
+str_detect(string = wordchosen_finaltest, pattern = fixed(word_response_finalt))
+	["lunch","lute"] 	lunch
+	
+str_split('["fuse"]', pattern = "\"")
+
+```{r}
+dfcheck=dfcg%>%
+  filter(task=="finalt_response")%>%
+  select(condition,task,wordcondi,wordchosen_finaltest,word_response,word_repeat_response,word_response_finalt,crword1_location,crword2_location,correct_all)
+dfcheck
+
+dfcheck%>%mutate(temp=str_detect(string = wordchosen_finaltest, pattern = fixed(word_response_finalt)))%>%
+  filter(temp&correct_all)
+```
+
+## conditioned plot1
+```{r}
+df_correctfinal = dfcg %>% filter(task%in%c("finalt_response"),correct_all)%>%
+  mutate(word_tomatch=word_response_finalt,correct_finalt=correct_all,word_response_final=word_response)%>%
+  select(PROLIFIC_PID,condition,word_tomatch,correct_finalt,word_response_final)
+
+df_intialtest = dfcg %>% filter(task==c("pretest_response", "pretest_study")) %>%
+  filter(!(task=="pretest_study" & is_test==1))%>% #filter out those pretest in study but tested, only leave those not tested
+  mutate(word_tomatch=wordchosen_initial,correct_pretest=correct_all)
+  # select(PROLIFIC_PID,condition,task,wordcondi,wordchosen_initial,wordchosen_finaltest,word_response,correct_all)
+  
+df_intialtest %>% select(PROLIFIC_PID,condition,task,wordcondi,wordchosen_initial,wordchosen_finaltest,word_response,correct_all,is_test)
+# df_conditioned_joined$correct_finalt%>%summary()
+
+df_conditioned_joined = df_intialtest %>% left_join(df_correctfinal,by=c("PROLIFIC_PID","word_tomatch","condition")) %>%
+  mutate(correct_finalt=case_when(is.na(correct_finalt)~FALSE,
+                                  TRUE~correct_finalt))%>%
+  mutate(correct_pretest=as.factor(correct_pretest))
+  
+df_conditioned_joined%>%
+  select(PROLIFIC_PID,condition,wordcondi,is_test,wordchosen_initial,task,wordchosen_finaltest,word_response_final,word_response,correct_finalt,correct_pretest)%>%filter(wordcondi=="unique")
+
+
+# %>%pivot_longer(cols=c(correct_pretest,correct_finalt),names_to = "tasktype",values_to = "is_correct_value")
+# summary(df_conditioned_joined$task%>%as.factor())
+# dfcg$is_test
+# df_conditioned_joined_nontested =
+#   dfcg %>% filter(task=="pretest_study",is_test==0) %>% 
+#   mutate(word_tomatch=wordchosen_initial) %>% 
+#   left_join(df_correctfinal,by=c("PROLIFIC_PID","word_tomatch","condition")) %>%
+#     mutate()
+
+# df_conditioned_joined %>% left_join(df_conditioned_joined_nontested,by=c("PROLIFIC_PID","word_tomatch","condition"))
+```
+
+```{r}
+# df_conditioned_joined %>% group_by(condition,wordcondi,PROLIFIC_PID,correct_pretest)%>%summarize(sumn=n())%>%
+#   group_by(condition,wordcondi,correct_pretest)%>%
+#   summarize(n=mean(sumn)%>%round(digits=2))
+  
+  df_conditioned_joined %>% group_by(wordcondi,PROLIFIC_PID,correct_pretest)%>%summarize(sumn=n())%>%
+  group_by(wordcondi,correct_pretest)%>%
+  summarize(n=mean(sumn)%>%round(digits=2))
+  
+  #   df_conditioned_joined %>% group_by(wordcondi,PROLIFIC_PID)%>%summarize(sumn=n())%>%
+  # group_by(wordcondi)%>%
+  # summarize(n=mean(sumn)%>%round(digits=2))
+  #   df_conditioned_joined %>% group_by(wordcondi,PROLIFIC_PID)%>%summarize(sumn=n())
+  #   df_conditioned_joined%>%select(trial_index,wordcondi,PROLIFIC_PID,task,listnumber_1to10)%>%filter(PROLIFIC_PID=="54283748fdf99b152ef9a368",wordcondi=="repeat")
+```
+
+see number of/proportion of correct number of items in correct pretest ornot. 
+```{r}
+dfnew3_2=df_conditioned_joined%>%
+  # filter(correct_pretest=="TRUE")%>%
+  group_by(wordcondi,correct_pretest,condition)%>%summarize(n=n(),correctnum=sum(correct_finalt))%>%
+  mutate(correct_pretest=case_when(is.na(correct_pretest)~"not tested",correct_pretest=="TRUE"~"tested and correct",correct_pretest=="FALSE"~"tested and incorrect"))
+dfnew3_2 
+# dfnew3
+ggplot(dfnew3_2,aes(correct_pretest,n,groups=wordcondi))+
+  geom_point(aes(color=wordcondi))+
+  facet_grid(condition~.)+
+  labs(title="Base number of trials")
+```
+
+```{r}
+dfnew3_2=df_conditioned_joined%>%
+  # filter(correct_pretest=="TRUE")%>%
+  group_by(wordcondi,correct_pretest,condition,listnumber_1to10)%>%summarize(n=n(),correctnum=sum(correct_finalt))%>%
+  mutate(correct_pretest=case_when(is.na(correct_pretest)~"not tested",correct_pretest=="TRUE"~"tested and correct",correct_pretest=="FALSE"~"tested and incorrect"))
+dfnew3_2 
+# dfnew3
+ggplot(dfnew3_2%>%mutate(listnumber_1to10=as.numeric(listnumber_1to10)),aes(x=listnumber_1to10,y=n))+
+  geom_point(aes(color=wordcondi))+
+  geom_line(aes(color=wordcondi,groups=wordcondi))+
+  facet_grid(condition~correct_pretest)+
+  labs(title="Base number of trials")
+```
+
+word_response_finalt## conditioned plot here
+
+```{r}
+dfnew3 = df_conditioned_joined %>% 
+  group_by(PROLIFIC_PID,condition,wordcondi,listnumber_1to10,correct_pretest,is_test)%>%
+  summarize(acc = mean(correct_finalt))%>%
+  group_by(condition,wordcondi,listnumber_1to10,correct_pretest,is_test)%>%
+  summarize(acc = mean(acc))%>%
+  # mutate(correct_pretest=as.character(correct_pretest))%>%
+  mutate(correct_pretest=case_when(is.na(correct_pretest)~"not tested",correct_pretest=="TRUE"~"tested and correct",correct_pretest=="FALSE"~"tested and incorrect"))%>%
+  mutate(is_test=as.factor(is_test))
+dfnew3
+
+ggplot(data=dfnew3,aes(listnumber_1to10,acc,group=interaction(wordcondi,is_test,condition,correct_pretest)))+
+  geom_point(aes(color=correct_pretest,shape=wordcondi),size=2)+
+  geom_line(aes(color=correct_pretest,linetype=wordcondi),size=1)+
+  facet_grid(condition~.)+
+  labs(color="Condition: is correct in intial test",title="performance of final test conditioned on intial test",x="intial test list number")
+```
+
+
+```{r}
+dfnew3 = df_conditioned_joined %>% 
+  group_by(PROLIFIC_PID,condition,wordcondi,listnumber_1to10,correct_pretest,is_test,pairs_which_1or2)%>%
+  summarize(acc = mean(correct_finalt))%>%
+  group_by(condition,wordcondi,listnumber_1to10,correct_pretest,is_test,pairs_which_1or2)%>%
+  summarize(acc = mean(acc))%>%
+  # mutate(correct_pretest=as.character(correct_pretest))%>%
+  mutate(correct_pretest=case_when(is.na(correct_pretest)~"not tested",correct_pretest=="TRUE"~"tested and correct",correct_pretest=="FALSE"~"tested and incorrect"))%>%
+  mutate(is_test=as.factor(is_test))
+dfnew3
+
+ggplot(data=dfnew3,aes(listnumber_1to10,acc,group=interaction(wordcondi,is_test,condition,correct_pretest,pairs_which_1or2)))+
+  geom_point(aes(color=correct_pretest,shape=wordcondi),size=2)+
+  geom_line(aes(color=correct_pretest,linetype=wordcondi),size=1)+
+  facet_grid(condition~pairs_which_1or2)+
+  labs(color="Condition: is correct in intial test",title="performance of final test conditioned on intial test",x="intial test list number")
+```
+
+
+
+
+# check protrusion - accuracy
+```{r}
+# summary(dfcg$is_correct_otherlist%>%as.factor())
+# dfcg$correct_all
+df5=dfcg %>% 
+  filter(task=="pretest_response", pairs_which_1or2==2,wordcondi=="repeat")%>%
+  mutate(is_correct_otherlist=case_when(is_correct_otherlist=="false"~FALSE,
+                                        is_correct_otherlist=="true"~TRUE))%>%
+  # mutate(is_correct)%>%
+  pivot_longer(cols=c("correct_all","is_correct_otherlist"),names_to = "correct_criteria",values_to = "crr")%>%
+  mutate(correct_criteria=case_when(correct_criteria=="correct_all"~"correct retreival from current list",
+                                    correct_criteria=="is_correct_otherlist"~"correct retreival from last list"))%>%
+  group_by(PROLIFIC_PID,task,listgroup_1to5,condition,wordcondi,correct_criteria)%>%
+  summarise(accuracy=mean(crr))%>%
+  group_by(task,listgroup_1to5,condition,wordcondi,correct_criteria)%>%
+  summarise(accuracy=mean(accuracy))
+
+ggplot(data=df5,aes(listgroup_1to5,accuracy,group=interaction(correct_criteria,task,condition,wordcondi)))+
+  geom_line(aes(color=correct_criteria,linetype=correct_criteria))+
+  geom_point(aes(color=correct_criteria,shape=correct_criteria))+
+  facet_grid(condition~.)+
+  labs(x="list group (4 pairs/pairs of lists)",
+       title="Accuracy in intial test of 2nd list in pair of repeat condition
+       row panels: 5 conditions. 
+       Different colored lines: correct by retrieval
+       from current or the other list (i.e. last list)")
+  
+```
+```{r}
+dfcg %>% 
+  filter(task=="pretest_response", pairs_which_1or2==2,wordcondi=="unique")%>%
+  mutate(is_correct_otherlist=word_right_i==word_response_extract )
+```
+
+
+```{r}
+df5=dfcg %>% 
+  filter(task=="pretest_response", pairs_which_1or2==2)%>%
+  # mutate(is_correct_otherlist=word_right_i==word_response_extract )%>%
+  mutate(is_correct_otherlist=case_when(wordcondi=="unique" ~word_right_i==word_response_extract,
+                                        is_correct_otherlist=="false" & wordcondi=="repeat"~FALSE,
+                                        is_correct_otherlist=="true" & wordcondi=="repeat" ~TRUE))%>%
+  # mutate(is_correct)%>%
+  pivot_longer(cols=c("correct_all","is_correct_otherlist"),names_to = "correct_criteria",values_to = "crr")%>%
+  mutate(correct_criteria=case_when(correct_criteria=="correct_all"~"correct retreival from current list",
+                                    correct_criteria=="is_correct_otherlist"~"correct retreival from last list"))%>%
+  group_by(PROLIFIC_PID,task,listgroup_1to5,condition,wordcondi,correct_criteria)%>%
+  summarise(accuracy=mean(crr))%>%
+  group_by(task,listgroup_1to5,wordcondi,correct_criteria)%>%
+  summarise(accuracy=mean(accuracy))
+
+ggplot(data=df5,aes(listgroup_1to5,accuracy,group=interaction(correct_criteria,task,wordcondi)))+
+  geom_line(aes(color=correct_criteria,linetype=correct_criteria))+
+  geom_point(aes(color=correct_criteria,shape=correct_criteria))+
+  facet_grid(.~wordcondi)+
+  labs(x="list group (4 pairs/pairs of lists)",
+       title="Accuracy in intial test of 2nd list in pair of repeat condition
+       row panels: 5 conditions. 
+       Different colored lines: correct by retrieval
+       from current or the other list (i.e. last list)")
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+df6=dfcg %>% 
+  filter(task=="pretest_response", pairs_which_1or2==2)%>%
+  mutate(is_correct_otherlist=case_when(is_correct_otherlist=="false"~FALSE,
+                                        is_correct_otherlist=="true"~TRUE))%>%
+  # mutate(is_correct)%>%
+  pivot_longer(cols=c("correct_all","is_correct_otherlist"),names_to = "correct_criteria",values_to = "crr")%>%
+  mutate(correct_criteria=case_when(correct_criteria=="correct_all"~"correct retreival from current list",
+                                    correct_criteria=="is_correct_otherlist"~"correct retreival from last list"))%>%
+  group_by(PROLIFIC_PID,task,listgroup_1to5,condition,wordcondi,correct_criteria)%>%
+  mutate(rt=as.numeric(rt))%>%
+  filter(rt<30000)%>%
+  summarise(accuracy=mean(rt))%>%
+  group_by(task,listgroup_1to5,condition,wordcondi,correct_criteria)%>%
+  summarise(accuracy=mean(accuracy))
+
+ggplot(data=df6,aes(listgroup_1to5,accuracy,group=interaction(correct_criteria,task,condition,wordcondi)))+
+  geom_line(aes(color=wordcondi,linetype=wordcondi))+
+  geom_point(aes(color=wordcondi,shape=wordcondi))+
+  facet_grid(condition~correct_criteria)
+```
+
+
+
+# contiional plot 2
+
+```{r}
+df_correctfinal = dfcg %>% filter(task==c("finalt_response"))  %>%
+  mutate(word_tomatch = case_when(wordcondi=="unique"~wordchosen_initial,
+                                  wordcondi=="repeat"&word_repeat_response=="word1_response"~word_left_i,
+                                  wordcondi=="repeat"&word_repeat_response=="word2_response"~word_right_i ))%>%
+  mutate(correct_finalt = correct_all,word_response_final=word_response)%>%
+  separate(col=word_response,into=c("d1", "word1","d2","word2","d3"),sep='"',remove=FALSE)%>%
+  # mutate(wordall=str_split_1(word_response_final[row_number()],pattern='"'),word1=wordall[],word2=str_split(word_response_final,pattern='"' )[4])%>%
+  select(PROLIFIC_PID,condition,word_tomatch,correct_finalt,word1,word2,word_response_final)
+
+df_correctfinal
+
+# df_correctfinal = dfcg %>% filter(task%in%c("finalt_response"),correct_all)%>%
+#   mutate(word_tomatch=wordchosen_initial,correct_finalt=correct_all,word_response_final=word_response)%>%
+#   select(PROLIFIC_PID,condition,word_tomatch,correct_finalt,word_response_final)
+
+# keep study,not tested & study, tested-correct/wrong
+df_intialtest = dfcg %>% filter(task%in%c("pretest_response", "pretest_study")) %>%
+  filter(!(task=="pretest_study" & is_test==1))%>% #filter out those pretest in study but tested, only leave those not tested
+  mutate(word_tomatch=wordchosen_initial,correct_pretest=correct_all)%>%
+  select(PROLIFIC_PID,condition,listnumber_1to10,task,wordcondi,word_tomatch,correct_pretest)
+df_intialtest
+
+# df_intialtest %>% select(PROLIFIC_PID,condition,task,wordcondi,wordchosen_initial,wordchosen_finaltest,word_response,correct_all,is_test)
+# df_conditioned_joined$correct_finalt%>%summary()
+
+df_conditioned_joined = df_intialtest %>% left_join(df_correctfinal,by=c("PROLIFIC_PID","word_tomatch","condition")) %>%
+  mutate(correct_finalt=word_tomatch==word1|word_tomatch==word2)%>%
+  # mutate(correct_pretest=as.factor(correct_pretest))%>% #those NAs are those that are not tested
+   mutate(correct_pretest=case_when(is.na(correct_pretest)~"not tested",correct_pretest=="TRUE"~"tested and correct",correct_pretest=="FALSE"~"tested and incorrect"))
+
+df_conditioned_joined%>%filter(wordcondi=="repeat")%>%arrange(PROLIFIC_PID,listnumber_1to10)
+
+dfnew3 = df_conditioned_joined %>% 
+  group_by(PROLIFIC_PID,condition,wordcondi,listnumber_1to10,correct_pretest)%>%
+  summarize(acc = mean(correct_finalt))%>%
+  # filter(wordcondi=="repeat",correct_pretest=="tested and correct")%>%
+  group_by(condition,wordcondi,listnumber_1to10,correct_pretest)%>%
+  summarize(acc = mean(acc))%>%
+  mutate()
+# dfnew3%>%filter()
+#weirld-tested and correct; in repeat condition list 2,4,...
+
+ggplot(data=dfnew3,aes(listnumber_1to10,acc,group=interaction(wordcondi,condition,correct_pretest)))+
+  geom_point(aes(color=correct_pretest,shape=wordcondi),size=2)+
+  geom_line(aes(color=correct_pretest,linetype=wordcondi),size=1)+
+  facet_grid(condition~.)+
+  theme(legend.position = "none")+
+  labs(color="Condition: is correct in intial test",title="performance of final test conditioned on intial test",x="intial test list number")
+```
+
+
+
+
+
+
+
+
+
+
+

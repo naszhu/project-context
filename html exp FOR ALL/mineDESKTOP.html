@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://unpkg.com/jspsych@7.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.0.0"></script>
+    <link href="https://unpkg.com/jspsych@7.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body></body>
+  <script>
+    const jsPsych = initJsPsych();
+
+    const hello_trial = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: 'Hello world!'
+    }
+
+    const picname = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/images/'+'1 (1).jpg'
+
+    var trial = {
+      timeline: [
+        {
+          type: jsPsychHtmlKeyboardResponse,
+          stimulus: '+',
+          choices: ['F','J']
+        },
+        {
+          type:jsPsychImageKeyboardResponse,
+          stimulus: jsPsych.timelineVariable('picnamenow'),
+          choices: ['F','J']
+        },
+      ],
+        timeline_varibles: [
+          {picnamenow: picname},
+          {picnamenow: picname}
+        ]
+    }
+
+
+    jsPsych.run([trial])
+  </script>
+</html>

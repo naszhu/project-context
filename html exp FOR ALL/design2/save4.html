@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://unpkg.com/jspsych@7.3.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.0.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-text"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-fullscreen"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-browser-check"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-canvas-keyboard-response@1.1.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
+    <link href="https://unpkg.com/jspsych@7.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+    <!-- <script type = "text/javascript" src = "G:/我的云端硬盘/shulai@iu.edu 2022-09-04 14 28/IUB/Project-context/html exp/main.js"></script> -->
+    <style>
+        table {
+            padding-left: 300px;
+            padding-right: 300px;
+        }
+        th, td{
+           padding: 20px;
+           vertical-align: top
+        }
+    </style>
+  </head>
+  <body>
+    
+  </body>
+  
+  <script>
+
+    word_left_file= "https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/word_left";
+    word_right_file= "https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/word_right";
+    word_unique_file= "https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/word_unique";
+    word_left=readTextFile(word_left_file).replace(/\r/g, '').split('\n').slice(0,150);
+    word_right=readTextFile(word_right_file).replace(/\r/g, '').split('\n').slice(0,150);
+
+
+
+
+
+
+
+
+///////////////////////////////
+    var is_debug = false;
+    const timeout_inmin = 120; //70 minutes
+    // const timeout = 10;
+    const timeout = 1000 * 60 * timeout_inmin ; // 70 minutes in milliseconds
+    const is_inst_fullscreen = false;
+    const condi = "f";//f, b, r
+    const is_showcorrect_inlog = false; //
+    const finalfeedback_duration = 500;
+    var num_trials_useddebug = 1;//number of tirals show in intial test
+    let lastActivityTime = Date.now();
+    
+    document.body.style.backgroundColor = "white";
+
+    let textFile2 = 'https://raw.githubusercontent.com/Shu-Lea-Lai/project-visualmemory-sideexp/master/ps.txt';
+
+    let oldids = readTextFile(textFile2).replace(/\r/g, '').split('\n');
+    
+
+
+
+    
+    var jsPsych = initJsPsych({
+        on_trial_finish: function(data){
+            jsPsych.data.get().addToLast({timepassed_mins: ((Date.now()-lastActivityTime)/1000/60).toFixed(2) });//adding passed time
+            data.width =  window.innerWidth;
+            data.height = window.innerHeight;
+        },
+        on_finish: function() {
+            // jsPsych.data.displayData();
+            // console.log(jsPsych.data.get().last(4).trials[0].testpos)
+            // jsPsych.data.get().localSave('csv', 'ekstra.csv')
+            if (jsPsych.data.get().last(4).trials[0].testpos==420) {
+                window.location = "";
+                }
+            }
+    });
+    jsPsych.data.addProperties({
+                    is_finished: 0, codeversion: 4})
+
+    //code version 4: change final test instruction and key press
+
+    var timeline = [];
+    // jsPsych.data.get().addToAll({condition: condi});
+    var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+    var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+    
+    
+    // var condition = condi;
+
+    checknow = window.setInterval(function() {
+      const currentTime = Date.now();
+    //   console.log(currentTime)
+      if (currentTime - lastActivityTime > timeout) {
+        alert(`
+          Dear participant,
+
+          We regret to inform you that the experiment has been terminated automatically due to an extended period of inactivity. Please close the page to finalize the results. And we kindly request you do not try to do this experiment again.
+
+          We would like to thank you for your participation. Although you were unable to complete this particular experiment, we hope that you will consider joining us for future experiments. Thank you again for your time and effort, you may close the page now.
+        `);
+        clearInterval(checknow);
+        window.onbeforeunload = null;
+        window.location="https://www.google.com";
+        window.close = true;
+        jsPsych.endExperiment();
+      }
+    }, 1000);
+    checknow;
+
+    jsPsych.data.addProperties({
+      subject_id: subject_id,
+      study_id: study_id,
+      session_id: session_id,
+      condition: condi
+    });
+
+    var enter_fullscreen = {
+      type: jsPsychFullscreen,
+      fullscreen_mode: true
+    }
+    
+    window.onbeforeunload = function() {
+      return "Do you really want to leave?";
+      //if we return nothing here (just calling return;) then there will be no pop-up question at all
+      //return;
+    };
+    
+    var browser_check = {
+      type: jsPsychBrowserCheck,
+      // allow_window_resize: false,
+      // minimum_width: 1920,
+      // minimum_height: 1080,
+      // inclusion_function: (data) => {
+      //   return data.browser == 'chrome' && data.mobile === false
+      // },
+      // exclusion_message: (data) => {
+      //   if(data.mobile){
+      //     return '<p color: black;background: white;>You must use a desktop/laptop computer to participate in this experiment.</p>';
+      //   } else if(data.browser !== 'chrome'){
+      //     return '<p color: black;background: white;>You must use Chrome as your browser to complete this experiment.</p>'
+      //   }
+      // },
+      
+      on_finish: function(data){
+        window.onbeforeunload = null;
+        console.log(data.browser)
+        if (!(["chrome","Chrome"].includes(data.browser))){
+          // console.log(data.browser)
+            alert("You must use Chrome as your browser! You may switch your browser and come back later.")
+            window.onbeforeunload = null;
+            window.location="https://www.google.com"
+            window.close = true
+        } else if (data.mobie){
+            alert("You must use a desktop/laptop computer to participate in this experiment.")
+            window.onbeforeunload = null;
+            window.location="https://www.google.com"
+            window.close = true
+        }
+      }
+        
+    };
+    timeline.push(browser_check);
+    
+    var enterid = {
+      type: jsPsychSurveyText,
+      questions: [{prompt: "<p color:black>What is your prolific ID?</p>",required:true}],
+      on_finish:function(data){
+        data.id=data.response["Q0"];
+        if (oldids.includes(data.id)) {
+            alert(`
+            Dear participant,
+            
+            We have identified that you have previously taken part in one of our research studies, and we sincerely value your prior involvement. Regrettably, we must inform you that you are ineligible to participate in the current study once more.
+            
+            If you believe this determination to be in error, please do not hesitate to reach out to our research team. We will promptly address your concerns.
+            
+            Thank you for your understanding.
+            `);
+            window.onbeforeunload = null;
+            window.location="https://www.google.com"
+            window.close = true
+            jsPsych.endExperiment();
+        }
+      },
+      data: {
+        task: "enterid"
+      }
+    }
+    timeline.push(enterid); 
+    
+    
+
+
+
+
+    var fixation = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: "NO_KEYS",
+      trial_duration: fixation_duration,
+      data: {
+        task: 'fixation'
+      }
+    };
+
+    const average = temparr => {
+        if(temparr.length==0) return 0
+        else return temparr.reduce((a, b) => a + b) / temparr.length
+    };
+
+    function range(start, end)
+    {
+        var array = new Array();
+        for(var i = start; i < end; i++)
+        {
+            array.push(i);
+        }
+        return array;
+    }
+
+    function copyobj(obj_f){
+      return (Object.assign({},obj_f))
+    }
+
+    function copyarobj(arobj_f){
+      return(range(0,arobj_f.length).map(i=>copyobj(arobj_f[i])))
+    }
+
+
+    function randomize_ar_inside_nfar(nfar){//randomize 1*1 nonflat ar
+      return range(0,nfar.length).map(i=>jsPsych.randomization.repeat(copyarobj(nfar[i]),1));
+    }
+
+    function readTextFile(file) {
+
+      const rawFile = new XMLHttpRequest();
+      let content = null;
+      rawFile.open("GET", file, false);
+      rawFile.onreadystatechange = function () {
+          if (rawFile.readyState === 4) {
+              if (rawFile.status === 200 || rawFile.status === 0) {
+                  content = rawFile.responseText;
+              }
+          }
+      };
+      rawFile.send(null);
+      return content;
+    };
+
+    function warningfunc(message,timedur){
+
+      var messageDiv = document.createElement("div");
+      messageDiv.innerHTML = message;
+      // messageDiv.className="jspsych-content-wrapper"
+      messageDiv.style.padding = `350px 0`;
+      messageDiv.style.textAlign = "center";
+      messageDiv.style.margin = "0px"
+      // messageDiv.style.height = "100vh";
+      messageDiv.style.display = "flex";
+      messageDiv.style.justifyContent = "center";
+      var exp = document.getElementsByClassName("jspsych-content-wrapper")[0]
+      exp.style.visibility = "hidden";
+      jsPsych.pauseExperiment() 
+      document.body.prepend(messageDiv);
+      setTimeout(function() {
+        document.body.removeChild(messageDiv); // Remove the div
+        exp.style.visibility = "visible";
+        jsPsych.resumeExperiment();
+      }, timedur);//remove after 1.5s
+    }
+
+    function arrsum(ar){return(ar.reduce((a,b)=>a+b,0))};
+
+
+
+
+    // console.log(picnames.findIndex(iobj=>iobj=="Thumbs.db"))
+    // console.log(picnames)
+    /******************
+      Stating constants
+      Stating all const variables here
+    **********************/
+    
+    
+    if (is_debug) {
+      var study_duration = 10;
+      var prompt_duration = 10;
+      var counting_duration = 10;
+      var fixation_duration = 10;
+      var counting_gap = 0;
+      var posgap_duration = 0;
+      var rtfastcut_duration = 0;
+      var response_rtlimit_duration = 10;
+      var responsekeys = "NO_KEYS";
+      var choiceenter = "NO_KEYS";
+      var responsekeys_final = "NO_KEYS";
+      var instruction_duration = 10; //1 hour
+      var finaltest_rtlimit_duration = 10;
+      var warning_duration = 10;
+      var feedbackmes_duration = 10;
+      var keychoice_finaltest = "NO_KEYS";
+    } else{
+      var study_duration = 2000;
+      var prompt_duration = 3000;
+      var counting_duration = 2000;
+      var counting_gap = 1000;
+      var fixation_duration = 1000;
+      var posgap_duration = 100;
+      var rtfastcut_duration = 150;
+      var response_rtlimit_duration = 3500; //3.5s to respond each question
+      var responsekeys = ['f','j'];
+      var choiceenter = 'enter';
+      var responsekeys_final = ['s','f','j','l'];
+      var instruction_duration = 1000*60*60; //1 hour
+      var finaltest_rtlimit_duration = 4000;
+      var warning_duration = 1500;
+      var feedbackmes_duration = 2000; 
+      var keychoice_finaltest = 'p';
+    }
+    // console.log(fixation_duration)
+    const num_digits_pres = 8; // present n digits each trial to fill 24s
+    const tot_digit_list_nf = range(0,10).map(i=>jsPsych.randomization.sampleWithReplacement(range(4,10),num_digits_pres)); //create nf easier for final test algorithm coding
+    const tot_digit_list = tot_digit_list_nf.flat();
+    const tot_correct_sum = range(0,10).map(i=>arrsum(tot_digit_list.slice(i*num_digits_pres,(i+1)*num_digits_pres)));
+
+    // word_left
+    // word_right
+    // word_unique
+    word_pairs_arobj_all = range(0,150).map(i=> {
+      left=word_left[i];
+      right=word_right[i];
+      left_ftl=left.slice(0,2);//first two letters of left
+      right_ftl=right.slice(0,2); // first two letters of right
+      if (left_ftl!=right_ftl) return (console.log("ERROR!!!!!!"))
+
+      return({
+        word_left_i: left,
+        word_right_i:right,
+        iword: i,
+        first_tl_left: left_ftl,
+        first_tl_right: right_ftl,
+        issame: left_ftl==right_ftl
+      })
+    }
+    )
+
+    word_pairs_arobj_all_rand = jsPsych.randomization.repeat(word_pairs_arobj_all, 1);
+
+    for (let i_list=0;i_list<word_pairs_arobj_all_rand.length; i_list++){
+      i_wordobj = word_pairs_arobj_all_rand[i_list];
+      i_wordpairs = jsPsych.randomization.sampleWithoutReplacement([i_wordobj.word_left_i,i_wordobj.word_right_i], 2)
+      i_wordobj.word_left_i=i_wordpairs[0];
+      i_wordobj.word_right_i=i_wordpairs[1];
+    }; // this randomize left and right order
+    // console.log(word_pairs_arobj_all_rand)
+
+
+
+    //10 of 20 length arr
+    const tot_word_arobj_nf = range(0,10).map(i_list=>{
+
+      inum_pairs = Math.floor(i_list/2);//0,1,2,3,4,5
+      word_pairs_arobj_i = word_pairs_arobj_all_rand.slice(inum_pairs*30,30+inum_pairs*30);
+      new_word_arobj=copyarobj(word_pairs_arobj_i);//copy arobject
+      
+      //30 pairs used in each list, 10 for repeats, 10+10 for double unique list; List 1,2 share exactly same word_pairs_arobj_i  
+
+      pairs_which = i_list % 2 +1 //0 or 1 + 1=1,2 
+      
+      // word_pairs_RP_arobj_i = new_word_arobj.slice(0,10);      
+      test_which_PR = jsPsych.randomization.repeat([1,1,1,0,0,0,0,0,0,0],1);//test three repeats for each list pair
+      test_which_nPR = jsPsych.randomization.repeat([1,1,1,1,1,0,0,0,0,0],1);//test five nonrepeats for each list pair
+      testpos_rd = jsPsych.randomization.repeat(range(1,9),1);//test 8 item, randomize test position
+
+      if (pairs_which==1){//if odd
+        word_pairs_RP_arobj_i = copyarobj(new_word_arobj.slice(0,10));  
+        word_pairs_nRP_arobj_i = new_word_arobj.slice(10,20);
+      } else{//else
+        word_pairs_RP_arobj_i = copyarobj(new_word_arobj.slice(0,10));
+        word_pairs_nRP_arobj_i = new_word_arobj.slice(20,30);
+        for (let irp=0;irp<10;irp++){word_pairs_nRP_arobj_i[irp].wordchosen=word_pairs_nRP_arobj_i[irp].word_left_i}
+      }
+
+      var itest = 0
+      for (let irp=0;irp<10;irp++){
+
+          wordobj_nPR_i = word_pairs_nRP_arobj_i[irp];
+          wordobj_RP_i = word_pairs_RP_arobj_i[irp];
+          wordobj_nPR_i.wordchosen=wordobj_nPR_i.word_left_i;
+          if (pairs_which==1) {
+            wordobj_RP_i.wordchosen=wordobj_RP_i.word_left_i;
+          }
+          else wordobj_RP_i.wordchosen=wordobj_RP_i.word_right_i;
+          if (test_which_PR[irp]==1) {
+            wordobj_RP_i.is_test = 1;
+            wordobj_RP_i.testpos = testpos_rd[itest];
+            itest++;
+          }
+          else {
+            wordobj_RP_i.is_test = 0;
+            wordobj_RP_i.testpos = 0;
+          }
+          if (test_which_nPR[irp]==1) {
+            wordobj_nPR_i.is_test = 1;
+            wordobj_nPR_i.testpos = testpos_rd[itest];
+            itest++;
+          }else{
+            wordobj_nPR_i.is_test = 0;
+            wordobj_nPR_i.testpos = 0;
+          }
+          wordobj_RP_i.wordcondi="repeat";
+          wordobj_nPR_i.wordcondi="unique";
+        }
+
+      word_pairs_arobj_i = word_pairs_RP_arobj_i.concat(word_pairs_nRP_arobj_i);
+      for (let irp=0;irp<10;irp++){
+        word_pairs_arobj_i[irp].pairs_which=pairs_which;
+        word_pairs_arobj_i[irp].ftl=wordobj_RP_i.wordchosen.slice(0,2);
+        word_pairs_arobj_i[irp].listnumber = i_list+1;
+        word_pairs_arobj_i[irp].listgroup = inum_pairs+1;
+        
+      }
+
+
+      return(word_pairs_arobj_i);
+    }) ;//10 foils per trial, get tot_word_arobj_nf
+
+    const tot_word_arobj_nf_rd = range(0,10).map(i=>{
+
+      objlist = range(0,20).map(j=>{
+        return (copyobj(tot_word_arobj_nf[i][j]))
+      })
+      return(jsPsych.randomization.repeat(objlist,1))
+    }
+    )//ATTENTION: must copy array inside
+    
+
+    // range(0,10).map(i=>{
+    //   range(0,20).map(j=>{
+    //   tot_word_arobj_nf_rd[i][j].prespos=j+1;//assign present position to item
+    // })})
+
+    console.log(tot_word_arobj_nf[1][1],tot_word_arobj_nf_rd[1][1])
+    console.log(tot_word_arobj_nf[1][1].ftl,tot_word_arobj_nf_rd[1][1].ftl)
+    const tot_word_test_nf = randomize_ar_inside_nfar(word_pairs_arobj_i);
+
+    
+    const tot_word_test_arobj_nf = range(0,10).map(i=>{
+
+      testposarr_ilist = range(0,20).map(j=>tot_word_arobj_nf_rd[i][j].testpos);
+      
+      index = range(0,8).map(j=>{//8 test item, 3+5
+        return testposarr_ilist.findIndex(x=>x==j+1)
+      })
+      // console.log(testposarr_ilist,index)
+      word_iobj = tot_word_arobj_nf_rd[i];
+      return (range(0,8).map(j=>word_iobj[index[j]]))
+
+    })
+    console.log(tot_word_test_arobj_nf)
+
+
+
+//     /* Starting exp vars*/
+
+//     // console.log(fixation_duration)
+    
+//     var instructions = {
+//         type: jsPsychSurveyMultiChoice,
+//         questions: [
+//           {
+//           prompt: `<h1 style='text-align: left;color: crimson;background: white;font: caption-;''> INDIANA UNIVERSITY STUDY INFORMATION SHEET FOR RESEARCH MEMORY TEST FOR WORD AND </h1> <br>
+
+//             <h1 style='color: black;text-align: left;background: white;font: caption;'> You are being asked to participate in a research study. Scientists do research to answer important questions that might help change or improve the way we do things in the future. This document will give you information about the study to help you decide whether you want to participate. Please read this form, and ask any questions you have, before agreeing to be in the study. Protocal number for this study: 18431.</h1><br>
+
+//             <h1 style='color: black;text-align: left;background: white;font: caption;'> All research is voluntary. You can choose not to take part in this study. If you decide to participate, you can change your mind later and leave the study at any time. You will not be penalized or lose any benefits if you decide not to participate or choose to leave the study later.</h1> <br> 
+
+//             <h1 style='color: black;text-align: left;background: white;font: caption;'> This research is intended for individuals 18 years of age or older. If you are under age 18, do not complete the survey. This research is for residents of the United States. If you are not a U.S. resident, do not complete the survey.</h1> <br> 
+
+//             <h1 style='color: black;text-align: left;background: white;font: caption;'> The purpose of this study is to investigate how people remember words and pictures.</h1> <br> <h1 style='color: black;text-align: left;background: white;font: caption;'> We are asking you if you want to be in this study because you registered for this study on Prolific. The study is being conducted by Dr. Richard Shiffrin, a professor in the department of Psychological and Brain Science and the Program in Cognitive Science.</h1> <br> 
+
+
+            
+//             <h1 style='color: black;text-align: left;background: white;font: caption;'> To protect against loss of confidentiality, any identifiable information from the data that could lead back to you will be removed within two days of your completion of the study.We don’t think you will have any personal benefits from taking part in this study, but we hope to learn things that will help researchers in the future.
+//             </h1> <br> 
+            
+//             <h1 style='color: black;text-align: left;background: white;font: caption;'><strong>You will be paid for participating in this study.</strong> We pay at an hourly rate of $10.50, and the payment will be disbursed within 5 days after completing the experiment, there is no cost to participate in this study. <strong> <FONT COLOR="#CC5500">To be approved and get paid</FONT>, you will have to show averaged performance at least 60% (chance level performance is 50%). You will see your accumulated accuracy on the screen trial by trial as you continue doing the study. You will be notified if your performance is qualified at the end. You could decide whether you want to return your completion code according to that. </strong> </h1><br>
+//             <h1 style='color: black;text-align: left;background: white;font: caption;'> 
+//           <strong>If you agree to be in the study, you will do the following things.</strong> First, the experiment will ask for you to input your ID in Prolific. You must use desktop or PC to do this experiment. You must use <strong> Chrome</strong> as your browser.
+//           The experiment contains practice trials and real trials. In these trials, you will see a list of pictures to remember. After each list, you will see some digits to add up. Then type the sum. You will then see test pictures. If a picture was one you had studied in the preceding list, you will press the J key, and if not, press the F key.  
+//           </h1> <br> 
+//             <h1 style='color: black;text-align: left;background: white;font: caption;'> We will protect your information and make every effort to keep your personal information confidential, but we cannot guarantee absolute confidentiality. No information which could identify you will be shared in publications about this study. Your personal information may be shared outside the research study if required by law. We also may need to share your research records with other groups for quality assurance or data analysis. These groups include the Indiana University Institutional Review Board or its designees, and state or federal agencies who may need to access the research records (as allowed by law). </h1><br>
+
+//             <h1 style='color: black;text-align: left;background: white;font: caption;'> If you have questions about the study or encounter a problem with the research, contact the researcher. For questions about the study, contact either Shuchun Lai at shulai@iu.edu , or Dr. Richard Shiffrin at shiffrin@indiana.edu.
+//             For questions about your rights as a research participant, to discuss problems, complaints, or concerns about a research study, or to obtain information or to offer input, please contact the IU Human Research Protection Program office at 800-696-2949 or at irb@iu.edu. </h1><br>
+            
+//             <h1 style='color: black;text-align: left;background: white;font: caption;'> Thank you for agreeing to participate in our research. Before you begin, please note that the data you provide may be collected and used by Prolific as per its privacy agreement. Additionally, this research is for subjects over the age of 18*; if you are under the age of 18, please do not complete this survey.</h1><br>
+//             `,
+          
+//           name: 'consent', 
+//           options: ['I have read and understand this information and agree to join this study'], 
+//           required: true
+//           }, 
+//       ],
+//     };
+//     if (is_inst_fullscreen) {
+//         timeline.push(instructions);
+//         timeline.push(enter_fullscreen);
+//     }
+    
+
+//     var fixation = {
+//       type: jsPsychHtmlKeyboardResponse,
+//       stimulus: '<div style="font-size:60px;">+</div>',
+//       choices: "NO_KEYS",
+//       trial_duration: fixation_duration,
+//       data: {
+//         task: 'fixation'
+//       }
+//     };
+
+//     var instructions_practice = {
+//       type: jsPsychHtmlKeyboardResponse,
+//       stimulus: `
+//       <p style='text-align: justify;color: black;background: white;font: caption-;''>(1) A list of words will appear on the screen one at a time. Study the words as they appear.</p>
+//       <p style='text-align: justify;color: black;background: white;font: caption-;''>(2) Then, after a brief blank period, you will see a series of numbers. Add those as they come, and when you see the words “TYPE THE SUM”, use the number keys to type your answer. </p>
+//       <p style='text-align: justify;color: black;background: white;font: caption-;''>(3) Then, you will need to recall the words you study one at a time. You will see first two letters of the words you JUST studied presented on screen. Following each presentation, you will need to type in the rest of the words you remembered. <strong>Performance are taking into consideration in this step.  you will have to show averaged performance at least 60% (chance level performance is 50%) </strong>. </p>
+//       <p style='text-align: justify;color: black;background: white;font: caption-;''>There will be a practice list followed by 9 lists of words , each followed by a test.</p>
+//       <p style='text-align: justify;color: black;background: white;font: caption-;''>Do not worry if you were unsure about the words during test.That is normal but make your best guess. </p>
+//       <p style='text-align: justify;color: black;background: white;font: caption-;''> Please start the practice list now by pressing the enter key. </p>
+
+//       `,
+//       post_trial_gap: posgap_duration,
+//       trial_duration: instruction_duration,
+//       choices: choiceenter
+//     };
+    
+
+//     var instructions_test = {
+//       type: jsPsychHtmlKeyboardResponse,
+//       stimulus: `
+//       <p style='text-align: justify;color: black;background: white;font: caption-;''>
+//         Now you have finished the practice. When ready, start the study list with the ‘enter’ key.</p>
+//       `,
+//       post_trial_gap: posgap_duration,
+//       trial_duration: instruction_duration,
+//       choices: choiceenter
+//     };
+
+//     finalint_text = `<p style='text-align: justify;color: black;background: white;font: caption-;paddingRight =20px; paddingLeft =20px;'>
+//     We are now going to test you for memory of all the words studied or tested earlier. <br>
+
+//     As before, you will a prmopt of first two letters of the words you've studied. It's possible that a prompt is associated with two words you've studied, and if you believe that happens, type in both of the words in the two blanks. Hit enter if you don't remember.
+
+//     If you have read and understood these new instructions, press the 'p' key to go to the testing.`
+        
+       
+
+//     var instructions_finaltest = {
+//       type: jsPsychHtmlKeyboardResponse,
+//       stimulus: finalint_text,
+//       post_trial_gap: posgap_duration,
+//       trial_duration: instruction_duration,
+//       choices: keychoice_finaltest
+//     };
+//     // timeline.push(instructions_finaltest)
+
+
+// //     /**********************************************************************************
+// //     trials for tests started
+// //      **********************************************************************************/
+// const num_trials=10;
+//     for (let i_trial=0; i_trial<num_trials; i_trial++){
+
+   
+//       const word_arobj_itrial = tot_word_arobj_nf_rd[i_trial];
+//       const digit_list_itrial = tot_digit_list_nf[i_trial];
+//       const digits_list_sum_itrial = tot_correct_sum[i_trial];
+//       const word_test_arobj_itrial = tot_word_test_arobj_nf[i_trial];
+
+
+//       const digit_list_object = range(0,num_digits_pres).map(i=>{
+//         return {
+//           digits: digit_list_itrial[i],
+//           prespos: i+1 //[1,20]
+//         }
+//       });
+
+//       var ISI = {
+//         type: jsPsychHtmlKeyboardResponse,
+//         stimulus: '',
+//         choices: "NO_KEYS",
+//         trial_duration: 100,
+//       };   
+
+//       var v_study = {
+//         type: jsPsychHtmlKeyboardResponse,
+//         stimulus: jsPsych.timelineVariable('wordchosen'),
+//         choices: "NO_KEYS",
+//         trial_duration: study_duration,
+//         post_trial_gap: posgap_duration,
+//         data: {
+//           task: "pretest_study",
+//           trialnum: i_trial+1,
+//           prespos: jsPsych.timelineVariable('prespos') //presentation position
+//         }
+//       };
+
+//       var v_counting = {
+//         type: jsPsychHtmlKeyboardResponse,
+//         stimulus: jsPsych.timelineVariable('digits'),
+//         choices: "NO_KEYS",
+//         trial_duration: counting_duration,
+//         post_trial_gap: counting_gap,
+//         data: {
+//           task: "counting", 
+//           trialnum: i_trial+1
+//           // prespos: jsPsych.timelineVariable('prespos'),
+//           // stimulus_id: jsPsych.timelineVariable('studyimg')
+//         },
+//         on_finish: function(data){
+//           // console.log(digits_list_sum_itrial);
+//         }
+//       };
+
+
+//       var v_countingsum_nd = {//nondebug
+
+//         on_start: function(trial){
+//             if (is_showcorrect_inlog) console.log("Correct answer:",trial,trial.data.correct_response);
+//         },
+//         type: jsPsychSurveyText,
+//         questions: [
+//           {prompt: 'Please enter the sum using your number keyboard'}
+//         ],
+//         on_finish: function(data){
+//         //   console.log(digits_list_sum_itrial);
+//           // console.log(current_digit_response)
+//           ans = Object.values(data.response)[0]
+//           data.correct = ans==data.correct_response
+//           console.log(data.correct_response);
+//           data.responsesum = ans
+//         },
+//         data: {
+//           task: "counting_response",
+//           correct_response: digits_list_sum_itrial,
+//           // is_correct: ;
+//           trialnum: i_trial+1
+//         }
+//       };
+
+//       var v_countingsum_debug = {
+//         type: jsPsychHtmlKeyboardResponse,
+//         stimulus: "tempdebug",
+//         on_finish: function(data){
+//           // console.log(data.response)
+
+//         },
+//         data: {
+//           task: "counting_response",
+//           correct_response: digits_list_sum_itrial,
+//           trialnum: i_trial+1
+//         },
+//         choices: "NO_KEYS",
+//         trial_duration: 100
+//       };
+
+//       if (is_debug) v_countingsum=v_countingsum_debug;
+//       else v_countingsum = v_countingsum_nd;
+
+      
+//       var prompt_countingfeedback = {
+//         on_start: function(){
+//         },
+//         type: jsPsychHtmlKeyboardResponse,
+//         stimulus: function(){
+
+//           if(digits_list_sum_itrial==jsPsych.data.get().last(1).values()[0].correct)
+//             return("<p background:white>CORRECT!</p>")
+//           else return("<p background:white>INCORRECT!</p>")
+//         },
+//         choices: "NO_KEYS",
+//         trial_duration: feedbackmes_duration,
+//         data:{
+//           task: "promptfeedback"
+//         }, 
+//         post_trial_gap: posgap_duration
+//       };
+
+//       var prompt_digits = {
+//         type: jsPsychHtmlKeyboardResponse,
+//         stimulus: 'Summing up the digits as they appear',
+//         choices: "NO_KEYS",
+//         trial_duration: prompt_duration,
+//         data:{
+//           task: "prompt"
+//         },
+//         post_trial_gap: posgap_duration
+//       };
+
+//       var prompt_recall = {
+//         type: jsPsychHtmlKeyboardResponse,
+//         stimulus: 'Now recall the words you JUST studied',
+//         choices: "NO_KEYS",
+//         trial_duration: prompt_duration,
+//         data:{
+//           task: "prompt"
+//         },
+//         post_trial_gap: posgap_duration
+//       };
+
+//       var v_test = {
+
+//         trial_duration: response_rtlimit_duration,
+//         type: jsPsychSurveyText,
+//         questions: [{prompt: "".concat(`Type the word you just studied, starting with <strong>`,jsPsych.timelineVariable('ftl'),"</strong>________")}],
+//         data:{
+//           task: 'pretest_response',
+//           correct_response: jsPsych.timelineVariable('wordchosen'),
+//           prespos: jsPsych.timelineVariable('prespos'),
+//           testpos: jsPsych.timelineVariable('testpos'),
+//           trialnum: i_trial+1,
+//           word_left_inpair: jsPsych.timelineVariable('word_left_i'),
+//           word_right_inpair: jsPsych.timelineVariable('word_right_i'),
+//           wordcondi: jsPsych.timelineVariable('wordcondi'),
+//           ftl: jsPsych.timelineVariable('ftl')
+//         },
+//         post_trial_gap: posgap_duration
+//       };
+
+//       var study_procedure = {
+//         timeline: [v_study],
+//         timeline_variables: word_arobj_itrial
+//       };
+
+//       var counting_procedure = {
+//         timeline: [v_counting],
+//         timeline_variables: digit_list_object
+//       };
+
+
+//       var loop_countingsum = {
+//           timeline: [v_countingsum],
+//           loop_function: function(data){
+
+//             // console.log()
+
+//             if (is_debug) return(false)
+
+//             var cur_response = Object.values(data.values()[0].response);
+//             // console.log(cur_response);
+//             isdigits = /^[0-9]*$/.test(cur_response);
+//             // console.log(isdigits);
+//               if(!isdigits){
+//                 warningfunc(`<div style="text-align:center ; font-size: larger; font-weight: bold; color: black;"><br> <br> <br> <br> <br> Not Digits! </div>`,warning_duration)
+//                 return true;
+//               } else {
+
+//                 // currentans = data.values()[0].response;
+//                 return false;
+//               }
+//           }
+//       }
+
+//       console.log(word_test_arobj_itrial)
+
+//       var test_procedure = {
+//         timeline: [v_test],
+//         timeline_variables: word_test_arobj_itrial
+//       };
+
+// //       // console.log("dd")
+// //       if (i_trial>=num_trials_useddebug) continue;
+
+      
+//       // timeline.push(ISI,fixation,counting_procedure,loop_countingsum,prompt_countingfeedback,fixation,study_procedure);
+//       timeline.push(ISI,study_procedure,test_procedure);
+// //     //   timeline.push(counting_procedure,loop_countingsum,if_correct,if_incorrect);
+// //       // timeline.push(study_procedure,test_procedure)
+
+// //     //   if (i_trial==0){//practice instruction
+// //     //     timeline.push(instructions_practice,ISI,fixation,study_procedure,prompt_digits,fixation,counting_procedure,loop_countingsum,if_correct,if_incorrect,prompt_recognize,fixation,test_procedure);
+// //     //     // timeline.push(test_procedure);
+// //     //   } else if (i_trial==1) { //formal test instruction
+// //     //     timeline.push(instructions_test,ISI,fixation,study_procedure,prompt_digits,fixation,counting_procedure,loop_countingsum,if_correct,if_incorrect,prompt_recognize,fixation,test_procedure);
+// //     //   } else{ //no instruction
+// //     //     timeline.push(ISI,fixation,study_procedure,prompt_digits,fixation,counting_procedure,loop_countingsum,if_correct,if_incorrect,prompt_recognize,fixation,test_procedure);
+// //     //   }
+      
+//     }
+//     // /**********************************************************************************
+//     // Following are final tests
+//     //  **********************************************************************************/
+//     //  tot_study_list
+//     //  tot_foil_list
+//     //  tot_foil_list_nf
+//     //  tot_digit_list
+//     // tot_digit_list_nf
+//     //  tot_target_list_nf
+//     //  tot_nontarget_list_nf
+//     // tot_finalt_foil_list
+
+//     const num_finaltest_eachtypeinpack = 7;//test 7 from each trial from studied nontested (10), studied tested (10), foils (10)// 21 FOIL to equal 3 types of target
+//     const num_finaltest_eachpack = 42; //7*3 = 21 *2=42
+    
+
+//     function get_randind_three(){
+//       allind_nf = range(0,10).map(i=>jsPsych.randomization.repeat(range(0,10),1)); //10 trials, for every 10 items, randomize indent 1-10, nonflat array
+//       ind_nf = range(0,10).map(i=>allind_nf[i].slice(0,num_finaltest_eachtypeinpack));
+//       non_ind_nf = range(0,10).map(i=>allind_nf[i].slice(num_finaltest_eachtypeinpack,10));
+//       return({'chosen': ind_nf, 'nonchosen': non_ind_nf})
+//     }
+
+//     const finalt_target_ind_all = get_randind_three();
+//     const finalt_target_ind_chosen_nf = finalt_target_ind_all["chosen"]; //This indent e.g. if is 8 in first trial i.e.[1][8], means it is the 8th target being tested in first trial (but not the 8th tested item)
+//     const finalt_target_ind_nonchosen_nf = finalt_target_ind_all["nonchosen"];
+
+//     const finalt_nontarget_ind_all = get_randind_three();
+//     const finalt_nontarget_ind_chosen_nf = finalt_nontarget_ind_all["chosen"];
+//     const finalt_nontarget_ind_nonchosen_nf = finalt_nontarget_ind_all["nonchosen"];
+
+//     const finalt_foil_ind_all = get_randind_three();
+//     const finalt_foil_ind_chosen_nf = finalt_foil_ind_all["chosen"];
+//     const finalt_foil_ind_nonchosen_nf = finalt_foil_ind_all["nonchosen"];
+
+//     const finalt_target_list_nf = range(0,10).map(i=>range(0,num_finaltest_eachtypeinpack).map(j=>tot_target_list_nf[i][finalt_target_ind_chosen_nf[i][j]])); //array 10 elements, 7 sub elemnets each
+//     const finalt_nontarget_list_nf = range(0,10).map(i=>range(0,num_finaltest_eachtypeinpack).map(j=>tot_nontarget_list_nf[i][finalt_nontarget_ind_chosen_nf[i][j]]));
+//     const finalt_foil_list_nf = range(0,10).map(i=>range(0,num_finaltest_eachtypeinpack).map(j=>tot_foil_list_nf[i][finalt_foil_ind_chosen_nf[i][j]]));
+
+//     // finalt_forward_list = range(0,10).map(finalt_target_list_nf[i].concat(finalt_nontarget_list_nf[i],finalt_foil_list_nf[i]))
+
+//     const finalt_type_list_nf = range(0,10).map(i=>jsPsych.randomization.repeat(["TARGET_target","TARGET_nontarget","TARGET_foil","FOIL","FOIL","FOIL"],num_finaltest_eachtypeinpack));//21 foil, 7 other type each for each list/trial before, arranged in order; 10 * 28 dimension
+
+//     var iitem = -1; //-1 becuase iitem++ is before return
+//     const finalt_allcondi_list_obj_nf = range(0,num_trials).map(itrial=> {
+
+//       var i_ft_Ttar = 0;//ident of final test Target-previous target
+//       var i_ft_Tnontar = 0;
+//       var i_ft_Tfoil = 0;
+//       var i_ft_F = 0;
+//       return(range(0,num_finaltest_eachpack).map(jpos=>{
+
+//         iitem++;
+//         itype = finalt_type_list_nf[itrial][jpos];
+//         prespos_iposintrial_study = null;//null for intialization
+//         prespos_iposintrial_test = null;
+//         if (itype == "TARGET_target") { 
+
+//           // prespos_iposintrial_test = finalt_target_ind_chosen_nf[itrial][i_ft_Ttar];
+//           i_test_img = finalt_target_list_nf[itrial][i_ft_Ttar];
+//           prespos_iposintrial_test = tot_pretest_list_nf[itrial].findIndex(iobj=>iobj==i_test_img) + 1; //presented position in test +1 
+//           // console.log(tot_pretest_list_nf[itrial],i_test_img,prespos_iposintrial_test);
+//           prespos_iposintrial_study = tot_study_list_nf[itrial].findIndex(iobj=>iobj==i_test_img)+1;//presented position in study
+//           cr = "l"; //j for old
+//           i_ft_Ttar++;
+//         } else if(itype == "TARGET_nontarget"){
+
+//           i_test_img = finalt_nontarget_list_nf[itrial][i_ft_Tnontar];
+//           prespos_iposintrial_study = tot_study_list_nf[itrial].findIndex(iobj=>iobj==i_test_img) + 1;
+//           cr = "j"; //j for old
+//           i_ft_Tnontar++;
+//         } else if(itype == "TARGET_foil"){
+
+//           i_test_img = finalt_foil_list_nf[itrial][i_ft_Tfoil];
+//           prespos_iposintrial_test = tot_pretest_list_nf[itrial].findIndex(iobj=>iobj==i_test_img) + 1; //10 by 7
+//           cr = "f"; //j for old
+//           i_ft_Tfoil++;
+//         } else if(itype == "FOIL"){
+
+//           i_test_img = tot_finalt_foil_list_nf[itrial][i_ft_F];//there is another method to test here 10 by 21
+//           cr = "s"; //f for new
+//           i_ft_F++;
+//         } else {
+
+//           console.log("error!");
+//           // jsPsych.endExperiment('SYSTEM ERROR! THANKS FOR YOUR PARTICIPATION. YOUR CREDITS WILL BE GIVEN.')
+//         }
+
+//         if (cr=="j") {is_i_old=true}
+//         else if (cr=="f") {is_i_old=false}
+//         else console.log("mistake");
+
+//         if (i_test_img == undefined)  {console.log("ERROR!")}
+        
+//         // if (i_test_img==)
+//         return {
+//           probetype: finalt_type_list_nf[itrial][jpos],
+//           testimg: i_test_img, 
+//           testimg_dir: picdir+i_test_img, 
+//           correct_response: cr,
+//           prespos_itrial: itrial+1,//
+//           prespos_iposintrial_study: prespos_iposintrial_study,
+//           prespos_iposintrial_test: prespos_iposintrial_test,// which trial was it presented 1-10
+//           // testpos: iitem+1 //1-420
+//           isold : is_i_old
+//         }
+//         }))
+//     });
+
+    
+//     // console.log(tot_pretest_list_nf)
+//     // console.log()
+    
+//     function assign_testpot(arr) {
+//       // arrnew = arr;
+//       arrnew=[];
+//       for (let i=0;i<arr.length;i++){
+//         objnow = Object.assign({}, arr[i]);
+//         objnow["testpos"]=i+1;
+//         arrnew.push(objnow);
+//       }
+//       return(arrnew)
+//     }
+    
+//     const finalt_forward_list_obj = assign_testpot(finalt_allcondi_list_obj_nf.flat());
+//     // console.log(finalt_forward_list_obj)
+//     const finalt_backward_list_obj = assign_testpot(range(0,num_trials).map(i=>finalt_allcondi_list_obj_nf[num_trials-1-i]).flat()) //use num_trials because nf obj list packed by it (10)
+//     const finalt_random_list_obj = assign_testpot(jsPsych.randomization.repeat(finalt_allcondi_list_obj_nf.flat(),1));
+//     if (condi=="f") condi_list=finalt_forward_list_obj;
+//     else if(condi == "b") condi_list = finalt_backward_list_obj;
+//     else if(condi == "r") condi_list = finalt_random_list_obj;
+    
+
+    
+
+//     // // console.log(finalt_allcondi_list_obj_nf.flat())
+//     // // console.log(finalt_forward_list_obj)
+//     // // console.log(finalt_backward_list_obj)
+//     // // console.log(finalt_random_list_obj)
+
+    
+//     // var preload_final = {
+//     //     type: jsPsychPreload,
+//     //     images: finalt_target_list_nf.flat().map(i_pic=>picdir+i_pic),
+//     // }
+//     // timeline.push(preload_final)
+
+
+//     var v_finaltest = {
+
+//         on_start: function(trial){
+//             // console.log(jsPsych.data.get())
+//             // console.log(average(nownow.values))
+//             // nownow = jsPsych.data.get().select('recognition_correct')
+//             // trial.data.all_accumulated_accuracy =  average(nownow.values)
+//             console.log(trial.data.correct_response)
+
+//             if (is_showcorrect_inlog) console.log("Correct answer:",trial,trial.data.correct_response);
+
+//             if (trial.data.testpos == 1){
+//                 trial.data.accumulated_accuracy = 0;
+//             }
+//             else {
+//                 trial.data.accumulated_accuracy = jsPsych.data.get().last(2).values()[0].accumulated_accuracy
+//             }
+//         },
+//         // trial_duration: finaltest_rtlimit_duration,
+//         type: jsPsychImageKeyboardResponse,
+//         stimulus: jsPsych.timelineVariable('testimg_dir'),
+//         choices: responsekeys_final,
+//         data:{
+//           task: 'finalt_response',
+//           correct_response: jsPsych.timelineVariable('correct_response'),
+//           probetype: jsPsych.timelineVariable('probetype'),
+//           prespos_itrial: jsPsych.timelineVariable('prespos_itrial'),
+//           prespos_iposintrial_test: jsPsych.timelineVariable('prespos_iposintrial_test'),
+//           testpos: jsPsych.timelineVariable('testpos'),
+//           prespos_iposintrial_study: jsPsych.timelineVariable('prespos_iposintrial_study'),
+//           // lag: jsPsych.timelineVariable('lag'),
+//           stimulus_id: jsPsych.timelineVariable('testimg'),
+//           isold: jsPsych.timelineVariable('isold')
+//         },
+//        prompt: function(){
+//             lastresp = jsPsych.data.get().last(2).values()[0]
+
+        
+//             str_start = `<strong><FONT color="white">`;
+//             str_end =  `</strong></FONT>`;
+
+//             return "".concat(`<table class="center">
+//                 <tr>
+//                 <td><strong>"S"</strong> for picture never presented or tested earlier<br>
+//                 <strong>(Entirely new)</strong><br><br>`,
+//                 str_start,`This item had never been seen previously.`,str_end,`
+//                 </td>
+
+//                 <td><strong>"F"</strong> for NOT studied but tested earlier. <br>
+//                 <strong>(Only tested as New before)</strong><br><br>`,
+//                 str_start,`This item had been tested as new on list`,jsPsych.timelineVariable("prespos_itrial"),str_end,
+//                 `</td>
+
+//                 <td><strong>"J"</strong> for studied and NOT tested ealier.<br> 
+//                 <strong>(Only studied before)</strong><br><br>`,
+//                 str_start,`This item had been studied but not tested on list`,jsPsych.timelineVariable("prespos_itrial"),str_end,
+//                 `</td>
+
+//                 <td><strong>"L"</strong> for studied and tested earlier.<br> 
+//                 <strong>(OLD)</strong></strong><br><br>`,
+//                 str_start,`This item had been studied and also tested on list`,jsPsych.timelineVariable("prespos_itrial"),str_end,
+//                 `</td>
+    
+//                 </tr>
+//                 </table>`)
+
+//        },
+//         on_finish: function(data){
+
+            
+//             data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+//             if (data.correct) tempcrr=1; else tempcrr=0;
+//             data.recognition_correct = tempcrr;
+            
+//             console.log( data.correct)
+//             data.accumulated_accuracy = (data.accumulated_accuracy*(data.testpos-1)+tempcrr)/data.testpos;
+
+//             if (data.response == null & (!is_debug)){
+//                 warningfunc(`<div font-size: larger; font-weight: bold; color: black;"> You need to respond faster!  </div>`,warning_duration)
+//             }
+//             if (data.rt < rtfastcut_duration & data.response!=null & (!is_debug)){
+//                 warningfunc(`<div style= "text-align:center" ; font-size: larger; font-weight: bold; color: black; class="center-screen" ><br> <br> <br> <br> <br> Too fast!  </div>`,warning_duration)
+//             } 
+//         }
+//         // post_trial_gap: posgap_duration
+//     };
+    
+//     var finaltest_feedbackss = {
+//       type: jsPsychHtmlKeyboardResponse,
+//       trial_duration: 600,
+//       choices: "NO_KEYS",
+//       post_trial_gap: posgap_duration,
+//       stimulus: function(){
+//         // The feedback stimulus is a dynamic parameter because we can't know in advance whether
+//         // the stimulus should be 'correct' or 'incorrect'.
+//         // Instead, this function will check the accuracy of the last response and use that information to set
+//         // the stimulus value on each trial.
+//         var last_trial = jsPsych.data.get().last(1).values()[0];
+
+//         if (last_trial.correct) correcttext = `<p><strong>CORRECT!</strong></p>`;
+//         else correcttext = `<p><strong> INCORRECT!</p></strong>`;
+//         correcttext="";
+        
+//         var last_trial_old = jsPsych.data.get().last(1).values()[0].isold;
+//         if(last_trial_old){
+//           return correcttext.concat("<strong>This item <FONT color=#C41E3A>had been studied or tested on list ",
+//                     jsPsych.timelineVariable("prespos_itrial"),"<FONT></strong>.</p>"); // the parameter value has to be returned from the function
+//         } else {
+//           return correcttext.concat("<strong><p>This item <FONT color=#C41E3A>had never been seen previously.</FONT></strong></p>");// the parameter value has to be returned from the function
+//         }
+//       }
+//     }
+//     // var shownow = {
+//     //   type:jsPsychHtmlKeyboardResponse,
+//     //   // trial_duration: 1000,
+//     //   choices:"enter",
+//     //   stimulus: "<strong>Incorrect!</strong>"
+//     // }
+//     // timeline.push(shownow)
+
+//     var finaltest_feedback = {
+//       type: jsPsychImageKeyboardResponse,
+//       trial_duration: finalfeedback_duration,
+//       choices: "NO_KEYS",
+//       post_trial_gap: posgap_duration,
+//       // post_trial_gap: 100,
+//       // stimulus: jsPsych.timelineVariable('testimg_dir'),
+//       stimulus: function(){
+        
+//         // var last_trial = jsPsych.data.get().last(1).values()[0];
+//         // if (last_trial.correct) return picdir+"correct.jpg";
+//         // else return picdir+"Incorrect.jpg"
+//         return jsPsych.timelineVariable('testimg_dir')
+        
+//       },
+//       prompt: function(){
+        
+
+//         var last_trial = jsPsych.data.get().last(1).values()[0];
+//         var lastresponse = last_trial.response;
+//         var last_trial_old = last_trial.isold;
+//         var last_trial_probetype = last_trial.probetype;
+        
+
+//         if (last_trial_probetype == "FOIL"){
+//             str_start_FOIL = `<strong><FONT color=#C41E3A>`;
+//             str_start_Tfoil = str_start_Tnontarget = str_start_Ttarget = `<strong><FONT color="white">`;
+//         } else if (last_trial_probetype == "TARGET_foil"){
+//             str_start_Tfoil = `<strong><FONT color=#C41E3A>`;
+//             str_start_FOIL = str_start_Tnontarget = str_start_Ttarget = `<strong><FONT color="white">`;
+//         } else if (last_trial_probetype == "TARGET_nontarget"){
+//             str_start_Tnontarget= `<strong><FONT color=#C41E3A>`;
+//             str_start_FOIL = str_start_Tfoil = str_start_Ttarget = `<strong><FONT color="white">`;
+//         } else if (last_trial_probetype == "TARGET_target") {
+//             str_start_Ttarget = `<strong><FONT color=#C41E3A>`;
+//             str_start_FOIL = str_start_Tnontarget = str_start_Tfoil = `<strong><FONT color="white">`;
+//         }
+//         str_end = `</FONT></strong>`
+
+//         return "".concat(`<table class="center">
+//         <tr>
+//         <td><strong>"S"</strong> for picture never presented or tested earlier<br>
+//         <strong>(Entirely new)</strong><br><br>`,
+//         str_start_FOIL,`This item had never been seen previously.`,str_end,`
+//         </td>
+
+//         <td><strong>"F"</strong> for NOT studied but tested earlier. <br>
+//         <strong>(Only tested as New before)</strong><br><br>`,
+//         str_start_Tfoil,`This item had been tested as new on list`,jsPsych.timelineVariable("prespos_itrial"),str_end,
+//         `</td>
+
+//         <td><strong>"J"</strong> for studied and NOT tested ealier.<br> 
+//         <strong>(Only studied before)</strong><br><br>`,
+//         str_start_Tnontarget,`This item had been studied but not tested on list`,jsPsych.timelineVariable("prespos_itrial"),str_end,
+//         `</td>
+
+//         <td><strong>"L"</strong> for studied and tested earlier.<br> 
+//         <strong>(OLD)</strong></strong><br><br>`,
+//         str_start_Ttarget,`This item had been studied and also tested on list`,jsPsych.timelineVariable("prespos_itrial"),str_end,
+//         `</td>
+
+//         </tr>
+//         </table>`)
+        
+//       }
+//     }
+    
+//     //finalt_forward_list_obj; finalt_backward_list_obj; finalt_random_list_obj
+//     var finaltest_procedure = {
+//       timeline: [v_finaltest,finaltest_feedback],
+//       timeline_variables: condi_list,
+//       on_finish: function(data){
+//         data.timelasted=Date.now()-lastActivityTime;
+//       }
+//     };
+
+//     var final_instruction = {
+//       on_start: function(trial){
+//         window.onbeforeunload = null;
+//         nownow = jsPsych.data.get().select('recognition_correct');
+//         jsPsych.data.addProperties({
+//             all_accumulated_accuracy: average(nownow.values)
+//         });
+//       },
+//       type: jsPsychHtmlKeyboardResponse,
+//       stimulus: function(){
+//         nownow = average(jsPsych.data.get().select('recognition_correct').values);
+
+//         return "<p color:black>YOU FINISHED!<p><p color: black>Your overall accumulated accuracy is: <strong>".concat(
+//           Math.round(nownow*100)).concat(
+//             `%</strong><p> <p color:black>You will get a completion code if you hit 'enter', but you might be rejected if your accuracy is lower than 60%. You could decide if you want to return your completion code.<p>`)
+//       },
+//       // stimulus: `<p>You've finished the last task. Thanks for participating!</p>
+//         // <p><a href="https://app.prolific.co/submissions/complete?cc=C2P9U8QZ">Click here to return to Prolific and complete the study</a>.</p>`,
+//       choices: 'enter',
+//       data:{
+//         task:"instruction",
+//         tot_study_list_nf: tot_study_list_nf,
+//         tot_foil_list_nf: tot_foil_list_nf,
+//         tot_finalt_foil_list_nf: tot_finalt_foil_list_nf,
+//         tot_digit_list_nf: tot_digit_list_nf,
+//         tot_target_list_nf:tot_target_list_nf,
+//         tot_nontarget_list_nf:tot_nontarget_list_nf,
+//         tot_pretest_list_nf:tot_pretest_list_nf,
+//         // finalt_forward_list_obj: finalt_forward_list_obj,
+//         // finalt_backward_list_obj: finalt_backward_list_obj,
+//         // finalt_random_list_obj: finalt_random_list_obj,
+//         finalt_target_list_nf: finalt_target_list_nf,
+//         finalt_nontarget_list_nf: finalt_nontarget_list_nf,
+//         finalt_foil_list_nf: finalt_foil_list_nf
+//       },
+//       on_finish: function(data){
+//         jsPsych.data.get().localSave('csv', 'ekstra.csv');
+//         jsPsych.endExperiment();
+//         // jsPsych.endExperiment();
+//       }
+//     }
+//     // timeline.push(final_instruction)
+
+
+//     var exit_fullscreen = {
+//       type: jsPsychFullscreen,
+//       fullscreen_mode: false,
+//       delay_after: 0
+//     }
+
+//     // var final_trial = initJsPsych({
+//     //   on_finish: function(){
+      
+//     //     window.location = "https://app.prolific.co/submissions/complete?cc=C2P9U8QZ";
+//     //     jsPsych.endExperiment();
+//     //   }
+//     // });
+//     timeline.push(instructions_finaltest,finaltest_procedure);
+//     timeline.push(exit_fullscreen,final_instruction);
+    
+    
+    jsPsych.run(timeline);
+
+
+  </script>
+</html>

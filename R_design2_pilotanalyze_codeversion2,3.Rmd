@@ -1,0 +1,500 @@
+
+
+
+
+THis is a version of test finally used for 6 & 10 lists tests
+
+
+# library
+```{r}
+# library(Rmisc)
+library(dplyr)
+library(tidyverse)
+library(readr)
+'%notin%' <- function(x,y)!('%in%'(x,y));
+```
+
+
+```{r}
+filepath=c("data-design2/visualexp-forward (1).csv")
+df = readr::read_csv(filepath)
+```
+
+
+# Read files
+
+
+```{r}
+dfimp=
+  df%>% 
+  filter(is_finished==1,codeversion%in%c(1,2))%>%
+  # group_by(condition,PROLIFIC_PID,all_accumulated_accuracy,recorded_at)%>%
+  group_by(condition,PROLIFIC_PID,all_accumulated_accuracy,run_id)%>%
+  summarize(n=n())%>%
+  # group_by(condition)%>%
+  # summarize(n=n())%>%
+  # filter(PROLIFIC_PID%in%c("62732f7ea28589a21f63b1ee"))%>%
+  # filter(all_accumulated_accuracy<0.6)%>%
+  # filter(condition=="b")%>%
+  mutate()
+dfimp
+```
+
+
+
+## check and get txt file
+```{r}
+# now$`Participant id`
+now = read_csv("data/temp2/export5.csv")%>%
+  filter(Status=="AWAITING REVIEW")%>%
+  mutate(id = `Participant id`)%>%
+  mutate(acc = case_when(id%in%dfimp$PROLIFIC_PID ~1))%>%
+  select(id,acc)%>%
+  filter(acc==1)
+  # filter(id ==)
+write.table(now$id, file = "data/temp2/out.txt", sep = "\t",quote=FALSE,row.names = FALSE)
+
+dfimp$all_accumulated_accuracy[dfimp$ip=="76.112.5.227"]
+```
+
+
+
+See who prioritize in answering the second word when first answers none
+
+```{r}
+df %>% filter(wordanswer_first=="none"& is_correct_second & wordanswer_second!="none")%>%
+  select(wordanswer_first,wordanswer_second,wordcondi,ip)
+```
+```{r}
+testdf <- data.frame(
+  Name = c("Alice", "Bob", "Charlie", "David"),
+  City = c("New York", "San Francisco", "Los Angeles", "Chicago"),
+  # Occupation = c("Engineer", "Teacher", "Artist", "Doctor"),
+  StringsColumn = c("Alice", "ss", "Charlie", "Chicago")
+)
+class(testdf$Name)
+testdf %>% mutate( is_same = StringsColumn %in% c(Name,City))
+```
+
+
+## check
+```{r}
+# df%>%filter(is_finished==1,codeversion==3) %>%
+#   filter(all_accumulated_accuracy>0.6)%>%
+#   group_by(PROLIFIC_PID)%>%
+#   summarize(n=n())%>%
+#   filter(n>1410)
+# 
+# #done twice: 62b0ff84054c6ca32f481c65;63e5a6690eeedc20da056717
+# df%>%filter(is_finished==1,codeversion==3) %>%
+#   filter(all_accumulated_accuracy>0.6)%>%
+#   group_by(condition,PROLIFIC_PID,recorded_at)%>%
+#   filter(PROLIFIC_PID%in%c("62b0ff84054c6ca32f481c65","63e5a6690eeedc20da056717"))%>%
+#   summarize(n=n())
+
+
+# 62b0ff84054c6ca32f481c65: delete f condition
+# 63e5a6690eeedc20da056717: delete r condition
+dfchanged =
+  df %>%
+  filter(is_finished==1,codeversion%in%c(1,2)) %>%
+  # mutate(is_correct_first_crt2=case_when(is_correct_first&wordanswer_first!="none"~1,
+  #                                        TRUE ~ 0),
+  #        is_correct_second_crt2=case_when(is_correct_second&wordanswer_second!="none"~1,
+  #                                         TRUE~0),
+  #        is_correct_final_oneinrepeat = is_correct_first_crt2+is_correct_second_crt2==1 & wordcondi=="repeat",#only 1 correct
+  #        is_correct_final_twoinrepeat = is_bothcorrect & wordcondi=="repeat",#only 2 correct
+  #        is_correct_final_oneinunique =  is_correct_first_crt2+is_correct_second_crt2==1 & wordcondi=="unique"
+  #        )%>%
+  #should the following onecorrect in final test be at least one correct?!!!!!!!!
+  # mutate(OneCorrectInFinalTest=case_when(task%in%c("pretest_response","counting_response")~correct,
+  #                                        task=="finalt_response"~is_correct_final_oneinrepeat|is_correct_final_oneinunique),
+  #        AllCorrectInFinalTest=case_when(task%in%c("pretest_response","counting_response")~correct,
+  #                                        task=="finalt_response"~is_correct_final_twoinrepeat|is_correct_final_oneinunique))%>%
+  # mutate(task_numcorrect=case_when(task=="finalt_response"&OneCorrectInFinalTest~"FinalTest-OneCorrect",
+  #                                  task=="finalt_response"&AllCorrectInFinalTest~"FinalTest-BothCorrect",
+  #                                  task=="pretest_response"~"InitialTest",
+  #                                  task=="counting_response"~"counting",
+  #                                  TRUE~task))%>%
+  # mutate(correct = case_when(
+  #   task=="finalt_response" & wordcondi=="unique"~is_correct_final_oneinunique,
+  #   task=="finalt_response" & wordcondi=="repeat"~is_correct_first_crt2+is_correct_second_crt2,
+  #   TRUE~correct))%>%
+  mutate(listnumber_1to10=as.factor(listnumber_1to10))%>%
+  mutate(condition=case_when(condition=="b"~"backward",condition=="f"~"forward",condition=="r"~"random"))%>%
+  mutate(wordleft_correct_repeat=case_when(wordcondi=="repeat" & (word_left_i==wordanswer_first|word_left_i==wordanswer_second) ~ 1,
+                                    wordcondi=="repeat" & !(word_left_i==wordanswer_first|word_left_i==wordanswer_second) ~ 0,
+                                    TRUE ~ NA),
+         
+         wordright_correct_repeat=case_when(wordcondi=="repeat" & (word_right_i==wordanswer_first|word_right_i==wordanswer_second) ~ 1,
+                                     wordcondi=="repeat" & !(word_right_i==wordanswer_first|word_right_i==wordanswer_second) ~ 0,
+                                    TRUE ~ NA))%>%
+  pivot_longer(cols=c(wordleft_correct_repeat,wordright_correct_repeat),
+               names_to = "word_leftorright",
+               values_to = "correct_finaltest_repeat")%>%
+  mutate(word_leftorright = case_when(word_leftorright=="wordleft_correct_repeat"~"word_left",
+                                      word_leftorright=="wordright_correct_repeat"~"word_right"))%>%
+  filter(!(word_leftorright == "word_right" & !(wordcondi == "repeat" & task == "finalt_response")))%>%
+  mutate(word_leftorright=case_when(is.na(correct_finaltest_repeat)~"none",
+                                    TRUE~word_leftorright))%>%
+  mutate(correct = case_when(task=="finalt_response"& wordcondi=="repeat"~correct_finaltest_repeat,
+                             task=="finalt_response"& wordcondi=="unique"~ (word_left_i==wordanswer_first|word_left_i==wordanswer_second),
+                             TRUE~correct))%>%
+  filter(ip%notin%c("76.112.5.227"))%>%
+  mutate()
+
+
+dfchanged %>% 
+  filter(task%in%c("finalt_response")) %>%
+  # mutate(is_correct_final_oneinunique=as.numeric(is_correct_final_oneinunique))%>%
+  select(condition,ip,is_test_inpair1,is_test_inpair2,wordcondi,word_leftorright,correct_finaltest_repeat,correct,
+         word_response,wordchosen_finaltest)
+# dfchanged$correct_finaltest
+
+
+dfchanged%>% #check number of participant in each condition
+  filter(is_finished==1,codeversion%in%c(1,2))%>%
+  group_by(condition,PROLIFIC_PID)%>%
+  summarize(n=n())%>%
+  group_by(condition)%>%
+  summarize(n=n())
+
+dfchanged %>%
+  # filter(task=="finalt_response"&ct<0.25,trial==5)%>%
+  # filter(ip=="76.112.5.227")%>%
+  filter(listnumber_1to10==1,task=="finalt_response")%>%
+  select(ip,is_correct_first,wordcondi,is_correct_second,wordanswer_first,wordanswer_second,OneCorrectInFinalTest)%>%
+  mutate()
+
+dfchanged %>%
+  # filter(ip=="76.112.5.227")%>%
+  group_by(condition,ip,PROLIFIC_PID,all_accumulated_accuracy)%>%
+  summarize(mean(all_accumulated_accuracy))%>%
+  mutate()
+  
+```
+
+```{r}
+dfchanged %>% 
+  filter(task%in%c("finalt_response")) %>%
+  mutate(is_correct_final_oneinunique=as.numeric(is_correct_final_oneinunique))%>%
+  select(condition,ip,wordcondi,task,word_leftorright,correct_finaltest_repeat,is_correct_final_oneinunique,is_correct_first_crt2,is_correct_second_crt2,correct,
+         word_response,wordchosen_finaltest,is_uniquecorrect,wordanswer_first,wordanswer_second,word_left_i)
+```
+
+
+## calculate mean
+```{r}
+dfnew=
+  dfchanged %>% 
+  filter(task%in%c("pretest_response","finalt_response","counting_response")) %>%
+  # filter(task%in%c("pretest_response","finalt_response")) %>% 
+  mutate(trial = case_when(task=="counting_response"~as.factor(trialnum),
+                           TRUE~listnumber_1to10) ) %>%
+  group_by(condition,ip,trial,wordcondi,task) %>%
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task,wordcondi) %>% #average across lists (trial)
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()
+
+
+
+dfnew
+dfnew%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         group_by(condition,task,trial,wordcondi)%>%
+         summarize(ct=mean(ct))
+```
+
+Previous:
+
+
+ggplot(data=dfnew%>%
+         mutate(wordcondi=case_when(task=="counting_response"~"counting task, no wordcondition",
+                                    TRUE~wordcondi))%>%
+         filter(AccuracyCriteria=="AllCorrectInFinalTest")%>%
+         group_by(condition,ip,task,trial)%>%
+         summarize(ct=mean(ct))%>%
+         mutate()
+       )+
+  geom_point(aes(trial,ct,group=ip))+
+  geom_line(aes(trial,ct,group=interaction(task,ip),color=ip))+
+  facet_grid(task~condition)+
+  labs(title="Data by task and condition for each participant")+
+  theme(legend.position = "bottom")+theme(text = element_text(size = 20))
+  
+### throw out people
+```{r}
+# 47.158.129.211 excluded for low pretest, 68.225.203.42  low counting and final test 
+ggplot(data=dfnew%>%
+         mutate(wordcondi=case_when(task=="counting_response"~"counting task, no wordcondition",
+                                    TRUE~wordcondi))%>%
+         filter(ip!="76.112.5.227")%>%
+         # filter(AccuracyCriteria=="OneCorrectInFinalTest")%>%
+         group_by(condition,ip,task,trial)%>%
+         summarize(ct=mean(ct))%>%
+         mutate()
+       )+
+  geom_point(aes(trial,ct,group=ip))+
+  geom_line(aes(trial,ct,group=interaction(task,ip),color=ip))+
+  facet_grid(task~condition)+
+  labs(title="Data by task and condition for each participant")+
+  theme(legend.position = "bottom")+theme(text = element_text(size = 20))
+
+# df %>% filter(ip=="174.45.226.170")%>%group_by(condition,PROLIFIC_PID)%>%summarize(n=1)
+
+ggplot(data=dfnew%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         group_by(condition,task,trial,wordcondi)%>%
+         summarize(ct=mean(ct))%>%
+         mutate(wordcondi=case_when(task=="counting_response"~"counting task, no wordcondition",
+                                    TRUE~wordcondi))
+       )+
+  geom_point(aes(trial,ct))+
+  geom_line(aes(trial,ct,group=interaction(wordcondi,task),color=task,linetype=wordcondi),size=1)+
+  facet_grid(.~condition)+
+  labs(x="list number",y="accuracy")+theme(text = element_text(size = 20))
+```
+
+
+#  plot by is tested in intial 
+
+```{r}
+
+dfnew1=
+  dfchanged %>% 
+  # mutate(is_tested = (task=="finalt_response"& (is_test_inpair1=="1"|is_test_inpair2=="1"))|
+  #          task=="pretest_response"|(task=="finalt_response" & wordcondi=="unique") )%>%
+    mutate(is_tested = case_when(
+      task=="finalt_response"& word_leftorright=="word_left" ~ is_test_inpair1=="1",
+      task=="finalt_response"& word_leftorright=="word_right" ~ is_test_inpair2=="1",
+      task=="pretest_response" ~ is_test,
+      task=="counting_response"~1,
+      TRUE~ is_test
+      ))%>%
+  # pivot_longer(cols=c(is_test_inpair1,is_test_inpair2),names_to="")%>%
+  filter(task%in%c("pretest_response","finalt_response","counting_response")) %>%
+  # filter(task%in%c("pretest_response","finalt_response")) %>% 
+  mutate(trial = case_when(task=="counting_response"~as.factor(trialnum),
+                           TRUE~listnumber_1to10) ) %>%
+  group_by(condition,ip,trial,wordcondi,task,is_tested) %>%
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task,wordcondi,is_tested) %>% #average across lists (trial)
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()
+dfnew1$is_tested%>%summary()
+ggplot(data=dfnew1%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         group_by(condition,task,trial,wordcondi,is_tested)%>%
+         summarize(ct=mean(ct))%>%
+         mutate(wordcondi=case_when(task=="counting_response"~"counting task, no wordcondition",
+                                    TRUE~wordcondi))%>%
+         mutate(is_tested=as.factor(is_tested))
+       )+
+  geom_point(aes(trial,ct))+
+  geom_line(aes(trial,ct,group=interaction(wordcondi,is_tested),color=interaction(wordcondi),linetype=is_tested),size=1)+
+  facet_grid(task~condition)+
+  labs(x="list number",y="accuracy",color="word condition ",linetype="is tested in intial")+
+  theme(text = element_text(size = 20))
+  # scale_linetype_manual(values=c(4,1,2,3))
+```
+
+
+
+
+
+# plot by if it's first or second pair (left or right)
+```{r}
+dfnew3=
+  dfchanged %>% 
+  # mutate(is_tested = is_test_inpair1=="1"|is_test_inpair2=="1")%>%
+  # pivot_longer(cols=c(is_test_inpair1,is_test_inpair2),names_to="")%>%
+  filter(task%in%c("pretest_response","finalt_response","counting_response")) %>%
+  # filter(task%in%c("pretest_response","finalt_response")) %>% 
+  mutate(trial = case_when(task=="counting_response"~as.factor(trialnum),
+                           TRUE~listnumber_1to10) ) %>%
+  group_by(condition,ip,trial,wordcondi,task,word_leftorright) %>%
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task,wordcondi,word_leftorright) %>% #average across lists (trial)
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         group_by(condition,task,trial,wordcondi,word_leftorright)%>%
+         summarize(ct=mean(ct))%>%
+         mutate(wordcondi=case_when(task=="counting_response"~"counting task, no wordcondition",
+                                    TRUE~wordcondi))
+dfnew3%>%filter(task=="pretest_response",trial==1,condition=="backward")
+
+ggplot(data=dfnew3%>%filter(task=="finalt_response")%>%
+         mutate(word_leftorright=case_when(word_leftorright=="word_left"~"word studied in pair1",
+                                           word_leftorright=="word_right"~"word studied in pair2",
+                                           TRUE~word_leftorright))
+       )+
+  geom_point(aes(trial,ct))+
+  # geom_line(aes(trial,ct,group=interaction(wordcondi,word_leftorright),linetype=wordcondi),size=1)+
+  facet_grid(task~condition)+
+  geom_line(aes(trial,ct,group=interaction(wordcondi,word_leftorright),color=interaction(wordcondi,word_leftorright)),size=1)+
+  labs(x="list number",y="accuracy",color="Word Condition and if it's word from pair1or2")+
+  theme_minimal()+
+  theme(text = element_text(size = 20),legend.position = "bottom")+
+  theme()+
+   guides(
+    color = guide_legend(
+      title.position = "top",
+      nrow = 2  # Adjust the number of rows as needed
+    )
+  )
+  # scale_linetype_manual(values=c(3,1,2))
+```
+
+
+```{r}
+dfnew4=
+  dfchanged %>% 
+  # mutate(is_tested = is_test_inpair1=="1"|is_test_inpair2=="1")%>%
+  # pivot_longer(cols=c(is_test_inpair1,is_test_inpair2),names_to="")%>%
+  filter(task%in%c("pretest_response","finalt_response","counting_response")) %>%
+  # filter(task%in%c("pretest_response","finalt_response")) %>% 
+  mutate(trial = case_when(task=="counting_response"~as.factor(trialnum),
+                           TRUE~listnumber_1to10) ) %>%
+  group_by(condition,ip,trial,wordcondi,task,pairs_which_1or2) %>%
+  summarise(ct = mean(correct)) %>%
+  group_by(condition,ip,task,wordcondi,pairs_which_1or2) %>% #average across lists (trial)
+  mutate(ct = case_when(task=="counting_response"~mean(ct),
+                           TRUE~ct))%>%
+  ungroup()%>%
+         # filter(ip %notin% c("68.80.89.47"))%>%
+         group_by(condition,task,trial,wordcondi,pairs_which_1or2)%>%
+         summarize(ct=mean(ct))%>%
+         mutate(wordcondi=case_when(task=="counting_response"~"counting task, no wordcondition",
+                                    TRUE~wordcondi))
+dfnew3%>%filter(task=="pretest_response",trial==1,condition=="backward")
+
+ggplot(data=dfnew4%>%filter(task=="pretest_response")%>%
+         mutate(pairs_which_1or2=case_when(wordcondi=="unique"~0,
+                                           TRUE~pairs_which_1or2))
+       )+
+  geom_point(aes(trial,ct))+
+  # geom_line(aes(trial,ct,group=interaction(wordcondi,word_leftorright),linetype=wordcondi),size=1)+
+  facet_grid(task~condition)+
+  geom_line(aes(trial,ct,group=interaction(wordcondi,pairs_which_1or2),color=interaction(wordcondi,pairs_which_1or2)),size=1)+
+  labs(x="list number",y="accuracy",color="Word Condition and if it's word from pair1or2")+
+  theme_minimal()+
+  theme(text = element_text(size = 20),legend.position = "bottom")+
+  theme()+
+   guides(
+    color = guide_legend(
+      title.position = "top",
+      nrow = 2  # Adjust the number of rows as needed
+    )
+  )
+```
+
+
+
+# conditional plot
+  # mutate(
+  #     conditional_correct = case_when(
+  #       task == "finalt_response" ~ 
+  #         sapply(word_chosen, function(word) {
+  #           match_row <- which(word %in% df$word_chosen & df$task == "pretest_response")
+  #           if (length(match_row) > 0) {
+  #             df$correct[match_row[1]]
+  #           } else {
+  #             NA
+  #           }
+  #         }),
+  #       TRUE ~ NA_real_
+  #     )
+  #   )
+
+```{r}
+a1=dfchanged %>% 
+  mutate(word_chosen = case_when(task=="pretest_response"~wordchosen_initial,
+                                 task=="finalt_response" & wordcondi=="repeat"&word_leftorright=="word_left"~wordchosen_inpair1,
+                                 task=="finalt_response" & wordcondi=="repeat"&word_leftorright=="word_right"~wordchosen_inpair2,
+                                 task=="finalt_response" & wordcondi=="unique" ~ wordchosen_initial
+                                 ))%>%
+  select(condition,ip,trial_index,listnumber_1to10,wordcondi,task,word_chosen,correct)%>%filter(task%in%c("pretest_response","finalt_response"))
+a1
+a2=a1%>%
+  left_join(
+      a1 %>% filter(task == "pretest_response") %>% select(word_chosen, correct,ip,condition,listnumber_1to10),
+      by = c("word_chosen","ip","condition","listnumber_1to10"),
+      suffix = c("", "_pretest")
+    ) %>%
+  mutate(
+    conditional_correct = case_when(
+      task == "finalt_response" ~ correct_pretest,
+      TRUE ~ NA_real_
+    )
+  ) %>% filter(!is.na(conditional_correct))
+a2
+  # mutate()
+  # select(-correct_pretest)
+# %>%
+  # select(condition,ip,wordcondi,task,conditional_correct,word_chosen,correct_pretest,conditional_correct)%>%
+  # filter(task%in%c("pretest_response","finalt_response"))
+```
+
+
+```{r}
+dfnew4=
+  a2%>%
+  filter(task%in%c("finalt_response")) %>%
+  mutate(trial = listnumber_1to10 ) %>%
+  group_by(condition,ip,trial,wordcondi,task,conditional_correct) %>%
+  summarise(ct = mean(correct)) %>%
+  ungroup()%>%
+  group_by(condition,task,trial,wordcondi,conditional_correct)%>%
+  summarize(ct=mean(ct))
+dfnew4
+
+
+
+ggplot(data=dfnew4%>%filter(task=="finalt_response")       )+
+  geom_point(aes(trial,ct))+
+  # geom_line(aes(trial,ct,group=interaction(wordcondi,word_leftorright),linetype=wordcondi),size=1)+
+  facet_grid(task~condition)+
+  geom_line(aes(trial,ct,group=interaction(wordcondi,conditional_correct),color=interaction(wordcondi,conditional_correct)),size=1)+
+  labs(x="list number",y="accuracy",color="Word Condition and if correct in intial test ")+
+  theme_minimal()+
+  theme(text = element_text(size = 20),legend.position = "bottom")+
+  theme()+
+   guides(
+    color = guide_legend(
+      title.position = "top",
+      nrow = 2  # Adjust the number of rows as needed
+    )
+  )
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
