@@ -6,7 +6,8 @@ THis is a version of test finally used in first design
 ```{r}
 # library(Rmisc)
 library(dplyr)
-library(tidyverse)
+# library(tidyverse)
+library(tidyr)
 library(readr)
 '%notin%' <- function(x,y)!('%in%'(x,y));
 ```
