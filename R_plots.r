@@ -212,9 +212,10 @@ list_rt=ggplot(data=df_rt_list,aes(x=list_number,y=rt,group=interaction(is_targe
         text=element_text(size=20) # Increase font size globally
     )
 
-png(filename="plot1.png", width=800, height=600)
+png(filename="plot1.png", width=500, height=1200)
 # grid.arrange(p1,list_rt,p_in_20,testpos_rt,p_serial,p4,ncol = 2,nrow=3)
-grid.arrange(p1,p_in_20,p_serial,p4,ncol = 2,nrow=2)
+# grid.arrange(p1,p_in_20,p_serial,p4,ncol = 2,nrow=2)
+grid.arrange(p1,p_in_20,p_serial,ncol = 1,nrow=3)
 dev.off()
 # system("feh plot1.png &", wait = FALSE)      # if `feh` is installed
 # system("feh plot1.png",)      # if `feh` is installed

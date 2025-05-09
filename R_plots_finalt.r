@@ -147,7 +147,7 @@ allresf=read.csv("allresf.csv")
     # dev.set(3)  # Target window for Plot 1
 
  
-png(filename="plot2.png", width=800, height=600)
+png(filename="plot2.png", width=1100, height=1200)
 # grid.arrange(p1,list_rt,p_in_20,testpos_rt,p_serial,p4,ncol = 2,nrow=3)
     grid.arrange(pf1, pf4,ncol = 1,nrow=2)
 dev.off()
