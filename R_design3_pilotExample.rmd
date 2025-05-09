@@ -85,6 +85,12 @@ df_pltest3 %>% filter(is_finished==1, PROLIFIC_PID!="")%>%
 # df_pl%>%filter(subject_id=="566a19b57da035000fb39b89")%>%
 #   filter(task=="surveyatend")
 
+ 
+df_pl%>%
+  filter(is_finished==1)%>%
+  filter(subject_id!="")%>%
+  group_by(subject_id) %>%
+  summarise(n = n())
 
 ```
 
@@ -161,6 +167,8 @@ df_pl_combine%>%filter(subject_id%in%c("67dc712c511053c8d90e2c29","67eac4d6bf3d1
 dreal%>%group_by(subject_id)%>%
   summarize(n=n())
 ```
+
+
 ## dreal-finaldatasave- a full new way of binding
 ```{r}
 
@@ -170,30 +178,51 @@ full_file_path_er <- "/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.e
 full_file_path_backup <- "/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Prj_tmp/data/participants_trials_backup_backup.csv"
 
 # dreal_earlier = read.csv(full_file_path_er)%>% 
-passlist = c("673ccb0691efe91cd015dcf7","67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548")
+# the following are the 4 people who finished  the experiment in data file dreal_er, and they used the firebase version of only backup trials (i.e., not finished triales), they did not have the all_accumulated_accuracy attached as whole column, so need to assign manually
+##############3 participants_trials_backup_ealier.csv
+passlist = c("673ccb0691efe91cd015dcf7","67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548") 
+acc_accuray=c(0.5631313,0.5643939,0.6742424,0.8674242)
 dreal_er = read.csv(full_file_path_er)%>% 
   mutate(is_finished=case_when(subject_id%in%passlist ~ 1,
                                TRUE ~ is_finished))%>%
+  mutate(all_accumulated_accuracy=case_when(subject_id=="673ccb0691efe91cd015dcf7" ~ acc_accuray[1],
+                                            subject_id=="67dc712c511053c8d90e2c29" ~ acc_accuray[2],
+                                            subject_id=="67eac4d6bf3d1c4df7bd65df" ~ acc_accuray[3],
+                                            subject_id=="67ed4e79983b8a8ba5517548" ~ acc_accuray[4],
+                                            TRUE ~ all_accumulated_accuracy))%>%
   filter(is_finished==1)
 
+dreal_er%>%group_by(subject_id)%>%
+  summarize(n=n(),isf=mean(is_finished),acc=mean(all_accumulated_accuracy))
+# dreal_er%>%filter(!is.na(all_accumulated_accuracy))%>%select(subject_id,all_accumulated_accuracy)
 
-passlist2=c("5f9389fafdbecb173b329cca", "5fb39a485655aa025926ad30", "6307f3c967020d1202332b77", 
-  "63268ad93b6ecc1acf782a21", "63c1d184883ce15537788b40", "65c118f1cd19001157ace3a0", 
-  "66cfb3d040139a5cfd914312", "66e8661e0c5e57cda7bf2d39", "673a27fe372ce97a95aecf5c", 
-  "6741ce8667002c96f0362d34", "6751acc5dc78128951a34f1f", "67558204d75dd7351fe9d17e", 
-  "678c0d73fea9aaf55cd880be", "67c1a72590fcbf99458bb1f2", "67dc0e92b55a4d630f52e765", 
-  "67e069199f5b036960b0cc5f", "67e2fdf2d328f1e3dd7045b6", "67e8446d006a6c155f71bd2d", 
-  "67e9875c5b9b26c19a3bdf88", "67eaf90db55644f3c56fffa9", "67eb2ab3bd8cba1852857e2d", 
-  "67edb211a7c1d23c1535d6b2", "67eefac7eaf3702ddd603092", "67f05ce092cdcc0392692398", 
-  "67fff6438bb63725ca004b27")
+################# participants_trials_backup_backup.csv
+# passlist2=c("5f9389fafdbecb173b329cca", "5fb39a485655aa025926ad30", "6307f3c967020d1202332b77", 
+#   "63268ad93b6ecc1acf782a21", "63c1d184883ce15537788b40", "65c118f1cd19001157ace3a0", 
+#   "66cfb3d040139a5cfd914312", "66e8661e0c5e57cda7bf2d39", "673a27fe372ce97a95aecf5c", 
+#   "6741ce8667002c96f0362d34", "6751acc5dc78128951a34f1f", "67558204d75dd7351fe9d17e", 
+#   "678c0d73fea9aaf55cd880be", "67c1a72590fcbf99458bb1f2", "67dc0e92b55a4d630f52e765", 
+#   "67e069199f5b036960b0cc5f", "67e2fdf2d328f1e3dd7045b6", "67e8446d006a6c155f71bd2d", 
+#   "67e9875c5b9b26c19a3bdf88", "67eaf90db55644f3c56fffa9", "67eb2ab3bd8cba1852857e2d", 
+#   "67edb211a7c1d23c1535d6b2", "67eefac7eaf3702ddd603092", "67f05ce092cdcc0392692398", 
+#   "67fff6438bb63725ca004b27")
 
+mm=read.csv(full_file_path_backup)%>%filter(is_finished==1)%>%
+  group_by(subject_id)%>%
+  summarize(n=n(),isf=mean(is_finished),acc=mean(all_accumulated_accuracy))
+passlist2=mm$subject_id
+mm_allacc=read.csv(full_file_path_backup)%>%filter(!is.na(all_accumulated_accuracy))%>%
+  select(subject_id,all_accumulated_accuracy)
 
-dreal_backup = read.csv(full_file_path_backup)%>%filter(is_finished==1)%>%
+dreal_backup = read.csv(full_file_path_backup)%>% #%>%filter(is_finished==1)%>%
   mutate(is_finished=case_when(subject_id%in%passlist2 ~ 1,
                                TRUE ~ is_finished))%>%
-  filter(is_finished==1)
+  filter(is_finished==1)%>%arrange(subject_id)%>%
+  select(-all_accumulated_accuracy)%>%
+  left_join(mm_allacc,by="subject_id")
 
-
+dreal_backup%>%group_by(subject_id)%>%
+  summarize(n=n(),isf=mean(is_finished),acc=mean(all_accumulated_accuracy))
 
 dreal_backup 
 dreal0 = read.csv(full_file_path)
@@ -289,7 +318,12 @@ read.csv(full_file_path)%>%filter(subject_id=="680ebf035ab59d342f31726e")
 combined_df%>%
   select(subject_id,is_finished)%>%
   filter(subject_id=="67eac4d6bf3d1c4df7bd65df")
- 
+
+combined_df%>%
+  filter(is_finished==1)%>%
+  group_by(subject_id)%>%
+  summarize(n=n())
+  # filter(subject_id=="67dc0e92b55a4d630f52e765")
 
 
 ```
@@ -331,7 +365,7 @@ df_rt_pl =
   filter(is_finished==1)%>%
   mutate(rt=as.numeric(rt))%>%
   filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")%>%
-  filter(subject_id!=c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a"))%>%
+  filter(! subject_id%in%c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a"))%>% #accuracy too low
     filter(subject_id!="")%>%
   filter(!is.na(rt),rt<3000)%>%
   # filter(id!=)%>%
@@ -447,11 +481,13 @@ ggplot(data=d1ta)+
 
 df_pl %>% filter(subject_id=="67acacf033444654db29a196")
 
-df_pl_combine%>%filter(codeversion==2)
+# df_pl_combine%>%filter(codeversion==2)
 
 df_rt_pl%>%group_by(subject_id)%>%
   summarize(n=n(), acc=mean(all_accumulated_accuracy))%>%
   arrange(acc)
+
+combined_df%>%filter(subject_id=="6751acc5dc78128951a34f1f")%>%select(is_finished)
 # c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a") #final acc =0.2...
 ```
 
@@ -849,10 +885,10 @@ plot(mu, mu/sigma3)
 
 
 ## avg initial result
-# Use radiant's `radiant.plot` to display multiple plots in one chunk
+ Use radiant's `radiant.plot` to display multiple plots in one chunk
 library(radiant.plot)
 
-# Create a list of plots
+ Create a list of plots
 plots <- list(
   ggplot(data=d1ta) +
     geom_line(aes(x=listNum_appear0_initial, y=cr, group=interaction(task, colorskeme), color=colorskeme, linetype=colorskeme)) +
@@ -867,15 +903,11 @@ plots <- list(
     scale_color_manual(values=c("blue", "blue", "red", "green", "green", "purple", "purple"))
 )
 
-```{r}
-# dreal%>%
-#   filter(subject_id%in%c("67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548"))
-```
 
 ## dreal
 
 ```{r}
-d1ta=
+d1ta =
   f2_aligned%>%
 filter(task%in% c("initialTest_response","finalTest")) %>% 
   filter(is_finished==1)%>%
@@ -883,18 +915,10 @@ filter(task%in% c("initialTest_response","finalTest")) %>%
   # filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")%>%
     filter(subject_id!="")%>%
   filter(!is.na(rt),rt<3000)%>%
-  # filter(id!=)%>%
-      mutate(typecomment_in = case_when(current_assignmentTypesWithinList ==
-                                          "T_target" & is_currentObjAppear1=="true" ~"Target",
-                                is_currentObjAppear1==
-                                  "false" & type_comment=="current target, in next trial, 
-                                from last trial"  ~ "Inherented Foil - Last Target",
-                                                                is_currentObjAppear1==
-                                  "false" & type_comment=="studied only, in next trial, 
-                                from last trial"  ~ "Inherented Foil - Last Studied Only",
-                                                                is_currentObjAppear1=="false" &
-                                  type_comment=="tested only,
-                                in next trial, from last trial"  ~ "Inherented Foil - Last Foil",
+      mutate(typecomment_in = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target",
+                                is_currentObjAppear1=="false" & type_comment=="current target, in next trial, from last trial"  ~ "Inherented Foil - Last Target",
+                                                                is_currentObjAppear1=="false" & type_comment=="studied only, in next trial, from last trial"  ~ "Inherented Foil - Last Studied Only",
+                                                                is_currentObjAppear1=="false" & type_comment=="tested only, in next trial, from last trial"  ~ "Inherented Foil - Last Foil",
                                 
                                   current_assignmentTypesWithinList =="T_foil"  ~"New Foil"))%>%
   filter(!is.na(rt),rt<3000)%>%
@@ -902,12 +926,12 @@ filter(task%in% c("initialTest_response","finalTest")) %>%
   # mutate(colorskeme=type_comment)%>%
   mutate(colorskeme=typecomment_in)%>%
          group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
-         summarise(cr = mean(correct))%>%
-         group_by(task, condition, listNum_appear0_initial,colorskeme)%>%
+         summarise(cr = mean(correct)) %>%group_by(task, condition, listNum_appear0_initial,colorskeme)%>%
          summarise(cr = mean(cr))%>%
   mutate(listNum_appear0_initial=as.factor(listNum_appear0_initial))
   # mutate(type_comment=as.factor(type_comment))
 
+#############################3PLOT
 levelsStr = c("New Foil", "Target", "Inherented Foil - Last Foil" ,
              "Inherented Foil - Last Target" ,"Inherented Foil - Last Studied Only") 
 ggplot(data=d1ta)+
@@ -923,20 +947,12 @@ ggplot(data=d1ta)+
 ```
 
 ```{r}
-df_rt_pl%>%
-  # filter(subject_id%in%c("67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548"))%>%
-# d1ta = df_pl3%>%
-  # filter(listNum_appear0_initial!=1 )%>%
-# d1ta = df_pl2%>% 
-  filter(!is.na(rt),rt<3000)%>%
-  filter(task=="initialTest_response")%>%
-  # mutate(colorskeme=type_comment)%>%
-  mutate(colorskeme=typecomment_in)%>%
-         group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
-         summarise(cr = mean(correct))%>%
-  group_by(subject_id)%>%
-  summarise(n=n())
+f2_aligned%>%group_by(subject_id)%>%
+  summarize(n=n())
 ```
+
+
+
 
 
 ## *Display all plots
@@ -1240,6 +1256,7 @@ levelsStr_fn = c("Target: studied and tested at (n), Foil (n+1)",
 )
 
 ############ First plot
+
 d1taf = df_rt_pl%>% 
   mutate(correct=case_when(correct=="True"~1,
                            correct=="False"~0,
@@ -1294,7 +1311,8 @@ d1taf = df_rt_pl%>%
          group_by(task, condition,type_comment, listNum_infinalOrder, subject_id)%>%
          summarise(cr = mean(correct))%>%
          group_by(task, condition,type_comment, listNum_infinalOrder)%>%
-         summarise(cr = mean(cr))
+         summarise(cr = mean(cr))%>%
+  mutate(listNum_infinalOrder=as.integer(listNum_infinalOrder))
 
 
 ggplot(data=d1taf)+

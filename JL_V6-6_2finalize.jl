@@ -256,7 +256,7 @@ nC = w_context - nU
 
 
 is_finaltest = true
-n_simulations = is_finaltest ? 20 : 20;
+n_simulations = is_finaltest ? 200 : 100;
 # n_simulations= 50v
 context_tau = 100#foil odds should lower than this  
 firststg_allctx = false; #cancle this
@@ -309,14 +309,12 @@ const g_context = 0.3; #0.3 originallly geometric base rate of context, or 0.2
 n_grade = 2 #only first to be special 
 
 # u_star = vcat(0.09, ones(n_lists-1) * 0.06)
-u_star = vcat(0.06, ones(n_lists-1) * 0.06)
+u_star = vcat(0.05, ones(n_lists-1) * 0.05)
 # u_star = ones(n_words)*0.04; # Probability of storage 
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
-
-# u_star_context = vcat(LinRange(0.08, 0.08, n_grade), ones(n_words - n_grade) .* 0.045) # currently make inital storage, restorage to have the last u_star_context value. The strenghtened item has its own parameter prob store.  
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
-u_star_context=vcat(0.08, ones(n_lists-1)*0.05)
+u_star_context=vcat(0.09, ones(n_lists-1)*0.05)
 
 const n_units_time = 13#number of steps                                                                                                                                                                                                                        
 n_units_time_restore = n_units_time #only applies for adding traces now. 
@@ -346,8 +344,9 @@ const c_context = c
 is_restore_initial = true
 is_UnchangeCtxDriftAndReinstate = true
 
-criterion_final = LinRange(0.18, 0.23, 10)
-final_gap_change = 0.2; #0.21
+# criterion_final = LinRange(0.18, 0.23, 10)
+criterion_final = LinRange(0.5, 0.6, 10)
+final_gap_change = 0.1; #0.21
 
 context_tau_final = 100 #0.20.2 above if this is 10
 is_restore_final = true#followed by the next
@@ -1573,10 +1572,10 @@ CSV.write(csv_path1, DF)
 CSV.write(csv_path2, all_results)
 
 run(`Rscript R_plots.r`)
+run(`bash -c "feh plot1.png &"`)
 
 if is_finaltest
     CSV.write(csv_path3, allresf)
     run(`Rscript R_plots_finalt.r`)
+    run(`bash -c "feh plot2.png &"`)
 end
-run(`bash -c "feh plot1.png &"`)
-run(`bash -c "feh plot2.png &"`)
