@@ -355,6 +355,12 @@ levels(as.factor(df_pl$type_comment ))
 
 ```
 
+```{r}
+# df_rt_pl%>%
+#   filter(codeversion!=1)%>%
+#   group_by(subject_id)%>%
+#   summarize(n=n())
+```
 
 ## data clean
 ```{r}
@@ -369,7 +375,7 @@ df_rt_pl =
     filter(subject_id!="")%>%
   filter(!is.na(rt),rt<3000)%>%
   # filter(id!=)%>%
-    select(task,subject_id,  rt, condition, stimulusConditions, stimulusConditionName_nPlusOneTrial, listNum_appear0_initial,correct,type_comment,listNum_infinalOrder,listNum_appear1_initial,listNum_appear2_initial, anRepeatedItem, testPos_final,testPos_appear0_initial,testPos_appear1_initial,testPos_appear2_initial,studyPos_appear0_initial,studyPos_appear1_initial,studyPos_appear2_initial ,is_finished,all_accumulated_accuracy, type_code_studiedCurr,type_code_testiedCurr,type_code_testiedNext,is_currentObjAppear1,current_assignmentTypesWithinList,listNum_infinalOrder, stimulusConditions)%>%
+    # select(id_picName,codeversion,task,subject_id,  rt, condition, stimulusConditions, stimulusConditionName_nPlusOneTrial, listNum_appear0_initial,correct,type_comment,listNum_infinalOrder,listNum_appear1_initial,listNum_appear2_initial, anRepeatedItem, testPos_final,testPos_appear0_initial,testPos_appear1_initial,testPos_appear2_initial,studyPos_appear0_initial,studyPos_appear1_initial,studyPos_appear2_initial ,is_finished,all_accumulated_accuracy, type_code_studiedCurr,type_code_testiedCurr,type_code_testiedNext,is_currentObjAppear1,current_assignmentTypesWithinList,listNum_infinalOrder, stimulusConditions, correct_appear2,correct_appear1)%>%
     mutate(type_comment_fn=case_when(
                                 stimulusConditions=="B"~
                                   "Target: : started and tested at (n) ; Appear once",
@@ -1045,7 +1051,7 @@ ggplot(data=d1ta)+
   scale_color_manual(values=c("blue","green","blue","green","purple","green","purple"))
 
 d1ta = df_rt_pl%>% 
-  
+  filter(codeversion!=1)%>%
   filter(listNum_appear0_initial!=1 )%>%
   filter(task=="initialTest_response")%>%
     mutate(type_comment = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
@@ -1063,6 +1069,7 @@ ggplot(data=d1ta)+
   facet_grid(.~task)
   # scale_color_manual(values=c("blue","green","green","green","purple"))
 d1ta = df_rt_pl%>%
+  filter(codeversion!=1)%>%
   filter(listNum_appear0_initial!=1 )%>%
   filter(task=="initialTest_response")%>%
     mutate(type_comment = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
@@ -1243,10 +1250,7 @@ f2_aligned %>%
          summarise(cr = mean(cr))
 ```
 
-
-## FINAL plot 
-```{r,fig.width=8, fig.height=5}
-levelsStr_fn = c("Target: studied and tested at (n), Foil (n+1)", 
+c("Target: studied and tested at (n), Foil (n+1)", 
                  "Studied-only (n); Foil (n+1)", 
              "Target: : started and tested at (n) ; Appear once" ,
              "Foil(n), Foil (n+1)",
@@ -1254,6 +1258,9 @@ levelsStr_fn = c("Target: studied and tested at (n), Foil (n+1)",
              "Studied-only (n); Appear once",
              "Final Foil"
 )
+## FINAL plot 
+```{r,fig.width=8, fig.height=5}
+levelsStr_fn = levels(as.factor(df_rt_pl$type_comment_fn))
 
 ############ First plot
 
@@ -1268,6 +1275,7 @@ d1taf = df_rt_pl%>%
   mutate(type_comment=type_comment_fn)%>%
          group_by(task, condition,type_comment, listNum_appear1_initial, subject_id)%>%
          summarise(cr = mean(correct))%>%
+         # summarise(cr = median(correct))%>%
          group_by(task, condition,type_comment, listNum_appear1_initial)%>%
          summarise(cr = mean(cr))
 
@@ -1370,6 +1378,244 @@ ggplot(data=d1taf)+
 
 ```
 
+
+
+# df_pl_with_init
+```{r}
+df_pl%>%
+  filter(is_finished==1)%>%
+  mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  filter(task=="finalTest")%>%
+  mutate(correct_appear1=case_when(correct_appear1=="true"~1,
+                                   correct_appear1=="false"~0,
+                                   TRUE ~ 999) )%>%
+  filter(stimulusConditions %in% c("Cn","Dn","Fnn") & listNum_appear1_initial!=10)%>%
+  select(task,condition,type_comment,stimulusConditions ,correct_appear1,correct_appear2,listNum_appear1_initial)
+
+### Below assign intialScore to finalT
+initial_scores <-
+  # df_rt_pl %>%
+  df_rt_pl %>%
+  filter(task == "initialTest_response") %>% 
+  filter(!(stimulusConditionName_nPlusOneTrial=="Cn+1" & listNum_appear0_initial!=10), #those appear first time for study only
+         !(stimulusConditionName_nPlusOneTrial=="Dn+1" & listNum_appear1_initial!=10),
+         !(stimulusConditionName_nPlusOneTrial=="Fnn+1" & listNum_appear1_initial!=10)
+         )%>% #have checked, after this step, each id_pic is unique for each sub, so don't worry below first()
+  group_by(subject_id, id_picName) %>% 
+  summarize(
+    correct_appear1 = first(correct_appear1),
+    correct_appear2 = first(correct_appear2),
+    listNum_appear1_initial = first(listNum_appear1_initial),
+    listNum_appear2_initial = first(listNum_appear2_initial),
+    .groups = "drop"
+  )
+
+#double check to make sure unique appears , need to assign initail_scores for the lines before (group_by)
+# initial_scores %>%
+#   group_by(subject_id, id_picName) %>%
+#   mutate(n=n())%>%
+#   filter(n > 1) %>%
+#   select(subject_id,id_picName,stimulusConditions, stimulusConditionName_nPlusOneTrial,listNum_appear1_initial,listNum_appear2_initial,n)
+
+df_pl_with_init <-
+# 0.009 (~1% data deon'st have initial score, prob they all are those that didn't have an rt (null)
+  df_rt_pl %>%
+  filter(task=="finalTest")%>%
+    select(-correct_appear1,-correct_appear2, -listNum_appear1_initial, -listNum_appear2_initial)%>%
+    # select(-correct_appear1,-correct_appear2)%>%
+  left_join(initial_scores, by = c("subject_id","id_picName")) #%>%
+  # filter(!( !complete.cases(correct_appear1,correct_appear2) & ! (stimulusConditions %in% c("FF","A")) ))%>%
+     # select(task,subject_id,id_picName,stimulusConditions,correct_appear1,correct_appear2,listNum_appear1_initial.x,listNum_appear1_initial.y, listNum_appear2_initial)
+
+
+# df_rt_pl %>% filter(task=="initialTest_response")%>%
+#   # filter(!(stimulusConditions%in%c("A") ))%>%
+#    filter(correct_appear1=="null",correct_appear2=="null")
+# 4% data is null , prob they all are those that didn't have an rt (null)
+# df_pl_with_init%>%
+#   filter(!(stimulusConditions%in%c("A","FF") ))%>% #filter out that of conditon study only
+#     select(subject_id,id_picName,stimulusConditions,correct_appear1,correct_appear2,listNum_appear1_initial)%>%
+#   filter(!complete.cases(correct_appear1,correct_appear2))
+
+# df_rt_pl%>%filter(subject_id=="66436e0c091888a5fc85584e" & id_picName=="1 (2170).jpg")%>% #filter out that of conditon study only
+#     select(task,subject_id,id_picName,stimulusConditions,correct_appear1,correct_appear2,listNum_appear1_initial)
+# 
+# 
+# df_pl%>%filter(subject_id=="66436e0c091888a5fc85584e" & listNum_appear0_initial==3)%>% #filter out that of conditon study only
+#   filter(task=="initialTest_response")%>%
+#     select(task,subject_id,id_picName,rt, correct,stimulusConditions,correct_appear1,correct_appear2,listNum_appear1_initial)
+# df_pl%>%filter(subject_id=="67cb5baef51d73572cb490ae")
+```
+
+
+
+
+## FINAL combined
+```{r}
+levelsStr_fn = levels(as.factor(df_rt_pl$type_comment_fn))
+
+############ Plot for that in final order
+#all types: Cn=0-1, Dn=1-1, Fnn=1-1, Fn=1-0, A=0-0, B=1-0
+
+df_finalFoil_toappend = df_pl_with_init%>% 
+  mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  filter(task=="finalTest",stimulusConditions=="FF")%>%
+  mutate(type_comment="Final F" ) %>%
+  mutate(correct_appear_label = " Final Foil")%>%
+  mutate(init_outcome = 999)%>% #first or second time in initail correct =0 becuase didn't appear
+  select(task, condition,type_comment, listNum_infinalOrder, subject_id,init_outcome,correct_appear_label, correct)
+
+d1taf = df_pl_with_init%>% 
+  mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  filter(task=="finalTest")%>%
+  mutate(correct_appear1=case_when(correct_appear1=="true"~1,
+                                   correct_appear1=="false"~0,
+                                   TRUE ~ 5 ) )%>%
+    mutate(correct_appear2=case_when(correct_appear2=="true"~1,
+                                   correct_appear2=="false"~0,
+                                   TRUE ~ 5 ) )%>%
+  mutate(type_comment = "Final T" )%>% #these are all final targets
+  pivot_longer(cols=c(correct_appear1,correct_appear2),names_to="correct_appear_label",values_to="init_outcome")%>%
+    # mutate(listNum_appear1_initial=listNum_appear1_initial)%>%
+  select(task, condition,type_comment, listNum_infinalOrder, subject_id,init_outcome,correct_appear_label,correct)%>%
+  #bind rows from df_finalFoil_toappend
+  bind_rows(df_finalFoil_toappend)%>%
+  mutate(correct_appear_label=case_when(correct_appear_label=="correct_appear1"~"Target - by first appearance correction",
+                                        correct_appear_label=="correct_appear2"~"Target - by second appearance correction",
+                                        TRUE ~ correct_appear_label) )%>%
+  filter(init_outcome!=5)%>% #take away the null for correct_appear both
+  mutate(correct_appear1=init_outcome)%>%
+  mutate(correct_appear1=case_when(correct_appear1==1~"Corrected Initial",
+                                        correct_appear1==0 ~ "Wrong Initial",
+                                   correct_appear1==999 ~"[Final FOIL initial not appear]",
+                                        TRUE ~ "MISS") )%>%
+  # mutate(listNum_appear1_initial=listNum_appear1_initial)%>%
+  mutate(listNum_appear1_initial=listNum_infinalOrder)%>%
+  # filter(type_comment_fn=="Target: : started and tested at (n) ; Appear once")%>%
+  # mutate(listNum_appear1_initial=as.numeric(listNum_infinalOrder),
+  #        case_when(is.na(listNum_appear1_initial)~0,
+  #                  TRUE ~ listNum_appear1_initial))%>%
+  # mutate(type_comment=type_comment_fn)%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial, subject_id,correct_appear1,correct_appear_label)%>%
+  #add calculation of sd (or se?) as well below 
+         # summarise(cr = median(correct),se_cr = sd(correct,na.rm = TRUE) / sqrt(n()))%>%
+         summarise(cr = mean(correct),se_cr = sd(correct,na.rm = TRUE) / sqrt(n()))%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial,correct_appear1,correct_appear_label)%>%
+         summarise(cr = mean(cr), se_cr = mean(se_cr))%>%
+  mutate(correct_appear1=as.factor(correct_appear1),correct_appear_label=as.factor(correct_appear_label))%>%
+  mutate(listNum_appear1_initial=as.integer(listNum_appear1_initial))
+
+
+
+ggplot(data=d1taf)+
+  geom_line(aes(x=listNum_appear1_initial, y= cr ,group=interaction(task,type_comment,correct_appear1,correct_appear_label ),color= type_comment,linetype=correct_appear1),size=1)+ 
+  
+    geom_point(aes(x=listNum_appear1_initial, y= cr ,group=interaction(task,type_comment,correct_appear1,correct_appear_label  ),color= type_comment,shape=correct_appear1),size=4)+ 
+  facet_grid(.~task)+ 
+  # scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="purple","Studied-only (n); Foil (n+1)"="green", 
+  #            "Target: : started and tested at (n) ; Appear once" ="purple",
+  #            "Foil(n), Foil (n+1)" ="blue",
+  #            "Foil(n); Appear once" ="blue", 
+  #            "Studied-only (n); Appear once" = "green",
+  #            "Final Foil"="red" ),breaks=levelsStr_fn )+
+  # scale_shape_discrete(breaks=levelsStr_fn)+
+  # scale_linetype_discrete(breaks=levelsStr_fn)+
+  #set x axis break to be descrete 1-10
+  scale_x_continuous(breaks=1:10,labels=as.character(1:10))+
+  theme(main="Final Teste by intial position chunk")+
+  facet_grid(.~correct_appear_label)
+  # theme_classic()
+
+
+##############################3 Initial Order
+
+df_finalFoil_toappend = df_pl_with_init%>% 
+  mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  filter(task=="finalTest",stimulusConditions=="FF")%>%
+  mutate(type_comment="Final F" ) %>%
+  mutate(correct_appear_label = " Final Foil")%>%
+  mutate(init_outcome = 999)%>% #first or second time in initail correct =0 becuase didn't appear
+  select(task, condition,type_comment, listNum_appear1_initial, subject_id,init_outcome,correct_appear_label, correct)
+
+ditaf_in_order = df_pl_with_init%>% 
+  mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  filter(task=="finalTest")%>%
+  mutate(correct_appear1=case_when(correct_appear1=="true"~1,
+                                   correct_appear1=="false"~0,
+                                   TRUE ~ 5 ) )%>%
+    mutate(correct_appear2=case_when(correct_appear2=="true"~1,
+                                   correct_appear2=="false"~0,
+                                   TRUE ~ 5 ) )%>%
+  mutate(type_comment = "Final T" )%>% #these are all final targets
+  pivot_longer(cols=c(correct_appear1,correct_appear2),names_to="correct_appear_label",values_to="init_outcome")%>%
+    mutate(listNum_appear1_initial=listNum_appear1_initial)%>%
+  select(task, condition,type_comment, listNum_appear1_initial, subject_id,init_outcome,correct_appear_label,correct)%>%
+  #bind rows from df_finalFoil_toappend
+  bind_rows(df_finalFoil_toappend)%>%
+  mutate(correct_appear_label=case_when(correct_appear_label=="correct_appear1"~"Target - by first appearance correction",
+                                        correct_appear_label=="correct_appear2"~"Target - by second appearance correction",
+                                        TRUE ~ correct_appear_label) )%>%
+  filter(init_outcome!=5)%>% #take away the null for correct_appear both
+  mutate(correct_appear1=init_outcome)%>%
+  mutate(correct_appear1=case_when(correct_appear1==1~"Corrected Initial",
+                                        correct_appear1==0 ~ "Wrong Initial",
+                                   correct_appear1==999 ~"[Final FOIL initial not appear]",
+                                        TRUE ~ "MISS") )%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial, subject_id,correct_appear1,correct_appear_label)%>%
+         summarise(cr = mean(correct),se_cr = sd(correct,na.rm = TRUE) / sqrt(n()))%>%
+         group_by(task, condition,type_comment, listNum_appear1_initial,correct_appear1,correct_appear_label)%>%
+         summarise(cr = mean(cr), se_cr = mean(se_cr))%>%
+  mutate(correct_appear1=as.factor(correct_appear1),correct_appear_label=as.factor(correct_appear_label))%>%
+  mutate(listNum_appear1_initial=as.integer(listNum_appear1_initial))
+
+
+
+ggplot(data=ditaf_in_order)+
+  geom_line(aes(x=listNum_appear1_initial, y= cr ,group=interaction(task,type_comment,correct_appear1,correct_appear_label ),color= type_comment,linetype=correct_appear1),size=1)+ 
+  
+    geom_point(aes(x=listNum_appear1_initial, y= cr ,group=interaction(task,type_comment,correct_appear1,correct_appear_label  ),color= type_comment,shape=correct_appear1),size=4)+ 
+  facet_grid(.~task)+ 
+  # scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="purple","Studied-only (n); Foil (n+1)"="green", 
+  #            "Target: : started and tested at (n) ; Appear once" ="purple",
+  #            "Foil(n), Foil (n+1)" ="blue",
+  #            "Foil(n); Appear once" ="blue", 
+  #            "Studied-only (n); Appear once" = "green",
+  #            "Final Foil"="red" ),breaks=levelsStr_fn )+
+  # scale_shape_discrete(breaks=levelsStr_fn)+
+  # scale_linetype_discrete(breaks=levelsStr_fn)+
+  #set x axis break to be descrete 1-10
+  scale_x_continuous(breaks=1:10,labels=as.character(1:10))+
+  theme(main="Final Teste by intial position chunk")+
+  facet_grid(.~correct_appear_label)
+  # theme_classic()
+
+############################Combined plot
+
+d1taf_combined= d1taf %>% 
+  mutate(which_order="Final Test Order")%>%
+  bind_rows(ditaf_in_order %>% mutate(which_order="Initial Test Order")) 
+  
+ggplot(data=d1taf_combined)+
+  geom_line(aes(x=listNum_appear1_initial, y= cr ,group=interaction(task,type_comment,correct_appear1,correct_appear_label,which_order ),color= type_comment,linetype=correct_appear1),size=1)+ 
+  
+    geom_point(aes(x=listNum_appear1_initial, y= cr ,group=interaction(task,type_comment,correct_appear1,correct_appear_label,which_order  ),color= type_comment,shape=correct_appear1),size=4)+ 
+  facet_grid(.~task)+ 
+  scale_x_continuous(breaks=1:10,labels=as.character(1:10))+
+  theme(main="Final Teste by intial position chunk")+
+  # facet_grid(which_order~correct_appear_label)
+  facet_wrap(which_order ~ correct_appear_label, ncol=3)
+  # theme_classic()
+```
 
 
 
@@ -1641,5 +1887,4 @@ Target studied from current list                     0.00814
   # Display results
   bayesian_results %>%
     select(colorskeme, bf_value)
-
 ```
