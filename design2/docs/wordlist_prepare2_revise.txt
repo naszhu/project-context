@@ -1,0 +1,181 @@
+word1	first2	first3	Word2	first2	first3	same first two 	sane first three	same with next	numletter1	numletter2	problem					
+about	ab	abo	abrupt	ab	abr	TRUE	FALSE	FALSE	5	6						
+acurate	ac	acu	actor	ac	act	TRUE	FALSE	FALSE	7	5						
+addict	ad	add	adhere	ad	adh	TRUE	FALSE	FALSE	6	6						
+affirm	af	aff	after	af	aft	TRUE	FALSE	FALSE	6	5						
+agenda	ag	age	agony	ag	ago	TRUE	FALSE	FALSE	6	5						
+aimful	ai	aim	airport	ai	air	TRUE	FALSE	FALSE	6	7						
+alive	al	ali	allow	al	all	TRUE	FALSE	FALSE	5	5						
+amount	am	amo	amber	am	amb	TRUE	FALSE	FALSE	6	5						
+anchor	an	anc	answer	an	ans	TRUE	FALSE	FALSE	6	6						
+appeal	ap	app	apart	ap	apa	TRUE	FALSE	FALSE	6	5						
+arrange	ar	arr	argue	ar	arg	TRUE	FALSE	FALSE	7	5						
+ascend	as	asc	asset	as	ass	TRUE	FALSE	FALSE	6	5						
+attempt	at	att	atomic	at	ato	TRUE	FALSE	FALSE	7	6						
+audit	au	aud	aurora	au	aur	TRUE	FALSE	FALSE	5	6						
+avoid	av	avo	average	av	ave	TRUE	FALSE	FALSE	5	7						
+awake	aw	awa	awesome	aw	awe	TRUE	FALSE	FALSE	5	7						
+banana	ba	ban	bagel	ba	bag	TRUE	FALSE	FALSE	6	5						
+become	be	bec	better	be	bet	TRUE	FALSE	FALSE	6	6						
+bicycle	bi	bic	binary	bi	bin	TRUE	FALSE	FALSE	7	6						
+blossom	bl	blo	blast	bl	bla	TRUE	FALSE	FALSE	7	5						
+bonfire	bo	bon	boring	bo	bor	TRUE	FALSE	FALSE	7	6						
+bridge	br	bri	breeze	br	bre	TRUE	FALSE	FALSE	6	6						
+bundle	bu	bun	button	bu	but	TRUE	FALSE	FALSE	6	6						
+carrot	ca	car	camera	ca	cam	TRUE	FALSE	FALSE	6	6						
+cereal	ce	cer	census	ce	cen	TRUE	FALSE	FALSE	6	6						
+charm	ch	cha	chess	ch	che	TRUE	FALSE	FALSE	5	5						
+cigar	ci	cig	circle	ci	cir	TRUE	FALSE	FALSE	5	6						
+clock	cl	clo	climate	cl	cli	TRUE	FALSE	FALSE	5	7						
+corner	co	cor	concert	co	con	TRUE	FALSE	FALSE	6	7						
+crane	cr	cra	crisp	cr	cri	TRUE	FALSE	FALSE	5	5						
+cuddle	cu	cud	curfew	cu	cur	TRUE	FALSE	FALSE	6	6						
+cycle	cy	cyc	cyber	cy	cyb	TRUE	FALSE	FALSE	5	5						
+daisy	da	dai	dazzle	da	daz	TRUE	FALSE	FALSE	5	6	is dazzle commonly used?					
+decide	de	dec	degree	de	deg	TRUE	FALSE	FALSE	6	6						
+diamond	di	dia	dictate	di	dic	TRUE	FALSE	FALSE	7	7						
+double	do	dou	dolphin	do	dol	TRUE	FALSE	FALSE	6	7						
+dragon	dr	dra	drink	dr	dri	TRUE	FALSE	FALSE	6	5						
+dubious	du	dub	durable	du	dur	TRUE	FALSE	FALSE	7	7						
+dwarf	dw	dwa	dwell	dw	dwe	TRUE	FALSE	FALSE	5	5						
+eagle	ea	eag	early	ea	ear	TRUE	FALSE	FALSE	5	5						
+ecology	ec	eco	eclipse	ec	ecl	TRUE	FALSE	FALSE	7	7						
+editor	ed	edi	educate	ed	edu	TRUE	FALSE	FALSE	6	7						
+eight	ei	eig	either	ei	eit	TRUE	FALSE	FALSE	5	6						
+element	el	ele	elastic	el	ela	TRUE	FALSE	FALSE	7	7						
+embrace	em	emb	employ	em	emp	TRUE	FALSE	FALSE	7	6						
+engine	en	eng	energy	en	ene	TRUE	FALSE	FALSE	6	6						
+episode	ep	epi	epoch	ep	epo	TRUE	FALSE	FALSE	7	5						
+error	er	err	erupt	er	eru	TRUE	FALSE	FALSE	5	5						
+essence	es	ess	escape	es	esc	TRUE	FALSE	FALSE	7	6						
+eternal	et	ete	ethical	et	eth	TRUE	FALSE	FALSE	7	7						
+euphoria	eu	eup	euler	eu	eul	TRUE	FALSE	FALSE	8	5	these words commonly used?					
+fabric	fa	fab	favor	fa	fav	TRUE	FALSE	FALSE	6	5						
+feather	fe	fea	fellow	fe	fel	TRUE	FALSE	FALSE	7	6						
+figure	fi	fig	fitness	fi	fit	TRUE	FALSE	FALSE	6	7						
+flute	fl	flu	flower	fl	flo	TRUE	FALSE	FALSE	5	6						
+fountain	fo	fou	forgot	fo	for	TRUE	FALSE	FALSE	8	6						
+fragile	fr	fra	front	fr	fro	TRUE	FALSE	FALSE	7	5						
+fulfill	fu	ful	future	fu	fut	TRUE	FALSE	FALSE	7	6						
+gamble	ga	gam	gallaxy	ga	gal	TRUE	FALSE	FALSE	6	7						
+general	ge	gen	gesture	ge	ges	TRUE	FALSE	FALSE	7	7						
+giggle	gi	gig	ginger	gi	gin	TRUE	FALSE	FALSE	6	6						
+glacier	gl	gla	global	gl	glo	TRUE	FALSE	FALSE	7	6						
+gothic	go	got	goggle	go	gog	TRUE	FALSE	FALSE	6	6						
+grape	gr	gra	great	gr	gre	TRUE	FALSE	FALSE	5	5						
+guitar	gu	gui	guess	gu	gue	TRUE	FALSE	FALSE	6	5						
+hammer	ha	ham	harvest	ha	har	TRUE	FALSE	FALSE	6	7						
+heavy	he	hea	height	he	hei	TRUE	FALSE	FALSE	5	6						
+hidden	hi	hid	hinder	hi	hin	TRUE	FALSE	FALSE	6	6						
+house	ho	hou	horse	ho	hor	TRUE	FALSE	FALSE	5	5						
+humble	hu	hum	hurry	hu	hur	TRUE	FALSE	FALSE	6	5						
+hydra	hy	hyd	hybride	hy	hyb	TRUE	FALSE	FALSE	5	7	is hydra commonly used?					
+ideal	id	ide	idiom	id	idi	TRUE	FALSE	FALSE	5	5	can't find other alternative words					
+ignore	ig	ign	ignite	ig	ign	TRUE	TRUE	FALSE	6	6	hard to find third letter different 					
+illness	il	ill	illicit	il	ill	TRUE	TRUE	FALSE	7	7	"first 3 letters same, hard to find that is not"					
+impact	im	imp	imagine	im	ima	TRUE	FALSE	FALSE	6	7						
+infant	in	inf	insect	in	ins	TRUE	FALSE	FALSE	6	6						
+island	is	isl	isolate	is	iso	TRUE	FALSE	FALSE	6	7						
+italic	it	ita	itself	it	its	TRUE	FALSE	FALSE	6	6						
+jacket	ja	jac	japan	ja	jap	TRUE	FALSE	FALSE	6	5						
+jealous	je	jea	jewelry	je	jew	TRUE	FALSE	FALSE	7	7						
+joyful	jo	joy	journal	jo	jou	TRUE	FALSE	FALSE	6	7						
+jungle	ju	jun	jumble	ju	jum	TRUE	FALSE	FALSE	6	6						
+kettle	ke	ket	keypad	ke	key	TRUE	FALSE	FALSE	6	6						
+kitten	ki	kit	kidney	ki	kid	TRUE	FALSE	FALSE	6	6						
+knight	kn	kni	knock	kn	kno	TRUE	FALSE	FALSE	6	5						
+lantern	la	lan	laptop	la	lap	TRUE	FALSE	FALSE	7	6						
+lemon	le	lem	letter	le	let	TRUE	FALSE	FALSE	5	6						
+limit	li	lim	literal	li	lit	TRUE	FALSE	FALSE	5	7						
+logic	lo	log	lodge	lo	lod	TRUE	FALSE	FALSE	5	5						
+luggage	lu	lug	lumber	lu	lum	TRUE	FALSE	FALSE	7	6						
+lyrics	ly	lyr	lying	ly	lyi	TRUE	FALSE	FALSE	6	5						
+magnet	ma	mag	matrix	ma	mat	TRUE	FALSE	FALSE	6	6						
+melon	me	mel	meadow	me	mea	TRUE	FALSE	FALSE	5	6						
+migrate	mi	mig	mission	mi	mis	TRUE	FALSE	FALSE	7	7						
+module	mo	mod	moment	mo	mom	TRUE	FALSE	FALSE	6	6						
+mutual	mu	mut	muffin	mu	muf	TRUE	FALSE	FALSE	6	6						
+native	na	nat	narrow	na	nar	TRUE	FALSE	FALSE	6	6						
+nephew	ne	nep	needle	ne	nee	TRUE	FALSE	FALSE	6	6						
+niece	ni	nie	ninja	ni	nin	TRUE	FALSE	FALSE	5	5						
+noodle	no	noo	notable	no	not	TRUE	FALSE	FALSE	6	7						
+number	nu	num	nugget	nu	nug	TRUE	FALSE	FALSE	6	6						
+oatmeal	oa	oat	oasis	oa	oas	TRUE	FALSE	FALSE	7	5						
+obesity	ob	obe	oblique	ob	obl	TRUE	FALSE	FALSE	7	7						
+ocean	oc	oce	occur	oc	occ	TRUE	FALSE	FALSE	5	5						
+olive	ol	oli	older	ol	old	TRUE	FALSE	FALSE	5	5						
+opinion	op	opi	optimal	op	opt	TRUE	FALSE	FALSE	7	7						
+orange	or	ora	origin	or	ori	TRUE	FALSE	FALSE	6	6						
+ounce	ou	oun	outline	ou	out	TRUE	FALSE	FALSE	5	7						
+oxygen	ox	oxy	oxfords	ox	oxf	TRUE	FALSE	FALSE	6	7	"""s"" at end is ok?"					
+pancake	pa	pan	paper	pa	pap	TRUE	FALSE	FALSE	7	5						
+pepper	pe	pep	pencil	pe	pen	TRUE	FALSE	FALSE	6	6						
+phone	ph	pho	phase	ph	pha	TRUE	FALSE	FALSE	5	5						
+pizza	pi	piz	piano	pi	pia	TRUE	FALSE	FALSE	5	5						
+plant	pl	pla	plenty	pl	ple	TRUE	FALSE	FALSE	5	6						
+popcorn	po	pop	potato	po	pot	TRUE	FALSE	FALSE	7	6						
+proud	pr	pro	private	pr	pri	TRUE	FALSE	FALSE	5	7						
+pumpkin	pu	pum	puddle	pu	pud	TRUE	FALSE	FALSE	7	6						
+pyramid	py	pyr	python	py	pyt	TRUE	FALSE	FALSE	7	6						
+quilt	qu	qui	quality	qu	qua	TRUE	FALSE	FALSE	5	7						
+rabbit	ra	rab	racket	ra	rac	TRUE	FALSE	FALSE	6	6						
+regard	re	reg	realm	re	rea	TRUE	FALSE	FALSE	6	5						
+river	ri	riv	ribbon	ri	rib	TRUE	FALSE	FALSE	5	6						
+rocket	ro	roc	rotate	ro	rot	TRUE	FALSE	FALSE	6	6						
+runner	ru	run	rumor	ru	rum	TRUE	FALSE	FALSE	6	5						
+savage	sa	sav	salmon	sa	sal	TRUE	FALSE	FALSE	6	6						
+scarf	sc	sca	school	sc	sch	TRUE	FALSE	FALSE	5	6						
+search	se	sea	series	se	ser	TRUE	FALSE	FALSE	6	6						
+shelter	sh	she	shovel	sh	sho	TRUE	FALSE	FALSE	7	6						
+signal	si	sig	silver	si	sil	TRUE	FALSE	FALSE	6	6						
+skeptic	sk	ske	skyline	sk	sky	TRUE	FALSE	FALSE	7	7						
+slipper	sl	sli	sleep	sl	sle	TRUE	FALSE	FALSE	7	5						
+smile	sm	smi	smoke	sm	smo	TRUE	FALSE	FALSE	5	5						
+snail	sn	sna	sneak	sn	sne	TRUE	FALSE	FALSE	5	5						
+socket	so	soc	sobber	so	sob	TRUE	FALSE	FALSE	6	6						
+spoon	sp	spo	space	sp	spa	TRUE	FALSE	FALSE	5	5						
+stone	st	sto	steep	st	ste	TRUE	FALSE	FALSE	5	5						
+suffer	su	suf	sudden	su	sud	TRUE	FALSE	FALSE	6	6						
+swirl	sw	swi	swear	sw	swe	TRUE	FALSE	FALSE	5	5						
+system	sy	sys	symbol	sy	sym	TRUE	FALSE	FALSE	6	6						
+target	ta	tar	tattoo	ta	tat	TRUE	FALSE	FALSE	6	6						
+teacup	te	tea	temple	te	tem	TRUE	FALSE	FALSE	6	6						
+those	th	tho	thick	th	thi	TRUE	FALSE	FALSE	5	5						
+ticket	ti	tic	timber	ti	tim	TRUE	FALSE	FALSE	6	6						
+tomato	to	tom	toggle	to	tog	TRUE	FALSE	FALSE	6	6						
+travel	tr	tra	treat	tr	tre	TRUE	FALSE	FALSE	6	5						
+tunnel	tu	tun	turtle	tu	tur	TRUE	FALSE	FALSE	6	6						
+twist	tw	twi	twelve	tw	twe	TRUE	FALSE	FALSE	5	6						
+tycoon	ty	tyc	tyrant	ty	tyr	TRUE	FALSE	FALSE	6	6						
+ulcer	ul	ulc	ultima	ul	ult	TRUE	FALSE	FALSE	5	6						
+unicorn	un	uni	until	un	unt	TRUE	FALSE	FALSE	7	5						
+urgent	ur	urg	urine	ur	uri	TRUE	FALSE	FALSE	6	5						
+usual	us	usu	useful	us	use	TRUE	FALSE	FALSE	5	6						
+utter	ut	utt	utility	ut	uti	TRUE	FALSE	FALSE	5	7						
+vaccum	va	vac	vanish	va	van	TRUE	FALSE	FALSE	6	6						
+velvet	ve	vel	verify	ve	ver	TRUE	FALSE	FALSE	6	6						
+violin	vi	vio	vitamin	vi	vit	TRUE	FALSE	FALSE	6	7						
+volcano	vo	vol	vowel	vo	vow	TRUE	FALSE	FALSE	7	5						
+wander	wa	wan	wallet	wa	wal	TRUE	FALSE	FALSE	6	6						
+wheat	wh	whe	whale	wh	wha	TRUE	FALSE	FALSE	5	5						
+yellow	ye	yel	yeild	ye	yei	TRUE	FALSE	FALSE	6	5						
+youth	yo	you	yogurt	yo	yog	TRUE	FALSE	FALSE	5	6						
+zebra	ze	zeb	zenith	ze	zen	TRUE	FALSE	FALSE	5	6	is it commonly used?					
+zipper	zi	zip	zigzag	zi	zig	TRUE	FALSE	FALSE	6	6	is this a word£¿					
+aesthetic	ae	aes	aerial	ae	aer	TRUE	FALSE	FALSE	9	6	not commonly used and over 7 letters					
+ahead	ah	ahe	ahold	ah	aho	TRUE	FALSE	FALSE	5	5	only one commonly used word					
+axiom	ax	axi	axial	ax	axi	TRUE	TRUE	FALSE	5	5	hard to find third letter different 					
+dynamic	dy	dyn	dynasty	dy	dyn	TRUE	TRUE	FALSE	7	7	first 4 letter share					
+effect	ef	eff	effort	ef	eff	TRUE	TRUE	FALSE	6	6	hard to find third letter different 					
+eggplant	eg	egg	egress	eg	egr	TRUE	FALSE	FALSE	8	6	hard to find 5-7 letters					
+equal	eq	equ	equivoke	eq	equ	TRUE	TRUE	FALSE	5	8	hard to find third letter different 					
+ghost	gh	gho				FALSE	FALSE	FALSE	5	0	hard to find third letter different 					
+irrigate	ir	irr	iritic	ir	iri	TRUE	FALSE	FALSE	8	6	not commonly used					
+jigsaw	ji	jig	jiggle	ji	jig	TRUE	TRUE	FALSE	6	6	not commonly used					
+oddity	od	odd	odious	od	odi	TRUE	FALSE	FALSE	6	6	not commonly used with criterion					
+oil	oi	oil	ointment	oi	oin	TRUE	FALSE	FALSE	3	8	hard to find 5-7 letters					
+owner	ow	own	owl	ow	owl	TRUE	FALSE	FALSE	5	3	hard to find 5-7 letters					
+square	sq	squ				FALSE	FALSE	FALSE	6	0	hard to find third letter different 					
+ubiquity	ub	ubi				FALSE	FALSE	FALSE	8	0	second word not frequent					
+udder	ud	udd	udon	ud	udo	TRUE	FALSE	FALSE	5	4	hard to find 5-7 letters					
+yankee	ya	yan	yard	ya	yar	TRUE	FALSE	FALSE	6	4	hard to find 5-7 letters					
