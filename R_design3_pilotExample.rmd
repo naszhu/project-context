@@ -1469,7 +1469,7 @@ df_finalFoil_toappend = df_pl_with_init%>%
   mutate(init_outcome = 999)%>% #first or second time in initail correct =0 becuase didn't appear
   select(task, condition,type_comment, listNum_infinalOrder, subject_id,init_outcome,correct_appear_label, correct)
 
-d1taf = df_pl_with_init%>% 
+# d1taf = df_pl_with_init%>%
   mutate(correct=case_when(correct=="True"~1,
                            correct=="False"~0,
                            TRUE ~ correct))%>%
