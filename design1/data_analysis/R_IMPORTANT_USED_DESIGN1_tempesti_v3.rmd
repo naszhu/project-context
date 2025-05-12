@@ -9,6 +9,7 @@ library(dplyr)
 # library(tidyverse)
 library(tidyr)
 library(readr)
+library(here)
 '%notin%' <- function(x,y)!('%in%'(x,y));
 ```
 
@@ -24,19 +25,19 @@ filepath=c("data/backup3/visualexp-forward.csv","data/backup3/visualexp-bakcward
 
 ```{r}
 
-df1 = read.csv("data/backup3/visualexp-forward.csv")%>%
+df1 = read.csv(here("design1","data/backup3/visualexp-forward.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
-df2 = read.csv("data/backup3/visualexp-bakcward.csv")%>%
+df2 = read.csv(here("design1","data/backup3/visualexp-bakcward.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
-df3 = read.csv("data/backup3/visualexp-random.csv")%>%
+df3 = read.csv(here("design1","data/backup3/visualexp-random.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
 
-df11 = read.csv("data/backup2/visualexp-random.csv")%>%
+df11 = read.csv(here("design1","data/backup2/visualexp-random.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
-df111 = read.csv("data/backup/visualexp-random.csv")%>%
+df111 = read.csv(here("design1","data/backup/visualexp-random.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
-df22 = read.csv("data/backup/visualexp-forward.csv")
-df33 = read.csv("data/backup/visualexp-bakcward.csv")
+df22 = read.csv(here("design1","data/backup/visualexp-forward.csv"))
+df33 = read.csv(here("design1","data/backup/visualexp-bakcward.csv"))
 
 # df2222 <- 
 #     c("data/backup3/visualexp-forward.csv","data/backup3/visualexp-bakcward.csv","data/backup3/visualexp-random.csv",
