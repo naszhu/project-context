@@ -9,12 +9,16 @@ linters: with_defaults(
 
 ```{r}
 # .libPaths()
-# output: html_document
+
 ```
 
 ```{r} 
 # options(lintr.linter_file = NULL) # Disable .lintr file
 # lintr::lint("your_file.R", linters = with_defaults(line_length_linter = NULL)) # Disable line length linter
+# output: html_document
+library(here)
+here::i_am("design3/data_analysis/R_design3_pilotExample.rmd")
+print(here())
 library(ggplot2) 
 # library()
 library(dplyr)
@@ -32,24 +36,23 @@ library(tidyr)
 # setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 getwd()
 # df_pl = read.csv("data-design3/IMUSE-V1toV2,n30.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
-df_pl1 = read.csv("data-design3/IMUSE-V1.3andHigher,n48.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+df_pl1 = read.csv(here("design3","data", "IMUSE-V1.3andHigher,n48.csv"))%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
   mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))%>%mutate(codeversion=1.3)
 # df_pl2$codeversion
-df_pl2 = read.csv("data-design3/IMUSE-V1toV2,n30.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+df_pl2 = read.csv(here("design3","data", "IMUSE-V1toV2,n30.csv"))%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
   mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))
 
-df_pl3 = read.csv("data-design3/IMUSE-v1.4n20.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+df_pl3 = read.csv(here("design3","data", "IMUSE-v1.4n20.csv"))%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
   mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))
 
-df_pltest2 = read.csv("data-design3/IMUSE-V5_second 12.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+df_pltest2 = read.csv(here("design3","data", "IMUSE-V5_second 12.csv"))%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
   mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))
 
-df_pltest3 = read.csv("data-design3/IMUSE-V5_first35.csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+df_pltest3 = read.csv(here("design3","data", "IMUSE-V5_first35.csv"))%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
   mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))
-df_pltest4 = read.csv("data-design3/IMUSE-V5_third .csv")%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
+df_pltest4 = read.csv(here("design3","data", "IMUSE-V5_third .csv"))%>%mutate(correct=case_when(correct=="true"~1,correct=="false"~0,TRUE~ NA))%>%
   mutate(listNum_appear0_initial = as.numeric(listNum_appear0_initial))
 df_pltest=rbind(df_pltest2,df_pltest3 )
-
 df_pl=rbind(df_pl1,df_pl2,df_pl3,df_pltest2,df_pltest3,df_pltest4)
 # df_pl=rbind(df_pltest2,df_pltest3,df_pltest4)
 # df_pl=rbind(df_pl1,df_pl2)
