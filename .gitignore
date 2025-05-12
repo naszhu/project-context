@@ -1,2 +1,5 @@
 design2-cuedrecall/
 *.csv
+design1/data_analysis/SAVED_data_initialtest.RData
+.gitignore
+design1/docs/.~lock.IMPORTANT RESULT-design1_results_50,50,90 - clean_thorugh.odt#
