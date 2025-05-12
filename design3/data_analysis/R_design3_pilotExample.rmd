@@ -1452,6 +1452,99 @@ df_pl_with_init <-
 # df_pl%>%filter(subject_id=="67cb5baef51d73572cb490ae")
 ```
 
+```{r}
+df2%>%select(group_init,n_tests,correct_appear1,correct_appear2,probe_history, init_outcome, group_init)
+df2%>%select(group_init,n_tests)
+```
+
+## Joint Prob Plot
+```{r}
+df2 <-
+  df_pl_with_init %>%
+  ################# 1) single vs. two-test, only treat both appear to be n_tests=2
+  #   Even though this will actually make SOn list num i but actually tested i+1 
+  mutate(n_tests = if_else(correct_appear2=="null" | correct_appear1=="null", 1, 2)) %>%
+  mutate(n_tests = if_else(is.na(correct_appear2) & is.na(correct_appear1), 0, n_tests)) %>%
+  ################# 2) bin by initial list
+  mutate(group_init = case_when(
+    listNum_appear1_initial == 1        ~ "List1", #SO would be assigned here as well
+    listNum_appear1_initial %in% 2:5    ~ "A (2–5)",
+    listNum_appear1_initial %in% 6:9    ~ "B (6–9)",
+    listNum_appear1_initial == 10       ~ "List10",
+    listNum_appear1_initial == 0       ~  "FF", #final target no list
+    # n_tests == 0        ~ "None List Exist" # no prior
+  )) %>%
+  mutate(group_init = fct_relevel(group_init,
+                                  "List1", "A (2–5)", "B (6–9)", "List10"))%>%
+  ##rearrange factor level
+  ################# 3) probe_history:
+  mutate(
+    probe_history = case_when(
+      (n_tests == 1) & (stimulusConditions %in% c("Cn","Fn")) ~   "foil",
+      (n_tests == 1) & (stimulusConditions %in% c("B"))       ~   "target", 
+      (n_tests == 2) & (stimulusConditions %in% c("Fnn"))     ~   "foil(n)->foil(n+1)",
+      (n_tests == 2) & (stimulusConditions %in% c("Dn"))      ~   "target(n)->foil(n+1)", 
+      # type SO would not have a test, case SO (i.e., A) is ignored
+    ),
+    ################# 4) outcome:
+    init_outcome = case_when(
+      #either correct works becuase previously made sure only one of them is not NA
+      n_tests == 1 & (correct_appear1 == "true" | correct_appear2 == "true") ~ "C", 
+      n_tests == 1 & (correct_appear1 == "false" | correct_appear2 == "false") ~ "E",
+      n_tests == 2 ~ paste0(
+        if_else(correct_appear1=="true", "C1","E1"),
+        "&",
+        if_else(correct_appear2=="true", "C2","E2")
+      ),
+      n_tests == 0 ~ "None" #doesn't have a test(outcome) initially
+    ),
+    # define which column is your "final" accuracy
+    correct_final = correct #correct rate final acc (numeric val 1 or 2)
+  )%>%
+  ################# ⬅ EDIT 1: new factor for facet rows
+  mutate(
+    bin_size = case_when(
+      init_outcome %in% c("C","E")   ~ "single",
+      init_outcome %in% c("C1&C2", "C1&E1","C1&E2","C2&E1") ~ "double-joint"
+    ) 
+  )
+  # 3) remove the rows that are not needed
+  # filter(!(group_init %in% c("List1","List 10") & n_tests==2) )
+
+# 2) Aggregate ----------------------------------------------------------
+agg <- df2 %>%
+  group_by(n_tests, group_init, probe_history, init_outcome, bin_size) %>%
+  summarize(
+    prob_final = mean(correct_final, na.rm=TRUE),
+    .groups = "drop"
+  )%>%
+  # mutate(group_init = case_when(is.na(group_init)~"NAs",
+  #                               TRUE ~ group_init),
+  #        probe_history = case_when(is.na(probe_history)~"NAs",
+  #                               TRUE ~ probe_history))%>%
+  filter(complete.cases(group_init) & complete.cases(probe_history), complete.cases(init_outcome))%>%
+  mutate(group_init=as.factor(group_init), probe_history=as.factor(probe_history),init_outcome=as.factor(init_outcome),
+         n_tests=as.factor(n_tests))
+
+# 5) plot
+ggplot(agg, aes(x = group_init, y = prob_final,
+               group = interaction(n_tests, probe_history, init_outcome, bin_size))) +
+  geom_line(aes(color =init_outcome, linetype=probe_history )) +
+  geom_point(aes(color= init_outcome,  shape = probe_history),size=3) +
+  facet_grid( . ~ n_tests,
+             labeller = labeller(n_tests = c(`1`="Tested once", `2`="Tested twice"))) +
+  labs(
+    x = "Initial-list bin",
+    y = "P(final correct)",
+    # color = "Outcome",
+    title = "Recognition performance by list-bin and outcome"
+  ) +
+  theme_minimal()
+# <!-- ``` -->
+
+```
+
+
 
 
 
