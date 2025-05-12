@@ -1505,7 +1505,7 @@ df2 <-
   mutate(
     bin_size = case_when(
       init_outcome %in% c("C","E")   ~ "single",
-      init_outcome %in% c("C1&C2", "C1&E1","C1&E2","C2&E1") ~ "double-joint"
+      init_outcome %in% c("C1&C2", "C1&E2","E1&C2","E1&E2") ~ "double-joint"
     ) 
   )
   # 3) remove the rows that are not needed
@@ -1531,7 +1531,7 @@ ggplot(agg, aes(x = group_init, y = prob_final,
                group = interaction(n_tests, probe_history, init_outcome, bin_size))) +
   geom_line(aes(color =init_outcome, linetype=probe_history )) +
   geom_point(aes(color= init_outcome,  shape = probe_history),size=3) +
-  facet_grid( . ~ n_tests,
+  facet_grid( . ~ n_tests+bin_size,
              labeller = labeller(n_tests = c(`1`="Tested once", `2`="Tested twice"))) +
   labs(
     x = "Initial-list bin",
