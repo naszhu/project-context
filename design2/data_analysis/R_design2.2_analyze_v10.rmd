@@ -9,6 +9,8 @@ The corrections for all unique condition is wrong on is_correct_currentlist, is_
 library(dplyr)
 library(tidyverse)
 library(readr)
+library(here)
+print(here())
 '%notin%' <- function(x,y)!('%in%'(x,y));
 ```
 
@@ -17,30 +19,30 @@ library(readr)
 filepath=c("data-design2/visualexp-bakcward.csv","data-design2/stored/save1_fromcodev12.csv","data-design2/visualexp-forward.csv","data-design2/visualexp-frandom.csv","data-design2/visualexp-random.csv")
 # df = readr::read_csv(filepath)
 
-df1 = read.csv("data-design2/stored/1-4-24, to v10 frandom-fr.csv")%>%
+df1 = read.csv(here("design2","data","stored/1-4-24, to v10 frandom-fr.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
-df2 = read.csv("data-design2/stored/1-5-24, v10 visualexp-bakcward.csv")%>%
+df2 = read.csv(here("design2","data","stored/1-5-24, v10 visualexp-bakcward.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
-df3 = read.csv("data-design2/stored/1-5-24, v10 visualexp-forward.csv")%>%
+df3 = read.csv(here("design2","data","stored/1-5-24, v10 visualexp-forward.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
-df11 = read.csv("data-design2/stored/1-5-24, v10 visualexp-frandom -br.csv")%>%
+df11 = read.csv(here("design2","data","stored/1-5-24, v10 visualexp-frandom -br.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
-df111 = read.csv("data-design2/stored/1-5-24, v10 visualexp-random.csv")%>%
+df111 = read.csv(here("design2","data","stored/1-5-24, v10 visualexp-random.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
-df112 = read.csv("data-design2/temp.csv")%>%
-  mutate(responsesum=as.integer(responsesum))
-
-
-df10 = read.csv("data-design2/stored/temp/b.csv")%>%
+df112 = read.csv(here("design2","data","temp.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
 
-df20 = read.csv("data-design2/stored/temp/f.csv")%>%
+
+df10 = read.csv(here("design2","data","stored/temp/b.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
 
-df30 = read.csv("data-design2/stored/temp/fr.csv")%>%
+df20 = read.csv(here("design2","data","stored/temp/f.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
 
-df40 = read.csv("data-design2/stored/temp/r.csv")%>%
+df30 = read.csv(here("design2","data","stored/temp/fr.csv"))%>%
+  mutate(responsesum=as.integer(responsesum))
+
+df40 = read.csv(here("design2","data","stored/temp/r.csv"))%>%
   mutate(responsesum=as.integer(responsesum))
 
 
