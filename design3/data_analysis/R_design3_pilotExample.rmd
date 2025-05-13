@@ -1474,6 +1474,16 @@ df2 <-
     listNum_appear1_initial == 0       ~  "FF", #final target no list
     # n_tests == 0        ~ "None List Exist" # no prior
   )) %>%
+  ################### Add by final test
+    mutate(group_finial = case_when(
+    listNum_infinalOrder == 1        ~ "List1", #SO would be assigned here as well
+    listNum_infinalOrder %in% 2:5    ~ "A (2–5)",
+    listNum_infinalOrder %in% 6:9    ~ "B (6–9)",
+    listNum_infinalOrder == 10       ~ "List10",
+    listNum_infinalOrder == 0       ~  "FF", #final target no list
+    # n_tests == 0        ~ "None List Exist" # no prior
+  )) %>%
+  
   mutate(group_init = fct_relevel(group_init,
                                   "List1", "A (2–5)", "B (6–9)", "List10"))%>%
   ##rearrange factor level
@@ -1515,7 +1525,9 @@ df2 <-
 
 # 2) Aggregate ----------------------------------------------------------
 agg <- df2 %>%
-  group_by(n_tests, group_init, probe_history, init_outcome) %>% #new fac add or not addhere
+  pivot_longer(cols=c(group_init,group_finial),names_to="orderBy",values_to="group_init")%>%
+  mutate(orderBy = if_else(orderBy=="group_init", "Initial Test Order", "Final Test Order"))%>%
+  group_by(n_tests, group_init, probe_history, init_outcome, orderBy ) %>% #new fac add or not addhere
   summarize(
     prob_final = mean(correct_final, na.rm=TRUE),
     .groups = "drop"
@@ -1526,8 +1538,8 @@ agg <- df2 %>%
   #                               TRUE ~ probe_history))%>%
   filter(complete.cases(group_init) & complete.cases(probe_history), complete.cases(init_outcome))%>% #to keep linetype detect
   mutate(group_init=as.factor(group_init), probe_history=as.factor(probe_history),init_outcome=as.factor(init_outcome),
-         n_tests=as.factor(n_tests))
-  # filter(!(group_init %in% c("List1","List10")))
+         n_tests=as.factor(n_tests))%>%
+  filter(!(group_init %in% c("List1","List10")))
 
 # 5) plot
 ggplot(agg, aes(x = group_init, y = prob_final,
@@ -1540,13 +1552,13 @@ ggplot(agg, aes(x = group_init, y = prob_final,
   geom_point(aes(group    = interaction(init_outcome, probe_history),    ## EDIT: removed n_tests
                color    = interaction(n_tests, init_outcome),
                shape    = interaction(n_tests, init_outcome)),size=3) +
-  facet_grid( . ~ n_tests+probe_history,
+  facet_wrap( orderBy ~ n_tests+probe_history,nrow=2,
              labeller = labeller(n_tests = c(`1`="Tested once", `2`="Tested twice"))) +
   labs(
     x = "Initial-list bin",
     y = "P(final correct)",
     # color = "Outcome",
-    title = "Recognition performance by list-bin and outcome"
+    title = "Final Test performance by initial-list and final-list bin",
   ) 
   # scale_color_manual(
   #   values = c(
@@ -1632,8 +1644,6 @@ df_finalFoil_toappend = df_pl_with_init%>%
   #                  TRUE ~ listNum_appear1_initial))%>%
   # mutate(type_comment=type_comment_fn)%>%
          group_by(task, condition,type_comment, listNum_appear1_initial, subject_id,correct_appear1,correct_appear_label)%>%
-  #add calculation of sd (or se?) as well below 
-         # summarise(cr = median(correct),se_cr = sd(correct,na.rm = TRUE) / sqrt(n()))%>%
          summarise(cr = mean(correct),se_cr = sd(correct,na.rm = TRUE) / sqrt(n()))%>%
          group_by(task, condition,type_comment, listNum_appear1_initial,correct_appear1,correct_appear_label)%>%
          summarise(cr = mean(cr), se_cr = mean(se_cr))%>%
