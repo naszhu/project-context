@@ -3,3 +3,7 @@ design2-cuedrecall/
 design1/data_analysis/SAVED_data_initialtest.RData
 .gitignore
 design1/docs/.~lock.IMPORTANT RESULT-design1_results_50,50,90 - clean_thorugh.odt#
+# Ignore Google Drive “.gdsheet” pointer files
+*.gdsheet
+design3/data/IM-visualexp-random-V1-pilotall.gdsheet
+design2/data/visualexp-bakcward.gdsheet
