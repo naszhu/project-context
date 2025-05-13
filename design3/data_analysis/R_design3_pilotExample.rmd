@@ -1596,6 +1596,127 @@ ggplot(agg, aes(x = group_init, y = prob_final,
 
 ```
 
+### Joint prob plot by group
+
+```{r}
+df2 <-
+  df_pl_with_init %>%
+  ################# 1) single vs. two-test, only treat both appear to be n_tests=2
+  #   Even though this will actually make SOn list num i but actually tested i+1 
+  mutate(n_tests = if_else(correct_appear2=="null" | correct_appear1=="null", 1, 2)) %>%
+  mutate(n_tests = if_else(is.na(correct_appear2) & is.na(correct_appear1), 0, n_tests)) %>%
+  ################# 2) bin by initial list
+  mutate(group_init = case_when(
+    listNum_appear1_initial == 1        ~ "List1", #SO would be assigned here as well
+    listNum_appear1_initial %in% 2:5    ~ "A (2–5)",
+    listNum_appear1_initial %in% 6:9    ~ "B (6–9)",
+    listNum_appear1_initial == 10       ~ "List10",
+    listNum_appear1_initial == 0       ~  "FF", #final target no list
+    # n_tests == 0        ~ "None List Exist" # no prior
+  )) %>%
+  ################### Add by final test
+    mutate(group_finial = case_when(
+    listNum_infinalOrder == 1        ~ "List1", #SO would be assigned here as well
+    listNum_infinalOrder %in% 2:5    ~ "A (2–5)",
+    listNum_infinalOrder %in% 6:9    ~ "B (6–9)",
+    listNum_infinalOrder == 10       ~ "List10"
+    # listNum_infinalOrder == 0       ~  "FF", #final target no list
+    # n_tests == 0        ~ "None List Exist" # no prior
+  )) %>%
+  
+  mutate(group_init = fct_relevel(group_init,
+                                  "List1", "A (2–5)", "B (6–9)", "List10"))%>%
+  ##rearrange factor level
+  ################# 3) probe_history:
+  mutate(
+    probe_history = case_when(
+      (n_tests == 1) & (stimulusConditions %in% c("Cn")) ~   
+        "SOn: studied_only(~n)->foil(n+1)",
+      (n_tests == 1) & (stimulusConditions %in% c("Fn")) ~       
+        "F: new foil",
+      (n_tests == 1) & (stimulusConditions %in% c("B"))       ~   
+        "T: new target", 
+      (n_tests == 2) & (stimulusConditions %in% c("Fnn"))     ~   
+        "Fn: foil(n)->foil(n+1)",
+      (n_tests == 2) & (stimulusConditions %in% c("Dn"))     ~   
+        "Tn: target(n)->foil(n+1)",
+      (n_tests == 0) & (stimulusConditions %in% c("A"))      ~   
+        "SO: studied only(~n), no test", 
+      (n_tests == 0) & (stimulusConditions %in% c("FF"))      ~   
+        "FF: final New Foil",
+      # type SO would not have a test, case SO (i.e., A) is ignored
+    ),
+    ################# 4) outcome:
+    init_outcome = case_when(
+      #either correct works becuase previously made sure only one of them is not NA
+      n_tests == 1 & (correct_appear1 == "true" | correct_appear2 == "true") ~ "C", 
+      n_tests == 1 & (correct_appear1 == "false" | correct_appear2 == "false") ~ "E",
+      n_tests == 2 ~ paste0(
+        if_else(correct_appear1=="true", "C1","E1"),
+        "&",
+        if_else(correct_appear2=="true", "C2","E2")
+      ),
+      n_tests == 0 ~ "No Init Outcome" #doesn't have a test(outcome) initially
+    ),
+    # define which column is your "final" accuracy
+    correct_final = correct #correct rate final acc (numeric val 1 or 2)
+  )
+  ################# ⬅ EDIT 1: new factor for facet rows; but this is actually unused,
+# 2) Aggregate ----------------------------------------------------------
+agg <- df2 %>%
+  pivot_longer(cols=c(group_init,group_finial),names_to="orderBy",values_to="group_init")%>%
+  mutate(orderBy = if_else(orderBy=="group_init", "Initial Test Order", "Final Test Order"))%>%
+  group_by(n_tests, group_init, probe_history, init_outcome, orderBy,subject_id ) %>% #new fac add or not addhere
+   summarize(
+     mean_perf = mean(correct_final, na.rm=TRUE),
+    .groups = "drop"
+  )%>%
+  ### ADD groups below
+  group_by(subject_id)%>% #just calc median for whole data for a single Ss
+  # mutate(median_ref = median(mean_perf, na.rm=TRUE)) %>%
+   # judge assign group
+    mutate(rank_id = dense_rank(mean_perf)
+           )%>%
+  #find median number of the rank so could seprate 
+  ungroup()%>%
+  mutate(median_rank = median(rank_id, na.rm = TRUE))%>%
+  # split into Low vs. High based on that threshold
+  mutate(
+    performance_group = if_else(rank_id <= median_rank, 
+                         "Low rank (<= "  %>% paste0(median_rank) %>% paste0(")"),
+                         "High rank (> "  %>% paste0(median_rank) %>% paste0(")"))
+  )%>%
+  ### now calculate the mean of the sub mean
+  group_by(n_tests, group_init, probe_history, init_outcome, orderBy,performance_group ) %>% #new fac add or not addhere
+  summarize(
+    prob_final = mean(mean_perf, na.rm=TRUE),
+    .groups = "drop"
+  )%>%
+  filter(complete.cases(group_init) & complete.cases(probe_history), complete.cases(init_outcome))%>% #to keep linetype detect
+  mutate(group_init=as.factor(group_init), probe_history=as.factor(probe_history),init_outcome=as.factor(init_outcome),
+         n_tests=as.factor(n_tests))%>%
+  filter(!(group_init %in% c("List1","List10")))
+
+# 5)########################33 plot
+ggplot(agg, aes(x = group_init, y = prob_final,
+               group    = interaction(init_outcome, probe_history))    ## EDIT: removed n_tests
+     )+     ## EDIT ⬅)) +
+  geom_line(aes(group    = interaction(init_outcome, probe_history),    ## EDIT: removed n_tests
+               color    = interaction(n_tests, init_outcome),
+               linetype = interaction(n_tests, init_outcome))
+               ) +
+  geom_point(aes(group    = interaction(init_outcome, probe_history),    ## EDIT: removed n_tests
+               color    = interaction(n_tests, init_outcome),
+               shape    = interaction(n_tests, init_outcome)),size=3) +
+  facet_grid( orderBy+performance_group ~ n_tests+probe_history,
+             labeller = labeller(n_tests = c(`1`="Tested once", `2`="Tested twice"))) +
+  labs(
+    x = "Initial-list bin",
+    y = "P(final correct)",
+    # color = "Outcome",
+    title = "Final Test performance by initial-list and final-list bin",
+  ) + theme(legend.position = "bottom")
+```
 
 
 
