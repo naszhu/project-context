@@ -1480,10 +1480,11 @@ df2 <-
   ################# 3) probe_history:
   mutate(
     probe_history = case_when(
-      (n_tests == 1) & (stimulusConditions %in% c("Cn","Fn")) ~   "foil",
-      (n_tests == 1) & (stimulusConditions %in% c("B"))       ~   "target", 
-      (n_tests == 2) & (stimulusConditions %in% c("Fnn"))     ~   "foil(n)->foil(n+1)",
-      (n_tests == 2) & (stimulusConditions %in% c("Dn"))      ~   "target(n)->foil(n+1)", 
+      (n_tests == 1) & (stimulusConditions %in% c("Cn")) ~   "SOn: studied_only(~n)->foil(n+1)",
+      (n_tests == 1) & (stimulusConditions %in% c("Fn")) ~       "F: new foil",
+      (n_tests == 1) & (stimulusConditions %in% c("B"))       ~   "T: new target", 
+      (n_tests == 2) & (stimulusConditions %in% c("Fnn"))     ~   "Fn: foil(n)->foil(n+1)",
+      (n_tests == 2) & (stimulusConditions %in% c("Dn"))      ~   "Tn: target(n)->foil(n+1)", 
       # type SO would not have a test, case SO (i.e., A) is ignored
     ),
     ################# 4) outcome:
@@ -1500,20 +1501,21 @@ df2 <-
     ),
     # define which column is your "final" accuracy
     correct_final = correct #correct rate final acc (numeric val 1 or 2)
-  )%>%
-  ################# ⬅ EDIT 1: new factor for facet rows
-  mutate(
-    bin_size = case_when(
-      init_outcome %in% c("C","E")   ~ "single",
-      init_outcome %in% c("C1&C2", "C1&E2","E1&C2","E1&E2") ~ "double-joint"
-    ) 
   )
+  ################# ⬅ EDIT 1: new factor for facet rows; but this is actually unused, could be discarded
+  # mutate(
+  #   newfac = case_when(
+  #     probe_history %in% c("2.Fn: foil(n)->foil(n+1))")   ~ "Fn",
+  #     probe_history %in% c("2.Tn: target(n)->foil(n+1)") ~ "Tn",
+  #     TRUE ~ probe_history
+  #   ) 
+  # )
   # 3) remove the rows that are not needed
   # filter(!(group_init %in% c("List1","List 10") & n_tests==2) )
 
 # 2) Aggregate ----------------------------------------------------------
 agg <- df2 %>%
-  group_by(n_tests, group_init, probe_history, init_outcome, bin_size) %>%
+  group_by(n_tests, group_init, probe_history, init_outcome) %>% #new fac add or not addhere
   summarize(
     prob_final = mean(correct_final, na.rm=TRUE),
     .groups = "drop"
@@ -1522,24 +1524,55 @@ agg <- df2 %>%
   #                               TRUE ~ group_init),
   #        probe_history = case_when(is.na(probe_history)~"NAs",
   #                               TRUE ~ probe_history))%>%
-  filter(complete.cases(group_init) & complete.cases(probe_history), complete.cases(init_outcome))%>%
+  filter(complete.cases(group_init) & complete.cases(probe_history), complete.cases(init_outcome))%>% #to keep linetype detect
   mutate(group_init=as.factor(group_init), probe_history=as.factor(probe_history),init_outcome=as.factor(init_outcome),
          n_tests=as.factor(n_tests))
+  # filter(!(group_init %in% c("List1","List10")))
 
 # 5) plot
 ggplot(agg, aes(x = group_init, y = prob_final,
-               group = interaction(n_tests, probe_history, init_outcome, bin_size))) +
-  geom_line(aes(color =init_outcome, linetype=probe_history )) +
-  geom_point(aes(color= init_outcome,  shape = probe_history),size=3) +
-  facet_grid( . ~ n_tests+bin_size,
+               group    = interaction(init_outcome, probe_history))    ## EDIT: removed n_tests
+     )+     ## EDIT ⬅)) +
+  geom_line(aes(group    = interaction(init_outcome, probe_history),    ## EDIT: removed n_tests
+               color    = interaction(n_tests, init_outcome),
+               linetype = interaction(n_tests, init_outcome))
+               ) +
+  geom_point(aes(group    = interaction(init_outcome, probe_history),    ## EDIT: removed n_tests
+               color    = interaction(n_tests, init_outcome),
+               shape    = interaction(n_tests, init_outcome)),size=3) +
+  facet_grid( . ~ n_tests+probe_history,
              labeller = labeller(n_tests = c(`1`="Tested once", `2`="Tested twice"))) +
   labs(
     x = "Initial-list bin",
     y = "P(final correct)",
     # color = "Outcome",
     title = "Recognition performance by list-bin and outcome"
-  ) +
-  theme_minimal()
+  ) 
+  # scale_color_manual(
+  #   values = c(
+  #     # for Tested once (n_tests = 1), map C & E to two colors:
+  #     "1.C"   = "steelblue",
+  #     "1.E"   = "firebrick",
+  #     # for Tested twice (n_tests = 2), re-use those same two,
+  #     # then assign two more for the other 2 outcomes:
+  #     "2.C1&C2" = "steelblue",
+  #     "2.C1&E2" = "firebrick",
+  #     "2.E1&C2" = "darkgreen",
+  #     "2.E1&E2" = "goldenrod"
+  #   )
+  # ) + 
+  # scale_linetype_manual(
+  #   values = c(
+  #     # for Tested once:
+  #     "1.F: new foil"                 = "solid",
+  #     "1.T: new target"               = "longdash",
+  #     "1.SOn: studied_only(~n)->foil(n+1)"= "solid",
+  #     # for Tested twice:
+  #     "2.Fn: foil(n)->foil(n+1)"   = "solid",
+  #     "2.Tn: target(n)->foil(n+1)" = "dotted"
+  #   )
+  # )
+  # theme_minimal()
 # <!-- ``` -->
 
 ```
