@@ -1494,7 +1494,8 @@ df2 <-
       (n_tests == 1) & (stimulusConditions %in% c("Fn")) ~       "F: new foil",
       (n_tests == 1) & (stimulusConditions %in% c("B"))       ~   "T: new target", 
       (n_tests == 2) & (stimulusConditions %in% c("Fnn"))     ~   "Fn: foil(n)->foil(n+1)",
-      (n_tests == 0) & (stimulusConditions %in% c("Dn"))      ~   "SO: studied only (~n)", 
+      (n_tests == 2) & (stimulusConditions %in% c("Dn"))     ~   "Tn: target(n)->foil(n+1)",
+      (n_tests == 0) & (stimulusConditions %in% c("A"))      ~   "SO: studied only(~n), no test", 
       (n_tests == 0) & (stimulusConditions %in% c("FF"))      ~   "FF: final New Foil",
       # type SO would not have a test, case SO (i.e., A) is ignored
     ),
@@ -1560,7 +1561,7 @@ ggplot(agg, aes(x = group_init, y = prob_final,
     y = "P(final correct)",
     # color = "Outcome",
     title = "Final Test performance by initial-list and final-list bin",
-  ) 
+  ) + theme(legend.position = "bottom")
   # scale_color_manual(
   #   values = c(
   #     # for Tested once (n_tests = 1), map C & E to two colors:
