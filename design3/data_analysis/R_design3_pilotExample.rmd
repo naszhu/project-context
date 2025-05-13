@@ -1479,8 +1479,8 @@ df2 <-
     listNum_infinalOrder == 1        ~ "List1", #SO would be assigned here as well
     listNum_infinalOrder %in% 2:5    ~ "A (2–5)",
     listNum_infinalOrder %in% 6:9    ~ "B (6–9)",
-    listNum_infinalOrder == 10       ~ "List10",
-    listNum_infinalOrder == 0       ~  "FF", #final target no list
+    listNum_infinalOrder == 10       ~ "List10"
+    # listNum_infinalOrder == 0       ~  "FF", #final target no list
     # n_tests == 0        ~ "None List Exist" # no prior
   )) %>%
   
@@ -1494,7 +1494,8 @@ df2 <-
       (n_tests == 1) & (stimulusConditions %in% c("Fn")) ~       "F: new foil",
       (n_tests == 1) & (stimulusConditions %in% c("B"))       ~   "T: new target", 
       (n_tests == 2) & (stimulusConditions %in% c("Fnn"))     ~   "Fn: foil(n)->foil(n+1)",
-      (n_tests == 2) & (stimulusConditions %in% c("Dn"))      ~   "Tn: target(n)->foil(n+1)", 
+      (n_tests == 0) & (stimulusConditions %in% c("Dn"))      ~   "SO: studied only (~n)", 
+      (n_tests == 0) & (stimulusConditions %in% c("FF"))      ~   "FF: final New Foil",
       # type SO would not have a test, case SO (i.e., A) is ignored
     ),
     ################# 4) outcome:
@@ -1507,7 +1508,7 @@ df2 <-
         "&",
         if_else(correct_appear2=="true", "C2","E2")
       ),
-      n_tests == 0 ~ "None" #doesn't have a test(outcome) initially
+      n_tests == 0 ~ "No Init Outcome" #doesn't have a test(outcome) initially
     ),
     # define which column is your "final" accuracy
     correct_final = correct #correct rate final acc (numeric val 1 or 2)
@@ -1541,7 +1542,7 @@ agg <- df2 %>%
          n_tests=as.factor(n_tests))%>%
   filter(!(group_init %in% c("List1","List10")))
 
-# 5) plot
+# 5)########################33 plot
 ggplot(agg, aes(x = group_init, y = prob_final,
                group    = interaction(init_outcome, probe_history))    ## EDIT: removed n_tests
      )+     ## EDIT ⬅)) +
@@ -1552,7 +1553,7 @@ ggplot(agg, aes(x = group_init, y = prob_final,
   geom_point(aes(group    = interaction(init_outcome, probe_history),    ## EDIT: removed n_tests
                color    = interaction(n_tests, init_outcome),
                shape    = interaction(n_tests, init_outcome)),size=3) +
-  facet_wrap( orderBy ~ n_tests+probe_history,nrow=2,
+  facet_grid( orderBy ~ n_tests+probe_history,
              labeller = labeller(n_tests = c(`1`="Tested once", `2`="Tested twice"))) +
   labs(
     x = "Initial-list bin",
