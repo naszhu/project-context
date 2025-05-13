@@ -1529,9 +1529,14 @@ df2 <-
 agg <- df2 %>%
   pivot_longer(cols=c(group_init,group_finial),names_to="orderBy",values_to="group_init")%>%
   mutate(orderBy = if_else(orderBy=="group_init", "Initial Test Order", "Final Test Order"))%>%
+  group_by(n_tests, group_init, probe_history, init_outcome, orderBy,subject_id ) %>% #new fac add or not addhere
+   summarize(
+    prob_final = mean(correct_final, na.rm=TRUE),
+    .groups = "drop"
+  )%>%
   group_by(n_tests, group_init, probe_history, init_outcome, orderBy ) %>% #new fac add or not addhere
   summarize(
-    prob_final = mean(correct_final, na.rm=TRUE),
+    prob_final = mean(prob_final, na.rm=TRUE),
     .groups = "drop"
   )%>%
   # mutate(group_init = case_when(is.na(group_init)~"NAs",
