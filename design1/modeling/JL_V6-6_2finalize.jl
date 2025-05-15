@@ -468,7 +468,7 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
 
             if j == 0 # if nothing is stored
                 # stored_val =(rand() < u_star_context[word.studypos] ? 1 : 0)*context_features[ic];
-                if (list_num == 1) & (ic>nU) #only for changing 
+                if (list_num == 1) & (ic>nU) #only for changing; special u_star store only for change & list 1
                     if (word.studypos==1) & (ic>nU)
                         stored_val = (rand() < u_star_context[list_num]+0.05 ? 1 : 0) * context_features[ic]
                     else
@@ -1573,11 +1573,11 @@ csv_path3 = "allresf.csv"
 CSV.write(csv_path1, DF)
 CSV.write(csv_path2, all_results)
 
-run(`Rscript R_plots.r`)
-run(`bash -c "feh plot1.png &"`)
+run(`Rscript design1/modeling/R_ploting/R_plots.r`)
+run(`bash -c "eog plot1.png & disown"`)
 
 if is_finaltest
     CSV.write(csv_path3, allresf)
-    run(`Rscript R_plots_finalt.r`)
-    run(`bash -c "feh plot2.png &"`)
+    run(`Rscript design1/modeling/R_ploting/R_plots_finalt.r`)
+    run(`bash -c "eog plot2.png & disown"`)
 end
