@@ -255,8 +255,8 @@ nC = w_context - nU
 
 
 
-is_finaltest = true
-n_simulations = is_finaltest ? 200 : 100;
+is_finaltest = false
+n_simulations = is_finaltest ? 100 : 500;
 # n_simulations= 50v
 context_tau = 100#foil odds should lower than this  
 firststg_allctx = false; #cancle this
@@ -292,7 +292,7 @@ p_reinstate_context = 0.8 #stop reinstate after how much features
 n_driftStudyTest = round.(Int, ones(10) * 9) #7
 n_between_listchange = 12; #5;15; 
 const p_driftAndListChange = 0.03; # studied prior list probability change 
-
+p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 p_reinstate_rate = 0.5#0.4 #prob of reinstatement
 
 
@@ -717,15 +717,27 @@ function calculate_two_step_likelihoods(probe::EpisodicImage, image_pool::Vector
                 error("not modifeid here")
                 context_likelihood = calculate_likelihood_ratio(probe_context[nU+1:w_context], image_context[nU+1:w_context], g_context, c)  # .#  Context calculation
             end
-        else
-            if is_test_allcontext  #here is secon  stage would be wrong, including position code, unchage, change
+        else #currently goes here
+            if is_test_allcontext  #false here; here is secon  stage would be wrong, including position code, unchage, change
 
                 error("testing all context is mistaken right here")
                 # println(length(image_context))
                 # img_ctx_now = image_context[nU+1: w_context]
                 # context_likelihood = calculate_likelihood_ratio(probe_context,img_ctx_now,g_context,c )  # .#  Context calculation
             else  #not testing all context but change only, no unchange or position code
-                context_likelihood = calculate_likelihood_ratio(probe_context[nU+1:w_context], image_context[nU+1:w_context], g_context, c)  # .#  Context calculation
+
+                # currently goes here
+
+                # Combine nC and a portion of nU based on a probability
+                num_unchanging_to_use = round(Int, nU * p_ratio_unchanging_between_list)
+                num_changing_to_use = round(Int, nC * (1 - p_ratio_unchanging_between_list))
+                # println(p_ratio)
+                # println("here")
+
+                probe_context_adjusted = fast_concat([probe_context[1:num_unchanging_to_use], probe_context[nU+1:nU+num_changing_to_use]])
+                image_context_adjusted = fast_concat([image_context[1:num_unchanging_to_use], image_context[nU+1:nU+num_changing_to_use]])     
+
+                context_likelihood = calculate_likelihood_ratio(probe_context_adjusted, image_context_adjusted, g_context, c)  # Context calculation
             end
         end
         # println(length(probe_context))
