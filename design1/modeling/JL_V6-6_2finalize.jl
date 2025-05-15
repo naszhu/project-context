@@ -356,7 +356,8 @@ p_ListChange_finaltest = ones(10) * 0.55 #0.1 prob list change for final test
 
 ratio_C_final = 0.1 #ratio of changing context used in final
 nU_f = nU;#allunchange is used
-nC_f = round(Int, nU_f / (1 - ratio_C_final) * ratio_C_final)
+# nC_f = round(Int, nU_f / (1 - ratio_C_final) * ratio_C_final) #this is wrong!!
+nC_f = round(Int, nC * ratio_C_final)
 
 #the advatage of foil in inital test (to make final T prediciton overlap)
 u_advFoilInitialT = 0;
@@ -1161,7 +1162,7 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
         end
     end
 
-    if !is_onlyaddtrace_final #true
+    if !is_onlyaddtrace_final #is_onlyaddtrace_final false, so ! it is true, so will go through following code, but shouldn't becuase it actually overlaps for that from the last.
         # error("Here")
         if (decision_isold == 1) & (odds > recall_odds_threshold) 
             # pass: strenghten
@@ -1288,6 +1289,7 @@ function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::S
                 #the following is to change context by chunk (of list) for random condition
                 # don't change context when (list in iprobe == 1) ||
 
+                # TODO: should only change if not first list, check here
                 if (iprobe!=1) && (iprobe_chunk != ceil(Int, (iprobe - 1) / 42))
                     
                     # println("iprobe ",iprobe, " iprobe_chunk ", iprobe_chunk, " flag ", iprobe_chunk != (ceil(Int, (iprobe - 1) / 42)))
