@@ -246,6 +246,8 @@ printword(wordimg) = [wordimg[i].word_features for i in eachindex(wordimg)];
 printfeature(ft) = [[ft[i][j].value for j in eachindex(ft[1])] for i in eachindex(ft)];
 
 const w_context = 50; #first half unchange context, second half change context, third half word-change context (third half is not added yet)
+w_word = 25;#25 # number of word features, 30 optimal for inital test, 25 for fianal, lower w would lower overall accuracy 
+
 w_positioncode = 0
 w_allcontext = w_context + w_positioncode
 ratio_U = 0.5 #ratio of general(unchanging) context
@@ -269,7 +271,6 @@ is_test_changecontext2 = false #is testing only change context in final test
 
 is_restore_context = false # currently don't want to restore context features, only add new context features tarce
 
-w_word = 25;#25 # number of word features, 30 optimal for inital test, 25 for fianal, lower w would lower overall accuracy 
 is_firststage = true;
 
 is_onlyaddtrace = false; #*add but not strengtening trace
@@ -280,7 +281,7 @@ const n_lists = 10;
 # const n_words = 40;
 const n_words = n_probes;
 
-criterion_initial = LinRange(1, 0.35, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
+criterion_initial = LinRange(1.2, 0.4, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
 # criterion_initial = ones(n_probes)*1;#the bigger the later number, more close hits and CR merges. control merging  
 
 p_poscode_change = 0.1
@@ -290,7 +291,7 @@ p_reinstate_context = 0.8 #stop reinstate after how much features
 #p_driftAndListChange should be used for both within-list drift and between-list change
 #7, 10 IS A COMBINATION
 n_driftStudyTest = round.(Int, ones(10) * 9) #7
-n_between_listchange = 12; #5;15; 
+n_between_listchange = 25; #5;15; 
 const p_driftAndListChange = 0.03; # studied prior list probability change 
 p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 p_reinstate_rate = 0.5#0.4 #prob of reinstatement
@@ -313,8 +314,9 @@ u_star = vcat(0.05, ones(n_lists-1) * 0.05)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
-#CHANGED: can change back firstL special
+#CHANGED, TODO: can change back firstL special
 u_star_context=vcat(0.05, ones(n_lists-1)*0.05)
+init_pos1_ustar_ctx_adv =0.05 #0.05
 # what would happen if I put this not special for first list? (the specificity for first poistion still exists)
 
 const n_units_time = 13#number of steps                                                                                                                                                                                                                        
@@ -355,10 +357,20 @@ is_onlyaddtrace_final = false
 
 p_ListChange_finaltest = ones(10) * 0.55 #0.1 prob list change for final test
 
-ratio_C_final = 0.3 #ratio of changing context used in final
-nU_f = nU;#allunchange is used
-# nC_f = round(Int, nU_f / (1 - ratio_C_final) * ratio_C_final) #this is wrong!!
-nC_f = round(Int, nC * ratio_C_final)
+ratio_unchanging_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
+ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
+
+# Only takes the first value; for a single Int
+nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
+nC_in = round.(Int, nC .* ratio_changing_to_itself_init)[1]
+
+#delete ratio_C_final
+ratio_unchanging_to_itself_final = LinRange(0.5,0.5, n_lists) # if use no unchanging
+ratio_changing_to_itself_final = LinRange(0.1,0.1, n_lists) # if use no unchanging
+
+nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
+nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
+
 
 #the advatage of foil in inital test (to make final T prediciton overlap)
 u_advFoilInitialT = 0;
@@ -471,7 +483,7 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
                 # stored_val =(rand() < u_star_context[word.studypos] ? 1 : 0)*context_features[ic];
                 if (list_num == 1) & (ic>nU) #only for changing; special u_star store only for change & list 1
                     if (word.studypos==1) & (ic>nU)
-                        stored_val = (rand() < u_star_context[list_num]+0.05 ? 1 : 0) * context_features[ic]
+                        stored_val = (rand() < u_star_context[list_num]+init_pos1_ustar_ctx_adv ? 1 : 0) * context_features[ic]
                     else
                     
                     
@@ -480,7 +492,7 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
                     # stored_val = (rand() < u_star_context[word.studypos] ? 1 : 0) * context_features[ic]
                 else
                     if (word.studypos==1) & (ic>nU)
-                        stored_val = (rand() < u_star_context[end]+0.05 ? 1 : 0) * context_features[ic]
+                        stored_val = (rand() < u_star_context[end]+init_pos1_ustar_ctx_adv ? 1 : 0) * context_features[ic]
                     else
                         
                         stored_val = (rand() < u_star_context[end] ? 1 : 0) * context_features[ic]
@@ -730,13 +742,12 @@ function calculate_two_step_likelihoods(probe::EpisodicImage, image_pool::Vector
                 # currently goes here
 
                 # Combine nC and a portion of nU based on a probability
-                num_unchanging_to_use = round(Int, nU * p_ratio_unchanging_between_list)
-                num_changing_to_use = round(Int, nC * (1 - p_ratio_unchanging_between_list))
-                # println(p_ratio)
-                # println("here")
-
-                probe_context_adjusted = fast_concat([probe_context[1:num_unchanging_to_use], probe_context[nU+1:nU+num_changing_to_use]])
-                image_context_adjusted = fast_concat([image_context[1:num_unchanging_to_use], image_context[nU+1:nU+num_changing_to_use]])     
+                U_ctx = nU_in
+                C_ctx = nC_in
+    
+                #CHANGED: !! should start from nU!! careful here!
+                probe_context_adjusted = fast_concat([probe_context[1 : U_ctx], probe_context[(nU +1) : (nU + C_ctx)]]) #take the first half
+                image_context_adjusted = fast_concat([image_context[1 : U_ctx], image_context[(nU +1) : (nU + C_ctx)]]) #ohoh, this is not wrong, its chunking the context of the image trace in memory...
 
                 context_likelihood = calculate_likelihood_ratio(probe_context_adjusted, image_context_adjusted, g_context, c)  # Context calculation
             end
@@ -773,10 +784,14 @@ end
 
 
 function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vector{EpisodicImage}, p::Float64, iprobe::Int64)::Tuple{Vector{Float64},Vector{Float64}}
+
+    nU_fs =nU_f[1];
+    nC_fs =nC_f[1];        
+    
     context_likelihoods = Vector{Float64}(undef, length(image_pool))
     word_likelihoods = Vector{Float64}(undef, length(image_pool))
     probe_context = probe.context_features
-    probe_context_f = fast_concat([probe_context[1:nU_f], probe_context[nU_f+1:nU_f+nC_f]])
+    probe_context_f = fast_concat([probe_context[1 : (nU_fs)], probe_context[(nU_fs + 1):(nU_fs + nC_fs)]]) #
 
     for ii in eachindex(image_pool)
         image = image_pool[ii]
@@ -784,7 +799,7 @@ function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vecto
 
         if firststg_allctx2 #false
             if is_test_allcontext2  #here is secon  stage would be wrong
-                image_context_f = fast_concat([image_context[1:nU_f], image_context[nU_f+1:nU_f+nC_f]])
+                image_context_f = fast_concat([image_context[1:nU_fs], image_context[nU_fs+1:nU_fs+nC_fs]])
                 context_likelihood = calculate_likelihood_ratio(fast_concat([probe.word.word_features, probe_context_f]), fast_concat([image.word.word_features, image_context_f]), g_context, c)  # .#  Context calculation
             elseif is_test_changecontext2
                 context_likelihood = calculate_likelihood_ratio(fast_concat([probe.word.word_features, probe_context[nU+1:end]]), fast_concat([image.word.word_features, image_context[nU+1:end]]), g_context, c)
@@ -793,7 +808,7 @@ function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vecto
             end
         else #is_test_allcontext2 true
             if is_test_allcontext2  #true; currently goes here
-                image_context_f = fast_concat([image_context[1:nU_f], image_context[nU_f+1:nU_f+nC_f]])
+                image_context_f = fast_concat([image_context[1:nU_fs], image_context[nU_fs+1:nU_fs+nC_fs]])
                 context_likelihood = calculate_likelihood_ratio(probe_context_f, image_context_f, g_context, c)  # .#  Context calculation
             elseif is_test_changecontext2 #false
                 context_likelihood = calculate_likelihood_ratio(probe_context[nU+1:end], image_context[nU+1:end], g_context, c)
