@@ -1,21 +1,36 @@
  Meeting log
  ------------------------------------------------------------May 15
- 1. make just trehdhol change, see what happens,
- 2. add to E1-model with only changni+_unchanging, see what happens
- 3. just use changing context, but less use of that across lists;
- 4. The thought of second stage filter + decisoin criteron
+ - [x] Make just trehdhol change, see what happens. (in E3)
+    - Will have the trend, but not so well
+    - ![alt text](<imgMD/Meeting log/image.png>)
+  
+ - [x] add to E1-model with only changni+ unchanging, see what happens.
+     - 20% ish unchaning in inital E1 model would work; similaritly
+     - ![alt text](<imgMD/Meeting log/image-1.png>)     
+  
+ - [x] Just use changing context, but less use of that across lists.
+    - if Changing Ctx as inital probe, but with tau change
+      - ![alt text](<imgMD/Meeting log/image-2.png>)
+    - if only just changing ctx, with no tau change  
+      -  (would work?)
+   -  if only just tau change; ?
+      -  Yes; will actually work; 
+      - ![alt text](<imgMD/Meeting log/image-4.png>)
+    - If only high between-list drift + Lots UC ctx? ; will list-length effect apply and T drop?
+      - no;gives a flatty result; 
+      - 
+ - [ ] The thought of second stage filter + decision criterion:
    
-   Probably much more w_context (100), but much higher first stage filter 
+   - [ ] Probably much more w_context (100), but much higher first stage filter.
+   - [ ] What if most features are unchanging? Don't want to use mostly changing.
+   - [ ] Maybe change tau between lists, with many unchanging, will it work?
 
-   - what if most feature are Unchanging..? Don't want to use mostly changing
-   - Maybe change tau between list, with many unchanging, will it work
+ - [ ] Keep exactly the same criterion for E1 & E3; can adjust things as lists continue, but not add more mechanisms.
 
-Keep exactly same criterion for E1 & E3; can adjust things are list continue, but not more mechanims..?
+   - [ ] First stage to be special: E1 modeled by special assumption, E3 by...?
 
-- first stage to be special: E1 modeled by special assumption, E3 by ..??
+   - [ ] Bigger portion of unchanging; and different tau for each list in E1; will it do?
 
-- Bigger portion of unchanging; and different tau each list in E1; will it do???
+ - [ ] E2: How we change context as lists go on evidence.
 
-E2: how we change context as lists go on evidence
-
-Sampling: samplling memory traces to govern decision
+ - [ ] Sampling: Sampling memory traces to govern decision.

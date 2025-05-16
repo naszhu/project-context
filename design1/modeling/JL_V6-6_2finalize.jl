@@ -280,7 +280,7 @@ const n_lists = 10;
 # const n_words = 40;
 const n_words = n_probes;
 
-criterion_initial = LinRange(1, 0.25, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
+criterion_initial = LinRange(1, 0.35, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
 # criterion_initial = ones(n_probes)*1;#the bigger the later number, more close hits and CR merges. control merging  
 
 p_poscode_change = 0.1
@@ -310,11 +310,12 @@ n_grade = 2 #only first to be special
 
 # u_star = vcat(0.09, ones(n_lists-1) * 0.06)
 u_star = vcat(0.05, ones(n_lists-1) * 0.05)
-# u_star = ones(n_words)*0.04; # Probability of storage 
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
-u_star_context=vcat(0.09, ones(n_lists-1)*0.05)
+#CHANGED: can change back firstL special
+u_star_context=vcat(0.05, ones(n_lists-1)*0.05)
+# what would happen if I put this not special for first list? (the specificity for first poistion still exists)
 
 const n_units_time = 13#number of steps                                                                                                                                                                                                                        
 n_units_time_restore = n_units_time #only applies for adding traces now. 
@@ -354,7 +355,7 @@ is_onlyaddtrace_final = false
 
 p_ListChange_finaltest = ones(10) * 0.55 #0.1 prob list change for final test
 
-ratio_C_final = 0.1 #ratio of changing context used in final
+ratio_C_final = 0.3 #ratio of changing context used in final
 nU_f = nU;#allunchange is used
 # nC_f = round(Int, nU_f / (1 - ratio_C_final) * ratio_C_final) #this is wrong!!
 nC_f = round(Int, nC * ratio_C_final)
