@@ -83,6 +83,36 @@ df$condition%>%as.factor()%>%summary()
 651ebcca48c60acc82f1f2bd	BRandom	2024-01-05 02:57:50	2	0.6979167
 6574890e515887ae3dd1a434	Random	2024-01-06 02:54:19	2	0.4687500
 6574890e515887ae3dd1a434	BRandom	2024-01-05 02:57:50	2	0.3125000
+
+```{r}
+dcp= df %>%
+  filter(PROLIFIC_PID!="")%>%
+  # filter(PROLIFIC_PID%notin%discardlist)%>%
+  # filter(PROLIFIC_PID%notin%dl2)%>%
+  # filter(PROLIFIC_PID%notin%dl3)%>%
+  # filter(PROLIFIC_PID%notin%duplicate2)%>%
+  filter(!(PROLIFIC_PID=="615e1782e969d4939045c54f"&condition=="fr"))%>%
+  filter(!(PROLIFIC_PID=="638b49928d017fbd9fd95ca4"&condition=="fr"))%>%
+  filter(!(PROLIFIC_PID=="645ee0535d907605481e739d"&condition=="br"))%>%
+  
+  filter(!(PROLIFIC_PID=="612962f44f151ddfd0298c52"&condition=="b"))%>%
+  filter(!(PROLIFIC_PID=="638fdf87700dd1228bade2e1"&condition=="b"))%>%
+  filter(!(PROLIFIC_PID=="651ebcca48c60acc82f1f2bd"&condition=="f"))%>%
+  filter(!(PROLIFIC_PID=="6574890e515887ae3dd1a434"&condition=="r"))%>%
+  filter( is_finished==1 ,codeversion>=10)%>%
+  # filter(is_finished==1 ,codeversion>10)%>%
+  mutate(listnumber_1to10=as.factor(listnumber_1to10))%>%
+  mutate(condition=case_when(condition=="b"~"Backward",condition=="f"~"Forward",condition=="r"~"Random",
+                             condition=="fr"~"FRandom",condition=="br"~"BRandom"))%>%
+  mutate(condition = fct_relevel(condition, "Forward", "Backward", "Random","FRandom","BRandom"))%>%
+  mutate(correct_all = case_when(
+    task%in%c("pretest_response","counting_response") ~ as.logical(correct) ,
+    task=="finalt_response" ~ as.logical(is_correct_any),
+    TRUE ~ NA
+  ))
+
+```
+
 ```{r}
 
 discardlist = c("5658000ca9872d0011e1ba26", "5a53d878acc75b000179e52e", "5a89cc2c000dab00018cbd38", "5d100e740277ff00152f7562", "5dd9923922749791b319fc19", "5fe508e86079e12a8a3b2427","615dbec57d764bf5ab0a56e5")
