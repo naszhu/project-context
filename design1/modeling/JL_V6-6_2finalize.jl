@@ -281,7 +281,7 @@ const n_lists = 10;
 # const n_words = 40;
 const n_words = n_probes;
 
-criterion_initial = LinRange(1.2, 0.4, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
+criterion_initial = LinRange(1.5, 0.8, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
 # criterion_initial = ones(n_probes)*1;#the bigger the later number, more close hits and CR merges. control merging  
 
 p_poscode_change = 0.1
@@ -339,7 +339,7 @@ Pi = 30#RT scaling
 const c_storeintest = c
 
 # const u_star_context = u_star # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
-const c_context = c
+const c_context = LinRange(0.75, 0.6, n_lists)
 
 # const context_tau_f = 20;
 # -------------------------------
@@ -357,7 +357,7 @@ is_onlyaddtrace_final = false
 
 p_ListChange_finaltest = ones(10) * 0.55 #0.1 prob list change for final test
 
-ratio_unchanging_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(0.4, 0.4, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 # Only takes the first value; for a single Int
@@ -482,6 +482,7 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
             if j == 0 # if nothing is stored
                 # stored_val =(rand() < u_star_context[word.studypos] ? 1 : 0)*context_features[ic];
                 if (list_num == 1) & (ic>nU) #only for changing; special u_star store only for change & list 1
+                    # println("?")
                     if (word.studypos==1) & (ic>nU)
                         stored_val = (rand() < u_star_context[list_num]+init_pos1_ustar_ctx_adv ? 1 : 0) * context_features[ic]
                     else
@@ -501,7 +502,7 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
 
                 end
                 if stored_val != 0 #if sucessfully stored do the folowing, else keep the same value
-                    copied_val = rand() < c_context ? stored_val : rand(Geometric(g_context)) + 1
+                    copied_val = rand() < c_context[list_num] ? stored_val : rand(Geometric(g_context)) + 1
                     new_image.context_features[ic] = copied_val
                 end
             end
@@ -717,6 +718,8 @@ function calculate_two_step_likelihoods(probe::EpisodicImage, image_pool::Vector
     context_likelihoods = Vector{Float64}(undef, length(image_pool))
     word_likelihoods = Vector{Float64}(undef, length(image_pool))
 
+    ilist = probe.list_number   
+
     for ii in eachindex(image_pool)
         image = image_pool[ii]
         probe_context = probe.context_features
@@ -725,6 +728,7 @@ function calculate_two_step_likelihoods(probe::EpisodicImage, image_pool::Vector
         if firststg_allctx #false
             if is_test_allcontext  #here is secon  stage would be wrong, including position code, unchage, change
                 # context_likelihood = calculate_likelihood_ratio(probe_context,image_context,g_context,c )  # .#  Context calculation
+                eror("1")
                 context_likelihood = calculate_likelihood_ratio(fast_concat([probe.word.word_features, probe_context]), fast_concat([image.word.word_features, image_context]), g_word, c)
             else  #not testing all context but change only, no unchange or position code
                 error("not modifeid here")
@@ -749,7 +753,7 @@ function calculate_two_step_likelihoods(probe::EpisodicImage, image_pool::Vector
                 probe_context_adjusted = fast_concat([probe_context[1 : U_ctx], probe_context[(nU +1) : (nU + C_ctx)]]) #take the first half
                 image_context_adjusted = fast_concat([image_context[1 : U_ctx], image_context[(nU +1) : (nU + C_ctx)]]) #ohoh, this is not wrong, its chunking the context of the image trace in memory...
 
-                context_likelihood = calculate_likelihood_ratio(probe_context_adjusted, image_context_adjusted, g_context, c)  # Context calculation
+                context_likelihood = calculate_likelihood_ratio(probe_context_adjusted, image_context_adjusted, g_context, c_context[ilist])  # Context calculation
             end
         end
         # println(length(probe_context))
@@ -1042,7 +1046,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
                 if j == 0
                     # println(j,!is_onlyaddtrace)
                     #u_star_context to 0.04
-                        iimage.context_features[ic] = rand() < u_star_context[end]+u_advFoilInitialT ? (rand() < c_context ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
+                        iimage.context_features[ic] = rand() < u_star_context[end]+u_advFoilInitialT ? (rand() < c_context[iprobe_img.list_number] ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
 
                     # iimage.context_features[ic] = rand() < 1 ? (rand() < 1 ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j;
                 end
@@ -1109,7 +1113,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
                     # println(j,!is_onlyaddtrace)
                     #u_star_context to 0.04
 
-                        iimage.context_features[ic] = rand() < u_star_context[end] ? (rand() < c_context ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
+                        iimage.context_features[ic] = rand() < u_star_context[end] ? (rand() < c_context[iprobe_img.list_number] ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
 
                     # iimage.context_features[ic] = rand() < 1 ? (rand() < 1 ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j;
                 end
@@ -1179,7 +1183,7 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
                     # println("iprobe_img.list_number $(iprobe_img.list_number)")
                     # u_star_context[iprobe_img.list_number]
                     iprobe_img.context_features[ic]
-                        iimage.context_features[ic] = rand() < u_star_context[end] ? (rand() < c_context ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
+                        iimage.context_features[ic] = rand() < u_star_context[end] ? (rand() < c_context[end] ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j #FIXME, correct listnum assignhere?
                     # else
                         # iimage.context_features[ic] = rand() < u_star_context[end]+u_advFoilInitialT+0.1 ? (rand() < c_context ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
                     # end
