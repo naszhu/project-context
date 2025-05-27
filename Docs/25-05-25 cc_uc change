@@ -13,7 +13,7 @@ c_context_un = LinRange(0.75,0.75, n_lists)
 #### c = LinRange(0.75, 0.55,n_lists)  #copying parameter - 0.8 for context copying 
 c_storeintest = c
 c_context_c = LinRange(0.75,0.75, n_lists) #0.75->0.6
-c_context_un = LinRange(0.75,0.75, n_lists)
+c_context_un = LinRange(0.75,0.75, n_Blists)
 
 
 #### c = LinRange(0.75, 0.75,n_lists)  #copying parameter - 0.8 for context copying 
@@ -23,3 +23,15 @@ c_context_c = LinRange(0.5,0.75, n_lists) #0.75->0.6
 Gives the reverse direction of result -> lower Fb, higher T, a bit lower F
 
 see email today for a detail of plots
+
+
+#### New idea Rich may26, same, C(c) increase but big U
+u_star_context=vcat(1, ones(n_lists-1)*1)#CHANGED
+u_adv_firstpos=0.00 #adv of first position in eeach list
+
+c = LinRange(0.75, 0.75,n_lists)  #copying parameter - 0.8 for context copying 
+c_storeintest = c
+c_context_c = LinRange(0.5,0.6, n_lists) #0.75->0.6
+c_context_un = LinRange(0.75,0.75, n_lists)
+
+(small increase green Fb, drop both F, T)
