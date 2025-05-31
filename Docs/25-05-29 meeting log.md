@@ -14,3 +14,23 @@ Ask Rui: Khana model, context is previous item; -> it predict what kind of seria
 
 - [ ] Implement the two models mentioned above
 - [ ] analysis plot of e3 by testposition
+
+
+Metting with Rui:
+
+1. Model with weight on CC
+rate=1.5
+![alt text](<imgMD/25-05-29 meeting log/image.png>)
+
+
+if applying to only unmatched LL:
+![alt text](<imgMD/25-05-29 meeting log/image-1.png>)
+
+
+- Make a plot about first/second half of studyposition for d3
+compare same number of tests e1 vs. e3 (10 -10)
+
+plot p(old) decretminated T vs. Fb
+
+
+overall performance change..? between intial vs. final, why final e3 worse?? 
