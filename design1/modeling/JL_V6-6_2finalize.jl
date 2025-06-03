@@ -276,7 +276,7 @@ is_firststage = true;
 is_onlyaddtrace = false; #*add but not strengtening trace
 is_onlytest_currentlist = false; #this is discarded currently
 
-const n_probes = 20; # Number of probes to test
+const n_probes = 30; # Number of probes to test
 const n_lists = 10;
 # const n_words = 40;
 const n_words = n_probes;
@@ -339,7 +339,7 @@ Pi = 30#RT scaling
 const c_storeintest = c
 
 # const u_star_context = u_star # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
-const c_context = LinRange(0.75, 0.6, n_lists)
+const c_context = LinRange(0.75, 0.75, n_lists)
 
 # const context_tau_f = 20;
 # -------------------------------
@@ -357,7 +357,7 @@ is_onlyaddtrace_final = false
 
 p_ListChange_finaltest = ones(10) * 0.55 #0.1 prob list change for final test
 
-ratio_unchanging_to_itself_init = LinRange(0.4, 0.4, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(0., 0.4, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 # Only takes the first value; for a single Int
