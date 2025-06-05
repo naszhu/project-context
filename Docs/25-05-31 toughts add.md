@@ -8,5 +8,7 @@ Some initial thoughts.
     I note that list 1 in Exp 2 is about 7% worse than Exp 1. That is presumably due to list length.
     However, we have already decided that we want to explain changes in lists after the first by a shift in strategy such that less coding of content features starts happening with list two and continues until about list or so. That itself could make Exp 2 performance worse, and that would add to the list length effects.
 
+--  by(Rich)
+
 - 1. check current e1-m1 program, give nprobe=30, see if first list change:
 No, not yet.
