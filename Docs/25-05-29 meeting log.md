@@ -2,7 +2,7 @@
 - current data: T target (content coding) didn't drop all the way, only until list 4; 
 
 - unchanging coding alone , changing change, 
-- or c, raise LL powoer1, both change weight , unchange weight: simoutaniously reduce change
+- or c, raise LL powoer1, both CC weight adjust only (model approach 1), and/or UC weight asjust also (model appraoch2): simoutaniously reduce change
 
 
 Ask Rui: Khana model, context is previous item; -> it predict what kind of serial position effect? What the changing context could be?
@@ -16,7 +16,8 @@ Ask Rui: Khana model, context is previous item; -> it predict what kind of seria
 - [ ] analysis plot of e3 by testposition
 
 
-Metting with Rui:
+Metting with Rui:...
+---
 
 1. Model with weight on CC
 rate=1.5
