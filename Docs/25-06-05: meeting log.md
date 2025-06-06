@@ -11,14 +11,21 @@ Summary from last week: don't be obsessing on REM original formula
 
 - study & tested, study|test only, 
 
-- [ ]: Plot 1 overall performance: one for previous, current average. + foil/double foil/confusing foil: 
+- [x] Plot 1 overall performance: one for previous, current average. + foil/double foil/confusing foil: 
   - average hits + different kinds of foils. (study/test only & study and test & new foil)
   - Q: when there are different numbers of data, how to give average performance
   - maybe one tested is easier to reject 
 
-- [ ]: investigate specifiity for just list 2: break into two half & second half. 
+- [x] investigate specifiity for just list 2: break into two half & second half. 
 
-Q: experiment 1 performance trend list 1-10 down, but e2 go up? s
+Question of avg performance trend: experiment 1 performance trend list 1-10 down, but e2 go up? - needs to compare
+
+![alt text](<imgMD/25-06-05: meeting log/image-4.png>)
+
+![alt text](<imgMD/25-06-05: meeting log/image-5.png>)
+
+
+
 
 ---
 ## modeling:
