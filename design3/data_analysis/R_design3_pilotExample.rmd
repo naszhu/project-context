@@ -12,6 +12,8 @@ linters: with_defaults(
 
 ```
 
+## library
+
 ```{r} 
 # options(lintr.linter_file = NULL) # Disable .lintr file
 # lintr::lint("your_file.R", linters = with_defaults(line_length_linter = NULL)) # Disable line length linter
@@ -20,6 +22,7 @@ library(here)
 here::i_am("design3/data_analysis/R_design3_pilotExample.rmd")
 print(here())
 library(ggplot2) 
+library(forcats) # for fct_relevel
 # library()
 library(dplyr)
 # library(gridExtrau
@@ -1042,7 +1045,8 @@ ggplot(data=d1ta)+
 d1ta = df_rt_pl%>% 
   filter(task=="initialTest_response")%>%
          group_by(task, condition,type_comment, studyPos_appear0_initial,subject_id )%>%
-  mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>%
+  # mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>%
+  mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>% #change here to see that by study or test position
          summarise(cr = mean(correct))%>%
            group_by(task, condition,type_comment, studyPos_appear0_initial )%>%
          summarise(cr = mean(cr))
@@ -1054,7 +1058,7 @@ ggplot(data=d1ta)+
   scale_color_manual(values=c("blue","green","blue","green","purple","green","purple"))
 
 d1ta = df_rt_pl%>% 
-  filter(codeversion!=1)%>%
+  # filter(codeversion!=1)%>%
   filter(listNum_appear0_initial!=1 )%>%
   filter(task=="initialTest_response")%>%
     mutate(type_comment = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
@@ -1066,32 +1070,32 @@ d1ta = df_rt_pl%>%
          summarise(cr = mean(cr))%>%
   mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))
   
-ggplot(data=d1ta)+
-  geom_line(aes(x=testPos_appear0_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+
-  geom_point(aes(x=testPos_appear0_initial,y=cr,group=interaction(task,type_comment),shape=type_comment,color=type_comment),size=5)+
-  facet_grid(.~task)
-  # scale_color_manual(values=c("blue","green","green","green","purple"))
-d1ta = df_rt_pl%>%
-  filter(codeversion!=1)%>%
-  filter(listNum_appear0_initial!=1 )%>%
-  filter(task=="initialTest_response")%>%
-    mutate(type_comment = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
-                                is_currentObjAppear1=="false"  ~ paste("Foil from last trial",type_comment),
-                                  current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
-  mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))%>%
-  mutate(ilgroup= case_when(listNum_appear0_initial > 5 ~1,
-                            TRUE~2) )%>%
-         group_by(task, condition,type_comment, testPos_appear0_initial,subject_id, ilgroup)%>%
-         summarise(cr = mean(correct))%>%
-           group_by(task, condition,type_comment, testPos_appear0_initial ,ilgroup)%>%
-         summarise(cr = mean(cr))%>%
-  mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))
-  d1ta
+# ggplot(data=d1ta)+
+#   geom_line(aes(x=testPos_appear0_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+
+#   geom_point(aes(x=testPos_appear0_initial,y=cr,group=interaction(task,type_comment),shape=type_comment,color=type_comment),size=5)+
+#   facet_grid(.~task)
+#   # scale_color_manual(values=c("blue","green","green","green","purple"))
+# d1ta = df_rt_pl%>%
+#   filter(codeversion!=1)%>%
+#   filter(listNum_appear0_initial!=1 )%>%
+#   filter(task=="initialTest_response")%>%
+#     mutate(type_comment = case_when(current_assignmentTypesWithinList =="T_target" & is_currentObjAppear1=="true" ~"Target studied from current list",
+#                                 is_currentObjAppear1=="false"  ~ paste("Foil from last trial",type_comment),
+#                                   current_assignmentTypesWithinList =="T_foil"  ~"Foil current list"))%>%
+#   mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))%>%
+#   mutate(ilgroup= case_when(listNum_appear0_initial > 5 ~1,
+#                             TRUE~2) )%>%
+#          group_by(task, condition,type_comment, testPos_appear0_initial,subject_id, ilgroup)%>%
+#          summarise(cr = mean(correct))%>%
+#            group_by(task, condition,type_comment, testPos_appear0_initial ,ilgroup)%>%
+#          summarise(cr = mean(cr))%>%
+#   mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))
+#   d1ta
 
-ggplot(data=d1ta)+
-  geom_line(aes(x=testPos_appear0_initial, y= cr ,group=interaction(task,type_comment,ilgroup ),color= type_comment,linetype=type_comment))+
-  geom_point(aes(x=testPos_appear0_initial,y=cr,group=interaction(task,type_comment,ilgroup),shape=type_comment,color=type_comment),size=2)+
-  facet_grid(task~ilgroup)
+# ggplot(data=d1ta)+
+#   geom_line(aes(x=testPos_appear0_initial, y= cr ,group=interaction(task,type_comment,ilgroup ),color= type_comment,linetype=type_comment))+
+#   geom_point(aes(x=testPos_appear0_initial,y=cr,group=interaction(task,type_comment,ilgroup),shape=type_comment,color=type_comment),size=2)+
+#   facet_grid(task~ilgroup)
 
 
 d1ta = df_rt_pl%>%
@@ -1429,27 +1433,7 @@ df_pl_with_init <-
     select(-correct_appear1,-correct_appear2, -listNum_appear1_initial, -listNum_appear2_initial)%>%
     # select(-correct_appear1,-correct_appear2)%>%
   left_join(initial_scores, by = c("subject_id","id_picName")) #%>%
-  # filter(!( !complete.cases(correct_appear1,correct_appear2) & ! (stimulusConditions %in% c("FF","A")) ))%>%
-     # select(task,subject_id,id_picName,stimulusConditions,correct_appear1,correct_appear2,listNum_appear1_initial.x,listNum_appear1_initial.y, listNum_appear2_initial)
 
-
-# df_rt_pl %>% filter(task=="initialTest_response")%>%
-#   # filter(!(stimulusConditions%in%c("A") ))%>%
-#    filter(correct_appear1=="null",correct_appear2=="null")
-# 4% data is null , prob they all are those that didn't have an rt (null)
-# df_pl_with_init%>%
-#   filter(!(stimulusConditions%in%c("A","FF") ))%>% #filter out that of conditon study only
-#     select(subject_id,id_picName,stimulusConditions,correct_appear1,correct_appear2,listNum_appear1_initial)%>%
-#   filter(!complete.cases(correct_appear1,correct_appear2))
-
-# df_rt_pl%>%filter(subject_id=="66436e0c091888a5fc85584e" & id_picName=="1 (2170).jpg")%>% #filter out that of conditon study only
-#     select(task,subject_id,id_picName,stimulusConditions,correct_appear1,correct_appear2,listNum_appear1_initial)
-# 
-# 
-# df_pl%>%filter(subject_id=="66436e0c091888a5fc85584e" & listNum_appear0_initial==3)%>% #filter out that of conditon study only
-#   filter(task=="initialTest_response")%>%
-#     select(task,subject_id,id_picName,rt, correct,stimulusConditions,correct_appear1,correct_appear2,listNum_appear1_initial)
-# df_pl%>%filter(subject_id=="67cb5baef51d73572cb490ae")
 ```
 
 ```{r}
@@ -1777,7 +1761,7 @@ df_finalFoil_toappend = df_pl_with_init%>%
   mutate(init_outcome = 999)%>% #first or second time in initail correct =0 becuase didn't appear
   select(task, condition,type_comment, listNum_infinalOrder, subject_id,init_outcome,correct_appear_label, correct)
 
-# d1taf = df_pl_with_init%>%
+d1taf = df_pl_with_init%>%
   mutate(correct=case_when(correct=="True"~1,
                            correct=="False"~0,
                            TRUE ~ correct))%>%
@@ -1925,37 +1909,240 @@ ggplot(data=d1taf_combined)+
 
 
 
-## individual difference plot
-d2_2=dfchanged%>%filter(task%in%c("pretest_response"))%>%
-  select(testpos,ip,probetype,correct,trialnum,testpos)%>%
-  arrange(ip,trialnum,testpos)%>%
-  # group_by(trial)%>%
-  mutate(last_type=lag(probetype),last_correct=lag(correct))%>%
-  filter(!is.na(last_type))%>%
-  group_by(testpos,ip,trialnum,last_correct,last_type,probetype)%>%
-  summarize(cr=mean(correct))%>%
-  group_by(testpos,ip,trialnum,last_correct,last_type,probetype)%>%                           
-  summarize(mcr=mean(cr),last_correct=as.factor(last_correct))
+type_comment_levels (that appears in initial test plots for test position: 
+[1] "current target, in next trial"                 
+[2] "current target, in next trial, from last trial"
+[3] "current target, not in next trial"             
+[4] "studied only, in next trial, from last trial"  
+[5] "tested only, in next trial"                    
+[6] "tested only, in next trial, from last trial"   
+[7] "tested only, not in next trial"
 
-d3_2=d2_2%>%filter(trialnum!=1)%>%
-  group_by(probetype,ip,last_correct,last_type)%>%
-  summarize(mcr=mean(mcr))%>%
-  pivot_wider(names_from = last_correct,values_from = mcr)%>%
-  filter(complete.cases(`0`))%>%
-  mutate(diff=`1`-`0`)%>%
-  filter(probetype=="TARGET_foil",last_type=="TARGET_foil")%>%
+into Segmented type comment
+[1] "Foil-confusing, CR, double appear last list"
+[2] "Foil-confusing, CR, single appear last list"
+[3] "Foil-new, CR"                               
+[4] "Target, Hits" 
+index use above 
+1,3
+2,
+4,6,
+5,7
+
+
+
+typecomment_in_levels
+[1] "Inherented Foil - Last Foil"         "Inherented Foil - Last Studied Only"
+[3] "Inherented Foil - Last Target"       "New Foil"                           
+[5] "Target"   
+
+
+## Segment list 2 plot (for test position)
+
+
+```{r}
+type_comment_levels= levels(as.factor(df_rt_pl$type_comment))[c(1,2,3,6,8,9,10)]
+type_comment_levels
+d1taqq123 = df_rt_pl%>% 
+  filter(task=="initialTest_response")%>%
+         group_by(task, condition,type_comment, studyPos_appear0_initial,subject_id )%>%
+  # mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>%
+  mutate(studyPos_appear0_initial=as.numeric(testPos_appear0_initial))%>%
+  mutate(studyPos_appear0_initial= if_else(studyPos_appear0_initial<=15, 'g1','g2') )%>%
+  filter(listNum_appear1_initial==2)%>%
+         summarise(cr = mean(correct))%>%
+  # group Hits + two kinds CR
+  mutate(group_section = case_when(type_comment%in%type_comment_levels[c(1,3)]~ "Target, Hits",
+                                   type_comment%in%type_comment_levels[2] ~ "Foil-confusing, CR, double appear last list" ,
+                                   type_comment%in%type_comment_levels[c(4,6)] ~ "Foil-confusing, CR, single appear last list",
+                                   type_comment%in%type_comment_levels[c(5,7)] ~ "Foil-new, CR",
+  ))%>%
+  group_by(task, condition,group_section, studyPos_appear0_initial )%>%
+         summarise(cr = mean(cr))
+  
+ggplot(data=d1taqq123)+
+  geom_line(aes(x=studyPos_appear0_initial, y= cr ,group=interaction(task,group_section ),color= group_section,linetype=group_section))+ 
+  geom_point(aes(x=studyPos_appear0_initial,y=cr,group=interaction(task,group_section),shape=group_section,color=group_section),size=4)+
+  facet_grid(.~task)+
+  scale_color_manual(values=c("green","green","blue","purple"))
+
+
+```
+
+
+### Segment list 1-10
+
+>levels(as.factor(df_rt_pl$typecomment_in))
+[1] "Inherented Foil - Last Foil"        
+[2] "Inherented Foil - Last Studied Only"
+[3] "Inherented Foil - Last Target"      
+[4] "New Foil"                           
+[5] "Target"                             
+
+>into Segmented type comment
+[1] "Foil-confusing, CR, double appear last list"
+[2] "Foil-confusing, CR, single appear last list"
+[3] "Foil-new, CR"                               
+[4] "Target, Hits"
+
+weighted sum:
+ the mu overall here is actually applies to avg of targets (as all), or avg of foils (as all) 
+$$
+\mu_{\text{overall}}
+= \frac{1}{N} \sum_{i=1}^K n_i \,\mu_i
+= \frac{\sum_{i=1}^K n_i \,\mu_i}{\sum_{i=1}^K n_i}
+\quad,\quad
+N = \sum_{i=1}^K n_i.
+$$
+
+```{r}
+typecomment_in_levels = levels(as.factor(df_rt_pl$typecomment_in))
+typecomment_segment_levels = levels(as.factor(d1taqq123$group_section))
+
+d1ta = df_rt_pl%>%
+  filter(!is.na(rt),rt<3000)%>%
+  filter(task=="initialTest_response")%>%
+  # mutate(colorskeme=type_comment)%>%
+  mutate(typecomment_in = case_when(
+    typecomment_in %in% typecomment_in_levels[c(1,2)] ~ typecomment_segment_levels[2],
+    typecomment_in %in% typecomment_in_levels[c(3)] ~ typecomment_segment_levels[1],
+    typecomment_in %in% typecomment_in_levels[c(4)] ~ typecomment_segment_levels[3],
+    typecomment_in %in% typecomment_in_levels[c(5)] ~ typecomment_segment_levels[4]
+    )  )%>%
+  mutate(colorskeme=typecomment_in)%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
+         summarise(cr = mean(correct))%>%
+         group_by(task, condition, listNum_appear0_initial,colorskeme)%>%
+         summarise(cr = mean(cr))%>%
+  mutate(listNum_appear0_initial=as.factor(listNum_appear0_initial))
+  # mutate(type_comment=as.factor(type_comment))
+  
+levelsStr = c("Foil-new, CR", "Target, Hits", "Foil-confusing, CR, double appear last list" ,
+             "Foil-confusing, CR, single appear last list") 
+ggplot(data=d1ta)+
+  geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+ 
+  geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
+  facet_grid(.~task)+
+  scale_color_manual(values=c("green","forestgreen","blue","purple"))
+
+
+#########################################################3
+# ok,... above is actually not what wanted
+typecomment_in_levels = levels(as.factor(df_rt_pl$typecomment_in))
+typecomment_segment_levels = levels(as.factor(d1taqq123$group_section))
+simple_segment = c("Foil all - CR",
+                   "Target all - CR")
+
+d1ta = df_rt_pl%>%
+  filter(!is.na(rt),rt<3000)%>%
+  filter(task=="initialTest_response")%>%
+  # filter(complete.cases(correct))%>%
   ungroup()%>%
-  # select(ip,diff)%>%
-  mutate(ip = fct_reorder(ip, diff))
+  # mutate(colorskeme=type_comment)%>%
+  mutate(colorskeme=typecomment_in)%>% #typecomment_in is a true diff item kinds group
+  mutate(colorskeme = case_when( #colorskeme is a simple group
+        colorskeme %in% typecomment_in_levels[1:4] ~ simple_segment[1],
+        colorskeme == typecomment_in_levels[5] ~ simple_segment[2]
+        )  )%>% #reapply groupby and summarize, groupby the new colorskeme
+   group_by(task, condition, listNum_appear0_initial,typecomment_in,colorskeme,subject_id)%>%
+      summarise(ni = n(),mui= mean(correct), ni_times_mui= ni*mui,sei= sd(correct)/sqrt(ni))%>% #get small group mean and n
+  
+  #below commentd: not add subid as group first, but calculated se_g, the next lines doesn't
+  # part 1 comment
+    group_by(task, condition, listNum_appear0_initial,colorskeme)%>% #CATION: should add subject_id here as first avg???
+  summarise(n_g=n(), weight_avg = sum(ni_times_mui)/n_g,se_g=sqrt(sum(ni^2 * sei^2)/n_g), mumui=mean(mui))%>%
+  mutate(weight_avg=mumui)%>%
+  
+  #part 2 comment
+  # group_by(task, condition, listNum_appear0_initial,colorskeme, subject_id)%>% #CATION: should add subject_id here as first avg???
+  #   summarise(n_g=n(), weight_avg = sum(ni_times_mui)/n_g)%>%
+  # group_by(task, condition, listNum_appear0_initial,colorskeme)%>%
+  #   summarise(weight_avg=mean(weight_avg), se_g = sd(weight_avg)/sqrt(n()))%>% #this seg might be in correct
 
-d3
+   group_by(task, condition, listNum_appear0_initial)%>%
+         mutate(all_avg = mean(weight_avg))
+  # mutate(type_comment=as.factor(type_comment))
+  
+# # [1] "Foil-confusing, CR, double appear last list"
+# # [2] "Foil-confusing, CR, single appear last list"
+# # [3] "Foil-new, CR"                               
+# # [4] "Target, Hits" 
 
-ggplot(data=d3_2,
-       aes(x=ip,y=diff))+
-  geom_hline(yintercept = 0,color="red")+
-  geom_point()+
-  geom_line()
+# for alpha able to appear
+# library(grDevices)
+# options(bitmapType='cairo')
 
+ggplot(data=d1ta)+
+  geom_line(aes(x=listNum_appear0_initial, y= weight_avg ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+ 
+  geom_point(aes(x=listNum_appear0_initial,y=weight_avg,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
+  # geom_ribbon(aes(x=listNum_appear0_initial, ymin=weight_avg-se_g, ymax=weight_avg+se_g, fill=colorskeme),alpha=0.2)+
+  # geom_errorbar(aes(x=listNum_appear0_initial, ymin=weight_avg-se_g, ymax=weight_avg+se_g), width=.1, position=position_dodge(0.05)) +
+  geom_line(aes(x=listNum_appear0_initial,y=all_avg),color="black")+
+  facet_grid(.~task)
+  # scale_color_manual(values=c("green","forestgreen","blue","purple"))
+
+
+
+```
+
+
+
+
+### debug
+```{r}
+d1ta = df_rt_pl%>%
+  filter(!is.na(rt),rt<3000)%>%
+  filter(task=="initialTest_response")%>%
+  # filter(complete.cases(correct))%>%
+  ungroup()%>%
+  # mutate(colorskeme=type_comment)%>%
+  mutate(colorskeme=typecomment_in)%>% #typecomment_in is a true diff item kinds group
+  mutate(colorskeme = case_when( #colorskeme is a simple group
+        colorskeme %in% typecomment_in_levels[1:4] ~ simple_segment[1],
+        colorskeme == typecomment_in_levels[5] ~ simple_segment[2]
+        )  )%>% #reapply groupby and summarize, groupby the new colorskeme
+   group_by(task, condition, listNum_appear0_initial,typecomment_in,colorskeme,subject_id)%>%
+  summarise(meanscore = mean(correct))%>%
+   group_by(task, condition, listNum_appear0_initial,typecomment_in,colorskeme)%>%
+      summarise(ni = n(),mui= mean(meanscore), ni_times_mui= ni*mui,sei= sd(meanscore)/sqrt(ni))%>% #get small group mean and n
+  
+  #below commentd: not add subid as group first, but calculated se_g, the next lines doesn't
+  # part 1 comment
+    group_by(task, condition, listNum_appear0_initial,colorskeme)%>% #CATION: should add subject_id here as first avg???
+  summarise(n_g=n(), weight_avg = sum(ni_times_mui)/n_g, se_g=sqrt(sum(ni^2 * sei^2)/n_g), mumui=mean(mui))%>%
+  # mutate(weight_avg=mumui)%>%
+  
+  #part 2 comment
+  # group_by(task, condition, listNum_appear0_initial,colorskeme, subject_id)%>% #CATION: should add subject_id here as first avg???
+  #   summarise(n_g=n(), weight_avg = sum(ni_times_mui)/n_g)%>%
+  # group_by(task, condition, listNum_appear0_initial,colorskeme)%>%
+  #   summarise(weight_avg=mean(weight_avg), se_g = sd(weight_avg)/sqrt(n()))%>% #this seg might be in correct
+
+   group_by(task, condition, listNum_appear0_initial)%>%
+         mutate(all_avg = mean(weight_avg))
+  # mutate(type_comment=as.factor(type_comment))
+  
+# # [1] "Foil-confusing, CR, double appear last list"
+# # [2] "Foil-confusing, CR, single appear last list"
+# # [3] "Foil-new, CR"                               
+# # [4] "Target, Hits" 
+
+# for alpha able to appear
+# library(grDevices)
+# options(bitmapType='cairo')
+
+ggplot(data=d1ta)+
+  geom_line(aes(x=listNum_appear0_initial, y= weight_avg ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+ 
+  geom_point(aes(x=listNum_appear0_initial,y=weight_avg,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
+  # geom_ribbon(aes(x=listNum_appear0_initial, ymin=weight_avg-se_g, ymax=weight_avg+se_g, fill=colorskeme),alpha=0.2)+
+  # geom_errorbar(aes(x=listNum_appear0_initial, ymin=weight_avg-se_g, ymax=weight_avg+se_g), width=.1, position=position_dodge(0.05)) +
+  geom_line(aes(x=listNum_appear0_initial,y=all_avg),color="black")+
+  facet_grid(.~task)
+```
+
+
+
+# Indv difference
 ```{r}
 library(tidyverse)
 names(df_rt_pl)
