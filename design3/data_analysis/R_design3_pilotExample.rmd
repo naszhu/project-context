@@ -1964,7 +1964,35 @@ ggplot(data=d1taqq123)+
   geom_line(aes(x=studyPos_appear0_initial, y= cr ,group=interaction(task,group_section ),color= group_section,linetype=group_section))+ 
   geom_point(aes(x=studyPos_appear0_initial,y=cr,group=interaction(task,group_section),shape=group_section,color=group_section),size=4)+
   facet_grid(.~task)+
-  scale_color_manual(values=c("green","green","blue","purple"))
+  scale_color_manual(values=c("green","green","blue","purple"))+
+  xlab("Test position")
+
+
+
+################################
+
+d1taqq123 = df_rt_pl%>% 
+  filter(task=="initialTest_response")%>%
+         group_by(task, condition,type_comment, studyPos_appear0_initial,subject_id )%>%
+  # mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>%
+  mutate(studyPos_appear0_initial=as.numeric(testPos_appear0_initial))%>%
+  mutate(studyPos_appear0_initial= if_else(studyPos_appear0_initial<=15, 'g1','g2') )%>%
+  filter(listNum_appear1_initial==2)%>%
+         summarise(cr = mean(correct))%>%
+  # group Hits + two kinds CR
+  mutate(group_section = case_when(type_comment%in%type_comment_levels[c(1,3, 2)]~ "Target(Hits) + ConfuseF(CR)-double appear ",
+                                   type_comment%in%type_comment_levels[c(1,3,4,6)] ~ "Target(Hits) + ConfuseF(CR)-single appear" ,
+                                   type_comment%in%type_comment_levels[c(1,3, 5,7)] ~ "Target(Hits) + NewF(CR)",
+  ))%>%
+  group_by(task, condition,group_section, studyPos_appear0_initial )%>%
+         summarise(cr = mean(cr))
+  
+ggplot(data=d1taqq123)+
+  geom_line(aes(x=studyPos_appear0_initial, y= cr ,group=interaction(task,group_section ),color= group_section,linetype=group_section))+ 
+  geom_point(aes(x=studyPos_appear0_initial,y=cr,group=interaction(task,group_section),shape=group_section,color=group_section),size=4)+
+  facet_grid(.~task)+
+  scale_color_manual(values=c("green","forestgreen","blue","purple"))+
+  xlab("Test position")
 
 
 ```
@@ -2081,6 +2109,57 @@ ggplot(data=d1ta)+
   facet_grid(.~task)
   # scale_color_manual(values=c("green","forestgreen","blue","purple"))
 
+
+
+```
+
+### Segment Avg plot way 2
+```{r}
+
+type_comment_levels= levels(as.factor(df_rt_pl$type_comment))[c(1,2,3,6,8,9,10)]
+type_comment_levels
+                   
+d1ta = df_rt_pl%>%
+  filter(!is.na(rt),rt<3000)%>%
+  filter(task=="initialTest_response")%>%
+  # filter(complete.cases(correct))%>%
+  ungroup()%>%
+  # mutate(colorskeme=type_comment)%>%
+  mutate(colorskeme = case_when(type_comment%in%type_comment_levels[c(1,3, 2)]~ "Target(Hits) + ConfuseF(CR)-double appear ",
+                                   type_comment%in%type_comment_levels[c(1,3,4,6)] ~ "Target(Hits) + ConfuseF(CR)-single appear" ,
+                                   type_comment%in%type_comment_levels[c(1,3, 5,7)] ~ "Target(Hits) + NewF(CR)",
+  ))%>%
+  # mutate(colorskeme=typecomment_in)%>% #typecomment_in is a true diff item kinds group
+  # mutate(colorskeme = case_when( #colorskeme is a simple group
+  #       colorskeme %in% typecomment_in_levels[1:4] ~ simple_segment[1],
+  #       colorskeme == typecomment_in_levels[5] ~ simple_segment[2]
+  #       )  )%>% #reapply groupby and summarize, groupby the new colorskeme
+   group_by(task, condition, listNum_appear0_initial,type_comment,colorskeme,subject_id)%>%
+      summarise(ni = n(),mui= mean(correct), ni_times_mui= ni*mui,sei= sd(correct)/sqrt(ni))%>% #get small group mean and n
+  
+  
+  #below commentd: not add subid as group first, but calculated se_g, the next lines doesn't
+  # part 1 comment
+    group_by(task, condition, listNum_appear0_initial,colorskeme)%>% #CATION: should add subject_id here as first avg???
+  summarise(n_g=n(), weight_avg = sum(ni_times_mui)/n_g,se_g=sqrt(sum(ni^2 * sei^2)/n_g), mumui=mean(mui))%>%
+  mutate(weight_avg=mumui)%>%
+  
+   group_by(task, condition, listNum_appear0_initial)%>%
+         mutate(all_avg = mean(weight_avg))
+  # mutate(type_comment=as.factor(type_comment))
+  
+
+# library(grDevices)
+# options(bitmapType='cairo')
+
+ggplot(data=d1ta)+
+  geom_line(aes(x=listNum_appear0_initial, y= weight_avg ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+ 
+  geom_point(aes(x=listNum_appear0_initial,y=weight_avg,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
+  # geom_ribbon(aes(x=listNum_appear0_initial, ymin=weight_avg-se_g, ymax=weight_avg+se_g, fill=colorskeme),alpha=0.2)+
+  # geom_errorbar(aes(x=listNum_appear0_initial, ymin=weight_avg-se_g, ymax=weight_avg+se_g), width=.1, position=position_dodge(0.05)) +
+  geom_line(aes(x=listNum_appear0_initial,y=all_avg),color="black")+
+  facet_grid(.~task)
+  # scale_color_manual(values=c("green","forestgreen","blue","purple"))
 
 
 ```

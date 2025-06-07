@@ -111,6 +111,11 @@ dcp= df %>%
     TRUE ~ NA
   ))
 
+m=(dcp == dfcg)%>%as_tibble()
+
+m['tasks']
+summary(m$correct_all)
+
 ```
 
 ```{r}
