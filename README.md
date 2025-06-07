@@ -14,8 +14,6 @@ The repository is organized into several key directories. The structure is laid 
 
 * .  
   * Docs/  
-  * IRB FOR ALL/  
-  * papers/  
   * design1/  
     * data/  
     * data\_analysis/  
@@ -28,16 +26,12 @@ The repository is organized into several key directories. The structure is laid 
     * data\_analysis/  
     * modeling/ \-\> (This links to the Child Repo: rem\_e3\_model\_fixed)  
     * ui\_experiment/  
-  * exp\_host/  
-    * main/  
-    * functions/  
-    * ...  
   * ... (other miscellaneous files and deprecated folders)
 
 ### **Core Directories**
 
 * **Docs**: Contains important project documentation, including daily logs, meeting notes, and detailed explanations of the various design models.  
-* **IRB FOR ALL**: This folder holds files related to the Institutional Review Board (IRB) approval for this research.**⚠️ Privacy Note:** Please be aware that IRB documents can sometimes contain sensitive information. It is crucial to ensure that no private or confidential data is publicly exposed in this repository. You may want to consider making this repository private or storing these documents elsewhere.  
+* **IRB FOR ALL**: This folder holds files related to the Institutional Review Board (IRB) approval for this research.** 
 * **papers**: A collection of academic papers and related literature that inform the research and design process.  
 * **design1, design2, design3**: These are the main folders for each major design iteration. Each typically contains the necessary assets for that specific design, including:  
   * data/: Raw and processed data. The data/backup subfolder, if present, is a temporary holding area.  
@@ -46,21 +40,19 @@ The repository is organized into several key directories. The structure is laid 
   * ui\_experiment/: Contains the front-end code for the experiment. The HTML files within the design folders are typically older, monolithic versions.  
 * **exp\_host**: This directory contains the most current, modularized version of the Design 3 experiment. The code here is separated into logical modules (e.g., main.js, functions.js) for better maintainability, unlike the older HTML versions in the designX/ui\_experiment/ folders.
 
-### **Deprecated Folders**
 
-Folders such as design3- (with a trailing hyphen), data-design3, and Repeated Files are outdated and contain remnants of older file structures. They should be ignored as the relevant files have been migrated to the appropriate design folders.
+
+## **🐛 Issue Tracking**
+
+The project currently has important issue tracking of the whole project, with a number of open issues listed in the repository's "Issues" tab. A significant portion of these issues pertain to **Design 3**. Additionally, many more issues are tracked within the child repositories, especially for the design3 model.
+
+It's important to note that the project's contribution activity graph indicates that formal tracking of issues, commits, and model versions began relatively recently (around early May). Any development history, model versions, or issues prior to this date have not been formally logged or committed to this repository.
 
 ## **🔗 Child Repositories**
 
 This repository contains links to other specialized repositories.
 
 * The modeling work for design3 is managed in a separate child repository: **rem\_e3\_model\_fixed**. This is conceptually linked from the design3/modeling/ directory.
-
-## **🐛 Issue Tracking**
-
-The project currently has a number of open issues listed in the repository's "Issues" tab. A significant portion of these issues pertain to **Design 3**. Additionally, many more issues are tracked within the child repositories, especially for the design3 model.
-
-It's important to note that the project's contribution activity graph indicates that formal tracking of issues, commits, and model versions began relatively recently (around early May). Any development history, model versions, or issues prior to this date have not been formally logged or committed to this repository.
 
 ## **©️ Commit Style Convention**
 
