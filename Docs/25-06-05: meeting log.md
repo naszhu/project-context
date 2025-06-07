@@ -21,9 +21,13 @@ Summary from last week: don't be obsessing on REM original formula
 Question of avg performance trend: experiment 1 performance trend list 1-10 down, but e2 go up? - needs to compare
 
 ![alt text](<imgMD/25-06-05: meeting log/image-4.png>)
+![alt text](<imgMD/25-06-05: meeting log/image-6.png>)
 
+
+
+![alt text](<imgMD/25-06-05: meeting log/image-8.png>)
 ![alt text](<imgMD/25-06-05: meeting log/image-5.png>)
-
+![alt text](<imgMD/25-06-05: meeting log/image-7.png>)
 
 
 
