@@ -54,3 +54,28 @@ end
 ![alt text](<imgMD/25-06-12 Meetinglog/image.png>)
 ![alt text](<imgMD/25-06-12 Meetinglog/image-1.png>)
 
+
+## Purely check for OI:
+see what is the result of list 1 with n=30, and n=300:
+
+When 30 items:  (list 1 value of the two points is around 0.9) 
+![alt text](<imgMD/25-06-12 Meetinglog/image-2.png>)
+
+When 300 items:  (list 1 value of the two points is around 0.875) 
+![alt text](<imgMD/25-06-12 Meetinglog/image-3.png>)
+
+
+
+# Go back to original REM (+context)
+JL_V0_REM_2.jl
+Between-list results:
+
+- nwords = 20
+![alt text](<imgMD/25-06-12 Meetinglog OI explore/image-1.png>)
+
+- nwords = 100
+![alt text](<imgMD/25-06-12 Meetinglog OI explore/image-2.png>)
+
+
+- another scaling comparison show (a drop of both T and F)
+![alt text](<imgMD/25-06-12 Meetinglog OI explore/image-3.png>)
