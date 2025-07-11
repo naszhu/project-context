@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project-Context</title>
+  <style>
+    :root {
+      --primary: #264653;
+      --secondary: #2a9d8f;
+      --background: #fefae0;
+      --card-bg: #ffffff;
+      --text: #333333;
+      --accent: #e76f51;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text);
+    }
+    header {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+    }
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 1.2rem;
+      color: #f4f4f4;
+    }
+    main {
+      max-width: 900px;
+      margin: -1rem auto 2rem;
+      padding: 0 1rem;
+    }
+    section {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+    }
+    h2 {
+      margin-top: 0;
+      color: var(--secondary);
+    }
+    ul { padding-left: 1.2rem; }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    code {
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    pre {
+      background: #f0f0f0;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    .footer {
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Project-Context</h1>
+    <p>Central Hub for Experimental Designs & Documentation</p>
+  </header>
+  <main>
+    <section>
+      <h2>About This Project</h2>
+      <p><strong>Project-Context</strong> serves as the central repository coordinating multiple design iterations, data analyses, modeling workflows, and UI experiments for our research. It underpins specialized child repositories like the <code>rem_e3_model_fixed</code> module.</p>
+    </section>
+    <section>
+      <h2>📂 Folder Structure</h2>
+      <ul>
+        <li><code>Docs/</code> — Documentation: meeting notes, IRB approvals, literature reviews</li>
+        <li><code>design1/</code>, <code>design2/</code>, <code>design3/</code> — Each design’s assets:
+          <ul>
+            <li><code>data/</code> — raw & processed data</li>
+            <li><code>data_analysis/</code> — analysis scripts & notebooks</li>
+            <li><code>modeling/</code> — code & models (<a href="https://github.com/naszhu/REM_E3_model_fixed">E3 model</a>)</li>
+            <li><code>ui_experiment/</code> — front-end experiment code</li>
+          </ul>
+        </li>
+        <li><code>exp_host/</code> — Latest modular JS host for online experiments</li>
+        <li><code>papers/</code> — Key literature & references</li>
+        <li><code>.github/ISSUE_TEMPLATE/</code> — Issue templates</li>
+      </ul>
+    </section>
+    <section>
+      <h2>🚀 Getting Started</h2>
+      <p>Clone and explore:</p>
+      <pre><code>git clone https://github.com/naszhu/project-context.git
+cd project-context</code></pre>
+      <p>Navigate to subfolders for specific workflows and instructions.</p>
+    </section>
+    <section>
+      <h2>🐛 Issue Tracking</h2>
+      <p>All project issues are managed via GitHub Issues. Current focus on Design 3. See <a href="https://github.com/naszhu/project-context/issues">Issues tab</a>.</p>
+    </section>
+    <section>
+      <h2>🔗 Child Repositories</h2>
+      <ul>
+        <li><a href="https://github.com/naszhu/REM_E3_model_fixed">rem_e3_model_fixed</a> — E3 model code & simulations</li>
+        <!-- Add more child links as needed -->
+      </ul>
+    </section>
+    <section>
+      <h2>🏷️ Versioning & Conventions</h2>
+      <p>Commits follow <code>type(scope): message</code> format. Development is currently on <code>main</code>. Stable releases are tagged in child repos.</p>
+    </section>
+  </main>
+  <footer class="footer">
+    <p>© 2025 Shuchun Lai (Lea Lai)</p>
+    <p><a href="https://naszhu.github.io/project-context/">Live Site</a></p>
+  </footer>
+</body>
+</html>
