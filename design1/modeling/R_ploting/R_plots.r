@@ -96,7 +96,7 @@ DF2 = all_results%>%
 mutate(is_target=case_when(is_target=="true"~1,TRUE~0))%>%
 
 mutate(test_position=as.numeric(test_position))%>%
-mutate(test_index = (list_number - 1) * 150 + test_position) %>%
+# mutate(test_index = (list_number - 1) * 150 + test_position) %>%
 # mutate(list_number = ceiling(test_index / 60)) %>%
 mutate(is_target=as.factor(is_target))%>%
 
