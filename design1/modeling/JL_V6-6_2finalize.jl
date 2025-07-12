@@ -258,7 +258,7 @@ nC = w_context - nU
 
 
 is_finaltest = false #no final test for now to emulate
-n_simulations = is_finaltest ? 100 : 500;
+n_simulations = is_finaltest ? 100 : 100;
 # n_simulations= 50v
 context_tau = 0#everything pass first stage  
 firststg_allctx = false; #cancle this
@@ -750,8 +750,8 @@ function calculate_two_step_likelihoods(probe::EpisodicImage, image_pool::Vector
                 C_ctx = nC_in
     
                 #CHANGED: !! should start from nU!! careful here!
-                probe_context_adjusted = fast_concat([probe_context[1 : U_ctx], probe_context[(nU +1) : (nU + C_ctx)]]) #take the first half
-                image_context_adjusted = fast_concat([image_context[1 : U_ctx], image_context[(nU +1) : (nU + C_ctx)]]) #ohoh, this is not wrong, its chunking the context of the image trace in memory...
+                probe_context_adjusted = fast_concat([probe.word.word_features, probe_context[1 : U_ctx], probe_context[(nU +1) : (nU + C_ctx)]]) #take the first half
+                image_context_adjusted = fast_concat([image.word.word_features,image_context[1 : U_ctx], image_context[(nU +1) : (nU + C_ctx)]]) #ohoh, this is not wrong, its chunking the context of the image trace in memory...
 
                 context_likelihood = calculate_likelihood_ratio(probe_context_adjusted, image_context_adjusted, g_context, c_context[ilist])  # Context calculation
             end
