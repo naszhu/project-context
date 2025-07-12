@@ -12,15 +12,15 @@ enumerate
 
 using Random, Distributions,Statistics, DataFrames, DataFramesMeta
 using RCall
-n_words = 20; # Number of items
+n_words = 75; # Number of items
 w = 20; # Number of features
-g = 0.3; #geometric base rate
-n_units_time = 10; #number of steps
-u_star = 0.04; # Probability of storage
+g = 0.35; #geometric base rate
+n_units_time = 1; #number of steps
+u_star = 0.16; # Probability of storage
 c = 0.7; # Probability of copy
-n_probes = 200; # Number of probes to test
-n_simulations = 5000;
-n_lists = 10;
+n_probes = 75; # Number of probes to test
+n_simulations = 75;
+n_lists = 6;
 
 
 function generate_word_vector(w, g)
@@ -182,4 +182,18 @@ ggplot(data=DF2, aes(x=test_position,y=meanx,group=is_target))+
     geom_line(aes(color=is_target))+
     facet_grid(list_number~.)
     # ylim(0.5,1)
+
+DF2 = DF %>% 
+# mutate(meanx = case_when(is_target ~ meanx, TRUE ~ 1-meanx))
+group_by(list_number, is_target) %>%
+    summarise(meanx = mean(meanx), .groups = 'drop')
+# head(DF2)
+ggplot(data=DF2, aes(x=list_number,y=meanx,group=is_target))+
+    geom_point(aes(color=is_target))+
+    geom_line(aes(color=is_target,linewidth=3))+
+    # facet_grid(list_number~.)
+    ylim(c(0,1))+
+    theme(
+        text = element_text(size = 40)
+    )
 """

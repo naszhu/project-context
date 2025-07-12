@@ -245,7 +245,7 @@ p_recallFeatureStore = 0.85;
 printword(wordimg) = [wordimg[i].word_features for i in eachindex(wordimg)];
 printfeature(ft) = [[ft[i][j].value for j in eachindex(ft[1])] for i in eachindex(ft)];
 
-const w_context = 20; #first half unchange context, second half change context, third half word-change context (third half is not added yet)
+const w_context = 0; #first half unchange context, second half change context, third half word-change context (third half is not added yet)
 w_word = 20;#25 # number of word features, 30 optimal for inital test, 25 for fianal, lower w would lower overall accuracy 
 
 w_positioncode = 0
@@ -271,7 +271,7 @@ is_test_changecontext2 = false #is testing only change context in final test
 
 is_restore_context = false # currently don't want to restore context features, only add new context features tarce
 
-is_firststage = true;
+is_firststage = false;
 
 is_onlyaddtrace = false; #*add but not strengtening trace
 is_onlytest_currentlist = false; #this is discarded currently
@@ -281,7 +281,8 @@ const n_probes = 150; # Number of probes to test
 const n_lists = 6;
 # const n_words = 40;
 
-criterion_initial = LinRange(1, 1, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
+# 0.03^(1/11)= ~0.72
+criterion_initial = LinRange(0.8, 0.8, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
 # criterion_initial = ones(n_probes)*1;#the bigger the later number, more close hits and CR merges. control merging  
 
 p_poscode_change = 0.1
@@ -307,15 +308,15 @@ println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate
 const g_word = 0.35; #geometric base rate
 const g_context = 0.35; #0.3 originallly geometric base rate of context, or 0.2
 
-n_grade = 2 #only first to be special 
+n_grade = 0 #only first to be special 
 
 # u_star = vcat(0.09, ones(n_lists-1) * 0.06)
-u_star = vcat(0.5, ones(n_lists-1) * 0.5)
+u_star = vcat(0.16, ones(n_lists-1) * 0.16)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
-#CHANGED, TODO: can change back firstL special
-u_star_context=vcat(0.5, ones(n_lists-1)*0.5)
+# can change back firstL special
+u_star_context=vcat(0.16, ones(n_lists-1)*0.16)
 init_pos1_ustar_ctx_adv =0.00 #0.05
 # what would happen if I put this not special for first list? (the specificity for first poistion still exists)
 
@@ -325,7 +326,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-const is_store_mismatch = true; #if mismatched value is restored during test
+const is_store_mismatch = false; #if mismatched value is restored during test
 const n_finalprobs = 420;
 const c = 0.7 #coying parameter - 0.8 for context copying 
 
@@ -339,7 +340,7 @@ Pi = 30#RT scaling
 const c_storeintest = c
 
 # const u_star_context = u_star # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
-const c_context = LinRange(0.75, 0.75, n_lists)
+const c_context = LinRange(c, c, n_lists)
 
 # const context_tau_f = 20;
 # -------------------------------
@@ -357,8 +358,8 @@ is_onlyaddtrace_final = false
 
 p_ListChange_finaltest = ones(10) * 0.55 #0.1 prob list change for final test
 
-ratio_unchanging_to_itself_init = LinRange(0., 0.4, n_lists) # if use no unchanging
-ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(1.0, 1.0, n_lists) # if use no unchanging
+ratio_changing_to_itself_init = LinRange(0.0, 0.0, n_lists) # if use no unchanging
 
 # Only takes the first value; for a single Int
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
@@ -720,65 +721,68 @@ function calculate_two_step_likelihoods(probe::EpisodicImage, image_pool::Vector
 
     ilist = probe.list_number   
 
+# println(length(image_pool))
+
     for ii in eachindex(image_pool)
         image = image_pool[ii]
+        
         probe_context = probe.context_features
         image_context = image.context_features
 
-        if firststg_allctx #false
-            if is_test_allcontext  #here is secon  stage would be wrong, including position code, unchage, change
-                # context_likelihood = calculate_likelihood_ratio(probe_context,image_context,g_context,c )  # .#  Context calculation
-                eror("1")
-                context_likelihood = calculate_likelihood_ratio(fast_concat([probe.word.word_features, probe_context]), fast_concat([image.word.word_features, image_context]), g_word, c)
-            else  #not testing all context but change only, no unchange or position code
-                error("not modifeid here")
-                context_likelihood = calculate_likelihood_ratio(probe_context[nU+1:w_context], image_context[nU+1:w_context], g_context, c)  # .#  Context calculation
-            end
-        else #currently goes here
-            if is_test_allcontext  #false here; here is secon  stage would be wrong, including position code, unchage, change
+        # if firststg_allctx #false
+        #     if is_test_allcontext  #here is secon  stage would be wrong, including position code, unchage, change
+        #         # context_likelihood = calculate_likelihood_ratio(probe_context,image_context,g_context,c )  # .#  Context calculation
+        #         eror("1")
+        #         context_likelihood = calculate_likelihood_ratio(fast_concat([probe.word.word_features, probe_context]), fast_concat([image.word.word_features, image_context]), g_word, c)
+        #     else  #not testing all context but change only, no unchange or position code
+        #         error("not modifeid here")
+        #         context_likelihood = calculate_likelihood_ratio(probe_context[nU+1:w_context], image_context[nU+1:w_context], g_context, c)  # .#  Context calculation
+        #     end
+        # else #currently goes here
+        #     if is_test_allcontext  #false here; here is secon  stage would be wrong, including position code, unchage, change
 
-                error("testing all context is mistaken right here")
-                # println(length(image_context))
-                # img_ctx_now = image_context[nU+1: w_context]
-                # context_likelihood = calculate_likelihood_ratio(probe_context,img_ctx_now,g_context,c )  # .#  Context calculation
-            else  #not testing all context but change only, no unchange or position code
+        #         error("testing all context is mistaken right here")
+        #         # println(length(image_context))
+        #         # img_ctx_now = image_context[nU+1: w_context]
+        #         # context_likelihood = calculate_likelihood_ratio(probe_context,img_ctx_now,g_context,c )  # .#  Context calculation
+        #     else  #not testing all context but change only, no unchange or position code
 
-                # currently goes here
+        #         # currently goes here
 
-                # Combine nC and a portion of nU based on a probability
-                U_ctx = nU_in
-                C_ctx = nC_in
+        #         # Combine nC and a portion of nU based on a probability
+        #         U_ctx = nU_in
+        #         C_ctx = nC_in
     
-                #CHANGED: !! should start from nU!! careful here!
-                probe_context_adjusted = fast_concat([probe.word.word_features, probe_context[1 : U_ctx], probe_context[(nU +1) : (nU + C_ctx)]]) #take the first half
-                image_context_adjusted = fast_concat([image.word.word_features,image_context[1 : U_ctx], image_context[(nU +1) : (nU + C_ctx)]]) #ohoh, this is not wrong, its chunking the context of the image trace in memory...
+        #         #CHANGED: !! should start from nU!! careful here!
+        #         probe_context_adjusted = fast_concat([probe.word.word_features, probe_context[1 : U_ctx], probe_context[(nU +1) : (nU + C_ctx)]]) #take the first half
+        #         image_context_adjusted = fast_concat([image.word.word_features,image_context[1 : U_ctx], image_context[(nU +1) : (nU + C_ctx)]]) #ohoh, this is not wrong, its chunking the context of the image trace in memory...
 
-                context_likelihood = calculate_likelihood_ratio(probe_context_adjusted, image_context_adjusted, g_context, c_context[ilist])  # Context calculation
-            end
-        end
-        # println(length(probe_context))
-        context_likelihoods[ii] = context_likelihood
+        #         context_likelihood = calculate_likelihood_ratio(probe_context_adjusted, image_context_adjusted, g_context, c_context[ilist])  # Context calculation
+        #     end
+        # end
+        # # println(length(probe_context))
+        # context_likelihoods[ii] = context_likelihood
 
-        if is_firststage
+        # if is_firststage
 
             # second stage
-            if context_likelihood > context_tau # if pass context criterion 
+            # if context_likelihood > context_tau # if pass context criterion 
 
-                word_likelihoods[ii] = calculate_likelihood_ratio(probe.word.word_features[1:round(Int, w_word * p)], image.word.word_features[1:round(Int, w_word * p)], g_word, c)
+            #     word_likelihoods[ii] = calculate_likelihood_ratio(probe.word.word_features[1:round(Int, w_word * p)], image.word.word_features[1:round(Int, w_word * p)], g_word, c)
 
-                # if iprobe !== 1 #CONTEXT FILTER: if not first probe tested, using the filter, 
-                #     # taking  out the very low similarity word_likelihoods
-                #     if word_likelihoods[ii] < tau_filter ##adding a filter
-                #         word_likelihoods[ii]=344523466743
-                #     end
-                # end
-            else
-                # println("now")
-                word_likelihoods[ii] = 344523466743  # Or another value to indicate context mismatch
-            end
-        else
-            word_likelihoods[ii] = calculate_likelihood_ratio(probe.word.word_features[1:round(Int, w_word * p)], image.word.word_features[1:round(Int, w_word * p)], g_word, c)
-        end
+            #     # if iprobe !== 1 #CONTEXT FILTER: if not first probe tested, using the filter, 
+            #     #     # taking  out the very low similarity word_likelihoods
+            #     #     if word_likelihoods[ii] < tau_filter ##adding a filter
+            #     #         word_likelihoods[ii]=344523466743
+            #     #     end
+            #     # end
+            # else
+            #     # println("now")
+            #     word_likelihoods[ii] = 344523466743  # Or another value to indicate context mismatch
+            # end
+        # else
+            word_likelihoods[ii] = calculate_likelihood_ratio(probe.word.word_features, image.word.word_features, g_word, c)
+        # end
 
 
     end
@@ -956,9 +960,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
         nav = length(likelihood_ratios) / (length(image_pool_currentlist))
         # println(nav)
-        if (decision_isold == 1) && (odds > recall_odds_threshold)
-            imgMax = image_pool_currentlist[argmax(likelihood_ratios)]
-        end
+
 
         for j in eachindex(unique_list_numbers)
             nimages = count(image -> image.list_number == j, image_pool_currentlist)
@@ -969,7 +971,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
             # println(nl, " ",nimages_activated)
         end
     
-        imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org]);
+        imax = argmax(likelihood_ratios_org);
 
 
         if is_restore_initial
@@ -1011,12 +1013,12 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
 
         iimage = EpisodicImage(Word(iprobe_img.word.item, fill(0, length(iprobe_img.word.word_features)), iprobe_img.word.type, iprobe_img.word.studypos), zeros(length(iprobe_img.context_features)), iprobe_img.list_number, iprobe_img.initial_testpos_img)
 
-    elseif ((decision_isold == 1) & (odds <= recall_odds_threshold))
+    # elseif ((decision_isold == 1) & (odds <= recall_odds_threshold))
 
-        # println("not passed",i probe_img.list_number)
-        #give new 
-        iimage = EpisodicImage(Word(iprobe_img.word.item, fill(0, length(iprobe_img.word.word_features)), iprobe_img.word.type, iprobe_img.word.studypos), zeros(length(iprobe_img.context_features)), iprobe_img.list_number, iprobe_img.initial_testpos_img) #here is the new image, not the one in the pool
-    elseif ((decision_isold==1) & (odds > recall_odds_threshold) )
+    #     # println("not passed",i probe_img.list_number)
+    #     #give new 
+    #     iimage = EpisodicImage(Word(iprobe_img.word.item, fill(0, length(iprobe_img.word.word_features)), iprobe_img.word.type, iprobe_img.word.studypos), zeros(length(iprobe_img.context_features)), iprobe_img.list_number, iprobe_img.initial_testpos_img) #here is the new image, not the one in the pool
+    elseif (decision_isold==1) 
 
         #recall; restore old
         iimage = image_pool[imax] 
@@ -1059,7 +1061,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
 
     #if old, pass threshold, context and contet change, recall land strenghten
 
-    if (decision_isold == 1) & (odds > recall_odds_threshold) #single parameter for missing or replacing
+    if (decision_isold == 1) 
 
 
             for i in eachindex(iprobe_img.word.word_features)
@@ -1069,9 +1071,12 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
                     if (j == 0) #is only doing this once, so doesn't matter if j==0 or not..
                         # println("success")
                         # println("now",j,iprobe_img.word.word_features[i])
-                        iimage.word.word_features[i] = rand() < p_recallFeatureStore ? iprobe_img.word.word_features[i] : j #p_recallFeatureStore
+                        # iimage.word.word_features[i] = rand() < p_recallFeatureStore ? iprobe_img.word.word_features[i] : j #p_recallFeatureStore
+                        iimage.word.word_features[i]  = rand() < u_star[end] ? (rand() < c_storeintest ? iprobe_img.word.word_features[i] : rand(Geometric(g_word)) + 1) : 0 # 0.04 to u_star_context[2]
+                    end 
+                
 
-                    end
+                    # end
                 # end
             end
 
@@ -1093,38 +1098,10 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
         # end
 
     # if old, dind't pass threshold, add new trace
-    elseif (decision_isold == 1) & (odds <= recall_odds_threshold) 
-        
-        #didn't pass threshold, ADD new trace
-
-        for _ in 1:n_units_time_restore
-            for i in eachindex(iprobe_img.word.word_features)
-                j = iimage.word.word_features[i]
-                if (j == 0) #delete later part
-                    iimage.word.word_features[i] = rand() < u_star[end] ? (rand() < c_storeintest ? iprobe_img.word.word_features[i] : rand(Geometric(g_word)) + 1) : j # 0.04 to u_star_context[2]
-                end
-            end
-
-
-            for ic in eachindex(iprobe_img.context_features)
-                j = iimage.context_features[ic]
-
-                if j == 0
-                    # println(j,!is_onlyaddtrace)
-                    #u_star_context to 0.04
-
-                        iimage.context_features[ic] = rand() < u_star_context[end] ? (rand() < c_context[iprobe_img.list_number] ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
-
-                    # iimage.context_features[ic] = rand() < 1 ? (rand() < 1 ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j;
-                end
-
-            end
-        end
-
     end
 
 
-    if (decision_isold == 0) | ((decision_isold == 1) & (odds < recall_odds_threshold))
+    if (decision_isold == 0) 
         push!(image_pool, iimage)
         # println("pass, decision_isold $(decision_isold); is pass $(odds < recall_odds_threshold)")
 
