@@ -1411,6 +1411,11 @@ function simulate_rem()
 
     for sim_num in 1:n_simulations
 
+        if sim_num % (n_simulations ÷ 10) == 0
+            println("Progress: $(sim_num * 100 ÷ n_simulations)% simulations completed.")
+        end
+        
+
         #    sim_num=1
         image_pool = EpisodicImage[]
         # Initialize studied_pool with empty EpisodicImage objects
