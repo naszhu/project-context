@@ -9,7 +9,8 @@ linters: with_defaults(
 
 ```{r}
 # .libPaths()
-
+library(grDevices)
+options(bitmapType='cairo')
 ```
 
 ## library
@@ -1054,6 +1055,22 @@ d1ta = df_rt_pl%>%
 ggplot(data=d1ta)+
   geom_line(aes(x=studyPos_appear0_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+ 
   geom_point(aes(x=studyPos_appear0_initial,y=cr,group=interaction(task,type_comment),shape=type_comment,color=type_comment))+
+  facet_grid(.~task)+
+  scale_color_manual(values=c("blue","green","blue","green","purple","green","purple"))
+
+
+d1ta = df_rt_pl%>% 
+  filter(task=="initialTest_response")%>%
+         group_by(task, condition,type_comment, testPos_appear0_initial,subject_id )%>%
+  # mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>%
+  mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))%>% #change here to see that by study or test position
+         summarise(cr = mean(correct))%>%
+           group_by(task, condition,type_comment, testPos_appear0_initial )%>%
+         summarise(cr = mean(cr))
+  
+ggplot(data=d1ta)+
+  geom_line(aes(x=testPos_appear0_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+ 
+  geom_point(aes(x=testPos_appear0_initial,y=cr,group=interaction(task,type_comment),shape=type_comment,color=type_comment))+
   facet_grid(.~task)+
   scale_color_manual(values=c("blue","green","blue","green","purple","green","purple"))
 
