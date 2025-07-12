@@ -18,7 +18,7 @@ g = 0.3; #geometric base rate
 n_units_time = 10; #number of steps
 u_star = 0.04; # Probability of storage
 c = 0.7; # Probability of copy
-n_probes = 20; # Number of probes to test
+n_probes = 200; # Number of probes to test
 n_simulations = 5000;
 n_lists = 10;
 
