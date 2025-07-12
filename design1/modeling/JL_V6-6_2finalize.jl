@@ -213,7 +213,7 @@ const n_lists = 6;
 # const n_words = 40;
 
 # 0.03^(1/11)= ~0.72
-criterion_initial = LinRange(0.72, 0.72, n_probes);#the bigger the later number, 
+criterion_initial = LinRange(1, 1, n_probes);#the bigger the later number, 
 
 p_poscode_change = 0.0
 
@@ -344,7 +344,8 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
     probetypes = repeat([:target, :foil], outer=div(n_probes, 2)) |> shuffle!
     probes = Vector{Probe}(undef, length(probetypes))
 
-    words = filter(word -> word.type == :T_target, studied_words) |> shuffle! |> deepcopy
+    words = studied_words|> shuffle! |> deepcopy
+    # filter(word -> word.type == :T_target, studied_words) |> shuffle! |> deepcopy
     # println("List $(list_num)")
     # test
     stdpos  = 0;
@@ -531,8 +532,8 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
                 end
             end
 
+        push!(image_pool, iimage)
 
-           
         # end
     end
 
@@ -561,11 +562,6 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
     end
 
 
-    if (decision_isold == 0) 
-        push!(image_pool, iimage)
-
-
-    end
 
 
 
