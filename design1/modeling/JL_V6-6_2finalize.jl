@@ -245,22 +245,22 @@ p_recallFeatureStore = 0.85;
 printword(wordimg) = [wordimg[i].word_features for i in eachindex(wordimg)];
 printfeature(ft) = [[ft[i][j].value for j in eachindex(ft[1])] for i in eachindex(ft)];
 
-const w_context = 50; #first half unchange context, second half change context, third half word-change context (third half is not added yet)
-w_word = 25;#25 # number of word features, 30 optimal for inital test, 25 for fianal, lower w would lower overall accuracy 
+const w_context = 20; #first half unchange context, second half change context, third half word-change context (third half is not added yet)
+w_word = 20;#25 # number of word features, 30 optimal for inital test, 25 for fianal, lower w would lower overall accuracy 
 
 w_positioncode = 0
 w_allcontext = w_context + w_positioncode
-ratio_U = 0.5 #ratio of general(unchanging) context
+ratio_U = 1.0 #ratio of general(unchanging) context #make all unchanging context for now
 
 nU = round(Int, w_context * ratio_U)
 nC = w_context - nU
 
 
 
-is_finaltest = false
+is_finaltest = false #no final test for now to emulate
 n_simulations = is_finaltest ? 100 : 500;
 # n_simulations= 50v
-context_tau = 100#foil odds should lower than this  
+context_tau = 0#everything pass first stage  
 firststg_allctx = false; #cancle this
 firststg_allctx2 = false;
 is_test_allcontext = false #include general context? not testing all context in intial test
@@ -276,12 +276,12 @@ is_firststage = true;
 is_onlyaddtrace = false; #*add but not strengtening trace
 is_onlytest_currentlist = false; #this is discarded currently
 
-const n_probes = 30; # Number of probes to test
-const n_lists = 10;
+const n_words = 75;
+const n_probes = 150; # Number of probes to test
+const n_lists = 6;
 # const n_words = 40;
-const n_words = n_probes;
 
-criterion_initial = LinRange(1.5, 0.8, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
+criterion_initial = LinRange(1.0, 1.0, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
 # criterion_initial = ones(n_probes)*1;#the bigger the later number, more close hits and CR merges. control merging  
 
 p_poscode_change = 0.1
@@ -290,11 +290,11 @@ p_reinstate_context = 0.8 #stop reinstate after how much features
 
 #p_driftAndListChange should be used for both within-list drift and between-list change
 #7, 10 IS A COMBINATION
-n_driftStudyTest = round.(Int, ones(10) * 9) #7
-n_between_listchange = 25; #5;15; 
-const p_driftAndListChange = 0.03; # studied prior list probability change 
-p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
-p_reinstate_rate = 0.5#0.4 #prob of reinstatement
+n_driftStudyTest = round.(Int, ones(10) * 0) #7
+n_between_listchange = 0; #5;15; 
+const p_driftAndListChange = 0.00; # no feature chagne between list, no drift
+# p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list #this parm doens't exist
+p_reinstate_rate = 0.0#0.4 #no reinstatement
 
 
 # n_driftStudyTest = round.(Int,ones(10)*25)
@@ -304,22 +304,22 @@ aa = (1 - (1 - p_driftAndListChange)^n_between_listchange);
 println("prob of feature change after 4 lists $(1-(1-aa)^8)")
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 
-const g_word = 0.4; #geometric base rate
-const g_context = 0.3; #0.3 originallly geometric base rate of context, or 0.2
+const g_word = 0.35; #geometric base rate
+const g_context = 0.35; #0.3 originallly geometric base rate of context, or 0.2
 
 n_grade = 2 #only first to be special 
 
 # u_star = vcat(0.09, ones(n_lists-1) * 0.06)
-u_star = vcat(0.05, ones(n_lists-1) * 0.05)
+u_star = vcat(0.5, ones(n_lists-1) * 0.5)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
 #CHANGED, TODO: can change back firstL special
-u_star_context=vcat(0.05, ones(n_lists-1)*0.05)
-init_pos1_ustar_ctx_adv =0.05 #0.05
+u_star_context=vcat(0.5, ones(n_lists-1)*0.5)
+init_pos1_ustar_ctx_adv =0.00 #0.05
 # what would happen if I put this not special for first list? (the specificity for first poistion still exists)
 
-const n_units_time = 13#number of steps                                                                                                                                                                                                                        
+const n_units_time = 1#number of steps                                                                                                                                                                                                                        
 n_units_time_restore = n_units_time #only applies for adding traces now. 
 n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
@@ -327,7 +327,7 @@ n_units_time_restore_f = n_units_time_restore_t # -3
 
 const is_store_mismatch = true; #if mismatched value is restored during test
 const n_finalprobs = 420;
-const c = 0.75 #coying parameter - 0.8 for context copying 
+const c = 0.7 #coying parameter - 0.8 for context copying 
 
 
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
@@ -428,7 +428,7 @@ function generate_study_list(list_num::Int)::Vector{Word}
     # p_changeword = 0.1
     # study_list = Vector{EpisodicImage}(undef, n_words)
     word_list = Vector{Word}(undef, n_words)
-    types = fast_concat(fill.([:T_target, :T_nontarget], [Int(n_probes / 2), Int(n_probes / 2)])) |> shuffle!
+    types = fast_concat(fill.([:T_target], n_probes)) |> shuffle! #every used as target
 
     for i in 1:n_words
 
@@ -1413,7 +1413,18 @@ function simulate_rem()
 
         #    sim_num=1
         image_pool = EpisodicImage[]
-        studied_pool = Array{EpisodicImage}(undef, n_probes + Int(n_probes / 2), n_lists) #30 images (10 Tt, 10 Tn, 10 Tf) of 10 lists
+        # Initialize studied_pool with empty EpisodicImage objects
+        studied_pool = Array{EpisodicImage}(undef, n_words + Int(n_probes / 2), n_lists)
+
+        for i in 1:n_words + Int(n_probes / 2),  j in 1:n_lists
+            # Create an empty EpisodicImage with default values
+            studied_pool[i, j] = EpisodicImage(
+            Word("", zeros(Int64, w_word), :T_target, 0),
+            zeros(Int64, w_context + w_positioncode),
+            0,
+            0
+            )
+        end
         general_context_features = rand(Geometric(g_context), nU) .+ 1#[ContextFeature(rand(Geometric(g_context)) + 1, :general, p_change) for _ in 1:div(w_context, 2)] 
         list_change_context_features = rand(Geometric(g_context), nC) .+ 1#[ContextFeature(rand(Geometric(g_context)) + 1, :list_change, p_change) for _ in 1:div(w_context, 2)]
 
@@ -1422,7 +1433,6 @@ function simulate_rem()
         for list_num in 1:n_lists
 
             position_code_all = [fill(0, w_positioncode) for _ in 1:n_words]
-
 
             word_list = generate_study_list(list_num) #::Vector{Word}
             # word_change_context_features = rand(Geometric(g_context),div(w_context, 2)) .+ 1;
@@ -1489,7 +1499,7 @@ function simulate_rem()
             #studied_pool[:, list_num]
             # studied_pool[j, list_num]
             # println(studied_pool)#studdied pool has length of 30, so only take first 20
-            probes = generate_probes(word_list, list_change_context_features, test_list_context, general_context_features, test_list_context_unchange, position_code_all, list_num, studied_pool[1:n_probes,list_num]) #probe number is current list number, get probes of current list 
+            probes = generate_probes(word_list, list_change_context_features, test_list_context, general_context_features, test_list_context_unchange, position_code_all, list_num, studied_pool[1:n_words,list_num]) #probe number is current list number, get probes of current list 
             
 
             # println("ImagePoolNow", [i.word.item for i in image_pool])
@@ -1500,7 +1510,9 @@ function simulate_rem()
             # foil stored
             #    println(studied_pool[list_num,20])
             #    println(studied_pool[list_num,21])
-            studied_pool[n_words+1:n_words+Int(n_words / 2), list_num] = [i.image for i in filter(prb -> prb.classification == :foil, probes)]
+            # println("length probes,", length(probes), " length_studypool", studied_pool[:,list_num], " length even", n_words+1:n_words+Int(n_probes / 2),)
+            studied_pool[n_words+1:n_words+Int(n_probes / 2), list_num] = [i.image for i in filter(prb -> prb.classification == :foil, probes)]
+
             results = probe_evaluation(image_pool, probes, list_change_context_features, general_context_features, sim_num)
             # println("ImagePoolNow", [i.word.item for i in image_pool])
             
