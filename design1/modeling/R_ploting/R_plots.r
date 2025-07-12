@@ -94,19 +94,24 @@ p_in_20in10_break2=ggplot(data=df3,aes(x=test_position,y=meanx,group=interaction
 
 DF2 = DF %>% mutate(meanx = case_when(is_target=="true"~ meanx, TRUE ~ 1-meanx))%>%
 mutate(test_position=as.numeric(test_position))%>%
-group_by(list_number,is_target)%>%
+mutate(test_index = (list_number - 1) * 150 + test_position) %>%
+mutate(list_number = ceiling(test_index / 60)) %>%
+group_by(list_number, is_target) %>%
 summarize(meanx=mean(meanx))
+# print("sssssssss")
+# head(summary(DF2$list_number))
 p1=ggplot(data=DF2, aes(x=list_number,y=meanx,group=is_target))+
     geom_point(aes(color=is_target))+
     geom_line(aes(color=is_target),size=1.5)+
     ylim(c(0.65,1))+
-    scale_x_continuous(name="list number",breaks = 1:10,labels=as.character(1:10))+labs(title="Accuracy by list number in inital test ")+
+    # scale_x_continuous(name="list number",breaks = 1:15,labels=as.character(1:15))+
+        labs(title="Accuracy by block in inital test ")+
     theme(
             plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
         plot.margin = margin(t = 10, b = 40),
         text=element_text(size=20) # Increase font size globally
     )
-
+# p1
 
 DF2 = DF %>% mutate(meanx = case_when(is_target=="true"~ meanx, TRUE ~ 1-meanx))%>%
 mutate(test_position=as.numeric(test_position))

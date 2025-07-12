@@ -281,7 +281,7 @@ const n_probes = 150; # Number of probes to test
 const n_lists = 6;
 # const n_words = 40;
 
-criterion_initial = LinRange(1.0, 1.0, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
+criterion_initial = LinRange(1, 1, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
 # criterion_initial = ones(n_probes)*1;#the bigger the later number, more close hits and CR merges. control merging  
 
 p_poscode_change = 0.1
