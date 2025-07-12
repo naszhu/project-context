@@ -91,11 +91,22 @@ p_in_20in10_break2=ggplot(data=df3,aes(x=test_position,y=meanx,group=interaction
     p_in_20in10_break2
     p_in_20in100
 
+# :meanx = mean(:decision_isold)
+DF2 = all_results%>%
+mutate(is_target=case_when(is_target=="true"~1,TRUE~0))%>%
 
-DF2 = DF %>% mutate(meanx = case_when(is_target=="true"~ meanx, TRUE ~ 1-meanx))%>%
 mutate(test_position=as.numeric(test_position))%>%
 mutate(test_index = (list_number - 1) * 150 + test_position) %>%
-mutate(list_number = ceiling(test_index / 60)) %>%
+# mutate(list_number = ceiling(test_index / 60)) %>%
+mutate(is_target=as.factor(is_target))%>%
+
+group_by(test_position,is_target,simulation_number,list_number)%>%
+summarize(meanx=mean(decision_isold))%>%
+
+group_by(test_position,is_target,list_number)%>%
+summarize(meanx=mean(meanx))%>%
+
+# mutate(meanx = case_when(is_target=="true"~ meanx, TRUE ~ 1-meanx))%>%
 group_by(list_number, is_target) %>%
 summarize(meanx=mean(meanx))
 # print("sssssssss")
@@ -103,14 +114,14 @@ summarize(meanx=mean(meanx))
 p1=ggplot(data=DF2, aes(x=list_number,y=meanx,group=is_target))+
     geom_point(aes(color=is_target))+
     geom_line(aes(color=is_target),size=1.5)+
-    ylim(c(0.65,1))+
+    # ylim(c(0.65,1))+
     # scale_x_continuous(name="list number",breaks = 1:15,labels=as.character(1:15))+
-        labs(title="Accuracy by block in inital test ")+
+        labs(title="p(old)")+
     theme(
             plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
         plot.margin = margin(t = 10, b = 40),
         text=element_text(size=20) # Increase font size globally
-    )
+    )+ylim(c(0,1))
 # p1
 
 DF2 = DF %>% mutate(meanx = case_when(is_target=="true"~ meanx, TRUE ~ 1-meanx))%>%
@@ -217,10 +228,10 @@ list_rt=ggplot(data=df_rt_list,aes(x=list_number,y=rt,group=interaction(is_targe
         text=element_text(size=20) # Increase font size globally
     )
 
-png(filename="plot1.png", width=500, height=1200)
+png(filename="plot1.png", width=1200, height=1200)
 # grid.arrange(p1,list_rt,p_in_20,testpos_rt,p_serial,p4,ncol = 2,nrow=3)
-# grid.arrange(p1,p_in_20,p_serial,p4,ncol = 2,nrow=2)
-grid.arrange(p1,p_in_20,p_serial,ncol = 1,nrow=3)
+grid.arrange(p1,p_in_20,p_serial,p4,ncol = 2,nrow=2)
+# grid.arrange(p1,p_in_20,p_serial,ncol = 1,nrow=3)
 dev.off()
 # system("feh plot1.png &", wait = FALSE)      # if `feh` is installed
 # system("feh plot1.png",)      # if `feh` is installed
