@@ -6,9 +6,36 @@ library(gridExtra)
 all_results=read.csv("all_results.csv")
 DF=read.csv("DF.csv")
 all_results$is_target
+# df1=all_results%>%mutate(is_target=case_when(is_target=="true"~1,TRUE~0),correct=decision_isold==is_target)%>%
+# # mutate(test_position=ceiling(as.numeric(test_position)/10) )%>%
+#     group_by(test_position,is_target,simulation_number)%>%
+#     summarize(meanx=mean(correct))%>%
+#     group_by(test_position,is_target)%>%
+#     summarize(meanx=mean(meanx))%>%
+#     mutate(is_target=as.factor(is_target))%>%
+#     group_by(test_position)%>%
+#     mutate(meanx_m=mean(meanx))
+# df1
+
+# p_in_20=ggplot(data=df1,aes(x=test_position,y=meanx,group=is_target))+
+#     geom_line(aes(color=is_target),size=1.5)+
+#     geom_line(aes(x=test_position,y=meanx_m),color="black",size=1.5)+
+#     geom_point()+ylim(c(0.5,1))+
+#     theme(
+#             plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+#         plot.margin = margin(t = 10, b = 40),
+#         text=element_text(size=20) # Increase font size globally
+#     )
+# p_in_20
+
+
 df1=all_results%>%mutate(is_target=case_when(is_target=="true"~1,TRUE~0),correct=decision_isold==is_target)%>%
-    group_by(test_position,is_target,simulation_number)%>%
-    summarize(meanx=mean(correct))%>%
+mutate(test_position=ceiling(as.numeric(test_position)/10) )%>%
+# filter(list_number==1)%>%
+    group_by(test_position,is_target,simulation_number,list_number)%>%
+    summarize(meanx=mean(decision_isold))%>%
+    group_by(test_position,is_target,list_number)%>%
+    summarize(meanx=mean(meanx))%>%
     group_by(test_position,is_target)%>%
     summarize(meanx=mean(meanx))%>%
     mutate(is_target=as.factor(is_target))%>%
@@ -18,32 +45,12 @@ df1=all_results%>%mutate(is_target=case_when(is_target=="true"~1,TRUE~0),correct
 p_in_20=ggplot(data=df1,aes(x=test_position,y=meanx,group=is_target))+
     geom_line(aes(color=is_target),size=1.5)+
     geom_line(aes(x=test_position,y=meanx_m),color="black",size=1.5)+
-    geom_point()+ylim(c(0.5,1))+
+    geom_point()+ylim(c(0,1))+
+    scale_y_continuous(breaks = seq(0, 1, by = 0.2), limits = c(0, 1)) +
     theme(
-            plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+        plot.caption = element_text(hjust = 0, size = 14, face = "bold"),
         plot.margin = margin(t = 10, b = 40),
-        text=element_text(size=20) # Increase font size globally
-    )
-p_in_20
-
-
-df1=all_results%>%mutate(is_target=case_when(is_target=="true"~1,TRUE~0),correct=decision_isold==is_target)%>%
-    group_by(test_position,is_target,simulation_number)%>%
-    summarize(meanx=mean(correct))%>%
-    group_by(test_position,is_target)%>%
-    summarize(meanx=mean(meanx))%>%
-    mutate(is_target=as.factor(is_target))%>%
-    group_by(test_position)%>%
-    mutate(meanx_m=mean(meanx))
-
-p_in_20=ggplot(data=df1,aes(x=test_position,y=meanx,group=is_target))+
-    geom_line(aes(color=is_target),size=1.5)+
-    geom_line(aes(x=test_position,y=meanx_m),color="black",size=1.5)+
-    geom_point()+ylim(c(0.5,1))+
-    theme(
-            plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
-        plot.margin = margin(t = 10, b = 40),
-        text=element_text(size=20) # Increase font size globally
+        text = element_text(size = 20)
     )
 
 
@@ -96,7 +103,7 @@ DF2 = all_results%>%
 mutate(is_target=case_when(is_target=="true"~1,TRUE~0))%>%
 
 mutate(test_position=as.numeric(test_position))%>%
-# mutate(test_index = (list_number - 1) * 150 + test_position) %>%
+mutate(test_index = (list_number - 1) * 150 + test_position) %>%
 # mutate(list_number = ceiling(test_index / 60)) %>%
 mutate(is_target=as.factor(is_target))%>%
 
@@ -228,7 +235,7 @@ list_rt=ggplot(data=df_rt_list,aes(x=list_number,y=rt,group=interaction(is_targe
         text=element_text(size=20) # Increase font size globally
     )
 
-png(filename="plot1.png", width=1200, height=1200)
+png(filename="plot1.png", width=850, height=1000)
 # grid.arrange(p1,list_rt,p_in_20,testpos_rt,p_serial,p4,ncol = 2,nrow=3)
 grid.arrange(p1,p_in_20,p_serial,p4,ncol = 2,nrow=2)
 # grid.arrange(p1,p_in_20,p_serial,ncol = 1,nrow=3)
