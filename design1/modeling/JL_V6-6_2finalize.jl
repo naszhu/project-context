@@ -204,12 +204,12 @@ nU = round(Int, w_context * ratio_U)
 nC = w_context - nU
 
 
-n_simulations = 100;
+n_simulations = 1000;
 # n_simulations= 50v
 
-const n_words = 75;
-const n_probes = 150; # Number of probes to test
-const n_lists = 6;
+const n_words = 80;
+const n_probes = n_words; # Number of probes to test
+const n_lists = 1;
 # const n_words = 40;
 
 # 0.03^(1/11)= ~0.72
@@ -218,12 +218,12 @@ criterion_initial = LinRange(1, 1, n_probes);#the bigger the later number,
 p_poscode_change = 0.0
 
 
-const g_word = 0.35; #geometric base rate
-const g_context = 0.35; #0.3 originallly geometric base rate of context, or 0.2
-
-u_star = vcat(0.16, ones(n_lists-1) * 0.16)
+const g_word = 0.4; #geometric base rate
+const g_context = 0.4; #0.3 originallly geometric base rate of context, or 0.2
+xxx=0.335
+u_star = vcat(xxx, ones(n_lists-1) * xxx)
 u_star_storeintest = u_star #for word # ratio of this and the next is key 
-u_star_context=vcat(0.16, ones(n_lists-1)*0.16)
+u_star_context=vcat(xxx, ones(n_lists-1)*xxx)
                                                            
 
 const c = 0.7 #coying parameter - 0.8 for context copying 
@@ -232,7 +232,7 @@ const c_storeintest = c
 
 const c_context = LinRange(c, c, n_lists)
 
-is_restore_initial = true
+is_restore_initial = false
 
 ratio_unchanging_to_itself_init = LinRange(1.0, 1.0, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(0.0, 0.0, n_lists) # if use no unchanging
@@ -488,9 +488,9 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         imax = argmax(likelihood_ratios_org);
 
 
-        # if is_restore_initial
+        if is_restore_initial
             restore_intest(image_pool, probes[i].image, decision_isold, decision_isold == 1 ? imax : 1, probes[i].classification, list_change_features, general_context_features, odds, likelihood_ratios_org, simu_i, i) 
-        # end
+        end
 
 
     end
