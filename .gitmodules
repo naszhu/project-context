@@ -1,0 +1,3 @@
+[submodule "design3/modeling"]
+  path = design3/modeling
+  url  = https://github.com/naszhu/REM_E3_model_fixed.git
