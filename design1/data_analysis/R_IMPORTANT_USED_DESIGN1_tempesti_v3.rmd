@@ -2709,7 +2709,20 @@ Initial List Position"))%>%
     text=element_text(size=15),
     strip.text.y=element_text(angle=0,hjust=0.5)
   )+
-  geom_line()
+  geom_line(data=df_initialtestbyinitial%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Final Result
+Final Test Position",
+                                 position_type=="ir"~"Initial Result 
+Initial List Position",
+                                 position_type=="prespos"~"Final Result
+Initial List Position"))%>%
+  mutate(position_type=as.factor(position_type))%>%
+  mutate(position_type=factor(position_type,levels=rev(levels(position_type))))%>%
+  mutate(probetype=case_when(probetype=="TARGET_foil  - Hits"~ "foil",
+                             TRUE ~ "target"))%>%
+  mutate(conditionnow=paste(condition," - ",position_type)),
+            aes(x=position,y=meancr_avg),
+            color="black",size=1.2)
 
 
 
