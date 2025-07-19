@@ -1294,7 +1294,7 @@ c("Target: studied and tested at (n), Foil (n+1)",
              "Studied-only (n); Appear once",
              "Final Foil"
 )
-## FINAL plot 
+## *FINAL plot 
 ```{r,fig.width=8, fig.height=5}
 levelsStr_fn = levels(as.factor(df_rt_pl$type_comment_fn))
 
@@ -1374,42 +1374,62 @@ ggplot(data=d1taf)+
   theme(main="Final Teste by test position chunk")
 
 
-
+################33 Within plot 1
 d1taf2 = df_rt_pl%>% 
     mutate(correct=case_when(correct=="True"~1,
                            correct=="False"~0,
                            TRUE ~ correct))%>%
+  mutate(type_comment=type_comment_fn)%>%
+  mutate(testPos_appear1_initial=as.numeric(testPos_appear1_initial),testPos_appear1_initial=ceiling(testPos_appear1_initial/3))%>%
+  
   filter(task=="finalTest")%>%
          group_by(task, condition,type_comment, testPos_appear1_initial )%>%
          summarise(cr = mean(correct))
 
 ggplot(data=d1taf2)+
   geom_line(aes(x=testPos_appear1_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+ 
-    geom_point(aes(x=testPos_appear1_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment))+ 
-  scale_color_manual(values=c("blue","blue","red","green","green","purple","purple"))+
+    geom_point(aes(x=testPos_appear1_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=5)+
+  ylim(c(0.5,1))+
+  scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="purple","Studied-only (n); Foil (n+1)"="green", 
+             "Target: : started and tested at (n) ; Appear once" ="purple",
+             "Foil(n), Foil (n+1)" ="blue",
+             "Foil(n); Appear once" ="blue", 
+             "Studied-only (n); Appear once" = "green",
+             "Final Foil"="red" ),breaks=levelsStr_fn )+
   facet_grid(.~task)
 
+##############################
+###########3 Within plot 2, by initial studyPos_appear1_initial
 d1taf = df_rt_pl%>% 
   filter(task=="finalTest")%>%
+  mutate(type_comment=type_comment_fn)%>%
+    mutate( listNum_infinalOrder=as.numeric(studyPos_appear1_initial),listNum_infinalOrder=ceiling(listNum_infinalOrder/3))%>%
          group_by(task, condition,type_comment, listNum_infinalOrder)%>%
-         summarise(cr = mean(correct))%>%
-  mutate(type_comment=case_when(type_comment=="current target, in next trial" ~ "Target_n, Foil n+1",
-                                type_comment=="current target, not in next trial"~
-                                  "Target_n only",
-                                type_comment == "studied only, in next trial"~
-                                  "Studied-only n, foil n+1",
-                                type_comment=="studied only, not in trial"~
-                                  "Studied-only n only",
-                                type_comment=="tested only, in next trial"~
-                                  "Foil n, foil n+1",
-                                type_comment=="tested only, not in next trial"~
-                                  "Foil n only",))
+         summarise(cr = mean(correct))
+  # mutate(type_comment=case_when(type_comment=="current target, in next trial" ~ "Target_n, Foil n+1",
+  #                               type_comment=="current target, not in next trial"~
+  #                                 "Target_n only",
+  #                               type_comment == "studied only, in next trial"~
+  #                                 "Studied-only n, foil n+1",
+  #                               type_comment=="studied only, not in trial"~
+  #                                 "Studied-only n only",
+  #                               type_comment=="tested only, in next trial"~
+  #                                 "Foil n, foil n+1",
+  #                               type_comment=="tested only, not in next trial"~
+  #                                 "Foil n only",))
 
 ggplot(data=d1taf)+
   geom_line(aes(x=listNum_infinalOrder, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+ 
-    geom_point(aes(x=listNum_infinalOrder, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment))+ 
+    geom_point(aes(x=listNum_infinalOrder, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=5)+ 
   facet_grid(.~task)+ 
-  scale_color_manual(values=c("blue","blue","red","green","green","purple","purple"))
+  ylim(c(0.5,1))+
+
+  scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="purple","Studied-only (n); Foil (n+1)"="green", 
+             "Target: : started and tested at (n) ; Appear once" ="purple",
+             "Foil(n), Foil (n+1)" ="blue",
+             "Foil(n); Appear once" ="blue", 
+             "Studied-only (n); Appear once" = "green",
+             "Final Foil"="red" ),breaks=levelsStr_fn )
 
 
 ```

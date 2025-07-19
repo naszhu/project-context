@@ -281,7 +281,7 @@ const n_lists = 10;
 # const n_words = 40;
 const n_words = n_probes;
 
-criterion_initial = LinRange(1.5, 0.8, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
+criterion_initial = LinRange(1.5, 0.3, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
 # criterion_initial = ones(n_probes)*1;#the bigger the later number, more close hits and CR merges. control merging  
 
 p_poscode_change = 0.1
@@ -1007,52 +1007,51 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
     #is_onlyaddtrace is false
     # println("nothere")
 
-    if decision_isold==0
+    if (decision_isold==0) | ((decision_isold == 1) & (odds <= recall_odds_threshold))| ((decision_isold==1) & (odds > recall_odds_threshold)) 
 
-        iimage = EpisodicImage(Word(iprobe_img.word.item, fill(0, length(iprobe_img.word.word_features)), iprobe_img.word.type, iprobe_img.word.studypos), zeros(length(iprobe_img.context_features)), iprobe_img.list_number, iprobe_img.initial_testpos_img)
+        iimage_toadd = EpisodicImage(Word(iprobe_img.word.item, fill(0, length(iprobe_img.word.word_features)), iprobe_img.word.type, iprobe_img.word.studypos), zeros(length(iprobe_img.context_features)), iprobe_img.list_number, iprobe_img.initial_testpos_img)
 
-    elseif ((decision_isold == 1) & (odds <= recall_odds_threshold))
-
-        # println("not passed",i probe_img.list_number)
-        #give new 
-        iimage = EpisodicImage(Word(iprobe_img.word.item, fill(0, length(iprobe_img.word.word_features)), iprobe_img.word.type, iprobe_img.word.studypos), zeros(length(iprobe_img.context_features)), iprobe_img.list_number, iprobe_img.initial_testpos_img) #here is the new image, not the one in the pool
-    elseif ((decision_isold==1) & (odds > recall_odds_threshold) )
+    end
+    if ((decision_isold==1) & (odds > recall_odds_threshold) ) 
 
         #recall; restore old
-        iimage = image_pool[imax] 
-    else
-        error("decision_isold is not well defined")
+        iimage_tostrenghten = image_pool[imax] 
     end
 
 
 
     # if new, context and content change, be added to the pool
+    ############ Add trace
 
-    if (decision_isold == 0)
+    if (decision_isold == 0)| ((decision_isold == 1) & (odds <= recall_odds_threshold))| ((decision_isold==1) & (odds > recall_odds_threshold)) 
+
 
         for _ in 1:n_units_time_restore
             for i in eachindex(iprobe_img.word.word_features)
-                j = iimage.word.word_features[i]
+                j = iimage_toadd.word.word_features[i]
                 # if (j == 0) | ((j != 0) & (decision_isold == 1) & (j != iprobe_img.word.word_features[i]) & (is_store_mismatch))
                 if (j == 0) 
-                    iimage.word.word_features[i] = rand() < u_star[end] ? (rand() < c_storeintest ? iprobe_img.word.word_features[i] : rand(Geometric(g_word)) + 1) : j # 0.04 to u_star_context[2]
+                    iimage_toadd.word.word_features[i] = rand() < u_star[end] ? (rand() < c_storeintest ? iprobe_img.word.word_features[i] : rand(Geometric(g_word)) + 1) : j # 0.04 to u_star_context[2]
                 end
             end
 
 
             for ic in eachindex(iprobe_img.context_features)
-                j = iimage.context_features[ic]
+                j = iimage_toadd.context_features[ic]
 
                 if j == 0
                     # println(j,!is_onlyaddtrace)
                     #u_star_context to 0.04
-                        iimage.context_features[ic] = rand() < u_star_context[end]+u_advFoilInitialT ? (rand() < c_context[iprobe_img.list_number] ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
+                        iimage_toadd.context_features[ic] = rand() < u_star_context[end]+u_advFoilInitialT ? (rand() < c_context[iprobe_img.list_number] ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
 
                     # iimage.context_features[ic] = rand() < 1 ? (rand() < 1 ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j;
                 end
 
             end
         end
+
+
+         push!(image_pool, iimage_toadd)
     end
 
     
@@ -1061,25 +1060,25 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
 
     if (decision_isold == 1) & (odds > recall_odds_threshold) #single parameter for missing or replacing
 
-
+        for _ in n_units_time
             for i in eachindex(iprobe_img.word.word_features)
-                j = iimage.word.word_features[i]
+                j = iimage_tostrenghten.word.word_features[i]
                 # if j!=0
                     # if (j == 0) | ((j != 0) & (decision_isold == 1) & (j != iprobe_img.word.word_features[i]) & (is_store_mismatch))
                     if (j == 0) #is only doing this once, so doesn't matter if j==0 or not..
                         # println("success")
+                        iimage_tostrenghten.word.word_features[i] = rand() < u_star[end] ? (rand() < c_storeintest ? iprobe_img.word.word_features[i] : rand(Geometric(g_word)) + 1) : j # 0.04 to u_star_context[2]
                         # println("now",j,iprobe_img.word.word_features[i])
-                        iimage.word.word_features[i] = rand() < p_recallFeatureStore ? iprobe_img.word.word_features[i] : j #p_recallFeatureStore
-
                     end
                 # end
             end
 
             for ic in eachindex(iprobe_img.context_features)
-                j = iimage.context_features[ic]
+                j = iimage_tostrenghten.context_features[ic]
 
-                if (j == 0)|((j!=0) & (j!= iprobe_img.context_features[ic]) ) 
-                    iimage.context_features[ic] = rand() < p_recallFeatureStore ? iprobe_img.context_features[ic] : j 
+                if (j == 0) 
+                    # iimage.context_features[ic] = rand() < p_recallFeatureStore ? iprobe_img.context_features[ic] : j 
+                    iimage_tostrenghten.context_features[ic] = rand() < u_star_context[end] ? (rand() < c_context[iprobe_img.list_number] ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
                     # iimage.context_features[ic] = rand() < 1 ? (rand() < 1 ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j;
                 end
 
@@ -1088,50 +1087,14 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
             # println("Likelihood After ",calculate_likelihood_ratio(iprobe_img.word.word_features, iimage.word.word_features, g_word, c))
 
 
-
+        end
             is_restore_context ? error("context restored in initial is not well written this part") : nothing
         # end
 
-    # if old, dind't pass threshold, add new trace
-    elseif (decision_isold == 1) & (odds <= recall_odds_threshold) 
-        
-        #didn't pass threshold, ADD new trace
-
-        for _ in 1:n_units_time_restore
-            for i in eachindex(iprobe_img.word.word_features)
-                j = iimage.word.word_features[i]
-                if (j == 0) #delete later part
-                    iimage.word.word_features[i] = rand() < u_star[end] ? (rand() < c_storeintest ? iprobe_img.word.word_features[i] : rand(Geometric(g_word)) + 1) : j # 0.04 to u_star_context[2]
-                end
-            end
-
-
-            for ic in eachindex(iprobe_img.context_features)
-                j = iimage.context_features[ic]
-
-                if j == 0
-                    # println(j,!is_onlyaddtrace)
-                    #u_star_context to 0.04
-
-                        iimage.context_features[ic] = rand() < u_star_context[end] ? (rand() < c_context[iprobe_img.list_number] ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j
-
-                    # iimage.context_features[ic] = rand() < 1 ? (rand() < 1 ? iprobe_img.context_features[ic] : rand(Geometric(g_context)) + 1) : j;
-                end
-
-            end
-        end
-
     end
 
 
-    if (decision_isold == 0) | ((decision_isold == 1) & (odds < recall_odds_threshold))
-        push!(image_pool, iimage)
-        # println("pass, decision_isold $(decision_isold); is pass $(odds < recall_odds_threshold)")
 
-    end
-    # if (decision_isold == 0) 
-    #     push!(image_pool, iimage)
-    # end
 
 
 
