@@ -12,3 +12,6 @@ commit: 8996364253eabd7d759aed9a1ea479c3244327d9
 
 ----
 - check - no p_switch: (note, no recall)
+![alt text](<imgMD/25-06-11 align features/image-2.png>)
+- with recall
+  ![alt text](<imgMD/25-06-11 align features/image-3.png>)

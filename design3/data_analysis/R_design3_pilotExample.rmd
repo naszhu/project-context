@@ -997,6 +997,8 @@ d1ta = df_rt_pl%>%
 # [5] "Target"
 levelsStr = c("New Foil", "Target", "Inherented Foil - Last Foil" ,
              "Inherented Foil - Last Target" ,"Inherented Foil - Last Studied Only") 
+############# Between list results
+#######################################################
 ggplot(data=d1ta)+
   geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+ 
   geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
@@ -1008,6 +1010,8 @@ ggplot(data=d1ta)+
   scale_shape_discrete(breaks=levelsStr)+
   scale_linetype_discrete(breaks=levelsStr)
 
+
+######################## Between list by listnum_appear2_initial
 d1ta = df_rt_pl%>%
   # filter(listNum_appear0_initial!=1 )%>%
 # d1ta = df_pl2%>% 
@@ -1042,9 +1046,11 @@ ggplot(data=d1ta)+
 #   facet_grid(.~task)+
 #   scale_color_manual(values=c("blue","green","blue","green","purple","green","purple"))
 
- 
+####################################### Within list by study position
 d1ta = df_rt_pl%>% 
   filter(task=="initialTest_response")%>%
+  mutate(type_comment = typecomment_in, studyPos_appear0_initial = as.numeric(studyPos_appear0_initial))%>%
+  mutate(studyPos_appear0_initial = ceiling(studyPos_appear0_initial/3))%>%
          group_by(task, condition,type_comment, studyPos_appear0_initial,subject_id )%>%
   # mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>%
   mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>% #change here to see that by study or test position
@@ -1052,15 +1058,21 @@ d1ta = df_rt_pl%>%
            group_by(task, condition,type_comment, studyPos_appear0_initial )%>%
          summarise(cr = mean(cr))
   
+
 ggplot(data=d1ta)+
   geom_line(aes(x=studyPos_appear0_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+ 
-  geom_point(aes(x=studyPos_appear0_initial,y=cr,group=interaction(task,type_comment),shape=type_comment,color=type_comment))+
+  geom_point(aes(x=studyPos_appear0_initial,y=cr,group=interaction(task,type_comment),shape=type_comment,color=type_comment),size=2)+
   facet_grid(.~task)+
-  scale_color_manual(values=c("blue","green","blue","green","purple","green","purple"))
+  scale_color_manual(values=c("green","green","green","blue","purple"))
 
 
+
+####################################### Within list by test position
 d1ta = df_rt_pl%>% 
   filter(task=="initialTest_response")%>%
+    mutate(type_comment = typecomment_in, testPos_appear0_initial =
+             as.numeric(testPos_appear0_initial))%>%
+  mutate(testPos_appear0_initial = ceiling(testPos_appear0_initial/3))%>%
          group_by(task, condition,type_comment, testPos_appear0_initial,subject_id )%>%
   # mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>%
   mutate(testPos_appear0_initial=as.numeric(testPos_appear0_initial))%>% #change here to see that by study or test position
@@ -1072,7 +1084,7 @@ ggplot(data=d1ta)+
   geom_line(aes(x=testPos_appear0_initial, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+ 
   geom_point(aes(x=testPos_appear0_initial,y=cr,group=interaction(task,type_comment),shape=type_comment,color=type_comment))+
   facet_grid(.~task)+
-  scale_color_manual(values=c("blue","green","blue","green","purple","green","purple"))
+  scale_color_manual(values=c("green","green","green","blue","purple"))
 
 d1ta = df_rt_pl%>% 
   # filter(codeversion!=1)%>%
