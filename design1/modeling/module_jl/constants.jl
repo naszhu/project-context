@@ -46,7 +46,7 @@ const n_lists = 10;
 const n_words = n_probes;
 
 # criterion_initial = LinRange(1.5, 0.3, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
-criterion_initial = criterion_initial = generate_asymptotic_values(1.0, 0.16, 0.14, 1.0, 1.0, 3.0) 
+criterion_initial = criterion_initial = generate_asymptotic_values(1.0, 0.14, 0.14, 1.0, 1.0, 5.0) 
 
 p_poscode_change = 0.1
 p_reinstate_context = 0.8 #stop reinstate after how much features
@@ -54,7 +54,7 @@ p_reinstate_context = 0.8 #stop reinstate after how much features
 
 #p_driftAndListChange should be used for both within-list drift and between-list change
 #7, 10 IS A COMBINATION
-n_driftStudyTest = round.(Int, ones(10) * 9) #7
+n_driftStudyTest = round.(Int, ones(10) * 7) #7
 n_between_listchange = 25; #5;15; 
 
 const p_driftAndListChange = 0.03; # studied prior list probability change 
@@ -76,7 +76,7 @@ const g_context = 0.3; #0.3 originallly geometric base rate of context, or 0.2
 n_grade = 2 #only first to be special 
 
 # u_star = vcat(0.09, ones(n_lists-1) * 0.06)
-u_star = vcat(0.064, ones(n_lists-1) * 0.064)
+u_star = vcat(0.066, ones(n_lists-1) * 0.066)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
