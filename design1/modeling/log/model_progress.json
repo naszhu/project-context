@@ -1,0 +1,14 @@
+[
+  {
+    "commit": "24a75af",
+    "branch": "jul-30-seperate-out-constants",
+    "message": "refactor(model-e1): made constant file",
+    "timestamp": "2025-07-30 22:46:01",
+    "plot1": "design1/modeling/plot_archive/24a75af_20250730_224601_plot1.png",
+    "plot2": "design1/modeling/plot_archive/24a75af_20250730_224601_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/constants.jl"
+    ]
+  }
+]
