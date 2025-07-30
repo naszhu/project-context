@@ -257,7 +257,7 @@ nC = w_context - nU
 
 
 
-is_finaltest = false
+is_finaltest = true
 n_simulations = is_finaltest ? 100 : 500;
 # n_simulations= 50v
 context_tau = 100#foil odds should lower than this  
