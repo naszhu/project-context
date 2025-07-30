@@ -11,8 +11,8 @@ mkdir -p design1/modeling/plot_archive
 # safe_time=$(date "+%Y%m%d_%H%M%S")
 safe_time=$(git log -1 --format=%cd --date=format:'%Y%m%d_%H%M%S' HEAD)
 # this is last commit commit name address below
-plot1_dest="design1/modeling/plot_archive/${commit}_${safe_time}_plot1.png"
-plot2_dest="design1/modeling/plot_archive/${commit}_${safe_time}_plot2.png"
+plot1_dest="plot_archive/${commit}_${safe_time}_plot1.png"
+plot2_dest="plot_archive/${commit}_${safe_time}_plot2.png"
 # cp plot1.png "$plot1_dest"
 # cp plot2.png "$plot2_dest"
 
