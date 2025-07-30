@@ -39,7 +39,8 @@ df1=all_results%>%mutate(is_target=case_when(is_target=="true"~1,TRUE~0),correct
 p_in_20=ggplot(data=df1,aes(x=test_position,y=meanx,group=is_target))+
     geom_line(aes(color=is_target),size=1.5)+
     geom_line(aes(x=test_position,y=meanx_m),color="black",size=1.5)+
-    geom_point()+ylim(c(0.5,1))+
+    geom_point() +
+    scale_y_continuous(breaks = seq(0.75, 0.975, by = 0.05), limits = c(0.72, 0.975)) +
     theme(
             plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
         plot.margin = margin(t = 10, b = 40),
@@ -99,7 +100,7 @@ summarize(meanx=mean(meanx))
 p1=ggplot(data=DF2, aes(x=list_number,y=meanx,group=is_target))+
     geom_point(aes(color=is_target))+
     geom_line(aes(color=is_target),size=1.5)+
-    ylim(c(0.65,1))+
+    ylim(c(0.825,0.95))+
     scale_x_continuous(name="list number",breaks = 1:10,labels=as.character(1:10))+labs(title="Accuracy by list number in inital test ")+
     theme(
             plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
