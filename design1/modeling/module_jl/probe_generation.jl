@@ -29,32 +29,16 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
             error("probetypewrong")
         end
 
-         # reinstate changing context: test_list_context
-        nct = length(test_list_context)
-        for ict in eachindex(test_list_context)
-            if ict < Int(round(nct * p_reinstate_context)) #stop reinstate after a certain number of features
+        if i>1
 
-                if (test_list_context[ict] != list_change_features[ict]) & (rand() < p_reinstate_rate)
-                    # println("here")
-                    test_list_context[ict] = list_change_features[ict] #it's ok, change list_change_features[i] won't change left
-                    # test_list_context[ict]=2222 #it's ok, change list_change_features[i] won't change left
-                end
-            else
-                # test_list_context[ict]=list_change_features[ict] #the rest context doesn't change or reinstate
-            end
-            # println("$(list_change_features)")
-        end
+            # reinstate changing context: test_list_context
+            nct = length(test_list_context)
+            for ict in eachindex(test_list_context)
+                if ict < Int(round(nct * p_reinstate_context)) #stop reinstate after a certain number of features
 
-
-        # reinstate unchange context test_list_context_unchange
-        if is_UnchangeCtxDriftAndReinstate
-            nct = length(test_list_context_unchange)
-            for ict in eachindex(test_list_context_unchange)
-                if ict < Int(round(nct * p_reinstate_context))
-
-                    if (test_list_context_unchange[ict] != general_context_features[ict]) & (rand() < p_reinstate_rate)
+                    if (test_list_context[ict] != list_change_features[ict]) & (rand() < p_reinstate_rate)
                         # println("here")
-                        test_list_context_unchange[ict] = general_context_features[ict] #it's ok, change list_change_features[i] won't change left
+                        test_list_context[ict] = list_change_features[ict] #it's ok, change list_change_features[i] won't change left
                         # test_list_context[ict]=2222 #it's ok, change list_change_features[i] won't change left
                     end
                 else
@@ -62,8 +46,27 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
                 end
                 # println("$(list_change_features)")
             end
-        end
 
+
+            # reinstate unchange context test_list_context_unchange
+            if is_UnchangeCtxDriftAndReinstate
+                nct = length(test_list_context_unchange)
+                for ict in eachindex(test_list_context_unchange)
+                    if ict < Int(round(nct * p_reinstate_context))
+
+                        if (test_list_context_unchange[ict] != general_context_features[ict]) & (rand() < p_reinstate_rate)
+                            # println("here")
+                            test_list_context_unchange[ict] = general_context_features[ict] #it's ok, change list_change_features[i] won't change left
+                            # test_list_context[ict]=2222 #it's ok, change list_change_features[i] won't change left
+                        end
+                    else
+                        # test_list_context[ict]=list_change_features[ict] #the rest context doesn't change or reinstate
+                    end
+                    # println("$(list_change_features)")
+                end
+            end
+
+        end
         # println("$(test_list_context)")
         current_studypos = probetypes[i] == :target ? target_word.studypos : 0;
 
