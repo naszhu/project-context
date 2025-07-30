@@ -188,18 +188,22 @@ using Random, Distributions, Statistics, DataFrames, DataFramesMeta
 using RCall
 using BenchmarkTools, ProfileView, Profile, Base.Threads
 using QuadGK
+
+include("module_jl/utils.jl")
+include("module_jl/constants.jl") 
 # include("feature_updates.jl")
-include("data_structures.jl")
 
-include("feature_generation.jl")
+include("module_jl/data_structures.jl")
 
-include("likelihood_calculations.jl")
+include("module_jl/feature_generation.jl")
 
-include("memory_storage.jl")
-include("memory_restorage.jl")
+include("module_jl/likelihood_calculations.jl")
 
-include("probe_generation.jl")
-include("probe_evaluation.jl")
+include("module_jl/memory_storage.jl")
+include("module_jl/memory_restorage.jl")
+
+include("module_jl/probe_generation.jl")
+include("module_jl/probe_evaluation.jl")
 
 include("simulation.jl")
 
