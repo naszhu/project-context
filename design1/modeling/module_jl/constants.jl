@@ -84,7 +84,7 @@ u_star_storeintest = u_star #for word # ratio of this and the next is key for T_
 u_star_context=vcat(0.05, ones(n_lists-1)*0.05)
 init_pos1_ustar_ctx_adv =0.00 #0.05
 # what would happen if I put this not special for first list? (the specificity for first poistion still exists)
-
+ 
 const n_units_time = 13#number of steps                                                                                                                                                                                                                        
 n_units_time_restore = n_units_time #only applies for adding traces now. 
 n_units_time_restore_t = n_units_time_restore  # -3
