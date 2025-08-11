@@ -55,11 +55,11 @@ p_reinstate_context = 0.8 #stop reinstate after how much features
 #p_driftAndListChange should be used for both within-list drift and between-list change
 #7, 10 IS A COMBINATION
 n_driftStudyTest = round.(Int, ones(10) * 7) #7
-n_between_listchange = 25; #5;15; 
+n_between_listchange = 0 #25; #5;15; 
 
 const p_driftAndListChange = 0.03; # studied prior list probability change 
 
-p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
+# p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 p_reinstate_rate = 0.15 #0.4 #prob of reinstatement
 
 
