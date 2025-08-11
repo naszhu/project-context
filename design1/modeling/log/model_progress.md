@@ -1,5 +1,16 @@
 # Model Progress
 
+## Commit [f24f7e2](https://github.com/naszhu/REM_E3_model_fixed/commit/f24f7e2) (branch: `aug-11-explore`)
+**Time:** 2025-08-11 23:17:53  
+**Message:**
+```
+chore(model-e1): gitgnore update
+```
+**Changed Files:**
+- `.gitignore`  
+![](../plot_archive/f24f7e2_20250811_231753_plot1.png)  
+![](../plot_archive/f24f7e2_20250811_231753_plot2.png)  
+
 ## Commit [106ba44](https://github.com/naszhu/REM_E3_model_fixed/commit/106ba44) (branch: `jul-30-seperate-out-constants`)
 **Time:** 2025-07-30 23:04:57  
 **Message:**
