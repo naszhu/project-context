@@ -1,6 +1,10 @@
 # Model Progress
 
+<<<<<<< HEAD
 ## Commit [49eb579](https://github.com/naszhu/REM_E3_model_fixed/commit/49eb579) (branch: `HEAD`)
+=======
+## Commit [49eb579](https://github.com/naszhu/REM_E3_model_fixed/commit/49eb579) (branch: `aug-11-explore`)
+>>>>>>> 1dcbd21 (finetune(model-e1): change criterion, worked for between-list a bit but not within)
 **Time:** 2025-08-12 00:49:26  
 **Message:**
 ```

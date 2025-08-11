@@ -1,7 +1,11 @@
 [
   {
     "commit": "49eb579",
+<<<<<<< HEAD
     "branch": "HEAD",
+=======
+    "branch": "aug-11-explore",
+>>>>>>> 1dcbd21 (finetune(model-e1): change criterion, worked for between-list a bit but not within)
     "message": "fix(model-e1): BIG BUG fixed on ratio_unchanging setting",
     "timestamp": "2025-08-12 00:49:26",
     "plot1": "plot_archive/49eb579_20250812_004926_plot1.png",
