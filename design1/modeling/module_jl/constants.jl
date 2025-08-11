@@ -46,7 +46,7 @@ const n_lists = 10;
 const n_words = n_probes;
 
 # criterion_initial = LinRange(1.5, 0.3, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
-criterion_initial = criterion_initial = generate_asymptotic_values(1.0, 0.14, 0.14, 1.0, 1.0, 5.0) 
+criterion_initial = criterion_initial = generate_asymptotic_values(1.0, 0.2, 0.2, 1.0, 1.0, 5.0) 
 
 p_poscode_change = 0.1
 p_reinstate_context = 1.0 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
