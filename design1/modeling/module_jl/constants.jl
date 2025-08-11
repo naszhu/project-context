@@ -49,7 +49,7 @@ const n_words = n_probes;
 criterion_initial = criterion_initial = generate_asymptotic_values(1.0, 0.14, 0.14, 1.0, 1.0, 5.0) 
 
 p_poscode_change = 0.1
-p_reinstate_context = 0.8 #stop reinstate after how much features
+p_reinstate_context = 1.0 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 
 
 #p_driftAndListChange should be used for both within-list drift and between-list change
@@ -60,7 +60,7 @@ n_between_listchange = 0 #25; #5;15;
 const p_driftAndListChange = 0.03; # studied prior list probability change 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
-p_reinstate_rate = 0.15 #0.4 #prob of reinstatement
+p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
 
 
 # n_driftStudyTest = round.(Int,ones(10)*25)
@@ -121,7 +121,7 @@ context_tau_final = 100 #0.20.2 above if this is 10
 
 p_ListChange_finaltest = ones(10) * 0.55 #0.1 prob list change for final test
 
-ratio_unchanging_to_itself_init = LinRange(0., 0.4, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(0.4, 0.4, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 # Only takes the first value; for a single Int
