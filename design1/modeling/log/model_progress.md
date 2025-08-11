@@ -1,5 +1,49 @@
 # Model Progress
 
+## Commit [49eb579](https://github.com/naszhu/REM_E3_model_fixed/commit/49eb579) (branch: `HEAD`)
+**Time:** 2025-08-12 00:49:26  
+**Message:**
+```
+fix(model-e1): BIG BUG fixed on ratio_unchanging setting
+
+The bug was actually fixed in 4 commits ago on cc3d971fcbe254a300f67fc6462dd30073d59935, but only found how far this bug come in this commit
+
+big bug ever since a8700ee008b0964c09c3765aea8caa3be7e1cf4e
+
+See #16
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/49eb579_20250812_004926_plot1.png)  
+![](../plot_archive/49eb579_20250812_004926_plot2.png)  
+
+## Commit [d56a795](https://github.com/naszhu/REM_E3_model_fixed/commit/d56a795) (branch: `aug-11-explore`)
+**Time:** 2025-08-12 00:34:43  
+**Message:**
+```
+finetune(model-e1): go back to version with changing context
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/d56a795_20250812_003443_plot1.png)  
+![](../plot_archive/d56a795_20250812_003443_plot2.png)  
+
+## Commit [d56a795](https://github.com/naszhu/REM_E3_model_fixed/commit/d56a795) (branch: `aug-11-explore`)
+**Time:** 2025-08-12 00:34:43  
+**Message:**
+```
+finetune(model-e1): go back to version with changing context
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/d56a795_20250812_003443_plot1.png)  
+![](../plot_archive/d56a795_20250812_003443_plot2.png)  
+
 ## Commit [b399be2](https://github.com/naszhu/REM_E3_model_fixed/commit/b399be2) (branch: `aug-11-explore`)
 **Time:** 2025-08-12 00:10:25  
 **Message:**

@@ -1,5 +1,43 @@
 [
   {
+    "commit": "49eb579",
+    "branch": "HEAD",
+    "message": "fix(model-e1): BIG BUG fixed on ratio_unchanging setting",
+    "timestamp": "2025-08-12 00:49:26",
+    "plot1": "plot_archive/49eb579_20250812_004926_plot1.png",
+    "plot2": "plot_archive/49eb579_20250812_004926_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "d56a795",
+    "branch": "aug-11-explore",
+    "message": "finetune(model-e1): go back to version with changing context",
+    "timestamp": "2025-08-12 00:34:43",
+    "plot1": "plot_archive/d56a795_20250812_003443_plot1.png",
+    "plot2": "plot_archive/d56a795_20250812_003443_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "d56a795",
+    "branch": "aug-11-explore",
+    "message": "finetune(model-e1): go back to version with changing context",
+    "timestamp": "2025-08-12 00:34:43",
+    "plot1": "plot_archive/d56a795_20250812_003443_plot1.png",
+    "plot2": "plot_archive/d56a795_20250812_003443_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "b399be2",
     "branch": "aug-11-explore",
     "message": "fix(logscr-e3): Empty commit, fix pre or post hooks",
