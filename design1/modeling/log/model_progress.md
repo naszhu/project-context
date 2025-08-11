@@ -1,5 +1,20 @@
 # Model Progress
 
+## Commit [b399be2](https://github.com/naszhu/REM_E3_model_fixed/commit/b399be2) (branch: `aug-11-explore`)
+**Time:** 2025-08-12 00:10:25  
+**Message:**
+```
+fix(logscr-e3): Empty commit, fix pre or post hooks
+
+found the problem is created by the lack of #... on first line of the hooks, I probably have accidently deleted it somehow
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/b399be2_20250812_001025_plot1.png)  
+![](../plot_archive/b399be2_20250812_001025_plot2.png)  
+
 ## Commit [f24f7e2](https://github.com/naszhu/REM_E3_model_fixed/commit/f24f7e2) (branch: `aug-11-explore`)
 **Time:** 2025-08-11 23:17:53  
 **Message:**
