@@ -95,8 +95,8 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         if (isnan(odds))
             println("Current context_tau is too high, there are some simulations that have no tarce passing context filter in first step", nl, likelihood_ratios)
         end
-        decision_isold = odds > criterion_initial[i_testpos] ? 1 : 0
-        diff = 1 / (abs(odds - criterion_initial[i_testpos]) + 1e-10)
+        decision_isold = odds > criterion_initial[i_testpos,ilist_probe] ? 1 : 0
+        diff = 1 / (abs(odds - criterion_initial[i_testpos,ilist_probe]) + 1e-10)
 
         #criterion change by test position
 
@@ -104,9 +104,23 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
         nav = length(likelihood_ratios) / (length(image_pool_currentlist))
         # println(nav)
-        if (decision_isold == 1) && (odds > recall_odds_threshold)
-            imgMax = image_pool_currentlist[argmax(likelihood_ratios)]
-        end
+        # if (decision_isold == 1) && (odds > recall_odds_threshold)
+        #     imgMax = image_pool_currentlist[argmax(content_LL_ratios_filtered)]
+        # end
+
+        ############### Add new sampling LL preparing lines
+        filtered_content_LL_ratios_inOriginalLength = likelihood_ratios_org |> x -> map(e -> e == 344523466743 ? 0 : e, x)
+
+        # Step 2: Calculate the total sum of the filtered likelihood ratios
+        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength)
+
+        # Step 3: Assign probabilities proportionally
+        
+        filtered_content_LL_ratios_inOriginalLength_to_11thpower= filtered_content_LL_ratios_inOriginalLength .^ power_taken # raise to 1/11 power, so that the sampling is more likely to sample the higher LL ratios, but not too much
+        # Step 3: Assign probabilities proportionally
+        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength_to_11thpower)
+        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength_to_11thpower)) : [filtered_content_LL_ratios_inOriginalLength_to_11thpower[i_LL_proportion] ./ total_sum_LL  for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength_to_11thpower)]
+         ################
 
         for j in eachindex(unique_list_numbers)
             nimages = count(image -> image.list_number == j, image_pool_currentlist)
@@ -121,7 +135,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
 
         if is_restore_initial
-            restore_intest(image_pool, probes[i].image, decision_isold, decision_isold == 1 ? imax : 1, probes[i].classification, list_change_features, general_context_features, odds, likelihood_ratios_org, simu_i, i) 
+            restore_intest(image_pool, probes[i].image, decision_isold, sampling_probabilities, odds, likelihood_ratios_org) 
         end
 
         # println("i, $i, i_testpos, $i_testpos")
