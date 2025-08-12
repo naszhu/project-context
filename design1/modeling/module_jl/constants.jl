@@ -1,7 +1,7 @@
 
 
 is_finaltest = false
-n_simulations = is_finaltest ? 100 : 500;
+n_simulations = is_finaltest ? 100 : 1000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -85,12 +85,12 @@ nC_in = round.(Int, nC .* ratio_changing_to_itself_init)[1]
 # =============================================================================
 
 # Sampling method flag
-sampling_method = false  # true for probabilistic sampling, false for argmax
+sampling_method = true  # true for probabilistic sampling, false for argmax
 
 # Context testing flags
 firststg_allctx = false; #cancle this
 firststg_allctx2 = false;
-is_test_allcontext = false #include general context? not testing all context in intial test
+is_test_allcontext = false #include general context? not testing all context in intial test 
 is_test_allcontext2 = true #is testing all context in final testZ
 is_test_changecontext2 = false #is testing only change context in final test
 
@@ -114,6 +114,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 # criterion_initial is already a 2D array: [test_position, list_number]
 power_taken = 1/11  # raise to 1/11 power for sampling
 
+# this is 0.148 in E3
 v_criterion_initial = 0.25^power_taken
 criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0) 
 
@@ -128,17 +129,18 @@ context_tau = 100 #foil odds should lower than this
 # DRIFT AND CHANGE PARAMETERS
 # =============================================================================
 p_poscode_change = 0.1
-p_reinstate_context = 1.0 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
+p_reinstate_context = 0.8 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
+# CATION: uh, this needs to be 1 for E3 as well. 
+p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
 n_driftStudyTest = round.(Int, ones(10) * 12) #7
 
-n_between_listchange = 25; #5;15; 
+n_between_listchange = 18 #18 in E3 #25 originally 
 
 const p_driftAndListChange = 0.03; # studied prior list probability change 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
-p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
 
 # =============================================================================
 # FINAL TEST PARAMETERS
@@ -153,12 +155,11 @@ const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
 
 criterion_final = LinRange(0.5^power_taken, 0.6^power_taken, 10)
-final_gap_change = 0.1; #0.21
+final_gap_change = 0.1; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
-p_ListChange_finaltest = ones(10) * 0.55 #0.1 prob list change for final test
-
-ratio_unchanging_to_itself_final = LinRange(0.5,0.5, n_lists) # if use no unchanging
-ratio_changing_to_itself_final = LinRange(0.1,0.1, n_lists) # if use no unchanging
+p_ListChange_finaltest = ones(10) * 0.55 #0.8 in E3, but undecided as well in E3
+ratio_unchanging_to_itself_final = LinRange(1,1, n_lists) # if use no unchanging
+ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchanging
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
@@ -170,7 +171,7 @@ nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
 u_advFoilInitialT = 0;
 
 # E3 specific parameters
-is_strengthen_contextandcontent = false;  # E3 parameter for strengthening context and content
+is_strengthen_contextandcontent = true;  # E3 parameter for strengthening context and content
 
 # =============================================================================
 # PROBABILITY CALCULATIONS AND DEBUG OUTPUT

@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [6e9b623](https://github.com/naszhu/REM_E3_model_fixed/commit/6e9b623) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 23:06:09  
+**Message:**
+```
+finetune(model-E3): update ratio and drift study parameters for improved simulation accuracy
+
+- Adjusted ratio_unchanging_to_itself_init from 0.4 to 0.46 to enhance model performance.
+- Increased n_driftStudyTest from 9 to 12 to better reflect testing conditions.
+
+These changes aim to refine the simulation parameters for more accurate results in the modeling framework.
+
+Refs #13
+```
+**Changed Files:**
+- `Docs/DataPlot-d3(exp2).docx`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/6e9b623_20250812_230609_plot1.png)  
+![](../plot_archive/6e9b623_20250812_230609_plot2.png)  
+
 ## Commit [578ae0e](https://github.com/naszhu/REM_E3_model_fixed/commit/578ae0e) (branch: `aug-12-explore-more-alignment`)
 **Time:** 2025-08-12 23:04:08  
 **Message:**
