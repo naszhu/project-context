@@ -114,11 +114,11 @@ is_onlytest_currentlist = false; #this is discarded currently
 # criterion_initial is already a 2D array: [test_position, list_number]
 power_taken = 1/11  # raise to 1/11 power for sampling
 
-# this is 0.148 in E3
-v_criterion_initial = 0.25^power_taken
+# this is [0.148] in E3
+v_criterion_initial = 0.001^power_taken
 criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0) 
 
-recall_odds_threshold = 0.3^power_taken;
+recall_odds_threshold = 0.0001^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
 p_recallFeatureStore = 0.85;
 

@@ -1,5 +1,19 @@
 [
   {
+    "commit": "9de0593",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "fix(model-e1): correct critical sampling and strengthening bugs in E1 modeling",
+    "timestamp": "2025-08-12 23:42:02",
+    "plot1": "plot_archive/9de0593_20250812_234202_plot1.png",
+    "plot2": "plot_archive/9de0593_20250812_234202_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
     "commit": "6e9b623",
     "branch": "aug-12-explore-more-alignment",
     "message": "finetune(model-E3): update ratio and drift study parameters for improved simulation accuracy",
