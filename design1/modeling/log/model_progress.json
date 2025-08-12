@@ -1,27 +1,23 @@
 [
   {
-    "commit": "49eb579",
-<<<<<<< HEAD
-    "branch": "HEAD",
-=======
+    "commit": "d595a12",
     "branch": "aug-11-explore",
->>>>>>> 1dcbd21 (finetune(model-e1): change criterion, worked for between-list a bit but not within)
-    "message": "fix(model-e1): BIG BUG fixed on ratio_unchanging setting",
-    "timestamp": "2025-08-12 00:49:26",
-    "plot1": "plot_archive/49eb579_20250812_004926_plot1.png",
-    "plot2": "plot_archive/49eb579_20250812_004926_plot2.png",
+    "message": "chore(model-e1): redo, changed nothing",
+    "timestamp": "2025-08-12 18:16:19",
+    "plot1": "plot_archive/d595a12_20250812_181619_plot1.png",
+    "plot2": "plot_archive/d595a12_20250812_181619_plot2.png",
     "changed_files": [
       "design1/modeling/log/model_progress.json",
       "design1/modeling/log/model_progress.md"
     ]
   },
   {
-    "commit": "d56a795",
+    "commit": "4ddd721",
     "branch": "aug-11-explore",
-    "message": "finetune(model-e1): go back to version with changing context",
-    "timestamp": "2025-08-12 00:34:43",
-    "plot1": "plot_archive/d56a795_20250812_003443_plot1.png",
-    "plot2": "plot_archive/d56a795_20250812_003443_plot2.png",
+    "message": "finetune(model-e1): change criterion, worked for between-list a bit but not within",
+    "timestamp": "2025-08-12 00:53:34",
+    "plot1": "plot_archive/4ddd721_20250812_005334_plot1.png",
+    "plot2": "plot_archive/4ddd721_20250812_005334_plot2.png",
     "changed_files": [
       "design1/modeling/log/model_progress.json",
       "design1/modeling/log/model_progress.md",
@@ -29,103 +25,16 @@
     ]
   },
   {
-    "commit": "d56a795",
+    "commit": "4ddd721",
     "branch": "aug-11-explore",
-    "message": "finetune(model-e1): go back to version with changing context",
-    "timestamp": "2025-08-12 00:34:43",
-    "plot1": "plot_archive/d56a795_20250812_003443_plot1.png",
-    "plot2": "plot_archive/d56a795_20250812_003443_plot2.png",
+    "message": "finetune(model-e1): change criterion, worked for between-list a bit but not within",
+    "timestamp": "2025-08-12 00:53:34",
+    "plot1": "plot_archive/4ddd721_20250812_005334_plot1.png",
+    "plot2": "plot_archive/4ddd721_20250812_005334_plot2.png",
     "changed_files": [
       "design1/modeling/log/model_progress.json",
       "design1/modeling/log/model_progress.md",
       "design1/modeling/module_jl/constants.jl"
-    ]
-  },
-  {
-    "commit": "b399be2",
-    "branch": "aug-11-explore",
-    "message": "fix(logscr-e3): Empty commit, fix pre or post hooks",
-    "timestamp": "2025-08-12 00:10:25",
-    "plot1": "plot_archive/b399be2_20250812_001025_plot1.png",
-    "plot2": "plot_archive/b399be2_20250812_001025_plot2.png",
-    "changed_files": [
-      "design1/modeling/log/model_progress.json",
-      "design1/modeling/log/model_progress.md",
-      "design1/modeling/module_jl/constants.jl"
-    ]
-  },
-  {
-    "commit": "f24f7e2",
-    "branch": "aug-11-explore",
-    "message": "chore(model-e1): gitgnore update",
-    "timestamp": "2025-08-11 23:17:53",
-    "plot1": "plot_archive/f24f7e2_20250811_231753_plot1.png",
-    "plot2": "plot_archive/f24f7e2_20250811_231753_plot2.png",
-    "changed_files": [
-      ".gitignore"
-    ]
-  },
-  {
-    "commit": "106ba44",
-    "branch": "jul-30-seperate-out-constants",
-    "message": "feat(logscr-e1): making logscr for the current repo (currently sit in E1 modeling)",
-    "timestamp": "2025-07-30 23:04:57",
-    "plot1": "plot_archive/106ba44_20250730_230457_plot1.png",
-    "plot2": "plot_archive/106ba44_20250730_230457_plot2.png",
-    "changed_files": [
-      "design1/modeling/log/model_progress.html",
-      "design1/modeling/log/model_progress.json",
-      "design1/modeling/log/model_progress.md",
-      "design1/modeling/script/generate_html_from_json.py",
-      "design1/modeling/script/generate_md_from_json.py",
-      "design1/modeling/script/log_plot.sh",
-      "design1/modeling/script/update_plot_log.py"
-    ]
-  },
-  {
-    "commit": "106ba44",
-    "branch": "jul-30-seperate-out-constants",
-    "message": "feat(logscr-e1): making logscr for the current repo (currently sit in E1 modeling)",
-    "timestamp": "2025-07-30 23:04:57",
-    "plot1": "design1/modeling/plot_archive/106ba44_20250730_230457_plot1.png",
-    "plot2": "design1/modeling/plot_archive/106ba44_20250730_230457_plot2.png",
-    "changed_files": [
-      "design1/modeling/log/model_progress.html",
-      "design1/modeling/log/model_progress.json",
-      "design1/modeling/log/model_progress.md",
-      "design1/modeling/script/generate_html_from_json.py",
-      "design1/modeling/script/generate_md_from_json.py",
-      "design1/modeling/script/log_plot.sh",
-      "design1/modeling/script/update_plot_log.py"
-    ]
-  },
-  {
-    "commit": "106ba44",
-    "branch": "jul-30-seperate-out-constants",
-    "message": "feat(logscr-e1): making logscr for the current repo (currently sit in E1 modeling)",
-    "timestamp": "2025-07-30 23:04:57",
-    "plot1": "design1/modeling/plot_archive/106ba44_20250730_230457_plot1.png",
-    "plot2": "design1/modeling/plot_archive/106ba44_20250730_230457_plot2.png",
-    "changed_files": [
-      "design1/modeling/log/model_progress.html",
-      "design1/modeling/log/model_progress.json",
-      "design1/modeling/log/model_progress.md",
-      "design1/modeling/script/generate_html_from_json.py",
-      "design1/modeling/script/generate_md_from_json.py",
-      "design1/modeling/script/log_plot.sh",
-      "design1/modeling/script/update_plot_log.py"
-    ]
-  },
-  {
-    "commit": "24a75af",
-    "branch": "jul-30-seperate-out-constants",
-    "message": "refactor(model-e1): made constant file",
-    "timestamp": "2025-07-30 22:46:01",
-    "plot1": "design1/modeling/plot_archive/24a75af_20250730_224601_plot1.png",
-    "plot2": "design1/modeling/plot_archive/24a75af_20250730_224601_plot2.png",
-    "changed_files": [
-      "design1/modeling/JL_V6-6_2finalize.jl",
-      "design1/modeling/constants.jl"
     ]
   }
 ]
