@@ -1,6 +1,42 @@
 # Model Progress
 
-## Commit [85f5827](https://github.com/naszhu/REM_E3_model_fixed/commit/85f5827) (branch: `HEAD`)
+## Commit [823c3bc](https://github.com/naszhu/REM_E3_model_fixed/commit/823c3bc) (branch: `HEAD`)
+**Time:** 2025-08-12 19:04:12  
+**Message:**
+```
+fix(constants): update u_star_context initialization to use variable for consistency
+
+- Changed u_star_context to initialize with u_star_v instead of a fixed value.
+- This adjustment aims to enhance consistency across parameter definitions.
+
+Align work #13
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/823c3bc_20250812_190412_plot1.png)  
+![](../plot_archive/823c3bc_20250812_190412_plot2.png)  
+
+## Commit [ecf592a](https://github.com/naszhu/REM_E3_model_fixed/commit/ecf592a) (branch: `aug-11-explore`)
+**Time:** 2025-08-12 19:04:12  
+**Message:**
+```
+fix(constants): update u_star_context initialization to use variable for consistency
+
+- Changed u_star_context to initialize with u_star_v instead of a fixed value.
+- This adjustment aims to enhance consistency across parameter definitions.
+
+Align work #13
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/ecf592a_20250812_190412_plot1.png)  
+![](../plot_archive/ecf592a_20250812_190412_plot2.png)  
+
+## Commit [85f5827](https://github.com/naszhu/REM_E3_model_fixed/commit/85f5827) (branch: `aug-11-explore`)
 **Time:** 2025-08-12 19:03:00  
 **Message:**
 ```

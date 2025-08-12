@@ -62,7 +62,7 @@ const n_words = n_probes;
 # CRITERION AND THRESHOLD PARAMETERS
 # =============================================================================
 # criterion_initial = LinRange(1.5, 0.3, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
-criterion_initial = generate_asymptotic_values(1.0, 0.2, 0.2, 1.0, 1.0, 5.0) 
+criterion_initial = generate_asymptotic_values(1.0, 0.28, 0.28, 1.0, 1.0, 5.0) 
 
 # =============================================================================
 # DRIFT AND CHANGE PARAMETERS
@@ -95,14 +95,14 @@ n_grade = 2 #only first to be special
 const n_units_time = 13 #number of steps                                                                                                                                                                                                                        
 
 # u_star parameters
-u_star_v = 0.066
+u_star_v = 0.046
 u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
 # u_star_context parameters
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
 #CHANGED, TODO: can change back firstL special
-u_star_context=vcat(0.05, ones(n_lists-1)*0.05)
+u_star_context=vcat(u_star_v, ones(n_lists-1)*u_star_v)
 init_pos1_ustar_ctx_adv =0.00 #0.05
 # what would happen if I put this not special for first list? (the specificity for first poistion still exists)
  
