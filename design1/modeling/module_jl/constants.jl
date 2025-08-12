@@ -74,10 +74,12 @@ const g_word = 0.3; #geometric base rate
 const g_context = 0.3; #0.3 originallly geometric base rate of context, or 0.2
 
 n_grade = 2 #only first to be special 
+const n_units_time = 13#number of steps                                                                                                                                                                                                                        
+u_star_v = 0.066
+u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 
-# u_star = vcat(0.09, ones(n_lists-1) * 0.06)
-u_star = vcat(0.066, ones(n_lists-1) * 0.066)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
+println("The actual u_star after nsteps is", 1-(1-u_star[1])^n_units_time)
 
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
 #CHANGED, TODO: can change back firstL special
@@ -85,7 +87,6 @@ u_star_context=vcat(0.05, ones(n_lists-1)*0.05)
 init_pos1_ustar_ctx_adv =0.00 #0.05
 # what would happen if I put this not special for first list? (the specificity for first poistion still exists)
  
-const n_units_time = 13#number of steps                                                                                                                                                                                                                        
 n_units_time_restore = n_units_time #only applies for adding traces now. 
 n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
