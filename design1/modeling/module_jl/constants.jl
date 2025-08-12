@@ -20,8 +20,8 @@ const n_words = n_probes;
 # =============================================================================
 # CONTEXT AND WORD FEATURE PARAMETERS
 # =============================================================================
-const w_context = 50; #first half unchange context, second half change context, third half word-change context (third half is not added yet)
-w_word = 25;#25 # number of word features, 30 optimal for inital test, 25 for fianal, lower w would lower overall accuracy 
+const w_context = 56; #first half unchange context, second half change context, third half word-change context (third half is not added yet)
+w_word = 23;#25 # number of word features, 30 optimal for inital test, 25 for fianal, lower w would lower overall accuracy 
 w_positioncode = 0
 w_allcontext = w_context + w_positioncode
 
@@ -110,7 +110,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 # criterion_initial is already a 2D array: [test_position, list_number]
 power_taken = 1/11  # raise to 1/11 power for sampling
 
-criterion_initial = generate_asymptotic_values(1.0, 0.28^power_taken, 0.28^power_taken, 1.0, 1.0, 5.0) 
+criterion_initial = generate_asymptotic_values(1.0, 0.08^power_taken, 0.08^power_taken, 1.0, 1.0, 5.0) 
 
 recall_odds_threshold = 0.3^power_taken;
 p_recallFeatureStore = 0.85;
@@ -125,13 +125,13 @@ p_poscode_change = 0.1
 p_reinstate_context = 1.0 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 
 #7, 10 IS A COMBINATION
-n_driftStudyTest = round.(Int, ones(10) * 11) #7
+n_driftStudyTest = round.(Int, ones(10) * 10) #7
 n_between_listchange = 25; #5;15; 
 
 const p_driftAndListChange = 0.03; # studied prior list probability change 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
-p_reinstate_rate = 0.1 #0.4 #prob of reinstatement
+p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
 
 # =============================================================================
 # FINAL TEST PARAMETERS
