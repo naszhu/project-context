@@ -188,6 +188,7 @@ using Random, Distributions, Statistics, DataFrames, DataFramesMeta
 using RCall
 using BenchmarkTools, ProfileView, Profile, Base.Threads
 using QuadGK
+using Distributions: Categorical
 
 include("module_jl/utils.jl")
 include("module_jl/constants.jl") 
