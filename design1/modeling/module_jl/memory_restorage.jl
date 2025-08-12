@@ -88,7 +88,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
     if ((decision_isold==1) & (odds > recall_odds_threshold) )
 
         # println(iprobe_img.word.type)
-        if is_strengthen_contextandcontent #false
+        if is_strengthen_contextandcontent #true
             restore_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore)
 
             restore_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore,is_ctx=true)
@@ -195,9 +195,11 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
             error("current prog is not written when doesn't store mismatch")
         end
 
-        restore_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore)
+        if is_strengthen_contextandcontent
+            restore_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore)
 
-        restore_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore,is_ctx=true)
+            restore_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore,is_ctx=true)
+        end
 
         !is_restore_context ? error("context restored in initial is not well written this part") : nothing
 
