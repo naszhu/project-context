@@ -1,5 +1,21 @@
 [
   {
+    "commit": "24e022d",
+    "branch": "aug-11-explore",
+    "message": "feat(model-e1): align E1 modeling with E3 structure and sampling approach",
+    "timestamp": "2025-08-12 19:26:51",
+    "plot1": "plot_archive/24e022d_20250812_192651_plot1.png",
+    "plot2": "plot_archive/24e022d_20250812_192651_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
     "commit": "f6f6937",
     "branch": "aug-11-explore",
     "message": "fix(constants): update u_star_context initialization to use variable for consistency",

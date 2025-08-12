@@ -1,5 +1,34 @@
 # Model Progress
 
+## Commit [24e022d](https://github.com/naszhu/REM_E3_model_fixed/commit/24e022d) (branch: `aug-11-explore`)
+**Time:** 2025-08-12 19:26:51  
+**Message:**
+```
+feat(model-e1): align E1 modeling with E3 structure and sampling approach
+
+- Add sampling_method flag for probabilistic vs deterministic image selection
+- Implement power-based sampling probabilities (1/11 power) for likelihood ratios
+- Update criterion_initial to 2D array supporting [test_position, list_number] indexing
+- Modify restore_intest function signature to use sampling probabilities
+- Adjust recall_odds_threshold from 100 to 0.3^power_taken to match E3
+- Fix function parameters and variable references throughout codebase
+
+Aligns #13
+
+Note: Previous recall_odds_threshold of 100 was extremely high, making it nearly
+impossible for items to pass the recall threshold. New value of 0.3^power_taken
+(≈0.3^0.091 ≈ 0.97) is much more reasonable and aligns with E3 modeling.
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/24e022d_20250812_192651_plot1.png)  
+![](../plot_archive/24e022d_20250812_192651_plot2.png)  
+
 ## Commit [f6f6937](https://github.com/naszhu/REM_E3_model_fixed/commit/f6f6937) (branch: `aug-11-explore`)
 **Time:** 2025-08-12 19:09:46  
 **Message:**
