@@ -48,7 +48,7 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org]);
         # restore_intest(image_pool,probes[i].image, decision_isold, argmax(likelihood_ratios));
         if is_restore_final
-            restore_intest_final(image_pool, probes[i].image, decision_isold, decision_isold == 1 ? imax : 1, probes[i].classification, odds)
+            restore_intest_final(image_pool, probes[i].image, decision_isold, sampling_probabilities, odds, i, likelihood_ratios_org)
         end
     end
 

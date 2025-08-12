@@ -1,5 +1,31 @@
 [
   {
+    "commit": "45a23c5",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "feat(model-E3): Integrate E3 model logic into design1 framework",
+    "timestamp": "2025-08-12 21:52:22",
+    "plot1": "plot_archive/45a23c5_20250812_215222_plot1.png",
+    "plot2": "plot_archive/45a23c5_20250812_215222_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
+    "commit": "83a82ba",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "merge(model-e1): aug-11-explore: align E1 modeling with E3 structure and enhance simulation parameters",
+    "timestamp": "2025-08-12 20:55:06",
+    "plot1": "plot_archive/83a82ba_20250812_205506_plot1.png",
+    "plot2": "plot_archive/83a82ba_20250812_205506_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "c341998",
     "branch": "main",
     "message": "merge aug-11-explore: align E1 modeling with E3 structure and enhance simulation parameters",

@@ -64,8 +64,12 @@ n_units_time_restore_f = n_units_time_restore_t # -3
 # COPYING PARAMETERS
 # =============================================================================
 const c = 0.75 #coying parameter - 0.8 for context copying 
-const c_storeintest = c
+const c_storeintest = LinRange(c, c, n_lists)  # Make this an array to match usage
 const c_context = LinRange(c, c, n_lists)
+
+# E3 specific context copying parameters
+const c_context_c = LinRange(c, c, n_lists)  # copying parameter for changing context
+const c_context_un = LinRange(c, c, n_lists)  # copying parameter for unchanging context
 
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
@@ -96,7 +100,7 @@ is_UnchangeCtxDriftAndReinstate = true
 const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
-is_restore_context = false # currently don't want to restore context features, only add new context features tarce
+is_restore_context = true # currently don't want to restore context features, only add new context features tarce
 
 # Stage control flags
 is_firststage = true;
@@ -113,6 +117,7 @@ power_taken = 1/11  # raise to 1/11 power for sampling
 criterion_initial = generate_asymptotic_values(1.0, 0.08^power_taken, 0.08^power_taken, 1.0, 1.0, 5.0) 
 
 recall_odds_threshold = 0.3^power_taken;
+recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
 p_recallFeatureStore = 0.85;
 
 # Context testing flags
@@ -140,6 +145,11 @@ const n_finalprobs = 420;
 
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
 
+# E3 final test chunk parameters
+const total_probe_L1 = 15;  # total probes in list 1
+const total_probe_Ln = 12;  # total probes in other lists
+const nItemPerUnit_final = 2;  # items per unit in final test
+
 criterion_final = LinRange(0.5^power_taken, 0.6^power_taken, 10)
 final_gap_change = 0.1; #0.21
 context_tau_final = 100 #0.20.2 above if this is 10
@@ -156,6 +166,9 @@ nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
 # =============================================================================
 #the advatage of foil in inital test (to make final T prediciton overlap)
 u_advFoilInitialT = 0;
+
+# E3 specific parameters
+is_strengthen_contextandcontent = false;  # E3 parameter for strengthening context and content
 
 # =============================================================================
 # PROBABILITY CALCULATIONS AND DEBUG OUTPUT
