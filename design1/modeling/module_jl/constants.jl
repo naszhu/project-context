@@ -63,7 +63,7 @@ n_units_time_restore_f = n_units_time_restore_t # -3
 # =============================================================================
 # COPYING PARAMETERS
 # =============================================================================
-const c = 0.75 #coying parameter - 0.8 for context copying 
+const c = 0.7 #coying parameter - 0.8 for context copying 
 const c_storeintest = LinRange(c, c, n_lists)  # Make this an array to match usage
 const c_context = LinRange(c, c, n_lists)
 
@@ -114,7 +114,8 @@ is_onlytest_currentlist = false; #this is discarded currently
 # criterion_initial is already a 2D array: [test_position, list_number]
 power_taken = 1/11  # raise to 1/11 power for sampling
 
-criterion_initial = generate_asymptotic_values(1.0, 0.08^power_taken, 0.08^power_taken, 1.0, 1.0, 5.0) 
+v_criterion_initial = 0.25^power_taken
+criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0) 
 
 recall_odds_threshold = 0.3^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
@@ -129,8 +130,9 @@ context_tau = 100 #foil odds should lower than this
 p_poscode_change = 0.1
 p_reinstate_context = 1.0 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 
-#7, 10 IS A COMBINATION
-n_driftStudyTest = round.(Int, ones(10) * 10) #7
+#this number is 12 in E3, i theoretically should keep this the same, but very hard
+n_driftStudyTest = round.(Int, ones(10) * 9) #7
+
 n_between_listchange = 25; #5;15; 
 
 const p_driftAndListChange = 0.03; # studied prior list probability change 

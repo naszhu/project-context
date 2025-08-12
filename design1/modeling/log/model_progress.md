@@ -1,5 +1,93 @@
 # Model Progress
 
+## Commit [f9211a6](https://github.com/naszhu/REM_E3_model_fixed/commit/f9211a6) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 23:03:39  
+**Message:**
+```
+fix(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/f9211a6_20250812_230339_plot1.png)  
+![](../plot_archive/f9211a6_20250812_230339_plot2.png)  
+
+## Commit [558ff88](https://github.com/naszhu/REM_E3_model_fixed/commit/558ff88) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 23:03:27  
+**Message:**
+```
+fix(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/558ff88_20250812_230327_plot1.png)  
+![](../plot_archive/558ff88_20250812_230327_plot2.png)  
+
+## Commit [c8aed92](https://github.com/naszhu/REM_E3_model_fixed/commit/c8aed92) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 22:58:01  
+**Message:**
+```
+fix(E1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c8aed92_20250812_225801_plot1.png)  
+![](../plot_archive/c8aed92_20250812_225801_plot2.png)  
+
+## Commit [f399c73](https://github.com/naszhu/REM_E3_model_fixed/commit/f399c73) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 22:19:09  
+**Message:**
+```
+feat(model-E3): Integrate E3 model logic into design1 framework
+
+Major update integrating E3 experiment model architecture with design1 data structures:
+
+- Add E3-specific parameters: recall_to_addtrace_threshold, is_strengthen_contextandcontent
+- Add context copying parameters: c_context_c, c_context_un for changing/unchanging context
+- Add final test chunk parameters: total_probe_L1, total_probe_Ln, nItemPerUnit_final
+- Create feature_updates.jl with helper functions: add_features_from_empty! and restore_features!
+- Update memory_restorage.jl to use E3 decision criteria and logic flow
+- Fix parameter consistency: c_storeintest now properly defined as array
+- Maintain design1 data structures while integrating E3 model logic
+- Update probe_evaluation.jl to use new function signatures
+- Fix bounds errors from inconsistent array/scalar parameter usage
+
+This update enables design1 to run E3 model simulations while preserving existing architecture.
+
+Ref #13
+Create tech-debt #18
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/f399c73_20250812_221909_plot1.png)  
+![](../plot_archive/f399c73_20250812_221909_plot2.png)  
+
 ## Commit [45a23c5](https://github.com/naszhu/REM_E3_model_fixed/commit/45a23c5) (branch: `aug-12-explore-more-alignment`)
 **Time:** 2025-08-12 21:52:22  
 **Message:**
