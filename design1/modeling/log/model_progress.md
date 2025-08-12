@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [df4251a](https://github.com/naszhu/REM_E3_model_fixed/commit/df4251a) (branch: `aug-11-explore`)
+**Time:** 2025-08-12 18:55:31  
+**Message:**
+```
+feat(model-e1):finetune and align work, update constants for drift study and reinstatement rates
+
+- Supprisingly worked well
+
+- Adjusted n_driftStudyTest from 7 to 11 for better testing conditions.
+- Modified p_reinstate_rate from 0.2 to 0.1 to refine reinstatement probability.
+
+Align work:
+- Changed g_word from 0.4 to 0.3 to align with new geometric base rate.
+
+Align work #13
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design3/modeling`  
+![](../plot_archive/df4251a_20250812_185531_plot1.png)  
+![](../plot_archive/df4251a_20250812_185531_plot2.png)  
+
 ## Commit [f789ce9](https://github.com/naszhu/REM_E3_model_fixed/commit/f789ce9) (branch: `aug-11-explore`)
 **Time:** 2025-08-12 18:52:24  
 **Message:**

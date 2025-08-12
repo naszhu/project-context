@@ -1,5 +1,19 @@
 [
   {
+    "commit": "df4251a",
+    "branch": "aug-11-explore",
+    "message": "feat(model-e1):finetune and align work, update constants for drift study and reinstatement rates",
+    "timestamp": "2025-08-12 18:55:31",
+    "plot1": "plot_archive/df4251a_20250812_185531_plot1.png",
+    "plot2": "plot_archive/df4251a_20250812_185531_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "f789ce9",
     "branch": "aug-11-explore",
     "message": "fix(model-e1): update constants for drift study and reinstatement rates",
