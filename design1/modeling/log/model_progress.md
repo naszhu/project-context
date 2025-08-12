@@ -1,5 +1,41 @@
 # Model Progress
 
+## Commit [9de0593](https://github.com/naszhu/REM_E3_model_fixed/commit/9de0593) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 23:42:02  
+**Message:**
+```
+fix(model-e1): correct critical sampling and strengthening bugs in E1 modeling
+
+CRITICAL FIXES:
+- sampling_method: false → true (enables probabilistic sampling instead of argmax)
+- is_strengthen_contextandcontent: false → true (enables trace strengthening during training)
+
+ADDITIONAL CHANGES:
+- n_simulations: 500 → 1000 (doubled simulation count)
+- p_reinstate_context: 1.0 → 0.8 (reduced reinstatement threshold)
+- n_between_listchange: 25 → 18 (reduced between-list change steps)
+- final_gap_change: 0.1 → 0.16 (increased final test gap)
+- ratio_unchanging_to_itself_final: [0.5,0.5] → [1,1] (full unchanging context in final)
+- ratio_changing_to_itself_final: [0.1,0.1] → [0.3,0.3] (increased changing context in final)
+
+COMMENTS ADDED:
+- Added note about p_reinstate_context needing to be 1 for E3
+- Added note about final_gap_change being 0.16 in E3
+- Added note about p_ListChange_finaltest being 0.8 in E3 but undecided
+
+These bugs prevented proper model functionality - no strengthening occurred and wrong sampling method was used.
+
+Closes #21
+Refs Align #13
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/9de0593_20250812_234202_plot1.png)  
+![](../plot_archive/9de0593_20250812_234202_plot2.png)  
+
 ## Commit [6e9b623](https://github.com/naszhu/REM_E3_model_fixed/commit/6e9b623) (branch: `aug-12-explore-more-alignment`)
 **Time:** 2025-08-12 23:06:09  
 **Message:**
