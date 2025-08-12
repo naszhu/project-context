@@ -2,8 +2,13 @@
 # =============================================================================
 # CORE PARAMETERS
 # =============================================================================
-recall_odds_threshold = 100;
+# Power parameter for sampling probabilities
+power_taken = 1/11  # raise to 1/11 power for sampling
+
+
+recall_odds_threshold = 0.3^power_taken;
 p_recallFeatureStore = 0.85;
+
 
 # =============================================================================
 # UTILITY FUNCTIONS
@@ -29,6 +34,11 @@ nC = w_context - nU
 # =============================================================================
 is_finaltest = false
 n_simulations = is_finaltest ? 100 : 500;
+
+# Sampling method flag
+sampling_method = false  # true for probabilistic sampling, false for argmax
+
+
 
 # Context testing flags
 context_tau = 100 #foil odds should lower than this  
@@ -62,7 +72,8 @@ const n_words = n_probes;
 # CRITERION AND THRESHOLD PARAMETERS
 # =============================================================================
 # criterion_initial = LinRange(1.5, 0.3, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
-criterion_initial = generate_asymptotic_values(1.0, 0.28, 0.28, 1.0, 1.0, 5.0) 
+# criterion_initial is already a 2D array: [test_position, list_number]
+criterion_initial = generate_asymptotic_values(1.0, 0.28^power_taken, 0.28^power_taken, 1.0, 1.0, 5.0) 
 
 # =============================================================================
 # DRIFT AND CHANGE PARAMETERS

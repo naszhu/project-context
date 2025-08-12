@@ -1,4 +1,6 @@
 
+using Distributions: Categorical
+
 """
 restore content and/or context, here, context include change,unchange, and positioncode. position code is not restored but add to new trace when don't restore context
 """
@@ -8,7 +10,7 @@ restore content and/or context, here, context include change,unchange, and posit
 #     data_flag[i] = Vector{Any}()  # Initialize each row as an empty vector
 # end
 
-function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, imax::Int64, probetype::Symbol, list_change_features::Vector{Int64}, general_context_features::Vector{Int64}, odds::Float64, likelihood_ratios::Vector{Float64}, simu_i::Int64, initial_testpos::Int64)
+function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, sampling_probabilities::Vector{Float64}, odds::Float64, content_LL_ratios::Vector{Float64})::Nothing
 
 
 
@@ -26,8 +28,18 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
     end
     if ((decision_isold==1) & (odds > recall_odds_threshold) ) 
 
-        #recall; restore old
-        iimage_tostrenghten = image_pool[imax] 
+        if sampling_method
+            @assert length(image_pool) == length(sampling_probabilities) "image_pool and sampling_probabilities should be the same length"
+            #recall; restore old
+            cdf_each_boral_sets = Categorical(sampling_probabilities)     
+            index_sampled = rand(cdf_each_boral_sets)
+            iimage_tostrenghten = image_pool[index_sampled]
+        else
+            # Pick the image from image_pool with the maximum content_LL_ratios value
+            @assert length(content_LL_ratios) == length(image_pool) "content_LL_ratios and image_pool must have the same length"
+            imax = argmax([ill==344523466743 ? -Inf : ill for ill in content_LL_ratios]);
+            iimage_tostrenghten = image_pool[imax]
+        end
     end
 
 
@@ -72,7 +84,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
 
     if (decision_isold == 1) & (odds > recall_odds_threshold) #single parameter for missing or replacing
 
-        for _ in n_units_time
+        for _ in 1:n_units_time
             for i in eachindex(iprobe_img.word.word_features)
                 j = iimage_tostrenghten.word.word_features[i]
                 # if j!=0

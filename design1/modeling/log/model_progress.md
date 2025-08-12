@@ -1,7 +1,7 @@
 # Model Progress
 
-## Commit [823c3bc](https://github.com/naszhu/REM_E3_model_fixed/commit/823c3bc) (branch: `HEAD`)
-**Time:** 2025-08-12 19:04:12  
+## Commit [f6f6937](https://github.com/naszhu/REM_E3_model_fixed/commit/f6f6937) (branch: `aug-11-explore`)
+**Time:** 2025-08-12 19:09:46  
 **Message:**
 ```
 fix(constants): update u_star_context initialization to use variable for consistency
@@ -15,8 +15,8 @@ Align work #13
 - `design1/modeling/log/model_progress.json`  
 - `design1/modeling/log/model_progress.md`  
 - `design1/modeling/module_jl/constants.jl`  
-![](../plot_archive/823c3bc_20250812_190412_plot1.png)  
-![](../plot_archive/823c3bc_20250812_190412_plot2.png)  
+![](../plot_archive/f6f6937_20250812_190946_plot1.png)  
+![](../plot_archive/f6f6937_20250812_190946_plot2.png)  
 
 ## Commit [ecf592a](https://github.com/naszhu/REM_E3_model_fixed/commit/ecf592a) (branch: `aug-11-explore`)
 **Time:** 2025-08-12 19:04:12  
