@@ -1,5 +1,31 @@
 [
   {
+    "commit": "f789ce9",
+    "branch": "aug-11-explore",
+    "message": "fix(model-e1): update constants for drift study and reinstatement rates",
+    "timestamp": "2025-08-12 18:52:24",
+    "plot1": "plot_archive/f789ce9_20250812_185224_plot1.png",
+    "plot2": "plot_archive/f789ce9_20250812_185224_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "eaacb71",
+    "branch": "aug-11-explore",
+    "message": "chore(model-e1): redo, changed nothing",
+    "timestamp": "2025-08-12 18:17:54",
+    "plot1": "plot_archive/eaacb71_20250812_181754_plot1.png",
+    "plot2": "plot_archive/eaacb71_20250812_181754_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "d595a12",
     "branch": "aug-11-explore",
     "message": "chore(model-e1): redo, changed nothing",

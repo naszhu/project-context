@@ -46,7 +46,7 @@ const n_lists = 10;
 const n_words = n_probes;
 
 # criterion_initial = LinRange(1.5, 0.3, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
-criterion_initial = criterion_initial = generate_asymptotic_values(1.0, 0.2, 0.2, 1.0, 1.0, 5.0) 
+criterion_initial = generate_asymptotic_values(1.0, 0.2, 0.2, 1.0, 1.0, 5.0) 
 
 p_poscode_change = 0.1
 p_reinstate_context = 1.0 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
@@ -54,13 +54,13 @@ p_reinstate_context = 1.0 #stop reinstate after how much features, 1.9 means a h
 
 #p_driftAndListChange should be used for both within-list drift and between-list change
 #7, 10 IS A COMBINATION
-n_driftStudyTest = round.(Int, ones(10) * 7) #7
+n_driftStudyTest = round.(Int, ones(10) * 11) #7
 n_between_listchange = 25; #5;15; 
 
 const p_driftAndListChange = 0.03; # studied prior list probability change 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
-p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
+p_reinstate_rate = 0.1 #0.4 #prob of reinstatement
 
 
 # n_driftStudyTest = round.(Int,ones(10)*25)
@@ -70,7 +70,7 @@ aa = (1 - (1 - p_driftAndListChange)^n_between_listchange);
 println("prob of feature change after 4 lists $(1-(1-aa)^8)")
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 
-const g_word = 0.4; #geometric base rate
+const g_word = 0.3; #geometric base rate
 const g_context = 0.3; #0.3 originallly geometric base rate of context, or 0.2
 
 n_grade = 2 #only first to be special 
