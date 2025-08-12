@@ -74,7 +74,7 @@ const c_context_un = LinRange(c, c, n_lists)  # copying parameter for unchanging
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
-ratio_unchanging_to_itself_init = LinRange(0.4, 0.4, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(0.46, 0.46, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
@@ -131,7 +131,7 @@ p_poscode_change = 0.1
 p_reinstate_context = 1.0 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 9) #7
+n_driftStudyTest = round.(Int, ones(10) * 12) #7
 
 n_between_listchange = 25; #5;15; 
 

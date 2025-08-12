@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [578ae0e](https://github.com/naszhu/REM_E3_model_fixed/commit/578ae0e) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 23:04:08  
+**Message:**
+```
+finetune(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/578ae0e_20250812_230408_plot1.png)  
+![](../plot_archive/578ae0e_20250812_230408_plot2.png)  
+
 ## Commit [f9211a6](https://github.com/naszhu/REM_E3_model_fixed/commit/f9211a6) (branch: `aug-12-explore-more-alignment`)
 **Time:** 2025-08-12 23:03:39  
 **Message:**
