@@ -1,5 +1,65 @@
 # Model Progress
 
+## Commit [45a23c5](https://github.com/naszhu/REM_E3_model_fixed/commit/45a23c5) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 21:52:22  
+**Message:**
+```
+feat(model-E3): Integrate E3 model logic into design1 framework
+
+Major update integrating E3 experiment model architecture with design1 data structures:
+
+- Add E3-specific parameters: recall_to_addtrace_threshold, is_strengthen_contextandcontent
+- Add context copying parameters: c_context_c, c_context_un for changing/unchanging context
+- Add final test chunk parameters: total_probe_L1, total_probe_Ln, nItemPerUnit_final
+- Create feature_updates.jl with helper functions: add_features_from_empty! and restore_features!
+- Update memory_restorage.jl to use E3 decision criteria and logic flow
+- Fix parameter consistency: c_storeintest now properly defined as array
+- Maintain design1 data structures while integrating E3 model logic
+- Update probe_evaluation.jl to use new function signatures
+- Fix bounds errors from inconsistent array/scalar parameter usage
+
+This update enables design1 to run E3 model simulations while preserving existing architecture.
+
+Closes #13
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/45a23c5_20250812_215222_plot1.png)  
+![](../plot_archive/45a23c5_20250812_215222_plot2.png)  
+
+## Commit [83a82ba](https://github.com/naszhu/REM_E3_model_fixed/commit/83a82ba) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 20:55:06  
+**Message:**
+```
+merge(model-e1): aug-11-explore: align E1 modeling with E3 structure and enhance simulation parameters
+
+This merge brings in significant improvements to the E1 modeling system:
+
+- Aligns E1 modeling structure with E3 approach for consistency
+
+- Reorganizes constants.jl into logical blocks for better maintainability
+
+- Updates simulation parameters for drift study and reinstatement rates
+
+- Fixes critical bug in ratio_unchanging setting
+
+- Enhances probe evaluation and memory restorage modules
+
+- Updates gitignore and removes temporary files
+
+The changes improve model consistency between experiments and fix
+
+several simulation parameter issues that were affecting model performance.
+```
+![](../plot_archive/83a82ba_20250812_205506_plot1.png)  
+![](../plot_archive/83a82ba_20250812_205506_plot2.png)  
+
 ## Commit [c341998](https://github.com/naszhu/REM_E3_model_fixed/commit/c341998) (branch: `main`)
 **Time:** 2025-08-12 20:54:38  
 **Message:**
