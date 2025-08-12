@@ -1,5 +1,18 @@
 [
   {
+    "commit": "199daf1",
+    "branch": "aug-11-explore",
+    "message": "refactor(model-e1): reorganize constants and enhance simulation parameters",
+    "timestamp": "2025-08-12 19:49:13",
+    "plot1": "plot_archive/199daf1_20250812_194913_plot1.png",
+    "plot2": "plot_archive/199daf1_20250812_194913_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "24e022d",
     "branch": "aug-11-explore",
     "message": "feat(model-e1): align E1 modeling with E3 structure and sampling approach",

@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [199daf1](https://github.com/naszhu/REM_E3_model_fixed/commit/199daf1) (branch: `aug-11-explore`)
+**Time:** 2025-08-12 19:49:13  
+**Message:**
+```
+refactor(model-e1): reorganize constants and enhance simulation parameters
+
+- Reorganized constants.jl into logical sections for better clarity and maintainability.
+- Introduced new simulation control flags and adjusted parameters for final tests.
+- Updated criterion_final to use power-based calculations for consistency.
+- Refined ratio parameters for initial and final tests to improve simulation accuracy.
+- Added debug output for probability calculations to aid in analysis.
+
+Aligns with previous work on modeling structure and parameter consistency.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/199daf1_20250812_194913_plot1.png)  
+![](../plot_archive/199daf1_20250812_194913_plot2.png)  
+
 ## Commit [24e022d](https://github.com/naszhu/REM_E3_model_fixed/commit/24e022d) (branch: `aug-11-explore`)
 **Time:** 2025-08-12 19:26:51  
 **Message:**
