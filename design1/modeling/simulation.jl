@@ -8,6 +8,11 @@ function simulate_rem()
 
     for sim_num in 1:n_simulations
 
+        # Add progress prints every 10% of simulations
+        if sim_num % (n_simulations ÷ 10) == 0
+            println("Progress: $(sim_num * 100 ÷ n_simulations)% simulations completed.")
+        end
+
         #    sim_num=1
         image_pool = EpisodicImage[]
         studied_pool = Array{EpisodicImage}(undef, n_probes + Int(n_probes / 2), n_lists) #30 images (10 Tt, 10 Tn, 10 Tf) of 10 lists
@@ -140,6 +145,7 @@ function simulate_rem()
         end
 
         if is_finaltest
+            println("Processing final tests for simulation $sim_num...")
             for icondition in [:forward, :backward, :true_random]
                 image_pool_bc = deepcopy(image_pool)
                 finalprobes = generate_finalt_probes(studied_pool, icondition, general_context_features, list_change_context_features)
@@ -154,5 +160,6 @@ function simulate_rem()
 
     end
 
+    println("All simulations completed! Processing results...")
     return df_inital, df_final
 end

@@ -192,7 +192,7 @@ using Distributions: Categorical
 
 include("module_jl/utils.jl")
 include("module_jl/constants.jl") 
-# include("feature_updates.jl")
+include("module_jl/feature_updates.jl")
 
 include("module_jl/data_structures.jl")
 

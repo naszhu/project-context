@@ -1,5 +1,300 @@
 # Model Progress
 
+## Commit [58f69f1](https://github.com/naszhu/REM_E3_model_fixed/commit/58f69f1) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-15 22:55:00  
+**Message:**
+```
+refactor(model-e1): introduce strengthening advance parameters
+
+- Added new parameters `adv_u_star_strengthen` and `adv_c_strenghten` to improve feature restoration logic.
+- Updated target feature assignment to incorporate these new parameters, enhancing simulation accuracy.
+
+These changes aim to refine the model's predictive capabilities and strengthen the feature restoration process.
+```
+**Changed Files:**
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/58f69f1_20250815_225500_plot1.png)  
+![](../plot_archive/58f69f1_20250815_225500_plot2.png)  
+
+## Commit [52c351e](https://github.com/naszhu/REM_E3_model_fixed/commit/52c351e) (branch: `HEAD`)
+**Time:** 2025-08-15 22:52:20  
+**Message:**
+```
+explore(model-e1): solve 22, within-list: update ratio parameters and restore feature logic
+
+- Reintroduced ratio parameters for initial and final tests
+- Adjusted v_criterion_initial from 0.001^power_taken to 0.01^power_taken
+- Modified recall_odds_threshold to 0.0^power_taken
+- Updated feature restoration logic for target feature assignment
+
+These changes improve simulation consistency and accuracy.
+
+Refs #22: taking out strenghtening advantage makes good within-list prediction
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/52c351e_20250815_225220_plot1.png)  
+![](../plot_archive/52c351e_20250815_225220_plot2.png)  
+
+## Commit [979774a](https://github.com/naszhu/REM_E3_model_fixed/commit/979774a) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-15 22:34:31  
+**Message:**
+```
+feat(simulation): restore progress prints for simulation monitoring
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/979774a_20250815_223431_plot1.png)  
+![](../plot_archive/979774a_20250815_223431_plot2.png)  
+
+## Commit [59a0bf5](https://github.com/naszhu/REM_E3_model_fixed/commit/59a0bf5) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-13 00:22:39  
+**Message:**
+```
+fix(constants): update v_criterion_initial and recall_odds_threshold for final test OI
+
+- Changed v_criterion_initial from 0.25^power_taken to 0.001^power_taken to align with E3 standards.
+- Adjusted recall_odds_threshold from 0.3^power_taken to 0.0001^power_taken for better threshold calibration.
+
+Doesn't really create OI in final test though
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design3/modeling`  
+![](../plot_archive/59a0bf5_20250813_002239_plot1.png)  
+![](../plot_archive/59a0bf5_20250813_002239_plot2.png)  
+
+## Commit [9de0593](https://github.com/naszhu/REM_E3_model_fixed/commit/9de0593) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 23:42:02  
+**Message:**
+```
+fix(model-e1): correct critical sampling and strengthening bugs in E1 modeling
+
+CRITICAL FIXES:
+- sampling_method: false → true (enables probabilistic sampling instead of argmax)
+- is_strengthen_contextandcontent: false → true (enables trace strengthening during training)
+
+ADDITIONAL CHANGES:
+- n_simulations: 500 → 1000 (doubled simulation count)
+- p_reinstate_context: 1.0 → 0.8 (reduced reinstatement threshold)
+- n_between_listchange: 25 → 18 (reduced between-list change steps)
+- final_gap_change: 0.1 → 0.16 (increased final test gap)
+- ratio_unchanging_to_itself_final: [0.5,0.5] → [1,1] (full unchanging context in final)
+- ratio_changing_to_itself_final: [0.1,0.1] → [0.3,0.3] (increased changing context in final)
+
+COMMENTS ADDED:
+- Added note about p_reinstate_context needing to be 1 for E3
+- Added note about final_gap_change being 0.16 in E3
+- Added note about p_ListChange_finaltest being 0.8 in E3 but undecided
+
+These bugs prevented proper model functionality - no strengthening occurred and wrong sampling method was used.
+
+Closes #21
+Refs Align #13
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/9de0593_20250812_234202_plot1.png)  
+![](../plot_archive/9de0593_20250812_234202_plot2.png)  
+
+## Commit [6e9b623](https://github.com/naszhu/REM_E3_model_fixed/commit/6e9b623) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 23:06:09  
+**Message:**
+```
+finetune(model-E3): update ratio and drift study parameters for improved simulation accuracy
+
+- Adjusted ratio_unchanging_to_itself_init from 0.4 to 0.46 to enhance model performance.
+- Increased n_driftStudyTest from 9 to 12 to better reflect testing conditions.
+
+These changes aim to refine the simulation parameters for more accurate results in the modeling framework.
+
+Refs #13
+```
+**Changed Files:**
+- `Docs/DataPlot-d3(exp2).docx`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/6e9b623_20250812_230609_plot1.png)  
+![](../plot_archive/6e9b623_20250812_230609_plot2.png)  
+
+## Commit [578ae0e](https://github.com/naszhu/REM_E3_model_fixed/commit/578ae0e) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 23:04:08  
+**Message:**
+```
+finetune(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/578ae0e_20250812_230408_plot1.png)  
+![](../plot_archive/578ae0e_20250812_230408_plot2.png)  
+
+## Commit [f9211a6](https://github.com/naszhu/REM_E3_model_fixed/commit/f9211a6) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 23:03:39  
+**Message:**
+```
+fix(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/f9211a6_20250812_230339_plot1.png)  
+![](../plot_archive/f9211a6_20250812_230339_plot2.png)  
+
+## Commit [558ff88](https://github.com/naszhu/REM_E3_model_fixed/commit/558ff88) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 23:03:27  
+**Message:**
+```
+fix(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/558ff88_20250812_230327_plot1.png)  
+![](../plot_archive/558ff88_20250812_230327_plot2.png)  
+
+## Commit [c8aed92](https://github.com/naszhu/REM_E3_model_fixed/commit/c8aed92) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 22:58:01  
+**Message:**
+```
+fix(E1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c8aed92_20250812_225801_plot1.png)  
+![](../plot_archive/c8aed92_20250812_225801_plot2.png)  
+
+## Commit [f399c73](https://github.com/naszhu/REM_E3_model_fixed/commit/f399c73) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 22:19:09  
+**Message:**
+```
+feat(model-E3): Integrate E3 model logic into design1 framework
+
+Major update integrating E3 experiment model architecture with design1 data structures:
+
+- Add E3-specific parameters: recall_to_addtrace_threshold, is_strengthen_contextandcontent
+- Add context copying parameters: c_context_c, c_context_un for changing/unchanging context
+- Add final test chunk parameters: total_probe_L1, total_probe_Ln, nItemPerUnit_final
+- Create feature_updates.jl with helper functions: add_features_from_empty! and restore_features!
+- Update memory_restorage.jl to use E3 decision criteria and logic flow
+- Fix parameter consistency: c_storeintest now properly defined as array
+- Maintain design1 data structures while integrating E3 model logic
+- Update probe_evaluation.jl to use new function signatures
+- Fix bounds errors from inconsistent array/scalar parameter usage
+
+This update enables design1 to run E3 model simulations while preserving existing architecture.
+
+Ref #13
+Create tech-debt #18
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/f399c73_20250812_221909_plot1.png)  
+![](../plot_archive/f399c73_20250812_221909_plot2.png)  
+
+## Commit [45a23c5](https://github.com/naszhu/REM_E3_model_fixed/commit/45a23c5) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 21:52:22  
+**Message:**
+```
+feat(model-E3): Integrate E3 model logic into design1 framework
+
+Major update integrating E3 experiment model architecture with design1 data structures:
+
+- Add E3-specific parameters: recall_to_addtrace_threshold, is_strengthen_contextandcontent
+- Add context copying parameters: c_context_c, c_context_un for changing/unchanging context
+- Add final test chunk parameters: total_probe_L1, total_probe_Ln, nItemPerUnit_final
+- Create feature_updates.jl with helper functions: add_features_from_empty! and restore_features!
+- Update memory_restorage.jl to use E3 decision criteria and logic flow
+- Fix parameter consistency: c_storeintest now properly defined as array
+- Maintain design1 data structures while integrating E3 model logic
+- Update probe_evaluation.jl to use new function signatures
+- Fix bounds errors from inconsistent array/scalar parameter usage
+
+This update enables design1 to run E3 model simulations while preserving existing architecture.
+
+Closes #13
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/45a23c5_20250812_215222_plot1.png)  
+![](../plot_archive/45a23c5_20250812_215222_plot2.png)  
+
+## Commit [83a82ba](https://github.com/naszhu/REM_E3_model_fixed/commit/83a82ba) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-12 20:55:06  
+**Message:**
+```
+merge(model-e1): aug-11-explore: align E1 modeling with E3 structure and enhance simulation parameters
+
+This merge brings in significant improvements to the E1 modeling system:
+
+- Aligns E1 modeling structure with E3 approach for consistency
+
+- Reorganizes constants.jl into logical blocks for better maintainability
+
+- Updates simulation parameters for drift study and reinstatement rates
+
+- Fixes critical bug in ratio_unchanging setting
+
+- Enhances probe evaluation and memory restorage modules
+
+- Updates gitignore and removes temporary files
+
+The changes improve model consistency between experiments and fix
+
+several simulation parameter issues that were affecting model performance.
+```
+![](../plot_archive/83a82ba_20250812_205506_plot1.png)  
+![](../plot_archive/83a82ba_20250812_205506_plot2.png)  
+
 ## Commit [c341998](https://github.com/naszhu/REM_E3_model_fixed/commit/c341998) (branch: `main`)
 **Time:** 2025-08-12 20:54:38  
 **Message:**

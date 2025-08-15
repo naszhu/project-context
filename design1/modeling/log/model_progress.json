@@ -1,5 +1,181 @@
 [
   {
+    "commit": "58f69f1",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "refactor(model-e1): introduce strengthening advance parameters",
+    "timestamp": "2025-08-15 22:55:00",
+    "plot1": "plot_archive/58f69f1_20250815_225500_plot1.png",
+    "plot2": "plot_archive/58f69f1_20250815_225500_plot2.png",
+    "changed_files": [
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "52c351e",
+    "branch": "HEAD",
+    "message": "explore(model-e1): solve 22, within-list: update ratio parameters and restore feature logic",
+    "timestamp": "2025-08-15 22:52:20",
+    "plot1": "plot_archive/52c351e_20250815_225220_plot1.png",
+    "plot2": "plot_archive/52c351e_20250815_225220_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "979774a",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "feat(simulation): restore progress prints for simulation monitoring",
+    "timestamp": "2025-08-15 22:34:31",
+    "plot1": "plot_archive/979774a_20250815_223431_plot1.png",
+    "plot2": "plot_archive/979774a_20250815_223431_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "59a0bf5",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "fix(constants): update v_criterion_initial and recall_odds_threshold for final test OI",
+    "timestamp": "2025-08-13 00:22:39",
+    "plot1": "plot_archive/59a0bf5_20250813_002239_plot1.png",
+    "plot2": "plot_archive/59a0bf5_20250813_002239_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "9de0593",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "fix(model-e1): correct critical sampling and strengthening bugs in E1 modeling",
+    "timestamp": "2025-08-12 23:42:02",
+    "plot1": "plot_archive/9de0593_20250812_234202_plot1.png",
+    "plot2": "plot_archive/9de0593_20250812_234202_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "6e9b623",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "finetune(model-E3): update ratio and drift study parameters for improved simulation accuracy",
+    "timestamp": "2025-08-12 23:06:09",
+    "plot1": "plot_archive/6e9b623_20250812_230609_plot1.png",
+    "plot2": "plot_archive/6e9b623_20250812_230609_plot2.png",
+    "changed_files": [
+      "Docs/DataPlot-d3(exp2).docx",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "578ae0e",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "finetune(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13",
+    "timestamp": "2025-08-12 23:04:08",
+    "plot1": "plot_archive/578ae0e_20250812_230408_plot1.png",
+    "plot2": "plot_archive/578ae0e_20250812_230408_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "f9211a6",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "fix(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13",
+    "timestamp": "2025-08-12 23:03:39",
+    "plot1": "plot_archive/f9211a6_20250812_230339_plot1.png",
+    "plot2": "plot_archive/f9211a6_20250812_230339_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "558ff88",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "fix(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13",
+    "timestamp": "2025-08-12 23:03:27",
+    "plot1": "plot_archive/558ff88_20250812_230327_plot1.png",
+    "plot2": "plot_archive/558ff88_20250812_230327_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "c8aed92",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "fix(E1): resolve performance issue by adjusting c parameter - closes #20, references #13",
+    "timestamp": "2025-08-12 22:58:01",
+    "plot1": "plot_archive/c8aed92_20250812_225801_plot1.png",
+    "plot2": "plot_archive/c8aed92_20250812_225801_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "f399c73",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "feat(model-E3): Integrate E3 model logic into design1 framework",
+    "timestamp": "2025-08-12 22:19:09",
+    "plot1": "plot_archive/f399c73_20250812_221909_plot1.png",
+    "plot2": "plot_archive/f399c73_20250812_221909_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
+    "commit": "45a23c5",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "feat(model-E3): Integrate E3 model logic into design1 framework",
+    "timestamp": "2025-08-12 21:52:22",
+    "plot1": "plot_archive/45a23c5_20250812_215222_plot1.png",
+    "plot2": "plot_archive/45a23c5_20250812_215222_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
+    "commit": "83a82ba",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "merge(model-e1): aug-11-explore: align E1 modeling with E3 structure and enhance simulation parameters",
+    "timestamp": "2025-08-12 20:55:06",
+    "plot1": "plot_archive/83a82ba_20250812_205506_plot1.png",
+    "plot2": "plot_archive/83a82ba_20250812_205506_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "c341998",
     "branch": "main",
     "message": "merge aug-11-explore: align E1 modeling with E3 structure and enhance simulation parameters",
