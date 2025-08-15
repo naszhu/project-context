@@ -1,5 +1,19 @@
 [
   {
+    "commit": "59a0bf5",
+    "branch": "aug-12-explore-more-alignment",
+    "message": "fix(constants): update v_criterion_initial and recall_odds_threshold for final test OI",
+    "timestamp": "2025-08-13 00:22:39",
+    "plot1": "plot_archive/59a0bf5_20250813_002239_plot1.png",
+    "plot2": "plot_archive/59a0bf5_20250813_002239_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "9de0593",
     "branch": "aug-12-explore-more-alignment",
     "message": "fix(model-e1): correct critical sampling and strengthening bugs in E1 modeling",
