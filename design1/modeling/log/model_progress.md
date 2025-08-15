@@ -1,5 +1,41 @@
 # Model Progress
 
+## Commit [52c351e](https://github.com/naszhu/REM_E3_model_fixed/commit/52c351e) (branch: `HEAD`)
+**Time:** 2025-08-15 22:52:20  
+**Message:**
+```
+explore(model-e1): solve 22, within-list: update ratio parameters and restore feature logic
+
+- Reintroduced ratio parameters for initial and final tests
+- Adjusted v_criterion_initial from 0.001^power_taken to 0.01^power_taken
+- Modified recall_odds_threshold to 0.0^power_taken
+- Updated feature restoration logic for target feature assignment
+
+These changes improve simulation consistency and accuracy.
+
+Refs #22: taking out strenghtening advantage makes good within-list prediction
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/52c351e_20250815_225220_plot1.png)  
+![](../plot_archive/52c351e_20250815_225220_plot2.png)  
+
+## Commit [979774a](https://github.com/naszhu/REM_E3_model_fixed/commit/979774a) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-15 22:34:31  
+**Message:**
+```
+feat(simulation): restore progress prints for simulation monitoring
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/979774a_20250815_223431_plot1.png)  
+![](../plot_archive/979774a_20250815_223431_plot2.png)  
+
 ## Commit [59a0bf5](https://github.com/naszhu/REM_E3_model_fixed/commit/59a0bf5) (branch: `aug-12-explore-more-alignment`)
 **Time:** 2025-08-13 00:22:39  
 **Message:**
