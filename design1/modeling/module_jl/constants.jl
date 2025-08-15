@@ -71,14 +71,7 @@ const c_context = LinRange(c, c, n_lists)
 const c_context_c = LinRange(c, c, n_lists)  # copying parameter for changing context
 const c_context_un = LinRange(c, c, n_lists)  # copying parameter for unchanging context
 
-# =============================================================================
-# RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
-# =============================================================================
-ratio_unchanging_to_itself_init = LinRange(0.46, 0.46, n_lists) # if use no unchanging
-ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
-nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
-nC_in = round.(Int, nC .* ratio_changing_to_itself_init)[1]
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -115,10 +108,10 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1/11  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.001^power_taken
+v_criterion_initial = 0.01^power_taken
 criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0) 
 
-recall_odds_threshold = 0.0001^power_taken;
+recall_odds_threshold = 0.0^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
 p_recallFeatureStore = 0.85;
 
@@ -128,19 +121,28 @@ context_tau = 100 #foil odds should lower than this
 # =============================================================================
 # DRIFT AND CHANGE PARAMETERS
 # =============================================================================
-p_poscode_change = 0.1
-p_reinstate_context = 0.8 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
+p_poscode_change = 0.1 #this won't be used
+p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well. 
 p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 12) #7
+n_driftStudyTest = round.(Int, ones(10) * 10) #7
 
 n_between_listchange = 18 #18 in E3 #25 originally 
 
 const p_driftAndListChange = 0.03; # studied prior list probability change 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
+
+# =============================================================================
+# RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
+# =============================================================================
+ratio_unchanging_to_itself_init = LinRange(0.46, 0.46, n_lists) # if use no unchanging
+ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
+
+nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
+nC_in = round.(Int, nC .* ratio_changing_to_itself_init)[1]
 
 # =============================================================================
 # FINAL TEST PARAMETERS
