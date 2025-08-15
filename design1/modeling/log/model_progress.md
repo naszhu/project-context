@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [58f69f1](https://github.com/naszhu/REM_E3_model_fixed/commit/58f69f1) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-15 22:55:00  
+**Message:**
+```
+refactor(model-e1): introduce strengthening advance parameters
+
+- Added new parameters `adv_u_star_strengthen` and `adv_c_strenghten` to improve feature restoration logic.
+- Updated target feature assignment to incorporate these new parameters, enhancing simulation accuracy.
+
+These changes aim to refine the model's predictive capabilities and strengthen the feature restoration process.
+```
+**Changed Files:**
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/58f69f1_20250815_225500_plot1.png)  
+![](../plot_archive/58f69f1_20250815_225500_plot2.png)  
+
 ## Commit [52c351e](https://github.com/naszhu/REM_E3_model_fixed/commit/52c351e) (branch: `HEAD`)
 **Time:** 2025-08-15 22:52:20  
 **Message:**

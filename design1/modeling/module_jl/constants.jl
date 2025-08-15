@@ -1,7 +1,7 @@
 
 
-is_finaltest = false
-n_simulations = is_finaltest ? 100 : 1000;
+is_finaltest = true
+n_simulations = is_finaltest ? 300 : 1000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -47,8 +47,8 @@ u_star_v = 0.046
 u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
-adv_u_star_strengthen = 0.06
-adv_c_strenghten = 0.1
+adv_u_star_strengthen = 0# 0.06
+adv_c_strenghten = 0# 0.1
 
 # u_star_context parameters
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
@@ -162,7 +162,7 @@ const nItemPerUnit_final = 2;  # items per unit in final test
 criterion_final = LinRange(0.5^power_taken, 0.6^power_taken, 10)
 final_gap_change = 0.1; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
-p_ListChange_finaltest = ones(10) * 0.55 #0.8 in E3, but undecided as well in E3
+p_ListChange_finaltest = ones(10) * 0.2 #0.8 in E3, but undecided as well in E3
 ratio_unchanging_to_itself_final = LinRange(1,1, n_lists) # if use no unchanging
 ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchanging
 
