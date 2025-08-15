@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [59a0bf5](https://github.com/naszhu/REM_E3_model_fixed/commit/59a0bf5) (branch: `aug-12-explore-more-alignment`)
+**Time:** 2025-08-13 00:22:39  
+**Message:**
+```
+fix(constants): update v_criterion_initial and recall_odds_threshold for final test OI
+
+- Changed v_criterion_initial from 0.25^power_taken to 0.001^power_taken to align with E3 standards.
+- Adjusted recall_odds_threshold from 0.3^power_taken to 0.0001^power_taken for better threshold calibration.
+
+Doesn't really create OI in final test though
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design3/modeling`  
+![](../plot_archive/59a0bf5_20250813_002239_plot1.png)  
+![](../plot_archive/59a0bf5_20250813_002239_plot2.png)  
+
 ## Commit [9de0593](https://github.com/naszhu/REM_E3_model_fixed/commit/9de0593) (branch: `aug-12-explore-more-alignment`)
 **Time:** 2025-08-12 23:42:02  
 **Message:**
