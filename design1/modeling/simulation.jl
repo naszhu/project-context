@@ -2,9 +2,9 @@
 function simulate_rem()
     # 1. Initialization
 
-    df_inital = DataFrame(list_number=Int[], test_position=Int[], simulation_number=Int[], decision_isold=Int[], is_target=Bool[], odds=Float64[], Nratio_iprobe=Float64[], Nratio_iimageinlist=Float64[], N_imageinlist=Float64[], ilist_image=Int[], study_position=Int[], diff_rt=Float64[] )
+    df_inital = DataFrame(list_number=Int[], test_position=Int[], simulation_number=Int[], decision_isold=Int[], is_target=Bool[], odds=Float64[], Nratio_iprobe=Float64[], Nratio_iimageinlist=Float64[], N_imageinlist=Float64[], ilist_image=Int[], study_position=Int[], diff=Float64[] )
 
-    df_final = DataFrame(list_number=Int[], test_position=Int[], simulation_number=Int[], condition=Symbol[], decision_isold=Int[], is_target=String[], odds=Float64[], rt=Float64[], initial_studypos=Int[], initial_testpos = Int[], study_pos=Float64[])
+    df_final = DataFrame(list_number=Int[], test_position=Int[], simulation_number=Int[], condition=Symbol[], decision_isold=Int[], is_target=String[], odds=Float64[], initial_studypos=Int[], initial_testpos = Int[], study_pos=Float64[])
 
     for sim_num in 1:n_simulations
 
@@ -145,14 +145,14 @@ function simulate_rem()
         end
 
         if is_finaltest
-            println("Processing final tests for simulation $sim_num...")
+            # println("Processing final tests for simulation $sim_num...")
             for icondition in [:forward, :backward, :true_random]
                 image_pool_bc = deepcopy(image_pool)
                 finalprobes = generate_finalt_probes(studied_pool, icondition, general_context_features, list_change_context_features)
                 results_final = probe_evaluation2(image_pool_bc, finalprobes)
                 for ii in eachindex(results_final)
                     res = results_final[ii]
-                    push!(df_final, [res.list_num, ii, sim_num, icondition, res.decision_isold, res.is_target, res.odds, res.rt, res.initial_studypos, res.initial_testpos, res.initial_studypos])
+                    push!(df_final, [res.list_num, ii, sim_num, icondition, res.decision_isold, res.is_target, res.odds, res.initial_studypos, res.initial_testpos, res.initial_studypos])
                 end
             end
         end

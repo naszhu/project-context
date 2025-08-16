@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [358fa11](https://github.com/naszhu/REM_E3_model_fixed/commit/358fa11) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-15 23:11:38  
+**Message:**
+```
+merge(model-e3): merge aug-12-explore-more-alignment branch
+
+- Incorporates strengthening advance parameters exploration
+- Includes final test parameter adjustments and simulation improvements
+- Merges commits addressing issue #22 within-list prediction improvements
+- Consolidates E3 model refinements and feature restoration logic updates
+
+This merge brings together parameter tuning work and simulation enhancements for the E3 model.
+```
+![](../plot_archive/358fa11_20250815_231138_plot1.png)  
+![](../plot_archive/358fa11_20250815_231138_plot2.png)  
+
 ## Commit [58f69f1](https://github.com/naszhu/REM_E3_model_fixed/commit/58f69f1) (branch: `aug-12-explore-more-alignment`)
 **Time:** 2025-08-15 22:55:00  
 **Message:**

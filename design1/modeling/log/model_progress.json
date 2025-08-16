@@ -1,5 +1,14 @@
 [
   {
+    "commit": "358fa11",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "merge(model-e3): merge aug-12-explore-more-alignment branch",
+    "timestamp": "2025-08-15 23:11:38",
+    "plot1": "plot_archive/358fa11_20250815_231138_plot1.png",
+    "plot2": "plot_archive/358fa11_20250815_231138_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "58f69f1",
     "branch": "aug-12-explore-more-alignment",
     "message": "refactor(model-e1): introduce strengthening advance parameters",
