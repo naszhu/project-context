@@ -176,42 +176,42 @@ p_serial=ggplot(data=df_serial,aes(x=study_position,meanx))+
     )+
     ylim(c(0.75,1))
 
-df_rt=all_results%>%
-    mutate(is_target=case_when(is_target=="true"~1,TRUE~0),correct=decision_isold==is_target)%>%
-    mutate(diff_rt=diff_rt^(1/11))%>%
-    group_by(is_target,simulation_number,test_position)%>%
-    summarize(rtm=mean(diff_rt))%>%
-    group_by(is_target,test_position)%>%
-    summarize(rt=mean(rtm))%>%
-    mutate(is_target=as.factor(is_target))
+# df_rt=all_results%>%
+#     mutate(is_target=case_when(is_target=="true"~1,TRUE~0),correct=decision_isold==is_target)%>%
+#     mutate(diff_rt=diff_rt^(1/11))%>%
+#     group_by(is_target,simulation_number,test_position)%>%
+#     summarize(rtm=mean(diff_rt))%>%
+#     group_by(is_target,test_position)%>%
+#     summarize(rt=mean(rtm))%>%
+#     mutate(is_target=as.factor(is_target))
 
-testpos_rt=ggplot(data=df_rt,aes(x=test_position,y=rt,group=interaction(is_target)))+
-    geom_point(aes(color=is_target))+
-    geom_line(aes(color=is_target))+
-    theme(
-            plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
-        plot.margin = margin(t = 10, b = 40),
-        text=element_text(size=20) # Increase font size globally
-    )+ylim(c(0.75,1))
+# testpos_rt=ggplot(data=df_rt,aes(x=test_position,y=rt,group=interaction(is_target)))+
+#     geom_point(aes(color=is_target))+
+#     geom_line(aes(color=is_target))+
+#     theme(
+#             plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+#         plot.margin = margin(t = 10, b = 40),
+#         text=element_text(size=20) # Increase font size globally
+#     )+ylim(c(0.75,1))
 
 
-df_rt_list=all_results%>%
-    mutate(is_target=case_when(is_target=="true"~1,TRUE~0),correct=decision_isold==is_target)%>%
-    mutate(diff_rt=diff_rt^(1/11))%>%
-    group_by(is_target,simulation_number,list_number)%>%
-    summarize(rtm=mean(diff_rt))%>%
-    group_by(is_target,list_number)%>%
-    summarize(rt=mean(rtm))%>%
-    mutate(is_target=as.factor(is_target),list_number=as.factor(list_number))
+# df_rt_list=all_results%>%
+#     mutate(is_target=case_when(is_target=="true"~1,TRUE~0),correct=decision_isold==is_target)%>%
+#     mutate(diff_rt=diff_rt^(1/11))%>%
+#     group_by(is_target,simulation_number,list_number)%>%
+#     summarize(rtm=mean(diff_rt))%>%
+#     group_by(is_target,list_number)%>%
+#     summarize(rt=mean(rtm))%>%
+#     mutate(is_target=as.factor(is_target),list_number=as.factor(list_number))
 
-list_rt=ggplot(data=df_rt_list,aes(x=list_number,y=rt,group=interaction(is_target)))+
-    geom_point(aes(color=is_target))+
-    geom_line(aes(color=is_target),size=1.5)+
-    theme(
-            plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
-        plot.margin = margin(t = 10, b = 40),
-        text=element_text(size=20) # Increase font size globally
-    )
+# list_rt=ggplot(data=df_rt_list,aes(x=list_number,y=rt,group=interaction(is_target)))+
+#     geom_point(aes(color=is_target))+
+#     geom_line(aes(color=is_target),size=1.5)+
+#     theme(
+#             plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
+#         plot.margin = margin(t = 10, b = 40),
+#         text=element_text(size=20) # Increase font size globally
+#     )
 
 png(filename="plot1.png", width=500, height=1200)
 # grid.arrange(p1,list_rt,p_in_20,testpos_rt,p_serial,p4,ncol = 2,nrow=3)

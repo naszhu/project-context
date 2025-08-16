@@ -118,8 +118,37 @@ recall_odds_threshold = 0.0^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
 p_recallFeatureStore = 0.85;
 
+# =============================================================================
+# E1 LIST ORIGIN PARAMETERS
+# =============================================================================
+# E1 list origin parameters for switching from familiarity to list origin recall
+# These help participants focus on current list context as memory accumulates
+
+# Base probabilities for switching to list origin recall
+z_base_T = 0.15  # Base probability for targets (lower than E3 since no confusing foils)
+z_base_F = 0.10  # Base probability for foils (lower than E3 since no confusing foils)
+
+# How much the z values increase over lists
+how_much_z_T = 0.12  # How much target z increases (less than E3's 0.16)
+how_much_z_F = 0.08  # How much foil z increases (less than E3's 0.3)
+
+# How fast the z values increase over lists  
+how_fast_z_T = 0.6   # How fast target z increases (less than E3's 0.8)
+how_fast_z_F = 0.3   # How fast foil z increases (less than E3's 0.4)
+
+# Generate z values that increase over lists for E1
+z_time_p_val_E1 = Dict(
+    :T => asym_increase_shift(z_base_T, how_much_z_T, how_fast_z_T, n_lists-1),
+    :F => asym_increase_shift(z_base_F, how_much_z_F, how_fast_z_F, n_lists-1)
+)
+
+println("E1 z_time_p_val: ", z_time_p_val_E1)
+
+# =============================================================================
+# CONTEXT TESTING PARAMETERS  
+# =============================================================================
 # Context testing flags
-context_tau = 100 #foil odds should lower than this  
+context_tau = 100 #foil odds should lower than this
 
 # =============================================================================
 # DRIFT AND CHANGE PARAMETERS
@@ -188,3 +217,15 @@ aa = (1 - (1 - p_driftAndListChange)^n_between_listchange);
 println("prob of feature change after 4 lists $(1-(aa)^8)")
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 println("The actual u_star after nsteps is", 1-(1-u_star[1])^n_units_time)
+
+# =============================================================================
+# UTILITY FUNCTIONS
+# =============================================================================
+# Function to generate asymptotic increasing values over lists (from E3)
+function asym_increase_shift(start_at::Float64,
+                              how_much::Float64,
+                              how_fast::Float64,
+                              n::Int)::Vector{Float64}
+    @assert n ≥ 1
+    return [start_at + how_much * (1 - exp(-how_fast * (k))) for k in 0:n-1]
+end
