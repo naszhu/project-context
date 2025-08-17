@@ -47,8 +47,8 @@ u_star_v = 0.046
 u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
-adv_u_star_strengthen = 0# 0.06
-adv_c_strenghten = 0# 0.1
+adv_u_star_strengthen = 0.06# 0.06
+adv_c_strenghten = 0.1# 0.1
 
 # u_star_context parameters
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
@@ -66,7 +66,7 @@ n_units_time_restore_f = n_units_time_restore_t # -3
 # =============================================================================
 # COPYING PARAMETERS
 # =============================================================================
-const c = 0.7 #coying parameter - 0.8 for context copying 
+const c = 0.82 #coying parameter - 0.8 for context copying 
 const c_storeintest = LinRange(c, c, n_lists)  # Make this an array to match usage
 const c_context = LinRange(c, c, n_lists)
 
@@ -111,7 +111,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1/11  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.87#0.1^power_taken
+v_criterion_initial = 0.78#0.1^power_taken
 criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0) 
 
 recall_odds_threshold = 0.0^power_taken;
@@ -159,7 +159,7 @@ p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hun
 p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 9) #7
+n_driftStudyTest = round.(Int, ones(10) * 10) #7
 
 n_between_listchange = 18 #18 in E3 #25 originally 
 

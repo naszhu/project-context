@@ -1,5 +1,32 @@
 [
   {
+    "commit": "8041eef",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): a good start of between-list list 1",
+    "timestamp": "2025-08-17 21:11:03",
+    "plot1": "plot_archive/8041eef_20250817_211103_plot1.png",
+    "plot2": "plot_archive/8041eef_20250817_211103_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "deb6cc2",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): 23 tune, between-list prediction (while keep u_star)",
+    "timestamp": "2025-08-17 18:30:45",
+    "plot1": "plot_archive/deb6cc2_20250817_183045_plot1.png",
+    "plot2": "plot_archive/deb6cc2_20250817_183045_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "60f945c",
     "branch": "HEAD",
     "message": "finetune(model-e3): 23 tune, between-list prediction (while keep u_star)",

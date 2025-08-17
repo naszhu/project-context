@@ -1,5 +1,51 @@
 # Model Progress
 
+## Commit [8041eef](https://github.com/naszhu/REM_E3_model_fixed/commit/8041eef) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 21:11:03  
+**Message:**
+```
+finetune(model-e1): a good start of between-list list 1
+
+- Adjusted `adv_u_star_strengthen` to 0.06 and `adv_c_strenghten` to 0.1 to enhance feature restoration logic.
+- Corrected `c` parameter to 0.8 for consistency in copying behavior.
+- Updated `v_criterion_initial` to 0.78 for better alignment with model expectations.
+- Increased `n_driftStudyTest` from 9 to 10 to refine testing conditions.
+
+These changes aim to improve the model's performance and accuracy in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/8041eef_20250817_211103_plot1.png)  
+![](../plot_archive/8041eef_20250817_211103_plot2.png)  
+
+## Commit [deb6cc2](https://github.com/naszhu/REM_E3_model_fixed/commit/deb6cc2) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 18:30:45  
+**Message:**
+```
+finetune(model-e1): 23 tune, between-list prediction (while keep u_star)
+
+- Set `is_finaltest` to false and reduced `n_simulations` to 800 for more efficient testing.
+- Decreased `n_lists` from 10 to 4 to streamline the simulation process.
+- Updated `v_criterion_initial` to 0.87 for better alignment with model expectations.
+- Modified base probabilities for targets and foils to enhance recall accuracy.
+- Adjusted z-value increase parameters to refine target and foil classifications.
+
+These changes aim to enhance the model's performance and accuracy in simulations.
+
+-  NEXT STEP: chagne u_star
+
+Refs #23 decrease target tunning
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/deb6cc2_20250817_183045_plot1.png)  
+![](../plot_archive/deb6cc2_20250817_183045_plot2.png)  
+
 ## Commit [60f945c](https://github.com/naszhu/REM_E3_model_fixed/commit/60f945c) (branch: `HEAD`)
 **Time:** 2025-08-17 18:13:47  
 **Message:**
