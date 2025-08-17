@@ -1,7 +1,7 @@
 
 
 is_finaltest = true
-n_simulations = is_finaltest ? 300 : 1000;
+n_simulations = is_finaltest ? 200 : 1000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -129,7 +129,7 @@ z_base_T = 0.15  # Base probability for targets (lower than E3 since no confusin
 z_base_F = 0.10  # Base probability for foils (lower than E3 since no confusing foils)
 
 # How much the z values increase over lists
-how_much_z_T = 0.12  # How much target z increases (less than E3's 0.16)
+how_much_z_T = 0.5  # How much target z increases (less than E3's 0.16)
 how_much_z_F = 0.08  # How much foil z increases (less than E3's 0.3)
 
 # How fast the z values increase over lists  

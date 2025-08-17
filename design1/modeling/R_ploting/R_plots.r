@@ -100,7 +100,8 @@ summarize(meanx=mean(meanx))
 p1=ggplot(data=DF2, aes(x=list_number,y=meanx,group=is_target))+
     geom_point(aes(color=is_target))+
     geom_line(aes(color=is_target),size=1.5)+
-    ylim(c(0.825,0.95))+
+    # ylim(c(0.825,0.95))+
+    ylim(c(0.425,0.95))+
     scale_x_continuous(name="list number",breaks = 1:10,labels=as.character(1:10))+labs(title="Accuracy by list number in inital test ")+
     theme(
             plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance

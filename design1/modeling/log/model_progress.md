@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [8bf5112](https://github.com/naszhu/REM_E3_model_fixed/commit/8bf5112) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 16:58:53  
+**Message:**
+```
+feat(model-e1): list of  origin recall logic
+
+- Updated decision-making process to utilize list origin recall instead of familiarity for final test probes.
+- Introduced z-value calculations for target and foil classifications to enhance accuracy in determining probe origins.
+- Adjusted decision thresholds based on recall odds, improving the model's predictive capabilities in the final evaluation phase.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/8bf5112_20250817_165853_plot1.png)  
+![](../plot_archive/8bf5112_20250817_165853_plot2.png)  
+
 ## Commit [b3aeed9](https://github.com/naszhu/REM_E3_model_fixed/commit/b3aeed9) (branch: `aug-15-issue23-targetdrop`)
 **Time:** 2025-08-16 18:57:41  
 **Message:**

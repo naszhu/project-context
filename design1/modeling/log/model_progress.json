@@ -1,5 +1,18 @@
 [
   {
+    "commit": "8bf5112",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "feat(model-e1): list of  origin recall logic",
+    "timestamp": "2025-08-17 16:58:53",
+    "plot1": "plot_archive/8bf5112_20250817_165853_plot1.png",
+    "plot2": "plot_archive/8bf5112_20250817_165853_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
     "commit": "b3aeed9",
     "branch": "aug-15-issue23-targetdrop",
     "message": "feat(model-e1): add list origin parameters and remove RT dependencies",
