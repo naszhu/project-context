@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [2760ebc](https://github.com/naszhu/REM_E3_model_fixed/commit/2760ebc) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 21:11:51  
+**Message:**
+```
+finetune(model-e1): a good start of between-list list 1
+
+- Adjusted `adv_u_star_strengthen` to 0.06 and `adv_c_strenghten` to 0.1 to enhance feature restoration logic.
+- Corrected `c` parameter to 0.8 for consistency in copying behavior.
+- Updated `v_criterion_initial` to 0.78 for better alignment with model expectations.
+- Increased `n_driftStudyTest` from 9 to 10 to refine testing conditions.
+
+These changes aim to improve the model's performance and accuracy in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/2760ebc_20250817_211151_plot1.png)  
+![](../plot_archive/2760ebc_20250817_211151_plot2.png)  
+
 ## Commit [8041eef](https://github.com/naszhu/REM_E3_model_fixed/commit/8041eef) (branch: `aug-15-issue23-targetdrop`)
 **Time:** 2025-08-17 21:11:03  
 **Message:**

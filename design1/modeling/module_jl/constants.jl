@@ -1,7 +1,7 @@
 
 
 is_finaltest = false
-n_simulations = is_finaltest ? 200 : 800;
+n_simulations = is_finaltest ? 200 : 400;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -63,10 +63,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-# =============================================================================
-# COPYING PARAMETERS
-# =============================================================================
-const c = 0.82 #coying parameter - 0.8 for context copying 
+const c = 0.86 #coying parameter - 0.8 for context copying 
 const c_storeintest = LinRange(c, c, n_lists)  # Make this an array to match usage
 const c_context = LinRange(c, c, n_lists)
 
@@ -111,7 +108,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1/11  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.78#0.1^power_taken
+v_criterion_initial = 0.73#0.1^power_taken
 criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0) 
 
 recall_odds_threshold = 0.0^power_taken;
@@ -125,8 +122,8 @@ p_recallFeatureStore = 0.85;
 # These help participants focus on current list context as memory accumulates
 
 # Base probabilities for switching to list origin recall
-z_base_T = 0.00  # Base probability for targets (lower than E3 since no confusing foils)
-z_base_F = 0.50  # Base probability for foils (lower than E3 since no confusing foils)
+z_base_T = 0.04  # Base probability for targets (lower than E3 since no confusing foils)
+z_base_F = 0.40  # Base probability for foils (lower than E3 since no confusing foils)
 
 # How much the z values increase over lists
 how_much_z_T = 0.1  # How much target z increases (less than E3's 0.16)

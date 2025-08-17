@@ -1,5 +1,18 @@
 [
   {
+    "commit": "2760ebc",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): a good start of between-list list 1",
+    "timestamp": "2025-08-17 21:11:51",
+    "plot1": "plot_archive/2760ebc_20250817_211151_plot1.png",
+    "plot2": "plot_archive/2760ebc_20250817_211151_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "8041eef",
     "branch": "aug-15-issue23-targetdrop",
     "message": "finetune(model-e1): a good start of between-list list 1",
