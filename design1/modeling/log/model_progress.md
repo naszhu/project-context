@@ -1,5 +1,18 @@
 # Model Progress
 
+## Commit [00bf5a8](https://github.com/naszhu/REM_E3_model_fixed/commit/00bf5a8) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 21:21:12  
+**Message:**
+```
+finetune(model-e1): continue fine tune bewteen-list
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/00bf5a8_20250817_212112_plot1.png)  
+![](../plot_archive/00bf5a8_20250817_212112_plot2.png)  
+
 ## Commit [2760ebc](https://github.com/naszhu/REM_E3_model_fixed/commit/2760ebc) (branch: `aug-15-issue23-targetdrop`)
 **Time:** 2025-08-17 21:11:51  
 **Message:**
