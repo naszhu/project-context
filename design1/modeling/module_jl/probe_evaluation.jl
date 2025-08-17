@@ -23,7 +23,7 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         #    if ii==1 println(size(image_pool),"of", size(likelihood_ratios)) end
 
         # println(likelihood_ratios)
-        odds = 1 / length(likelihood_ratios) * sum(likelihood_ratios)
+        odds = (1 / length(likelihood_ratios) * sum(likelihood_ratios))^power_taken
         # println(round(odds, digits=3), " some llikelihood ", likelihood_ratios[1], " ", likelihood_ratios[2], ", Ndenom: ", length(likelihood_ratios));
         # round(odds, digits=3)
         # for ill in likelihood_ratios
@@ -108,7 +108,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         i_testpos = probes[i].initial_testpos#1:20
 
         nl = length(likelihood_ratios)
-        odds = 1 / nl * sum(likelihood_ratios)
+        odds = (1 / nl * sum(likelihood_ratios))^power_taken
 
         if (isnan(odds))
             println("Current context_tau is too high, there are some simulations that have no tarce passing context filter in first step", nl, likelihood_ratios)

@@ -1,5 +1,33 @@
 # Model Progress
 
+## Commit [fc6a15d](https://github.com/naszhu/REM_E3_model_fixed/commit/fc6a15d) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 17:05:03  
+**Message:**
+```
+finetune(model-e1): tune base start of product z, and it does work
+
+It worked in making T down, partially solve #23 issue
+
+finetune(R_plots): adjust y-axis limits for accuracy visualization
+
+- Updated y-axis limits in R plotting script from (0.825, 0.95) to (0.425, 0.95) to better reflect data range.
+- Commented out the previous ylim setting for clarity.
+
+finetune(constants): modify simulation parameters for consistency
+
+- Reduced `n_simulations` from 300 to 200 for final tests to streamline performance.
+- Increased `how_much_z_T` from 0.12 to 0.5 to enhance target z-value adjustments.
+
+These changes aim to improve the accuracy and efficiency of the model's simulations and visualizations.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/fc6a15d_20250817_170503_plot1.png)  
+![](../plot_archive/fc6a15d_20250817_170503_plot2.png)  
+
 ## Commit [8bf5112](https://github.com/naszhu/REM_E3_model_fixed/commit/8bf5112) (branch: `aug-15-issue23-targetdrop`)
 **Time:** 2025-08-17 16:58:53  
 **Message:**

@@ -1,5 +1,19 @@
 [
   {
+    "commit": "fc6a15d",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): tune base start of product z, and it does work",
+    "timestamp": "2025-08-17 17:05:03",
+    "plot1": "plot_archive/fc6a15d_20250817_170503_plot1.png",
+    "plot2": "plot_archive/fc6a15d_20250817_170503_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "8bf5112",
     "branch": "aug-15-issue23-targetdrop",
     "message": "feat(model-e1): list of  origin recall logic",
