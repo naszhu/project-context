@@ -1,5 +1,32 @@
 [
   {
+    "commit": "60f945c",
+    "branch": "HEAD",
+    "message": "finetune(model-e3): 23 tune, between-list prediction (while keep u_star)",
+    "timestamp": "2025-08-17 18:13:47",
+    "plot1": "plot_archive/60f945c_20250817_181347_plot1.png",
+    "plot2": "plot_archive/60f945c_20250817_181347_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "2abbe3a",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "fix(model-e3): adjust 1/11 odds calculation for likelihood ratios",
+    "timestamp": "2025-08-17 17:40:20",
+    "plot1": "plot_archive/2abbe3a_20250817_174020_plot1.png",
+    "plot2": "plot_archive/2abbe3a_20250817_174020_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
     "commit": "fc6a15d",
     "branch": "aug-15-issue23-targetdrop",
     "message": "finetune(model-e1): tune base start of product z, and it does work",

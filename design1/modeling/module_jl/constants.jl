@@ -1,7 +1,7 @@
 
 
-is_finaltest = true
-n_simulations = is_finaltest ? 200 : 1000;
+is_finaltest = false
+n_simulations = is_finaltest ? 200 : 800;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -12,7 +12,7 @@ n_simulations = is_finaltest ? 200 : 1000;
 # =============================================================================
 
 const n_probes = 20; # Number of probes to test
-const n_lists = 10;
+const n_lists = 4;
 const n_words = n_probes;
 # Only takes the first value; for a single Int
 # Initial test ratios
@@ -111,7 +111,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1/11  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.01^power_taken
+v_criterion_initial = 0.87#0.1^power_taken
 criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0) 
 
 recall_odds_threshold = 0.0^power_taken;
@@ -125,15 +125,15 @@ p_recallFeatureStore = 0.85;
 # These help participants focus on current list context as memory accumulates
 
 # Base probabilities for switching to list origin recall
-z_base_T = 0.15  # Base probability for targets (lower than E3 since no confusing foils)
-z_base_F = 0.10  # Base probability for foils (lower than E3 since no confusing foils)
+z_base_T = 0.00  # Base probability for targets (lower than E3 since no confusing foils)
+z_base_F = 0.50  # Base probability for foils (lower than E3 since no confusing foils)
 
 # How much the z values increase over lists
-how_much_z_T = 0.5  # How much target z increases (less than E3's 0.16)
+how_much_z_T = 0.1  # How much target z increases (less than E3's 0.16)
 how_much_z_F = 0.08  # How much foil z increases (less than E3's 0.3)
 
 # How fast the z values increase over lists  
-how_fast_z_T = 0.6   # How fast target z increases (less than E3's 0.8)
+how_fast_z_T = 0.3   # How fast target z increases (less than E3's 0.8)
 how_fast_z_F = 0.3   # How fast foil z increases (less than E3's 0.4)
 
 # Generate z values that increase over lists for E1
@@ -159,7 +159,7 @@ p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hun
 p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 10) #7
+n_driftStudyTest = round.(Int, ones(10) * 9) #7
 
 n_between_listchange = 18 #18 in E3 #25 originally 
 

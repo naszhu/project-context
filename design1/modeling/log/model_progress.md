@@ -1,5 +1,48 @@
 # Model Progress
 
+## Commit [60f945c](https://github.com/naszhu/REM_E3_model_fixed/commit/60f945c) (branch: `HEAD`)
+**Time:** 2025-08-17 18:13:47  
+**Message:**
+```
+finetune(model-e3): 23 tune, between-list prediction (while keep u_star)
+
+- Set `is_finaltest` to false and reduced `n_simulations` to 800 for more efficient testing.
+- Decreased `n_lists` from 10 to 4 to streamline the simulation process.
+- Updated `v_criterion_initial` to 0.87 for better alignment with model expectations.
+- Modified base probabilities for targets and foils to enhance recall accuracy.
+- Adjusted z-value increase parameters to refine target and foil classifications.
+
+These changes aim to enhance the model's performance and accuracy in simulations.
+
+-  NEXT STEP: chagne u_star
+
+Refs #23 decrease target tunning
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/60f945c_20250817_181347_plot1.png)  
+![](../plot_archive/60f945c_20250817_181347_plot2.png)  
+
+## Commit [2abbe3a](https://github.com/naszhu/REM_E3_model_fixed/commit/2abbe3a) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 17:40:20  
+**Message:**
+```
+fix(model-e3): adjust 1/11 odds calculation for likelihood ratios
+
+fix(probe_evaluation)
+- Updated odds calculation in both `probe_evaluation` and `probe_evaluation2` functions to raise the sum of likelihood ratios to the power of `power_taken`.
+- This change aims to enhance the accuracy of the odds computation in the evaluation process.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/2abbe3a_20250817_174020_plot1.png)  
+![](../plot_archive/2abbe3a_20250817_174020_plot2.png)  
+
 ## Commit [fc6a15d](https://github.com/naszhu/REM_E3_model_fixed/commit/fc6a15d) (branch: `aug-15-issue23-targetdrop`)
 **Time:** 2025-08-17 17:05:03  
 **Message:**
