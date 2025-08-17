@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [4aebceb](https://github.com/naszhu/REM_E3_model_fixed/commit/4aebceb) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 21:47:34  
+**Message:**
+```
+finetune(model-e1): 2000 simulation
+
+- Increased `n_simulations` from 400 to 2000 to enhance testing robustness.
+- Adjusted `n_lists` from 4 to 10 to allow for more comprehensive data analysis.
+- Modified `c` parameter from 0.86 to 0.895 for better context copying behavior.
+- Decreased `v_criterion_initial` from 0.73 to 0.65 to align with model expectations.
+- Updated z-value increase parameters for targets and foils to refine classification accuracy.
+
+These changes aim to improve the model's performance and accuracy in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/4aebceb_20250817_214734_plot1.png)  
+![](../plot_archive/4aebceb_20250817_214734_plot2.png)  
+
 ## Commit [00bf5a8](https://github.com/naszhu/REM_E3_model_fixed/commit/00bf5a8) (branch: `aug-15-issue23-targetdrop`)
 **Time:** 2025-08-17 21:21:12  
 **Message:**

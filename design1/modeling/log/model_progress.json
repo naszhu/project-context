@@ -1,5 +1,18 @@
 [
   {
+    "commit": "4aebceb",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): 2000 simulation",
+    "timestamp": "2025-08-17 21:47:34",
+    "plot1": "plot_archive/4aebceb_20250817_214734_plot1.png",
+    "plot2": "plot_archive/4aebceb_20250817_214734_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "00bf5a8",
     "branch": "aug-15-issue23-targetdrop",
     "message": "finetune(model-e1): continue fine tune bewteen-list",
