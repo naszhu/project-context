@@ -1,5 +1,21 @@
 [
   {
+    "commit": "b3aeed9",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "feat(model-e1): add list origin parameters and remove RT dependencies",
+    "timestamp": "2025-08-16 18:57:41",
+    "plot1": "plot_archive/b3aeed9_20250816_185741_plot1.png",
+    "plot2": "plot_archive/b3aeed9_20250816_185741_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
     "commit": "358fa11",
     "branch": "aug-15-issue23-targetdrop",
     "message": "merge(model-e3): merge aug-12-explore-more-alignment branch",

@@ -37,7 +37,22 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         crrchunk = ceil(Int, i / 42)
         criterion_final_i = criterion_final[crrchunk] #this need to be changed if 
 
-        decision_isold = odds > criterion_final_i ? 1 : 0
+        # E1 List Origin Logic for Final Test: Switch from familiarity to list origin recall
+        if odds > criterion_final_i
+            if odds > recall_odds_threshold
+                # For final test, we need to determine which list this probe is from
+                # Since final test probes can come from any list, we'll use a simplified approach
+                probe_type = probes[i].classification == :target ? :T : :F
+                z_values = get(z_time_p_val_E1, probe_type, zeros(Float64, n_lists-1))
+                # Use the average z value across all lists for final test
+                avg_z = mean(z_values)
+                decision_isold = rand() < avg_z ? 0 : 1
+            else
+                decision_isold = 1
+            end
+        else
+            decision_isold = 0  # Didn't pass threshold, judge as new
+        end
 
         # Calculate sampling probabilities for final test (same as in initial test)
         filtered_content_LL_ratios_inOriginalLength = likelihood_ratios_org |> x -> map(e -> e == 344523466743 ? 0 : e, x)
@@ -98,7 +113,27 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         if (isnan(odds))
             println("Current context_tau is too high, there are some simulations that have no tarce passing context filter in first step", nl, likelihood_ratios)
         end
-        decision_isold = odds > criterion_initial[i_testpos,ilist_probe] ? 1 : 0
+        
+        # E1 List Origin Logic: Switch from familiarity to list origin recall
+        if odds > criterion_initial[i_testpos,ilist_probe]
+            if odds > recall_odds_threshold
+                if ilist_probe == 1
+                    decision_isold = 1  # List 1 always recall
+                else
+                    # Get the appropriate z values for this probe type
+                    probe_type = probes[i].classification == :target ? :T : :F
+                    z_values = get(z_time_p_val_E1, probe_type, zeros(Float64, n_lists-1))
+                    # Use z value for current list (ilist_probe-1 because arrays are 0-indexed)
+                    list_origin_prob = z_values[ilist_probe-1]
+                    decision_isold = rand() < list_origin_prob ? 0 : 1
+                end
+            else
+                decision_isold = 1
+            end
+        else
+            decision_isold = 0  # Didn't pass threshold, judge as new
+        end
+        
         diff = 1 / (abs(odds - criterion_initial[i_testpos,ilist_probe]) + 1e-10)
 
         #criterion change by test position

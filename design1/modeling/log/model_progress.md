@@ -1,5 +1,31 @@
 # Model Progress
 
+## Commit [b3aeed9](https://github.com/naszhu/REM_E3_model_fixed/commit/b3aeed9) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-16 18:57:41  
+**Message:**
+```
+feat(model-e1): add list origin parameters and remove RT dependencies
+
+- Add E1 list origin parameters (z_time_p_val_E1) for targets and foils
+- Implement asym_increase_shift function for gradual parameter evolution
+- Remove all RT-related parameters and calculations (Brt, Pi, rt fields)
+- Fix DataFrame structure to match new data format (diff instead of diff_rt)
+- Update R plotting script to handle column name changes
+- Resolve dependency chain issues for clean E1 model execution
+
+Theoretical rationale: E1 participants need list origin focus (not discrimination)
+as memory accumulates across lists, even without confusing foils like E3.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/b3aeed9_20250816_185741_plot1.png)  
+![](../plot_archive/b3aeed9_20250816_185741_plot2.png)  
+
 ## Commit [358fa11](https://github.com/naszhu/REM_E3_model_fixed/commit/358fa11) (branch: `aug-15-issue23-targetdrop`)
 **Time:** 2025-08-15 23:11:38  
 **Message:**
