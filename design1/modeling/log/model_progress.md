@@ -1,5 +1,19 @@
 # Model Progress
 
+## Commit [0b14341](https://github.com/naszhu/REM_E3_model_fixed/commit/0b14341) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 22:00:22  
+**Message:**
+```
+doc(model-e1,e3): parameter chart
+```
+**Changed Files:**
+- `design1/docs/E1_vs_E3_parameter_comparison.html`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/docs/Research Parameters - Updated from Code.html`  
+![](../plot_archive/0b14341_20250817_220022_plot1.png)  
+![](../plot_archive/0b14341_20250817_220022_plot2.png)  
+
 ## Commit [62e2966](https://github.com/naszhu/REM_E3_model_fixed/commit/62e2966) (branch: `aug-15-issue23-targetdrop`)
 **Time:** 2025-08-17 22:00:02  
 **Message:**
