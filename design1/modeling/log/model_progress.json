@@ -1,5 +1,191 @@
 [
   {
+    "commit": "24fbb28",
+    "branch": "main",
+    "message": "finetune(model-e3): modify simulation parameters for final test",
+    "timestamp": "2025-08-15 23:11:23",
+    "plot1": "plot_archive/24fbb28_20250815_231123_plot1.png",
+    "plot2": "plot_archive/24fbb28_20250815_231123_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "0b14341",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "doc(model-e1,e3): parameter chart",
+    "timestamp": "2025-08-17 22:00:22",
+    "plot1": "plot_archive/0b14341_20250817_220022_plot1.png",
+    "plot2": "plot_archive/0b14341_20250817_220022_plot2.png",
+    "changed_files": [
+      "design1/docs/E1_vs_E3_parameter_comparison.html",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/docs/Research Parameters - Updated from Code.html"
+    ]
+  },
+  {
+    "commit": "62e2966",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "doc(model-e3): new document for Dataplot-e2-aug12",
+    "timestamp": "2025-08-17 22:00:02",
+    "plot1": "plot_archive/62e2966_20250817_220002_plot1.png",
+    "plot2": "plot_archive/62e2966_20250817_220002_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/docs/Dataplot-e2-aug12 (1).docx"
+    ]
+  },
+  {
+    "commit": "4aebceb",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): 2000 simulation",
+    "timestamp": "2025-08-17 21:47:34",
+    "plot1": "plot_archive/4aebceb_20250817_214734_plot1.png",
+    "plot2": "plot_archive/4aebceb_20250817_214734_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "00bf5a8",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): continue fine tune bewteen-list",
+    "timestamp": "2025-08-17 21:21:12",
+    "plot1": "plot_archive/00bf5a8_20250817_212112_plot1.png",
+    "plot2": "plot_archive/00bf5a8_20250817_212112_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "2760ebc",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): a good start of between-list list 1",
+    "timestamp": "2025-08-17 21:11:51",
+    "plot1": "plot_archive/2760ebc_20250817_211151_plot1.png",
+    "plot2": "plot_archive/2760ebc_20250817_211151_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "8041eef",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): a good start of between-list list 1",
+    "timestamp": "2025-08-17 21:11:03",
+    "plot1": "plot_archive/8041eef_20250817_211103_plot1.png",
+    "plot2": "plot_archive/8041eef_20250817_211103_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "deb6cc2",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): 23 tune, between-list prediction (while keep u_star)",
+    "timestamp": "2025-08-17 18:30:45",
+    "plot1": "plot_archive/deb6cc2_20250817_183045_plot1.png",
+    "plot2": "plot_archive/deb6cc2_20250817_183045_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "60f945c",
+    "branch": "HEAD",
+    "message": "finetune(model-e3): 23 tune, between-list prediction (while keep u_star)",
+    "timestamp": "2025-08-17 18:13:47",
+    "plot1": "plot_archive/60f945c_20250817_181347_plot1.png",
+    "plot2": "plot_archive/60f945c_20250817_181347_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "2abbe3a",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "fix(model-e3): adjust 1/11 odds calculation for likelihood ratios",
+    "timestamp": "2025-08-17 17:40:20",
+    "plot1": "plot_archive/2abbe3a_20250817_174020_plot1.png",
+    "plot2": "plot_archive/2abbe3a_20250817_174020_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
+    "commit": "fc6a15d",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "finetune(model-e1): tune base start of product z, and it does work",
+    "timestamp": "2025-08-17 17:05:03",
+    "plot1": "plot_archive/fc6a15d_20250817_170503_plot1.png",
+    "plot2": "plot_archive/fc6a15d_20250817_170503_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "8bf5112",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "feat(model-e1): list of  origin recall logic",
+    "timestamp": "2025-08-17 16:58:53",
+    "plot1": "plot_archive/8bf5112_20250817_165853_plot1.png",
+    "plot2": "plot_archive/8bf5112_20250817_165853_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
+    "commit": "b3aeed9",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "feat(model-e1): add list origin parameters and remove RT dependencies",
+    "timestamp": "2025-08-16 18:57:41",
+    "plot1": "plot_archive/b3aeed9_20250816_185741_plot1.png",
+    "plot2": "plot_archive/b3aeed9_20250816_185741_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "358fa11",
+    "branch": "aug-15-issue23-targetdrop",
+    "message": "merge(model-e3): merge aug-12-explore-more-alignment branch",
+    "timestamp": "2025-08-15 23:11:38",
+    "plot1": "plot_archive/358fa11_20250815_231138_plot1.png",
+    "plot2": "plot_archive/358fa11_20250815_231138_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "58f69f1",
     "branch": "aug-12-explore-more-alignment",
     "message": "refactor(model-e1): introduce strengthening advance parameters",

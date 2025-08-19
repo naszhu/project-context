@@ -1,5 +1,286 @@
 # Model Progress
 
+## Commit [24fbb28](https://github.com/naszhu/REM_E3_model_fixed/commit/24fbb28) (branch: `main`)
+**Time:** 2025-08-15 23:11:23  
+**Message:**
+```
+finetune(model-e3): modify simulation parameters for final test
+
+- Set `is_finaltest` to true and adjusted `n_simulations` to 300 for final testing.
+- Disabled `adv_u_star_strengthen` and `adv_c_strenghten` by setting them to 0.
+- Updated `p_ListChange_finaltest` to a new value of 0.2 to refine test conditions.
+
+These changes aim to enhance the accuracy and reliability of the final test simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design3/modeling`  
+![](../plot_archive/24fbb28_20250815_231123_plot1.png)  
+![](../plot_archive/24fbb28_20250815_231123_plot2.png)  
+
+## Commit [0b14341](https://github.com/naszhu/REM_E3_model_fixed/commit/0b14341) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 22:00:22  
+**Message:**
+```
+doc(model-e1,e3): parameter chart
+```
+**Changed Files:**
+- `design1/docs/E1_vs_E3_parameter_comparison.html`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/docs/Research Parameters - Updated from Code.html`  
+![](../plot_archive/0b14341_20250817_220022_plot1.png)  
+![](../plot_archive/0b14341_20250817_220022_plot2.png)  
+
+## Commit [62e2966](https://github.com/naszhu/REM_E3_model_fixed/commit/62e2966) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 22:00:02  
+**Message:**
+```
+doc(model-e3): new document for Dataplot-e2-aug12
+
+- Introduced a new binary document file for Dataplot-e2-aug12 to support ongoing analysis and documentation efforts.
+
+This addition aims to enhance the project's documentation resources.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/docs/Dataplot-e2-aug12 (1).docx`  
+![](../plot_archive/62e2966_20250817_220002_plot1.png)  
+![](../plot_archive/62e2966_20250817_220002_plot2.png)  
+
+## Commit [4aebceb](https://github.com/naszhu/REM_E3_model_fixed/commit/4aebceb) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 21:47:34  
+**Message:**
+```
+finetune(model-e1): 2000 simulation
+
+- Increased `n_simulations` from 400 to 2000 to enhance testing robustness.
+- Adjusted `n_lists` from 4 to 10 to allow for more comprehensive data analysis.
+- Modified `c` parameter from 0.86 to 0.895 for better context copying behavior.
+- Decreased `v_criterion_initial` from 0.73 to 0.65 to align with model expectations.
+- Updated z-value increase parameters for targets and foils to refine classification accuracy.
+
+These changes aim to improve the model's performance and accuracy in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/4aebceb_20250817_214734_plot1.png)  
+![](../plot_archive/4aebceb_20250817_214734_plot2.png)  
+
+## Commit [00bf5a8](https://github.com/naszhu/REM_E3_model_fixed/commit/00bf5a8) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 21:21:12  
+**Message:**
+```
+finetune(model-e1): continue fine tune bewteen-list
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/00bf5a8_20250817_212112_plot1.png)  
+![](../plot_archive/00bf5a8_20250817_212112_plot2.png)  
+
+## Commit [2760ebc](https://github.com/naszhu/REM_E3_model_fixed/commit/2760ebc) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 21:11:51  
+**Message:**
+```
+finetune(model-e1): a good start of between-list list 1
+
+- Adjusted `adv_u_star_strengthen` to 0.06 and `adv_c_strenghten` to 0.1 to enhance feature restoration logic.
+- Corrected `c` parameter to 0.8 for consistency in copying behavior.
+- Updated `v_criterion_initial` to 0.78 for better alignment with model expectations.
+- Increased `n_driftStudyTest` from 9 to 10 to refine testing conditions.
+
+These changes aim to improve the model's performance and accuracy in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/2760ebc_20250817_211151_plot1.png)  
+![](../plot_archive/2760ebc_20250817_211151_plot2.png)  
+
+## Commit [8041eef](https://github.com/naszhu/REM_E3_model_fixed/commit/8041eef) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 21:11:03  
+**Message:**
+```
+finetune(model-e1): a good start of between-list list 1
+
+- Adjusted `adv_u_star_strengthen` to 0.06 and `adv_c_strenghten` to 0.1 to enhance feature restoration logic.
+- Corrected `c` parameter to 0.8 for consistency in copying behavior.
+- Updated `v_criterion_initial` to 0.78 for better alignment with model expectations.
+- Increased `n_driftStudyTest` from 9 to 10 to refine testing conditions.
+
+These changes aim to improve the model's performance and accuracy in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/8041eef_20250817_211103_plot1.png)  
+![](../plot_archive/8041eef_20250817_211103_plot2.png)  
+
+## Commit [deb6cc2](https://github.com/naszhu/REM_E3_model_fixed/commit/deb6cc2) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 18:30:45  
+**Message:**
+```
+finetune(model-e1): 23 tune, between-list prediction (while keep u_star)
+
+- Set `is_finaltest` to false and reduced `n_simulations` to 800 for more efficient testing.
+- Decreased `n_lists` from 10 to 4 to streamline the simulation process.
+- Updated `v_criterion_initial` to 0.87 for better alignment with model expectations.
+- Modified base probabilities for targets and foils to enhance recall accuracy.
+- Adjusted z-value increase parameters to refine target and foil classifications.
+
+These changes aim to enhance the model's performance and accuracy in simulations.
+
+-  NEXT STEP: chagne u_star
+
+Refs #23 decrease target tunning
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/deb6cc2_20250817_183045_plot1.png)  
+![](../plot_archive/deb6cc2_20250817_183045_plot2.png)  
+
+## Commit [60f945c](https://github.com/naszhu/REM_E3_model_fixed/commit/60f945c) (branch: `HEAD`)
+**Time:** 2025-08-17 18:13:47  
+**Message:**
+```
+finetune(model-e3): 23 tune, between-list prediction (while keep u_star)
+
+- Set `is_finaltest` to false and reduced `n_simulations` to 800 for more efficient testing.
+- Decreased `n_lists` from 10 to 4 to streamline the simulation process.
+- Updated `v_criterion_initial` to 0.87 for better alignment with model expectations.
+- Modified base probabilities for targets and foils to enhance recall accuracy.
+- Adjusted z-value increase parameters to refine target and foil classifications.
+
+These changes aim to enhance the model's performance and accuracy in simulations.
+
+-  NEXT STEP: chagne u_star
+
+Refs #23 decrease target tunning
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/60f945c_20250817_181347_plot1.png)  
+![](../plot_archive/60f945c_20250817_181347_plot2.png)  
+
+## Commit [2abbe3a](https://github.com/naszhu/REM_E3_model_fixed/commit/2abbe3a) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 17:40:20  
+**Message:**
+```
+fix(model-e3): adjust 1/11 odds calculation for likelihood ratios
+
+fix(probe_evaluation)
+- Updated odds calculation in both `probe_evaluation` and `probe_evaluation2` functions to raise the sum of likelihood ratios to the power of `power_taken`.
+- This change aims to enhance the accuracy of the odds computation in the evaluation process.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/2abbe3a_20250817_174020_plot1.png)  
+![](../plot_archive/2abbe3a_20250817_174020_plot2.png)  
+
+## Commit [fc6a15d](https://github.com/naszhu/REM_E3_model_fixed/commit/fc6a15d) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 17:05:03  
+**Message:**
+```
+finetune(model-e1): tune base start of product z, and it does work
+
+It worked in making T down, partially solve #23 issue
+
+finetune(R_plots): adjust y-axis limits for accuracy visualization
+
+- Updated y-axis limits in R plotting script from (0.825, 0.95) to (0.425, 0.95) to better reflect data range.
+- Commented out the previous ylim setting for clarity.
+
+finetune(constants): modify simulation parameters for consistency
+
+- Reduced `n_simulations` from 300 to 200 for final tests to streamline performance.
+- Increased `how_much_z_T` from 0.12 to 0.5 to enhance target z-value adjustments.
+
+These changes aim to improve the accuracy and efficiency of the model's simulations and visualizations.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/fc6a15d_20250817_170503_plot1.png)  
+![](../plot_archive/fc6a15d_20250817_170503_plot2.png)  
+
+## Commit [8bf5112](https://github.com/naszhu/REM_E3_model_fixed/commit/8bf5112) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-17 16:58:53  
+**Message:**
+```
+feat(model-e1): list of  origin recall logic
+
+- Updated decision-making process to utilize list origin recall instead of familiarity for final test probes.
+- Introduced z-value calculations for target and foil classifications to enhance accuracy in determining probe origins.
+- Adjusted decision thresholds based on recall odds, improving the model's predictive capabilities in the final evaluation phase.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/8bf5112_20250817_165853_plot1.png)  
+![](../plot_archive/8bf5112_20250817_165853_plot2.png)  
+
+## Commit [b3aeed9](https://github.com/naszhu/REM_E3_model_fixed/commit/b3aeed9) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-16 18:57:41  
+**Message:**
+```
+feat(model-e1): add list origin parameters and remove RT dependencies
+
+- Add E1 list origin parameters (z_time_p_val_E1) for targets and foils
+- Implement asym_increase_shift function for gradual parameter evolution
+- Remove all RT-related parameters and calculations (Brt, Pi, rt fields)
+- Fix DataFrame structure to match new data format (diff instead of diff_rt)
+- Update R plotting script to handle column name changes
+- Resolve dependency chain issues for clean E1 model execution
+
+Theoretical rationale: E1 participants need list origin focus (not discrimination)
+as memory accumulates across lists, even without confusing foils like E3.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/b3aeed9_20250816_185741_plot1.png)  
+![](../plot_archive/b3aeed9_20250816_185741_plot2.png)  
+
+## Commit [358fa11](https://github.com/naszhu/REM_E3_model_fixed/commit/358fa11) (branch: `aug-15-issue23-targetdrop`)
+**Time:** 2025-08-15 23:11:38  
+**Message:**
+```
+merge(model-e3): merge aug-12-explore-more-alignment branch
+
+- Incorporates strengthening advance parameters exploration
+- Includes final test parameter adjustments and simulation improvements
+- Merges commits addressing issue #22 within-list prediction improvements
+- Consolidates E3 model refinements and feature restoration logic updates
+
+This merge brings together parameter tuning work and simulation enhancements for the E3 model.
+```
+![](../plot_archive/358fa11_20250815_231138_plot1.png)  
+![](../plot_archive/358fa11_20250815_231138_plot2.png)  
+
 ## Commit [58f69f1](https://github.com/naszhu/REM_E3_model_fixed/commit/58f69f1) (branch: `aug-12-explore-more-alignment`)
 **Time:** 2025-08-15 22:55:00  
 **Message:**

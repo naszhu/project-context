@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Parameters - E3 vs E1 Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: white;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background-color: #4a90e2;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .parameter-col {
+            width: 25%;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .e3-col {
+            width: 15%;
+            text-align: center;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+        
+        .e1-col {
+            width: 15%;
+            text-align: center;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .description-col {
+            width: 45%;
+            color: #555;
+        }
+        
+        .section-header {
+            background-color: #2c3e50 !important;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .section-header td {
+            padding: 15px;
+            font-size: 16px;
+        }
+        
+        .calculated {
+            background-color: #e8f5e8;
+        }
+        
+        .different {
+            background-color: #ffeb3b !important;
+            font-weight: bold;
+            border: 2px solid #ff9800;
+        }
+        
+        .e3-header {
+            background-color: #4a90e2;
+            color: white;
+            text-align: center;
+        }
+        
+        .e1-header {
+            background-color: #e74c3c;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Research Parameters - E3 vs E1 Comparison</h1>
+    
+    <div style="margin-bottom: 30px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; border-left: 4px solid #4a90e2;">
+        <h3 style="color: #2c3e50; margin-top: 0;">How the Model Works</h3>
+        
+        <h4 style="color: #4a90e2; margin-top: 20px;">Storage and Retrieval</h4>
+        <p>Items are stored using two key parameters:</p>
+        <ul>
+            <li><strong>u_star:</strong> Controls how much information gets stored initially</li>
+            <li><strong>c parameter:</strong> Controls how well information is copied during storage</li>
+        </ul>
+        
+        <h4 style="color: #4a90e2;">Restoration During Test</h4>
+        <p>During testing, traces are restored in two ways:</p>
+        <ul>
+            <li><strong>New traces:</strong> Restored the same way they were studied</li>
+            <li><strong>Strengthening traces:</strong> Strengthen the recalled trace and strengthen the values that were missing. Restored with higher values than when studied (controlled by u_star for strengthen and c for strengthen)</li>
+        </ul>
+        
+        <h4 style="color: #4a90e2;">Context Deterioration</h4>
+        <p>Context features change in several ways:</p>
+        <ul>
+            <li><strong>Between study and test:</strong> Features drift/deteriorate during the delay</li>
+            <li><strong>Between each item during test:</strong> Features continue to change as testing progresses</li>
+            <li><strong>Between lists:</strong> Features change as new lists are presented</li>
+        </ul>
+        
+        <h4 style="color: #4a90e2;">Key Probabilities</h4>
+        <ul>
+            <li><strong>Drift between study and test:</strong> 30.6% (E3) vs 28.0% (E1)</li>
+            <li><strong>Reinstatement during test:</strong> 20% (E3) vs 10% (E1)</li>
+            <li><strong>Change between lists:</strong> 42.2% for both experiments</li>
+        </ul>
+        
+        <h4 style="color: #4a90e2;">Decision Making</h4>
+        <p>The model uses criteria and thresholds to make recognition decisions. <strong>Experiment 3</strong> uses a recall threshold (0.899) while <strong>Experiment 1</strong> does not (0.0). This threshold helps E3 predict confusing foils better by slightly shifting performance down, which aligns better with the data.</p>
+        
+        <h4 style="color: #4a90e2;">Recall-to-Reject Mechanism</h4>
+        <p>This is a product term that combines:</p>
+        <ul>
+            <li>The probability of using recall-to-reject information</li>
+            <li>The probability of answering "new" when recalling list of origin</li>
+        </ul>
+        <p>Each item type is controlled by three parameters:</p>
+        <ul>
+            <li><strong>How much:</strong> The magnitude of the shift</li>
+            <li><strong>How fast:</strong> The rate of asymptotic change between lists</li>
+            <li><strong>Starting value:</strong> The initial probability</li>
+        </ul>
+        <p>The exponential formula for the asymptotic increase is: <code>start_at + how_much × (1 - exp(-how_fast × k))</code> where k ranges from 0 to n-1 (n being the number of lists).</p>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th class="e3-header">E3 Value</th>
+                <th class="e1-header">E1 Value</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Basic Configuration -->
+            <tr class="section-header">
+                <td colspan="4">BASIC CONFIGURATION</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">n_probes</td>
+                <td class="e3-col">30</td>
+                <td class="e1-col">20</td>
+                <td class="description-col">Number of recognition probes per list</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">w_context</td>
+                <td class="e3-col">56</td>
+                <td class="e1-col">56</td>
+                <td class="description-col">Number of context features (first half unchanging context, second half changing context)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">w_word</td>
+                <td class="e3-col">23</td>
+                <td class="e1-col">23</td>
+                <td class="description-col">Number of content (word) features</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">g_word and g_context</td>
+                <td class="e3-col">0.3</td>
+                <td class="e1-col">0.3</td>
+                <td class="description-col">Geometric base rate for both word and context features</td>
+            </tr>
+            
+            <!-- Storage Parameters -->
+            <tr class="section-header">
+                <td colspan="4">STORAGE PARAMETERS</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">u_star for content and context both</td>
+                <td class="e3-col">0.046</td>
+                <td class="e1-col">0.046</td>
+                <td class="description-col">u_star parameter</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">u_star for strengthen</td>
+                <td class="e3-col">0.95</td>
+                <td class="e1-col">0.95</td>
+                <td class="description-col">u_star for strengthening (only fill in missing features). There is a trade-off between u_star strengthening and copy strengthening.</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">c</td>
+                <td class="e3-col">0.70</td>
+                <td class="e1-col">0.895</td>
+                <td class="description-col">c parameter. I had to raise this number because the overall performance in experiment 1 is better than that in experiment 3.</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">c for strengthen</td>
+                <td class="e3-col">0.8</td>
+                <td class="e1-col">0.8</td>
+                <td class="description-col">c parameter for strengthening part. There is a trade-off between u_star strengthening and copy strengthening.</td>
+            </tr>
+            
+            <!-- Drift and Change Parameters -->
+            <tr class="section-header">
+                <td colspan="4">DRIFT AND CHANGE PARAMETERS</td>
+            </tr>
+            <tr class="calculated different">
+                <td class="parameter-col">p_driftStudyTest</td>
+                <td class="e3-col">0.306</td>
+                <td class="e1-col">0.280</td>
+                <td class="description-col">Prob. each feature drifts between study & test: 0.306 (E3), 0.280 (E1) (applies for both UU and UC)</td>
+            </tr>
+            <tr class="calculated">
+                <td class="parameter-col">p_ChangeBetweenList</td>
+                <td class="e3-col">0.422</td>
+                <td class="e1-col">0.422</td>
+                <td class="description-col">Prob. each feature changes between lists: 0.422 (applies for both UU and UC)</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">p_reinstate_rate</td>
+                <td class="e3-col">0.2</td>
+                <td class="e1-col">0.1</td>
+                <td class="description-col">Base reinstatement rate per feature (applies for both UU and UC)</td>
+            </tr>
+            
+            <!-- Context Ratios -->
+            <tr class="section-header">
+                <td colspan="4">CONTEXT CONFIGURATION</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">ratio_U</td>
+                <td class="e3-col">0.5</td>
+                <td class="e1-col">0.5</td>
+                <td class="description-col">Ratio of unchanging context (nU = 28, nC = 28)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">ratio_unchanging_to_itself_init</td>
+                <td class="e3-col">0.46</td>
+                <td class="e1-col">0.46</td>
+                <td class="description-col">Ratio of unchanging context used in initial test (nU_in = 13)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">ratio_changing_to_itself_init</td>
+                <td class="e3-col">1.0</td>
+                <td class="e1-col">1.0</td>
+                <td class="description-col">Ratio of changing context used in initial test (nC_in = 28)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">ratio_unchanging_to_itself_final</td>
+                <td class="e3-col">1.0</td>
+                <td class="e1-col">1.0</td>
+                <td class="description-col">Ratio of unchanging context used in final test (nU_f = 28)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">ratio_changing_to_itself_final</td>
+                <td class="e3-col">0.3</td>
+                <td class="e1-col">0.3</td>
+                <td class="description-col">Ratio of changing context used in final test (nC_f = 8)</td>
+            </tr>
+            
+            <!-- Test Configuration -->
+            <tr class="section-header">
+                <td colspan="4">TEST THRESHOLDS</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">context_tau</td>
+                <td class="e3-col">100</td>
+                <td class="e1-col">100</td>
+                <td class="description-col">Context filtering threshold (foil odds should be lower than this)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">power_taken</td>
+                <td class="e3-col">1/11 = 0.091</td>
+                <td class="e1-col">1/11 = 0.091</td>
+                <td class="description-col">Power transformation applied to criteria</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">criterion_initial</td>
+                <td class="e3-col">0.148^(1/11) = 0.839</td>
+                <td class="e1-col">0.65^(1/11) = 0.965</td>
+                <td class="description-col">Initial criterion (asymptotic values, power transformed)</td>
+            </tr>
+
+            <tr class="different">
+                <td class="parameter-col">recall_odds_threshold</td>
+                <td class="e3-col">0.3^(1/11) = 0.899</td>
+                <td class="e1-col">0.0^(1/11) = 0.0</td>
+                <td class="description-col">Recall odds threshold (power transformed)</td>
+            </tr>
+            
+
+            
+            <!-- Recall-to-Reject Parameters -->
+            <tr class="section-header">
+                <td colspan="4">RECALL-TO-REJECT ASYMPTOTIC PARAMETERS</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">how_much_z</td>
+                <td class="e3-col">0.3</td>
+                <td class="e1-col">-</td>
+                <td class="description-col">Magnitude parameter for non-target traces (doesn't exist for E1)</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">how_much_z_target</td>
+                <td class="e3-col">0.16</td>
+                <td class="e1-col">0.07</td>
+                <td class="description-col">Magnitude parameter for target traces</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">how_fast_z</td>
+                <td class="e3-col">0.4</td>
+                <td class="e1-col">0.3</td>
+                <td class="description-col">Rate parameter for asymptotic increase</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">how_fast_z_target</td>
+                <td class="e3-col">0.8</td>
+                <td class="e1-col">0.6</td>
+                <td class="description-col">Rate parameter for target asymptotic increase</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">how_much_z_f</td>
+                <td class="e3-col">0.1</td>
+                <td class="e1-col">0.07</td>
+                <td class="description-col">Magnitude parameter for foil traces</td>
+            </tr>
+
+            <!-- Detailed Recall-to-Reject Values -->
+            <tr class="section-header">
+                <td colspan="4">RECALL-TO-REJECT VALUES BY LIST (z_time_p_val)</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">T (Target)</td>
+                <td class="e3-col">0.05→0.210</td>
+                <td class="e1-col">0.04→0.110</td>
+                <td class="description-col">Start: 0.05, Values across lists: [0.05, 0.138, 0.178, 0.195, 0.203, 0.207, 0.209, 0.209, 0.210] (E3)<br>Start: 0.04, Values across lists: [0.04, 0.065, 0.082, 0.093, 0.100, 0.105, 0.108, 0.110, 0.110] (E1)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">Tn+1 (Target n+1)</td>
+                <td class="e3-col">0.03→0.190</td>
+                <td class="e1-col">-</td>
+                <td class="description-col">Start: 0.03, Values across lists: [0.03, 0.118, 0.158, 0.175, 0.183, 0.187, 0.189, 0.189, 0.190]</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">Fn (Prior Foil)</td>
+                <td class="e3-col">0.31→0.598</td>
+                <td class="e1-col">0.40→0.470</td>
+                <td class="description-col">Start: 0.31, Values across lists: [0.31, 0.409, 0.475, 0.520, 0.549, 0.569, 0.583, 0.592, 0.598] (E3)<br>Start: 0.40, Values across lists: [0.40, 0.421, 0.435, 0.444, 0.450, 0.455, 0.458, 0.460, 0.461] (E1)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">Tn (Prior Target)</td>
+                <td class="e3-col">0.35→0.638</td>
+                <td class="e1-col">-</td>
+                <td class="description-col">Start: 0.35, Values across lists: [0.35, 0.449, 0.515, 0.560, 0.589, 0.609, 0.623, 0.632, 0.638]</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">SOn (Prior Studied-Only)</td>
+                <td class="e3-col">0.14→0.428</td>
+                <td class="e1-col">-</td>
+                <td class="description-col">Start: 0.14, Values across lists: [0.14, 0.239, 0.305, 0.350, 0.379, 0.399, 0.413, 0.422, 0.428]</td>
+            </tr>
+            <tr class="different">
+                <td class="parameter-col">F (Current Foil)</td>
+                <td class="e3-col">0.0→0.096</td>
+                <td class="e1-col">0.40→0.470</td>
+                <td class="description-col">Start: 0.0, Values across lists: [0.0, 0.033, 0.055, 0.070, 0.080, 0.086, 0.091, 0.094, 0.096] (E3)<br>Start: 0.40, Values across lists: [0.40, 0.421, 0.435, 0.444, 0.450, 0.455, 0.458, 0.460, 0.461] (E1)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">Fn+1 (Foil n+1)</td>
+                <td class="e3-col">0.0→0.096</td>
+                <td class="e1-col">-</td>
+                <td class="description-col">Start: 0.0, Values across lists: [0.0, 0.033, 0.055, 0.070, 0.080, 0.086, 0.091, 0.094, 0.096] (same as F)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 30px; padding: 20px; background-color: #f0f8ff; border-radius: 5px;">
+        <h3>Key Differences Between E3 and E1:</h3>
+        <ul>
+            <li><strong>n_probes:</strong> E3 uses 30 probes, E1 uses 20 probes</li>
+            <li><strong>c parameter:</strong> E3 uses 0.70, E1 uses 0.895</li>
+            <li><strong>p_reinstate_rate:</strong> E3 uses 0.2, E1 uses 0.1</li>
+            <li><strong>p_driftStudyTest:</strong> E3 uses 0.306, E1 uses 0.280</li>
+            <li><strong>criterion_initial:</strong> E3 uses 0.148^(1/11) = 0.839, E1 uses 0.65^(1/11) = 0.965</li>
+            <li><strong>recall_odds_threshold:</strong> E3 uses 0.3^(1/11) = 0.899, E1 uses 0.0^(1/11) = 0.0</li>
+            <li><strong>z parameters:</strong> E1 has simpler z structure with only T and F, while E3 has complex z structure with multiple probe types</li>
+        </ul>
+    </div>
+</body>
+</html>

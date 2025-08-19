@@ -23,7 +23,7 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         #    if ii==1 println(size(image_pool),"of", size(likelihood_ratios)) end
 
         # println(likelihood_ratios)
-        odds = 1 / length(likelihood_ratios) * sum(likelihood_ratios)
+        odds = (1 / length(likelihood_ratios) * sum(likelihood_ratios))^power_taken
         # println(round(odds, digits=3), " some llikelihood ", likelihood_ratios[1], " ", likelihood_ratios[2], ", Ndenom: ", length(likelihood_ratios));
         # round(odds, digits=3)
         # for ill in likelihood_ratios
@@ -37,13 +37,31 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         crrchunk = ceil(Int, i / 42)
         criterion_final_i = criterion_final[crrchunk] #this need to be changed if 
 
-        decision_isold = odds > criterion_final_i ? 1 : 0
+        # E1 List Origin Logic for Final Test: Switch from familiarity to list origin recall
+        if odds > criterion_final_i
+            if odds > recall_odds_threshold
+                # For final test, we need to determine which list this probe is from
+                # Since final test probes can come from any list, we'll use a simplified approach
+                probe_type = probes[i].classification == :target ? :T : :F
+                z_values = get(z_time_p_val_E1, probe_type, zeros(Float64, n_lists-1))
+                # Use the average z value across all lists for final test
+                avg_z = mean(z_values)
+                decision_isold = rand() < avg_z ? 0 : 1
+            else
+                decision_isold = 1
+            end
+        else
+            decision_isold = 0  # Didn't pass threshold, judge as new
+        end
 
-        # pold = pcrr_EZddf(log(odds))
-        rt = Brt + Pi * abs(log(odds))
+        # Calculate sampling probabilities for final test (same as in initial test)
+        filtered_content_LL_ratios_inOriginalLength = likelihood_ratios_org |> x -> map(e -> e == 344523466743 ? 0 : e, x)
+        filtered_content_LL_ratios_inOriginalLength_to_11thpower = filtered_content_LL_ratios_inOriginalLength .^ power_taken
+        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength_to_11thpower)
+        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength_to_11thpower)) : [filtered_content_LL_ratios_inOriginalLength_to_11thpower[i_LL_proportion] ./ total_sum_LL for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength_to_11thpower)]
 
         # Store results (modify as needed)
-        results[i] = (decision_isold=decision_isold, is_target=string(probes[i].classification), odds=odds, list_num=probes[i].image.list_number, rt=rt, initial_studypos=probes[i].image.word.studypos, initial_testpos = probes[i].image.initial_testpos_img ) #! made changes to results, format different than that in inital
+        results[i] = (decision_isold=decision_isold, is_target=string(probes[i].classification), odds=odds, list_num=probes[i].image.list_number, initial_studypos=probes[i].image.word.studypos, initial_testpos = probes[i].image.initial_testpos_img ) #! made changes to results, format different than that in inital
 
         imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org]);
         # restore_intest(image_pool,probes[i].image, decision_isold, argmax(likelihood_ratios));
@@ -90,12 +108,32 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         i_testpos = probes[i].initial_testpos#1:20
 
         nl = length(likelihood_ratios)
-        odds = 1 / nl * sum(likelihood_ratios)
+        odds = (1 / nl * sum(likelihood_ratios))^power_taken
 
         if (isnan(odds))
             println("Current context_tau is too high, there are some simulations that have no tarce passing context filter in first step", nl, likelihood_ratios)
         end
-        decision_isold = odds > criterion_initial[i_testpos,ilist_probe] ? 1 : 0
+        
+        # E1 List Origin Logic: Switch from familiarity to list origin recall
+        if odds > criterion_initial[i_testpos,ilist_probe]
+            if odds > recall_odds_threshold
+                if ilist_probe == 1
+                    decision_isold = 1  # List 1 always recall
+                else
+                    # Get the appropriate z values for this probe type
+                    probe_type = probes[i].classification == :target ? :T : :F
+                    z_values = get(z_time_p_val_E1, probe_type, zeros(Float64, n_lists-1))
+                    # Use z value for current list (ilist_probe-1 because arrays are 0-indexed)
+                    list_origin_prob = z_values[ilist_probe-1]
+                    decision_isold = rand() < list_origin_prob ? 0 : 1
+                end
+            else
+                decision_isold = 1
+            end
+        else
+            decision_isold = 0  # Didn't pass threshold, judge as new
+        end
+        
         diff = 1 / (abs(odds - criterion_initial[i_testpos,ilist_probe]) + 1e-10)
 
         #criterion change by test position

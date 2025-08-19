@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Parameters - Updated from Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: white;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background-color: #4a90e2;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .parameter-col {
+            width: 25%;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .value-col {
+            width: 15%;
+            text-align: center;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+        
+        .description-col {
+            width: 60%;
+            color: #555;
+        }
+        
+        .section-header {
+            background-color: #2c3e50 !important;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .section-header td {
+            padding: 15px;
+            font-size: 16px;
+        }
+        
+        .calculated {
+            background-color: #e8f5e8;
+        }
+    </style>
+</head>
+<body>
+    <h1>Research Parameters - Updated from Code</h1>
+    
+l    <table>
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Basic Configuration -->
+            <tr class="section-header">
+                <td colspan="3">BASIC CONFIGURATION</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">n_probes</td>
+                <td class="value-col">30</td>
+                <td class="description-col">Number of recognition probes per list</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">w_context</td>
+                <td class="value-col">56</td>
+                <td class="description-col">Number of context features (first half unchanging context, second half changing context)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">w_word</td>
+                <td class="value-col">23</td>
+                <td class="description-col">Number of content (word) features</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">g_word and g_context</td>
+                <td class="value-col">0.3</td>
+                <td class="description-col">Geometric base rate for both word and context features</td>
+            </tr>
+            
+            <!-- Storage Parameters -->
+            <tr class="section-header">
+                <td colspan="3">STORAGE PARAMETERS</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">u_star for content and context both</td>
+                <td class="value-col">0.046</td>
+                <td class="description-col">u_star parameter</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">u_star for strengthen</td>
+                <td class="value-col">0.95</td>
+                <td class="description-col">u_star for strengthening (only fill in missing features)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">u_adv_firstpos</td>
+                <td class="value-col">0.00</td>
+                <td class="description-col">Advantage of first position in each list</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">c</td>
+                <td class="value-col">0.70</td>
+                <td class="description-col">c parameter</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">c for strengthen</td>
+                <td class="value-col">0.8</td>
+                <td class="description-col">c parameter for strengthening part</td>
+            </tr>
+            
+            <!-- Drift and Change Parameters -->
+            <tr class="section-header">
+                <td colspan="3">DRIFT AND CHANGE PARAMETERS</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">p_driftAndListChange</td>
+                <td class="value-col">0.03</td>
+                <td class="description-col">Base probability for drift and list change calculations</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">n_driftStudyTest</td>
+                <td class="value-col">12</td>
+                <td class="description-col">Number of trials for study-test drift calculation</td>
+            </tr>
+            <tr class="calculated">
+                <td class="parameter-col">p_driftStudyTest (calculated)</td>
+                <td class="value-col">0.306</td>
+                <td class="description-col">Prob. each feature drifts between study & test: 1-(1-0.03)^12 = 0.3062</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">n_between_listchange</td>
+                <td class="value-col">18</td>
+                <td class="description-col">Number of trials for between-list change calculation</td>
+            </tr>
+            <tr class="calculated">
+                <td class="parameter-col">p_ChangeBetweenList (calculated)</td>
+                <td class="value-col">0.422</td>
+                <td class="description-col">Prob. each feature changes between lists: 1-(1-0.03)^18 = 0.4220</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">p_reinstate_rate</td>
+                <td class="value-col">0.2</td>
+                <td class="description-col">Base reinstatement rate per feature</td>
+            </tr>
+            <tr class="calculated">
+                <td class="parameter-col">p_reinstate_context (calculated)</td>
+                <td class="value-col">0.488</td>
+                <td class="description-col">Prob. all features had reinstate after 3: 1-(1-0.2)^3 = 0.488</td>
+            </tr>
+            <tr class="calculated">
+                <td class="parameter-col">p_feature_change_after_4_lists</td>
+                <td class="value-col">0.988</td>
+                <td class="description-col">Prob. feature change after 4 lists: 1-(1-0.422)^8 = 0.9876</td>
+            </tr>
+            
+            <!-- Context Ratios -->
+            <tr class="section-header">
+                <td colspan="3">CONTEXT CONFIGURATION</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">ratio_U</td>
+                <td class="value-col">0.5</td>
+                <td class="description-col">Ratio of unchanging context (nU = 28, nC = 28)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">ratio_unchanging_to_itself_init</td>
+                <td class="value-col">0.46</td>
+                <td class="description-col">Ratio of unchanging context used in initial test</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">ratio_changing_to_itself_init</td>
+                <td class="value-col">1.0</td>
+                <td class="description-col">Ratio of changing context used in initial test</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">ratio_unchanging_to_itself_final</td>
+                <td class="value-col">1.0</td>
+                <td class="description-col">Ratio of unchanging context used in final test</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">ratio_changing_to_itself_final</td>
+                <td class="value-col">0.3</td>
+                <td class="description-col">Ratio of changing context used in final test</td>
+            </tr>
+            
+            <!-- Test Configuration -->
+            <tr class="section-header">
+                <td colspan="3">TEST THRESHOLDS</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">context_tau</td>
+                <td class="value-col">100</td>
+                <td class="description-col">Context filtering threshold (foil odds should be lower than this)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">power_taken</td>
+                <td class="value-col">1/11 = 0.091</td>
+                <td class="description-col">Power transformation applied to criteria</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">criterion_initial</td>
+                <td class="value-col">0.148^(1/11)</td>
+                <td class="description-col">Initial criterion (asymptotic values, power transformed)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">criterion_final</td>
+                <td class="value-col">0.19^(1/11)→0.17^(1/11)</td>
+                <td class="description-col">Final test criterion range (power transformed)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">recall_odds_threshold</td>
+                <td class="value-col">0.3^(1/11)</td>
+                <td class="description-col">Recall odds threshold (power transformed)</td>
+            </tr>
+            
+            <!-- Final Test Parameters -->
+            <tr class="section-header">
+                <td colspan="3">FINAL TEST PARAMETERS</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">final_gap_change</td>
+                <td class="value-col">0.16</td>
+                <td class="description-col">Gap change probability in final test</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">p_ListChange_finaltest</td>
+                <td class="value-col">0.8</td>
+                <td class="description-col">Probability of list change for final test (10 blocks)</td>
+            </tr>
+            
+            <!-- Recall-to-Reject Parameters -->
+            <tr class="section-header">
+                <td colspan="3">RECALL-TO-REJECT ASYMPTOTIC PARAMETERS</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">how_much_z</td>
+                <td class="value-col">0.3</td>
+                <td class="description-col">Magnitude parameter for non-target traces</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">how_much_z_target</td>
+                <td class="value-col">0.16</td>
+                <td class="description-col">Magnitude parameter for target traces</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">how_fast_z</td>
+                <td class="value-col">0.4</td>
+                <td class="description-col">Rate parameter for asymptotic increase</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">how_fast_z_target</td>
+                <td class="value-col">0.8</td>
+                <td class="description-col">Rate parameter for target asymptotic increase</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">how_much_z_f</td>
+                <td class="value-col">0.1</td>
+                <td class="description-col">Magnitude parameter for foil traces</td>
+            </tr>
+
+            <!-- Detailed Recall-to-Reject Values -->
+            <tr class="section-header">
+                <td colspan="3">RECALL-TO-REJECT VALUES BY LIST (z_time_p_val)</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">T (Target)</td>
+                <td class="value-col">0.05→0.210</td>
+                <td class="description-col">Start: 0.05, Values across lists: [0.05, 0.138, 0.178, 0.195, 0.203, 0.207, 0.209, 0.209, 0.210]</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">Tn+1 (Target n+1)</td>
+                <td class="value-col">0.03→0.190</td>
+                <td class="description-col">Start: 0.03, Values across lists: [0.03, 0.118, 0.158, 0.175, 0.183, 0.187, 0.189, 0.189, 0.190]</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">Fn (Prior Foil)</td>
+                <td class="value-col">0.31→0.598</td>
+                <td class="description-col">Start: 0.31, Values across lists: [0.31, 0.409, 0.475, 0.520, 0.549, 0.569, 0.583, 0.592, 0.598]</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">Tn (Prior Target)</td>
+                <td class="value-col">0.35→0.638</td>
+                <td class="description-col">Start: 0.35, Values across lists: [0.35, 0.449, 0.515, 0.560, 0.589, 0.609, 0.623, 0.632, 0.638]</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">SOn (Prior Studied-Only)</td>
+                <td class="value-col">0.14→0.428</td>
+                <td class="description-col">Start: 0.14, Values across lists: [0.14, 0.239, 0.305, 0.350, 0.379, 0.399, 0.413, 0.422, 0.428]</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">F (Current Foil)</td>
+                <td class="value-col">0.0→0.096</td>
+                <td class="description-col">Start: 0.0, Values across lists: [0.0, 0.033, 0.055, 0.070, 0.080, 0.086, 0.091, 0.094, 0.096]</td>
+            </tr>
+            <tr>
+                <td class="parameter-col">Fn+1 (Foil n+1)</td>
+                <td class="value-col">0.0→0.096</td>
+                <td class="description-col">Start: 0.0, Values across lists: [0.0, 0.033, 0.055, 0.070, 0.080, 0.086, 0.091, 0.094, 0.096] (same as F)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 30px; padding: 20px; background-color: #f0f8ff; border-radius: 5px;">
+        <h3>Calculated Probabilities from Code Output:</h3>
+        <ul>
+            <li><strong>Prob of each feature change between lists:</strong> 0.4220 (matches your output: 0.42204873745695926)</li>
+            <li><strong>Prob of each feature drift between study and test:</strong> 0.3062 (matches your output: 0.3061576390045623)</li>
+            <li><strong>Prob of feature change after 4 lists:</strong> 0.9876 (matches your output: 0.9875511356586972)</li>
+            <li><strong>Prob of each all features had reinstate after 3:</strong> 0.488 (matches your output: 0.4879999999999999)</li>
+        </ul>
+    </div>
+</body>
+</html>
