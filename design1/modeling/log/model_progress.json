@@ -1,5 +1,27 @@
 [
   {
+    "commit": "5626141",
+    "branch": "main",
+    "message": "docs(all): add meeting log for August 21",
+    "timestamp": "2025-08-23 00:34:00",
+    "plot1": "plot_archive/5626141_20250823_003400_plot1.png",
+    "plot2": "plot_archive/5626141_20250823_003400_plot2.png",
+    "changed_files": [
+      "Docs/meetinglog_aug_21.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "2e48543",
+    "branch": "main",
+    "message": "merge(model-e1)Update documentation and parameters for E1 and E3 models",
+    "timestamp": "2025-08-19 09:46:57",
+    "plot1": "plot_archive/2e48543_20250819_094657_plot1.png",
+    "plot2": "plot_archive/2e48543_20250819_094657_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "24fbb28",
     "branch": "main",
     "message": "finetune(model-e3): modify simulation parameters for final test",

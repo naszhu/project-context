@@ -1,5 +1,39 @@
 # Model Progress
 
+## Commit [5626141](https://github.com/naszhu/REM_E3_model_fixed/commit/5626141) (branch: `main`)
+**Time:** 2025-08-23 00:34:00  
+**Message:**
+```
+docs(all): add meeting log for August 21
+
+- Introduced a new document detailing discussions and insights from the meeting held on August 21.
+- The log covers key topics such as parameter separation, recall mechanisms, and the importance of origin information in trace sampling.
+
+This addition aims to enhance project documentation and provide clarity on decision-making processes discussed during the meeting.
+```
+**Changed Files:**
+- `Docs/meetinglog_aug_21.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/5626141_20250823_003400_plot1.png)  
+![](../plot_archive/5626141_20250823_003400_plot2.png)  
+
+## Commit [2e48543](https://github.com/naszhu/REM_E3_model_fixed/commit/2e48543) (branch: `main`)
+**Time:** 2025-08-19 09:46:57  
+**Message:**
+```
+merge(model-e1)Update documentation and parameters for E1 and E3 models
+
+- Updated the DataPlot documents with new timestamps and added new documents for Dataplot-e1-aug19 and Dataplot-e2-aug12.
+- Introduced a new HTML document for research parameters, detailing the comparison between E1 and E3 models.
+- Adjusted simulation parameters in the modeling scripts to enhance accuracy and consistency across tests.
+- Added new HTML files for parameter comparisons and research documentation to improve project clarity and resource availability.
+
+These changes aim to enhance the documentation and improve the modeling framework for better simulation outcomes.
+```
+![](../plot_archive/2e48543_20250819_094657_plot1.png)  
+![](../plot_archive/2e48543_20250819_094657_plot2.png)  
+
 ## Commit [24fbb28](https://github.com/naszhu/REM_E3_model_fixed/commit/24fbb28) (branch: `main`)
 **Time:** 2025-08-15 23:11:23  
 **Message:**
