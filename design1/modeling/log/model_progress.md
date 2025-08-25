@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [f20ed39](https://github.com/naszhu/REM_E3_model_fixed/commit/f20ed39) (branch: `main`)
+**Time:** 2025-08-23 00:34:25  
+**Message:**
+```
+docs(all): add meeting log for August 21
+
+- Introduced a new document detailing discussions and insights from the meeting held on August 21.
+- The log covers key topics such as parameter separation, recall mechanisms, and the importance of origin information in trace sampling.
+
+This addition aims to enhance project documentation and provide clarity on decision-making processes discussed during the meeting.
+```
+**Changed Files:**
+- `Docs/meetinglog_aug_21.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/f20ed39_20250823_003425_plot1.png)  
+![](../plot_archive/f20ed39_20250823_003425_plot2.png)  
+
 ## Commit [5626141](https://github.com/naszhu/REM_E3_model_fixed/commit/5626141) (branch: `main`)
 **Time:** 2025-08-23 00:34:00  
 **Message:**
