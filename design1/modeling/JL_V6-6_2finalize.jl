@@ -253,7 +253,7 @@ csv_path3 = "allresf.csv"
 CSV.write(csv_path1, DF)
 CSV.write(csv_path2, all_results)
 
-run(`Rscript design1/modeling/R_ploting/R_plots.r`)
+run(`Rscript design1/modeling/R_ploting/R_plots.r`)git
 run(`bash -c "eog plot1.png & disown"`)
 
 if is_finaltest
