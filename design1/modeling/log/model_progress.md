@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [1ca3cb4](https://github.com/naszhu/REM_E3_model_fixed/commit/1ca3cb4) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:17:04  
+**Message:**
+```
+feat(shell-e1): add parallel execution script for enhanced simulation performance
+
+- Introduced a new script `run_parallel.sh` to facilitate multi-process execution of the E1 model simulations, significantly improving runtime efficiency.
+- The script manages process creation, result collection, and combines outputs into CSV files, mirroring the results of the original `JL_V6-6_2finalize.jl` script.
+- Added functionality for progress monitoring and debugging, ensuring clarity during execution.
+- Integrated R plotting commands to generate visual outputs post-simulation, maintaining consistency with previous outputs.
+
+These enhancements aim to optimize simulation performance and streamline the workflow for model testing and analysis.
+
+Refs #34
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/1ca3cb4_20250904_221704_plot1.png)  
+![](../plot_archive/1ca3cb4_20250904_221704_plot2.png)  
+
 ## Commit [b3e5188](https://github.com/naszhu/REM_E3_model_fixed/commit/b3e5188) (branch: `sep-4-align`)
 **Time:** 2025-09-04 22:03:30  
 **Message:**
