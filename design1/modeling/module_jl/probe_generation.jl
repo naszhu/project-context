@@ -24,7 +24,12 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
             stdpos += 1
             # testpos = 
         elseif probetypes[i] == :foil  # Foil case
-            target_word = Word(randstring(8), generate_features(Geometric(g_word), w_word), :T_foil, 0) #insert studypos 0
+            foil_features = generate_features(Geometric(g_word), w_word)
+            # Add Z feature if enabled (like in study list generation)
+            if use_Z_feature
+                push!(foil_features, 0)  # Z feature starts as 0 (not tested before)
+            end
+            target_word = Word(randstring(8), foil_features, :T_foil, 0) #insert studypos 0
         else
             error("probetypewrong")
         end
@@ -99,6 +104,22 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
 
     end
 
+    # Apply content distortion if enabled (from E3)
+    if is_content_drift_between_study_and_test
+        # Apply distortion to probes with linear decay in probability
+        # The distortion probability starts high for the first probe and linearly decreases to 0
+        # after max_distortion_probes. This creates a strong distortion effect
+        # for early probes that gradually diminishes for later probes.
+        distorted_probes, original_probes = distort_probes_with_linear_decay(
+            probes, 
+            max_distortion_probes;  # Use constant from constants.jl
+            base_distortion_prob = base_distortion_prob,  # Use constant from constants.jl
+            g_word = g_word  # Use the constant defined in constants.jl
+        )
+        
+        # Replace probes with distorted versions for testing
+        probes = distorted_probes
+    end
 
     return probes
 end

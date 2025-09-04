@@ -56,6 +56,8 @@ Based on E3's strengthen_features! function
 """
 function strengthen_features!(target_features::Vector{Int}, source_features::Vector{Int}, p_recallFeatureStore::Float64, list_number::Int64; is_store_mismatch::Bool=is_store_mismatch, is_ctx::Bool=false)::Nothing
 
+    @assert length(target_features) == length(source_features) "target_features and source_features must have the same length: target=$(length(target_features)), source=$(length(source_features))"
+    
     for _ in 1:n_units_time_restore
         for i in eachindex(source_features)
             current_value = target_features[i]
@@ -151,4 +153,59 @@ function update_Z_feature_target_restoration!(word::Word, list_number::Int64)::N
         word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
     end
     return nothing
+end
+
+# =============================================================================
+# CONTENT DISTORTION FUNCTIONS (from E3)
+# =============================================================================
+
+"""
+Distort probe features with linear decrease in distortion probability from first to last probe.
+The distortion probability starts high for the first probe and linearly decreases to 0 after a specified number of probes.
+
+Distort probe content features
+
+Args:
+    probes: Vector of probes to potentially distort
+    max_distortion_probes: Number of probes until distortion probability reaches 0
+    base_distortion_prob: Base probability of distortion for the first probe
+    g_word: Geometric distribution parameter for generating new feature values
+
+Returns:
+    Tuple of (distorted_probes, original_probes) where original_probes are deep copies for reference
+"""
+function distort_probes_with_linear_decay(
+    probes::Vector{Probe}, 
+    max_distortion_probes::Int; 
+    base_distortion_prob::Float64 = 0.8,
+    g_word::Float64 = 0.3
+)::Tuple{Vector{Probe}, Vector{Probe}}
+    
+    # Create deep copies of original probes for reference
+    original_probes = deepcopy(probes)
+    distorted_probes = deepcopy(probes)
+    
+    # Calculate linear decrease in distortion probability
+    for i in eachindex(probes)
+        if i <= max_distortion_probes
+            # Linear decrease from base_distortion_prob to 0
+            current_prob = base_distortion_prob * (1 - (i - 1) / max_distortion_probes)
+            
+            # Apply distortion to each feature of the probe's word
+            if rand() < current_prob
+                # Distort each feature with the current probability
+                for j in eachindex(distorted_probes[i].image.word.word_features)
+                    if j <= w_word #only distort normal content features
+                        if rand() < current_prob
+                            # Generate new feature value using Geometric distribution
+                            distorted_probes[i].image.word.word_features[j] = rand(Geometric(g_word)) + 1
+                        end
+                    end
+                end
+            end
+        end
+        # For probes beyond max_distortion_probes, no distortion (probability = 0)
+    end
+    
+    return distorted_probes, original_probes
 end

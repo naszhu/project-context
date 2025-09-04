@@ -50,6 +50,10 @@ u_star_storeintest = u_star #for word # ratio of this and the next is key for T_
 adv_u_star_strengthen = 0.06# 0.06
 adv_c_strenghten = 0.1# 0.1
 
+# Additional advantage parameters from E3
+u_star_adv = 0  # 0.06 in E3
+c_adv = 0  # 0.06 in E3
+
 # u_star_context parameters
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
 #CHANGED, TODO: can change back firstL special
@@ -64,12 +68,12 @@ n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
 const c = 0.895 #coying parameter - 0.8 for context copying 
-const c_storeintest = LinRange(c, c, n_lists)  # Make this an array to match usage
-const c_context = LinRange(c, c, n_lists)
+const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
+const c_context = fill(c, n_lists)
 
 # E3 specific context copying parameters
-const c_context_c = LinRange(c, c, n_lists)  # copying parameter for changing context
-const c_context_un = LinRange(c, c, n_lists)  # copying parameter for unchanging context
+const c_context_c = fill(c, n_lists)  # copying parameter for changing context
+const c_context_un = fill(c, n_lists)  # copying parameter for unchanging context
 
 
 
@@ -89,11 +93,12 @@ is_test_changecontext2 = false #is testing only change context in final test
 
 # Restoration flags
 is_restore_initial = true
-is_UnchangeCtxDriftAndReinstate = true
+is_UnchangeCtxDriftAndReinstate = false  # Disable UC distortion (align with E3)
 const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
 is_restore_context = true # currently don't want to restore context features, only add new context features tarce
+is_content_drift_between_study_and_test = true  # Enable content distortion (from E3)
 
 # Stage control flags
 is_firststage = true;
@@ -160,7 +165,11 @@ n_driftStudyTest = round.(Int, ones(10) * 11) #7
 
 n_between_listchange = 18 #18 in E3 #25 originally 
 
-const p_driftAndListChange = 0.03; # studied prior list probability change 
+const p_driftAndListChange = 0.03; # studied prior list probability change
+
+# Content distortion parameters (from E3) for content drift between study and test
+max_distortion_probes = 7  # Number of probes until distortion probability reaches 0
+base_distortion_prob = 0.29  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 

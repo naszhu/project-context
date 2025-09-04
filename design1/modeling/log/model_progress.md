@@ -1,5 +1,52 @@
 # Model Progress
 
+## Commit [8470ac7](https://github.com/naszhu/REM_E3_model_fixed/commit/8470ac7) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:03:23  
+**Message:**
+```
+feat(model-e1): enhance content distortion and parameter integration
+
+- Added new advantage parameters `u_star_adv` and `c_adv` to align with E3 specifications.
+- Refactored context copying parameters to use `fill` instead of `LinRange` for consistency.
+- Introduced content distortion functions with linear decay in probability for probe features, enhancing the model's ability to simulate content drift between study and test phases.
+- Updated probe generation logic to apply content distortion based on new parameters, improving the realism of memory simulations.
+
+These changes aim to refine the modeling framework by integrating advanced distortion mechanisms and ensuring parameter consistency across the system.
+
+Closes #32
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/8470ac7_20250904_220323_plot1.png)  
+![](../plot_archive/8470ac7_20250904_220323_plot2.png)  
+
+## Commit [15d8c4a](https://github.com/naszhu/REM_E3_model_fixed/commit/15d8c4a) (branch: `sep-4-align`)
+**Time:** 2025-09-04 21:37:32  
+**Message:**
+```
+feat(model-e1): refactor feature restoration functions for clarity and functionality
+
+- Renamed `add_features_from_empty!` to `add_feature_during_restore!` for better clarity in purpose.
+- Introduced `strengthen_features!` function to enhance feature restoration logic during memory processes.
+- Updated calls to the new function names in `restore_intest` and `restore_intest_final` for consistency.
+- Improved handling of context and content features, ensuring proper integration of parameters during restoration.
+
+These changes aim to streamline the feature restoration process and improve the overall functionality of the memory restoration logic.
+
+Refs #33, #13
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/15d8c4a_20250904_213732_plot1.png)  
+![](../plot_archive/15d8c4a_20250904_213732_plot2.png)  
+
 ## Commit [dad2933](https://github.com/naszhu/REM_E3_model_fixed/commit/dad2933) (branch: `sep-4-align`)
 **Time:** 2025-09-04 21:13:35  
 **Message:**
