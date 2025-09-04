@@ -122,6 +122,10 @@ function simulate_rem()
                     end
                 end
             end
+            
+            # Update Z features between lists according to E3 rules
+            # All studied-only features updated: Z = 1 with probability KS
+            update_Z_features_between_lists!(image_pool)
             # list_change_context_features .= ifelse.(rand(length(list_change_context_features)) .<  p_driAndndListChange,rand(Geometric(g_context),length(list_change_context_features)) .+ 1,list_change_context_features)
             # println([i.value for i in list_change_context_features])
 

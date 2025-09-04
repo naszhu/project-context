@@ -107,6 +107,113 @@ end
 
 # h_j values will be calculated in main file after constants are loaded
 
+# =============================================================================
+# Z FEATURE HELPER FUNCTIONS (aligned with E3 implementation)
+# =============================================================================
+
+"""
+    get_Z_feature_value(word::Word) -> Int
+
+Get the Z feature value from a word's feature vector.
+Returns the Z feature (tested_before) value, or 0 if not present.
+"""
+function get_Z_feature_value(word::Word)::Int
+    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
+        return word.word_features[tested_before_feature_pos]
+    else
+        return 0  # Default to not tested before
+    end
+end
+
+"""
+    set_Z_feature_value!(word::Word, value::Int)
+
+Set the Z feature value in a word's feature vector.
+"""
+function set_Z_feature_value!(word::Word, value::Int)
+    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
+        word.word_features[tested_before_feature_pos] = value
+    end
+end
+
+"""
+    update_Z_feature_probabilistic!(word::Word, probability::Float64)
+
+Update the Z feature with given probability.
+If Z=0 (incorrect/missing), replace with probability.
+If Z=1, keep as 1.
+"""
+function update_Z_feature_probabilistic!(word::Word, probability::Float64)
+    if use_Z_feature
+        current_z = get_Z_feature_value(word)
+        if current_z == 0 && rand() < probability
+            set_Z_feature_value!(word, 1)
+        end
+        # If already 1, keep it as 1 (no change needed)
+    end
+end
+
+"""
+    update_Z_feature_target_restoration!(word::Word, list_number::Int)
+
+Update Z feature for targets during restoration according to E3 rules.
+Used for Case 2: RECALLED + Answer OLD - strengthening using KB probability.
+"""
+function update_Z_feature_target_restoration!(word::Word, list_number::Int)
+    if use_Z_feature
+        # Use KB probability for strengthening when recalled and answered OLD
+        update_Z_feature_probabilistic!(word, KB)
+    end
+end
+
+"""
+    update_Z_features_between_lists!(image_pool::Vector{EpisodicImage})
+
+Update Z features for all studied-only features between lists according to E3 rules.
+Uses KS probability for all studied features.
+"""
+function update_Z_features_between_lists!(image_pool::Vector{EpisodicImage})
+    if use_Z_feature
+        for image in image_pool
+            # Apply KS probability to all studied features between lists
+            update_Z_feature_probabilistic!(image.word, KS)
+        end
+    end
+end
+
+"""
+    update_Z_feature_for_decision!(word::Word, recalled::Bool, answer_old::Bool, is_target::Bool)
+
+Update Z feature based on probe evaluation decision according to E3 rules.
+Handles all four cases from the E3 specification.
+"""
+function update_Z_feature_for_decision!(word::Word, recalled::Bool, answer_old::Bool, is_target::Bool)
+    if !use_Z_feature
+        return
+    end
+    
+    if recalled && !answer_old
+        # Case 1: RECALLED + Answer NEW (confusing foil - list version used)
+        # For strengthening: If Z = 0, replace with KB; If Z = 1, keep as 1
+        # For adding new trace: Store Z = 1 with probability KB
+        update_Z_feature_probabilistic!(word, KB)
+        
+    elseif recalled && answer_old
+        # Case 2: RECALLED + Answer OLD
+        # Both strengthening and adding trace: Store Z = 1 with probability KB
+        update_Z_feature_probabilistic!(word, KB)
+        
+    elseif !recalled && !answer_old
+        # Case 3: NOT RECALLED + Answer NEW (really new foil)
+        # Add new trace with Z = 1 with probability KT
+        update_Z_feature_probabilistic!(word, KT)
+        
+    elseif !recalled && answer_old
+        # Case 4: NOT RECALLED + Answer OLD (target with no trace recalled)
+        # Add trace with Z = 1 with probability KT
+        update_Z_feature_probabilistic!(word, KT)
+    end
+end
 
 # =============================================================================
 # UTILITY FUNCTIONS

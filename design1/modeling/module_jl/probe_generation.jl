@@ -22,12 +22,16 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
         if probetypes[i] == :target # 
             target_word = pop!(words) #pop from pre-decided targets
             stdpos += 1
+            # Set Z=0 for targets according to E3 rules: Target probes (T, TN+1) → Z = 0
+            if use_Z_feature
+                set_Z_feature_value!(target_word, 0)
+            end
             # testpos = 
         elseif probetypes[i] == :foil  # Foil case
             foil_features = generate_features(Geometric(g_word), w_word)
-            # Add Z feature if enabled (like in study list generation)
+            # Add Z feature if enabled - E3 rules: Foil probes (F, FN+1) → Z = 0
             if use_Z_feature
-                push!(foil_features, 0)  # Z feature starts as 0 (not tested before)
+                push!(foil_features, 0)  # Z feature starts as 0 (not tested before) - correct per E3 rules
             end
             target_word = Word(randstring(8), foil_features, :T_foil, 0) #insert studypos 0
         else

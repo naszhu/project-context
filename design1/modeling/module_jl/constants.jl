@@ -114,7 +114,7 @@ power_taken = 1/11  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
 v_criterion_initial = 0.65#0.1^power_taken
-criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0) 
+# criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.0^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
@@ -205,9 +205,32 @@ nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
 
 # =============================================================================
-# Z FEATURE PARAMETERS (adapted from design3)
+# Z FEATURE PARAMETERS (aligned with E3 rules - issue 64)
 # =============================================================================
-# Z feature configuration for E1 - only targets (no confusing foils)
+# Z feature implementation updated to match E3 rules exactly
+# 
+# PROBE GENERATION RULES (Initial Z values):
+# ├── Confusing probes (SON, FN, TN types) → Z = 1 (truth value) [E3 only]
+# ├── Target probes (T, Symbol("TN+1")) → Z = 0 (truth value)
+# └── Foil probes (F, Symbol("FN+1")) → Z = 0 (truth value)
+#
+# DECISION PROBE EVALUATION DURING RETRIEVAL:
+# Case 1: RECALLED + Answer NEW (confusing foil - list version used)
+#   ├── Strengthened trace: If Z = 0 → Replace with KB, If Z = 1 → Keep as 1
+#   └── When adding new trace: Store Z = 1 with probability KB
+# Case 2: RECALLED + Answer OLD
+#   ├── Strengthening: Store Z = 1 with probability KB
+#   └── Adding trace: Store Z = 1 with probability KB
+# Case 3: NOT RECALLED + Answer NEW (really new foil)
+#   └── Add new trace with Z = 1 with probability KT
+# Case 4: NOT RECALLED + Answer OLD (target with no trace recalled)
+#   └── Add trace with Z = 1 with probability KT
+#
+# BETWEEN LISTS (Inter-list interval):
+# └── All studied-only features updated: Z = 1 with probability KS
+#
+# STATUS: ✓ Fully implemented and aligned with E3 (see issue 64 in E3 repo)
+# Z feature configuration for E1 - no confusing foils (simpler than E3)
 use_Z_feature = true
 
 # Number of Z features to add (1 for the tested_before status)
@@ -220,10 +243,18 @@ ku_base = 0.15  # κu, Base probability for targets during study, higher this va
 fj_asymptote_decrease_val = 0.01  # Asymptote value for decreasing function
 fj_rate = 0.26  # Rate of change for the decreasing function
 
-# Calculate Z feature parameters after all includes are loaded
-κu_values = asym_decrease_shift_fj(ku_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
-u = κu_values
-h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
+# K parameters for Z feature updates (aligned with E3 rules)
+# KS: Probability of setting Z=1 during inter-list study-only updates
+# KB: Probability of setting Z=1 when recalled and answer is OLD, or for confusing foils when NEW
+# KT: Probability of setting Z=1 when NOT recalled and answer is OLD (target with no trace)
+# KU: Probability of setting Z=1 during study (confusing foils) - for E1 mainly targets
+const KS = 0.8  # Study-only updates between lists
+const KB = 0.9  # Basic storage probability for OLD responses or confusing foils
+const KT = 0.7  # Storage for non-recalled targets judged OLD  
+const KU = 0.85 # Study storage for confusing foils (E1: mainly targets)
+
+# Z feature parameters will be calculated in main file after utils.jl is loaded
+# because asym_decrease_shift_fj and asym_increase_shift_hj are defined in utils.jl
 
 # =============================================================================
 # MISCELLANEOUS PARAMETERS

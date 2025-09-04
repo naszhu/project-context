@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [503f3ba](https://github.com/naszhu/REM_E3_model_fixed/commit/503f3ba) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:30:27  
+**Message:**
+```
+refactor(constants): relocate Z feature parameter calculations for improved organization
+
+- Moved the calculation of κu and h_j parameters to the constants.jl file after all includes are loaded, enhancing the clarity of parameter initialization.
+- Updated the base distortion probability from 0.29 to 0.35 to better align with model requirements.
+
+These changes aim to streamline the parameter setup process and improve the overall structure of the code.
+
+Refs #31
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/503f3ba_20250904_223027_plot1.png)  
+![](../plot_archive/503f3ba_20250904_223027_plot2.png)  
+
 ## Commit [0f1458d](https://github.com/naszhu/REM_E3_model_fixed/commit/0f1458d) (branch: `sep-4-align`)
 **Time:** 2025-09-04 22:21:05  
 **Message:**
