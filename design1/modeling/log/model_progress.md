@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [0f1458d](https://github.com/naszhu/REM_E3_model_fixed/commit/0f1458d) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:21:05  
+**Message:**
+```
+refactor(constants): move utility function to utils and clean up code
+
+- Removed the `asym_increase_shift` function from `constants.jl` and relocated it to `utils.jl` for better organization of utility functions.
+- This change aims to enhance code clarity and maintainability by consolidating utility functions in a dedicated file.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/0f1458d_20250904_222105_plot1.png)  
+![](../plot_archive/0f1458d_20250904_222105_plot2.png)  
+
 ## Commit [f1b0155](https://github.com/naszhu/REM_E3_model_fixed/commit/f1b0155) (branch: `sep-4-align`)
 **Time:** 2025-09-04 22:20:24  
 **Message:**

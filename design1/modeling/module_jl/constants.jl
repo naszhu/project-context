@@ -169,7 +169,7 @@ const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 7  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.29  # Base probability of distortion for the first probe 
+base_distortion_prob = 0.35  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
@@ -189,7 +189,7 @@ const n_finalprobs = 420;
 
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
 
-# E3 final test chunk parameters
+# E3 final test chunk parameters this part is wrong, M1 don't have this
 const total_probe_L1 = 15;  # total probes in list 1
 const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
@@ -216,9 +216,14 @@ const tested_before_feature_pos = w_word + n_z_features  # position of Z feature
 
 # Kappa parameters for Z feature - E1 only needs κu for targets since no confusing foils
 # Based on design3 κu values but adapted for E1's simpler structure
-ku_base = 0.15  # Base probability for targets during study, higher this value, lower the starting point of T
+ku_base = 0.15  # κu, Base probability for targets during study, higher this value, lower the starting point of T
 fj_asymptote_decrease_val = 0.01  # Asymptote value for decreasing function
 fj_rate = 0.26  # Rate of change for the decreasing function
+
+# Calculate Z feature parameters after all includes are loaded
+κu_values = asym_decrease_shift_fj(ku_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
+u = κu_values
+h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
 
 # =============================================================================
 # MISCELLANEOUS PARAMETERS

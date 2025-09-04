@@ -207,10 +207,6 @@ include("module_jl/probe_evaluation.jl")
 
 include("simulation.jl")
 
-# Calculate Z feature parameters after all includes are loaded
-κu_values = asym_decrease_shift_fj(ku_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
-const κu = κu_values
-h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
 
 Threads.nthreads()
 
