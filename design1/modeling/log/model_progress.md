@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [f1b0155](https://github.com/naszhu/REM_E3_model_fixed/commit/f1b0155) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:20:24  
+**Message:**
+```
+chore(.gitignore): add entries for parallel execution temporary directories
+
+- Updated .gitignore to include directories for temporary files and results generated during parallel execution, ensuring a cleaner repository by ignoring unnecessary files.
+
+This change aims to streamline the development process by preventing clutter from temporary execution artifacts.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/f1b0155_20250904_222024_plot1.png)  
+![](../plot_archive/f1b0155_20250904_222024_plot2.png)  
+
 ## Commit [1ca3cb4](https://github.com/naszhu/REM_E3_model_fixed/commit/1ca3cb4) (branch: `sep-4-align`)
 **Time:** 2025-09-04 22:17:04  
 **Message:**

@@ -240,14 +240,3 @@ println("prob of feature change after 4 lists $(1-(aa)^8)")
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 println("The actual u_star after nsteps is", 1-(1-u_star[1])^n_units_time)
 
-# =============================================================================
-# UTILITY FUNCTIONS
-# =============================================================================
-# Function to generate asymptotic increasing values over lists (from E3)
-function asym_increase_shift(start_at::Float64,
-                              how_much::Float64,
-                              how_fast::Float64,
-                              n::Int)::Vector{Float64}
-    @assert n ≥ 1
-    return [start_at + how_much * (1 - exp(-how_fast * (k))) for k in 0:n-1]
-end
