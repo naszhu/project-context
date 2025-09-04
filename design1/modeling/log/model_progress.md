@@ -1,5 +1,35 @@
 # Model Progress
 
+## Commit [31bdab1](https://github.com/naszhu/REM_E3_model_fixed/commit/31bdab1) (branch: `sep-4-align`)
+**Time:** 2025-09-05 01:28:49  
+**Message:**
+```
+feat(model-e1): update Z feature implementation and parameter calculations
+
+- Rearranged the loading order of utility and constant files in `JL_V6-6_2finalize.jl` and `run_parallel.sh` to ensure proper initialization of Z feature parameters.
+- Introduced new functions in `utils.jl` for managing Z feature values, enhancing the alignment with E3 rules for memory simulations.
+- Updated the logic for Z feature updates during restoration and probe generation to reflect E3 specifications, improving the accuracy of memory recall processes.
+- Adjusted the R plotting script to modify the y-axis limits for better visualization of accuracy metrics.
+
+These changes aim to refine the Z feature integration and enhance the overall functionality of the memory model.
+
+Refs #31, naszhu/REM_E3_model_fixed#64
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+- `design1/modeling/run_parallel.sh`  
+- `design1/modeling/simulation.jl`  
+- `design3/modeling`  
+![](../plot_archive/31bdab1_20250905_012849_plot1.png)  
+![](../plot_archive/31bdab1_20250905_012849_plot2.png)  
+
 ## Commit [503f3ba](https://github.com/naszhu/REM_E3_model_fixed/commit/503f3ba) (branch: `sep-4-align`)
 **Time:** 2025-09-04 22:30:27  
 **Message:**

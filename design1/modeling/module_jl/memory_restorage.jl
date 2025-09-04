@@ -93,9 +93,19 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
 
             strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
             
-            # Update Z feature during strengthening for targets in E1
-            if use_Z_feature && iimage_tostrenghten.word.type == :target
-                update_Z_feature_target_restoration!(iimage_tostrenghten.word, iprobe_img.list_number)
+            # Update Z feature during strengthening following E3 rules
+            if use_Z_feature
+                # Determine answer type based on decision_isold
+                answer_old = (decision_isold == 1)
+                recalled = true  # This is in the strengthening branch, so always recalled
+                
+                if !answer_old
+                    # Case 1: RECALLED + Answer NEW - use "failing the missing" approach
+                    update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
+                else
+                    # Case 2: RECALLED + Answer OLD - always set Z with κb probability
+                    update_Z_feature_target_restoration!(iimage_tostrenghten.word, iprobe_img.list_number)
+                end
             end
         else
             # error("should strenghen here")
@@ -206,9 +216,18 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
             strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
             
             # Update Z feature during strengthening according to E3 rules
-            # Case 2: RECALLED + Answer OLD - both strengthening and adding trace use KB
             if use_Z_feature
-                update_Z_feature_target_restoration!(iimage_tostrenghten.word, iprobe_img.list_number)
+                # Determine answer type based on decision_isold
+                answer_old = (decision_isold == 1)
+                recalled = true  # This is in the strengthening branch, so always recalled
+                
+                if !answer_old
+                    # Case 1: RECALLED + Answer NEW - use "failing the missing" approach
+                    update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
+                else
+                    # Case 2: RECALLED + Answer OLD - always set Z with κb probability
+                    update_Z_feature_target_restoration!(iimage_tostrenghten.word, iprobe_img.list_number)
+                end
             end
         end
 
@@ -224,7 +243,7 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
             recalled = (odds > recall_odds_threshold)
             answer_old = (decision_isold == 1)
             is_target = (iprobe_img.word.type == :T_target)
-            update_Z_feature_for_decision!(iimage_toadd.word, recalled, answer_old, is_target)
+            update_Z_feature_for_decision!(iimage_toadd.word, recalled, answer_old, is_target, iprobe_img.list_number)
         end
         
         push!(image_pool, iimage_toadd)

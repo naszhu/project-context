@@ -238,23 +238,44 @@ n_z_features = 1
 const tested_before_feature_pos = w_word + n_z_features  # position of Z feature (24)
 
 # Kappa parameters for Z feature - E1 only needs κu for targets since no confusing foils
-# Based on design3 κu values but adapted for E1's simpler structure
-ku_base = 0.15  # κu, Base probability for targets during study, higher this value, lower the starting point of T
+# Kappa parameters for Z feature (aligned with E3 - naszhu/REM_E3_model_fixed#64)
+# κs for study only features between lists
+# κu for study only confusing foil (E1: mainly targets) 
+# κb for study and tested confusing foil
+# κt for test only confusing foil
+
+# Base kappa values (same as E3)
+ku_base = 0.15  # study，higher this value, lower the starting point of T
+ks_base = 0.45  # SOn (study only), lower the value, higher the starting point CF  
+kb_base = 0.45  # Tn (study and test)
+kt_base = 0.45  # Fn (test only)
+
+# Asymptotic decrease parameters (same as E3)
 fj_asymptote_decrease_val = 0.01  # Asymptote value for decreasing function
 fj_rate = 0.26  # Rate of change for the decreasing function
 
-# K parameters for Z feature updates (aligned with E3 rules)
-# KS: Probability of setting Z=1 during inter-list study-only updates
-# KB: Probability of setting Z=1 when recalled and answer is OLD, or for confusing foils when NEW
-# KT: Probability of setting Z=1 when NOT recalled and answer is OLD (target with no trace)
-# KU: Probability of setting Z=1 during study (confusing foils) - for E1 mainly targets
-const KS = 0.8  # Study-only updates between lists
-const KB = 0.9  # Basic storage probability for OLD responses or confusing foils
-const KT = 0.7  # Storage for non-recalled targets judged OLD  
-const KU = 0.85 # Study storage for confusing foils (E1: mainly targets)
+# Asymptotic increase parameters (same as E3)
+hj_asymptote_increase_val = 0.4
+hj_rate = 0.85
+hj_base = 0.6  # higher this value higher CF starting point
 
-# Z feature parameters will be calculated in main file after utils.jl is loaded
-# because asym_decrease_shift_fj and asym_increase_shift_hj are defined in utils.jl
+# Include utils.jl to get asymptotic functions
+include("utils.jl")
+
+# κ parameter arrays (aligned with E3 - issue 64)
+# These are calculated directly like in E3
+h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
+# the following equals to ks*f(j), 
+# κ are used instead of k for a simplification for now for easier modification of the code
+κu_values = asym_decrease_shift_fj(ku_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1) 
+κs_values = 1 .-asym_decrease_shift_fj(ks_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
+κb_values = 1 .-asym_decrease_shift_fj(kb_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
+κt_values = 1 .-asym_decrease_shift_fj(kt_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
+
+const κu = κu_values 
+const κs = κs_values  
+const κb = κb_values  
+const κt = κt_values
 
 # =============================================================================
 # MISCELLANEOUS PARAMETERS
@@ -275,4 +296,5 @@ aa = (1 - (1 - p_driftAndListChange)^n_between_listchange);
 println("prob of feature change after 4 lists $(1-(aa)^8)")
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 println("The actual u_star after nsteps is", 1-(1-u_star[1])^n_units_time)
+
 

@@ -196,11 +196,11 @@ include("module_jl/utils.jl")
 
 # Calculate parameters that depend on functions in utils.jl
 criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0)
-κu_values = asym_decrease_shift_fj(ku_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
-const κu = κu_values
-h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
+
+# κ parameters and h_j are calculated in constants.jl
 
 include("module_jl/feature_updates.jl")
+# include("module_jl/z_feature_functions.jl")
 
 include("module_jl/feature_generation.jl")
 
