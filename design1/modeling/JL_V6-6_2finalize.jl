@@ -192,9 +192,8 @@ using Distributions: Categorical
 
 include("module_jl/utils.jl")
 include("module_jl/constants.jl") 
-include("module_jl/feature_updates.jl")
-
 include("module_jl/data_structures.jl")
+include("module_jl/feature_updates.jl")
 
 include("module_jl/feature_generation.jl")
 
@@ -207,6 +206,11 @@ include("module_jl/probe_generation.jl")
 include("module_jl/probe_evaluation.jl")
 
 include("simulation.jl")
+
+# Calculate Z feature parameters after all includes are loaded
+κu_values = asym_decrease_shift_fj(ku_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
+const κu = κu_values
+h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
 
 Threads.nthreads()
 
@@ -253,7 +257,7 @@ csv_path3 = "allresf.csv"
 CSV.write(csv_path1, DF)
 CSV.write(csv_path2, all_results)
 
-run(`Rscript design1/modeling/R_ploting/R_plots.r`)git
+run(`Rscript R_ploting/R_plots.r`)
 run(`bash -c "eog plot1.png & disown"`)
 
 if is_finaltest

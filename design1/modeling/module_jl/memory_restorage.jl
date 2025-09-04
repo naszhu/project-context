@@ -91,7 +91,12 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
         if is_strengthen_contextandcontent #true
             restore_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore)
 
-            restore_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore,is_ctx=true)
+            restore_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, c_context_c[1], g_context, cu=c_context_c[1], is_ctx=true)
+            
+            # Update Z feature during strengthening for targets in E1
+            if use_Z_feature && iimage_tostrenghten.word.type == :target
+                update_Z_feature_target_restoration!(iimage_tostrenghten.word, iprobe_img.list_number)
+            end
         else
             # error("should strenghen here")
         end
@@ -198,7 +203,12 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
         if is_strengthen_contextandcontent
             restore_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore)
 
-            restore_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore,is_ctx=true)
+            restore_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, c_context_c[1], g_context, cu=c_context_c[1], is_ctx=true)
+            
+            # Update Z feature during strengthening for targets in E1 (final test)
+            if use_Z_feature && iimage_tostrenghten.word.type == :target
+                update_Z_feature_target_restoration!(iimage_tostrenghten.word, iprobe_img.list_number)
+            end
         end
 
         !is_restore_context ? error("context restored in initial is not well written this part") : nothing

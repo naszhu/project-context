@@ -35,38 +35,97 @@ function add_features_from_empty!(target_features::Vector{Int}, probe_features::
 end
 
 """
-Restore features from source to target with probability p_recallFeatureStore
+Restore features from source to target during memory restoration
+Based on add_feature_during_restore! function logic
 """
-function restore_features!(target_features::Vector{Int}, source_features::Vector{Int}, p_recallFeatureStore::Float64; is_store_mismatch::Bool=is_store_mismatch, is_ctx::Bool=false)::Nothing
+function restore_features!(target_features::Vector{Int}, probe_features::Vector{Int}, u_star::Float64, cc::Float64=c_context_c[1], g_param::Float64=g_context; u_adv::Float64=0.0, cu::Float64=0.0, is_ctx::Bool=false)::Nothing
 
-    
-    for _ in 1:n_units_time_restore
-        for i in eachindex(source_features)
-            current_value = target_features[i]
-            source_value = source_features[i]
+    # Use safe bounds checking instead of assertion
+    max_index = min(length(target_features), length(probe_features))
+    is_content = cu === 0.0 # if cu is 0, then this is a content
 
-            if is_ctx
-                @assert length(target_features)==nU+nC "not same length"
-                if i>nU # for CC
-                    c_usenow = c_context_c[1] #, perfect storage
-                    u_star_now = u_star_context[1] + u_advFoilInitialT
-                else # for unchanging 
-                    c_usenow = c_context_c[1]
-                    u_star_now = u_star_context[1] + u_advFoilInitialT 
+    for i in 1:max_index
+        # Special handling for Z feature (last feature) - only if enabled
+        # skip the Z feature here, this will be specifically handled later
+        if use_Z_feature && (i === tested_before_feature_pos) && is_content
+            # Z feature: skip here, will be handled specifically later
+        else # when feature i is not Z feature, or all other else situations
+            # Normal features: use existing geometric distribution logic
+
+            if is_content # cu == 0.0? this means when this is a content (so no cu will be inputed)
+                c_param = cc
+            else     
+                if i > nU # FIXME: fast workaround here
+                    c_param = cc
+                else
+                    c_param = cu
                 end
-            else #if content
-                c_usenow = c # c is a scalar, not an array
-                u_star_now = u_star[1] + u_advFoilInitialT 
             end
             
-            #is_store_mismatch is false now so no mismatch stored
-            if (current_value === 0) 
-
-                target_features[i] = rand() < u_star_now+adv_u_star_strengthen ? (rand() < c_usenow+adv_c_strenghten ? source_value : rand(Geometric(g_context)) + 1) : current_value
-                # target_features[i] = rand() < u_star_now ? (rand() < c_usenow ? source_value : rand(Geometric(g_context)) + 1) : current_value
+            j = target_features[i]
+            if j === 0
+                target_features[i] = rand() < (u_star + u_adv) ? (rand() < c_param ? probe_features[i] : rand(Geometric(g_param)) + 1) : j
             end
+        end
+    end
 
-            
-        end 
-    end # for _ in 1:n_units_time_restore
+    return nothing
+end
+
+# =============================================================================
+# Z FEATURE UPDATE FUNCTIONS (adapted from design3)
+# =============================================================================
+
+"""
+Update Z feature during study for targets in E1
+Since E1 has no confusing foils, only κu is needed for targets
+"""
+function update_Z_feature_study!(word::Word, list_number::Int64)::Nothing
+    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
+        # κ parameters start from list 2, so κ[1] = list 2, κ[2] = list 3, etc.
+        # For list 1, use base κu value (no asymptotic effect yet)
+        if list_number === 1
+            κ_value = ku_base
+        else
+            κ_index = list_number - 1
+            κ_value = κu[κ_index]
+        end
+        
+        # Set Z feature value based on κu probability
+        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
+    end
+    return nothing
+end
+
+"""
+Get Z feature value from word (helper function)
+"""
+function get_Z_feature_value(word::Word)::Int64
+    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
+        return word.word_features[tested_before_feature_pos]
+    else
+        return 0
+    end
+end
+
+"""
+Update Z feature during restoration for targets in E1
+Only targets need updating since E1 has no confusing foils
+
+I don't know if this is needed for experiment 1, but this function keep for now, can comment out where calls this function later
+"""
+function update_Z_feature_target_restoration!(word::Word, list_number::Int64)::Nothing
+    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
+        # Use same κu logic as study
+        if list_number === 1
+            κ_value = ku_base
+        else
+            κ_index = list_number - 1
+            κ_value = κu[κ_index]
+        end
+        
+        # Update Z feature during restoration
+        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
+    end
+    return nothing
 end

@@ -121,25 +121,25 @@ p_recallFeatureStore = 0.85;
 # E1 list origin parameters for switching from familiarity to list origin recall
 # These help participants focus on current list context as memory accumulates
 
-# Base probabilities for switching to list origin recall
-z_base_T = 0.04  # Base probability for targets (lower than E3 since no confusing foils)
-z_base_F = 0.40  # Base probability for foils (lower than E3 since no confusing foils)
+# # Base probabilities for switching to list origin recall
+# z_base_T = 0.04  # Base probability for targets (lower than E3 since no confusing foils)
+# z_base_F = 0.40  # Base probability for foils (lower than E3 since no confusing foils)
 
-# How much the z values increase over lists
-how_much_z_T = 0.07  # How much target z increases (less than E3's 0.16)
-how_much_z_F = 0.07  # How much foil z increases (less than E3's 0.3)
+# # How much the z values increase over lists
+# how_much_z_T = 0.07  # How much target z increases (less than E3's 0.16)
+# how_much_z_F = 0.07  # How much foil z increases (less than E3's 0.3)
 
-# How fast the z values increase over lists  
-how_fast_z_T = 0.6   # How fast target z increases (less than E3's 0.8)
-how_fast_z_F = 0.3   # How fast foil z increases (less than E3's 0.4)
+# # How fast the z values increase over lists  
+# how_fast_z_T = 0.6   # How fast target z increases (less than E3's 0.8)
+# how_fast_z_F = 0.3   # How fast foil z increases (less than E3's 0.4)
 
-# Generate z values that increase over lists for E1
-z_time_p_val_E1 = Dict(
-    :T => asym_increase_shift(z_base_T, how_much_z_T, how_fast_z_T, n_lists-1),
-    :F => asym_increase_shift(z_base_F, how_much_z_F, how_fast_z_F, n_lists-1)
-)
+# # Generate z values that increase over lists for E1
+# z_time_p_val_E1 = Dict(
+#     :T => asym_increase_shift(z_base_T, how_much_z_T, how_fast_z_T, n_lists-1),
+#     :F => asym_increase_shift(z_base_F, how_much_z_F, how_fast_z_F, n_lists-1)
+# )
 
-println("E1 z_time_p_val: ", z_time_p_val_E1)
+# println("E1 z_time_p_val: ", z_time_p_val_E1)
 
 # =============================================================================
 # CONTEXT TESTING PARAMETERS  
@@ -194,6 +194,22 @@ ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchangi
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
+
+# =============================================================================
+# Z FEATURE PARAMETERS (adapted from design3)
+# =============================================================================
+# Z feature configuration for E1 - only targets (no confusing foils)
+use_Z_feature = true
+
+# Number of Z features to add (1 for the tested_before status)
+n_z_features = 1
+const tested_before_feature_pos = w_word + n_z_features  # position of Z feature (24)
+
+# Kappa parameters for Z feature - E1 only needs κu for targets since no confusing foils
+# Based on design3 κu values but adapted for E1's simpler structure
+ku_base = 0.15  # Base probability for targets during study, higher this value, lower the starting point of T
+fj_asymptote_decrease_val = 0.01  # Asymptote value for decreasing function
+fj_rate = 0.26  # Rate of change for the decreasing function
 
 # =============================================================================
 # MISCELLANEOUS PARAMETERS

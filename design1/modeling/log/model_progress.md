@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [853d96c](https://github.com/naszhu/REM_E3_model_fixed/commit/853d96c) (branch: `sep-4-align`)
+**Time:** 2025-09-04 00:57:22  
+**Message:**
+```
+docs(model-e1): correct command syntax in R script execution
+
+- Removed an extraneous 'git' from the command that runs the R script for plotting.
+- Ensured the command syntax is clean and functional for proper execution.
+
+This change aims to enhance the reliability of the script execution process in the modeling workflow.
+```
+**Changed Files:**
+- `.vscode/settings.json`  
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/853d96c_20250904_005722_plot1.png)  
+![](../plot_archive/853d96c_20250904_005722_plot2.png)  
+
 ## Commit [1476220](https://github.com/naszhu/REM_E3_model_fixed/commit/1476220) (branch: `main`)
 **Time:** 2025-08-26 01:37:32  
 **Message:**
