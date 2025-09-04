@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [b3e5188](https://github.com/naszhu/REM_E3_model_fixed/commit/b3e5188) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:03:30  
+**Message:**
+```
+feat(model-e1): enhance content distortion and parameter integration
+
+- Added new advantage parameters `u_star_adv` and `c_adv` to align with E3 specifications.
+- Refactored context copying parameters to use `fill` instead of `LinRange` for consistency.
+- Introduced content distortion functions with linear decay in probability for probe features, enhancing the model's ability to simulate content drift between study and test phases.
+- Updated probe generation logic to apply content distortion based on new parameters, improving the realism of memory simulations.
+
+These changes aim to refine the modeling framework by integrating advanced distortion mechanisms and ensuring parameter consistency across the system.
+
+Closes #32
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/b3e5188_20250904_220330_plot1.png)  
+![](../plot_archive/b3e5188_20250904_220330_plot2.png)  
+
 ## Commit [8470ac7](https://github.com/naszhu/REM_E3_model_fixed/commit/8470ac7) (branch: `sep-4-align`)
 **Time:** 2025-09-04 22:03:23  
 **Message:**

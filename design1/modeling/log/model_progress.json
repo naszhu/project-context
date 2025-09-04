@@ -1,5 +1,20 @@
 [
   {
+    "commit": "b3e5188",
+    "branch": "sep-4-align",
+    "message": "feat(model-e1): enhance content distortion and parameter integration",
+    "timestamp": "2025-09-04 22:03:30",
+    "plot1": "plot_archive/b3e5188_20250904_220330_plot1.png",
+    "plot2": "plot_archive/b3e5188_20250904_220330_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
     "commit": "8470ac7",
     "branch": "sep-4-align",
     "message": "feat(model-e1): enhance content distortion and parameter integration",
