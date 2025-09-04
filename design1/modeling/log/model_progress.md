@@ -1,5 +1,36 @@
 # Model Progress
 
+## Commit [2c527a0](https://github.com/naszhu/REM_E3_model_fixed/commit/2c527a0) (branch: `sep-4-align`)
+**Time:** 2025-09-05 02:43:29  
+**Message:**
+```
+fix(model-e1): refine Z feature calculations and update restoration logic
+
+The previous one was wrong
+
+- Consolidated the calculation of κ parameters in `constants.jl`, ensuring they are computed after loading necessary modules.
+- Enhanced the Z feature update functions in `feature_updates.jl` to align with E3 specifications, improving the accuracy of memory recall processes.
+- Updated the logic in `memory_restorage.jl` to handle Z feature updates during strengthening, reflecting the new probabilistic approaches.
+- Removed redundant utility functions from `utils.jl`, streamlining the codebase and improving maintainability.
+
+These changes aim to enhance the integration and functionality of Z features within the memory model, ensuring better alignment with E3 rules.
+
+Refs #31, naszhu/REM_E3_model_fixed#64
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+- `design1/modeling/run_parallel.sh`  
+- `design1/modeling/simulation.jl`  
+- `design3/modeling`  
+![](../plot_archive/2c527a0_20250905_024329_plot1.png)  
+![](../plot_archive/2c527a0_20250905_024329_plot2.png)  
+
 ## Commit [31bdab1](https://github.com/naszhu/REM_E3_model_fixed/commit/31bdab1) (branch: `sep-4-align`)
 **Time:** 2025-09-05 01:28:49  
 **Message:**

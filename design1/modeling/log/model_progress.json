@@ -1,5 +1,25 @@
 [
   {
+    "commit": "2c527a0",
+    "branch": "sep-4-align",
+    "message": "fix(model-e1): refine Z feature calculations and update restoration logic",
+    "timestamp": "2025-09-05 02:43:29",
+    "plot1": "plot_archive/2c527a0_20250905_024329_plot1.png",
+    "plot2": "plot_archive/2c527a0_20250905_024329_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/utils.jl",
+      "design1/modeling/run_parallel.sh",
+      "design1/modeling/simulation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "31bdab1",
     "branch": "sep-4-align",
     "message": "feat(model-e1): update Z feature implementation and parameter calculations",

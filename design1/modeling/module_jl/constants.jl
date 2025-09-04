@@ -1,7 +1,7 @@
 
 
-is_finaltest = false
-n_simulations = is_finaltest ? 200 : 2000;
+is_finaltest = true
+n_simulations = is_finaltest ? 200 : 3000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -67,7 +67,8 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-const c = 0.895 #coying parameter - 0.8 for context copying 
+nnnow = 0.70 #lower this value, the differences between T and F bigger at beginning, smaller later
+const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
 
@@ -155,21 +156,25 @@ context_tau = 100 #foil odds should lower than this
 # =============================================================================
 # DRIFT AND CHANGE PARAMETERS
 # =============================================================================
+
+# Additional E3 parameters
+κ_update_between_list = 0.0;
+LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well. 
-p_reinstate_rate = 0.1 #0.4 #prob of reinstatement
+p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 11) #7
+n_driftStudyTest = round.(Int, ones(10) * 12) #7
 
-n_between_listchange = 18 #18 in E3 #25 originally 
+n_between_listchange = 20 #20 in E3 #25 originally 
 
 const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 7  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.35  # Base probability of distortion for the first probe 
+base_distortion_prob = 0.29  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
