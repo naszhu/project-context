@@ -1,5 +1,26 @@
 [
   {
+    "commit": "dad2933",
+    "branch": "sep-4-align",
+    "message": "feat(model-e1): implement Z feature parameters and update restoration logic",
+    "timestamp": "2025-09-04 21:13:35",
+    "plot1": "plot_archive/dad2933_20250904_211335_plot1.png",
+    "plot2": "plot_archive/dad2933_20250904_211335_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_generation.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/memory_storage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/utils.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "853d96c",
     "branch": "sep-4-align",
     "message": "docs(model-e1): correct command syntax in R script execution",

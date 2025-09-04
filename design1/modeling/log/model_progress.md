@@ -1,5 +1,36 @@
 # Model Progress
 
+## Commit [dad2933](https://github.com/naszhu/REM_E3_model_fixed/commit/dad2933) (branch: `sep-4-align`)
+**Time:** 2025-09-04 21:13:35  
+**Message:**
+```
+feat(model-e1): implement Z feature parameters and update restoration logic
+
+The first working version but haven't checked through yet
+- Introduced Z feature parameters and logic for E1, including κu values and associated functions for feature updates during study and restoration.
+- Updated the restore_features! function to handle Z features specifically, ensuring proper integration into the memory restoration process.
+- Enhanced the probe evaluation logic to incorporate Z feature decisions, improving the model's accuracy in distinguishing between old and new items.
+- Adjusted the memory storage to accommodate Z features, ensuring compatibility with existing structures.
+
+These changes aim to enhance the modeling framework by integrating new features that improve recall accuracy and overall performance in simulations.
+
+Refs #31
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_generation.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/memory_storage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+- `design3/modeling`  
+![](../plot_archive/dad2933_20250904_211335_plot1.png)  
+![](../plot_archive/dad2933_20250904_211335_plot2.png)  
+
 ## Commit [853d96c](https://github.com/naszhu/REM_E3_model_fixed/commit/853d96c) (branch: `sep-4-align`)
 **Time:** 2025-09-04 00:57:22  
 **Message:**
