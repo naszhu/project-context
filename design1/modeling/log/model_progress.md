@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [8084edc](https://github.com/naszhu/REM_E3_model_fixed/commit/8084edc) (branch: `sep-4-align`)
+**Time:** 2025-09-05 02:53:37  
+**Message:**
+```
+finetune(model-e1): match simulation parameters
+
+- Set `is_finaltest` to true and increased `n_simulations` to 3000 for enhanced testing.
+- Adjusted the copying parameter `c` to align with new E3 specifications, lowering it to 0.70.
+- Updated `p_reinstate_rate` to 0.2 and modified `n_driftStudyTest` and `n_between_listchange` for better alignment with E3 requirements.
+- Reduced `base_distortion_prob` to 0.29 to improve content distortion accuracy.
+
+These changes aim to enhance the simulation's fidelity and ensure better alignment with the E3 model specifications.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/8084edc_20250905_025337_plot1.png)  
+![](../plot_archive/8084edc_20250905_025337_plot2.png)  
+
 ## Commit [2c527a0](https://github.com/naszhu/REM_E3_model_fixed/commit/2c527a0) (branch: `sep-4-align`)
 **Time:** 2025-09-05 02:43:29  
 **Message:**

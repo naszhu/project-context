@@ -313,10 +313,83 @@ function update_Z_feature_target_restoration!(word::Word, list_number::Int64)::N
     return nothing
 end
 
+
 """
-Update Z feature for decision probe evaluation.
-Calls appropriate function based on recall status and answer.
+Update Z feature for recalled+new case when adding new trace.
+Store Z = 1 with probability KB
 """
+function update_Z_feature_recalled_new_add_trace!(word::Word, list_number::Int64)::Nothing
+    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
+        # κ parameters: for list 1 use base, else use array
+        if list_number === 1 || list_number === 0
+            κ_value = kb_base
+        else
+            κ_index = list_number - 1
+            κ_value = κb[κ_index]
+        end
+        
+        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
+    end
+    return nothing
+end
+
+"""
+Update Z feature for recalled+old case.
+Store Z = 1 with probability KB (both strengthening and adding trace)
+"""
+function update_Z_feature_recalled_old!(word::Word, list_number::Int64)::Nothing
+    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
+        # κ parameters: for list 1 use base, else use array
+        if list_number === 1 || list_number === 0
+            κ_value = kb_base
+        else
+            κ_index = list_number - 1
+            κ_value = κb[κ_index]
+        end
+        
+        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
+    end
+    return nothing
+end
+
+"""
+Update Z feature for not recalled+new case (really new foil).
+Add new trace with Z = 1 with probability KT
+"""
+function update_Z_feature_not_recalled_new!(word::Word, list_number::Int64)::Nothing
+    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
+        # κ parameters: for list 1 use base, else use array
+        if list_number === 1 || list_number === 0
+            κ_value = kt_base
+        else
+            κ_index = list_number - 1
+            κ_value = κt[κ_index]
+        end
+        
+        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
+    end
+    return nothing
+end
+
+"""
+Update Z feature for not recalled+old case (target with no trace recalled).
+Add trace with Z = 1 with probability KB
+"""
+function update_Z_feature_not_recalled_old!(word::Word, list_number::Int64)::Nothing
+    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
+        # κ parameters: for list 1 use base, else use array
+        if list_number === 1 || list_number === 0
+            κ_value = kb_base
+        else
+            κ_index = list_number - 1
+            κ_value = κb[κ_index]
+        end
+        
+        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
+    end
+    return nothing
+end
+
 function update_Z_feature_for_decision!(word::Word, recalled::Bool, answer_old::Bool, is_target::Bool, list_number::Int64)::Nothing
     if recalled && !answer_old
         # Case 1: RECALLED + Answer NEW (confusing foil)

@@ -267,7 +267,12 @@ function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::S
 
             elseif probe[iprobe]==:F
 
-                global img = EpisodicImage(Word(randstring(8), rand(Geometric(g_word), w_word) .+ 1, :F, 0), crrcontext, 0, 0)
+                foil_features = rand(Geometric(g_word), w_word) .+ 1
+                # Add Z feature if enabled - E3 rules: Foil probes (F, FN+1) → Z = 0
+                if use_Z_feature
+                    push!(foil_features, 0)  # Z feature starts as 0 (not tested before)
+                end
+                global img = EpisodicImage(Word(randstring(8), foil_features, :F, 0), crrcontext, 0, 0)
                 # for F, the list_number will always be only [1]
                 push!(probes, Probe(img, :F, iprobe))  # Generate a new foil
             else

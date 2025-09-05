@@ -1,5 +1,18 @@
 [
   {
+    "commit": "8084edc",
+    "branch": "sep-4-align",
+    "message": "finetune(model-e1): match simulation parameters",
+    "timestamp": "2025-09-05 02:53:37",
+    "plot1": "plot_archive/8084edc_20250905_025337_plot1.png",
+    "plot2": "plot_archive/8084edc_20250905_025337_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "2c527a0",
     "branch": "sep-4-align",
     "message": "fix(model-e1): refine Z feature calculations and update restoration logic",
