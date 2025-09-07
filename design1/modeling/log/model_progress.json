@@ -1,5 +1,19 @@
 [
   {
+    "commit": "6f385e6",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): back to reasonable copy and criterion parameters",
+    "timestamp": "2025-09-07 18:56:53",
+    "plot1": "plot_archive/6f385e6_20250907_185653_plot1.png",
+    "plot2": "plot_archive/6f385e6_20250907_185653_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "447b475",
     "branch": "sep-7-test",
     "message": "explore(model-e1): update constants for improved model alignment",

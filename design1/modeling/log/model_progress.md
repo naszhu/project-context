@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [6f385e6](https://github.com/naszhu/REM_E3_model_fixed/commit/6f385e6) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:56:53  
+**Message:**
+```
+explore(model-e1): back to reasonable copy and criterion parameters
+
+- Commented out the y-axis limits in R plotting to allow for dynamic scaling.
+- Decreased `nnnow` from 0.94 to 0.8 for better parameter alignment.
+- Increased `v_criterion_initial` from 0.001 to 0.05 to enhance initial criterion calculation.
+
+These changes aim to improve the model's accuracy and visualization clarity.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/6f385e6_20250907_185653_plot1.png)  
+![](../plot_archive/6f385e6_20250907_185653_plot2.png)  
+
 ## Commit [447b475](https://github.com/naszhu/REM_E3_model_fixed/commit/447b475) (branch: `sep-7-test`)
 **Time:** 2025-09-07 18:46:55  
 **Message:**

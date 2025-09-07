@@ -1,7 +1,7 @@
 
 
 is_finaltest = false
-n_simulations = is_finaltest ? 200 : 500;
+n_simulations = is_finaltest ? 200 : 2000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -114,7 +114,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.05^power_taken
+v_criterion_initial = 0.14^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.0^power_taken;
@@ -163,7 +163,7 @@ LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well. 
-p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
+p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
 n_driftStudyTest = round.(Int, ones(10) * 12) #7
@@ -250,7 +250,7 @@ const tested_before_feature_pos = w_word + n_z_features  # position of Z feature
 # κt for test only confusing foil
 
 # Base kappa values (same as E3)
-ku_base = 0.15 # study，higher this value, lower the starting point of T
+ku_base = 0.05 # study，higher this value, lower the starting point of T
 ks_base = 0.47 #SOn (study only), lower the value, higher the starting point CF
 kb_base = 0.55 #Tn (study and test)
 kt_base = 0.65 #Fn (test only)
@@ -261,7 +261,7 @@ fj_rate = 0.26  # Rate of change for the decreasing function
 
 # Asymptotic increase parameters (same as E3)
 hj_asymptote_increase_val = 0.43
-hj_rate = 0.85
+hj_rate = 1.2
 hj_base = 0.4; #higher this value higher CF starting point
 
 # Include utils.jl to get asymptotic functions
