@@ -260,9 +260,9 @@ fj_asymptote_decrease_val = 0.01   # Asymptote value for decreasing function
 fj_rate = 0.26  # Rate of change for the decreasing function
 
 # Asymptotic increase parameters (same as E3)
-hj_asymptote_increase_val = 0.43
+hj_asymptote_increase_val = 0.8
 hj_rate = 1.2
-hj_base = 0.4; #higher this value higher CF starting point
+hj_base = 0.2; #higher this value higher CF starting point
 
 # Include utils.jl to get asymptotic functions
 include("utils.jl")

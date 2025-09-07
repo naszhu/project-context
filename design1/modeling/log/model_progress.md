@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [3061afe](https://github.com/naszhu/REM_E3_model_fixed/commit/3061afe) (branch: `sep-7-test`)
+**Time:** 2025-09-07 19:26:29  
+**Message:**
+```
+finetune(model-e1): small criterion reinstate rate change
+
+- Increased `n_simulations` from 500 to 2000 for more robust testing.
+- Adjusted `v_criterion_initial` from 0.05 to 0.14 to improve initial criterion calculations.
+- Modified `p_reinstate_rate` from 0.2 to 0.3 for better parameter alignment.
+- Enabled y-axis limits in R plotting for improved visualization of accuracy metrics.
+
+These changes aim to enhance model performance and visualization clarity.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/3061afe_20250907_192629_plot1.png)  
+![](../plot_archive/3061afe_20250907_192629_plot2.png)  
+
 ## Commit [6f385e6](https://github.com/naszhu/REM_E3_model_fixed/commit/6f385e6) (branch: `sep-7-test`)
 **Time:** 2025-09-07 18:56:53  
 **Message:**
