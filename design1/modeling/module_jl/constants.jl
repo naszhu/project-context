@@ -111,10 +111,10 @@ is_onlytest_currentlist = false; #this is discarded currently
 # =============================================================================
 # criterion_initial = LinRange(1.5, 0.3, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
 # criterion_initial is already a 2D array: [test_position, list_number]
-power_taken = 1/11  # raise to 1/11 power for sampling
+power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.65#0.1^power_taken
+v_criterion_initial = 0.1673#0.1^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.0^power_taken;

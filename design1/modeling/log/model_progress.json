@@ -1,5 +1,18 @@
 [
   {
+    "commit": "4b697f6",
+    "branch": "sep-7-test",
+    "message": "fix(rshell): The plot saving path is wrong",
+    "timestamp": "2025-09-07 16:18:36",
+    "plot1": "plot_archive/4b697f6_20250907_161836_plot1.png",
+    "plot2": "plot_archive/4b697f6_20250907_161836_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
     "commit": "f72a1e0",
     "branch": "sep-7-test",
     "message": "fix(shell): fix the bug in data processing",

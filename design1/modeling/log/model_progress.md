@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [4b697f6](https://github.com/naszhu/REM_E3_model_fixed/commit/4b697f6) (branch: `sep-7-test`)
+**Time:** 2025-09-07 16:18:36  
+**Message:**
+```
+fix(rshell): The plot saving path is wrong
+
+- Modified the script to run from the root directory, ensuring consistent path references for file operations.
+- Updated file copy commands to reflect the new directory structure, improving clarity and organization.
+- Adjusted R plotting commands to use the correct paths, ensuring plots are generated accurately.
+- Enhanced output messages to provide better context during execution.
+
+These changes aim to streamline the execution process and maintain consistency with the main file's structure.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/4b697f6_20250907_161836_plot1.png)  
+![](../plot_archive/4b697f6_20250907_161836_plot2.png)  
+
 ## Commit [f72a1e0](https://github.com/naszhu/REM_E3_model_fixed/commit/f72a1e0) (branch: `sep-7-test`)
 **Time:** 2025-09-07 16:07:16  
 **Message:**
