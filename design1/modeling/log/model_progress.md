@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [2388a2e](https://github.com/naszhu/REM_E3_model_fixed/commit/2388a2e) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:07:44  
+**Message:**
+```
+explore(model-e1): change back kappa value (in aligning to E3)
+
+Next step change copy param, but before that see what this looks like
+
+- Increased `ku_base` from 0.01 to 0.15, `ks_base` from 0.95 to 0.47, `kb_base` from 0.95 to 0.55, and `kt_base` from 0.95 to 0.65 to better align with study requirements.
+- Adjusted `hj_asymptote_increase_val` from 0.1 to 0.43 and `hj_base` from 0.3 to 0.4 for enhanced starting points in CF calculations.
+
+These changes aim to refine the model's constants and improve its alignment with experimental data.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/2388a2e_20250907_180744_plot1.png)  
+![](../plot_archive/2388a2e_20250907_180744_plot2.png)  
+
 ## Commit [2f603e3](https://github.com/naszhu/REM_E3_model_fixed/commit/2f603e3) (branch: `sep-7-test`)
 **Time:** 2025-09-07 18:06:04  
 **Message:**

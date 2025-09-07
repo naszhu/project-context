@@ -1,5 +1,18 @@
 [
   {
+    "commit": "2388a2e",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): change back kappa value (in aligning to E3)",
+    "timestamp": "2025-09-07 18:07:44",
+    "plot1": "plot_archive/2388a2e_20250907_180744_plot1.png",
+    "plot2": "plot_archive/2388a2e_20250907_180744_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "2f603e3",
     "branch": "sep-7-test",
     "message": "explore(model-e1): try lowest ku starting value",

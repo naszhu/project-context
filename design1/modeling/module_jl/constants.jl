@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.70 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.94 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -114,7 +114,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.26^power_taken
+v_criterion_initial = 0.001^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.0^power_taken;
@@ -173,8 +173,8 @@ n_between_listchange = 20 #20 in E3 #25 originally
 const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
-max_distortion_probes = 12  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.4  # Base probability of distortion for the first probe 
+max_distortion_probes = 20  # Number of probes until distortion probability reaches 0
+base_distortion_prob = 0.15  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
