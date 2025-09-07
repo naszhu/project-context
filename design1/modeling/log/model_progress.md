@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [447b475](https://github.com/naszhu/REM_E3_model_fixed/commit/447b475) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:46:55  
+**Message:**
+```
+explore(model-e1): update constants for improved model alignment
+
+very high copy very low criterion. They are always trading off
+
+- Increased `nnnow` from 0.70 to 0.94 to adjust parameter alignment with E3.
+- Changed `v_criterion_initial` from 0.26 to 0.001 for better initial criterion calculation.
+- Updated `max_distortion_probes` from 12 to 20 and reduced `base_distortion_prob` from 0.4 to 0.15 to enhance content distortion modeling.
+
+These changes aim to refine the model's constants and improve its alignment with experimental data.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/447b475_20250907_184655_plot1.png)  
+![](../plot_archive/447b475_20250907_184655_plot2.png)  
+
 ## Commit [2388a2e](https://github.com/naszhu/REM_E3_model_fixed/commit/2388a2e) (branch: `sep-7-test`)
 **Time:** 2025-09-07 18:07:44  
 **Message:**

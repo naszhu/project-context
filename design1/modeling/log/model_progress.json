@@ -1,5 +1,18 @@
 [
   {
+    "commit": "447b475",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): update constants for improved model alignment",
+    "timestamp": "2025-09-07 18:46:55",
+    "plot1": "plot_archive/447b475_20250907_184655_plot1.png",
+    "plot2": "plot_archive/447b475_20250907_184655_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "2388a2e",
     "branch": "sep-7-test",
     "message": "explore(model-e1): change back kappa value (in aligning to E3)",
