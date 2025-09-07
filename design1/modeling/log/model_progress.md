@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [537f262](https://github.com/naszhu/REM_E3_model_fixed/commit/537f262) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:52:37  
+**Message:**
+```
+finetune(model-e1): update v_criterion_initial for improved model accuracy
+
+- Increased `v_criterion_initial` from 0.15 to 0.18, enhancing the model's parameterization for better alignment with simulation requirements.
+
+This change aims to refine the model's constants and improve overall performance.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/537f262_20250907_175237_plot1.png)  
+![](../plot_archive/537f262_20250907_175237_plot2.png)  
+
 ## Commit [33bcdb9](https://github.com/naszhu/REM_E3_model_fixed/commit/33bcdb9) (branch: `sep-7-test`)
 **Time:** 2025-09-07 17:50:46  
 **Message:**

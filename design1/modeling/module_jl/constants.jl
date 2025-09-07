@@ -181,7 +181,7 @@ base_distortion_prob = 0.4  # Base probability of distortion for the first probe
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
-ratio_unchanging_to_itself_init = LinRange(0.46, 0.46, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(0.3, 0.3, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
