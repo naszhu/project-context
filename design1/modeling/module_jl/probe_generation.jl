@@ -22,9 +22,18 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
         if probetypes[i] == :target # 
             target_word = pop!(words) #pop from pre-decided targets
             stdpos += 1
+            # Set Z=0 for targets according to E3 rules: Target probes (T, TN+1) → Z = 0
+            if use_Z_feature
+                set_Z_feature_value!(target_word, 0)
+            end
             # testpos = 
         elseif probetypes[i] == :foil  # Foil case
-            target_word = Word(randstring(8), generate_features(Geometric(g_word), w_word), :T_foil, 0) #insert studypos 0
+            foil_features = generate_features(Geometric(g_word), w_word)
+            # Add Z feature if enabled - E3 rules: Foil probes (F, FN+1) → Z = 0
+            if use_Z_feature
+                push!(foil_features, 0)  # Z feature starts as 0 (not tested before) - correct per E3 rules
+            end
+            target_word = Word(randstring(8), foil_features, :T_foil, 0) #insert studypos 0
         else
             error("probetypewrong")
         end
@@ -99,6 +108,22 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
 
     end
 
+    # Apply content distortion if enabled (from E3)
+    if is_content_drift_between_study_and_test
+        # Apply distortion to probes with linear decay in probability
+        # The distortion probability starts high for the first probe and linearly decreases to 0
+        # after max_distortion_probes. This creates a strong distortion effect
+        # for early probes that gradually diminishes for later probes.
+        distorted_probes, original_probes = distort_probes_with_linear_decay(
+            probes, 
+            max_distortion_probes;  # Use constant from constants.jl
+            base_distortion_prob = base_distortion_prob,  # Use constant from constants.jl
+            g_word = g_word  # Use the constant defined in constants.jl
+        )
+        
+        # Replace probes with distorted versions for testing
+        probes = distorted_probes
+    end
 
     return probes
 end
@@ -242,7 +267,12 @@ function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::S
 
             elseif probe[iprobe]==:F
 
-                global img = EpisodicImage(Word(randstring(8), rand(Geometric(g_word), w_word) .+ 1, :F, 0), crrcontext, 0, 0)
+                foil_features = rand(Geometric(g_word), w_word) .+ 1
+                # Add Z feature if enabled - E3 rules: Foil probes (F, FN+1) → Z = 0
+                if use_Z_feature
+                    push!(foil_features, 0)  # Z feature starts as 0 (not tested before)
+                end
+                global img = EpisodicImage(Word(randstring(8), foil_features, :F, 0), crrcontext, 0, 0)
                 # for F, the list_number will always be only [1]
                 push!(probes, Probe(img, :F, iprobe))  # Generate a new foil
             else

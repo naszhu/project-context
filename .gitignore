@@ -14,3 +14,7 @@ plot1.png
 plot2.png
 Rplots.pdf
 ~/.config/Cursor/User/settings.json
+
+# Parallel execution temporary directories
+parallel_temp/
+parallel_results/

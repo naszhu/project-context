@@ -1,7 +1,7 @@
 
 
-is_finaltest = false
-n_simulations = is_finaltest ? 200 : 2000;
+is_finaltest = true
+n_simulations = is_finaltest ? 200 : 3000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -50,6 +50,10 @@ u_star_storeintest = u_star #for word # ratio of this and the next is key for T_
 adv_u_star_strengthen = 0.06# 0.06
 adv_c_strenghten = 0.1# 0.1
 
+# Additional advantage parameters from E3
+u_star_adv = 0  # 0.06 in E3
+c_adv = 0  # 0.06 in E3
+
 # u_star_context parameters
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
 #CHANGED, TODO: can change back firstL special
@@ -63,13 +67,14 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-const c = 0.895 #coying parameter - 0.8 for context copying 
-const c_storeintest = LinRange(c, c, n_lists)  # Make this an array to match usage
-const c_context = LinRange(c, c, n_lists)
+nnnow = 0.70 #lower this value, the differences between T and F bigger at beginning, smaller later
+const c = nnnow #copying parameter - aligned with E3 
+const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
+const c_context = fill(c, n_lists)
 
 # E3 specific context copying parameters
-const c_context_c = LinRange(c, c, n_lists)  # copying parameter for changing context
-const c_context_un = LinRange(c, c, n_lists)  # copying parameter for unchanging context
+const c_context_c = fill(c, n_lists)  # copying parameter for changing context
+const c_context_un = fill(c, n_lists)  # copying parameter for unchanging context
 
 
 
@@ -89,11 +94,12 @@ is_test_changecontext2 = false #is testing only change context in final test
 
 # Restoration flags
 is_restore_initial = true
-is_UnchangeCtxDriftAndReinstate = true
+is_UnchangeCtxDriftAndReinstate = false  # Disable UC distortion (align with E3)
 const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
 is_restore_context = true # currently don't want to restore context features, only add new context features tarce
+is_content_drift_between_study_and_test = true  # Enable content distortion (from E3)
 
 # Stage control flags
 is_firststage = true;
@@ -109,7 +115,7 @@ power_taken = 1/11  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
 v_criterion_initial = 0.65#0.1^power_taken
-criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0) 
+# criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.0^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
@@ -121,25 +127,25 @@ p_recallFeatureStore = 0.85;
 # E1 list origin parameters for switching from familiarity to list origin recall
 # These help participants focus on current list context as memory accumulates
 
-# Base probabilities for switching to list origin recall
-z_base_T = 0.04  # Base probability for targets (lower than E3 since no confusing foils)
-z_base_F = 0.40  # Base probability for foils (lower than E3 since no confusing foils)
+# # Base probabilities for switching to list origin recall
+# z_base_T = 0.04  # Base probability for targets (lower than E3 since no confusing foils)
+# z_base_F = 0.40  # Base probability for foils (lower than E3 since no confusing foils)
 
-# How much the z values increase over lists
-how_much_z_T = 0.07  # How much target z increases (less than E3's 0.16)
-how_much_z_F = 0.07  # How much foil z increases (less than E3's 0.3)
+# # How much the z values increase over lists
+# how_much_z_T = 0.07  # How much target z increases (less than E3's 0.16)
+# how_much_z_F = 0.07  # How much foil z increases (less than E3's 0.3)
 
-# How fast the z values increase over lists  
-how_fast_z_T = 0.6   # How fast target z increases (less than E3's 0.8)
-how_fast_z_F = 0.3   # How fast foil z increases (less than E3's 0.4)
+# # How fast the z values increase over lists  
+# how_fast_z_T = 0.6   # How fast target z increases (less than E3's 0.8)
+# how_fast_z_F = 0.3   # How fast foil z increases (less than E3's 0.4)
 
-# Generate z values that increase over lists for E1
-z_time_p_val_E1 = Dict(
-    :T => asym_increase_shift(z_base_T, how_much_z_T, how_fast_z_T, n_lists-1),
-    :F => asym_increase_shift(z_base_F, how_much_z_F, how_fast_z_F, n_lists-1)
-)
+# # Generate z values that increase over lists for E1
+# z_time_p_val_E1 = Dict(
+#     :T => asym_increase_shift(z_base_T, how_much_z_T, how_fast_z_T, n_lists-1),
+#     :F => asym_increase_shift(z_base_F, how_much_z_F, how_fast_z_F, n_lists-1)
+# )
 
-println("E1 z_time_p_val: ", z_time_p_val_E1)
+# println("E1 z_time_p_val: ", z_time_p_val_E1)
 
 # =============================================================================
 # CONTEXT TESTING PARAMETERS  
@@ -150,17 +156,25 @@ context_tau = 100 #foil odds should lower than this
 # =============================================================================
 # DRIFT AND CHANGE PARAMETERS
 # =============================================================================
+
+# Additional E3 parameters
+κ_update_between_list = 0.0;
+LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well. 
-p_reinstate_rate = 0.1 #0.4 #prob of reinstatement
+p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 11) #7
+n_driftStudyTest = round.(Int, ones(10) * 12) #7
 
-n_between_listchange = 18 #18 in E3 #25 originally 
+n_between_listchange = 20 #20 in E3 #25 originally 
 
-const p_driftAndListChange = 0.03; # studied prior list probability change 
+const p_driftAndListChange = 0.03; # studied prior list probability change
+
+# Content distortion parameters (from E3) for content drift between study and test
+max_distortion_probes = 7  # Number of probes until distortion probability reaches 0
+base_distortion_prob = 0.29  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
@@ -180,7 +194,7 @@ const n_finalprobs = 420;
 
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
 
-# E3 final test chunk parameters
+# E3 final test chunk parameters this part is wrong, M1 don't have this
 const total_probe_L1 = 15;  # total probes in list 1
 const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
@@ -194,6 +208,79 @@ ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchangi
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
+
+# =============================================================================
+# Z FEATURE PARAMETERS (aligned with E3 rules - issue 64)
+# =============================================================================
+# Z feature implementation updated to match E3 rules exactly
+# 
+# PROBE GENERATION RULES (Initial Z values):
+# ├── Confusing probes (SON, FN, TN types) → Z = 1 (truth value) [E3 only]
+# ├── Target probes (T, Symbol("TN+1")) → Z = 0 (truth value)
+# └── Foil probes (F, Symbol("FN+1")) → Z = 0 (truth value)
+#
+# DECISION PROBE EVALUATION DURING RETRIEVAL:
+# Case 1: RECALLED + Answer NEW (confusing foil - list version used)
+#   ├── Strengthened trace: If Z = 0 → Replace with KB, If Z = 1 → Keep as 1
+#   └── When adding new trace: Store Z = 1 with probability KB
+# Case 2: RECALLED + Answer OLD
+#   ├── Strengthening: Store Z = 1 with probability KB
+#   └── Adding trace: Store Z = 1 with probability KB
+# Case 3: NOT RECALLED + Answer NEW (really new foil)
+#   └── Add new trace with Z = 1 with probability KT
+# Case 4: NOT RECALLED + Answer OLD (target with no trace recalled)
+#   └── Add trace with Z = 1 with probability KT
+#
+# BETWEEN LISTS (Inter-list interval):
+# └── All studied-only features updated: Z = 1 with probability KS
+#
+# STATUS: ✓ Fully implemented and aligned with E3 (see issue 64 in E3 repo)
+# Z feature configuration for E1 - no confusing foils (simpler than E3)
+use_Z_feature = true
+
+# Number of Z features to add (1 for the tested_before status)
+n_z_features = 1
+const tested_before_feature_pos = w_word + n_z_features  # position of Z feature (24)
+
+# Kappa parameters for Z feature - E1 only needs κu for targets since no confusing foils
+# Kappa parameters for Z feature (aligned with E3 - naszhu/REM_E3_model_fixed#64)
+# κs for study only features between lists
+# κu for study only confusing foil (E1: mainly targets) 
+# κb for study and tested confusing foil
+# κt for test only confusing foil
+
+# Base kappa values (same as E3)
+ku_base = 0.15  # study，higher this value, lower the starting point of T
+ks_base = 0.45  # SOn (study only), lower the value, higher the starting point CF  
+kb_base = 0.45  # Tn (study and test)
+kt_base = 0.45  # Fn (test only)
+
+# Asymptotic decrease parameters (same as E3)
+fj_asymptote_decrease_val = 0.01  # Asymptote value for decreasing function
+fj_rate = 0.26  # Rate of change for the decreasing function
+
+# Asymptotic increase parameters (same as E3)
+hj_asymptote_increase_val = 0.4
+hj_rate = 0.85
+hj_base = 0.6  # higher this value higher CF starting point
+
+# Include utils.jl to get asymptotic functions
+include("utils.jl")
+
+# κ parameter arrays (aligned with E3 - issue 64)
+# These are calculated directly like in E3
+h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
+# the following equals to ks*f(j), 
+# κ are used instead of k for a simplification for now for easier modification of the code
+κu_values = asym_decrease_shift_fj(ku_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1) 
+κs_values = 1 .-asym_decrease_shift_fj(ks_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
+κb_values = 1 .-asym_decrease_shift_fj(kb_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
+κt_values = 1 .-asym_decrease_shift_fj(kt_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1)
+
+const κu = κu_values 
+const κs = κs_values  
+const κb = κb_values  
+const κt = κt_values
 
 # =============================================================================
 # MISCELLANEOUS PARAMETERS
@@ -215,14 +302,4 @@ println("prob of feature change after 4 lists $(1-(aa)^8)")
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 println("The actual u_star after nsteps is", 1-(1-u_star[1])^n_units_time)
 
-# =============================================================================
-# UTILITY FUNCTIONS
-# =============================================================================
-# Function to generate asymptotic increasing values over lists (from E3)
-function asym_increase_shift(start_at::Float64,
-                              how_much::Float64,
-                              how_fast::Float64,
-                              n::Int)::Vector{Float64}
-    @assert n ≥ 1
-    return [start_at + how_much * (1 - exp(-how_fast * (k))) for k in 0:n-1]
-end
+

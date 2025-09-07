@@ -11,7 +11,7 @@ restore content and/or context, here, context include change,unchange, and posit
 # end
 
 # function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, imax::Int64, probetype::Symbol, list_change_features::Vector{Int64}, general_context_features::Vector{Int64}, odds::Float64, likelihood_ratios::Vector{Float64}, simu_i::Int64, initial_testpos::Int64)
-function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, sampling_probabilities::Vector{Float64}, odds::Float64, content_LL_ratios::Vector{Float64})::Nothing
+function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, content_LL_ratios::Vector{Float64}, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64)::Nothing
 
 
     if is_onlyaddtrace
@@ -37,19 +37,15 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
     # end
 
         
-    if ((decision_isold==1) & (odds > recall_odds_threshold) )
+    if ((odds > v_criterion_initial) & (odds > recall_odds_threshold) )
 
-        if sampling_method
-            @assert length(image_pool) == length(sampling_probabilities) "image_pool and sampling_probabilities should be the same length"
-            #recall; restore old
-            cdf_each_boral_sets = Categorical(sampling_probabilities)     
-            index_sampled = rand(cdf_each_boral_sets)
-            iimage_tostrenghten = image_pool[index_sampled]
+        if !isnothing(sampled_item)
+            # Use the pre-sampled item
+            iimage_tostrenghten = sampled_item
         else
-            # Pick the image from image_pool with the maximum content_LL_ratios value
-            @assert length(content_LL_ratios) == length(image_pool) "content_LL_ratios and image_pool must have the same length"
-            imax = argmax([ill==344523466743 ? -Inf : ill for ill in content_LL_ratios]);
-            iimage_tostrenghten  = image_pool[imax]
+            # If nothing was sampled, criteria didn't pass, so no restoration should happen
+            # This case should not occur in normal operation since sampling happens before decision logic
+            error("No item was sampled but restoration was attempted. This indicates a logic error.")
         end
     
     end
@@ -72,26 +68,33 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
         # println(iprobe_img.word.type)
         # for _ in 1:n_units_time #shouldn't have this in adding trace
             # Update word features
-            add_features_from_empty!(iimage_toadd.word.word_features, iprobe_img.word.word_features, u_star[end], c_storeintest_ilist, g_word)
+            add_feature_during_restore!(iimage_toadd.word.word_features, iprobe_img.word.word_features, u_star[end], c_storeintest_ilist, g_word, iprobe_img.list_number)
             @assert length(iprobe_img.context_features) == length(iimage_toadd.context_features) "context features should be the same length"
 
             # Update context features
             # u_advFoilInitialT is the adv for foil (judged new, add trace) in initial test, to see if final test p overlappsss....u_advFoilInitialT=0 currently
             @assert u_star_context[end] == u_star_context[1] "u_star_context is not well defined to be used in restore_intest for intial test, final test is dependant on u_star_context[ilist], but not yet like that in inital test, initial doens't have a u_star_context difference right now, notice"
-            add_features_from_empty!(iimage_toadd.context_features, iprobe_img.context_features, u_star_context[end] + u_advFoilInitialT, c_context_ilist_cc, g_context; cu = c_context_ilist_cu) 
+            add_feature_during_restore!(iimage_toadd.context_features, iprobe_img.context_features, u_star_context[end] + u_advFoilInitialT, c_context_ilist_cc, g_context, iprobe_img.list_number; cu = c_context_ilist_cu) 
         end
 
 
 
     ###### STRENGHTEN TRACE ######################
     # RESTORE CONTEXT & CONTENT
-    if ((decision_isold==1) & (odds > recall_odds_threshold) )
+    if ((odds > v_criterion_initial) & (odds > recall_odds_threshold) )
 
         # println(iprobe_img.word.type)
         if is_strengthen_contextandcontent #true
-            restore_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore)
+            strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
 
-            restore_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore,is_ctx=true)
+            strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
+            
+            # Use E3 Z-update rules based on decision type
+            if decision_isold == 0  # Recalled + New (confusing foil)
+                update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
+            else  # decision_isold == 1, Recalled + Old
+                update_Z_feature_recalled_old!(iimage_tostrenghten.word, iprobe_img.list_number)
+            end
         else
             # error("should strenghen here")
         end
@@ -103,7 +106,26 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
     end
 
 
-    if (decision_isold == 0) || ((decision_isold == 1) && (odds < recall_odds_threshold))|| ((decision_isold==1) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold)) 
+    is_strenghten = (odds > recall_odds_threshold) 
+
+    if (odds < v_criterion_initial) || ((odds > v_criterion_initial) && (odds < recall_odds_threshold))|| ((odds > v_criterion_initial) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold)) 
+        
+        if is_strenghten #Add trace while strengthening is also happening.
+            # Use E3 Z-update rules based on decision type
+            if decision_isold == 0  # Recalled + New (confusing foil)
+                update_Z_feature_recalled_new_add_trace!(iimage_toadd.word, iprobe_img.list_number)
+            else  # decision_isold == 1, Recalled + Old
+                update_Z_feature_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
+            end
+        else  
+            # Not recalled cases - add trace only
+            if decision_isold == 0  # Not recalled + New (really new foil)
+                update_Z_feature_not_recalled_new!(iimage_toadd.word, iprobe_img.list_number)
+            else  # decision_isold == 1, Not recalled + Old (target with no trace recalled)
+                update_Z_feature_not_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
+            end
+        end
+        
         push!(image_pool, iimage_toadd)
         # println("pass, decision_isold $(decision_isold); is pass $(odds < recall_odds_threshold)")
     else
@@ -118,7 +140,7 @@ end
 
 
 
-function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, sampling_probabilities::Vector{Float64}, odds::Float64, finaltest_pos::Int64,content_LL_ratios::Vector{Float64} )::Nothing
+function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, finaltest_pos::Int64, content_LL_ratios::Vector{Float64}, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64)::Nothing
 #     iimage = decision_isold == 1 ? image_pool[imax] : EpisodicImage(Word(iprobe_img.word.item, fill(0, length(iprobe_img.word.word_features)), iprobe_img.word.type, iprobe_img.word.studypos), zeros(length(iprobe_img.context_features)), iprobe_img.list_number, iprobe_img.initial_testpos_img)
 # # println(iimage.initial_testpos_img)
 
@@ -137,19 +159,16 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
         )
 
     # end
-    if ((decision_isold==1) & (odds > recall_odds_threshold) )
+    
+    if ((odds > criterion) & (odds > recall_odds_threshold) )
 
-        if sampling_method
-            @assert length(image_pool) == length(sampling_probabilities) "image_pool and sampling_probabilities should be the same length"
-            #recall; restore old
-            cdf_each_boral_sets = Categorical(sampling_probabilities)     
-            index_sampled = rand(cdf_each_boral_sets)
-            iimage_tostrenghten = image_pool[index_sampled]
+        if !isnothing(sampled_item)
+            # Use the pre-sampled item
+            iimage_tostrenghten = sampled_item
         else
-            # Pick the image from image_pool with the maximum content_LL_ratios value
-            @assert length(content_LL_ratios) == length(image_pool) "content_LL_ratios and image_pool must have the same length"
-            imax = argmax([ill==344523466743 ? -Inf : ill for ill in content_LL_ratios]);
-            iimage_tostrenghten = image_pool[imax]
+            # If nothing was sampled, criteria didn't pass, so no restoration should happen
+            # This case should not occur in normal operation since sampling happens before decision logic
+            error("No item was sampled but restoration was attempted. This indicates a logic error.")
         end
 
     end
@@ -161,7 +180,7 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
 
         for _ in 1:n_units_time_restore
 
-            add_features_from_empty!(iimage_toadd.word.word_features, iprobe_img.word.word_features, u_star[end], c_storeintest[end], g_word) #TODO
+            add_feature_during_restore!(iimage_toadd.word.word_features, iprobe_img.word.word_features, u_star[end], c_storeintest[end], g_word, iprobe_img.list_number) #TODO
 
             # if iprobe_img.list_number == 1
 
@@ -173,7 +192,7 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
             # Determine the chunk index for the current probe
             iprobe_chunk = findfirst(x -> finaltest_pos <= x, iprobe_chunk_boundaries)  
 
-            add_features_from_empty!(iimage_toadd.context_features, iprobe_img.context_features, u_star_context[iprobe_chunk], c_context_c[end], g_context; cu=c_context_un[end]); #TODO: use last big ctx?
+            add_feature_during_restore!(iimage_toadd.context_features, iprobe_img.context_features, u_star_context[iprobe_chunk], c_context_c[end], g_context, iprobe_img.list_number; cu=c_context_un[end]); #TODO: use last big ctx?
             # else
                 # add_features_from_empty!(iimage.context_features, iprobe_img.context_features, u_star_context[end]+u_advFoilInitialT+0.1, c_context_ilist, g_context)
             
@@ -185,7 +204,16 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
 
     ###### STRENGHTEN TRACE ######################
     # RESTORE CONTEXT & CONTENT
-    if ((decision_isold==1) & (odds > recall_odds_threshold) )
+    if ((odds > criterion) & (odds > recall_odds_threshold) )
+
+        if !isnothing(sampled_item)
+            # Use the pre-sampled item
+            iimage_tostrenghten = sampled_item
+        else
+            # If nothing was sampled, criteria didn't pass, so no restoration should happen
+            # This case should not occur in normal operation since sampling happens before decision logic
+            error("No item was sampled but restoration was attempted. This indicates a logic error.")
+        end
 
         # pass: strenghten
         #single parameter for missing or replacing
@@ -196,9 +224,16 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
         end
 
         if is_strengthen_contextandcontent
-            restore_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore)
+            strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
 
-            restore_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore,is_ctx=true)
+            strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
+            
+            # Use E3 Z-update rules based on decision type
+            if decision_isold == 0  # Recalled + New (confusing foil)
+                update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
+            else  # decision_isold == 1, Recalled + Old
+                update_Z_feature_recalled_old!(iimage_tostrenghten.word, iprobe_img.list_number)
+            end
         end
 
         !is_restore_context ? error("context restored in initial is not well written this part") : nothing
@@ -206,8 +241,26 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
 
     end
 
-    # if (decision_isold == 0)
-    if (decision_isold == 0) || ((decision_isold == 1) && (odds < recall_odds_threshold))|| ((decision_isold==1) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold)) 
+    is_strenghten = (odds > recall_odds_threshold) 
+
+    if (odds <= criterion) || ((odds > criterion) && (odds < recall_odds_threshold))|| ((odds > criterion) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold)) 
+        
+        if is_strenghten #Add trace while strengthening is also happening.
+            # Use E3 Z-update rules based on decision type
+            if decision_isold == 0  # Recalled + New (confusing foil)
+                update_Z_feature_recalled_new_add_trace!(iimage_toadd.word, iprobe_img.list_number)
+            else  # decision_isold == 1, Recalled + Old
+                update_Z_feature_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
+            end
+        else  
+            # Not recalled cases - add trace only
+            if decision_isold == 0  # Not recalled + New (really new foil)
+                update_Z_feature_not_recalled_new!(iimage_toadd.word, iprobe_img.list_number)
+            else  # decision_isold == 1, Not recalled + Old (target with no trace recalled)
+                update_Z_feature_not_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
+            end
+        end
+        
         push!(image_pool, iimage_toadd)
     end
 

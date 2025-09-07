@@ -122,6 +122,22 @@ function simulate_rem()
                     end
                 end
             end
+            
+            # Update Z features between lists according to E3 rules
+            # All studied-only features updated: Z = 1 with probability κs
+            # Convert studied_pool matrix to vector of vectors for Z feature update
+            # Filter out undefined entries
+            studied_pool_vec = Vector{Vector{EpisodicImage}}()
+            for i in 1:n_lists
+                list_items = EpisodicImage[]
+                for j in axes(studied_pool, 1)  # Iterate over first dimension
+                    if isassigned(studied_pool, j, i) && !isnothing(studied_pool[j, i])
+                        push!(list_items, studied_pool[j, i])
+                    end
+                end
+                push!(studied_pool_vec, list_items)
+            end
+            update_Z_features_single_appearance_studied_items!(image_pool, studied_pool_vec, list_num, n_words)
             # list_change_context_features .= ifelse.(rand(length(list_change_context_features)) .<  p_driAndndListChange,rand(Geometric(g_context),length(list_change_context_features)) .+ 1,list_change_context_features)
             # println([i.value for i in list_change_context_features])
 

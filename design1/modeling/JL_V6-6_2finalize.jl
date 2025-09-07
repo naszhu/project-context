@@ -190,11 +190,17 @@ using BenchmarkTools, ProfileView, Profile, Base.Threads
 using QuadGK
 using Distributions: Categorical
 
-include("module_jl/utils.jl")
-include("module_jl/constants.jl") 
-include("module_jl/feature_updates.jl")
-
 include("module_jl/data_structures.jl")
+include("module_jl/constants.jl") 
+include("module_jl/utils.jl")
+
+# Calculate parameters that depend on functions in utils.jl
+criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0)
+
+# κ parameters and h_j are calculated in constants.jl
+
+include("module_jl/feature_updates.jl")
+# include("module_jl/z_feature_functions.jl")
 
 include("module_jl/feature_generation.jl")
 
@@ -207,6 +213,7 @@ include("module_jl/probe_generation.jl")
 include("module_jl/probe_evaluation.jl")
 
 include("simulation.jl")
+
 
 Threads.nthreads()
 
@@ -253,7 +260,7 @@ csv_path3 = "allresf.csv"
 CSV.write(csv_path1, DF)
 CSV.write(csv_path2, all_results)
 
-run(`Rscript design1/modeling/R_ploting/R_plots.r`)git
+run(`Rscript R_ploting/R_plots.r`)
 run(`bash -c "eog plot1.png & disown"`)
 
 if is_finaltest

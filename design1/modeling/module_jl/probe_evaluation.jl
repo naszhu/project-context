@@ -1,4 +1,6 @@
 
+using Distributions: Categorical
+
 function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Probe})::Array{Any}
     results = Array{Any}(undef, length(probes))
     # println("now#$(length(probes))")
@@ -37,36 +39,70 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         crrchunk = ceil(Int, i / 42)
         criterion_final_i = criterion_final[crrchunk] #this need to be changed if 
 
-        # E1 List Origin Logic for Final Test: Switch from familiarity to list origin recall
-        if odds > criterion_final_i
-            if odds > recall_odds_threshold
-                # For final test, we need to determine which list this probe is from
-                # Since final test probes can come from any list, we'll use a simplified approach
-                probe_type = probes[i].classification == :target ? :T : :F
-                z_values = get(z_time_p_val_E1, probe_type, zeros(Float64, n_lists-1))
-                # Use the average z value across all lists for final test
-                avg_z = mean(z_values)
-                decision_isold = rand() < avg_z ? 0 : 1
-            else
-                decision_isold = 1
-            end
-        else
-            decision_isold = 0  # Didn't pass threshold, judge as new
-        end
-
-        # Calculate sampling probabilities for final test (same as in initial test)
+        # Calculate sampling probabilities early (following E3 pattern)
         filtered_content_LL_ratios_inOriginalLength = likelihood_ratios_org |> x -> map(e -> e == 344523466743 ? 0 : e, x)
         filtered_content_LL_ratios_inOriginalLength_to_11thpower = filtered_content_LL_ratios_inOriginalLength .^ power_taken
         total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength_to_11thpower)
         sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength_to_11thpower)) : [filtered_content_LL_ratios_inOriginalLength_to_11thpower[i_LL_proportion] ./ total_sum_LL for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength_to_11thpower)]
 
+        # Sample or select item BEFORE decision logic (following E3 pattern)
+        sampled_item = nothing
+        is_same_item = false  # Initialize is_same_item
+        is_sampled = false    # Initialize is_sampled
+        if (odds > criterion_final_i) && (odds > recall_odds_threshold)
+            is_sampled = true
+            
+            if sampling_method
+                # Use sampling probabilities
+                cdf_each_boral_sets = Categorical(sampling_probabilities)
+                index_sampled = rand(cdf_each_boral_sets)
+                sampled_item = image_pool[index_sampled]
+                
+                # Check if the sampled item is the same as the probe being tested
+                is_same_item = sampled_item.word.item == probes[i].image.word.item
+            else
+                # Pick the image with maximum content_LL_ratios value
+                imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org])
+                sampled_item = image_pool[imax]
+                
+                # Check if the sampled item is the same as the probe being tested
+                is_same_item = sampled_item.word.item == probes[i].image.word.item
+            end
+        end
+
+        # Decision logic - only if we have a sampled item (following E3 pattern)
+        if odds > criterion_final_i
+            if odds > recall_odds_threshold
+                # We should have a sampled item at this point
+                @assert !isnothing(sampled_item) "sampled item is nothing"
+                decision_isold = 1
+            else
+                decision_isold = 1
+            end
+        else #if didn't pass, directly judge new
+            decision_isold = 0
+        end
+
+
+
+        # Calculate Z values for targets in current chunk ONLY (not all memory pool)
+        currchunk = crrchunk  # Use the chunk calculated earlier
+        current_chunk_targets = filter(img -> img.list_number == currchunk && img.word.type == :T_target, image_pool)
+        Z_sum = 0
+        Z_proportion = 0.0
+        
+        if !isempty(current_chunk_targets)
+            Z_sum = sum(get_Z_feature_value(target.word) for target in current_chunk_targets)
+            Z_proportion = Z_sum / length(current_chunk_targets)
+        end
+
         # Store results (modify as needed)
-        results[i] = (decision_isold=decision_isold, is_target=string(probes[i].classification), odds=odds, list_num=probes[i].image.list_number, initial_studypos=probes[i].image.word.studypos, initial_testpos = probes[i].image.initial_testpos_img ) #! made changes to results, format different than that in inital
+        results[i] = (decision_isold=decision_isold, is_target=string(probes[i].classification), odds=odds, list_num=probes[i].image.list_number, initial_studypos=probes[i].image.word.studypos, initial_testpos = probes[i].image.initial_testpos_img, Z_sum=Z_sum, Z_proportion=Z_proportion) #! made changes to results, format different than that in inital
 
         imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org]);
         # restore_intest(image_pool,probes[i].image, decision_isold, argmax(likelihood_ratios));
         if is_restore_final
-            restore_intest_final(image_pool, probes[i].image, decision_isold, sampling_probabilities, odds, i, likelihood_ratios_org)
+            restore_intest_final(image_pool, probes[i].image, decision_isold, odds, i, likelihood_ratios_org, sampled_item, criterion_final[currchunk])
         end
     end
 
@@ -113,19 +149,65 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         if (isnan(odds))
             println("Current context_tau is too high, there are some simulations that have no tarce passing context filter in first step", nl, likelihood_ratios)
         end
+
+        # Calculate sampling probabilities early (following E3 pattern)
+        filtered_content_LL_ratios_inOriginalLength = likelihood_ratios_org |> x -> map(e -> e == 344523466743 ? 0 : e, x)
+        filtered_content_LL_ratios_inOriginalLength_to_11thpower= filtered_content_LL_ratios_inOriginalLength .^ power_taken
+        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength_to_11thpower)
+        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength_to_11thpower)) : [filtered_content_LL_ratios_inOriginalLength_to_11thpower[i_LL_proportion] ./ total_sum_LL  for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength_to_11thpower)]
         
-        # E1 List Origin Logic: Switch from familiarity to list origin recall
+        # E1 New Z Feature Logic (adapted from E3)
+        # Sample or select item BEFORE decision logic
+        sampled_item = nothing
+        is_same_item = false
+        is_sampled = false
+        
         if odds > criterion_initial[i_testpos,ilist_probe]
             if odds > recall_odds_threshold
-                if ilist_probe == 1
-                    decision_isold = 1  # List 1 always recall
+                is_sampled = true
+                
+                if sampling_method
+                    # Use sampling probabilities to select an item
+                    if sum(sampling_probabilities) > 0  # Check if we have valid probabilities
+                        cdf_each_boral_sets = Categorical(sampling_probabilities)
+                        index_sampled = rand(cdf_each_boral_sets)
+                        sampled_item = image_pool_currentlist[index_sampled]
+                        is_same_item = sampled_item.word.item == probes[i].image.word.item
+                    end
                 else
-                    # Get the appropriate z values for this probe type
-                    probe_type = probes[i].classification == :target ? :T : :F
-                    z_values = get(z_time_p_val_E1, probe_type, zeros(Float64, n_lists-1))
-                    # Use z value for current list (ilist_probe-1 because arrays are 0-indexed)
-                    list_origin_prob = z_values[ilist_probe-1]
-                    decision_isold = rand() < list_origin_prob ? 0 : 1
+                    # Pick the image with maximum likelihood ratio
+                    imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org])
+                    sampled_item = image_pool_currentlist[imax]
+                    is_same_item = sampled_item.word.item == probes[i].image.word.item
+                end
+                
+                # Apply Z feature logic for E1 (simplified - only targets, no confusing foils)
+                if ilist_probe != 1 && use_Z_feature && !isnothing(sampled_item)
+                    ranv = rand()
+                    if ranv < h_j[ilist_probe-1]
+                        # Use Z feature from sampled item
+                        Z_value = get_Z_feature_value(sampled_item.word)
+
+
+                        """
+                        I'm not sure what to do for this part. Should E1 have the recall to reject? I don't think so so I commented this out. But if this is the case, Z feature doesn't play a part at all then. Might be a problem. But I can't think of a way for explaining why Z could work right here
+
+                        Ok, i thought of a way of why this works. That is, Ss want to focus on current list, and thus, when they found this is an OLD list item, they ignored this item. So they judge new. maybe
+                        """
+                        if Z_value === 1
+                            decision_isold = 0  # Z=1 means judged new
+                        else
+                            decision_isold = 1  # Z=0 means judged old
+                        end
+
+                        # decision_isold = 0 #This is probably wrong but you could set another prob and say now with this prob you could answer mistakenly 
+                    else
+                        # Don't use Z feature, use familiarity only
+                        decision_isold = 1
+                    end
+                else
+                    # List 1 or Z feature disabled - use familiarity only
+                    decision_isold = 1
                 end
             else
                 decision_isold = 1
@@ -138,6 +220,31 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
         #criterion change by test position
 
+        # Sample or select item BEFORE decision logic (following E3 pattern)
+        sampled_item = nothing
+        is_same_item = false  # Initialize is_same_item
+        is_sampled = false    # Initialize is_sampled
+        if (odds > criterion_initial[i_testpos, ilist_probe]) && (odds > recall_odds_threshold)
+            is_sampled = true
+            
+            if sampling_method
+                # Use sampling probabilities
+                cdf_each_boral_sets = Categorical(sampling_probabilities)
+                index_sampled = rand(cdf_each_boral_sets)
+                sampled_item = image_pool_currentlist[index_sampled]
+                
+                # Check if the sampled item is the same as the probe being tested
+                is_same_item = sampled_item.word.item == probes[i].image.word.item
+            else
+                # Pick the image with maximum content_LL_ratios value
+                imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org])
+                sampled_item = image_pool_currentlist[imax]
+                
+                # Check if the sampled item is the same as the probe being tested
+                is_same_item = sampled_item.word.item == probes[i].image.word.item
+            end
+        end
+
         # decision_isold = odds > criterion_initial[i_testpos] ? 1 : 0;
 
         nav = length(likelihood_ratios) / (length(image_pool_currentlist))
@@ -146,26 +253,25 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         #     imgMax = image_pool_currentlist[argmax(content_LL_ratios_filtered)]
         # end
 
-        ############### Add new sampling LL preparing lines
-        filtered_content_LL_ratios_inOriginalLength = likelihood_ratios_org |> x -> map(e -> e == 344523466743 ? 0 : e, x)
-
-        # Step 2: Calculate the total sum of the filtered likelihood ratios
-        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength)
-
-        # Step 3: Assign probabilities proportionally
-        
-        filtered_content_LL_ratios_inOriginalLength_to_11thpower= filtered_content_LL_ratios_inOriginalLength .^ power_taken # raise to 1/11 power, so that the sampling is more likely to sample the higher LL ratios, but not too much
-        # Step 3: Assign probabilities proportionally
-        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength_to_11thpower)
-        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength_to_11thpower)) : [filtered_content_LL_ratios_inOriginalLength_to_11thpower[i_LL_proportion] ./ total_sum_LL  for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength_to_11thpower)]
-         ################
+        # Calculate Z values for current list targets ONLY (not all memory pool)
+        # Only calculate Z for the list being currently tested (j == currentlist)
+        Z_sum = 0
+        Z_proportion = 0.0
 
         for j in eachindex(unique_list_numbers)
             nimages = count(image -> image.list_number == j, image_pool_currentlist)
             nimages_activated = count(ii -> (image_pool_currentlist[ii].list_number == j) && (likelihood_ratios_org[ii] != 344523466743), eachindex(image_pool_currentlist))
             
+            # Calculate Z metrics for current list targets only
+            if j == currentlist  # Only calculate Z for the list being tested
+                current_list_targets = filter(img -> img.list_number == j && img.word.type == :T_target, image_pool_currentlist)
+                if !isempty(current_list_targets)
+                    Z_sum = sum(get_Z_feature_value(target.word) for target in current_list_targets)
+                    Z_proportion = Z_sum / length(current_list_targets)
+                end
+            end
 
-            results[n_listimagepool*(i-1)+j] = (decision_isold=decision_isold, is_target=probes[i].classification, odds=odds, ilist_image=j, Nratio_imageinlist=nimages_activated / nimages, N_imageinlist=nimages_activated, Nratio_iprobe=nav, testpos=i, studypos=probes[i].image.word.studypos, diff=diff)
+            results[n_listimagepool*(i-1)+j] = (decision_isold=decision_isold, is_target=probes[i].classification, odds=odds, ilist_image=j, Nratio_imageinlist=nimages_activated / nimages, N_imageinlist=nimages_activated, Nratio_iprobe=nav, testpos=i, studypos=probes[i].image.word.studypos, diff=diff, Z_sum=Z_sum, Z_proportion=Z_proportion)
             # println(nl, " ",nimages_activated)
         end
     
@@ -173,7 +279,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
 
         if is_restore_initial
-            restore_intest(image_pool, probes[i].image, decision_isold, sampling_probabilities, odds, likelihood_ratios_org) 
+            restore_intest(image_pool, probes[i].image, decision_isold, odds, likelihood_ratios_org, sampled_item, criterion_initial[i_testpos, ilist_probe]) 
         end
 
         # println("i, $i, i_testpos, $i_testpos")

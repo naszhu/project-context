@@ -1,5 +1,284 @@
 # Model Progress
 
+## Commit [8084edc](https://github.com/naszhu/REM_E3_model_fixed/commit/8084edc) (branch: `sep-4-align`)
+**Time:** 2025-09-05 02:53:37  
+**Message:**
+```
+finetune(model-e1): match simulation parameters
+
+- Set `is_finaltest` to true and increased `n_simulations` to 3000 for enhanced testing.
+- Adjusted the copying parameter `c` to align with new E3 specifications, lowering it to 0.70.
+- Updated `p_reinstate_rate` to 0.2 and modified `n_driftStudyTest` and `n_between_listchange` for better alignment with E3 requirements.
+- Reduced `base_distortion_prob` to 0.29 to improve content distortion accuracy.
+
+These changes aim to enhance the simulation's fidelity and ensure better alignment with the E3 model specifications.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/8084edc_20250905_025337_plot1.png)  
+![](../plot_archive/8084edc_20250905_025337_plot2.png)  
+
+## Commit [2c527a0](https://github.com/naszhu/REM_E3_model_fixed/commit/2c527a0) (branch: `sep-4-align`)
+**Time:** 2025-09-05 02:43:29  
+**Message:**
+```
+fix(model-e1): refine Z feature calculations and update restoration logic
+
+The previous one was wrong
+
+- Consolidated the calculation of κ parameters in `constants.jl`, ensuring they are computed after loading necessary modules.
+- Enhanced the Z feature update functions in `feature_updates.jl` to align with E3 specifications, improving the accuracy of memory recall processes.
+- Updated the logic in `memory_restorage.jl` to handle Z feature updates during strengthening, reflecting the new probabilistic approaches.
+- Removed redundant utility functions from `utils.jl`, streamlining the codebase and improving maintainability.
+
+These changes aim to enhance the integration and functionality of Z features within the memory model, ensuring better alignment with E3 rules.
+
+Refs #31, naszhu/REM_E3_model_fixed#64
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+- `design1/modeling/run_parallel.sh`  
+- `design1/modeling/simulation.jl`  
+- `design3/modeling`  
+![](../plot_archive/2c527a0_20250905_024329_plot1.png)  
+![](../plot_archive/2c527a0_20250905_024329_plot2.png)  
+
+## Commit [31bdab1](https://github.com/naszhu/REM_E3_model_fixed/commit/31bdab1) (branch: `sep-4-align`)
+**Time:** 2025-09-05 01:28:49  
+**Message:**
+```
+feat(model-e1): update Z feature implementation and parameter calculations
+
+- Rearranged the loading order of utility and constant files in `JL_V6-6_2finalize.jl` and `run_parallel.sh` to ensure proper initialization of Z feature parameters.
+- Introduced new functions in `utils.jl` for managing Z feature values, enhancing the alignment with E3 rules for memory simulations.
+- Updated the logic for Z feature updates during restoration and probe generation to reflect E3 specifications, improving the accuracy of memory recall processes.
+- Adjusted the R plotting script to modify the y-axis limits for better visualization of accuracy metrics.
+
+These changes aim to refine the Z feature integration and enhance the overall functionality of the memory model.
+
+Refs #31, naszhu/REM_E3_model_fixed#64
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+- `design1/modeling/run_parallel.sh`  
+- `design1/modeling/simulation.jl`  
+- `design3/modeling`  
+![](../plot_archive/31bdab1_20250905_012849_plot1.png)  
+![](../plot_archive/31bdab1_20250905_012849_plot2.png)  
+
+## Commit [503f3ba](https://github.com/naszhu/REM_E3_model_fixed/commit/503f3ba) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:30:27  
+**Message:**
+```
+refactor(constants): relocate Z feature parameter calculations for improved organization
+
+- Moved the calculation of κu and h_j parameters to the constants.jl file after all includes are loaded, enhancing the clarity of parameter initialization.
+- Updated the base distortion probability from 0.29 to 0.35 to better align with model requirements.
+
+These changes aim to streamline the parameter setup process and improve the overall structure of the code.
+
+Refs #31
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/503f3ba_20250904_223027_plot1.png)  
+![](../plot_archive/503f3ba_20250904_223027_plot2.png)  
+
+## Commit [0f1458d](https://github.com/naszhu/REM_E3_model_fixed/commit/0f1458d) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:21:05  
+**Message:**
+```
+refactor(constants): move utility function to utils and clean up code
+
+- Removed the `asym_increase_shift` function from `constants.jl` and relocated it to `utils.jl` for better organization of utility functions.
+- This change aims to enhance code clarity and maintainability by consolidating utility functions in a dedicated file.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/0f1458d_20250904_222105_plot1.png)  
+![](../plot_archive/0f1458d_20250904_222105_plot2.png)  
+
+## Commit [f1b0155](https://github.com/naszhu/REM_E3_model_fixed/commit/f1b0155) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:20:24  
+**Message:**
+```
+chore(.gitignore): add entries for parallel execution temporary directories
+
+- Updated .gitignore to include directories for temporary files and results generated during parallel execution, ensuring a cleaner repository by ignoring unnecessary files.
+
+This change aims to streamline the development process by preventing clutter from temporary execution artifacts.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/f1b0155_20250904_222024_plot1.png)  
+![](../plot_archive/f1b0155_20250904_222024_plot2.png)  
+
+## Commit [1ca3cb4](https://github.com/naszhu/REM_E3_model_fixed/commit/1ca3cb4) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:17:04  
+**Message:**
+```
+feat(shell-e1): add parallel execution script for enhanced simulation performance
+
+- Introduced a new script `run_parallel.sh` to facilitate multi-process execution of the E1 model simulations, significantly improving runtime efficiency.
+- The script manages process creation, result collection, and combines outputs into CSV files, mirroring the results of the original `JL_V6-6_2finalize.jl` script.
+- Added functionality for progress monitoring and debugging, ensuring clarity during execution.
+- Integrated R plotting commands to generate visual outputs post-simulation, maintaining consistency with previous outputs.
+
+These enhancements aim to optimize simulation performance and streamline the workflow for model testing and analysis.
+
+Refs #34
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/1ca3cb4_20250904_221704_plot1.png)  
+![](../plot_archive/1ca3cb4_20250904_221704_plot2.png)  
+
+## Commit [b3e5188](https://github.com/naszhu/REM_E3_model_fixed/commit/b3e5188) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:03:30  
+**Message:**
+```
+feat(model-e1): enhance content distortion and parameter integration
+
+- Added new advantage parameters `u_star_adv` and `c_adv` to align with E3 specifications.
+- Refactored context copying parameters to use `fill` instead of `LinRange` for consistency.
+- Introduced content distortion functions with linear decay in probability for probe features, enhancing the model's ability to simulate content drift between study and test phases.
+- Updated probe generation logic to apply content distortion based on new parameters, improving the realism of memory simulations.
+
+These changes aim to refine the modeling framework by integrating advanced distortion mechanisms and ensuring parameter consistency across the system.
+
+Closes #32
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/b3e5188_20250904_220330_plot1.png)  
+![](../plot_archive/b3e5188_20250904_220330_plot2.png)  
+
+## Commit [8470ac7](https://github.com/naszhu/REM_E3_model_fixed/commit/8470ac7) (branch: `sep-4-align`)
+**Time:** 2025-09-04 22:03:23  
+**Message:**
+```
+feat(model-e1): enhance content distortion and parameter integration
+
+- Added new advantage parameters `u_star_adv` and `c_adv` to align with E3 specifications.
+- Refactored context copying parameters to use `fill` instead of `LinRange` for consistency.
+- Introduced content distortion functions with linear decay in probability for probe features, enhancing the model's ability to simulate content drift between study and test phases.
+- Updated probe generation logic to apply content distortion based on new parameters, improving the realism of memory simulations.
+
+These changes aim to refine the modeling framework by integrating advanced distortion mechanisms and ensuring parameter consistency across the system.
+
+Closes #32
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/8470ac7_20250904_220323_plot1.png)  
+![](../plot_archive/8470ac7_20250904_220323_plot2.png)  
+
+## Commit [15d8c4a](https://github.com/naszhu/REM_E3_model_fixed/commit/15d8c4a) (branch: `sep-4-align`)
+**Time:** 2025-09-04 21:37:32  
+**Message:**
+```
+feat(model-e1): refactor feature restoration functions for clarity and functionality
+
+- Renamed `add_features_from_empty!` to `add_feature_during_restore!` for better clarity in purpose.
+- Introduced `strengthen_features!` function to enhance feature restoration logic during memory processes.
+- Updated calls to the new function names in `restore_intest` and `restore_intest_final` for consistency.
+- Improved handling of context and content features, ensuring proper integration of parameters during restoration.
+
+These changes aim to streamline the feature restoration process and improve the overall functionality of the memory restoration logic.
+
+Refs #33, #13
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/15d8c4a_20250904_213732_plot1.png)  
+![](../plot_archive/15d8c4a_20250904_213732_plot2.png)  
+
+## Commit [dad2933](https://github.com/naszhu/REM_E3_model_fixed/commit/dad2933) (branch: `sep-4-align`)
+**Time:** 2025-09-04 21:13:35  
+**Message:**
+```
+feat(model-e1): implement Z feature parameters and update restoration logic
+
+The first working version but haven't checked through yet
+- Introduced Z feature parameters and logic for E1, including κu values and associated functions for feature updates during study and restoration.
+- Updated the restore_features! function to handle Z features specifically, ensuring proper integration into the memory restoration process.
+- Enhanced the probe evaluation logic to incorporate Z feature decisions, improving the model's accuracy in distinguishing between old and new items.
+- Adjusted the memory storage to accommodate Z features, ensuring compatibility with existing structures.
+
+These changes aim to enhance the modeling framework by integrating new features that improve recall accuracy and overall performance in simulations.
+
+Refs #31
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_generation.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/memory_storage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+- `design3/modeling`  
+![](../plot_archive/dad2933_20250904_211335_plot1.png)  
+![](../plot_archive/dad2933_20250904_211335_plot2.png)  
+
+## Commit [853d96c](https://github.com/naszhu/REM_E3_model_fixed/commit/853d96c) (branch: `sep-4-align`)
+**Time:** 2025-09-04 00:57:22  
+**Message:**
+```
+docs(model-e1): correct command syntax in R script execution
+
+- Removed an extraneous 'git' from the command that runs the R script for plotting.
+- Ensured the command syntax is clean and functional for proper execution.
+
+This change aims to enhance the reliability of the script execution process in the modeling workflow.
+```
+**Changed Files:**
+- `.vscode/settings.json`  
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/853d96c_20250904_005722_plot1.png)  
+![](../plot_archive/853d96c_20250904_005722_plot2.png)  
+
 ## Commit [1476220](https://github.com/naszhu/REM_E3_model_fixed/commit/1476220) (branch: `main`)
 **Time:** 2025-08-26 01:37:32  
 **Message:**

@@ -1,5 +1,192 @@
 [
   {
+    "commit": "8084edc",
+    "branch": "sep-4-align",
+    "message": "finetune(model-e1): match simulation parameters",
+    "timestamp": "2025-09-05 02:53:37",
+    "plot1": "plot_archive/8084edc_20250905_025337_plot1.png",
+    "plot2": "plot_archive/8084edc_20250905_025337_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "2c527a0",
+    "branch": "sep-4-align",
+    "message": "fix(model-e1): refine Z feature calculations and update restoration logic",
+    "timestamp": "2025-09-05 02:43:29",
+    "plot1": "plot_archive/2c527a0_20250905_024329_plot1.png",
+    "plot2": "plot_archive/2c527a0_20250905_024329_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/utils.jl",
+      "design1/modeling/run_parallel.sh",
+      "design1/modeling/simulation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "31bdab1",
+    "branch": "sep-4-align",
+    "message": "feat(model-e1): update Z feature implementation and parameter calculations",
+    "timestamp": "2025-09-05 01:28:49",
+    "plot1": "plot_archive/31bdab1_20250905_012849_plot1.png",
+    "plot2": "plot_archive/31bdab1_20250905_012849_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/module_jl/utils.jl",
+      "design1/modeling/run_parallel.sh",
+      "design1/modeling/simulation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "503f3ba",
+    "branch": "sep-4-align",
+    "message": "refactor(constants): relocate Z feature parameter calculations for improved organization",
+    "timestamp": "2025-09-04 22:30:27",
+    "plot1": "plot_archive/503f3ba_20250904_223027_plot1.png",
+    "plot2": "plot_archive/503f3ba_20250904_223027_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "0f1458d",
+    "branch": "sep-4-align",
+    "message": "refactor(constants): move utility function to utils and clean up code",
+    "timestamp": "2025-09-04 22:21:05",
+    "plot1": "plot_archive/0f1458d_20250904_222105_plot1.png",
+    "plot2": "plot_archive/0f1458d_20250904_222105_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
+    "commit": "f1b0155",
+    "branch": "sep-4-align",
+    "message": "chore(.gitignore): add entries for parallel execution temporary directories",
+    "timestamp": "2025-09-04 22:20:24",
+    "plot1": "plot_archive/f1b0155_20250904_222024_plot1.png",
+    "plot2": "plot_archive/f1b0155_20250904_222024_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "1ca3cb4",
+    "branch": "sep-4-align",
+    "message": "feat(shell-e1): add parallel execution script for enhanced simulation performance",
+    "timestamp": "2025-09-04 22:17:04",
+    "plot1": "plot_archive/1ca3cb4_20250904_221704_plot1.png",
+    "plot2": "plot_archive/1ca3cb4_20250904_221704_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
+    "commit": "b3e5188",
+    "branch": "sep-4-align",
+    "message": "feat(model-e1): enhance content distortion and parameter integration",
+    "timestamp": "2025-09-04 22:03:30",
+    "plot1": "plot_archive/b3e5188_20250904_220330_plot1.png",
+    "plot2": "plot_archive/b3e5188_20250904_220330_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "8470ac7",
+    "branch": "sep-4-align",
+    "message": "feat(model-e1): enhance content distortion and parameter integration",
+    "timestamp": "2025-09-04 22:03:23",
+    "plot1": "plot_archive/8470ac7_20250904_220323_plot1.png",
+    "plot2": "plot_archive/8470ac7_20250904_220323_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "15d8c4a",
+    "branch": "sep-4-align",
+    "message": "feat(model-e1): refactor feature restoration functions for clarity and functionality",
+    "timestamp": "2025-09-04 21:37:32",
+    "plot1": "plot_archive/15d8c4a_20250904_213732_plot1.png",
+    "plot2": "plot_archive/15d8c4a_20250904_213732_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "dad2933",
+    "branch": "sep-4-align",
+    "message": "feat(model-e1): implement Z feature parameters and update restoration logic",
+    "timestamp": "2025-09-04 21:13:35",
+    "plot1": "plot_archive/dad2933_20250904_211335_plot1.png",
+    "plot2": "plot_archive/dad2933_20250904_211335_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_generation.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/memory_storage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/utils.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "853d96c",
+    "branch": "sep-4-align",
+    "message": "docs(model-e1): correct command syntax in R script execution",
+    "timestamp": "2025-09-04 00:57:22",
+    "plot1": "plot_archive/853d96c_20250904_005722_plot1.png",
+    "plot2": "plot_archive/853d96c_20250904_005722_plot2.png",
+    "changed_files": [
+      ".vscode/settings.json",
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "1476220",
     "branch": "main",
     "message": "feat(vscode): add settings for Solarized Dark theme",
