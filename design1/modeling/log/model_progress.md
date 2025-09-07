@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [1a066bc](https://github.com/naszhu/REM_E3_model_fixed/commit/1a066bc) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:21:37  
+**Message:**
+```
+finetune(model-e1): intiial prediction update kappa and asymptote parameters
+
+- Adjusted the initial value of `ku_base` from 0.15 to 0.25 to better reflect study requirements.
+- Modified `fj_asymptote_decrease_val` from 0.01 to 0.1, and `hj_asymptote_increase_val` from 0.4 to 0.1 for improved model accuracy.
+- Updated `hj_base` from 0.6 to 0.3 to enhance the starting point for CF calculations.
+- Changed the calculation of `v_criterion_initial` to use exponentiation with `power_taken`, ensuring correct parameterization.
+
+These changes aim to refine the model's constants for better alignment with experimental data.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design3/modeling`  
+![](../plot_archive/1a066bc_20250907_172137_plot1.png)  
+![](../plot_archive/1a066bc_20250907_172137_plot2.png)  
+
 ## Commit [efa235b](https://github.com/naszhu/REM_E3_model_fixed/commit/efa235b) (branch: `sep-7-test`)
 **Time:** 2025-09-07 17:14:36  
 **Message:**

@@ -1,7 +1,7 @@
 
 
-is_finaltest = true
-n_simulations = is_finaltest ? 200 : 3000;
+is_finaltest = false
+n_simulations = is_finaltest ? 200 : 500;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -43,12 +43,12 @@ n_grade = 2 #only first to be special
 const n_units_time = 13 #number of steps                                                                                                                                                                                                                        
 
 # u_star parameters
-u_star_v = 0.046
+u_star_v = 0.04
 u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
-adv_u_star_strengthen = 0.06# 0.06
-adv_c_strenghten = 0.1# 0.1
+adv_u_star_strengthen = 0.00# 0.06 no adv during strenghtening for now
+adv_c_strenghten = 0.0# 0.1
 
 # Additional advantage parameters from E3
 u_star_adv = 0  # 0.06 in E3
@@ -114,7 +114,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.1673^power_taken
+v_criterion_initial = 0.15^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.0^power_taken;
@@ -174,7 +174,7 @@ const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 7  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.29  # Base probability of distortion for the first probe 
+base_distortion_prob = 0.4  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
@@ -250,13 +250,13 @@ const tested_before_feature_pos = w_word + n_z_features  # position of Z feature
 # κt for test only confusing foil
 
 # Base kappa values (same as E3)
-ku_base = 0.25  # study，higher this value, lower the starting point of T
+ku_base = 0.07  # study，higher this value, lower the starting point of T
 ks_base = 0.45  # SOn (study only), lower the value, higher the starting point CF  
 kb_base = 0.45  # Tn (study and test)
 kt_base = 0.45  # Fn (test only)
 
 # Asymptotic decrease parameters (same as E3)
-fj_asymptote_decrease_val = 0.1  # Asymptote value for decreasing function
+fj_asymptote_decrease_val = 0.07  # Asymptote value for decreasing function
 fj_rate = 0.26  # Rate of change for the decreasing function
 
 # Asymptotic increase parameters (same as E3)
