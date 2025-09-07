@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [2f603e3](https://github.com/naszhu/REM_E3_model_fixed/commit/2f603e3) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:06:04  
+**Message:**
+```
+explore(model-e1): try lowest ku starting value
+
+doesn't help much, might have to change copy param
+
+- Decreased `ku_base` from 0.07 to 0.01 to lower the starting point of T.
+- Reduced `fj_asymptote_decrease_val` from 0.07 to 0.01 for better asymptotic behavior.
+
+These changes aim to enhance the model's constants and improve its alignment with study requirements.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/2f603e3_20250907_180604_plot1.png)  
+![](../plot_archive/2f603e3_20250907_180604_plot2.png)  
+
 ## Commit [c43f557](https://github.com/naszhu/REM_E3_model_fixed/commit/c43f557) (branch: `sep-7-test`)
 **Time:** 2025-09-07 18:05:05  
 **Message:**

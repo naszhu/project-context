@@ -1,5 +1,18 @@
 [
   {
+    "commit": "2f603e3",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): try lowest ku starting value",
+    "timestamp": "2025-09-07 18:06:04",
+    "plot1": "plot_archive/2f603e3_20250907_180604_plot1.png",
+    "plot2": "plot_archive/2f603e3_20250907_180604_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "c43f557",
     "branch": "sep-7-test",
     "message": "explore(model-e1): increase kappa for (foil params)",
