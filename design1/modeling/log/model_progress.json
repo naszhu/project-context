@@ -1,5 +1,27 @@
 [
   {
+    "commit": "635e569",
+    "branch": "sep-7-test",
+    "message": "fix(shell): fix the bug in data processing",
+    "timestamp": "2025-09-07 16:03:23",
+    "plot1": "plot_archive/635e569_20250907_160323_plot1.png",
+    "plot2": "plot_archive/635e569_20250907_160323_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
+    "commit": "d3306de",
+    "branch": "main",
+    "message": "merge(model-e1): align: Merge branch 'sep-4-align'",
+    "timestamp": "2025-09-07 13:29:19",
+    "plot1": "plot_archive/d3306de_20250907_132919_plot1.png",
+    "plot2": "plot_archive/d3306de_20250907_132919_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "8084edc",
     "branch": "sep-4-align",
     "message": "finetune(model-e1): match simulation parameters",
