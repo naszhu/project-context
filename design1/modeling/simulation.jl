@@ -2,9 +2,9 @@
 function simulate_rem()
     # 1. Initialization
 
-    df_inital = DataFrame(list_number=Int[], test_position=Int[], simulation_number=Int[], decision_isold=Int[], is_target=Bool[], odds=Float64[], Nratio_iprobe=Float64[], Nratio_iimageinlist=Float64[], N_imageinlist=Float64[], ilist_image=Int[], study_position=Int[], diff=Float64[] )
+    df_inital = DataFrame(list_number=Int[], test_position=Int[], simulation_number=Int[], decision_isold=Int[], is_target=Bool[], odds=Float64[], Nratio_iprobe=Float64[], Nratio_iimageinlist=Float64[], N_imageinlist=Float64[], ilist_image=Int[], study_position=Int[], diff=Float64[], is_sampled=Bool[], is_same_item=Bool[] )
 
-    df_final = DataFrame(list_number=Int[], test_position=Int[], simulation_number=Int[], condition=Symbol[], decision_isold=Int[], is_target=String[], odds=Float64[], initial_studypos=Int[], initial_testpos = Int[], study_pos=Float64[])
+    df_final = DataFrame(list_number=Int[], test_position=Int[], simulation_number=Int[], condition=Symbol[], decision_isold=Int[], is_target=String[], odds=Float64[], initial_studypos=Int[], initial_testpos = Int[], study_pos=Float64[], is_sampled=Bool[], is_same_item=Bool[])
 
     for sim_num in 1:n_simulations
 
@@ -109,7 +109,7 @@ function simulate_rem()
 
             for (ires, res) in enumerate(results) #1D array, length is 20 words
                 tt = res.is_target == :target ? true : false
-                row = [list_num, res.testpos, sim_num, res.decision_isold, tt, res.odds, res.Nratio_iprobe, res.Nratio_imageinlist, res.N_imageinlist, res.ilist_image, res.studypos, res.diff] # Add more fields as needed
+                row = [list_num, res.testpos, sim_num, res.decision_isold, tt, res.odds, res.Nratio_iprobe, res.Nratio_imageinlist, res.N_imageinlist, res.ilist_image, res.studypos, res.diff, res.is_sampled, res.is_same_item] # Add more fields as needed
                 # results[]=(decision_isold = decision_isold, is_target = probes[i].classification, odds = odds, ilist_image=j,Nratio_imageinlist = nimages_activated/nimages, Nratio_iprobe = nav);
                 # odds = Float64[], Nratio_iprobe = Float64[], Nratio_iimageinlist = Float64[], ilist_image = Int[])
                 push!(df_inital, row)
@@ -168,7 +168,7 @@ function simulate_rem()
                 results_final = probe_evaluation2(image_pool_bc, finalprobes)
                 for ii in eachindex(results_final)
                     res = results_final[ii]
-                    push!(df_final, [res.list_num, ii, sim_num, icondition, res.decision_isold, res.is_target, res.odds, res.initial_studypos, res.initial_testpos, res.initial_studypos])
+                    push!(df_final, [res.list_num, ii, sim_num, icondition, res.decision_isold, res.is_target, res.odds, res.initial_studypos, res.initial_testpos, res.initial_studypos, res.is_sampled, res.is_same_item])
                 end
             end
         end

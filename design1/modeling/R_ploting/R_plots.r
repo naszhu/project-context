@@ -214,11 +214,45 @@ p_serial=ggplot(data=df_serial,aes(x=study_position,meanx))+
 #         text=element_text(size=20) # Increase font size globally
 #     )
 
-png(filename="plot1.png", width=500, height=1200)
-# grid.arrange(p1,list_rt,p_in_20,testpos_rt,p_serial,p4,ncol = 2,nrow=3)
-# grid.arrange(p1,p_in_20,p_serial,p4,ncol = 2,nrow=2)
-grid.arrange(p1,p_in_20,p_serial,ncol = 1,nrow=3)
-dev.off()
+# Add sampling accuracy plot (from E3)
+# Check if the necessary columns exist in all_results for sampling analysis
+if("is_sampled" %in% colnames(all_results) && "is_same_item" %in% colnames(all_results)) {
+    sampling_data <- all_results %>%
+        filter(is_sampled == "true", is_target == "true", decision_isold == 1) %>%
+        mutate(is_same_item_num = case_when(is_same_item == "true" ~ 1, TRUE ~ 0)) %>%
+        group_by(simulation_number, test_position, list_number) %>%
+        summarize(prob_correct = mean(is_same_item_num)) %>%
+        group_by(test_position, list_number) %>%
+        summarize(prob_correct = mean(prob_correct)) %>%
+        group_by(list_number) %>%
+        summarize(prob_correct = mean(prob_correct))
+    
+    sampling_accuracy_plot <- ggplot(sampling_data, aes(x = list_number, y = prob_correct)) +
+        geom_line(linewidth = 1.2) +
+        geom_point(size = 3) +
+        labs(
+            title = "Probability of Correct Sampling When Item is Sampled",
+            x = "List Number",
+            y = "Probability of Correct Sampling"
+        ) +
+        scale_x_continuous(breaks = 1:10) +
+        scale_y_continuous(limits = c(0.94, 1.0), breaks = seq(0.94, 1.0, by = 0.01)) +
+        theme_minimal() +
+        theme(
+            plot.title = element_text(face = "bold", size = 16),
+            text = element_text(size = 20)
+        )
+    
+    # Use 2x2 grid layout with sampling plot included
+    png(filename="plot1.png", width=1000, height=1000)
+    grid.arrange(p1, p_in_20, p_serial, sampling_accuracy_plot, ncol = 2, nrow = 2)
+    dev.off()
+} else {
+    # Fallback to original 1x3 layout if sampling columns don't exist
+    png(filename="plot1.png", width=500, height=1200)
+    grid.arrange(p1, p_in_20, p_serial, ncol = 1, nrow = 3)
+    dev.off()
+}
 # system("feh plot1.png &", wait = FALSE)      # if `feh` is installed
 # system("feh plot1.png",)      # if `feh` is installed
 # system2("feh", args = "plot1.png", wait = FALSE)

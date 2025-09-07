@@ -1,5 +1,34 @@
 [
   {
+    "commit": "b5c8dec",
+    "branch": "sep-7-test",
+    "message": "feat(predplot-e1):  add sampling accuracy plots",
+    "timestamp": "2025-09-07 17:08:16",
+    "plot1": "plot_archive/b5c8dec_20250907_170816_plot1.png",
+    "plot2": "plot_archive/b5c8dec_20250907_170816_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/R_ploting/R_plots_finalt.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "de1f74d",
+    "branch": "sep-7-test",
+    "message": "fix(constants): put criterion power to 1",
+    "timestamp": "2025-09-07 16:29:41",
+    "plot1": "plot_archive/de1f74d_20250907_162941_plot1.png",
+    "plot2": "plot_archive/de1f74d_20250907_162941_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "4b697f6",
     "branch": "sep-7-test",
     "message": "fix(rshell): The plot saving path is wrong",
