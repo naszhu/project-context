@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [c43f557](https://github.com/naszhu/REM_E3_model_fixed/commit/c43f557) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:05:05  
+**Message:**
+```
+explore(model-e1): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased  from 7 to 12 to enhance content drift modeling.
+- Updated , , and  values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c43f557_20250907_180505_plot1.png)  
+![](../plot_archive/c43f557_20250907_180505_plot2.png)  
+
 ## Commit [f37907f](https://github.com/naszhu/REM_E3_model_fixed/commit/f37907f) (branch: `sep-7-test`)
 **Time:** 2025-09-07 18:04:21  
 **Message:**
