@@ -114,7 +114,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.1673#0.1^power_taken
+v_criterion_initial = 0.1673^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.0^power_taken;
@@ -250,19 +250,19 @@ const tested_before_feature_pos = w_word + n_z_features  # position of Z feature
 # κt for test only confusing foil
 
 # Base kappa values (same as E3)
-ku_base = 0.15  # study，higher this value, lower the starting point of T
+ku_base = 0.25  # study，higher this value, lower the starting point of T
 ks_base = 0.45  # SOn (study only), lower the value, higher the starting point CF  
 kb_base = 0.45  # Tn (study and test)
 kt_base = 0.45  # Fn (test only)
 
 # Asymptotic decrease parameters (same as E3)
-fj_asymptote_decrease_val = 0.01  # Asymptote value for decreasing function
+fj_asymptote_decrease_val = 0.1  # Asymptote value for decreasing function
 fj_rate = 0.26  # Rate of change for the decreasing function
 
 # Asymptotic increase parameters (same as E3)
-hj_asymptote_increase_val = 0.4
+hj_asymptote_increase_val = 0.1
 hj_rate = 0.85
-hj_base = 0.6  # higher this value higher CF starting point
+hj_base = 0.3  # higher this value higher CF starting point
 
 # Include utils.jl to get asymptotic functions
 include("utils.jl")

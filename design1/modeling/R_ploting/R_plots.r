@@ -244,7 +244,7 @@ if("is_sampled" %in% colnames(all_results) && "is_same_item" %in% colnames(all_r
         )
     
     # Use 2x2 grid layout with sampling plot included
-    png(filename="plot1.png", width=1000, height=1000)
+    png(filename="plot1.png", width=1000, height=800)
     grid.arrange(p1, p_in_20, p_serial, sampling_accuracy_plot, ncol = 2, nrow = 2)
     dev.off()
 } else {

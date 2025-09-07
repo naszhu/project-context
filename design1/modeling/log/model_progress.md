@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [efa235b](https://github.com/naszhu/REM_E3_model_fixed/commit/efa235b) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:14:36  
+**Message:**
+```
+feat(predplot-e1):  add sampling accuracy plots
+
+- Updated the DataFrame structures in `simulation.jl` to include new fields `is_sampled` and `is_same_item`, improving data tracking during simulations.
+- Modified the `probe_evaluation` function to store additional sampling information.
+- Introduced sampling accuracy plots in R scripts, allowing for better visualization of sampling performance based on new data fields.
+- Adjusted plotting logic to conditionally include sampling accuracy plots based on the presence of relevant columns.
+
+These changes aim to improve the analysis and visualization of simulation results, enhancing the overall functionality of the modeling framework.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/R_ploting/R_plots_finalt.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/efa235b_20250907_171436_plot1.png)  
+![](../plot_archive/efa235b_20250907_171436_plot2.png)  
+
 ## Commit [b5c8dec](https://github.com/naszhu/REM_E3_model_fixed/commit/b5c8dec) (branch: `sep-7-test`)
 **Time:** 2025-09-07 17:08:16  
 **Message:**
