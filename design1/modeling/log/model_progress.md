@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [33bcdb9](https://github.com/naszhu/REM_E3_model_fixed/commit/33bcdb9) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:50:46  
+**Message:**
+```
+finetune(model-e1): update simulation parameters, increase overall performance
+
+- Changed `is_finaltest` to false and adjusted `n_simulations` to 500 for testing purposes.
+- Updated `u_star_v` to 0.04 and modified `adv_u_star_strengthen` and `adv_c_strenghten` to 0.00 for improved model behavior.
+- Revised `v_criterion_initial` to 0.15 and increased `base_distortion_prob` to 0.4 for better content distortion accuracy.
+- Adjusted y-axis limits in R plotting from (0, 1) to (0.825, 0.95) for enhanced visualization of accuracy metrics.
+
+These changes aim to refine the model's constants and improve the clarity of simulation results.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/33bcdb9_20250907_175046_plot1.png)  
+![](../plot_archive/33bcdb9_20250907_175046_plot2.png)  
+
 ## Commit [1a066bc](https://github.com/naszhu/REM_E3_model_fixed/commit/1a066bc) (branch: `sep-7-test`)
 **Time:** 2025-09-07 17:21:37  
 **Message:**

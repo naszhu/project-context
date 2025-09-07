@@ -1,5 +1,19 @@
 [
   {
+    "commit": "33bcdb9",
+    "branch": "sep-7-test",
+    "message": "finetune(model-e1): update simulation parameters, increase overall performance",
+    "timestamp": "2025-09-07 17:50:46",
+    "plot1": "plot_archive/33bcdb9_20250907_175046_plot1.png",
+    "plot2": "plot_archive/33bcdb9_20250907_175046_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "1a066bc",
     "branch": "sep-7-test",
     "message": "finetune(model-e1): intiial prediction update kappa and asymptote parameters",
