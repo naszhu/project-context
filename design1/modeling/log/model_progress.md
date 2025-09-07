@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [f72a1e0](https://github.com/naszhu/REM_E3_model_fixed/commit/f72a1e0) (branch: `sep-7-test`)
+**Time:** 2025-09-07 16:07:16  
+**Message:**
+```
+fix(shell): fix the bug in data processing
+
+- Removed aggregation steps from the initial simulation results, now saving raw data directly to CSV files.
+- Introduced a new aggregation step after combining results, ensuring clarity and separation of raw data and processed outputs.
+- Updated the script to handle the creation of aggregated CSV files for both initial and final test results, improving data management.
+
+These changes enhance the organization of simulation outputs and facilitate easier analysis of raw and aggregated data.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/f72a1e0_20250907_160716_plot1.png)  
+![](../plot_archive/f72a1e0_20250907_160716_plot2.png)  
+
 ## Commit [635e569](https://github.com/naszhu/REM_E3_model_fixed/commit/635e569) (branch: `sep-7-test`)
 **Time:** 2025-09-07 16:03:23  
 **Message:**
