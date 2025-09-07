@@ -114,7 +114,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.18^power_taken
+v_criterion_initial = 0.26^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.0^power_taken;
@@ -173,7 +173,7 @@ n_between_listchange = 20 #20 in E3 #25 originally
 const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
-max_distortion_probes = 7  # Number of probes until distortion probability reaches 0
+max_distortion_probes = 12  # Number of probes until distortion probability reaches 0
 base_distortion_prob = 0.4  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
@@ -251,12 +251,12 @@ const tested_before_feature_pos = w_word + n_z_features  # position of Z feature
 
 # Base kappa values (same as E3)
 ku_base = 0.07  # study，higher this value, lower the starting point of T
-ks_base = 0.45  # SOn (study only), lower the value, higher the starting point CF  
-kb_base = 0.45  # Tn (study and test)
-kt_base = 0.45  # Fn (test only)
+ks_base = 0.95  # SOn (study only), lower the value, higher the starting point CF  
+kb_base = 0.95  # Tn (study and test)
+kt_base = 0.95  # Fn (test only)
 
 # Asymptotic decrease parameters (same as E3)
-fj_asymptote_decrease_val = 0.07  # Asymptote value for decreasing function
+fj_asymptote_decrease_val = 0.07   # Asymptote value for decreasing function
 fj_rate = 0.26  # Rate of change for the decreasing function
 
 # Asymptotic increase parameters (same as E3)

@@ -1,5 +1,90 @@
 # Model Progress
 
+## Commit [f37907f](https://github.com/naszhu/REM_E3_model_fixed/commit/f37907f) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:04:21  
+**Message:**
+```
+explore(model-e1): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased  from 7 to 12 to enhance content drift modeling.
+- Updated , , and  values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/f37907f_20250907_180421_plot1.png)  
+![](../plot_archive/f37907f_20250907_180421_plot2.png)  
+
+## Commit [5a925b8](https://github.com/naszhu/REM_E3_model_fixed/commit/5a925b8) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:03:11  
+**Message:**
+```
+explore(model-e1): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased  from 7 to 12 to enhance content drift modeling.
+- Updated , , and  values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/5a925b8_20250907_180311_plot1.png)  
+![](../plot_archive/5a925b8_20250907_180311_plot2.png)  
+
+## Commit [d9b93be](https://github.com/naszhu/REM_E3_model_fixed/commit/d9b93be) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:00:48  
+**Message:**
+```
+explore(constants): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased `max_distortion_probes` from 7 to 12 to enhance content drift modeling.
+- Updated `ks_base`, `kb_base`, and `kt_base` values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/d9b93be_20250907_180048_plot1.png)  
+![](../plot_archive/d9b93be_20250907_180048_plot2.png)  
+
+## Commit [1acd464](https://github.com/naszhu/REM_E3_model_fixed/commit/1acd464) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:55:46  
+**Message:**
+```
+explore(model-e1): change UC ratio - raising performance
+
+Doesn't help much by changing this
+
+- Updated `ratio_unchanging_to_itself_init` from 0.46 to 0.3 for better alignment with experimental conditions.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/1acd464_20250907_175546_plot1.png)  
+![](../plot_archive/1acd464_20250907_175546_plot2.png)  
+
 ## Commit [537f262](https://github.com/naszhu/REM_E3_model_fixed/commit/537f262) (branch: `sep-7-test`)
 **Time:** 2025-09-07 17:52:37  
 **Message:**

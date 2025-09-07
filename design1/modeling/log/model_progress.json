@@ -1,5 +1,57 @@
 [
   {
+    "commit": "f37907f",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): increase kappa for (foil params)",
+    "timestamp": "2025-09-07 18:04:21",
+    "plot1": "plot_archive/f37907f_20250907_180421_plot1.png",
+    "plot2": "plot_archive/f37907f_20250907_180421_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "5a925b8",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): increase kappa for (foil params)",
+    "timestamp": "2025-09-07 18:03:11",
+    "plot1": "plot_archive/5a925b8_20250907_180311_plot1.png",
+    "plot2": "plot_archive/5a925b8_20250907_180311_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "d9b93be",
+    "branch": "sep-7-test",
+    "message": "explore(constants): increase kappa for (foil params)",
+    "timestamp": "2025-09-07 18:00:48",
+    "plot1": "plot_archive/d9b93be_20250907_180048_plot1.png",
+    "plot2": "plot_archive/d9b93be_20250907_180048_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "1acd464",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): change UC ratio - raising performance",
+    "timestamp": "2025-09-07 17:55:46",
+    "plot1": "plot_archive/1acd464_20250907_175546_plot1.png",
+    "plot2": "plot_archive/1acd464_20250907_175546_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "537f262",
     "branch": "sep-7-test",
     "message": "finetune(model-e1): update v_criterion_initial for improved model accuracy",
