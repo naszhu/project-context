@@ -93,9 +93,9 @@ end
 # κu values will be calculated in main file after constants are loaded
 
 # h_j parameter for Z feature usage probability (from E3)
-hj_asymptote_increase_val = 0.4
-hj_rate = 0.85
-hj_base = 0.6
+# hj_asymptote_increase_val = 0.4
+# hj_rate = 0.85
+# hj_base = 0.6
 
 function asym_increase_shift_hj(start_at::Float64,
     how_much::Float64,

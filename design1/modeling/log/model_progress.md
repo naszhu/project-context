@@ -1,5 +1,30 @@
 # Model Progress
 
+## Commit [c92f195](https://github.com/naszhu/REM_E3_model_fixed/commit/c92f195) (branch: `sep-7-test`)
+**Time:** 2025-09-08 02:29:36  
+**Message:**
+```
+explore(model-e1): between-list target drop mangnitude explore; no hj at all :
+
+- Increased `hj_asymptote_increase_val` from 0.43 to 0.8 to enhance the growth rate of the increasing function.
+- Decreased `hj_base` from 0.4 to 0.2 to modify the starting point for CF calculations.
+- Updated the Z feature logic in `probe_evaluation` to disable the random threshold check for improved decision-making clarity.
+
+These changes aim to refine the model's constants and enhance its alignment with experimental data.
+
+Issue #36: It is closed.  Currently with these adjustment the changes will suffice within-list prediction
+
+Closes #36
+To be solved #37
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/c92f195_20250908_022936_plot1.png)  
+![](../plot_archive/c92f195_20250908_022936_plot2.png)  
+
 ## Commit [3061afe](https://github.com/naszhu/REM_E3_model_fixed/commit/3061afe) (branch: `sep-7-test`)
 **Time:** 2025-09-07 19:26:29  
 **Message:**

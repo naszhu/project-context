@@ -184,7 +184,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
                 # Apply Z feature logic for E1 (simplified - only targets, no confusing foils)
                 if ilist_probe != 1 && use_Z_feature && !isnothing(sampled_item)
                     ranv = rand()
-                    if ranv < 0#h_j[ilist_probe-1]
+                    if ranv < h_j[ilist_probe-1]
                         # Use Z feature from sampled item
                         Z_value = get_Z_feature_value(sampled_item.word)
 

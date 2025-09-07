@@ -53,7 +53,8 @@ run_simulation() {
         Threads.nthreads()
         
         include(\"module_jl/data_structures.jl\")
-        include(\"module_jl/constants.jl\")  # This now includes utils.jl and calculates all κ parameters
+        include(\"module_jl/utils.jl\")
+        include(\"module_jl/constants.jl\")
         
         # Calculate parameters that depend on functions in utils.jl
         criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0)

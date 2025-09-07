@@ -260,15 +260,14 @@ fj_asymptote_decrease_val = 0.01   # Asymptote value for decreasing function
 fj_rate = 0.26  # Rate of change for the decreasing function
 
 # Asymptotic increase parameters (same as E3)
-hj_asymptote_increase_val = 0.8
-hj_rate = 1.2
-hj_base = 0.2; #higher this value higher CF starting point
+hj_asymptote_increase_val = 0.6
+hj_rate = 2.0
+hj_base = 0.4; #higher this value higher CF starting point
 
 # Include utils.jl to get asymptotic functions
-include("utils.jl")
+# include("utils.jl")
 
-# κ parameter arrays (aligned with E3 - issue 64)
-# These are calculated directly like in E3
+
 h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
 # the following equals to ks*f(j), 
 # κ are used instead of k for a simplification for now for easier modification of the code

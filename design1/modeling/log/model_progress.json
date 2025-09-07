@@ -1,5 +1,19 @@
 [
   {
+    "commit": "c92f195",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): between-list target drop mangnitude explore; no hj at all :",
+    "timestamp": "2025-09-08 02:29:36",
+    "plot1": "plot_archive/c92f195_20250908_022936_plot1.png",
+    "plot2": "plot_archive/c92f195_20250908_022936_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
     "commit": "3061afe",
     "branch": "sep-7-test",
     "message": "finetune(model-e1): small criterion reinstate rate change",
