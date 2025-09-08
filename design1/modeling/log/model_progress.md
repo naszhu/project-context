@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [769c76d](https://github.com/naszhu/REM_E3_model_fixed/commit/769c76d) (branch: `sep-7-test`)
+**Time:** 2025-09-08 17:34:49  
+**Message:**
+```
+finetune(model-e1): A good intial test: adjust ku_base, hj_rate, and hj_base for model refinement
+
+- Increased `ku_base` from 0.05 to 0.1 to modify the starting point of T.
+- Decreased `hj_rate` from 2.0 to 0.8 to refine the growth rate of the increasing function.
+- Decreased `hj_base` from 0.4 to 0.3 to adjust the starting point for CF calculations.
+
+These changes aim to enhance the model's parameters and improve its alignment with experimental data.
+
+Closes #37 got good between-list prediction
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/769c76d_20250908_173449_plot1.png)  
+![](../plot_archive/769c76d_20250908_173449_plot2.png)  
+
 ## Commit [14b9dc2](https://github.com/naszhu/REM_E3_model_fixed/commit/14b9dc2) (branch: `sep-7-test`)
 **Time:** 2025-09-08 02:40:35  
 **Message:**

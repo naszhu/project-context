@@ -67,7 +67,7 @@ allresf=read.csv("allresf.csv")
             y="prediction (Hits/Correct Rejection)",
             caption="Figure 3. Between List Final Test Results seen in Final Testing",
             color="Type",fill="Type")+
-        scale_color_manual(values=c("#56B4E9","red","#009E73","purple"))+
+        scale_color_manual(values=c("red","green","blue","purple"))+
         theme(
                 plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
             plot.margin = margin(t = 10, b = 40),
@@ -148,42 +148,42 @@ allresf=read.csv("allresf.csv")
 
  
 # Add sampling accuracy plot for final test if columns exist
-if("is_sampled" %in% colnames(all_results) && "is_same_item" %in% colnames(all_results)) {
-    sampling_data_final <- all_results %>%
-        filter(is_sampled == "true", is_target == "true", decision_isold == 1) %>%
-        mutate(is_same_item_num = case_when(is_same_item == "true" ~ 1, TRUE ~ 0)) %>%
-        group_by(simulation_number, test_position, list_number) %>%
-        summarize(prob_correct = mean(is_same_item_num)) %>%
-        group_by(test_position, list_number) %>%
-        summarize(prob_correct = mean(prob_correct)) %>%
-        group_by(list_number) %>%
-        summarize(prob_correct = mean(prob_correct))
+# if("is_sampled" %in% colnames(all_results) && "is_same_item" %in% colnames(all_results)) {
+#     sampling_data_final <- all_results %>%
+#         filter(is_sampled == "true", is_target == "true", decision_isold == 1) %>%
+#         mutate(is_same_item_num = case_when(is_same_item == "true" ~ 1, TRUE ~ 0)) %>%
+#         group_by(simulation_number, test_position, list_number) %>%
+#         summarize(prob_correct = mean(is_same_item_num)) %>%
+#         group_by(test_position, list_number) %>%
+#         summarize(prob_correct = mean(prob_correct)) %>%
+#         group_by(list_number) %>%
+#         summarize(prob_correct = mean(prob_correct))
     
-    sampling_accuracy_plot_final <- ggplot(sampling_data_final, aes(x = list_number, y = prob_correct)) +
-        geom_line(size = 1.2) +
-        geom_point(size = 3) +
-        labs(
-            title = "Sampling Accuracy (Initial Test Data)",
-            x = "List Number", 
-            y = "Probability of Correct Sampling"
-        ) +
-        theme_minimal() +
-        theme(
-            plot.title = element_text(face = "bold", size = 16),
-            text = element_text(size = 20)
-        )
+#     sampling_accuracy_plot_final <- ggplot(sampling_data_final, aes(x = list_number, y = prob_correct)) +
+#         geom_line(size = 1.2) +
+#         geom_point(size = 3) +
+#         labs(
+#             title = "Sampling Accuracy (Initial Test Data)",
+#             x = "List Number", 
+#             y = "Probability of Correct Sampling"
+#         ) +
+#         theme_minimal() +
+#         theme(
+#             plot.title = element_text(face = "bold", size = 16),
+#             text = element_text(size = 20)
+#         )
     
-    # Use 2x2 grid layout with final test plots and sampling plot
-    png(filename="plot2.png", width=1200, height=1200)
-    grid.arrange(pf1, pf4, sampling_accuracy_plot_final, ncol = 2, nrow = 2, 
-                 heights = c(2, 1), widths = c(1, 1))
-    dev.off()
-} else {
+#     # Use 2x2 grid layout with final test plots and sampling plot
+#     png(filename="plot2.png", width=1200, height=1200)
+#     grid.arrange(pf1, pf4, sampling_accuracy_plot_final, ncol = 2, nrow = 2, 
+#                  heights = c(2, 1), widths = c(1, 1))
+#     dev.off()
+# } else {
     # Original layout if sampling columns don't exist
     png(filename="plot2.png", width=1100, height=1200)
     grid.arrange(pf1, pf4, ncol = 1, nrow = 2)
     dev.off()
-}
+# }
        # if `feh` is installed
     #    system("feh plot2.png &", wait = FALSE)
 # system2("feh", args = "plot2.png", wait = FALSE)
