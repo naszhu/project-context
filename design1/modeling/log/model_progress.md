@@ -1,5 +1,151 @@
 # Model Progress
 
+## Commit [3c20774](https://github.com/naszhu/REM_E3_model_fixed/commit/3c20774) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:09:53  
+**Message:**
+```
+finetune(predplot-e1): final test visualization and data representation
+
+- Added grouping and mean calculation for `val` in the R plot to improve data clarity.
+- Updated color palette for better visual distinction in the plot.
+- Adjusted the plot's facet grid to ensure proper ordering of conditions.
+- Modified the PNG output dimensions for better aspect ratio.
+
+These changes aim to enhance the clarity and effectiveness of the visual outputs in the R plotting script.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots_finalt.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design3/modeling`  
+![](../plot_archive/3c20774_20250908_230953_plot1.png)  
+![](../plot_archive/3c20774_20250908_230953_plot2.png)  
+
+## Commit [9eee436](https://github.com/naszhu/REM_E3_model_fixed/commit/9eee436) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:24:35  
+**Message:**
+```
+debug(model-e1): probe distortion tracing for issue 38
+
+Add debugging functionality to track probe distortion in initial tests:
+- Add distortion markers to word.item when probes are distorted
+- Add debug print statements in restore functions to trace memory storage
+- Fix immutable Word struct handling by creating new instances
+- Enable verification of distorted probe storage affecting final test predictions
+
+Related to issue 38: E1 Model final test prediction by within-list testposition
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/9eee436_20250908_232435_plot1.png)  
+![](../plot_archive/9eee436_20250908_232435_plot2.png)  
+
+## Commit [9eee436](https://github.com/naszhu/REM_E3_model_fixed/commit/9eee436) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:24:35  
+**Message:**
+```
+debug(model-e1): probe distortion tracing for issue 38
+
+Add debugging functionality to track probe distortion in initial tests:
+- Add distortion markers to word.item when probes are distorted
+- Add debug print statements in restore functions to trace memory storage
+- Fix immutable Word struct handling by creating new instances
+- Enable verification of distorted probe storage affecting final test predictions
+
+Related to issue 38: E1 Model final test prediction by within-list testposition
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/9eee436_20250908_232435_plot1.png)  
+![](../plot_archive/9eee436_20250908_232435_plot2.png)  
+
+## Commit [566af51](https://github.com/naszhu/REM_E3_model_fixed/commit/566af51) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:32:28  
+**Message:**
+```
+debug(model-e1): narrow debug output to NEW judgments only
+
+Filter debug print statements to only show traces added when decision_isold == 0:
+- Focus on items judged as NEW in both initial and final tests
+- Reduce debug noise to better identify distorted probe storage patterns
+- Help isolate distorted foils that fail recognition and get stored as traces
+
+Related to issue 38: probe distortion debugging
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/566af51_20250908_233228_plot1.png)  
+![](../plot_archive/566af51_20250908_233228_plot2.png)  
+
+## Commit [9eee436](https://github.com/naszhu/REM_E3_model_fixed/commit/9eee436) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:24:35  
+**Message:**
+```
+debug(model-e1): probe distortion tracing for issue 38
+
+Add debugging functionality to track probe distortion in initial tests:
+- Add distortion markers to word.item when probes are distorted
+- Add debug print statements in restore functions to trace memory storage
+- Fix immutable Word struct handling by creating new instances
+- Enable verification of distorted probe storage affecting final test predictions
+
+Related to issue 38: E1 Model final test prediction by within-list testposition
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/9eee436_20250908_232435_plot1.png)  
+![](../plot_archive/9eee436_20250908_232435_plot2.png)  
+
+## Commit [3c20774](https://github.com/naszhu/REM_E3_model_fixed/commit/3c20774) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:09:53  
+**Message:**
+```
+finetune(predplot-e1): final test visualization and data representation
+
+- Added grouping and mean calculation for `val` in the R plot to improve data clarity.
+- Updated color palette for better visual distinction in the plot.
+- Adjusted the plot's facet grid to ensure proper ordering of conditions.
+- Modified the PNG output dimensions for better aspect ratio.
+
+These changes aim to enhance the clarity and effectiveness of the visual outputs in the R plotting script.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots_finalt.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design3/modeling`  
+![](../plot_archive/3c20774_20250908_230953_plot1.png)  
+![](../plot_archive/3c20774_20250908_230953_plot2.png)  
+
 ## Commit [b9429e6](https://github.com/naszhu/REM_E3_model_fixed/commit/b9429e6) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-08 21:42:19  
 **Message:**

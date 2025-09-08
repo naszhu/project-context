@@ -1,5 +1,90 @@
 [
   {
+    "commit": "3c20774",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "finetune(predplot-e1): final test visualization and data representation",
+    "timestamp": "2025-09-08 23:09:53",
+    "plot1": "plot_archive/3c20774_20250908_230953_plot1.png",
+    "plot2": "plot_archive/3c20774_20250908_230953_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots_finalt.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "9eee436",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): probe distortion tracing for issue 38",
+    "timestamp": "2025-09-08 23:24:35",
+    "plot1": "plot_archive/9eee436_20250908_232435_plot1.png",
+    "plot2": "plot_archive/9eee436_20250908_232435_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "9eee436",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): probe distortion tracing for issue 38",
+    "timestamp": "2025-09-08 23:24:35",
+    "plot1": "plot_archive/9eee436_20250908_232435_plot1.png",
+    "plot2": "plot_archive/9eee436_20250908_232435_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "566af51",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): narrow debug output to NEW judgments only",
+    "timestamp": "2025-09-08 23:32:28",
+    "plot1": "plot_archive/566af51_20250908_233228_plot1.png",
+    "plot2": "plot_archive/566af51_20250908_233228_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "9eee436",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): probe distortion tracing for issue 38",
+    "timestamp": "2025-09-08 23:24:35",
+    "plot1": "plot_archive/9eee436_20250908_232435_plot1.png",
+    "plot2": "plot_archive/9eee436_20250908_232435_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "3c20774",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "finetune(predplot-e1): final test visualization and data representation",
+    "timestamp": "2025-09-08 23:09:53",
+    "plot1": "plot_archive/3c20774_20250908_230953_plot1.png",
+    "plot2": "plot_archive/3c20774_20250908_230953_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots_finalt.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "b9429e6",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "merge(model-e1): Align to v6 e3, Merge branch 'sep-7-test'",
