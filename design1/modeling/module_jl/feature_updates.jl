@@ -450,46 +450,39 @@ function distort_probes_with_linear_decay(
             end
             
             # Apply distortion to each feature of the probe's word
-            if rand() < current_prob
-                distorted_features_count = 0
-                # Distort each feature with the current probability
-                for j in eachindex(distorted_probes[i].image.word.word_features)
-                    if j <= w_word #only distort normal content features
-                        if rand() < current_prob
-                            # Generate new feature value using Geometric distribution
-                            distorted_probes[i].image.word.word_features[j] = rand(Geometric(g_word)) + 1
-                            distorted_features_count += 1
-                        end
+            distorted_features_count = 0
+            # Distort each feature with the current probability
+            for j in eachindex(distorted_probes[i].image.word.word_features)
+                if j <= w_word #only distort normal content features
+                    if rand() < current_prob
+                        # Generate new feature value using Geometric distribution
+                        distorted_probes[i].image.word.word_features[j] = rand(Geometric(g_word)) + 1
+                        distorted_features_count += 1
                     end
                 end
+            end
                 
-                # Add debug marker to word.item indicating distortion
-                if distorted_features_count > 0
-                    original_word = distorted_probes[i].image.word
-                    distortion_level = current_prob
-                    distortion_info = "DISTORTED_pos$(i)_prob$(round(distortion_level, digits=3))_features$(distorted_features_count)"
-                    new_item = "$(original_word.item)_[$(distortion_info)]"
-                    
-                    # Create new Word instance with modified item (since Word is immutable)
-                    new_word = Word(new_item, original_word.word_features, original_word.type, original_word.studypos)
-                    
-                    # Replace the word in the EpisodicImage (which is mutable)
-                    distorted_probes[i].image.word = new_word
-                    
-                    # Debug: Print when distortion actually happens for position 1
-                    if i == 1
-                        println("[DEBUG-DISTORTION-POS1] ✓ DISTORTED - Type: $(new_word.type), Features changed: $(distorted_features_count), Item: $(new_item)")
-                    end
-                else
-                    # Debug: Print when distortion was attempted but no features changed for position 1
-                    if i == 1
-                        println("[DEBUG-DISTORTION-POS1] ✗ No features distorted despite passing probability check - Type: $(distorted_probes[i].image.word.type)")
-                    end
+            # Add debug marker to word.item indicating distortion
+            if distorted_features_count > 0
+                original_word = distorted_probes[i].image.word
+                distortion_level = current_prob
+                distortion_info = "DISTORTED_pos$(i)_prob$(round(distortion_level, digits=3))_features$(distorted_features_count)"
+                new_item = "$(original_word.item)_[$(distortion_info)]"
+                
+                # Create new Word instance with modified item (since Word is immutable)
+                new_word = Word(new_item, original_word.word_features, original_word.type, original_word.studypos)
+                
+                # Replace the word in the EpisodicImage (which is mutable)
+                distorted_probes[i].image.word = new_word
+                
+                # Debug: Print when distortion actually happens for position 1
+                if i == 1
+                    println("[DEBUG-DISTORTION-POS1] ✓ DISTORTED - Type: $(new_word.type), Features changed: $(distorted_features_count), Item: $(new_item)")
                 end
             else
-                # Debug: Print when distortion probability check failed for position 1
+                # Debug: Print when no features were distorted for position 1
                 if i == 1
-                    println("[DEBUG-DISTORTION-POS1] ✗ Failed probability check - Type: $(distorted_probes[i].image.word.type)")
+                    println("[DEBUG-DISTORTION-POS1] ✗ No features distorted - Type: $(distorted_probes[i].image.word.type)")
                 end
             end
         end
