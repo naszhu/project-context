@@ -1,5 +1,34 @@
 # Model Progress
 
+## Commit [ef87048](https://github.com/naszhu/REM_E3_model_fixed/commit/ef87048) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:48:44  
+**Message:**
+```
+fix(model-e1): remove double probability check in probe distortion
+
+Fix critical bug in distortion logic that was causing very low distortion rates:
+- Remove redundant outer probability check (line 453)
+- Was doing: rand() < prob AND rand() < prob for each feature
+- Now correctly: rand() < prob for each feature only
+- This fixes distortion probability from prob² to prob as intended
+
+With 15% probability per feature:
+- Before: 0.15² = 2.25% per feature, ~42% chance of any distortion
+- After: 15% per feature, ~99.7% chance of any distortion (as expected)
+
+Related to #38: fix distortion mechanism for proper probe storage analysis
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/ef87048_20250908_234844_plot1.png)  
+![](../plot_archive/ef87048_20250908_234844_plot2.png)  
+
 ## Commit [709f5cc](https://github.com/naszhu/REM_E3_model_fixed/commit/709f5cc) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-08 23:45:11  
 **Message:**

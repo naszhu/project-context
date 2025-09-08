@@ -1,5 +1,18 @@
 [
   {
+    "commit": "ef87048",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "fix(model-e1): remove double probability check in probe distortion",
+    "timestamp": "2025-09-08 23:48:44",
+    "plot1": "plot_archive/ef87048_20250908_234844_plot1.png",
+    "plot2": "plot_archive/ef87048_20250908_234844_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
     "commit": "709f5cc",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "debug(model-e1): improve debug output formatting and clarity",
