@@ -94,7 +94,8 @@ is_test_changecontext2 = false #is testing only change context in final test
 
 # Restoration flags
 is_restore_initial = true
-is_UnchangeCtxDriftAndReinstate = false  # Disable UC distortion (align with E3)
+is_UnchangeCtxDriftAndReinstate = true  # Disable UC distortion (align with E3)
+is_distort_probes = false
 const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
@@ -114,7 +115,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.14^power_taken
+v_criterion_initial = 0.11^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.0^power_taken;
@@ -166,7 +167,7 @@ p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hun
 p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 12) #7
+n_driftStudyTest = round.(Int, ones(10) * 10) #7
 
 n_between_listchange = 20 #20 in E3 #25 originally 
 
@@ -174,7 +175,7 @@ const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 20  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.15  # Base probability of distortion for the first probe 
+base_distortion_prob = 0.1  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
@@ -204,7 +205,7 @@ final_gap_change = 0.1; #0.16 in E3
 context_tau_final = 100 #0.20.2 above if this is 10
 p_ListChange_finaltest = ones(10) * 0.2 #0.8 in E3, but undecided as well in E3
 ratio_unchanging_to_itself_final = LinRange(1,1, n_lists) # if use no unchanging
-ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchanging
+ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchanging 
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)

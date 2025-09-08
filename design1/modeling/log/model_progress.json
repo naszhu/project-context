@@ -1,5 +1,18 @@
 [
   {
+    "commit": "37ed24b",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(#38): add final test probe distribution analysis",
+    "timestamp": "2025-09-09 00:21:25",
+    "plot1": "plot_archive/37ed24b_20250909_002125_plot1.png",
+    "plot2": "plot_archive/37ed24b_20250909_002125_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
     "commit": "b5bfb62",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "debug(#38): add comprehensive final test debug and clean up initial test debug",

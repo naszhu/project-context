@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [37ed24b](https://github.com/naszhu/REM_E3_model_fixed/commit/37ed24b) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-09 00:21:25  
+**Message:**
+```
+debug(#38): add final test probe distribution analysis
+
+- Add comprehensive summary of initial_testpos distribution in final test
+- Reveal core issue: 280 studied-only items (pos=0) vs 6-10 tested items per position
+- Show distortion is working (30-50% of position 1-20 items are distorted)
+- Identify statistical dilution as cause of flat line effect
+- Next: investigate distortion effect size and comparison with previous working model versions
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/37ed24b_20250909_002125_plot1.png)  
+![](../plot_archive/37ed24b_20250909_002125_plot2.png)  
+
 ## Commit [b5bfb62](https://github.com/naszhu/REM_E3_model_fixed/commit/b5bfb62) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-09 00:16:01  
 **Message:**
