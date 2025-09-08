@@ -128,7 +128,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
         
         # Debug: Print word.item when adding new trace to memory (initial test) - only for items judged NEW at position 1
         if decision_isold == 0 && test_position == 1
-            println("[DEBUG-RESTORE-INITIAL-POS1] Adding NEW trace to memory - word.item: $(iimage_toadd.word.item)")
+            println("[DEBUG-RESTORE-INITIAL-POS1] Adding NEW trace to memory - Type: $(iimage_toadd.word.type) - word.item: $(iimage_toadd.word.item)")
         end
         push!(image_pool, iimage_toadd)
         # println("pass, decision_isold $(decision_isold); is pass $(odds < recall_odds_threshold)")
@@ -267,7 +267,7 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
         
         # Debug: Print word.item when adding new trace to memory (final test) - only for items judged NEW at position 1
         if decision_isold == 0 && test_position == 1
-            println("[DEBUG-RESTORE-FINAL-POS1] Adding NEW trace to memory - word.item: $(iimage_toadd.word.item)")
+            println("[DEBUG-RESTORE-FINAL-POS1] Adding NEW trace to memory - Type: $(iimage_toadd.word.type) - word.item: $(iimage_toadd.word.item)")
         end
         push!(image_pool, iimage_toadd)
     end

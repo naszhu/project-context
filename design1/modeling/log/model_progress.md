@@ -1,5 +1,30 @@
 # Model Progress
 
+## Commit [cd63bc8](https://github.com/naszhu/REM_E3_model_fixed/commit/cd63bc8) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:38:45  
+**Message:**
+```
+debug(model-e1): limit debug output to first test position only
+
+Filter debug prints to show only traces added for test position 1:
+- Add test_position parameter to restore functions
+- Only print when decision_isold == 0 AND test_position == 1
+- Focus on first position where distortion probability is highest
+- Should show more distorted probes being stored if distortion is working
+
+Related to #38: E1 Model final test prediction by within-list testposition
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/cd63bc8_20250908_233845_plot1.png)  
+![](../plot_archive/cd63bc8_20250908_233845_plot2.png)  
+
 ## Commit [d8c8e60](https://github.com/naszhu/REM_E3_model_fixed/commit/d8c8e60) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-08 23:38:31  
 **Message:**

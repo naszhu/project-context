@@ -1,5 +1,18 @@
 [
   {
+    "commit": "cd63bc8",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): limit debug output to first test position only",
+    "timestamp": "2025-09-08 23:38:45",
+    "plot1": "plot_archive/cd63bc8_20250908_233845_plot1.png",
+    "plot2": "plot_archive/cd63bc8_20250908_233845_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
     "commit": "d8c8e60",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "debug(model-e1): narrow debug output to NEW judgments only",

@@ -443,6 +443,11 @@ function distort_probes_with_linear_decay(
             # Linear decrease from base_distortion_prob to 0
             current_prob = base_distortion_prob * (1 - (i - 1) / max_distortion_probes)
             
+            # Debug: Print distortion attempt info for position 1
+            if i == 1
+                println("[DEBUG-DISTORTION-POS1] Attempting distortion - Probe type: $(probes[i].image.word.type), Distortion prob: $(round(current_prob, digits=3))")
+            end
+            
             # Apply distortion to each feature of the probe's word
             if rand() < current_prob
                 distorted_features_count = 0
@@ -469,6 +474,21 @@ function distort_probes_with_linear_decay(
                     
                     # Replace the word in the EpisodicImage (which is mutable)
                     distorted_probes[i].image.word = new_word
+                    
+                    # Debug: Print when distortion actually happens for position 1
+                    if i == 1
+                        println("[DEBUG-DISTORTION-POS1] ✓ DISTORTED - Type: $(new_word.type), Features changed: $(distorted_features_count), Item: $(new_item)")
+                    end
+                else
+                    # Debug: Print when distortion was attempted but no features changed for position 1
+                    if i == 1
+                        println("[DEBUG-DISTORTION-POS1] ✗ No features distorted despite passing probability check - Type: $(distorted_probes[i].image.word.type)")
+                    end
+                end
+            else
+                # Debug: Print when distortion probability check failed for position 1
+                if i == 1
+                    println("[DEBUG-DISTORTION-POS1] ✗ Failed probability check - Type: $(distorted_probes[i].image.word.type)")
                 end
             end
         end
