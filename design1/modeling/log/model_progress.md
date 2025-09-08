@@ -1,5 +1,30 @@
 # Model Progress
 
+## Commit [106cb09](https://github.com/naszhu/REM_E3_model_fixed/commit/106cb09) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:38:14  
+**Message:**
+```
+debug(model-e1): probe distortion tracing for #38
+
+Add debugging functionality to track probe distortion in initial tests:
+- Add distortion markers to word.item when probes are distorted
+- Add debug print statements in restore functions to trace memory storage
+- Fix immutable Word struct handling by creating new instances
+- Enable verification of distorted probe storage affecting final test predictions
+
+Related to #38: E1 Model final test prediction by within-list testposition
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/106cb09_20250908_233814_plot1.png)  
+![](../plot_archive/106cb09_20250908_233814_plot2.png)  
+
 ## Commit [3c20774](https://github.com/naszhu/REM_E3_model_fixed/commit/3c20774) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-08 23:09:53  
 **Message:**

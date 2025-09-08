@@ -11,7 +11,7 @@ restore content and/or context, here, context include change,unchange, and posit
 # end
 
 # function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, imax::Int64, probetype::Symbol, list_change_features::Vector{Int64}, general_context_features::Vector{Int64}, odds::Float64, likelihood_ratios::Vector{Float64}, simu_i::Int64, initial_testpos::Int64)
-function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, content_LL_ratios::Vector{Float64}, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64)::Nothing
+function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, content_LL_ratios::Vector{Float64}, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64, test_position::Int64=0)::Nothing
 
 
     if is_onlyaddtrace
@@ -126,6 +126,10 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
             end
         end
         
+        # Debug: Print word.item when adding new trace to memory (initial test) - only for items judged NEW at position 1
+        if decision_isold == 0 && test_position == 1
+            println("[DEBUG-RESTORE-INITIAL-POS1] Adding NEW trace to memory - word.item: $(iimage_toadd.word.item)")
+        end
         push!(image_pool, iimage_toadd)
         # println("pass, decision_isold $(decision_isold); is pass $(odds < recall_odds_threshold)")
     else
@@ -140,7 +144,7 @@ end
 
 
 
-function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, finaltest_pos::Int64, content_LL_ratios::Vector{Float64}, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64)::Nothing
+function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, finaltest_pos::Int64, content_LL_ratios::Vector{Float64}, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64, test_position::Int64=0)::Nothing
 #     iimage = decision_isold == 1 ? image_pool[imax] : EpisodicImage(Word(iprobe_img.word.item, fill(0, length(iprobe_img.word.word_features)), iprobe_img.word.type, iprobe_img.word.studypos), zeros(length(iprobe_img.context_features)), iprobe_img.list_number, iprobe_img.initial_testpos_img)
 # # println(iimage.initial_testpos_img)
 
@@ -261,6 +265,10 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
             end
         end
         
+        # Debug: Print word.item when adding new trace to memory (final test) - only for items judged NEW at position 1
+        if decision_isold == 0 && test_position == 1
+            println("[DEBUG-RESTORE-FINAL-POS1] Adding NEW trace to memory - word.item: $(iimage_toadd.word.item)")
+        end
         push!(image_pool, iimage_toadd)
     end
 

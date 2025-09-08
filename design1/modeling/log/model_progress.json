@@ -1,5 +1,18 @@
 [
   {
+    "commit": "106cb09",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): probe distortion tracing for #38",
+    "timestamp": "2025-09-08 23:38:14",
+    "plot1": "plot_archive/106cb09_20250908_233814_plot1.png",
+    "plot2": "plot_archive/106cb09_20250908_233814_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
     "commit": "3c20774",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "finetune(predplot-e1): final test visualization and data representation",
