@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [b5bfb62](https://github.com/naszhu/REM_E3_model_fixed/commit/b5bfb62) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-09 00:16:01  
+**Message:**
+```
+debug(#38): add comprehensive final test debug and clean up initial test debug
+
+- Add DEBUG-FLAT-LINE tracking for final test performance by initial position
+- Comment out previous DEBUG-DISTORTION-POS1 and DEBUG-RESTORE debug prints
+- Focus debugging on understanding flat line issue in final test predictions
+- Track relationship between initial_testpos and final test performance
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/b5bfb62_20250909_001601_plot1.png)  
+![](../plot_archive/b5bfb62_20250909_001601_plot2.png)  
+
 ## Commit [8f4527c](https://github.com/naszhu/REM_E3_model_fixed/commit/8f4527c) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-08 23:57:29  
 **Message:**

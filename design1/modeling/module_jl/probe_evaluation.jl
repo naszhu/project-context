@@ -150,6 +150,29 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
             is_distorted = contains(probes[i].image.word.item, "DISTORTED")
             println("[DEBUG-FLAT-LINE] Final pos $(i): initial_testpos=$(probes[i].image.initial_testpos_img), Type=$(probes[i].classification), distorted=$(is_distorted), decision=$(decision_isold), odds=$(round(odds, digits=3))")
         end
+        
+        # Debug: Summary of initial test position distribution at end of first list
+        if i == length(probes)
+            # Count distribution of initial test positions
+            initial_pos_counts = Dict{Int, Int}()
+            distorted_by_pos = Dict{Int, Int}()
+            
+            for probe in probes
+                pos = probe.image.initial_testpos_img
+                initial_pos_counts[pos] = get(initial_pos_counts, pos, 0) + 1
+                
+                if contains(probe.image.word.item, "DISTORTED")
+                    distorted_by_pos[pos] = get(distorted_by_pos, pos, 0) + 1
+                end
+            end
+            
+            println("\n[DEBUG-FLAT-LINE-SUMMARY] Final test probe distribution:")
+            for pos in sort(collect(keys(initial_pos_counts)))
+                distorted_count = get(distorted_by_pos, pos, 0)
+                total_count = initial_pos_counts[pos]
+                println("  initial_testpos=$(pos): $(total_count) probes, $(distorted_count) distorted")
+            end
+        end
 
         results[i] = (decision_isold=decision_isold, is_target=string(probes[i].classification), odds=odds, list_num=probes[i].image.list_number, initial_studypos=probes[i].image.word.studypos, initial_testpos = probes[i].image.initial_testpos_img, Z_sum=Z_sum, Z_proportion=Z_proportion, is_sampled=is_sampled, is_same_item=is_same_item) #! made changes to results, format different than that in inital
 

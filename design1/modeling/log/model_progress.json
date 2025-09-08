@@ -1,5 +1,20 @@
 [
   {
+    "commit": "b5bfb62",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(#38): add comprehensive final test debug and clean up initial test debug",
+    "timestamp": "2025-09-09 00:16:01",
+    "plot1": "plot_archive/b5bfb62_20250909_001601_plot1.png",
+    "plot2": "plot_archive/b5bfb62_20250909_001601_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
     "commit": "8f4527c",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "debug(model-e1): add final test retrieval debugging for distorted traces",
