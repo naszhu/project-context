@@ -1,5 +1,32 @@
 # Model Progress
 
+## Commit [14b9dc2](https://github.com/naszhu/REM_E3_model_fixed/commit/14b9dc2) (branch: `sep-7-test`)
+**Time:** 2025-09-08 02:40:35  
+**Message:**
+```
+fix(model-e1): bug found hj asignment was incorrect
+
+But still doens't seem right
+
+- Moved the inclusion of `constants.jl` to follow `utils.jl` in both `JL_V6-6_2finalize.jl` and `run_parallel.sh` for better dependency management.
+- Adjusted `hj_asymptote_increase_val`, `hj_rate`, and `hj_base` in `constants.jl` to refine the model's parameters.
+- Corrected a logical error in `probe_evaluation` by ensuring the random threshold check uses the correct `h_j` value.
+
+These changes aim to enhance code organization and improve model accuracy.
+
+Refs #37
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/14b9dc2_20250908_024035_plot1.png)  
+![](../plot_archive/14b9dc2_20250908_024035_plot2.png)  
+
 ## Commit [c92f195](https://github.com/naszhu/REM_E3_model_fixed/commit/c92f195) (branch: `sep-7-test`)
 **Time:** 2025-09-08 02:29:36  
 **Message:**

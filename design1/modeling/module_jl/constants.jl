@@ -250,7 +250,7 @@ const tested_before_feature_pos = w_word + n_z_features  # position of Z feature
 # κt for test only confusing foil
 
 # Base kappa values (same as E3)
-ku_base = 0.05 # study，higher this value, lower the starting point of T
+ku_base = 0.1 # study，higher this value, lower the starting point of T
 ks_base = 0.47 #SOn (study only), lower the value, higher the starting point CF
 kb_base = 0.55 #Tn (study and test)
 kt_base = 0.65 #Fn (test only)
@@ -261,14 +261,15 @@ fj_rate = 0.26  # Rate of change for the decreasing function
 
 # Asymptotic increase parameters (same as E3)
 hj_asymptote_increase_val = 0.6
-hj_rate = 2.0
-hj_base = 0.4; #higher this value higher CF starting point
+hj_rate = 0.8
+hj_base = 0.3; #higher this value higher CF starting point
 
 # Include utils.jl to get asymptotic functions
 # include("utils.jl")
 
 
 h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
+
 # the following equals to ks*f(j), 
 # κ are used instead of k for a simplification for now for easier modification of the code
 κu_values = asym_decrease_shift_fj(ku_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1) 
