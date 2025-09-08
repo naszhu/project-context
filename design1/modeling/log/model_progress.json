@@ -1,5 +1,18 @@
 [
   {
+    "commit": "d8c8e60",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): narrow debug output to NEW judgments only",
+    "timestamp": "2025-09-08 23:38:31",
+    "plot1": "plot_archive/d8c8e60_20250908_233831_plot1.png",
+    "plot2": "plot_archive/d8c8e60_20250908_233831_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
     "commit": "106cb09",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "debug(model-e1): probe distortion tracing for #38",

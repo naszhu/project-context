@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [d8c8e60](https://github.com/naszhu/REM_E3_model_fixed/commit/d8c8e60) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:38:31  
+**Message:**
+```
+debug(model-e1): narrow debug output to NEW judgments only
+
+Filter debug print statements to only show traces added when decision_isold == 0:
+- Focus on items judged as NEW in both initial and final tests
+- Reduce debug noise to better identify distorted probe storage patterns
+- Help isolate distorted foils that fail recognition and get stored as traces
+
+Related to #38: probe distortion debugging
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/d8c8e60_20250908_233831_plot1.png)  
+![](../plot_archive/d8c8e60_20250908_233831_plot2.png)  
+
 ## Commit [106cb09](https://github.com/naszhu/REM_E3_model_fixed/commit/106cb09) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-08 23:38:14  
 **Message:**
