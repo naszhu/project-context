@@ -1,5 +1,459 @@
 # Model Progress
 
+## Commit [769c76d](https://github.com/naszhu/REM_E3_model_fixed/commit/769c76d) (branch: `sep-7-test`)
+**Time:** 2025-09-08 17:34:49  
+**Message:**
+```
+finetune(model-e1): A good intial test: adjust ku_base, hj_rate, and hj_base for model refinement
+
+- Increased `ku_base` from 0.05 to 0.1 to modify the starting point of T.
+- Decreased `hj_rate` from 2.0 to 0.8 to refine the growth rate of the increasing function.
+- Decreased `hj_base` from 0.4 to 0.3 to adjust the starting point for CF calculations.
+
+These changes aim to enhance the model's parameters and improve its alignment with experimental data.
+
+Closes #37 got good between-list prediction
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/769c76d_20250908_173449_plot1.png)  
+![](../plot_archive/769c76d_20250908_173449_plot2.png)  
+
+## Commit [14b9dc2](https://github.com/naszhu/REM_E3_model_fixed/commit/14b9dc2) (branch: `sep-7-test`)
+**Time:** 2025-09-08 02:40:35  
+**Message:**
+```
+fix(model-e1): bug found hj asignment was incorrect
+
+But still doens't seem right
+
+- Moved the inclusion of `constants.jl` to follow `utils.jl` in both `JL_V6-6_2finalize.jl` and `run_parallel.sh` for better dependency management.
+- Adjusted `hj_asymptote_increase_val`, `hj_rate`, and `hj_base` in `constants.jl` to refine the model's parameters.
+- Corrected a logical error in `probe_evaluation` by ensuring the random threshold check uses the correct `h_j` value.
+
+These changes aim to enhance code organization and improve model accuracy.
+
+Refs #37
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/14b9dc2_20250908_024035_plot1.png)  
+![](../plot_archive/14b9dc2_20250908_024035_plot2.png)  
+
+## Commit [c92f195](https://github.com/naszhu/REM_E3_model_fixed/commit/c92f195) (branch: `sep-7-test`)
+**Time:** 2025-09-08 02:29:36  
+**Message:**
+```
+explore(model-e1): between-list target drop mangnitude explore; no hj at all :
+
+- Increased `hj_asymptote_increase_val` from 0.43 to 0.8 to enhance the growth rate of the increasing function.
+- Decreased `hj_base` from 0.4 to 0.2 to modify the starting point for CF calculations.
+- Updated the Z feature logic in `probe_evaluation` to disable the random threshold check for improved decision-making clarity.
+
+These changes aim to refine the model's constants and enhance its alignment with experimental data.
+
+Issue #36: It is closed.  Currently with these adjustment the changes will suffice within-list prediction
+
+Closes #36
+To be solved #37
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/c92f195_20250908_022936_plot1.png)  
+![](../plot_archive/c92f195_20250908_022936_plot2.png)  
+
+## Commit [3061afe](https://github.com/naszhu/REM_E3_model_fixed/commit/3061afe) (branch: `sep-7-test`)
+**Time:** 2025-09-07 19:26:29  
+**Message:**
+```
+finetune(model-e1): small criterion reinstate rate change
+
+- Increased `n_simulations` from 500 to 2000 for more robust testing.
+- Adjusted `v_criterion_initial` from 0.05 to 0.14 to improve initial criterion calculations.
+- Modified `p_reinstate_rate` from 0.2 to 0.3 for better parameter alignment.
+- Enabled y-axis limits in R plotting for improved visualization of accuracy metrics.
+
+These changes aim to enhance model performance and visualization clarity.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/3061afe_20250907_192629_plot1.png)  
+![](../plot_archive/3061afe_20250907_192629_plot2.png)  
+
+## Commit [6f385e6](https://github.com/naszhu/REM_E3_model_fixed/commit/6f385e6) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:56:53  
+**Message:**
+```
+explore(model-e1): back to reasonable copy and criterion parameters
+
+- Commented out the y-axis limits in R plotting to allow for dynamic scaling.
+- Decreased `nnnow` from 0.94 to 0.8 for better parameter alignment.
+- Increased `v_criterion_initial` from 0.001 to 0.05 to enhance initial criterion calculation.
+
+These changes aim to improve the model's accuracy and visualization clarity.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/6f385e6_20250907_185653_plot1.png)  
+![](../plot_archive/6f385e6_20250907_185653_plot2.png)  
+
+## Commit [447b475](https://github.com/naszhu/REM_E3_model_fixed/commit/447b475) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:46:55  
+**Message:**
+```
+explore(model-e1): update constants for improved model alignment
+
+very high copy very low criterion. They are always trading off
+
+- Increased `nnnow` from 0.70 to 0.94 to adjust parameter alignment with E3.
+- Changed `v_criterion_initial` from 0.26 to 0.001 for better initial criterion calculation.
+- Updated `max_distortion_probes` from 12 to 20 and reduced `base_distortion_prob` from 0.4 to 0.15 to enhance content distortion modeling.
+
+These changes aim to refine the model's constants and improve its alignment with experimental data.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/447b475_20250907_184655_plot1.png)  
+![](../plot_archive/447b475_20250907_184655_plot2.png)  
+
+## Commit [2388a2e](https://github.com/naszhu/REM_E3_model_fixed/commit/2388a2e) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:07:44  
+**Message:**
+```
+explore(model-e1): change back kappa value (in aligning to E3)
+
+Next step change copy param, but before that see what this looks like
+
+- Increased `ku_base` from 0.01 to 0.15, `ks_base` from 0.95 to 0.47, `kb_base` from 0.95 to 0.55, and `kt_base` from 0.95 to 0.65 to better align with study requirements.
+- Adjusted `hj_asymptote_increase_val` from 0.1 to 0.43 and `hj_base` from 0.3 to 0.4 for enhanced starting points in CF calculations.
+
+These changes aim to refine the model's constants and improve its alignment with experimental data.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/2388a2e_20250907_180744_plot1.png)  
+![](../plot_archive/2388a2e_20250907_180744_plot2.png)  
+
+## Commit [2f603e3](https://github.com/naszhu/REM_E3_model_fixed/commit/2f603e3) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:06:04  
+**Message:**
+```
+explore(model-e1): try lowest ku starting value
+
+doesn't help much, might have to change copy param
+
+- Decreased `ku_base` from 0.07 to 0.01 to lower the starting point of T.
+- Reduced `fj_asymptote_decrease_val` from 0.07 to 0.01 for better asymptotic behavior.
+
+These changes aim to enhance the model's constants and improve its alignment with study requirements.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/2f603e3_20250907_180604_plot1.png)  
+![](../plot_archive/2f603e3_20250907_180604_plot2.png)  
+
+## Commit [c43f557](https://github.com/naszhu/REM_E3_model_fixed/commit/c43f557) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:05:05  
+**Message:**
+```
+explore(model-e1): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased  from 7 to 12 to enhance content drift modeling.
+- Updated , , and  values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c43f557_20250907_180505_plot1.png)  
+![](../plot_archive/c43f557_20250907_180505_plot2.png)  
+
+## Commit [f37907f](https://github.com/naszhu/REM_E3_model_fixed/commit/f37907f) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:04:21  
+**Message:**
+```
+explore(model-e1): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased  from 7 to 12 to enhance content drift modeling.
+- Updated , , and  values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/f37907f_20250907_180421_plot1.png)  
+![](../plot_archive/f37907f_20250907_180421_plot2.png)  
+
+## Commit [5a925b8](https://github.com/naszhu/REM_E3_model_fixed/commit/5a925b8) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:03:11  
+**Message:**
+```
+explore(model-e1): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased  from 7 to 12 to enhance content drift modeling.
+- Updated , , and  values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/5a925b8_20250907_180311_plot1.png)  
+![](../plot_archive/5a925b8_20250907_180311_plot2.png)  
+
+## Commit [d9b93be](https://github.com/naszhu/REM_E3_model_fixed/commit/d9b93be) (branch: `sep-7-test`)
+**Time:** 2025-09-07 18:00:48  
+**Message:**
+```
+explore(constants): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased `max_distortion_probes` from 7 to 12 to enhance content drift modeling.
+- Updated `ks_base`, `kb_base`, and `kt_base` values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/d9b93be_20250907_180048_plot1.png)  
+![](../plot_archive/d9b93be_20250907_180048_plot2.png)  
+
+## Commit [1acd464](https://github.com/naszhu/REM_E3_model_fixed/commit/1acd464) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:55:46  
+**Message:**
+```
+explore(model-e1): change UC ratio - raising performance
+
+Doesn't help much by changing this
+
+- Updated `ratio_unchanging_to_itself_init` from 0.46 to 0.3 for better alignment with experimental conditions.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/1acd464_20250907_175546_plot1.png)  
+![](../plot_archive/1acd464_20250907_175546_plot2.png)  
+
+## Commit [537f262](https://github.com/naszhu/REM_E3_model_fixed/commit/537f262) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:52:37  
+**Message:**
+```
+finetune(model-e1): update v_criterion_initial for improved model accuracy
+
+- Increased `v_criterion_initial` from 0.15 to 0.18, enhancing the model's parameterization for better alignment with simulation requirements.
+
+This change aims to refine the model's constants and improve overall performance.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/537f262_20250907_175237_plot1.png)  
+![](../plot_archive/537f262_20250907_175237_plot2.png)  
+
+## Commit [33bcdb9](https://github.com/naszhu/REM_E3_model_fixed/commit/33bcdb9) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:50:46  
+**Message:**
+```
+finetune(model-e1): update simulation parameters, increase overall performance
+
+- Changed `is_finaltest` to false and adjusted `n_simulations` to 500 for testing purposes.
+- Updated `u_star_v` to 0.04 and modified `adv_u_star_strengthen` and `adv_c_strenghten` to 0.00 for improved model behavior.
+- Revised `v_criterion_initial` to 0.15 and increased `base_distortion_prob` to 0.4 for better content distortion accuracy.
+- Adjusted y-axis limits in R plotting from (0, 1) to (0.825, 0.95) for enhanced visualization of accuracy metrics.
+
+These changes aim to refine the model's constants and improve the clarity of simulation results.
+
+Refs #36
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/33bcdb9_20250907_175046_plot1.png)  
+![](../plot_archive/33bcdb9_20250907_175046_plot2.png)  
+
+## Commit [1a066bc](https://github.com/naszhu/REM_E3_model_fixed/commit/1a066bc) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:21:37  
+**Message:**
+```
+finetune(model-e1): intiial prediction update kappa and asymptote parameters
+
+- Adjusted the initial value of `ku_base` from 0.15 to 0.25 to better reflect study requirements.
+- Modified `fj_asymptote_decrease_val` from 0.01 to 0.1, and `hj_asymptote_increase_val` from 0.4 to 0.1 for improved model accuracy.
+- Updated `hj_base` from 0.6 to 0.3 to enhance the starting point for CF calculations.
+- Changed the calculation of `v_criterion_initial` to use exponentiation with `power_taken`, ensuring correct parameterization.
+
+These changes aim to refine the model's constants for better alignment with experimental data.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design3/modeling`  
+![](../plot_archive/1a066bc_20250907_172137_plot1.png)  
+![](../plot_archive/1a066bc_20250907_172137_plot2.png)  
+
+## Commit [efa235b](https://github.com/naszhu/REM_E3_model_fixed/commit/efa235b) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:14:36  
+**Message:**
+```
+feat(predplot-e1):  add sampling accuracy plots
+
+- Updated the DataFrame structures in `simulation.jl` to include new fields `is_sampled` and `is_same_item`, improving data tracking during simulations.
+- Modified the `probe_evaluation` function to store additional sampling information.
+- Introduced sampling accuracy plots in R scripts, allowing for better visualization of sampling performance based on new data fields.
+- Adjusted plotting logic to conditionally include sampling accuracy plots based on the presence of relevant columns.
+
+These changes aim to improve the analysis and visualization of simulation results, enhancing the overall functionality of the modeling framework.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/R_ploting/R_plots_finalt.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/efa235b_20250907_171436_plot1.png)  
+![](../plot_archive/efa235b_20250907_171436_plot2.png)  
+
+## Commit [b5c8dec](https://github.com/naszhu/REM_E3_model_fixed/commit/b5c8dec) (branch: `sep-7-test`)
+**Time:** 2025-09-07 17:08:16  
+**Message:**
+```
+feat(predplot-e1):  add sampling accuracy plots
+
+- Updated the DataFrame structures in `simulation.jl` to include new fields `is_sampled` and `is_same_item`, improving data tracking during simulations.
+- Modified the `probe_evaluation` function to store additional sampling information.
+- Introduced sampling accuracy plots in R scripts, allowing for better visualization of sampling performance based on new data fields.
+- Adjusted plotting logic to conditionally include sampling accuracy plots based on the presence of relevant columns.
+
+These changes aim to improve the analysis and visualization of simulation results, enhancing the overall functionality of the modeling framework.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/R_ploting/R_plots_finalt.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/b5c8dec_20250907_170816_plot1.png)  
+![](../plot_archive/b5c8dec_20250907_170816_plot2.png)  
+
+## Commit [de1f74d](https://github.com/naszhu/REM_E3_model_fixed/commit/de1f74d) (branch: `sep-7-test`)
+**Time:** 2025-09-07 16:29:41  
+**Message:**
+```
+fix(constants): put criterion power to 1
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/de1f74d_20250907_162941_plot1.png)  
+![](../plot_archive/de1f74d_20250907_162941_plot2.png)  
+
+## Commit [4b697f6](https://github.com/naszhu/REM_E3_model_fixed/commit/4b697f6) (branch: `sep-7-test`)
+**Time:** 2025-09-07 16:18:36  
+**Message:**
+```
+fix(rshell): The plot saving path is wrong
+
+- Modified the script to run from the root directory, ensuring consistent path references for file operations.
+- Updated file copy commands to reflect the new directory structure, improving clarity and organization.
+- Adjusted R plotting commands to use the correct paths, ensuring plots are generated accurately.
+- Enhanced output messages to provide better context during execution.
+
+These changes aim to streamline the execution process and maintain consistency with the main file's structure.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/4b697f6_20250907_161836_plot1.png)  
+![](../plot_archive/4b697f6_20250907_161836_plot2.png)  
+
+## Commit [f72a1e0](https://github.com/naszhu/REM_E3_model_fixed/commit/f72a1e0) (branch: `sep-7-test`)
+**Time:** 2025-09-07 16:07:16  
+**Message:**
+```
+fix(shell): fix the bug in data processing
+
+- Removed aggregation steps from the initial simulation results, now saving raw data directly to CSV files.
+- Introduced a new aggregation step after combining results, ensuring clarity and separation of raw data and processed outputs.
+- Updated the script to handle the creation of aggregated CSV files for both initial and final test results, improving data management.
+
+These changes enhance the organization of simulation outputs and facilitate easier analysis of raw and aggregated data.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/f72a1e0_20250907_160716_plot1.png)  
+![](../plot_archive/f72a1e0_20250907_160716_plot2.png)  
+
 ## Commit [635e569](https://github.com/naszhu/REM_E3_model_fixed/commit/635e569) (branch: `sep-7-test`)
 **Time:** 2025-09-07 16:03:23  
 **Message:**

@@ -1,5 +1,294 @@
 [
   {
+    "commit": "769c76d",
+    "branch": "sep-7-test",
+    "message": "finetune(model-e1): A good intial test: adjust ku_base, hj_rate, and hj_base for model refinement",
+    "timestamp": "2025-09-08 17:34:49",
+    "plot1": "plot_archive/769c76d_20250908_173449_plot1.png",
+    "plot2": "plot_archive/769c76d_20250908_173449_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "14b9dc2",
+    "branch": "sep-7-test",
+    "message": "fix(model-e1): bug found hj asignment was incorrect",
+    "timestamp": "2025-09-08 02:40:35",
+    "plot1": "plot_archive/14b9dc2_20250908_024035_plot1.png",
+    "plot2": "plot_archive/14b9dc2_20250908_024035_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/utils.jl",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
+    "commit": "c92f195",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): between-list target drop mangnitude explore; no hj at all :",
+    "timestamp": "2025-09-08 02:29:36",
+    "plot1": "plot_archive/c92f195_20250908_022936_plot1.png",
+    "plot2": "plot_archive/c92f195_20250908_022936_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
+    "commit": "3061afe",
+    "branch": "sep-7-test",
+    "message": "finetune(model-e1): small criterion reinstate rate change",
+    "timestamp": "2025-09-07 19:26:29",
+    "plot1": "plot_archive/3061afe_20250907_192629_plot1.png",
+    "plot2": "plot_archive/3061afe_20250907_192629_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "6f385e6",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): back to reasonable copy and criterion parameters",
+    "timestamp": "2025-09-07 18:56:53",
+    "plot1": "plot_archive/6f385e6_20250907_185653_plot1.png",
+    "plot2": "plot_archive/6f385e6_20250907_185653_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "447b475",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): update constants for improved model alignment",
+    "timestamp": "2025-09-07 18:46:55",
+    "plot1": "plot_archive/447b475_20250907_184655_plot1.png",
+    "plot2": "plot_archive/447b475_20250907_184655_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "2388a2e",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): change back kappa value (in aligning to E3)",
+    "timestamp": "2025-09-07 18:07:44",
+    "plot1": "plot_archive/2388a2e_20250907_180744_plot1.png",
+    "plot2": "plot_archive/2388a2e_20250907_180744_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "2f603e3",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): try lowest ku starting value",
+    "timestamp": "2025-09-07 18:06:04",
+    "plot1": "plot_archive/2f603e3_20250907_180604_plot1.png",
+    "plot2": "plot_archive/2f603e3_20250907_180604_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "c43f557",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): increase kappa for (foil params)",
+    "timestamp": "2025-09-07 18:05:05",
+    "plot1": "plot_archive/c43f557_20250907_180505_plot1.png",
+    "plot2": "plot_archive/c43f557_20250907_180505_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "f37907f",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): increase kappa for (foil params)",
+    "timestamp": "2025-09-07 18:04:21",
+    "plot1": "plot_archive/f37907f_20250907_180421_plot1.png",
+    "plot2": "plot_archive/f37907f_20250907_180421_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "5a925b8",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): increase kappa for (foil params)",
+    "timestamp": "2025-09-07 18:03:11",
+    "plot1": "plot_archive/5a925b8_20250907_180311_plot1.png",
+    "plot2": "plot_archive/5a925b8_20250907_180311_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "d9b93be",
+    "branch": "sep-7-test",
+    "message": "explore(constants): increase kappa for (foil params)",
+    "timestamp": "2025-09-07 18:00:48",
+    "plot1": "plot_archive/d9b93be_20250907_180048_plot1.png",
+    "plot2": "plot_archive/d9b93be_20250907_180048_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "1acd464",
+    "branch": "sep-7-test",
+    "message": "explore(model-e1): change UC ratio - raising performance",
+    "timestamp": "2025-09-07 17:55:46",
+    "plot1": "plot_archive/1acd464_20250907_175546_plot1.png",
+    "plot2": "plot_archive/1acd464_20250907_175546_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "537f262",
+    "branch": "sep-7-test",
+    "message": "finetune(model-e1): update v_criterion_initial for improved model accuracy",
+    "timestamp": "2025-09-07 17:52:37",
+    "plot1": "plot_archive/537f262_20250907_175237_plot1.png",
+    "plot2": "plot_archive/537f262_20250907_175237_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "33bcdb9",
+    "branch": "sep-7-test",
+    "message": "finetune(model-e1): update simulation parameters, increase overall performance",
+    "timestamp": "2025-09-07 17:50:46",
+    "plot1": "plot_archive/33bcdb9_20250907_175046_plot1.png",
+    "plot2": "plot_archive/33bcdb9_20250907_175046_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "1a066bc",
+    "branch": "sep-7-test",
+    "message": "finetune(model-e1): intiial prediction update kappa and asymptote parameters",
+    "timestamp": "2025-09-07 17:21:37",
+    "plot1": "plot_archive/1a066bc_20250907_172137_plot1.png",
+    "plot2": "plot_archive/1a066bc_20250907_172137_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "efa235b",
+    "branch": "sep-7-test",
+    "message": "feat(predplot-e1):  add sampling accuracy plots",
+    "timestamp": "2025-09-07 17:14:36",
+    "plot1": "plot_archive/efa235b_20250907_171436_plot1.png",
+    "plot2": "plot_archive/efa235b_20250907_171436_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/R_ploting/R_plots_finalt.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "b5c8dec",
+    "branch": "sep-7-test",
+    "message": "feat(predplot-e1):  add sampling accuracy plots",
+    "timestamp": "2025-09-07 17:08:16",
+    "plot1": "plot_archive/b5c8dec_20250907_170816_plot1.png",
+    "plot2": "plot_archive/b5c8dec_20250907_170816_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/R_ploting/R_plots_finalt.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "de1f74d",
+    "branch": "sep-7-test",
+    "message": "fix(constants): put criterion power to 1",
+    "timestamp": "2025-09-07 16:29:41",
+    "plot1": "plot_archive/de1f74d_20250907_162941_plot1.png",
+    "plot2": "plot_archive/de1f74d_20250907_162941_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "4b697f6",
+    "branch": "sep-7-test",
+    "message": "fix(rshell): The plot saving path is wrong",
+    "timestamp": "2025-09-07 16:18:36",
+    "plot1": "plot_archive/4b697f6_20250907_161836_plot1.png",
+    "plot2": "plot_archive/4b697f6_20250907_161836_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
+    "commit": "f72a1e0",
+    "branch": "sep-7-test",
+    "message": "fix(shell): fix the bug in data processing",
+    "timestamp": "2025-09-07 16:07:16",
+    "plot1": "plot_archive/f72a1e0_20250907_160716_plot1.png",
+    "plot2": "plot_archive/f72a1e0_20250907_160716_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
     "commit": "635e569",
     "branch": "sep-7-test",
     "message": "fix(shell): fix the bug in data processing",

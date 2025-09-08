@@ -97,7 +97,7 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         end
 
         # Store results (modify as needed)
-        results[i] = (decision_isold=decision_isold, is_target=string(probes[i].classification), odds=odds, list_num=probes[i].image.list_number, initial_studypos=probes[i].image.word.studypos, initial_testpos = probes[i].image.initial_testpos_img, Z_sum=Z_sum, Z_proportion=Z_proportion) #! made changes to results, format different than that in inital
+        results[i] = (decision_isold=decision_isold, is_target=string(probes[i].classification), odds=odds, list_num=probes[i].image.list_number, initial_studypos=probes[i].image.word.studypos, initial_testpos = probes[i].image.initial_testpos_img, Z_sum=Z_sum, Z_proportion=Z_proportion, is_sampled=is_sampled, is_same_item=is_same_item) #! made changes to results, format different than that in inital
 
         imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org]);
         # restore_intest(image_pool,probes[i].image, decision_isold, argmax(likelihood_ratios));
@@ -196,7 +196,9 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
                         """
                         if Z_value === 1
                             decision_isold = 0  # Z=1 means judged new
+                            # println("here")
                         else
+                            # println("there")
                             decision_isold = 1  # Z=0 means judged old
                         end
 
@@ -271,7 +273,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
                 end
             end
 
-            results[n_listimagepool*(i-1)+j] = (decision_isold=decision_isold, is_target=probes[i].classification, odds=odds, ilist_image=j, Nratio_imageinlist=nimages_activated / nimages, N_imageinlist=nimages_activated, Nratio_iprobe=nav, testpos=i, studypos=probes[i].image.word.studypos, diff=diff, Z_sum=Z_sum, Z_proportion=Z_proportion)
+            results[n_listimagepool*(i-1)+j] = (decision_isold=decision_isold, is_target=probes[i].classification, odds=odds, ilist_image=j, Nratio_imageinlist=nimages_activated / nimages, N_imageinlist=nimages_activated, Nratio_iprobe=nav, testpos=i, studypos=probes[i].image.word.studypos, diff=diff, Z_sum=Z_sum, Z_proportion=Z_proportion, is_sampled=is_sampled, is_same_item=is_same_item)
             # println(nl, " ",nimages_activated)
         end
     

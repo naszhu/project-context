@@ -1,7 +1,7 @@
 
 
 is_finaltest = true
-n_simulations = is_finaltest ? 200 : 3000;
+n_simulations = is_finaltest ? 200 : 2000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -43,12 +43,12 @@ n_grade = 2 #only first to be special
 const n_units_time = 13 #number of steps                                                                                                                                                                                                                        
 
 # u_star parameters
-u_star_v = 0.046
+u_star_v = 0.04
 u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
-adv_u_star_strengthen = 0.06# 0.06
-adv_c_strenghten = 0.1# 0.1
+adv_u_star_strengthen = 0.00# 0.06 no adv during strenghtening for now
+adv_c_strenghten = 0.0# 0.1
 
 # Additional advantage parameters from E3
 u_star_adv = 0  # 0.06 in E3
@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.70 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.8 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -111,10 +111,10 @@ is_onlytest_currentlist = false; #this is discarded currently
 # =============================================================================
 # criterion_initial = LinRange(1.5, 0.3, n_probes);#the bigger the later number, more close hits and CR merges. control merging  
 # criterion_initial is already a 2D array: [test_position, list_number]
-power_taken = 1/11  # raise to 1/11 power for sampling
+power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.65#0.1^power_taken
+v_criterion_initial = 0.14^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.0^power_taken;
@@ -163,7 +163,7 @@ LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well. 
-p_reinstate_rate = 0.2 #0.4 #prob of reinstatement
+p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
 n_driftStudyTest = round.(Int, ones(10) * 12) #7
@@ -173,15 +173,15 @@ n_between_listchange = 20 #20 in E3 #25 originally
 const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
-max_distortion_probes = 7  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.29  # Base probability of distortion for the first probe 
+max_distortion_probes = 20  # Number of probes until distortion probability reaches 0
+base_distortion_prob = 0.15  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
-ratio_unchanging_to_itself_init = LinRange(0.46, 0.46, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(0.3, 0.3, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
@@ -199,7 +199,7 @@ const total_probe_L1 = 15;  # total probes in list 1
 const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
 
-criterion_final = LinRange(0.5^power_taken, 0.6^power_taken, 10)
+criterion_final = LinRange(0.1^power_taken, 0.1^power_taken, 10)
 final_gap_change = 0.1; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
 p_ListChange_finaltest = ones(10) * 0.2 #0.8 in E3, but undecided as well in E3
@@ -250,26 +250,26 @@ const tested_before_feature_pos = w_word + n_z_features  # position of Z feature
 # κt for test only confusing foil
 
 # Base kappa values (same as E3)
-ku_base = 0.15  # study，higher this value, lower the starting point of T
-ks_base = 0.45  # SOn (study only), lower the value, higher the starting point CF  
-kb_base = 0.45  # Tn (study and test)
-kt_base = 0.45  # Fn (test only)
+ku_base = 0.1 # study，higher this value, lower the starting point of T
+ks_base = 0.47 #SOn (study only), lower the value, higher the starting point CF
+kb_base = 0.55 #Tn (study and test)
+kt_base = 0.65 #Fn (test only)
 
 # Asymptotic decrease parameters (same as E3)
-fj_asymptote_decrease_val = 0.01  # Asymptote value for decreasing function
+fj_asymptote_decrease_val = 0.01   # Asymptote value for decreasing function
 fj_rate = 0.26  # Rate of change for the decreasing function
 
 # Asymptotic increase parameters (same as E3)
-hj_asymptote_increase_val = 0.4
-hj_rate = 0.85
-hj_base = 0.6  # higher this value higher CF starting point
+hj_asymptote_increase_val = 0.6
+hj_rate = 0.8
+hj_base = 0.3; #higher this value higher CF starting point
 
 # Include utils.jl to get asymptotic functions
-include("utils.jl")
+# include("utils.jl")
 
-# κ parameter arrays (aligned with E3 - issue 64)
-# These are calculated directly like in E3
+
 h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
+
 # the following equals to ks*f(j), 
 # κ are used instead of k for a simplification for now for easier modification of the code
 κu_values = asym_decrease_shift_fj(ku_base, fj_asymptote_decrease_val, fj_rate, n_lists - 1) 

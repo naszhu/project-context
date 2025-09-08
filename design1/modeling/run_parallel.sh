@@ -2,7 +2,12 @@
 # Multi-process parallel execution script for E1 model
 # Produces identical output to JL_V6-6_2finalize.jl but runs faster with multiple processes
 
+# Run from root directory like the main file does when generating plots
+REPO_ROOT=$(git rev-parse --show-toplevel)
+cd "$REPO_ROOT"
+
 echo "Starting multi-process parallel simulation for E1 model (producing same output as main file)..."
+echo "Working directory: $REPO_ROOT (same as main file for plot generation)"
 
 # Clean up any old results that might interfere
 echo "Cleaning up old results..."
@@ -30,9 +35,9 @@ run_simulation() {
     echo "Process $process_id: Starting simulation with seed $seed"
     
     # Copy necessary files to temp directory
-    cp -r ../../module_jl .
-    cp ../../simulation.jl .
-    cp -r ../../R_ploting .
+    cp -r ../../design1/modeling/module_jl .
+    cp ../../design1/modeling/simulation.jl .
+    cp -r ../../design1/modeling/R_ploting .
     
     # Run Julia with unique seed - simulation only, no plotting
     julia -e "
@@ -48,7 +53,8 @@ run_simulation() {
         Threads.nthreads()
         
         include(\"module_jl/data_structures.jl\")
-        include(\"module_jl/constants.jl\")  # This now includes utils.jl and calculates all κ parameters
+        include(\"module_jl/utils.jl\")
+        include(\"module_jl/constants.jl\")
         
         # Calculate parameters that depend on functions in utils.jl
         criterion_initial = generate_asymptotic_values(1.0, v_criterion_initial, v_criterion_initial, 1.0, 1.0, 5.0)
@@ -182,19 +188,19 @@ echo "allresf.csv size: $(wc -l allresf.csv 2>/dev/null || echo 'NOT FOUND')"
 echo "Debug: Checking constants used in latest run..."
 grep "final_gap_change" parallel_temp/process_1/module_jl/constants.jl 2>/dev/null || echo "Could not check constants"
 
-# Generate plots using R (same as original)
+# Generate plots using R (same paths as main file)
 echo ""
 echo "📈 Generating plots..."
 if [ -f "DF.csv" ]; then
     echo "  🔄 Running R script for initial test plots..."
-    timeout 120 Rscript R_ploting/R_plots.r >/dev/null 2>&1 &
+    timeout 120 Rscript design1/modeling/R_ploting/R_plots.r >/dev/null 2>&1 &
     PLOT1_PID=$!
     echo "  ⏳ Plot1 generation started (PID: $PLOT1_PID)..."
 fi
 
 if [ -f "allresf.csv" ]; then
     echo "  🔄 Running R script for final test plots..."  
-    timeout 120 Rscript R_ploting/R_plots_finalt.r >/dev/null 2>&1 &
+    timeout 120 Rscript design1/modeling/R_ploting/R_plots_finalt.r >/dev/null 2>&1 &
     PLOT2_PID=$!
     echo "  ⏳ Plot2 generation started (PID: $PLOT2_PID)..."
 fi
@@ -211,6 +217,8 @@ if [ ! -z "$PLOT2_PID" ]; then
     wait $PLOT2_PID
     echo "  ✓ Generated plot2.png ($(stat -f%z plot2.png 2>/dev/null || stat -c%s plot2.png 2>/dev/null || echo 'unknown') bytes)"
 fi
+
+# Plots are already generated in root directory (no copying needed)
 
 # Display plots (same as original) 
 echo ""
@@ -236,10 +244,10 @@ echo "📁 Output files (same as JL_V6-6_2finalize.jl):"
 [ -f "all_results.csv" ] && echo "  ✅ all_results.csv ($(wc -l < all_results.csv) lines)" 
 [ -f "allresf.csv" ] && echo "  ✅ allresf.csv ($(wc -l < allresf.csv) lines)"
 [ -f "plot1.png" ] && echo "  ✅ plot1.png"
-[ -f "plot2.png" ] && echo "  ✅ plot2.png"
+[ -f "plot2.png" ] && echo "  ✅ plot2.png"  
 [ -f "Rplots.pdf" ] && echo "  ✅ Rplots.pdf"
 
 echo ""
 echo "⚡ This parallel version produces identical results to running:"
-echo "    julia JL_V6-6_2finalize.jl"
-echo "  But completed ${TOTAL_TIME}s faster with $NUM_PROCESSES parallel processes!"
+echo "    cd design1/modeling && julia JL_V6-6_2finalize.jl"
+echo "  But completed in ${TOTAL_TIME}s faster with $NUM_PROCESSES parallel processes!"
