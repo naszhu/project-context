@@ -444,10 +444,10 @@ function distort_probes_with_linear_decay(
             current_prob = base_distortion_prob * (1 - (i - 1) / max_distortion_probes)
             
             # Debug: Print distortion attempt info for position 1
-            if i == 1
-                println("\n=== TEST POSITION 1 ===")
-                println("[DEBUG-DISTORTION-POS1] Attempting distortion - Type: $(probes[i].image.word.type), Item: $(probes[i].image.word.item), Distortion prob: $(round(current_prob, digits=3))")
-            end
+            # if i == 1
+            #     println("\n=== TEST POSITION 1 ===")
+            #     println("[DEBUG-DISTORTION-POS1] Attempting distortion - Type: $(probes[i].image.word.type), Item: $(probes[i].image.word.item), Distortion prob: $(round(current_prob, digits=3))")
+            # end
             
             # Apply distortion to each feature of the probe's word
             distorted_features_count = 0
@@ -476,14 +476,14 @@ function distort_probes_with_linear_decay(
                 distorted_probes[i].image.word = new_word
                 
                 # Debug: Print when distortion actually happens for position 1
-                if i == 1
-                    println("[DEBUG-DISTORTION-POS1] ✓ DISTORTED - Type: $(new_word.type), Features changed: $(distorted_features_count), Item: $(new_item)")
-                end
+                # if i == 1
+                #     println("[DEBUG-DISTORTION-POS1] ✓ DISTORTED - Type: $(new_word.type), Features changed: $(distorted_features_count), Item: $(new_item)")
+                # end
             else
                 # Debug: Print when no features were distorted for position 1
-                if i == 1
-                    println("[DEBUG-DISTORTION-POS1] ✗ No features distorted - Type: $(distorted_probes[i].image.word.type)")
-                end
+                # if i == 1
+                #     println("[DEBUG-DISTORTION-POS1] ✗ No features distorted - Type: $(distorted_probes[i].image.word.type)")
+                # end
             end
         end
         # For probes beyond max_distortion_probes, no distortion (probability = 0)

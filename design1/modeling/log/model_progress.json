@@ -1,5 +1,18 @@
 [
   {
+    "commit": "8f4527c",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): add final test retrieval debugging for distorted traces",
+    "timestamp": "2025-09-08 23:57:29",
+    "plot1": "plot_archive/8f4527c_20250908_235729_plot1.png",
+    "plot2": "plot_archive/8f4527c_20250908_235729_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
     "commit": "ef87048",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "fix(model-e1): remove double probability check in probe distortion",

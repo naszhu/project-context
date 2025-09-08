@@ -127,18 +127,18 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
         end
         
         # Debug: Print word.item when adding new trace to memory (initial test) - only for items judged NEW at position 1
-        if decision_isold == 0 && test_position == 1
-            println("[DEBUG-RESTORE-INITIAL-POS1] Adding NEW trace to memory - Type: $(iimage_toadd.word.type) - word.item: $(iimage_toadd.word.item)")
-            println("=== END TEST POSITION 1 ===\n")
-        end
+        # if decision_isold == 0 && test_position == 1
+        #     println("[DEBUG-RESTORE-INITIAL-POS1] Adding NEW trace to memory - Type: $(iimage_toadd.word.type) - word.item: $(iimage_toadd.word.item)")
+        #     println("=== END TEST POSITION 1 ===\n")
+        # end
         push!(image_pool, iimage_toadd)
         # println("pass, decision_isold $(decision_isold); is pass $(odds < recall_odds_threshold)")
     else
         # Debug: Close test section when no trace is added for position 1
-        if test_position == 1
-            println("[DEBUG-RESTORE-INITIAL-POS1] No trace added (decision_isold=$(decision_isold))")
-            println("=== END TEST POSITION 1 ===\n")
-        end
+        # if test_position == 1
+        #     println("[DEBUG-RESTORE-INITIAL-POS1] No trace added (decision_isold=$(decision_isold))")
+        #     println("=== END TEST POSITION 1 ===\n")
+        # end
         # print("here")
     end
 
@@ -272,9 +272,9 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
         end
         
         # Debug: Print word.item when adding new trace to memory (final test) - only for items judged NEW at position 1
-        if decision_isold == 0 && test_position == 1
-            println("[DEBUG-RESTORE-FINAL-POS1] Adding NEW trace to memory - Type: $(iimage_toadd.word.type) - word.item: $(iimage_toadd.word.item)")
-        end
+        # if decision_isold == 0 && test_position == 1
+        #     println("[DEBUG-RESTORE-FINAL-POS1] Adding NEW trace to memory - Type: $(iimage_toadd.word.type) - word.item: $(iimage_toadd.word.item)")
+        # end
         push!(image_pool, iimage_toadd)
     end
 

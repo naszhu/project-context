@@ -1,5 +1,32 @@
 # Model Progress
 
+## Commit [8f4527c](https://github.com/naszhu/REM_E3_model_fixed/commit/8f4527c) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:57:29  
+**Message:**
+```
+debug(model-e1): add final test retrieval debugging for distorted traces
+
+Add comprehensive debugging to final test evaluation to track why distorted traces aren't affecting predictions:
+- Show memory pool size and number of distorted traces available
+- Track which traces pass likelihood filter during final test
+- Show whether distorted traces are being matched/retrieved
+- Display final decision and odds for position 1 probes
+
+This will help identify where the disconnect is between stored distorted traces and final test performance.
+
+Related to #38: debug final test retrieval of distorted traces
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/8f4527c_20250908_235729_plot1.png)  
+![](../plot_archive/8f4527c_20250908_235729_plot2.png)  
+
 ## Commit [ef87048](https://github.com/naszhu/REM_E3_model_fixed/commit/ef87048) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-08 23:48:44  
 **Message:**
