@@ -1,5 +1,19 @@
 [
   {
+    "commit": "3fec04f",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): enhance debug output for distortion analysis",
+    "timestamp": "2025-09-08 23:41:11",
+    "plot1": "plot_archive/3fec04f_20250908_234111_plot1.png",
+    "plot2": "plot_archive/3fec04f_20250908_234111_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
     "commit": "cd63bc8",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "debug(model-e1): limit debug output to first test position only",

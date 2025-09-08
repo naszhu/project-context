@@ -1,5 +1,31 @@
 # Model Progress
 
+## Commit [3fec04f](https://github.com/naszhu/REM_E3_model_fixed/commit/3fec04f) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 23:41:11  
+**Message:**
+```
+debug(model-e1): enhance debug output for distortion analysis
+
+Add comprehensive debug output to investigate low distortion rates:
+- Add probe type (target/foil) to restore debug messages
+- Add distortion attempt debug in feature_updates for position 1
+- Track distortion probability checks, success/failure, and feature counts
+- Help identify if issue is distortion not happening or distorted probes not being stored
+
+Related to #38: probe distortion debugging - investigate why few distorted traces
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/3fec04f_20250908_234111_plot1.png)  
+![](../plot_archive/3fec04f_20250908_234111_plot2.png)  
+
 ## Commit [cd63bc8](https://github.com/naszhu/REM_E3_model_fixed/commit/cd63bc8) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-08 23:38:45  
 **Message:**

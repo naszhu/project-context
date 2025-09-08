@@ -445,7 +445,8 @@ function distort_probes_with_linear_decay(
             
             # Debug: Print distortion attempt info for position 1
             if i == 1
-                println("[DEBUG-DISTORTION-POS1] Attempting distortion - Probe type: $(probes[i].image.word.type), Distortion prob: $(round(current_prob, digits=3))")
+                println("\n=== TEST POSITION 1 ===")
+                println("[DEBUG-DISTORTION-POS1] Attempting distortion - Type: $(probes[i].image.word.type), Item: $(probes[i].image.word.item), Distortion prob: $(round(current_prob, digits=3))")
             end
             
             # Apply distortion to each feature of the probe's word
