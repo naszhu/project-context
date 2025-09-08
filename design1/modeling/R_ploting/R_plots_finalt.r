@@ -56,24 +56,26 @@ allresf=read.csv("allresf.csv")
     full_join(DF00,by=c("is_target","condition","test_position_group"))%>%
     mutate(initial_list_order=meanx.x,final_test_order=meanx.y)%>%
     select(-c("meanx.x","meanx.y"))%>%
-    pivot_longer(cols=c("initial_list_order","final_test_order"),names_to="position_kind",values_to="val")
-
+    pivot_longer(cols=c("initial_list_order","final_test_order"),names_to="position_kind",values_to="val")%>%
+    group_by(position_kind,test_position_group,condition)%>%
+    mutate(mean_mean=mean(val))
 
     pf1=ggplot(data=df_allfinal, aes(test_position_group,val,group=interaction(position_kind,condition,is_target)))+
         geom_point(aes(color=is_target,group=is_target))+
         geom_line(aes(color=is_target,group=is_target),size=1.5)+
-        facet_grid(condition~position_kind)+
+        facet_grid(factor(condition, levels=c("true_random", "backward", "forward"))~position_kind)+
         labs(x="Final test position cut in 10 chunks (left column), Initial test list order (right column)",
             y="prediction (Hits/Correct Rejection)",
             caption="Figure 3. Between List Final Test Results seen in Final Testing",
             color="Type",fill="Type")+
-        scale_color_manual(values=c("red","green","blue","purple"))+
+        scale_color_manual(values=c("blue","yellow","orange","green"))+
         theme(
                 plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
             plot.margin = margin(t = 10, b = 40),
             text=element_text(size=30) # Increase font size globally
         )+
-        ylim(c(0.5,1))
+        ylim(c(0.5,1))+
+        geom_line(aes(y=mean_mean),size=1.5,color="black")
 
         DFff = allresf %>% mutate(correct = case_when( (decision_isold==1) & (is_target!="F") ~ 1, 
     decision_isold==0 & is_target=="F" ~1,TRUE ~ 0))%>%
@@ -180,7 +182,7 @@ allresf=read.csv("allresf.csv")
 #     dev.off()
 # } else {
     # Original layout if sampling columns don't exist
-    png(filename="plot2.png", width=1100, height=1200)
+    png(filename="plot2.png", width=800, height=1200)
     grid.arrange(pf1, pf4, ncol = 1, nrow = 2)
     dev.off()
 # }

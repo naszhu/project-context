@@ -1,5 +1,14 @@
 # Model Progress
 
+## Commit [b9429e6](https://github.com/naszhu/REM_E3_model_fixed/commit/b9429e6) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-08 21:42:19  
+**Message:**
+```
+merge(model-e1): Align to v6 e3, Merge branch 'sep-7-test'
+```
+![](../plot_archive/b9429e6_20250908_214219_plot1.png)  
+![](../plot_archive/b9429e6_20250908_214219_plot2.png)  
+
 ## Commit [769c76d](https://github.com/naszhu/REM_E3_model_fixed/commit/769c76d) (branch: `sep-7-test`)
 **Time:** 2025-09-08 17:34:49  
 **Message:**
