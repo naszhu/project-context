@@ -1,5 +1,308 @@
 [
   {
+    "commit": "bd34610",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "feat(model-e1): update unchanging context feature drift logic and adjust constants",
+    "timestamp": "2025-09-09 23:21:59",
+    "plot1": "plot_archive/bd34610_20250909_232159_plot1.png",
+    "plot2": "plot_archive/bd34610_20250909_232159_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots_finalt.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "b360f52",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "fix(model-e1): LL caluclation only for non-z content feature",
+    "timestamp": "2025-09-09 22:27:10",
+    "plot1": "plot_archive/b360f52_20250909_222710_plot1.png",
+    "plot2": "plot_archive/b360f52_20250909_222710_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/likelihood_calculations.jl"
+    ]
+  },
+  {
+    "commit": "7c7c69d",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "finetune(model-e1): final prediction update R plot scaling and adjust constants for drift study",
+    "timestamp": "2025-09-09 22:12:30",
+    "plot1": "plot_archive/7c7c69d_20250909_221230_plot1.png",
+    "plot2": "plot_archive/7c7c69d_20250909_221230_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "8403cfc",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "fix(model-e1): final test should use foil collection, rather than the distorted probes",
+    "timestamp": "2025-09-09 20:13:46",
+    "plot1": "plot_archive/8403cfc_20250909_201346_plot1.png",
+    "plot2": "plot_archive/8403cfc_20250909_201346_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "cf0cd28",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "feat(model-e1): change restorage procces rules,",
+    "timestamp": "2025-09-09 19:40:57",
+    "plot1": "plot_archive/cf0cd28_20250909_194057_plot1.png",
+    "plot2": "plot_archive/cf0cd28_20250909_194057_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "05f82b1",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "explore(model-e1): adjust distortion parameters and enable probe distortion",
+    "timestamp": "2025-09-09 01:49:32",
+    "plot1": "plot_archive/05f82b1_20250909_014932_plot1.png",
+    "plot2": "plot_archive/05f82b1_20250909_014932_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "37ed24b",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(#38): add final test probe distribution analysis",
+    "timestamp": "2025-09-09 00:21:25",
+    "plot1": "plot_archive/37ed24b_20250909_002125_plot1.png",
+    "plot2": "plot_archive/37ed24b_20250909_002125_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
+    "commit": "b5bfb62",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(#38): add comprehensive final test debug and clean up initial test debug",
+    "timestamp": "2025-09-09 00:16:01",
+    "plot1": "plot_archive/b5bfb62_20250909_001601_plot1.png",
+    "plot2": "plot_archive/b5bfb62_20250909_001601_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
+    "commit": "8f4527c",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): add final test retrieval debugging for distorted traces",
+    "timestamp": "2025-09-08 23:57:29",
+    "plot1": "plot_archive/8f4527c_20250908_235729_plot1.png",
+    "plot2": "plot_archive/8f4527c_20250908_235729_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
+    "commit": "ef87048",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "fix(model-e1): remove double probability check in probe distortion",
+    "timestamp": "2025-09-08 23:48:44",
+    "plot1": "plot_archive/ef87048_20250908_234844_plot1.png",
+    "plot2": "plot_archive/ef87048_20250908_234844_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "709f5cc",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): improve debug output formatting and clarity",
+    "timestamp": "2025-09-08 23:45:11",
+    "plot1": "plot_archive/709f5cc_20250908_234511_plot1.png",
+    "plot2": "plot_archive/709f5cc_20250908_234511_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "3fec04f",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): enhance debug output for distortion analysis",
+    "timestamp": "2025-09-08 23:41:11",
+    "plot1": "plot_archive/3fec04f_20250908_234111_plot1.png",
+    "plot2": "plot_archive/3fec04f_20250908_234111_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "cd63bc8",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): limit debug output to first test position only",
+    "timestamp": "2025-09-08 23:38:45",
+    "plot1": "plot_archive/cd63bc8_20250908_233845_plot1.png",
+    "plot2": "plot_archive/cd63bc8_20250908_233845_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
+    "commit": "d8c8e60",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): narrow debug output to NEW judgments only",
+    "timestamp": "2025-09-08 23:38:31",
+    "plot1": "plot_archive/d8c8e60_20250908_233831_plot1.png",
+    "plot2": "plot_archive/d8c8e60_20250908_233831_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "106cb09",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): probe distortion tracing for #38",
+    "timestamp": "2025-09-08 23:38:14",
+    "plot1": "plot_archive/106cb09_20250908_233814_plot1.png",
+    "plot2": "plot_archive/106cb09_20250908_233814_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "3c20774",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "finetune(predplot-e1): final test visualization and data representation",
+    "timestamp": "2025-09-08 23:09:53",
+    "plot1": "plot_archive/3c20774_20250908_230953_plot1.png",
+    "plot2": "plot_archive/3c20774_20250908_230953_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots_finalt.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "9eee436",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): probe distortion tracing for issue 38",
+    "timestamp": "2025-09-08 23:24:35",
+    "plot1": "plot_archive/9eee436_20250908_232435_plot1.png",
+    "plot2": "plot_archive/9eee436_20250908_232435_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "9eee436",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): probe distortion tracing for issue 38",
+    "timestamp": "2025-09-08 23:24:35",
+    "plot1": "plot_archive/9eee436_20250908_232435_plot1.png",
+    "plot2": "plot_archive/9eee436_20250908_232435_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "566af51",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): narrow debug output to NEW judgments only",
+    "timestamp": "2025-09-08 23:32:28",
+    "plot1": "plot_archive/566af51_20250908_233228_plot1.png",
+    "plot2": "plot_archive/566af51_20250908_233228_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "9eee436",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "debug(model-e1): probe distortion tracing for issue 38",
+    "timestamp": "2025-09-08 23:24:35",
+    "plot1": "plot_archive/9eee436_20250908_232435_plot1.png",
+    "plot2": "plot_archive/9eee436_20250908_232435_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "3c20774",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "finetune(predplot-e1): final test visualization and data representation",
+    "timestamp": "2025-09-08 23:09:53",
+    "plot1": "plot_archive/3c20774_20250908_230953_plot1.png",
+    "plot2": "plot_archive/3c20774_20250908_230953_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots_finalt.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "b9429e6",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "merge(model-e1): Align to v6 e3, Merge branch 'sep-7-test'",
+    "timestamp": "2025-09-08 21:42:19",
+    "plot1": "plot_archive/b9429e6_20250908_214219_plot1.png",
+    "plot2": "plot_archive/b9429e6_20250908_214219_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "769c76d",
     "branch": "sep-7-test",
     "message": "finetune(model-e1): A good intial test: adjust ku_base, hj_rate, and hj_base for model refinement",

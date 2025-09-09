@@ -5,6 +5,32 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
     results = Array{Any}(undef, length(probes))
     # println("now#$(length(probes))")
     for i in eachindex(probes)
+        
+        # Debug: Track final test evaluation for position 1 probes
+        # if i == 1
+        #     println("\n=== FINAL TEST POSITION 1 ===")
+        #     println("[DEBUG-FINAL-TEST-POS1] Testing probe - Type: $(probes[i].image.word.type), Item: $(probes[i].image.word.item)")
+        #     
+        #     # Check how many traces in memory have distortion markers
+        #     distorted_traces = filter(img -> contains(img.word.item, "DISTORTED"), image_pool)
+        #     println("[DEBUG-FINAL-TEST-POS1] Memory pool size: $(length(image_pool)), Distorted traces: $(length(distorted_traces))")
+        #     
+        #     if length(distorted_traces) > 0
+        #         println("[DEBUG-FINAL-TEST-POS1] Sample distorted traces:")
+        #         for (idx, trace) in enumerate(distorted_traces[1:min(3, length(distorted_traces))])
+        #             println("  $(idx): Type $(trace.word.type) - $(trace.word.item) - From initial pos: $(trace.initial_testpos_img)")
+        #         end
+        #         
+        #         # Track initial test positions of all distorted traces
+        #         distorted_positions = [img.initial_testpos_img for img in distorted_traces]
+        #         println("[DEBUG-FINAL-TEST-POS1] Distorted traces from initial positions: $(sort(unique(distorted_positions)))")
+        #     end
+        #     
+        #     # Track initial test positions of all traces being used in likelihood calculation
+        #     all_positions = [img.initial_testpos_img for img in image_pool]
+        #     println("[DEBUG-FINAL-TEST-POS1] All memory traces from initial positions: $(sort(unique(all_positions)))")
+        #     println("[DEBUG-FINAL-TEST-POS1] Total memory traces: $(length(image_pool))")
+        # end
 
         # _, likelihood_ratios = [calculate_two_step_likelihoods(probes[i].image, image) for image in image_pool] 
         if i == 1
@@ -23,6 +49,28 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         _, likelihood_ratios_org = calculate_two_step_likelihoods2(probes[i].image, image_pool, 1.0, i)
         likelihood_ratios = likelihood_ratios_org |> x -> filter(e -> e != 344523466743, x)
         #    if ii==1 println(size(image_pool),"of", size(likelihood_ratios)) end
+
+        # Debug: Check which traces are being matched during final test position 1
+        # if i == 1
+        #     # Find traces that passed the likelihood filter (not 344523466743)
+        #     passing_indices = findall(x -> x != 344523466743, likelihood_ratios_org)
+        #     passing_traces = image_pool[passing_indices]
+        #     distorted_passing = filter(img -> contains(img.word.item, "DISTORTED"), passing_traces)
+        #     
+        #     println("[DEBUG-FINAL-TEST-POS1] Likelihood calculation results:")
+        #     println("  Total traces: $(length(image_pool))")
+        #     println("  Traces passing filter: $(length(passing_traces))")
+        #     println("  Distorted traces passing: $(length(distorted_passing))")
+        #     
+        #     if length(distorted_passing) > 0
+        #         println("  Distorted traces that passed filter:")
+        #         for (idx, trace) in enumerate(distorted_passing[1:min(3, length(distorted_passing))])
+        #             trace_idx = findfirst(x -> x === trace, image_pool)
+        #             likelihood_val = likelihood_ratios_org[trace_idx]
+        #             println("    $(idx): Type $(trace.word.type) - $(trace.word.item) (likelihood: $(likelihood_val))")
+        #         end
+        #     end
+        # end
 
         # println(likelihood_ratios)
         odds = (1 / length(likelihood_ratios) * sum(likelihood_ratios))^power_taken
@@ -97,13 +145,48 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         end
 
         # Store results (modify as needed)
+        # Debug: Track final test performance by initial position for the flat line issue
+        if i <= 10  # Only for first 10 probes to avoid spam
+            is_distorted = contains(probes[i].image.word.item, "DISTORTED")
+            println("[DEBUG-FLAT-LINE] Final pos $(i): initial_testpos=$(probes[i].image.initial_testpos_img), Type=$(probes[i].classification), distorted=$(is_distorted), decision=$(decision_isold), odds=$(round(odds, digits=3))")
+        end
+        
+        # Debug: Summary of initial test position distribution at end of first list
+        if i == length(probes)
+            # Count distribution of initial test positions
+            initial_pos_counts = Dict{Int, Int}()
+            distorted_by_pos = Dict{Int, Int}()
+            
+            for probe in probes
+                pos = probe.image.initial_testpos_img
+                initial_pos_counts[pos] = get(initial_pos_counts, pos, 0) + 1
+                
+                if contains(probe.image.word.item, "DISTORTED")
+                    distorted_by_pos[pos] = get(distorted_by_pos, pos, 0) + 1
+                end
+            end
+            
+            println("\n[DEBUG-FLAT-LINE-SUMMARY] Final test probe distribution:")
+            for pos in sort(collect(keys(initial_pos_counts)))
+                distorted_count = get(distorted_by_pos, pos, 0)
+                total_count = initial_pos_counts[pos]
+                println("  initial_testpos=$(pos): $(total_count) probes, $(distorted_count) distorted")
+            end
+        end
+
         results[i] = (decision_isold=decision_isold, is_target=string(probes[i].classification), odds=odds, list_num=probes[i].image.list_number, initial_studypos=probes[i].image.word.studypos, initial_testpos = probes[i].image.initial_testpos_img, Z_sum=Z_sum, Z_proportion=Z_proportion, is_sampled=is_sampled, is_same_item=is_same_item) #! made changes to results, format different than that in inital
 
         imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org]);
         # restore_intest(image_pool,probes[i].image, decision_isold, argmax(likelihood_ratios));
         if is_restore_final
-            restore_intest_final(image_pool, probes[i].image, decision_isold, odds, i, likelihood_ratios_org, sampled_item, criterion_final[currchunk])
+            restore_intest_final(image_pool, probes[i].image, decision_isold, odds, i, likelihood_ratios_org, sampled_item, criterion_final[currchunk], i)
         end
+        
+        # Debug: Close final test position 1 section
+        # if i == 1
+        #     println("[DEBUG-FINAL-TEST-POS1] Final decision: decision_isold=$(decision_isold), odds=$(round(odds, digits=3))")
+        #     println("=== END FINAL TEST POSITION 1 ===\n")
+        # end
     end
 
     return results
@@ -281,7 +364,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
 
         if is_restore_initial
-            restore_intest(image_pool, probes[i].image, decision_isold, odds, likelihood_ratios_org, sampled_item, criterion_initial[i_testpos, ilist_probe]) 
+            restore_intest(image_pool, probes[i].image, decision_isold, odds, likelihood_ratios_org, sampled_item, criterion_initial[i_testpos, ilist_probe], i_testpos) 
         end
 
         # println("i, $i, i_testpos, $i_testpos")

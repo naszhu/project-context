@@ -91,7 +91,7 @@ function simulate_rem()
             #studied_pool[:, list_num]
             # studied_pool[j, list_num]
             # println(studied_pool)#studdied pool has length of 30, so only take first 20
-            probes = generate_probes(word_list, list_change_context_features, test_list_context, general_context_features, test_list_context_unchange, position_code_all, list_num, studied_pool[1:n_probes,list_num]) #probe number is current list number, get probes of current list 
+            probes, foil_collections = generate_probes(word_list, list_change_context_features, test_list_context, general_context_features, test_list_context_unchange, position_code_all, list_num, studied_pool[1:n_probes,list_num]) #probe number is current list number, get probes of current list 
             
 
             # println("ImagePoolNow", [i.word.item for i in image_pool])
@@ -102,7 +102,7 @@ function simulate_rem()
             # foil stored
             #    println(studied_pool[list_num,20])
             #    println(studied_pool[list_num,21])
-            studied_pool[n_words+1:n_words+Int(n_words / 2), list_num] = [i.image for i in filter(prb -> prb.classification == :foil, probes)]
+            studied_pool[n_words+1:n_words+Int(n_words / 2), list_num] = foil_collections
             results = probe_evaluation(image_pool, probes, list_change_context_features, general_context_features, sim_num)
             # println("ImagePoolNow", [i.word.item for i in image_pool])
             
