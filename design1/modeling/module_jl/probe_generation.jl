@@ -6,12 +6,15 @@ Return: probe
 list_change_features: list feature, same as studied one
 test_list_context: changed RI after study, continuous reinstate in test
 """
-function generate_probes(studied_words::Vector{Word}, list_change_features::Vector{Int64}, test_list_context::Vector{Int64}, general_context_features::Vector{Int64}, test_list_context_unchange::Vector{Int64}, position_code_all::Vector{Vector{Int64}}, list_num::Int64,studied_pool::Vector{EpisodicImage} )::Vector{Probe}
+function generate_probes(studied_words::Vector{Word}, list_change_features::Vector{Int64}, test_list_context::Vector{Int64}, general_context_features::Vector{Int64}, test_list_context_unchange::Vector{Int64}, position_code_all::Vector{Vector{Int64}}, list_num::Int64,studied_pool::Vector{EpisodicImage} )::Tuple{Vector{Probe}, Vector{EpisodicImage}}
     # here, not deep copy word_change_features is safe because even if it influence the original index, the word-change context features will be disgarded when this list ends  
 
 
     probetypes = repeat([:target, :foil], outer=div(n_probes, 2)) |> shuffle!
     probes = Vector{Probe}(undef, length(probetypes))
+    
+    # Initialize foils collection to store new foil probes
+    foils_collection = Vector{EpisodicImage}()
 
     words = filter(word -> word.type == :T_target, studied_words) |> shuffle! |> deepcopy
     # println("List $(list_num)")
@@ -92,6 +95,11 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
         # probes[i] = Probe(EpisodicImage(target_word, current_context_features, list_num), probetypes[i], target_word.studypos ,i)
         probes[i] = Probe(EpisodicImage(target_word, current_context_features, list_num, current_testpos), probetypes[i] ,current_testpos)
         
+        # Collect foils for the foils collection
+        if probetypes[i] == :foil
+            push!(foils_collection, deepcopy(probes[i].image)) # Append a deep copy of the foil to the collection
+        end
+        
         if probetypes[i] == :target
 
             matching_image = findfirst(img -> img.word.item == target_word.item, studied_pool)
@@ -114,6 +122,10 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
         # The distortion probability starts high for the first probe and linearly decreases to 0
         # after max_distortion_probes. This creates a strong distortion effect
         # for early probes that gradually diminishes for later probes.
+        # 
+        # Keep original probes for foils collection, but distort probes for testing
+        # The foils_collection already contains deep copies of the original probes
+        # before distortion was applied, so it remains clean and unaffected.
         distorted_probes, original_probes = distort_probes_with_linear_decay(
             probes, 
             max_distortion_probes;  # Use constant from constants.jl
@@ -123,9 +135,13 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
         
         # Replace probes with distorted versions for testing
         probes = distorted_probes
+        
+        # Note: original_probes are kept for reference but not returned
+        # The foils_collection already contains deep copies of the original probes
+        # before distortion was applied, so it remains clean
     end
 
-    return probes
+    return probes, foils_collection
 end
 
 

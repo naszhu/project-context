@@ -1,5 +1,19 @@
 [
   {
+    "commit": "cf0cd28",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "feat(model-e1): change restorage procces rules,",
+    "timestamp": "2025-09-09 19:40:57",
+    "plot1": "plot_archive/cf0cd28_20250909_194057_plot1.png",
+    "plot2": "plot_archive/cf0cd28_20250909_194057_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
     "commit": "05f82b1",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "explore(model-e1): adjust distortion parameters and enable probe distortion",

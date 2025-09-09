@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [cf0cd28](https://github.com/naszhu/REM_E3_model_fixed/commit/cf0cd28) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-09 19:40:57  
+**Message:**
+```
+feat(model-e1): change restorage procces rules,
+
+doesn't help much though
+
+Current approach is to make restorage process to have restore the missing only but not replace the incorrect ones, in this way, the targets are not mis-"corrected" to the distoreted values, so should be less influenced in final test
+
+Refs #38
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/cf0cd28_20250909_194057_plot1.png)  
+![](../plot_archive/cf0cd28_20250909_194057_plot2.png)  
+
 ## Commit [05f82b1](https://github.com/naszhu/REM_E3_model_fixed/commit/05f82b1) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-09 01:49:32  
 **Message:**

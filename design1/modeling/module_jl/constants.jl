@@ -167,15 +167,15 @@ p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hun
 p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 17) #7
+n_driftStudyTest = round.(Int, ones(10) * 12) #7
 
 n_between_listchange = 20 #20 in E3 #25 originally 
 
 const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
-max_distortion_probes = 20  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.1  # Base probability of distortion for the first probe 
+max_distortion_probes = 5  # Number of probes until distortion probability reaches 0
+base_distortion_prob = 0.15  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
