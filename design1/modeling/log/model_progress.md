@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [b360f52](https://github.com/naszhu/REM_E3_model_fixed/commit/b360f52) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-09 22:27:10  
+**Message:**
+```
+fix(model-e1): LL caluclation only for non-z content feature
+
+- Adjusted `criterion_final` to include dynamic components based on `power_taken` for improved model accuracy.
+- Refined `calculate_two_step_likelihoods` functions to ensure proper error handling when stages are not assigned correctly.
+- Updated likelihood calculations to use the correct word feature ranges, enhancing the reliability of the model's predictions.
+
+These changes aim to enhance the robustness and accuracy of the modeling framework.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/likelihood_calculations.jl`  
+![](../plot_archive/b360f52_20250909_222710_plot1.png)  
+![](../plot_archive/b360f52_20250909_222710_plot2.png)  
+
 ## Commit [7c7c69d](https://github.com/naszhu/REM_E3_model_fixed/commit/7c7c69d) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-09 22:12:30  
 **Message:**

@@ -1,5 +1,19 @@
 [
   {
+    "commit": "b360f52",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "fix(model-e1): LL caluclation only for non-z content feature",
+    "timestamp": "2025-09-09 22:27:10",
+    "plot1": "plot_archive/b360f52_20250909_222710_plot1.png",
+    "plot2": "plot_archive/b360f52_20250909_222710_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/likelihood_calculations.jl"
+    ]
+  },
+  {
     "commit": "7c7c69d",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "finetune(model-e1): final prediction update R plot scaling and adjust constants for drift study",

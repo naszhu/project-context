@@ -1,5 +1,22 @@
 using Distributions: Geometric
 
+"""Update list context features based on change probability for final test.
+
+Updates the list context features (ctx) by randomly changing each feature
+with probability p_ListChange_finaltest[icount].
+
+Args:
+    ctx: Vector of list context features to be modified
+    icount: Index used to determine change probability from p_ListChange_finaltest
+"""
+function drift_between_lists_final!(ctx::Vector{Int64}, icount::Int64)
+    for cf in eachindex(ctx)
+        if rand() < p_ListChange_finaltest[icount] #cf.change_probability # this equals p_change
+            ctx[cf] = rand(Geometric(g_context)) + 1
+        end
+    end
+end
+
 ######### OK these were added from E3, used in memory_restorage
 
 """

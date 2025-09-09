@@ -200,12 +200,12 @@ const total_probe_L1 = 15;  # total probes in list 1
 const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
 
-criterion_final = LinRange(0.09+0.055^power_taken, 0.12+0.045^power_taken, 10)
-final_gap_change = 0.07; #0.16 in E3 
+criterion_final = LinRange(0.09+0.2^power_taken, 0.19^power_taken, 10)
+final_gap_change = 0.08; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
-p_ListChange_finaltest = ones(10) * 0.6 #0.8 in E3, but undecided as well in E3
-ratio_unchanging_to_itself_final = LinRange(1,1, n_lists) # if use no unchanging
-ratio_changing_to_itself_final = LinRange(0.5,0.5, n_lists) # if use no unchanging 
+p_ListChange_finaltest = ones(10) * 0.02 #0.8 in E3, but undecided as well in E3
+ratio_unchanging_to_itself_final = LinRange(1.0,1.0, n_lists) # if use no unchanging
+ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchanging 
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)

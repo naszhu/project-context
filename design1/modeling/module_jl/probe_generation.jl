@@ -182,11 +182,8 @@ function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::S
     for list_number in lists #lists is [1] for random condition
         icount += 1
         if (icount !=1) && (condition != :true_random)
-            for cf in eachindex(listcg)
-                if rand() < p_ListChange_finaltest[icount] #cf.change_probability # this equals p_change
-                    listcg[cf] = rand(Geometric(g_context)) + 1
-                end
-            end
+            drift_between_lists_final!(listcg, icount)
+            drift_between_lists_final!(generalcg, icount)
         end
 
 
@@ -225,13 +222,8 @@ function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::S
 
                 # TODO: should only change if not first list, check here
                 if (iprobe!=1) && (iprobe_chunk != ceil(Int, (iprobe - 1) / 42))
-                    
-                    # println("iprobe ",iprobe, " iprobe_chunk ", iprobe_chunk, " flag ", iprobe_chunk != (ceil(Int, (iprobe - 1) / 42)))
-                    for cf in eachindex(listcg)
-                        if rand() < p_ListChange_finaltest[icount] #cf.change_probability # this equals p_change
-                            listcg[cf] = rand(Geometric(g_context)) + 1
-                        end
-                    end
+                    drift_between_lists_final!(listcg, icount)
+                    drift_between_lists_final!(generalcg, icount)
                 end
 
                 # for cf in eachindex(generalcg)
