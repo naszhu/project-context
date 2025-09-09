@@ -1,5 +1,31 @@
 # Model Progress
 
+## Commit [8403cfc](https://github.com/naszhu/REM_E3_model_fixed/commit/8403cfc) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-09 20:13:46  
+**Message:**
+```
+fix(model-e1): final test should use foil collection, rather than the distorted probes
+
+- Updated `generate_probes` function to return both probes and a collection of foils.
+- Adjusted `studied_pool` assignment to directly use the new `foil_collections`.
+- Modified distortion parameters: reduced `max_distortion_probes` to 5 and increased `base_distortion_prob` to 0.15 for improved distortion behavior.
+- Changed `n_driftStudyTest` from 17 to 12 to align with new study parameters.
+
+These changes aim to refine the probe generation process and enhance the handling of foils in the simulation.
+
+The bug was from #32
+Closes #38
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/8403cfc_20250909_201346_plot1.png)  
+![](../plot_archive/8403cfc_20250909_201346_plot2.png)  
+
 ## Commit [cf0cd28](https://github.com/naszhu/REM_E3_model_fixed/commit/cf0cd28) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-09 19:40:57  
 **Message:**

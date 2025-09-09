@@ -167,7 +167,7 @@ p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hun
 p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 12) #7
+n_driftStudyTest = round.(Int, ones(10) * 7) #7
 
 n_between_listchange = 20 #20 in E3 #25 originally 
 
@@ -175,7 +175,7 @@ const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 5  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.15  # Base probability of distortion for the first probe 
+base_distortion_prob = 0.2  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
@@ -200,10 +200,10 @@ const total_probe_L1 = 15;  # total probes in list 1
 const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
 
-criterion_final = LinRange(0.16^power_taken, 0.16^power_taken, 10)
-final_gap_change = 0.1; #0.16 in E3 
+criterion_final = LinRange(0.09^power_taken, 0.12^power_taken, 10)
+final_gap_change = 0.07; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
-p_ListChange_finaltest = ones(10) * 0.2 #0.8 in E3, but undecided as well in E3
+p_ListChange_finaltest = ones(10) * 0.6 #0.8 in E3, but undecided as well in E3
 ratio_unchanging_to_itself_final = LinRange(1,1, n_lists) # if use no unchanging
 ratio_changing_to_itself_final = LinRange(0.5,0.5, n_lists) # if use no unchanging 
 

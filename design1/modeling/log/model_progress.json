@@ -1,5 +1,21 @@
 [
   {
+    "commit": "8403cfc",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "fix(model-e1): final test should use foil collection, rather than the distorted probes",
+    "timestamp": "2025-09-09 20:13:46",
+    "plot1": "plot_archive/8403cfc_20250909_201346_plot1.png",
+    "plot2": "plot_archive/8403cfc_20250909_201346_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
     "commit": "cf0cd28",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "feat(model-e1): change restorage procces rules,",
