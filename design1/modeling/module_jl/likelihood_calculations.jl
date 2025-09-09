@@ -100,6 +100,7 @@ function calculate_two_step_likelihoods(probe::EpisodicImage, image_pool::Vector
                 word_likelihoods[ii] = 344523466743  # Or another value to indicate context mismatch
             end
         else
+            error("first stage must be assigned")
             word_likelihoods[ii] = calculate_likelihood_ratio(probe.word.word_features[1:round(Int, w_word * p)], image.word.word_features[1:round(Int, w_word * p)], g_word, c)
         end
 
@@ -151,7 +152,7 @@ function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vecto
             # second stage
             if context_likelihood > context_tau_final # if pass context criterion 
 
-                word_likelihoods[ii] = calculate_likelihood_ratio(probe.word.word_features, image.word.word_features, g_word, c)
+                word_likelihoods[ii] = calculate_likelihood_ratio(probe.word.word_features[1:w_word], image.word.word_features[1:w_word], g_word, c)
 
                 # if iprobe !== 1 #CONTEXT FILTER: if not first probe tested, using the filter, 
                 #     # taking  out the very low similarity word_likelihoods
@@ -164,6 +165,7 @@ function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vecto
                 word_likelihoods[ii] = 344523466743  # Or another value to indicate context mismatch
             end
         else
+            error("must use first stage")
             word_likelihoods[ii] = calculate_likelihood_ratio(probe.word.word_features[1:round(Int, w_word * p)], image.word.word_features[1:round(Int, w_word * p)], g_word, c)
         end
 

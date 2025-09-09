@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [7c7c69d](https://github.com/naszhu/REM_E3_model_fixed/commit/7c7c69d) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-09 22:12:30  
+**Message:**
+```
+finetune(model-e1): final prediction update R plot scaling and adjust constants for drift study
+
+- Commented out the y-axis scaling in R plots for potential future adjustments.
+- Modified `n_driftStudyTest` from 12 to 7 to better align with study parameters.
+- Increased `base_distortion_prob` from 0.15 to 0.2 to enhance initial distortion probability.
+- Adjusted `criterion_final` range and `final_gap_change` for improved model accuracy.
+- Updated `p_ListChange_finaltest` from 0.2 to 0.6 to reflect new testing conditions.
+
+These changes aim to refine the modeling parameters and improve the overall simulation accuracy.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/7c7c69d_20250909_221230_plot1.png)  
+![](../plot_archive/7c7c69d_20250909_221230_plot2.png)  
+
 ## Commit [8403cfc](https://github.com/naszhu/REM_E3_model_fixed/commit/8403cfc) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-09 20:13:46  
 **Message:**

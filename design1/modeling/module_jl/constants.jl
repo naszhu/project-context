@@ -200,7 +200,7 @@ const total_probe_L1 = 15;  # total probes in list 1
 const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
 
-criterion_final = LinRange(0.09^power_taken, 0.12^power_taken, 10)
+criterion_final = LinRange(0.09+0.055^power_taken, 0.12+0.045^power_taken, 10)
 final_gap_change = 0.07; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
 p_ListChange_finaltest = ones(10) * 0.6 #0.8 in E3, but undecided as well in E3

@@ -1,5 +1,19 @@
 [
   {
+    "commit": "7c7c69d",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "finetune(model-e1): final prediction update R plot scaling and adjust constants for drift study",
+    "timestamp": "2025-09-09 22:12:30",
+    "plot1": "plot_archive/7c7c69d_20250909_221230_plot1.png",
+    "plot2": "plot_archive/7c7c69d_20250909_221230_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/R_plots.r",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "8403cfc",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "fix(model-e1): final test should use foil collection, rather than the distorted probes",
