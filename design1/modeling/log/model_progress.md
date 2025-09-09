@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [05f82b1](https://github.com/naszhu/REM_E3_model_fixed/commit/05f82b1) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-09 01:49:32  
+**Message:**
+```
+explore(model-e1): adjust distortion parameters and enable probe distortion
+
+- Set is_UnchangeCtxDriftAndReinstate to true to align with E3
+- Introduce is_distort_probes flag to control probe distortion behavior
+- Modify v_criterion_initial from 0.14 to 0.11 for updated criteria
+- Change n_driftStudyTest from 12 to 10 to reflect new study parameters
+- Update base_distortion_prob from 0.15 to 0.1 for reduced initial distortion probability
+
+These changes aim to refine the distortion mechanism and improve alignment with experimental design.
+
+Refs #38
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/05f82b1_20250909_014932_plot1.png)  
+![](../plot_archive/05f82b1_20250909_014932_plot2.png)  
+
 ## Commit [37ed24b](https://github.com/naszhu/REM_E3_model_fixed/commit/37ed24b) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-09 00:21:25  
 **Message:**

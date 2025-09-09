@@ -1,5 +1,19 @@
 [
   {
+    "commit": "05f82b1",
+    "branch": "sep-8-final-test-within-list-issue38",
+    "message": "explore(model-e1): adjust distortion parameters and enable probe distortion",
+    "timestamp": "2025-09-09 01:49:32",
+    "plot1": "plot_archive/05f82b1_20250909_014932_plot1.png",
+    "plot2": "plot_archive/05f82b1_20250909_014932_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
     "commit": "37ed24b",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "debug(#38): add final test probe distribution analysis",

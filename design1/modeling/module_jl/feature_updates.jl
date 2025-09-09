@@ -88,7 +88,7 @@ function strengthen_features!(target_features::Vector{Int}, source_features::Vec
                 end
             
                 #is_store_mismatch is false now so no mismatch stored
-                if (current_value === 0) || ((current_value !== 0) && (current_value !== source_value) && is_store_mismatch)
+                if (current_value === 0) #|| ((current_value !== 0) && (current_value !== source_value) && is_store_mismatch)
                     target_features[i] = rand() < u_star_now[1]+u_star_adv ? (rand() < c_usenow[1]+c_adv ? source_value : rand(Geometric(g_context)) + 1) : current_value
                 end
 

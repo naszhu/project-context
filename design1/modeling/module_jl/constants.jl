@@ -94,8 +94,8 @@ is_test_changecontext2 = false #is testing only change context in final test
 
 # Restoration flags
 is_restore_initial = true
-is_UnchangeCtxDriftAndReinstate = true  # Disable UC distortion (align with E3)
-is_distort_probes = false
+is_UnchangeCtxDriftAndReinstate = false  # Disable UC distortion (align with E3)
+is_distort_probes = true
 const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
@@ -167,7 +167,7 @@ p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hun
 p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 10) #7
+n_driftStudyTest = round.(Int, ones(10) * 17) #7
 
 n_between_listchange = 20 #20 in E3 #25 originally 
 
@@ -205,7 +205,7 @@ final_gap_change = 0.1; #0.16 in E3
 context_tau_final = 100 #0.20.2 above if this is 10
 p_ListChange_finaltest = ones(10) * 0.2 #0.8 in E3, but undecided as well in E3
 ratio_unchanging_to_itself_final = LinRange(1,1, n_lists) # if use no unchanging
-ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchanging 
+ratio_changing_to_itself_final = LinRange(0.5,0.5, n_lists) # if use no unchanging 
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
