@@ -74,7 +74,7 @@ allresf=read.csv("allresf.csv")
             plot.margin = margin(t = 10, b = 40),
             text=element_text(size=30) # Increase font size globally
         )+
-        #ylim(c(0.5,1))+
+        ylim(c(0.5,1))+
         geom_line(aes(y=mean_mean),size=1.5,color="black")
 
         DFff = allresf %>% mutate(correct = case_when( (decision_isold==1) & (is_target!="F") ~ 1, 
@@ -136,7 +136,7 @@ allresf=read.csv("allresf.csv")
         geom_line(aes(color=is_target),size=2)+
         facet_grid(.~pos_factor)+
         labs(title="Final test by initial test position")+
-        #ylim(c(0.5,1))+
+        ylim(c(0.5,1))+
         theme(
                 plot.caption = element_text(hjust = 0, size = 14, face = "bold"),  # Align the caption to the left and customize its appearance
             plot.margin = margin(t = 10, b = 40),

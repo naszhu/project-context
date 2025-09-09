@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [bd34610](https://github.com/naszhu/REM_E3_model_fixed/commit/bd34610) (branch: `sep-8-final-test-within-list-issue38`)
+**Time:** 2025-09-09 23:21:59  
+**Message:**
+```
+feat(model-e1): update unchanging context feature drift logic and adjust constants
+
+- Introduced `drift_between_lists_final!` function to update list context features based on change probability.
+- Commented out y-axis limits in R plots for future adjustments.
+- Adjusted `criterion_final` and `final_gap_change` for improved model accuracy.
+- Updated `p_ListChange_finaltest` to reflect new testing conditions.
+
+These changes aim to enhance the modeling framework's adaptability and accuracy in simulations.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/R_plots_finalt.r`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/bd34610_20250909_232159_plot1.png)  
+![](../plot_archive/bd34610_20250909_232159_plot2.png)  
+
 ## Commit [b360f52](https://github.com/naszhu/REM_E3_model_fixed/commit/b360f52) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-09 22:27:10  
 **Message:**
