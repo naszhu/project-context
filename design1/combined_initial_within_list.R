@@ -56,6 +56,9 @@ data_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction(pos
               alpha=0.25) +
   # Facet by position type
   facet_grid(.~position_type) +
+      scale_y_continuous(limits = c(0.75, 1.00),
+                      breaks = seq(0.75, 1.00, by = 0.05),
+                      name = "Performance (Hits/Correct Rejection)") +
   
   # Enhanced styling and labels
   labs(x="Initial Study position (left column), Initial Test position (right column)",

@@ -1,5 +1,37 @@
 # Model Progress
 
+## Commit [86a9220](https://github.com/naszhu/REM_E3_model_fixed/commit/86a9220) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 22:57:31  
+**Message:**
+```
+feat(predplot-e1): add combined plot scripts for final and initial test analyses
+
+- Introduced new R scripts for generating combined plots that display data and prediction side by side for both final and initial test analyses.
+- Updated the .gitignore to include new combined plot files, ensuring a cleaner repository by excluding generated images.
+- Created a shell script to automate the execution of all combined plot scripts, streamlining the workflow for generating visual outputs.
+
+These changes aim to enhance the data visualization process and improve the accessibility of analysis results.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/combined_finaltest_between_list.R`  
+- `design1/combined_finaltest_within_list.R`  
+- `design1/combined_initial_between_list.R`  
+- `design1/combined_initial_within_list.R`  
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/modeling/R_ploting/E1 final t - within_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/E1- initial test-between_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/R_plots_enhanced_fixed.r`  
+- `design1/modeling/R_ploting/between_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/final_test_between_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/within_list_prediction_plot.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/run_combined_plots.sh`  
+![](../plot_archive/86a9220_20250910_225731_plot1.png)  
+![](../plot_archive/86a9220_20250910_225731_plot2.png)  
+
 ## Commit [5bff88b](https://github.com/naszhu/REM_E3_model_fixed/commit/5bff88b) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 22:27:39  
 **Message:**
