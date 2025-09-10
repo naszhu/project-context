@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [ca9583f](https://github.com/naszhu/REM_E3_model_fixed/commit/ca9583f) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:52:54  
+**Message:**
+```
+feat(analysis-e1): add final test between and within list scripts with enhanced plots
+
+- Introduced new R scripts for final test analyses (both between and within lists) to improve data visualization.
+- Updated the shell script to allow selective plot generation and streamline the process.
+- Enhanced plot aesthetics and readability, including improved color palettes and legend positioning.
+- Saved processed data to CSV files for further analysis.
+
+These changes aim to expand the data analysis capabilities and enhance the quality of visual outputs.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/data_analysis/E1-finaltest-within-list.R`  
+- `design1/data_analysis/run_all_plots.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/ca9583f_20250910_185254_plot1.png)  
+![](../plot_archive/ca9583f_20250910_185254_plot2.png)  
+
 ## Commit [a77b241](https://github.com/naszhu/REM_E3_model_fixed/commit/a77b241) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 18:34:03  
 **Message:**

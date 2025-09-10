@@ -1,5 +1,20 @@
 [
   {
+    "commit": "ca9583f",
+    "branch": "sep-10-predplot",
+    "message": "feat(analysis-e1): add final test between and within list scripts with enhanced plots",
+    "timestamp": "2025-09-10 18:52:54",
+    "plot1": "plot_archive/ca9583f_20250910_185254_plot1.png",
+    "plot2": "plot_archive/ca9583f_20250910_185254_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-finaltest-between-list.R",
+      "design1/data_analysis/E1-finaltest-within-list.R",
+      "design1/data_analysis/run_all_plots.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "a77b241",
     "branch": "sep-10-predplot",
     "message": "feat(predplot-e1): Within plot, streamline data processing and enhance plot generation",

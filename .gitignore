@@ -19,6 +19,10 @@ design1/data_analysis/*plot*.png
 enhanced_plot_figure3.png
 enhanced_plot_figure3_sample.png
 **/enhanced_plot_figure3*.png
+
+# Prediction plot files  
+design1/modeling/R_ploting/*.png
+**/enhanced_*prediction*.png
 ~/.config/Cursor/User/settings.json
 
 # Parallel execution temporary directories
