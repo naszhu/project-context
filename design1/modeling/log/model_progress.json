@@ -1,5 +1,18 @@
 [
   {
+    "commit": "0d425a5",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): update plot aesthetics for final test within-list analysis",
+    "timestamp": "2025-09-10 21:15:33",
+    "plot1": "plot_archive/0d425a5_20250910_211533_plot1.png",
+    "plot2": "plot_archive/0d425a5_20250910_211533_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "7008ce5",
     "branch": "sep-10-predplot",
     "message": "feat(predplot-e1): enhance final test between-list plot and remove unused scripts",

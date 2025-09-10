@@ -26,6 +26,27 @@ dfserial=
   mutate(position_type=case_when(position_type=="testpos"~"Final Test List Position",
                                  TRUE~"Initial Study List Position"))
 
+# For foils in Initial Study List Position, set position to 0 and calculate mean across all conditions
+dfserial <- dfserial %>%
+  mutate(position = as.character(position))
+
+# Create foil data at position 0 for Initial Study List Position (averaged across all conditions)
+foil_zero_data <- dfserial %>%
+  filter(probetype == "Foil - Correct rejection" & position_type == "Initial Study List Position") %>%
+  group_by(position_type, probetype) %>%
+  summarize(meancr = mean(meancr), 
+            sd = sqrt(mean(sd^2)),  # Pooled standard deviation
+            se = sd/sqrt(n()),
+            .groups = 'drop') %>%
+  mutate(position = "0") %>%
+  # Create one row for each condition
+  crossing(condition = c("backward", "forward", "random"))
+
+# Remove original foil data from Initial Study List Position and add the averaged version
+dfserial <- dfserial %>%
+  filter(!(probetype == "Foil - Correct rejection" & position_type == "Initial Study List Position")) %>%
+  rbind(foil_zero_data)
+
 dfserial_meandf=dfchanged%>%
   filter(task=="finalt_response")%>%
   mutate(testpos=cut_number(testpos,10,labels=1:10))%>%
@@ -40,11 +61,12 @@ dfserial_meandf=dfchanged%>%
   mutate(probetype="Average")%>%
   select(position,position_type,condition,probetype,meancr,se)%>%
   mutate(position_type=case_when(position_type=="testpos"~"Final Test List Position",
-                                 TRUE~"Initial Study List Position"))
+                                 TRUE~"Initial Study List Position"))%>%
+  mutate(position = as.character(position))
 
 dfserial_all=rbind(dfserial,dfserial_meandf)%>%
   mutate(position_type=as.factor(position_type))%>%
-  mutate(position_type=factor(position_type,levels=rev(levels(position_type))))
+  mutate(position_type=factor(position_type,levels=c("Initial Study List Position", "Final Test List Position")))
 
 # Save processed data to CSV
 write_csv(dfserial_all, "dfserial_all_finaltest_between.csv")
@@ -54,16 +76,15 @@ cat("dfserial_all_finaltest_between data saved to dfserial_all_finaltest_between
 # To make font size bigger, use base_size in theme_minimal() and set all element_text sizes explicitly
 base_font_size <- 24
 
-enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction(position_type,condition)))+
-  # Enhanced points with different shapes for each probetype
-  geom_point(aes(color=probetype, shape=probetype, group=probetype), 
+enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,color=probetype,shape=probetype,linetype=probetype,group=probetype))+
+  # Enhanced points with different shapes for each probetype (exclude Average)
+  geom_point(data=dfserial_all %>% filter(probetype != "Average"),
              size=3.5, alpha=0.9, stroke=1.2) +
   # Enhanced lines with different line types
-  geom_line(aes(color=probetype, linetype=probetype, group=probetype), 
-            linewidth=1.2, alpha=0.8) +
+  geom_line(linewidth=1.5, alpha=0.8) +
   # Enhanced ribbon with better visibility (exclude Average from error bands)
   geom_ribbon(data=dfserial_all %>% filter(probetype != "Average"),
-              aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),
+              aes(ymin=meancr-se,ymax=meancr+se,fill=probetype),
               alpha=0.25) +
   # Facet by condition and position type
   facet_grid(condition~position_type) +
@@ -73,6 +94,9 @@ enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction
        y="Performance (Hits/Correct Rejection)",
        caption="Figure 3. Enhanced - Between List Final Test Results seen in Final Testing",
        color="Type", fill="Type", shape="Type", linetype="Type") +
+  
+  # Set x-axis to include position 0
+  scale_x_discrete(limits = c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10")) +
   
   # Enhanced color palette with high contrast
   scale_color_manual(values=c("Average"="#2C2C2C", 

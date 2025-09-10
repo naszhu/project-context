@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [0d425a5](https://github.com/naszhu/REM_E3_model_fixed/commit/0d425a5) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 21:15:33  
+**Message:**
+```
+feat(predplot-e1): update plot aesthetics for final test within-list analysis
+
+- Changed legend position from right to bottom and adjusted text sizes for improved readability.
+- Updated y-axis limits to enhance data visualization, focusing on the relevant range of hit rates.
+- These modifications aim to refine the visual presentation of the final test within-list plots for better clarity and interpretation.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/0d425a5_20250910_211533_plot1.png)  
+![](../plot_archive/0d425a5_20250910_211533_plot2.png)  
+
 ## Commit [7008ce5](https://github.com/naszhu/REM_E3_model_fixed/commit/7008ce5) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 21:12:53  
 **Message:**
