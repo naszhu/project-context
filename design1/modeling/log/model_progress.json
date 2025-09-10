@@ -1,5 +1,35 @@
 [
   {
+    "commit": "7c875c1",
+    "branch": "sep-10-predplot",
+    "message": "feat(data-analysis): enhance final test between-list plot aesthetics and readability",
+    "timestamp": "2025-09-10 19:58:35",
+    "plot1": "plot_archive/7c875c1_20250910_195835_plot1.png",
+    "plot2": "plot_archive/7c875c1_20250910_195835_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-finaltest-between-list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "c56bf27",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): add 4 files correponding to analysis - Introduced new R scripts for generating enhanced plots for both initial and final test analyses, improving data visualization. - Enhanced plot aesthetics with improved color palettes, shapes, and line types for better clarity and readability. - Updated the shell script to automate the execution of all plot scripts, ensuring a streamlined workflow for generating visual outputs. - Saved the generated plots in PNG format for easy access and presentation.",
+    "timestamp": "2025-09-10 19:50:42",
+    "plot1": "plot_archive/c56bf27_20250910_195042_plot1.png",
+    "plot2": "plot_archive/c56bf27_20250910_195042_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-initial-between-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-initial-within-list-enhanced.R",
+      "design1/modeling/R_ploting/run_all_E1_plots.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "a31ec90",
     "branch": "sep-10-predplot",
     "message": "feat(predplot-e1): add enhanced initial and final test plots for between and within lists",

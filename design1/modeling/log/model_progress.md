@@ -1,5 +1,49 @@
 # Model Progress
 
+## Commit [7c875c1](https://github.com/naszhu/REM_E3_model_fixed/commit/7c875c1) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 19:58:35  
+**Message:**
+```
+feat(data-analysis): enhance final test between-list plot aesthetics and readability
+
+- Added the 'grid' library for improved unit handling in plots.
+- Increased font sizes across all plot elements for better visibility.
+- Updated plot labels for clarity and adjusted legend layout.
+- Enhanced theme settings to improve overall readability and presentation.
+- Adjusted dimensions for saved plot images to accommodate new layout.
+
+These changes aim to improve the visual quality and accessibility of the final test between-list analysis outputs.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/7c875c1_20250910_195835_plot1.png)  
+![](../plot_archive/7c875c1_20250910_195835_plot2.png)  
+
+## Commit [c56bf27](https://github.com/naszhu/REM_E3_model_fixed/commit/c56bf27) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 19:50:42  
+**Message:**
+```
+feat(predplot-e1): add 4 files correponding to analysis
+- Introduced new R scripts for generating enhanced plots for both initial and final test analyses, improving data visualization.
+- Enhanced plot aesthetics with improved color palettes, shapes, and line types for better clarity and readability.
+- Updated the shell script to automate the execution of all plot scripts, ensuring a streamlined workflow for generating visual outputs.
+- Saved the generated plots in PNG format for easy access and presentation.
+
+These changes aim to expand the data analysis capabilities and enhance the quality of visual outputs.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/run_all_E1_plots.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/c56bf27_20250910_195042_plot1.png)  
+![](../plot_archive/c56bf27_20250910_195042_plot2.png)  
+
 ## Commit [a31ec90](https://github.com/naszhu/REM_E3_model_fixed/commit/a31ec90) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 19:50:28  
 **Message:**

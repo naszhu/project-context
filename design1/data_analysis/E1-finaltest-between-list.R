@@ -2,6 +2,7 @@ library(dplyr)
 library(ggplot2)
 library(readr)
 library(tidyr)
+library(grid) # for unit()
 
 # Load the preprocessed data
 dfchanged <- read_csv("dfchanged.csv")
@@ -50,6 +51,9 @@ write_csv(dfserial_all, "dfserial_all_finaltest_between.csv")
 cat("dfserial_all_finaltest_between data saved to dfserial_all_finaltest_between.csv\n")
 
 # Create the enhanced final test between-list plot
+# To make font size bigger, use base_size in theme_minimal() and set all element_text sizes explicitly
+base_font_size <- 24
+
 enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction(position_type,condition)))+
   # Enhanced points with different shapes for each probetype
   geom_point(aes(color=probetype, shape=probetype, group=probetype), 
@@ -65,7 +69,7 @@ enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction
   facet_grid(condition~position_type) +
   
   # Enhanced styling and labels
-  labs(x="Final test position cut in 10 chunks (left column), Initial test list order (right column)",
+  labs(x="Final test in 10 chunks (left column), Initial test list order (right column)",
        y="Performance (Hits/Correct Rejection)",
        caption="Figure 3. Enhanced - Between List Final Test Results seen in Final Testing",
        color="Type", fill="Type", shape="Type", linetype="Type") +
@@ -92,41 +96,41 @@ enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction
                                  "TARGET_nontarget  - Hits"="longdash",
                                  "TARGET_target  - Hits"="twodash")) +
   
-  # Enhanced theme with improved readability
-  theme_minimal() +
+  # Enhanced theme with improved readability and much larger font sizes
+  theme_minimal(base_size = base_font_size) +
   theme(
-    plot.caption = element_text(hjust = 0, size = 12, face = "bold", color = "darkblue", margin = margin(t = 20)),
+    plot.caption = element_text(hjust = 0, size = 15, face = "bold", color = "darkblue", margin = margin(t = 20)),
     plot.margin = margin(t = 15, r = 15, b = 70, l = 15),
-    text = element_text(size = 12),
-    axis.text = element_text(size = 10, color = "black"),
-    axis.title = element_text(size = 12, face = "bold", color = "black"),
+    text = element_text(size = base_font_size),
+    axis.text = element_text(size = base_font_size, color = "black"),
+    axis.title = element_text(size = base_font_size + 2, face = "bold", color = "black"),
     panel.grid.major = element_line(color = "grey75", linewidth = 0.3),
     panel.grid.minor = element_line(color = "grey85", linewidth = 0.2),
     legend.position = "bottom",
-    legend.title = element_text(face = "bold", size = 11),
-    legend.text = element_text(size = 9),
-    legend.key.width = unit(1.0, "cm"),
-    legend.key.height = unit(0.5, "cm"),
+    legend.title = element_text(face = "bold", size = base_font_size, margin = margin(b = 5)),
+    legend.text = element_text(size = base_font_size - 2),
+    legend.key.width = unit(2.0, "cm"),
+    legend.key.height = unit(1.0, "cm"),
     legend.margin = margin(t = 20),
     legend.box = "horizontal",
     legend.direction = "horizontal",
-    plot.title = element_text(face = "bold", hjust = 0.5, size = 14, margin = margin(b = 20)),
+    plot.title = element_text(face = "bold", hjust = 0.5, size = base_font_size + 6, margin = margin(b = 20)),
     panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
     plot.background = element_rect(fill = "white", color = NA),
     panel.background = element_rect(fill = "grey98", color = NA),
     strip.background = element_rect(fill = "grey90", color = "black", linewidth = 0.4),
-    strip.text = element_text(face = "bold", size = 10)
+    strip.text = element_text(face = "bold", size = base_font_size)
   ) +
   guides(
     fill = "none",
-    color = guide_legend(nrow = 2, byrow = TRUE, title.position = "top"),
-    shape = guide_legend(nrow = 2, byrow = TRUE, title.position = "top"),
-    linetype = guide_legend(nrow = 2, byrow = TRUE, title.position = "top")
+    color = guide_legend(nrow = 3, byrow = TRUE, title.position = "top"),
+    shape = guide_legend(nrow = 3, byrow = TRUE, title.position = "top"),
+    linetype = guide_legend(nrow = 3, byrow = TRUE, title.position = "top")
   ) +
   ggtitle("E1 Final Test Between List data")
 
 # Save the enhanced plot with reasonable dimensions (increased height for multiple facets and legend)
-ggsave("enhanced_finaltest_between_list_plot.png", enhanced_plot, width = 9, height = 11, dpi = 300, bg = "white")
+ggsave("enhanced_finaltest_between_list_plot.png", enhanced_plot, width = 9+3, height = 13+4, dpi = 300, bg = "white")
 
 # Also create a sample version with smaller size for quick preview
 ggsave("enhanced_finaltest_between_list_plot_sample.png", enhanced_plot, width = 10, height = 8, dpi = 150, bg = "white")
