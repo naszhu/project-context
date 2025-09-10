@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [fd10b76](https://github.com/naszhu/REM_E3_model_fixed/commit/fd10b76) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 23:49:47  
+**Message:**
+```
+finetune(model-e1): enhance y-axis limits and streamline final test checks in scripts
+
+Perfect initial test prediction almost
+
+- Updated the y-axis limits and labels in the combined initial between-list plot for improved performance visualization.
+- Simplified the final test checks in the shell script by removing redundant conditions and focusing on the presence of `allresf.csv`.
+- Added a backup of the shell script to ensure previous functionality is preserved.
+
+These changes aim to enhance the clarity of plot outputs and improve the efficiency of the script execution process.
+```
+**Changed Files:**
+- `design1/combined_initial_between_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/run_combined_plots.sh`  
+- `design1/run_combined_plots.sh.backup`  
+![](../plot_archive/fd10b76_20250910_234947_plot1.png)  
+![](../plot_archive/fd10b76_20250910_234947_plot2.png)  
+
 ## Commit [7a3018b](https://github.com/naszhu/REM_E3_model_fixed/commit/7a3018b) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 23:41:06  
 **Message:**

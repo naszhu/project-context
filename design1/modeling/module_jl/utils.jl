@@ -70,13 +70,13 @@ function generate_asymptotic_increase_fixed_start(start_at::Float64, rate::Float
 end
 
 
-function asym_increase_shift(start_at::Float64,
-                              how_much::Float64,
-                              how_fast::Float64,
-                              n::Int)::Vector{Float64}
-    @assert n ≥ 1
-    return [start_at + how_much * (1 - exp(-how_fast * (k))) for k in 0:n-1]
-end
+# function asym_increase_shift(start_at::Float64,
+#                               how_much::Float64,
+#                               how_fast::Float64,
+#                               n::Int)::Vector{Float64}
+#     @assert n ≥ 1
+#     return [start_at + how_much * (1 - exp(-how_fast * (k))) for k in 0:n-1]
+# end
 
 
 
@@ -119,4 +119,23 @@ function asym_increase_shift(start_at::Float64,
     n::Int)::Vector{Float64}
 @assert n ≥ 1
 return [start_at + how_much * (1 - exp(-how_fast * (k))) for k in 0:n-1]
+end
+
+# Asymptotic decrease function (general version)
+function asym_decrease_shift(start_at::Float64,
+    how_much::Float64,
+    how_fast::Float64,
+    n::Int)::Vector{Float64}
+@assert n ≥ 1
+return [start_at - how_much * (1 - exp(-how_fast * k)) for k in 0:n-1]
+end
+
+# Asymptotic decrease function that reaches a specific end value
+function asym_decrease_to_end(start_at::Float64,
+    end_at::Float64,
+    how_fast::Float64,
+    n::Int)::Vector{Float64}
+@assert n ≥ 1
+how_much = start_at - end_at
+return [start_at - how_much * (1 - exp(-how_fast * k)) for k in 0:n-1]
 end
