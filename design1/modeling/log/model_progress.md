@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [6ebdf76](https://github.com/naszhu/REM_E3_model_fixed/commit/6ebdf76) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 22:57:49  
+**Message:**
+```
+feat(predplot-e1): update .gitignore and enhance y-axis limits for combined plot
+
+- Added new plot files to .gitignore to keep the repository clean from generated images.
+- Enhanced the y-axis limits and labels in the combined initial within-list plot for improved clarity in performance visualization.
+
+These changes aim to streamline the repository management and improve the interpretability of the combined plot outputs.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/combined_initial_within_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/6ebdf76_20250910_225749_plot1.png)  
+![](../plot_archive/6ebdf76_20250910_225749_plot2.png)  
+
 ## Commit [86a9220](https://github.com/naszhu/REM_E3_model_fixed/commit/86a9220) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 22:57:31  
 **Message:**
