@@ -1,5 +1,30 @@
 [
   {
+    "commit": "7008ce5",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): enhance final test between-list plot and remove unused scripts",
+    "timestamp": "2025-09-10 21:12:53",
+    "plot1": "plot_archive/7008ce5_20250910_211253_plot1.png",
+    "plot2": "plot_archive/7008ce5_20250910_211253_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-initial-between-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-initial-within-list-enhanced.R",
+      "design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R",
+      "design1/modeling/R_ploting/R_plots_enhanced_fixed.r",
+      "design1/modeling/R_ploting/R_plots_finalt_enhanced_fixed.r",
+      "design1/modeling/R_ploting/between_list_prediction_plot.R",
+      "design1/modeling/R_ploting/final_test_between_list_prediction_plot.R",
+      "design1/modeling/R_ploting/run_all_E1_plots.sh",
+      "design1/modeling/R_ploting/run_enhanced_plots_fixed.sh",
+      "design1/modeling/R_ploting/within_list_prediction_plot.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "e5efe59",
     "branch": "sep-10-predplot",
     "message": "feat(analysis-e1): enhance final test between-list plot aesthetics and readability",

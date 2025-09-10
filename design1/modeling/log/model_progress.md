@@ -1,5 +1,37 @@
 # Model Progress
 
+## Commit [7008ce5](https://github.com/naszhu/REM_E3_model_fixed/commit/7008ce5) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 21:12:53  
+**Message:**
+```
+feat(predplot-e1): enhance final test between-list plot and remove unused scripts
+
+- Updated the final test between-list plot aesthetics, including adjustments to axis labels, colors, and font sizes for improved readability.
+- Replaced `geom_ribbon` with commented-out code to enhance clarity in the plot.
+- Changed the method of saving plots from `png` to `ggsave` for better control over output dimensions and quality.
+- Deleted unused scripts for within-list and initial analyses to streamline the project and reduce clutter.
+
+These changes aim to improve the visual quality of the final test between-list analysis and maintain a cleaner codebase.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R`  
+- `design1/modeling/R_ploting/R_plots_enhanced_fixed.r`  
+- `design1/modeling/R_ploting/R_plots_finalt_enhanced_fixed.r`  
+- `design1/modeling/R_ploting/between_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/final_test_between_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/run_all_E1_plots.sh`  
+- `design1/modeling/R_ploting/run_enhanced_plots_fixed.sh`  
+- `design1/modeling/R_ploting/within_list_prediction_plot.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/7008ce5_20250910_211253_plot1.png)  
+![](../plot_archive/7008ce5_20250910_211253_plot2.png)  
+
 ## Commit [e5efe59](https://github.com/naszhu/REM_E3_model_fixed/commit/e5efe59) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 19:58:42  
 **Message:**

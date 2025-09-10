@@ -127,16 +127,16 @@ p_study <- ggplot(data = DF_study, aes(x = initial_studypos, y = meanx)) +
         plot.margin = margin(t = 10, b = 40),
         text = element_text(size = 14),
         panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.5),
-        legend.position = "right",
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 12, face = "bold")
+        legend.position = "bottom",
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10, face = "bold")
     ) +
     labs(
         title = "Initial Study Position",
         x = "Initial Study position (left column), Initial Test position (right column)",
         y = "Hit Rate"
     ) +
-    ylim(c(0.3, 1.0)) +
+    ylim(c(0.5, 0.95)) +
     xlim(c(0, 20))
 
 # Create the Initial Test Position plot
@@ -179,16 +179,16 @@ p_test <- ggplot(data = DF_test, aes(x = initial_testpos, y = meanx)) +
         plot.margin = margin(t = 10, b = 40),
         text = element_text(size = 14),
         panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.5),
-        legend.position = "right",
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 12, face = "bold")
+        legend.position = "bottom",
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 10, face = "bold")
     ) +
     labs(
         title = "Initial Test Position",
         x = "Initial Study position (left column), Initial Test position (right column)",
         y = "Hit Rate"
     ) +
-    ylim(c(0.3, 1.0)) +
+    ylim(c(0.5, 0.95)) +
     xlim(c(0, 20))
 
 # Save the plot
