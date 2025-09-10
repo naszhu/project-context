@@ -1,5 +1,48 @@
 # Model Progress
 
+## Commit [a31ec90](https://github.com/naszhu/REM_E3_model_fixed/commit/a31ec90) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 19:50:28  
+**Message:**
+```
+feat(predplot-e1): add enhanced initial and final test plots for between and within lists
+
+- Introduced new R scripts for generating enhanced plots for both initial and final test analyses, improving data visualization.
+- Enhanced plot aesthetics with improved color palettes, shapes, and line types for better clarity and readability.
+- Updated the shell script to automate the execution of all plot scripts, ensuring a streamlined workflow for generating visual outputs.
+- Saved the generated plots in PNG format for easy access and presentation.
+
+These changes aim to expand the data analysis capabilities and enhance the quality of visual outputs.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/run_all_E1_plots.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a31ec90_20250910_195028_plot1.png)  
+![](../plot_archive/a31ec90_20250910_195028_plot2.png)  
+
+## Commit [ffac0a9](https://github.com/naszhu/REM_E3_model_fixed/commit/ffac0a9) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 19:41:48  
+**Message:**
+```
+feat(predplot-e1): update ignore patterns for prediction plot files
+
+- Added new patterns to exclude prediction plot files from tracking, including those in the modeling directory and enhanced prediction files.
+- This update helps maintain a cleaner repository by preventing unnecessary output files from being included in version control.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/modeling/R_ploting/R_plots_enhanced_fixed.r`  
+- `design1/modeling/R_ploting/R_plots_finalt_enhanced_fixed.r`  
+- `design1/modeling/R_ploting/run_enhanced_plots_fixed.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/ffac0a9_20250910_194148_plot1.png)  
+![](../plot_archive/ffac0a9_20250910_194148_plot2.png)  
+
 ## Commit [ca9583f](https://github.com/naszhu/REM_E3_model_fixed/commit/ca9583f) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 18:52:54  
 **Message:**
