@@ -1,5 +1,485 @@
 # Model Progress
 
+## Commit [ad4025a](https://github.com/naszhu/REM_E3_model_fixed/commit/ad4025a) (branch: `sep-10-predplot`)
+**Time:** 2025-09-11 00:22:15  
+**Message:**
+```
+feat(model-e1): back to asymptotic final criterion shift
+
+- Set the final test flag to true, adjusting the number of simulations accordingly.
+- Replaced the original criterion generation with an asymptotic version to better model nonlinear behavior.
+- Included the utils.jl file to ensure access to necessary asymptotic functions.
+
+These changes aim to refine the modeling process for final tests and improve the accuracy of criterion calculations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/ad4025a_20250911_002215_plot1.png)  
+![](../plot_archive/ad4025a_20250911_002215_plot2.png)  
+
+## Commit [fd10b76](https://github.com/naszhu/REM_E3_model_fixed/commit/fd10b76) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 23:49:47  
+**Message:**
+```
+finetune(model-e1): enhance y-axis limits and streamline final test checks in scripts
+
+Perfect initial test prediction almost
+
+- Updated the y-axis limits and labels in the combined initial between-list plot for improved performance visualization.
+- Simplified the final test checks in the shell script by removing redundant conditions and focusing on the presence of `allresf.csv`.
+- Added a backup of the shell script to ensure previous functionality is preserved.
+
+These changes aim to enhance the clarity of plot outputs and improve the efficiency of the script execution process.
+```
+**Changed Files:**
+- `design1/combined_initial_between_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/run_combined_plots.sh`  
+- `design1/run_combined_plots.sh.backup`  
+![](../plot_archive/fd10b76_20250910_234947_plot1.png)  
+![](../plot_archive/fd10b76_20250910_234947_plot2.png)  
+
+## Commit [7a3018b](https://github.com/naszhu/REM_E3_model_fixed/commit/7a3018b) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 23:41:06  
+**Message:**
+```
+explore(model-e1):A working version remove eog display command from R scripts
+
+- Eliminated the system command to display plots using `eog` from multiple R scripts, streamlining the plot generation process.
+- This change enhances the usability of the scripts by removing unnecessary dependencies on external applications for displaying plots.
+
+These modifications aim to simplify the workflow for generating combined plots without relying on external viewers.
+```
+**Changed Files:**
+- `design1/combined_finaltest_between_list.R`  
+- `design1/combined_finaltest_within_list.R`  
+- `design1/combined_initial_between_list.R`  
+- `design1/combined_initial_within_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/run_combined_plots.sh`  
+![](../plot_archive/7a3018b_20250910_234106_plot1.png)  
+![](../plot_archive/7a3018b_20250910_234106_plot2.png)  
+
+## Commit [0004804](https://github.com/naszhu/REM_E3_model_fixed/commit/0004804) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 23:15:07  
+**Message:**
+```
+feat(allplot-e1): add checks for final test data in R scripts and shell scripts
+
+- Implemented checks in the R scripts for final test between-list and within-list plots to ensure the presence of the required `allresf.csv` file before proceeding with plot generation.
+- Updated the shell script to conditionally run final test plots based on the existence of `allresf.csv`, providing user feedback on the status of the final test.
+- Enhanced output messages to inform users when final test plots are skipped due to missing data.
+
+These changes improve the robustness of the plotting scripts and enhance user experience by preventing errors related to missing data files.
+```
+**Changed Files:**
+- `design1/combined_finaltest_between_list.R`  
+- `design1/combined_finaltest_within_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/run_combined_plots.sh`  
+- `design1/run_simulation_and_combined_plots.sh`  
+![](../plot_archive/0004804_20250910_231507_plot1.png)  
+![](../plot_archive/0004804_20250910_231507_plot2.png)  
+
+## Commit [df49f20](https://github.com/naszhu/REM_E3_model_fixed/commit/df49f20) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 23:11:01  
+**Message:**
+```
+feat(shell-e1): add script to run parallel simulations and generate combined plots
+
+- Introduced a new shell script that automates the execution of parallel simulations followed by the generation of combined data vs prediction plots.
+- The script checks for the existence of necessary scripts and provides feedback on the success or failure of each step.
+- This addition streamlines the workflow for running simulations and visualizing results, enhancing the overall analysis process.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/run_simulation_and_combined_plots.sh`  
+![](../plot_archive/df49f20_20250910_231101_plot1.png)  
+![](../plot_archive/df49f20_20250910_231101_plot2.png)  
+
+## Commit [6ebdf76](https://github.com/naszhu/REM_E3_model_fixed/commit/6ebdf76) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 22:57:49  
+**Message:**
+```
+feat(predplot-e1): update .gitignore and enhance y-axis limits for combined plot
+
+- Added new plot files to .gitignore to keep the repository clean from generated images.
+- Enhanced the y-axis limits and labels in the combined initial within-list plot for improved clarity in performance visualization.
+
+These changes aim to streamline the repository management and improve the interpretability of the combined plot outputs.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/combined_initial_within_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/6ebdf76_20250910_225749_plot1.png)  
+![](../plot_archive/6ebdf76_20250910_225749_plot2.png)  
+
+## Commit [86a9220](https://github.com/naszhu/REM_E3_model_fixed/commit/86a9220) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 22:57:31  
+**Message:**
+```
+feat(predplot-e1): add combined plot scripts for final and initial test analyses
+
+- Introduced new R scripts for generating combined plots that display data and prediction side by side for both final and initial test analyses.
+- Updated the .gitignore to include new combined plot files, ensuring a cleaner repository by excluding generated images.
+- Created a shell script to automate the execution of all combined plot scripts, streamlining the workflow for generating visual outputs.
+
+These changes aim to enhance the data visualization process and improve the accessibility of analysis results.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/combined_finaltest_between_list.R`  
+- `design1/combined_finaltest_within_list.R`  
+- `design1/combined_initial_between_list.R`  
+- `design1/combined_initial_within_list.R`  
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/modeling/R_ploting/E1 final t - within_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/E1- initial test-between_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/R_plots_enhanced_fixed.r`  
+- `design1/modeling/R_ploting/between_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/final_test_between_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/within_list_prediction_plot.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/run_combined_plots.sh`  
+![](../plot_archive/86a9220_20250910_225731_plot1.png)  
+![](../plot_archive/86a9220_20250910_225731_plot2.png)  
+
+## Commit [5bff88b](https://github.com/naszhu/REM_E3_model_fixed/commit/5bff88b) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 22:27:39  
+**Message:**
+```
+feat(predplot-e1): enhance final test between and within list plots
+
+- Updated the final test between-list plot aesthetics, including improved color palettes, shapes, and line types for better clarity.
+- Enhanced the final test within-list plot with refined styling, including larger font sizes and better legend positioning.
+- Streamlined data processing by loading preprocessed data from a single CSV file, improving efficiency.
+- Saved enhanced plots in high resolution and added sample versions for quick previews.
+
+These changes aim to improve the visual quality and accessibility of the final test analyses, ensuring clearer interpretation of results.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R`  
+- `design1/modeling/R_ploting/final_test_between_list_prediction_plot.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/5bff88b_20250910_222739_plot1.png)  
+![](../plot_archive/5bff88b_20250910_222739_plot2.png)  
+
+## Commit [0d425a5](https://github.com/naszhu/REM_E3_model_fixed/commit/0d425a5) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 21:15:33  
+**Message:**
+```
+feat(predplot-e1): update plot aesthetics for final test within-list analysis
+
+- Changed legend position from right to bottom and adjusted text sizes for improved readability.
+- Updated y-axis limits to enhance data visualization, focusing on the relevant range of hit rates.
+- These modifications aim to refine the visual presentation of the final test within-list plots for better clarity and interpretation.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/0d425a5_20250910_211533_plot1.png)  
+![](../plot_archive/0d425a5_20250910_211533_plot2.png)  
+
+## Commit [7008ce5](https://github.com/naszhu/REM_E3_model_fixed/commit/7008ce5) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 21:12:53  
+**Message:**
+```
+feat(predplot-e1): enhance final test between-list plot and remove unused scripts
+
+- Updated the final test between-list plot aesthetics, including adjustments to axis labels, colors, and font sizes for improved readability.
+- Replaced `geom_ribbon` with commented-out code to enhance clarity in the plot.
+- Changed the method of saving plots from `png` to `ggsave` for better control over output dimensions and quality.
+- Deleted unused scripts for within-list and initial analyses to streamline the project and reduce clutter.
+
+These changes aim to improve the visual quality of the final test between-list analysis and maintain a cleaner codebase.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R`  
+- `design1/modeling/R_ploting/R_plots_enhanced_fixed.r`  
+- `design1/modeling/R_ploting/R_plots_finalt_enhanced_fixed.r`  
+- `design1/modeling/R_ploting/between_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/final_test_between_list_prediction_plot.R`  
+- `design1/modeling/R_ploting/run_all_E1_plots.sh`  
+- `design1/modeling/R_ploting/run_enhanced_plots_fixed.sh`  
+- `design1/modeling/R_ploting/within_list_prediction_plot.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/7008ce5_20250910_211253_plot1.png)  
+![](../plot_archive/7008ce5_20250910_211253_plot2.png)  
+
+## Commit [e5efe59](https://github.com/naszhu/REM_E3_model_fixed/commit/e5efe59) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 19:58:42  
+**Message:**
+```
+feat(analysis-e1): enhance final test between-list plot aesthetics and readability
+
+- Added the 'grid' library for improved unit handling in plots.
+- Increased font sizes across all plot elements for better visibility.
+- Updated plot labels for clarity and adjusted legend layout.
+- Enhanced theme settings to improve overall readability and presentation.
+- Adjusted dimensions for saved plot images to accommodate new layout.
+
+These changes aim to improve the visual quality and accessibility of the final test between-list analysis outputs.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e5efe59_20250910_195842_plot1.png)  
+![](../plot_archive/e5efe59_20250910_195842_plot2.png)  
+
+## Commit [7c875c1](https://github.com/naszhu/REM_E3_model_fixed/commit/7c875c1) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 19:58:35  
+**Message:**
+```
+feat(data-analysis): enhance final test between-list plot aesthetics and readability
+
+- Added the 'grid' library for improved unit handling in plots.
+- Increased font sizes across all plot elements for better visibility.
+- Updated plot labels for clarity and adjusted legend layout.
+- Enhanced theme settings to improve overall readability and presentation.
+- Adjusted dimensions for saved plot images to accommodate new layout.
+
+These changes aim to improve the visual quality and accessibility of the final test between-list analysis outputs.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/7c875c1_20250910_195835_plot1.png)  
+![](../plot_archive/7c875c1_20250910_195835_plot2.png)  
+
+## Commit [c56bf27](https://github.com/naszhu/REM_E3_model_fixed/commit/c56bf27) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 19:50:42  
+**Message:**
+```
+feat(predplot-e1): add 4 files correponding to analysis
+- Introduced new R scripts for generating enhanced plots for both initial and final test analyses, improving data visualization.
+- Enhanced plot aesthetics with improved color palettes, shapes, and line types for better clarity and readability.
+- Updated the shell script to automate the execution of all plot scripts, ensuring a streamlined workflow for generating visual outputs.
+- Saved the generated plots in PNG format for easy access and presentation.
+
+These changes aim to expand the data analysis capabilities and enhance the quality of visual outputs.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/run_all_E1_plots.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/c56bf27_20250910_195042_plot1.png)  
+![](../plot_archive/c56bf27_20250910_195042_plot2.png)  
+
+## Commit [a31ec90](https://github.com/naszhu/REM_E3_model_fixed/commit/a31ec90) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 19:50:28  
+**Message:**
+```
+feat(predplot-e1): add enhanced initial and final test plots for between and within lists
+
+- Introduced new R scripts for generating enhanced plots for both initial and final test analyses, improving data visualization.
+- Enhanced plot aesthetics with improved color palettes, shapes, and line types for better clarity and readability.
+- Updated the shell script to automate the execution of all plot scripts, ensuring a streamlined workflow for generating visual outputs.
+- Saved the generated plots in PNG format for easy access and presentation.
+
+These changes aim to expand the data analysis capabilities and enhance the quality of visual outputs.
+```
+**Changed Files:**
+- `design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-between-list-enhanced.R`  
+- `design1/modeling/R_ploting/E1-initial-within-list-enhanced.R`  
+- `design1/modeling/R_ploting/run_all_E1_plots.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a31ec90_20250910_195028_plot1.png)  
+![](../plot_archive/a31ec90_20250910_195028_plot2.png)  
+
+## Commit [ffac0a9](https://github.com/naszhu/REM_E3_model_fixed/commit/ffac0a9) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 19:41:48  
+**Message:**
+```
+feat(predplot-e1): update ignore patterns for prediction plot files
+
+- Added new patterns to exclude prediction plot files from tracking, including those in the modeling directory and enhanced prediction files.
+- This update helps maintain a cleaner repository by preventing unnecessary output files from being included in version control.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/modeling/R_ploting/R_plots_enhanced_fixed.r`  
+- `design1/modeling/R_ploting/R_plots_finalt_enhanced_fixed.r`  
+- `design1/modeling/R_ploting/run_enhanced_plots_fixed.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/ffac0a9_20250910_194148_plot1.png)  
+![](../plot_archive/ffac0a9_20250910_194148_plot2.png)  
+
+## Commit [ca9583f](https://github.com/naszhu/REM_E3_model_fixed/commit/ca9583f) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:52:54  
+**Message:**
+```
+feat(analysis-e1): add final test between and within list scripts with enhanced plots
+
+- Introduced new R scripts for final test analyses (both between and within lists) to improve data visualization.
+- Updated the shell script to allow selective plot generation and streamline the process.
+- Enhanced plot aesthetics and readability, including improved color palettes and legend positioning.
+- Saved processed data to CSV files for further analysis.
+
+These changes aim to expand the data analysis capabilities and enhance the quality of visual outputs.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/data_analysis/E1-finaltest-within-list.R`  
+- `design1/data_analysis/run_all_plots.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/ca9583f_20250910_185254_plot1.png)  
+![](../plot_archive/ca9583f_20250910_185254_plot2.png)  
+
+## Commit [a77b241](https://github.com/naszhu/REM_E3_model_fixed/commit/a77b241) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:34:03  
+**Message:**
+```
+feat(predplot-e1): Within plot, streamline data processing and enhance plot generation
+
+- Updated the data processing scripts to load preprocessed data from CSV instead of multiple CSV reads, improving efficiency.
+- Introduced a new script for within-list analysis, generating enhanced plots with improved aesthetics and readability.
+- Added a shell script to automate the data generation and plot creation process, ensuring a smoother workflow.
+- Updated .gitignore to exclude additional generated plot files, maintaining a cleaner repository.
+
+These changes aim to enhance the data analysis workflow and improve the quality of visual outputs.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/data_analysis/E1-initial-between-list.R`  
+- `design1/data_analysis/E1-initial-within-list.R`  
+- `design1/data_analysis/R_IMPORTANT_USED_DESIGN1_tempesti_v3.rmd`  
+- `design1/data_analysis/generate_data.R`  
+- `design1/data_analysis/run_all_plots.sh`  
+- `design1/data_analysis/run_enhanced_plot.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a77b241_20250910_183403_plot1.png)  
+![](../plot_archive/a77b241_20250910_183403_plot2.png)  
+
+## Commit [6433e23](https://github.com/naszhu/REM_E3_model_fixed/commit/6433e23) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:44:03  
+**Message:**
+```
+feat(data-analysis): add final test within list scripts and corresponding plot files
+
+- Introduced a new R script for final test within-list analysis to enhance data visualization.
+- Updated the shell script to include the new final test plot file in the expected output list.
+- These changes aim to expand the data analysis capabilities and improve the quality of visual outputs.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-within-list.R`  
+- `design1/data_analysis/run_all_plots.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/6433e23_20250910_184403_plot1.png)  
+![](../plot_archive/6433e23_20250910_184403_plot2.png)  
+
+## Commit [a77b241](https://github.com/naszhu/REM_E3_model_fixed/commit/a77b241) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:34:03  
+**Message:**
+```
+feat(predplot-e1): Within plot, streamline data processing and enhance plot generation
+
+- Updated the data processing scripts to load preprocessed data from CSV instead of multiple CSV reads, improving efficiency.
+- Introduced a new script for within-list analysis, generating enhanced plots with improved aesthetics and readability.
+- Added a shell script to automate the data generation and plot creation process, ensuring a smoother workflow.
+- Updated .gitignore to exclude additional generated plot files, maintaining a cleaner repository.
+
+These changes aim to enhance the data analysis workflow and improve the quality of visual outputs.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/data_analysis/E1-initial-between-list.R`  
+- `design1/data_analysis/E1-initial-within-list.R`  
+- `design1/data_analysis/R_IMPORTANT_USED_DESIGN1_tempesti_v3.rmd`  
+- `design1/data_analysis/generate_data.R`  
+- `design1/data_analysis/run_all_plots.sh`  
+- `design1/data_analysis/run_enhanced_plot.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a77b241_20250910_183403_plot1.png)  
+![](../plot_archive/a77b241_20250910_183403_plot2.png)  
+
+## Commit [670700d](https://github.com/naszhu/REM_E3_model_fixed/commit/670700d) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:15:06  
+**Message:**
+```
+feat(predplot-e1): add between-list enhanced plot files to ignore list
+
+- Included new enhanced plot files and patterns to the .gitignore to prevent tracking of generated images.
+- This update helps maintain a cleaner repository by excluding unnecessary output files.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/data_analysis/E1-initial-between-list.R`  
+- `design1/data_analysis/generate_data.R`  
+- `design1/data_analysis/run_enhanced_plot.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `enhanced_plot_script.R`  
+- `run_enhanced_plot.R`  
+![](../plot_archive/670700d_20250910_181506_plot1.png)  
+![](../plot_archive/670700d_20250910_181506_plot2.png)  
+
+## Commit [96bea21](https://github.com/naszhu/REM_E3_model_fixed/commit/96bea21) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:14:03  
+**Message:**
+```
+feat(predplot): add between-list enhanced plot files to ignore list
+
+- Included new enhanced plot files and patterns to the .gitignore to prevent tracking of generated images.
+- This update helps maintain a cleaner repository by excluding unnecessary output files.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/data_analysis/E1-initial-between-list.R`  
+- `design1/data_analysis/generate_data.R`  
+- `design1/data_analysis/run_enhanced_plot.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `enhanced_plot_script.R`  
+- `run_enhanced_plot.R`  
+![](../plot_archive/96bea21_20250910_181403_plot1.png)  
+![](../plot_archive/96bea21_20250910_181403_plot2.png)  
+
+## Commit [d83b40e](https://github.com/naszhu/REM_E3_model_fixed/commit/d83b40e) (branch: `sep-10-predplot`)
+**Time:** 2025-09-09 23:36:21  
+**Message:**
+```
+merge(model-e1): Merge branch 'sep-8-final-test-within-list-issue38'
+```
+![](../plot_archive/d83b40e_20250909_233621_plot1.png)  
+![](../plot_archive/d83b40e_20250909_233621_plot2.png)  
+
 ## Commit [bd34610](https://github.com/naszhu/REM_E3_model_fixed/commit/bd34610) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-09 23:21:59  
 **Message:**

@@ -1,5 +1,364 @@
 [
   {
+    "commit": "ad4025a",
+    "branch": "sep-10-predplot",
+    "message": "feat(model-e1): back to asymptotic final criterion shift",
+    "timestamp": "2025-09-11 00:22:15",
+    "plot1": "plot_archive/ad4025a_20250911_002215_plot1.png",
+    "plot2": "plot_archive/ad4025a_20250911_002215_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
+    "commit": "fd10b76",
+    "branch": "sep-10-predplot",
+    "message": "finetune(model-e1): enhance y-axis limits and streamline final test checks in scripts",
+    "timestamp": "2025-09-10 23:49:47",
+    "plot1": "plot_archive/fd10b76_20250910_234947_plot1.png",
+    "plot2": "plot_archive/fd10b76_20250910_234947_plot2.png",
+    "changed_files": [
+      "design1/combined_initial_between_list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/run_combined_plots.sh",
+      "design1/run_combined_plots.sh.backup"
+    ]
+  },
+  {
+    "commit": "7a3018b",
+    "branch": "sep-10-predplot",
+    "message": "explore(model-e1):A working version remove eog display command from R scripts",
+    "timestamp": "2025-09-10 23:41:06",
+    "plot1": "plot_archive/7a3018b_20250910_234106_plot1.png",
+    "plot2": "plot_archive/7a3018b_20250910_234106_plot2.png",
+    "changed_files": [
+      "design1/combined_finaltest_between_list.R",
+      "design1/combined_finaltest_within_list.R",
+      "design1/combined_initial_between_list.R",
+      "design1/combined_initial_within_list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/run_combined_plots.sh"
+    ]
+  },
+  {
+    "commit": "0004804",
+    "branch": "sep-10-predplot",
+    "message": "feat(allplot-e1): add checks for final test data in R scripts and shell scripts",
+    "timestamp": "2025-09-10 23:15:07",
+    "plot1": "plot_archive/0004804_20250910_231507_plot1.png",
+    "plot2": "plot_archive/0004804_20250910_231507_plot2.png",
+    "changed_files": [
+      "design1/combined_finaltest_between_list.R",
+      "design1/combined_finaltest_within_list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/run_combined_plots.sh",
+      "design1/run_simulation_and_combined_plots.sh"
+    ]
+  },
+  {
+    "commit": "df49f20",
+    "branch": "sep-10-predplot",
+    "message": "feat(shell-e1): add script to run parallel simulations and generate combined plots",
+    "timestamp": "2025-09-10 23:11:01",
+    "plot1": "plot_archive/df49f20_20250910_231101_plot1.png",
+    "plot2": "plot_archive/df49f20_20250910_231101_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/run_simulation_and_combined_plots.sh"
+    ]
+  },
+  {
+    "commit": "6ebdf76",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): update .gitignore and enhance y-axis limits for combined plot",
+    "timestamp": "2025-09-10 22:57:49",
+    "plot1": "plot_archive/6ebdf76_20250910_225749_plot1.png",
+    "plot2": "plot_archive/6ebdf76_20250910_225749_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/combined_initial_within_list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "86a9220",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): add combined plot scripts for final and initial test analyses",
+    "timestamp": "2025-09-10 22:57:31",
+    "plot1": "plot_archive/86a9220_20250910_225731_plot1.png",
+    "plot2": "plot_archive/86a9220_20250910_225731_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/combined_finaltest_between_list.R",
+      "design1/combined_finaltest_within_list.R",
+      "design1/combined_initial_between_list.R",
+      "design1/combined_initial_within_list.R",
+      "design1/data_analysis/E1-finaltest-between-list.R",
+      "design1/modeling/R_ploting/E1 final t - within_list_prediction_plot.R",
+      "design1/modeling/R_ploting/E1- initial test-between_list_prediction_plot.R",
+      "design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R",
+      "design1/modeling/R_ploting/R_plots_enhanced_fixed.r",
+      "design1/modeling/R_ploting/between_list_prediction_plot.R",
+      "design1/modeling/R_ploting/final_test_between_list_prediction_plot.R",
+      "design1/modeling/R_ploting/within_list_prediction_plot.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/run_combined_plots.sh"
+    ]
+  },
+  {
+    "commit": "5bff88b",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): enhance final test between and within list plots",
+    "timestamp": "2025-09-10 22:27:39",
+    "plot1": "plot_archive/5bff88b_20250910_222739_plot1.png",
+    "plot2": "plot_archive/5bff88b_20250910_222739_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-finaltest-between-list.R",
+      "design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R",
+      "design1/modeling/R_ploting/final_test_between_list_prediction_plot.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "0d425a5",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): update plot aesthetics for final test within-list analysis",
+    "timestamp": "2025-09-10 21:15:33",
+    "plot1": "plot_archive/0d425a5_20250910_211533_plot1.png",
+    "plot2": "plot_archive/0d425a5_20250910_211533_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "7008ce5",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): enhance final test between-list plot and remove unused scripts",
+    "timestamp": "2025-09-10 21:12:53",
+    "plot1": "plot_archive/7008ce5_20250910_211253_plot1.png",
+    "plot2": "plot_archive/7008ce5_20250910_211253_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-initial-between-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-initial-within-list-enhanced.R",
+      "design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R",
+      "design1/modeling/R_ploting/R_plots_enhanced_fixed.r",
+      "design1/modeling/R_ploting/R_plots_finalt_enhanced_fixed.r",
+      "design1/modeling/R_ploting/between_list_prediction_plot.R",
+      "design1/modeling/R_ploting/final_test_between_list_prediction_plot.R",
+      "design1/modeling/R_ploting/run_all_E1_plots.sh",
+      "design1/modeling/R_ploting/run_enhanced_plots_fixed.sh",
+      "design1/modeling/R_ploting/within_list_prediction_plot.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "e5efe59",
+    "branch": "sep-10-predplot",
+    "message": "feat(analysis-e1): enhance final test between-list plot aesthetics and readability",
+    "timestamp": "2025-09-10 19:58:42",
+    "plot1": "plot_archive/e5efe59_20250910_195842_plot1.png",
+    "plot2": "plot_archive/e5efe59_20250910_195842_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-finaltest-between-list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "7c875c1",
+    "branch": "sep-10-predplot",
+    "message": "feat(data-analysis): enhance final test between-list plot aesthetics and readability",
+    "timestamp": "2025-09-10 19:58:35",
+    "plot1": "plot_archive/7c875c1_20250910_195835_plot1.png",
+    "plot2": "plot_archive/7c875c1_20250910_195835_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-finaltest-between-list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "c56bf27",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): add 4 files correponding to analysis - Introduced new R scripts for generating enhanced plots for both initial and final test analyses, improving data visualization. - Enhanced plot aesthetics with improved color palettes, shapes, and line types for better clarity and readability. - Updated the shell script to automate the execution of all plot scripts, ensuring a streamlined workflow for generating visual outputs. - Saved the generated plots in PNG format for easy access and presentation.",
+    "timestamp": "2025-09-10 19:50:42",
+    "plot1": "plot_archive/c56bf27_20250910_195042_plot1.png",
+    "plot2": "plot_archive/c56bf27_20250910_195042_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-initial-between-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-initial-within-list-enhanced.R",
+      "design1/modeling/R_ploting/run_all_E1_plots.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "a31ec90",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): add enhanced initial and final test plots for between and within lists",
+    "timestamp": "2025-09-10 19:50:28",
+    "plot1": "plot_archive/a31ec90_20250910_195028_plot1.png",
+    "plot2": "plot_archive/a31ec90_20250910_195028_plot2.png",
+    "changed_files": [
+      "design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-finaltest-within-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-initial-between-list-enhanced.R",
+      "design1/modeling/R_ploting/E1-initial-within-list-enhanced.R",
+      "design1/modeling/R_ploting/run_all_E1_plots.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "ffac0a9",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): update ignore patterns for prediction plot files",
+    "timestamp": "2025-09-10 19:41:48",
+    "plot1": "plot_archive/ffac0a9_20250910_194148_plot1.png",
+    "plot2": "plot_archive/ffac0a9_20250910_194148_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/modeling/R_ploting/R_plots_enhanced_fixed.r",
+      "design1/modeling/R_ploting/R_plots_finalt_enhanced_fixed.r",
+      "design1/modeling/R_ploting/run_enhanced_plots_fixed.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "ca9583f",
+    "branch": "sep-10-predplot",
+    "message": "feat(analysis-e1): add final test between and within list scripts with enhanced plots",
+    "timestamp": "2025-09-10 18:52:54",
+    "plot1": "plot_archive/ca9583f_20250910_185254_plot1.png",
+    "plot2": "plot_archive/ca9583f_20250910_185254_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-finaltest-between-list.R",
+      "design1/data_analysis/E1-finaltest-within-list.R",
+      "design1/data_analysis/run_all_plots.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "a77b241",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): Within plot, streamline data processing and enhance plot generation",
+    "timestamp": "2025-09-10 18:34:03",
+    "plot1": "plot_archive/a77b241_20250910_183403_plot1.png",
+    "plot2": "plot_archive/a77b241_20250910_183403_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/data_analysis/E1-initial-between-list.R",
+      "design1/data_analysis/E1-initial-within-list.R",
+      "design1/data_analysis/R_IMPORTANT_USED_DESIGN1_tempesti_v3.rmd",
+      "design1/data_analysis/generate_data.R",
+      "design1/data_analysis/run_all_plots.sh",
+      "design1/data_analysis/run_enhanced_plot.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "6433e23",
+    "branch": "sep-10-predplot",
+    "message": "feat(data-analysis): add final test within list scripts and corresponding plot files",
+    "timestamp": "2025-09-10 18:44:03",
+    "plot1": "plot_archive/6433e23_20250910_184403_plot1.png",
+    "plot2": "plot_archive/6433e23_20250910_184403_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-finaltest-within-list.R",
+      "design1/data_analysis/run_all_plots.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "a77b241",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): Within plot, streamline data processing and enhance plot generation",
+    "timestamp": "2025-09-10 18:34:03",
+    "plot1": "plot_archive/a77b241_20250910_183403_plot1.png",
+    "plot2": "plot_archive/a77b241_20250910_183403_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/data_analysis/E1-initial-between-list.R",
+      "design1/data_analysis/E1-initial-within-list.R",
+      "design1/data_analysis/R_IMPORTANT_USED_DESIGN1_tempesti_v3.rmd",
+      "design1/data_analysis/generate_data.R",
+      "design1/data_analysis/run_all_plots.sh",
+      "design1/data_analysis/run_enhanced_plot.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "670700d",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): add between-list enhanced plot files to ignore list",
+    "timestamp": "2025-09-10 18:15:06",
+    "plot1": "plot_archive/670700d_20250910_181506_plot1.png",
+    "plot2": "plot_archive/670700d_20250910_181506_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/data_analysis/E1-initial-between-list.R",
+      "design1/data_analysis/generate_data.R",
+      "design1/data_analysis/run_enhanced_plot.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "enhanced_plot_script.R",
+      "run_enhanced_plot.R"
+    ]
+  },
+  {
+    "commit": "96bea21",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot): add between-list enhanced plot files to ignore list",
+    "timestamp": "2025-09-10 18:14:03",
+    "plot1": "plot_archive/96bea21_20250910_181403_plot1.png",
+    "plot2": "plot_archive/96bea21_20250910_181403_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/data_analysis/E1-initial-between-list.R",
+      "design1/data_analysis/generate_data.R",
+      "design1/data_analysis/run_enhanced_plot.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "enhanced_plot_script.R",
+      "run_enhanced_plot.R"
+    ]
+  },
+  {
+    "commit": "d83b40e",
+    "branch": "sep-10-predplot",
+    "message": "merge(model-e1): Merge branch 'sep-8-final-test-within-list-issue38'",
+    "timestamp": "2025-09-09 23:36:21",
+    "plot1": "plot_archive/d83b40e_20250909_233621_plot1.png",
+    "plot2": "plot_archive/d83b40e_20250909_233621_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "bd34610",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "feat(model-e1): update unchanging context feature drift logic and adjust constants",

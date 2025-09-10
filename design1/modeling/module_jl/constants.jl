@@ -1,7 +1,7 @@
 
 
 is_finaltest = true
-n_simulations = is_finaltest ? 200 : 2000;
+n_simulations = is_finaltest ? 200 : 1000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.8 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.88 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -167,15 +167,15 @@ p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hun
 p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 7) #7
+n_driftStudyTest = round.(Int, ones(10) * 9) #7
 
 n_between_listchange = 20 #20 in E3 #25 originally 
 
 const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
-max_distortion_probes = 5  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.2  # Base probability of distortion for the first probe 
+max_distortion_probes = 15  # Number of probes until distortion probability reaches 0
+base_distortion_prob = 0.16  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
@@ -200,7 +200,10 @@ const total_probe_L1 = 15;  # total probes in list 1
 const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
 
-criterion_final = LinRange(0.09+0.28^power_taken, 0.19^power_taken, 10)
+# Original criterion_final (commented out to try asymptotic version)
+# criterion_final = LinRange((0.09+0.18)^power_taken, 0.065^power_taken, 10)
+# Generate asymptotic criterion_final using asym_increase_shift for nonlinear behavior
+criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.065^power_taken, 0.3, 10)
 final_gap_change = 0.08; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
 p_ListChange_finaltest = ones(10) * 0.02 #0.8 in E3, but undecided as well in E3
@@ -266,7 +269,7 @@ hj_rate = 0.8
 hj_base = 0.3; #higher this value higher CF starting point
 
 # Include utils.jl to get asymptotic functions
-# include("utils.jl")
+include("utils.jl")
 
 
 h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)

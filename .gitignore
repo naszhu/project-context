@@ -13,8 +13,30 @@ design1/modeling/plot_archive/
 plot1.png
 plot2.png
 Rplots.pdf
+design1/data_analysis/*.png
+design1/data_analysis/*plot*.png
+# Enhanced plot files
+enhanced_plot_figure3.png
+enhanced_plot_figure3_sample.png
+**/enhanced_plot_figure3*.png
+
+# Prediction plot files  
+design1/modeling/R_ploting/*.png
+**/enhanced_*prediction*.png
 ~/.config/Cursor/User/settings.json
 
 # Parallel execution temporary directories
 parallel_temp/
 parallel_results/
+plot1_enhanced.png
+
+# Combined plot files (data vs prediction)
+E1_final_test_between_list_combined.png
+E1_final_test_within_list_combined.png
+E1_initial_between_list_combined.png
+E1_initial_within_list_combined.png
+design1/modeling/E1_initial_test_between_list_combined.png
+design1/modeling/E1_initial_test_within_list_combined.png
+design1/E1_initial_test_within_list_combined.png
+temp_data_plot.png
+temp_prediction_plot.png
