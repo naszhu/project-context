@@ -2650,10 +2650,8 @@ df_initialtestbyinitial=dfchanged%>%
 # plot previous version
 ggplot(data=df_initialtestbyinitial%>%
   mutate(position_type=case_when(position_type=="testpos"~"Final Result
-Final Test Position",
-                                 position_type=="ir"~"Initial Result 
-Initial List Position",
-                                 position_type=="prespos"~"Final Result
+Final Test Position",position_type=="ir"~"Initial Result 
+Initial List Position",position_type=="prespos"~"Final Result
 Initial List Position"))%>%
   mutate(position_type=as.factor(position_type))%>%
   mutate(position_type=factor(position_type,levels=rev(levels(position_type))))%>%

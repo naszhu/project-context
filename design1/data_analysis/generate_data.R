@@ -69,3 +69,6 @@ dfchanged = df %>%
   select(-c(width,height,webaudio,browser,browser_version,mobile,os,fullscreen,vsync_rate,microphone,trial_index,internal_node_id,webcam,run_id,recorded_at,source_code_version,user_agent,device,platform,platform_version,accept_language,subject_id,study_id,session_id,failed_images,failed_audio,failed_video,question_order,stimulus,referer,STUDY_ID,SESSION_ID,trial_type,starts_with("tot") ,jspsych.survey.multi.choice.response.0))%>%
   # filter(ip%notin%c("68.9.164.176","166.194.147.4","198.54.106.254","172.58.12.116","70.187.57.217","65.188.39.31")) %>% #filtered by rt
   mutate()
+
+  write_csv(dfchanged, "dfchanged.csv")
+  cat("dfchanged data saved to dfchanged.csv\n")
