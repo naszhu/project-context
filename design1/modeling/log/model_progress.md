@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [df49f20](https://github.com/naszhu/REM_E3_model_fixed/commit/df49f20) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 23:11:01  
+**Message:**
+```
+feat(shell-e1): add script to run parallel simulations and generate combined plots
+
+- Introduced a new shell script that automates the execution of parallel simulations followed by the generation of combined data vs prediction plots.
+- The script checks for the existence of necessary scripts and provides feedback on the success or failure of each step.
+- This addition streamlines the workflow for running simulations and visualizing results, enhancing the overall analysis process.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/run_simulation_and_combined_plots.sh`  
+![](../plot_archive/df49f20_20250910_231101_plot1.png)  
+![](../plot_archive/df49f20_20250910_231101_plot2.png)  
+
 ## Commit [6ebdf76](https://github.com/naszhu/REM_E3_model_fixed/commit/6ebdf76) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 22:57:49  
 **Message:**

@@ -1,7 +1,7 @@
 
 
-is_finaltest = true
-n_simulations = is_finaltest ? 200 : 2000;
+is_finaltest = false
+n_simulations = is_finaltest ? 200 : 1000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS

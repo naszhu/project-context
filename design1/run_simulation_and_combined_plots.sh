@@ -74,8 +74,12 @@ echo "  • plot1.png - Initial test prediction plot"
 echo "  • plot2.png - Final test prediction plot"
 echo ""
 echo "📊 Combined Data vs Prediction Plots:"
-echo "  • E1_final_test_between_list_combined.png"
-echo "  • E1_final_test_within_list_combined.png"
+if [ -f "E1_final_test_between_list_combined.png" ]; then
+    echo "  • E1_final_test_between_list_combined.png"
+fi
+if [ -f "E1_final_test_within_list_combined.png" ]; then
+    echo "  • E1_final_test_within_list_combined.png"
+fi
 echo "  • E1_initial_between_list_combined.png"
 echo "  • E1_initial_within_list_combined.png"
 echo ""

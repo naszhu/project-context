@@ -161,6 +161,13 @@ ggsave("temp_data_plot.png", data_plot, width = 9+3, height = 13+4, dpi = 300, b
 # Now switch to modeling folder for prediction plot
 setwd("../modeling/R_ploting")
 
+# Check if final test is enabled
+if (!file.exists("../../../allresf.csv")) {
+    cat("⚠️  allresf.csv not found. This means is_finaltest = false in constants.jl\n")
+    cat("Skipping final test between-list plot generation.\n")
+    quit(save = "no", status = 0)
+}
+
 # Load data for prediction plot - EXACT COPY FROM ORIGINAL
 allresf <- read.csv("../../../allresf.csv")
 
