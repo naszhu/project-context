@@ -46,14 +46,14 @@ dfserial_all=rbind(dfserial,dfserial_meandf)%>%
   mutate(position_type=factor(position_type,levels=rev(levels(position_type))))
 
 # Create enhanced final test between-list plot
-enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction(position_type,condition,probetype)))+
+enhanced_plot <- ggplot(data=dfserial_all, aes(x=as.numeric(position), y=meancr))+
   # Enhanced points with different shapes
   geom_point(aes(color=probetype, shape=probetype), size=3, alpha=0.9, stroke=1.2) +
   # Enhanced lines with different line types
-  geom_line(aes(color=probetype, linetype=probetype), linewidth=1.2) +
+  geom_line(aes(color=probetype, linetype=probetype), linewidth=1) +
   # Enhanced ribbon (exclude Average from error bands)
-  geom_ribbon(data=dfserial_all %>% filter(probetype != "Average"),
-              aes(ymin=meancr-se,ymax=meancr+se,fill=probetype),alpha=0.25) +
+  # geom_ribbon(data=dfserial_all %>% filter(probetype != "Average"),
+              # aes(ymin=meancr-se,ymax=meancr+se,fill=probetype),alpha=0.25) +
   # Facet by condition and position type
   facet_grid(condition~position_type) +
   
@@ -61,19 +61,19 @@ enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction
   labs(x="Final Test Position (left), Initial Study List Position (right)",
        y="Performance (Hits/Correct Rejection)",
        title="E1 Final Test Between-List Results",
-       color="Type", fill="Type", shape="Type", linetype="Type") +
+       color="Type", shape="Type") +
   
   # Enhanced colors and shapes
-  scale_color_manual(values=c("Average"="black", 
-                              "Foil - Correct rejection"="red",
-                              "TARGET_foil  - Hits"="orange",
-                              "TARGET_nontarget  - Hits"="green",
-                              "TARGET_target  - Hits"="blue")) +
-  scale_fill_manual(values=c("Average"="black", 
-                             "Foil - Correct rejection"="red",
-                             "TARGET_foil  - Hits"="orange",
-                             "TARGET_nontarget  - Hits"="green",
-                             "TARGET_target  - Hits"="blue")) +
+  scale_color_manual(values=c("Average"="#2C2C2C", 
+                              "Foil - Correct rejection"="#D73027",
+                              "TARGET_foil  - Hits"="#E08214",
+                              "TARGET_nontarget  - Hits"="#1A9850",
+                              "TARGET_target  - Hits"="#2166AC")) +
+  # scale_fill_manual(values=c("Average"="#2C2C2C", 
+  #                            "Foil - Correct rejection"="#D73027",
+  #                            "TARGET_foil  - Hits"="#E08214",
+  #                            "TARGET_nontarget  - Hits"="#1A9850",
+  #                            "TARGET_target  - Hits"="#2166AC")) +
   scale_shape_manual(values=c("Average"=15, 
                               "Foil - Correct rejection"=19,
                               "TARGET_foil  - Hits"=18,
@@ -88,27 +88,22 @@ enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction
   # Enhanced theme
   theme_minimal() +
   theme(
-    text=element_text(size=12),
+    text=element_text(size=20),
     plot.title = element_text(face="bold", hjust=0.5, size=16),
-    axis.text = element_text(size=10, color="black"),
-    axis.title = element_text(size=12, face="bold"),
+    axis.text = element_text(size=13, color="black"),
+    axis.title = element_text(size=15, face="bold"),
     legend.position = "bottom",
-    legend.title = element_text(face="bold", size=10),
-    legend.text = element_text(size=8),
-    legend.key.width = unit(1.0, "cm"),
-    legend.key.height = unit(0.4, "cm"),
+    legend.title = element_blank(),
+    legend.text = element_text(size=12),
+    legend.key.width = unit(1.5, "cm"),
+    legend.key.height = unit(0.6, "cm"),
     panel.border = element_rect(color="black", fill=NA, linewidth=0.5),
     strip.background = element_rect(fill="grey90", color="black"),
-    strip.text = element_text(face="bold", size=10)
+    strip.text = element_text(face="bold", size=20)
   ) +
-  guides(fill = "none",
-         color = guide_legend(nrow = 2, byrow = TRUE),
-         shape = guide_legend(nrow = 2, byrow = TRUE),
-         linetype = guide_legend(nrow = 2, byrow = TRUE))
+  guides(fill = "none")
 
 # Save enhanced plot
-png(filename="E1_finaltest_between_list_enhanced.png", width=1200, height=1000, res=150)
-print(enhanced_plot)
-dev.off()
+ggsave("E1_finaltest_between_list_enhanced.png", enhanced_plot, width = 9, height = 12, dpi = 150, bg = "white")
 
 cat("Enhanced E1 Final Test Between-List plot saved to E1_finaltest_between_list_enhanced.png\n")

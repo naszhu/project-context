@@ -3,8 +3,8 @@ library(ggplot2)
 library(tidyr)
 library(gridExtra)
 
-all_results=read.csv("../../../all_results.csv")
-DF=read.csv("../../../DF.csv")
+all_results=read.csv("all_results.csv")
+DF=read.csv("DF.csv")
 all_results$is_target
 df1=all_results%>%mutate(is_target=case_when(is_target=="true"~1,TRUE~0),correct=decision_isold==is_target)%>%
     group_by(test_position,is_target,simulation_number)%>%

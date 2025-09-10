@@ -28,3 +28,4 @@ design1/modeling/R_ploting/*.png
 # Parallel execution temporary directories
 parallel_temp/
 parallel_results/
+plot1_enhanced.png

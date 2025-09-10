@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [e5efe59](https://github.com/naszhu/REM_E3_model_fixed/commit/e5efe59) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 19:58:42  
+**Message:**
+```
+feat(analysis-e1): enhance final test between-list plot aesthetics and readability
+
+- Added the 'grid' library for improved unit handling in plots.
+- Increased font sizes across all plot elements for better visibility.
+- Updated plot labels for clarity and adjusted legend layout.
+- Enhanced theme settings to improve overall readability and presentation.
+- Adjusted dimensions for saved plot images to accommodate new layout.
+
+These changes aim to improve the visual quality and accessibility of the final test between-list analysis outputs.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e5efe59_20250910_195842_plot1.png)  
+![](../plot_archive/e5efe59_20250910_195842_plot2.png)  
+
 ## Commit [7c875c1](https://github.com/naszhu/REM_E3_model_fixed/commit/7c875c1) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 19:58:35  
 **Message:**
