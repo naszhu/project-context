@@ -25,11 +25,14 @@ if [ ! -f "data_analysis/dfchanged.csv" ]; then
     exit 1
 fi
 
-# Check modeling files (only check if final test is enabled)
-if [ -f "../allresf.csv" ]; then
-    echo "✓ Final test data found (allresf.csv)"
+# Check if final test is enabled by reading constants file
+# Read is_finaltest value from constants file
+IS_FINALTEST=$(grep "is_finaltest" modeling/module_jl/constants.jl | head -1 | sed "s/is_finaltest = //" | sed "s/;//")
+if [ "$IS_FINALTEST" = "true" ]; then
+    echo "✓ Final test is enabled (is_finaltest = true)"
 else
-    echo "⚠️  Final test data not found (allresf.csv) - will skip final test plots"
+    echo "⚠️  Final test is disabled (is_finaltest = false) - will skip final test plots"
+fi
 fi
 
 if [ ! -f "modeling/R_ploting/../../../all_results.csv" ]; then
@@ -66,9 +69,14 @@ run_r_script() {
 echo "Starting to generate combined plots..."
 echo ""
 
-# Check if final test is enabled by looking for allresf.csv
-if [ -f "../allresf.csv" ]; then
+# Check if final test is enabled using the actual is_finaltest value
+# Read is_finaltest value from constants file
+IS_FINALTEST=$(grep "is_finaltest" modeling/module_jl/constants.jl | head -1 | sed "s/is_finaltest = //" | sed "s/;//")
+if [ "$IS_FINALTEST" = "true" ]; then
     echo "✓ Final test is enabled (is_finaltest = true)"
+else
+    echo "⚠️  Final test is disabled (is_finaltest = false) - will skip final test plots"
+fi
     echo ""
     
     # 1. Final Test Between List

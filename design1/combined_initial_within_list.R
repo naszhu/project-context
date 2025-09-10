@@ -222,7 +222,6 @@ ggsave("E1_initial_within_list_combined.png", combined_plot,
        width = 22, height = 7, dpi = 300, bg = "white")
 
 # Display the plot using eog
-system("eog E1_initial_within_list_combined.png &")
 
 # Clean up temporary files
 file.remove("data_analysis/temp_data_plot.png")

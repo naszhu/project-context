@@ -306,7 +306,6 @@ ggsave("E1_final_test_between_list_combined.png", combined_plot,
        width = 24, height = 17, dpi = 300, bg = "white")
 
 # Display the plot using eog
-system("eog E1_final_test_between_list_combined.png &")
 
 # Clean up temporary files
 file.remove("data_analysis/temp_data_plot.png")

@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.8 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.88 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -167,7 +167,7 @@ p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hun
 p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 7) #7
+n_driftStudyTest = round.(Int, ones(10) * 10) #7
 
 n_between_listchange = 20 #20 in E3 #25 originally 
 
@@ -175,7 +175,7 @@ const p_driftAndListChange = 0.03; # studied prior list probability change
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 5  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.2  # Base probability of distortion for the first probe 
+base_distortion_prob = 0.17  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 

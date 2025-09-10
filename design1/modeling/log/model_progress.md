@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [0004804](https://github.com/naszhu/REM_E3_model_fixed/commit/0004804) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 23:15:07  
+**Message:**
+```
+feat(allplot-e1): add checks for final test data in R scripts and shell scripts
+
+- Implemented checks in the R scripts for final test between-list and within-list plots to ensure the presence of the required `allresf.csv` file before proceeding with plot generation.
+- Updated the shell script to conditionally run final test plots based on the existence of `allresf.csv`, providing user feedback on the status of the final test.
+- Enhanced output messages to inform users when final test plots are skipped due to missing data.
+
+These changes improve the robustness of the plotting scripts and enhance user experience by preventing errors related to missing data files.
+```
+**Changed Files:**
+- `design1/combined_finaltest_between_list.R`  
+- `design1/combined_finaltest_within_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/run_combined_plots.sh`  
+- `design1/run_simulation_and_combined_plots.sh`  
+![](../plot_archive/0004804_20250910_231507_plot1.png)  
+![](../plot_archive/0004804_20250910_231507_plot2.png)  
+
 ## Commit [df49f20](https://github.com/naszhu/REM_E3_model_fixed/commit/df49f20) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 23:11:01  
 **Message:**

@@ -1,5 +1,22 @@
 [
   {
+    "commit": "0004804",
+    "branch": "sep-10-predplot",
+    "message": "feat(allplot-e1): add checks for final test data in R scripts and shell scripts",
+    "timestamp": "2025-09-10 23:15:07",
+    "plot1": "plot_archive/0004804_20250910_231507_plot1.png",
+    "plot2": "plot_archive/0004804_20250910_231507_plot2.png",
+    "changed_files": [
+      "design1/combined_finaltest_between_list.R",
+      "design1/combined_finaltest_within_list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/run_combined_plots.sh",
+      "design1/run_simulation_and_combined_plots.sh"
+    ]
+  },
+  {
     "commit": "df49f20",
     "branch": "sep-10-predplot",
     "message": "feat(shell-e1): add script to run parallel simulations and generate combined plots",
