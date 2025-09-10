@@ -76,12 +76,14 @@ cat("dfserial_all_finaltest_between data saved to dfserial_all_finaltest_between
 # To make font size bigger, use base_size in theme_minimal() and set all element_text sizes explicitly
 base_font_size <- 24
 
-enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,color=probetype,shape=probetype,linetype=probetype,group=probetype))+
+enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=probetype))+
   # Enhanced points with different shapes for each probetype (exclude Average)
   geom_point(data=dfserial_all %>% filter(probetype != "Average"),
+             aes(color=probetype, shape=probetype), 
              size=3.5, alpha=0.9, stroke=1.2) +
   # Enhanced lines with different line types
-  geom_line(linewidth=1.5, alpha=0.8) +
+  geom_line(aes(color=probetype, linetype=probetype), 
+            linewidth=1.5, alpha=0.8) +
   # Enhanced ribbon with better visibility (exclude Average from error bands)
   geom_ribbon(data=dfserial_all %>% filter(probetype != "Average"),
               aes(ymin=meancr-se,ymax=meancr+se,fill=probetype),
@@ -148,8 +150,8 @@ enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,color=probetype,s
   guides(
     fill = "none",
     color = guide_legend(nrow = 3, byrow = TRUE, title.position = "top"),
-    shape = guide_legend(nrow = 3, byrow = TRUE, title.position = "top"),
-    linetype = guide_legend(nrow = 3, byrow = TRUE, title.position = "top")
+    shape = "none",
+    linetype = "none"
   ) +
   ggtitle("E1 Final Test Between List data")
 

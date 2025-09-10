@@ -106,7 +106,12 @@ p_final_test <- ggplot(data = df_allfinal_filtered,
     ) +
     ylim(c(0.5, 1)) +
     scale_x_continuous(breaks = 1:10, labels = 1:10) +
-    geom_line(aes(y = mean_mean), linewidth = 1.5, color = "black", linetype = "dashed")
+    geom_line(aes(y = mean_mean), linewidth = 1.5, color = "black", linetype = "dashed") +
+    guides(
+        color = guide_legend(nrow = 2, byrow = TRUE),
+        shape = guide_legend(nrow = 2, byrow = TRUE),
+        linetype = guide_legend(nrow = 2, byrow = TRUE)
+    )
 
 # Save the plot
 ggsave("E1_final_test_between_list_prediction.png", plot = p_final_test, 

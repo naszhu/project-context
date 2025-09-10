@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [5bff88b](https://github.com/naszhu/REM_E3_model_fixed/commit/5bff88b) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 22:27:39  
+**Message:**
+```
+feat(predplot-e1): enhance final test between and within list plots
+
+- Updated the final test between-list plot aesthetics, including improved color palettes, shapes, and line types for better clarity.
+- Enhanced the final test within-list plot with refined styling, including larger font sizes and better legend positioning.
+- Streamlined data processing by loading preprocessed data from a single CSV file, improving efficiency.
+- Saved enhanced plots in high resolution and added sample versions for quick previews.
+
+These changes aim to improve the visual quality and accessibility of the final test analyses, ensuring clearer interpretation of results.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/modeling/R_ploting/E1_final_test_within_list_enhanced.R`  
+- `design1/modeling/R_ploting/final_test_between_list_prediction_plot.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/5bff88b_20250910_222739_plot1.png)  
+![](../plot_archive/5bff88b_20250910_222739_plot2.png)  
+
 ## Commit [0d425a5](https://github.com/naszhu/REM_E3_model_fixed/commit/0d425a5) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 21:15:33  
 **Message:**
