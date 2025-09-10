@@ -1,5 +1,32 @@
 [
   {
+    "commit": "96bea21",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot): add between-list enhanced plot files to ignore list",
+    "timestamp": "2025-09-10 18:14:03",
+    "plot1": "plot_archive/96bea21_20250910_181403_plot1.png",
+    "plot2": "plot_archive/96bea21_20250910_181403_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/data_analysis/E1-initial-between-list.R",
+      "design1/data_analysis/generate_data.R",
+      "design1/data_analysis/run_enhanced_plot.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "enhanced_plot_script.R",
+      "run_enhanced_plot.R"
+    ]
+  },
+  {
+    "commit": "d83b40e",
+    "branch": "sep-10-predplot",
+    "message": "merge(model-e1): Merge branch 'sep-8-final-test-within-list-issue38'",
+    "timestamp": "2025-09-09 23:36:21",
+    "plot1": "plot_archive/d83b40e_20250909_233621_plot1.png",
+    "plot2": "plot_archive/d83b40e_20250909_233621_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "bd34610",
     "branch": "sep-8-final-test-within-list-issue38",
     "message": "feat(model-e1): update unchanging context feature drift logic and adjust constants",

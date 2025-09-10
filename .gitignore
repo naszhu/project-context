@@ -13,6 +13,11 @@ design1/modeling/plot_archive/
 plot1.png
 plot2.png
 Rplots.pdf
+
+# Enhanced plot files
+enhanced_plot_figure3.png
+enhanced_plot_figure3_sample.png
+**/enhanced_plot_figure3*.png
 ~/.config/Cursor/User/settings.json
 
 # Parallel execution temporary directories

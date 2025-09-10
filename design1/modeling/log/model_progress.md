@@ -1,5 +1,35 @@
 # Model Progress
 
+## Commit [96bea21](https://github.com/naszhu/REM_E3_model_fixed/commit/96bea21) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:14:03  
+**Message:**
+```
+feat(predplot): add between-list enhanced plot files to ignore list
+
+- Included new enhanced plot files and patterns to the .gitignore to prevent tracking of generated images.
+- This update helps maintain a cleaner repository by excluding unnecessary output files.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/data_analysis/E1-initial-between-list.R`  
+- `design1/data_analysis/generate_data.R`  
+- `design1/data_analysis/run_enhanced_plot.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `enhanced_plot_script.R`  
+- `run_enhanced_plot.R`  
+![](../plot_archive/96bea21_20250910_181403_plot1.png)  
+![](../plot_archive/96bea21_20250910_181403_plot2.png)  
+
+## Commit [d83b40e](https://github.com/naszhu/REM_E3_model_fixed/commit/d83b40e) (branch: `sep-10-predplot`)
+**Time:** 2025-09-09 23:36:21  
+**Message:**
+```
+merge(model-e1): Merge branch 'sep-8-final-test-within-list-issue38'
+```
+![](../plot_archive/d83b40e_20250909_233621_plot1.png)  
+![](../plot_archive/d83b40e_20250909_233621_plot2.png)  
+
 ## Commit [bd34610](https://github.com/naszhu/REM_E3_model_fixed/commit/bd34610) (branch: `sep-8-final-test-within-list-issue38`)
 **Time:** 2025-09-09 23:21:59  
 **Message:**
