@@ -82,13 +82,17 @@ data_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=probetype))+
   geom_point(data=dfserial_all %>% filter(probetype != "Average"),
              aes(color=probetype, shape=probetype), 
              size=3.5, alpha=0.9, stroke=1.2) +
-  # Enhanced lines with different line types
-  geom_line(aes(color=probetype, linetype=probetype), 
+  # Enhanced lines with different line types (exclude Average)
+  geom_line(data=dfserial_all %>% filter(probetype != "Average"),
+            aes(color=probetype, linetype=probetype), 
             linewidth=1.5, alpha=0.8) +
   # Enhanced ribbon with better visibility (exclude Average from error bands)
   geom_ribbon(data=dfserial_all %>% filter(probetype != "Average"),
               aes(ymin=meancr-se,ymax=meancr+se,fill=probetype),
               alpha=0.25) +
+  # Average line - COMMENTED OUT
+  # geom_line(data=dfserial_all %>% filter(probetype == "Average"), 
+  #           aes(y=meancr), linewidth=1.5, color="black", linetype="dashed") +
   # Facet by condition and position type
   facet_grid(condition~position_type) +
   
@@ -171,8 +175,9 @@ if (!file.exists("../../../allresf.csv")) {
 # Load data for prediction plot - EXACT COPY FROM ORIGINAL
 allresf <- read.csv("../../../allresf.csv")
 
-# Create df_allfinal data for final test between-list analysis - EXACT SAME AS ORIGINAL
-DF00 <- allresf %>% 
+# Create df_allfinal data for final test between-list analysis - MATCH DATA CALCULATION EXACTLY
+# Use simulation_number as participant_id (each simulation is a participant)
+DF00_indiv <- allresf %>% 
     mutate(correct = case_when(
         (decision_isold == 1) & (is_target != "F") ~ 1, 
         decision_isold == 0 & is_target == "F" ~ 1,
@@ -180,25 +185,43 @@ DF00 <- allresf %>%
     )) %>%
     mutate(test_position = as.numeric(test_position)) %>%
     mutate(test_position_group = ntile(test_position, 10)) %>%
+    # Map condition names to match data
+    mutate(condition = case_when(
+        condition == "true_random" ~ "random",
+        TRUE ~ condition
+    )) %>%
+    # Use simulation_number as participant_id (each simulation is a participant)
+    group_by(test_position_group, is_target, condition, simulation_number) %>%
+    summarize(meancr1 = mean(correct), .groups = 'drop') %>%
+    # Now calculate mean across "participants" (exactly like data)
     group_by(test_position_group, is_target, condition) %>%
-    summarize(meanx = mean(correct))
+    summarize(meanx = mean(meancr1), .groups = 'drop')
 
-DF001 <- allresf %>% 
+DF001_indiv <- allresf %>% 
     mutate(correct = case_when(
         (decision_isold == 1) & (is_target != "F") ~ 1, 
         decision_isold == 0 & is_target == "F" ~ 1,
         TRUE ~ 0
     )) %>%
     mutate(list_number = as.numeric(list_number)) %>%
+    # Map condition names to match data
+    mutate(condition = case_when(
+        condition == "true_random" ~ "random",
+        TRUE ~ condition
+    )) %>%
+    # Use simulation_number as participant_id (each simulation is a participant)
+    group_by(list_number, is_target, condition, simulation_number) %>%
+    summarize(meancr1 = mean(correct), .groups = 'drop') %>%
+    # Now calculate mean across "participants" (exactly like data)
     group_by(list_number, is_target, condition) %>%
-    summarize(meanx = mean(correct))
+    summarize(meanx = mean(meancr1), .groups = 'drop')
 
 # Combine the data - EXACT SAME AS ORIGINAL
-df_allfinal <- DF001 %>%
+df_allfinal <- DF001_indiv %>%
     mutate(test_position_group = list_number) %>%
     ungroup() %>%
     select(-list_number) %>%
-    full_join(DF00, by = c("is_target", "condition", "test_position_group")) %>%
+    full_join(DF00_indiv, by = c("is_target", "condition", "test_position_group")) %>%
     mutate(initial_list_order = meanx.x, final_test_order = meanx.y) %>%
     select(-c("meanx.x", "meanx.y")) %>%
     pivot_longer(cols = c("initial_list_order", "final_test_order"), 
@@ -271,7 +294,8 @@ prediction_plot <- ggplot(data = df_allfinal_filtered,
     ) +
     ylim(c(0.5, 1)) +
     scale_x_continuous(breaks = 1:10, labels = 1:10) +
-    geom_line(aes(y = mean_mean), linewidth = 1.5, color = "black", linetype = "dashed") +
+    # Add average line as dashed line (same as data plot) - COMMENTED OUT
+    # geom_line(aes(y = mean_mean), linewidth = 1.5, color = "black", linetype = "dashed") +
     guides(
         color = guide_legend(nrow = 2, byrow = TRUE),
         shape = guide_legend(nrow = 2, byrow = TRUE),

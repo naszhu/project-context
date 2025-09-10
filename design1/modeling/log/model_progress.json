@@ -1,5 +1,19 @@
 [
   {
+    "commit": "ad4025a",
+    "branch": "sep-10-predplot",
+    "message": "feat(model-e1): back to asymptotic final criterion shift",
+    "timestamp": "2025-09-11 00:22:15",
+    "plot1": "plot_archive/ad4025a_20250911_002215_plot1.png",
+    "plot2": "plot_archive/ad4025a_20250911_002215_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
     "commit": "fd10b76",
     "branch": "sep-10-predplot",
     "message": "finetune(model-e1): enhance y-axis limits and streamline final test checks in scripts",

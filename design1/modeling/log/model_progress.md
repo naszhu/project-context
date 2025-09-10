@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [ad4025a](https://github.com/naszhu/REM_E3_model_fixed/commit/ad4025a) (branch: `sep-10-predplot`)
+**Time:** 2025-09-11 00:22:15  
+**Message:**
+```
+feat(model-e1): back to asymptotic final criterion shift
+
+- Set the final test flag to true, adjusting the number of simulations accordingly.
+- Replaced the original criterion generation with an asymptotic version to better model nonlinear behavior.
+- Included the utils.jl file to ensure access to necessary asymptotic functions.
+
+These changes aim to refine the modeling process for final tests and improve the accuracy of criterion calculations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/ad4025a_20250911_002215_plot1.png)  
+![](../plot_archive/ad4025a_20250911_002215_plot2.png)  
+
 ## Commit [fd10b76](https://github.com/naszhu/REM_E3_model_fixed/commit/fd10b76) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 23:49:47  
 **Message:**

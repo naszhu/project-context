@@ -55,9 +55,6 @@ p_within_list <- ggplot(data = df_combined, aes(x = position, y = meanx, group =
     scale_color_manual(values = c("Foil - Correct rejection" = "#E74C3C", 
                                  "Target - Hits" = "#27AE60"),
                       name = "Type") +
-    scale_fill_manual(values = c("Foil - Correct rejection" = "#E74C3C", 
-                                "Target - Hits" = "#27AE60"),
-                     name = "Type") +
     scale_shape_manual(values = c("Foil - Correct rejection" = 16, 
                                  "Target - Hits" = 17),
                       name = "Type") +

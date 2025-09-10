@@ -203,7 +203,7 @@ const nItemPerUnit_final = 2;  # items per unit in final test
 # Original criterion_final (commented out to try asymptotic version)
 # criterion_final = LinRange((0.09+0.18)^power_taken, 0.065^power_taken, 10)
 # Generate asymptotic criterion_final using asym_increase_shift for nonlinear behavior
-criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.065^power_taken, 0.5, 10)
+criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.065^power_taken, 0.3, 10)
 final_gap_change = 0.08; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
 p_ListChange_finaltest = ones(10) * 0.02 #0.8 in E3, but undecided as well in E3
