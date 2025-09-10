@@ -1,5 +1,57 @@
 [
   {
+    "commit": "a77b241",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): Within plot, streamline data processing and enhance plot generation",
+    "timestamp": "2025-09-10 18:34:03",
+    "plot1": "plot_archive/a77b241_20250910_183403_plot1.png",
+    "plot2": "plot_archive/a77b241_20250910_183403_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/data_analysis/E1-initial-between-list.R",
+      "design1/data_analysis/E1-initial-within-list.R",
+      "design1/data_analysis/R_IMPORTANT_USED_DESIGN1_tempesti_v3.rmd",
+      "design1/data_analysis/generate_data.R",
+      "design1/data_analysis/run_all_plots.sh",
+      "design1/data_analysis/run_enhanced_plot.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "6433e23",
+    "branch": "sep-10-predplot",
+    "message": "feat(data-analysis): add final test within list scripts and corresponding plot files",
+    "timestamp": "2025-09-10 18:44:03",
+    "plot1": "plot_archive/6433e23_20250910_184403_plot1.png",
+    "plot2": "plot_archive/6433e23_20250910_184403_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-finaltest-within-list.R",
+      "design1/data_analysis/run_all_plots.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "a77b241",
+    "branch": "sep-10-predplot",
+    "message": "feat(predplot-e1): Within plot, streamline data processing and enhance plot generation",
+    "timestamp": "2025-09-10 18:34:03",
+    "plot1": "plot_archive/a77b241_20250910_183403_plot1.png",
+    "plot2": "plot_archive/a77b241_20250910_183403_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/data_analysis/E1-initial-between-list.R",
+      "design1/data_analysis/E1-initial-within-list.R",
+      "design1/data_analysis/R_IMPORTANT_USED_DESIGN1_tempesti_v3.rmd",
+      "design1/data_analysis/generate_data.R",
+      "design1/data_analysis/run_all_plots.sh",
+      "design1/data_analysis/run_enhanced_plot.sh",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "670700d",
     "branch": "sep-10-predplot",
     "message": "feat(predplot-e1): add between-list enhanced plot files to ignore list",

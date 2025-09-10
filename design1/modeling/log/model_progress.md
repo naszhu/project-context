@@ -1,5 +1,75 @@
 # Model Progress
 
+## Commit [a77b241](https://github.com/naszhu/REM_E3_model_fixed/commit/a77b241) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:34:03  
+**Message:**
+```
+feat(predplot-e1): Within plot, streamline data processing and enhance plot generation
+
+- Updated the data processing scripts to load preprocessed data from CSV instead of multiple CSV reads, improving efficiency.
+- Introduced a new script for within-list analysis, generating enhanced plots with improved aesthetics and readability.
+- Added a shell script to automate the data generation and plot creation process, ensuring a smoother workflow.
+- Updated .gitignore to exclude additional generated plot files, maintaining a cleaner repository.
+
+These changes aim to enhance the data analysis workflow and improve the quality of visual outputs.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/data_analysis/E1-initial-between-list.R`  
+- `design1/data_analysis/E1-initial-within-list.R`  
+- `design1/data_analysis/R_IMPORTANT_USED_DESIGN1_tempesti_v3.rmd`  
+- `design1/data_analysis/generate_data.R`  
+- `design1/data_analysis/run_all_plots.sh`  
+- `design1/data_analysis/run_enhanced_plot.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a77b241_20250910_183403_plot1.png)  
+![](../plot_archive/a77b241_20250910_183403_plot2.png)  
+
+## Commit [6433e23](https://github.com/naszhu/REM_E3_model_fixed/commit/6433e23) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:44:03  
+**Message:**
+```
+feat(data-analysis): add final test within list scripts and corresponding plot files
+
+- Introduced a new R script for final test within-list analysis to enhance data visualization.
+- Updated the shell script to include the new final test plot file in the expected output list.
+- These changes aim to expand the data analysis capabilities and improve the quality of visual outputs.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-within-list.R`  
+- `design1/data_analysis/run_all_plots.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/6433e23_20250910_184403_plot1.png)  
+![](../plot_archive/6433e23_20250910_184403_plot2.png)  
+
+## Commit [a77b241](https://github.com/naszhu/REM_E3_model_fixed/commit/a77b241) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 18:34:03  
+**Message:**
+```
+feat(predplot-e1): Within plot, streamline data processing and enhance plot generation
+
+- Updated the data processing scripts to load preprocessed data from CSV instead of multiple CSV reads, improving efficiency.
+- Introduced a new script for within-list analysis, generating enhanced plots with improved aesthetics and readability.
+- Added a shell script to automate the data generation and plot creation process, ensuring a smoother workflow.
+- Updated .gitignore to exclude additional generated plot files, maintaining a cleaner repository.
+
+These changes aim to enhance the data analysis workflow and improve the quality of visual outputs.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/data_analysis/E1-initial-between-list.R`  
+- `design1/data_analysis/E1-initial-within-list.R`  
+- `design1/data_analysis/R_IMPORTANT_USED_DESIGN1_tempesti_v3.rmd`  
+- `design1/data_analysis/generate_data.R`  
+- `design1/data_analysis/run_all_plots.sh`  
+- `design1/data_analysis/run_enhanced_plot.sh`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a77b241_20250910_183403_plot1.png)  
+![](../plot_archive/a77b241_20250910_183403_plot2.png)  
+
 ## Commit [670700d](https://github.com/naszhu/REM_E3_model_fixed/commit/670700d) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 18:15:06  
 **Message:**
