@@ -1,5 +1,23 @@
 [
   {
+    "commit": "7a3018b",
+    "branch": "sep-10-predplot",
+    "message": "explore(model-e1):A working version remove eog display command from R scripts",
+    "timestamp": "2025-09-10 23:41:06",
+    "plot1": "plot_archive/7a3018b_20250910_234106_plot1.png",
+    "plot2": "plot_archive/7a3018b_20250910_234106_plot2.png",
+    "changed_files": [
+      "design1/combined_finaltest_between_list.R",
+      "design1/combined_finaltest_within_list.R",
+      "design1/combined_initial_between_list.R",
+      "design1/combined_initial_within_list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/run_combined_plots.sh"
+    ]
+  },
+  {
     "commit": "0004804",
     "branch": "sep-10-predplot",
     "message": "feat(allplot-e1): add checks for final test data in R scripts and shell scripts",

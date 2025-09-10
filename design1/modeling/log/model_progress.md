@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [7a3018b](https://github.com/naszhu/REM_E3_model_fixed/commit/7a3018b) (branch: `sep-10-predplot`)
+**Time:** 2025-09-10 23:41:06  
+**Message:**
+```
+explore(model-e1):A working version remove eog display command from R scripts
+
+- Eliminated the system command to display plots using `eog` from multiple R scripts, streamlining the plot generation process.
+- This change enhances the usability of the scripts by removing unnecessary dependencies on external applications for displaying plots.
+
+These modifications aim to simplify the workflow for generating combined plots without relying on external viewers.
+```
+**Changed Files:**
+- `design1/combined_finaltest_between_list.R`  
+- `design1/combined_finaltest_within_list.R`  
+- `design1/combined_initial_between_list.R`  
+- `design1/combined_initial_within_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/run_combined_plots.sh`  
+![](../plot_archive/7a3018b_20250910_234106_plot1.png)  
+![](../plot_archive/7a3018b_20250910_234106_plot2.png)  
+
 ## Commit [0004804](https://github.com/naszhu/REM_E3_model_fixed/commit/0004804) (branch: `sep-10-predplot`)
 **Time:** 2025-09-10 23:15:07  
 **Message:**

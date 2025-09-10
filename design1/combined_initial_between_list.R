@@ -60,6 +60,9 @@ data_plot <- ggplot(data=plot_data, aes(position,meancr,group=interaction(positi
             aes(x=position,y=meancr_avg),
             color="#2C2C2C", linewidth=2.2, linetype="dashed", alpha=0.9) +
   
+  scale_y_continuous(limits = c(0.82, 0.96),
+                      breaks = seq(0.82, 0.96, by = 0.02),
+                      name = "Performance (Hits/Correct Rejection)") +
   # Enhanced styling and labels
   labs(x="List number in initial test",
        y="Performance (Hits/Correct Rejection)",
