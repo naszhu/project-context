@@ -212,4 +212,4 @@ df_rt_pl =
                                 
                                   current_assignmentTypesWithinList =="T_foil"  ~"New Foil"))
  
- 
+write.csv(df_rt_pl, file = "/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design3/data/E3_AGGREGATED.csv", row.names = FALSE)
