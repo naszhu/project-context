@@ -1,5 +1,14 @@
 # Model Progress
 
+## Commit [b654343](https://github.com/naszhu/REM_E3_model_fixed/commit/b654343) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-11 01:37:57  
+**Message:**
+```
+merge(predplot-e1): Merge branch 'sep-10-predplot'
+```
+![](../plot_archive/b654343_20250911_013757_plot1.png)  
+![](../plot_archive/b654343_20250911_013757_plot2.png)  
+
 ## Commit [ad4025a](https://github.com/naszhu/REM_E3_model_fixed/commit/ad4025a) (branch: `sep-10-predplot`)
 **Time:** 2025-09-11 00:22:15  
 **Message:**
