@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [6841965](https://github.com/naszhu/REM_E3_model_fixed/commit/6841965) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 22:24:45  
+**Message:**
+```
+feat(analysis-e3): add final test analysis script with combined data visualization
+
+- Introduced a new R script for analyzing final test data between lists, including data processing for initial and final positions.
+- Created a combined dataset for both positions to facilitate comprehensive visualization of correct response rates.
+- Implemented ggplot2 for generating a combined plot, enhancing clarity and insight into the analysis.
+- Exported the final plot as a PNG file for improved accessibility and presentation.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_between_list_data_e3.r`  
+![](../plot_archive/6841965_20250921_222445_plot1.png)  
+![](../plot_archive/6841965_20250921_222445_plot2.png)  
+
 ## Commit [da9bdaf](https://github.com/naszhu/REM_E3_model_fixed/commit/da9bdaf) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-21 21:45:02  
 **Message:**
