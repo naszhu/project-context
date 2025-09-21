@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [78509d4](https://github.com/naszhu/REM_E3_model_fixed/commit/78509d4) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-12 23:41:17  
+**Message:**
+```
+feat(analysis-e3): add initial test analysis scripts and visualization
+
+- Introduced new R scripts for analyzing initial test data between lists, including `initial_test_between_list_data_e3.r` and `quick_plot.r`.
+- Implemented data processing and visualization using ggplot2, enhancing the ability to generate insightful plots from aggregated data.
+- Updated `.gitignore` to include new R script files, ensuring they are not tracked by Git.
+
+These changes aim to improve the analysis capabilities for initial test data and streamline the visualization process.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/generate_data.r`  
+- `design3/data_analysis/initial_test_between_list_data_e3.r`  
+- `design3/data_analysis/quick_plot.r`  
+![](../plot_archive/78509d4_20250912_234117_plot1.png)  
+![](../plot_archive/78509d4_20250912_234117_plot2.png)  
+
 ## Commit [69e5a88](https://github.com/naszhu/REM_E3_model_fixed/commit/69e5a88) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-12 23:26:53  
 **Message:**
