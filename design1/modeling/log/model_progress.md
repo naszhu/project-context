@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [b82909e](https://github.com/naszhu/REM_E3_model_fixed/commit/b82909e) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 21:29:54  
+**Message:**
+```
+refactor(analysis-e3): comment out unused data processing steps in R script
+
+- Commented out several data filtering and summarization lines in `R_design3_pilotExample.rmd` to improve script clarity and maintainability.
+- These changes aim to streamline the analysis process by reducing clutter while preserving the original code for potential future use.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/R_design3_pilotExample.rmd`  
+![](../plot_archive/b82909e_20250921_212954_plot1.png)  
+![](../plot_archive/b82909e_20250921_212954_plot2.png)  
+
 ## Commit [78509d4](https://github.com/naszhu/REM_E3_model_fixed/commit/78509d4) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-12 23:41:17  
 **Message:**
