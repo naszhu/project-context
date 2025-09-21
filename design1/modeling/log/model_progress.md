@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [da9bdaf](https://github.com/naszhu/REM_E3_model_fixed/commit/da9bdaf) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 21:45:02  
+**Message:**
+```
+feat(analysis-e3): enhance initial test analysis with combined data visualization
+
+- Refactored the initial test data processing to separate analyses by test and study positions.
+- Introduced a combined dataset for both test and study positions, allowing for comprehensive visualization.
+- Updated ggplot generation to create a combined plot, improving clarity and insight into correct response rates across different positions.
+- Exported the updated plot as a PNG file for better accessibility and presentation.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/initial_test_within_list_data_e3.r`  
+![](../plot_archive/da9bdaf_20250921_214502_plot1.png)  
+![](../plot_archive/da9bdaf_20250921_214502_plot2.png)  
+
 ## Commit [54c7452](https://github.com/naszhu/REM_E3_model_fixed/commit/54c7452) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-21 21:36:53  
 **Message:**
