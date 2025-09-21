@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [bc2316b](https://github.com/naszhu/REM_E3_model_fixed/commit/bc2316b) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 16:35:18  
+**Message:**
+```
+feat(analysis-e3): add final test within list data analysis script
+
+- Introduced a new R script for analyzing final test data within lists, focusing on correct response rates by test and study positions.
+- Implemented data processing and visualization using ggplot2, generating a combined plot for enhanced clarity.
+- Exported the final plot as a PNG file for improved accessibility and presentation.
+- Updated .gitignore to include new plot files, ensuring they are not tracked by Git.
+```
+**Changed Files:**
+- `.gitignore`  
+- `Docs/.~lock.DataPlot-d3(exp2).docx#`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_within_list_data_e3.r`  
+![](../plot_archive/bc2316b_20250921_163518_plot1.png)  
+![](../plot_archive/bc2316b_20250921_163518_plot2.png)  
+
 ## Commit [6841965](https://github.com/naszhu/REM_E3_model_fixed/commit/6841965) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-21 22:24:45  
 **Message:**

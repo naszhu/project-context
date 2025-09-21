@@ -183,6 +183,7 @@ combined_df = full_join(df_pl,f2_aligned)
 df_rt_pl =
   combined_df %>% filter(task%in% c("initialTest_response","finalTest")) %>% 
   filter(is_finished==1)%>%
+  filter(codeversion != 1)%>%
   mutate(rt=as.numeric(rt))%>%
   filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")%>%
   filter(! subject_id%in%c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a"))%>% #accuracy too low

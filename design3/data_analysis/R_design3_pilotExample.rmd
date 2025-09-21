@@ -369,6 +369,34 @@ levels(as.factor(df_pl$type_comment ))
 #   summarize(n=n())
 ```
 
+codeversion1: [1] "67eecbd7a0c98bad9a91d0c0" "67ef6e8e9bfc15c060497365"
+runid 5 (id: 67eecbd7a0c98bad9a91d0c0) source code version: 7dfe7f81cd9c80a1972070b6eed80b27 		2025-04-04 12:03:51
+runid 4: 800ada036aababc29b2738b065f35859 2025-04-19 04:58:17
+runid 6: 800ada036aababc29b2738b065f35859 2025-04-19 04:58:31
+
+id (67ef6e8e9bfc15c060497365)
+codev: 7dfe7f81cd9c80a1972070b6eed80b27
+runat: 2025-04-04 12:10:35
+runid: 6
+
+```{r}
+ds=
+combined_df%>% filter(task%in% c("initialTest_response","finalTest")) %>% 
+  filter(is_finished==1)%>%
+  filter(run_id==4)%>%
+  # filter(subject_id=="67ef6e8e9bfc15c060497365")%>%
+  # mutate()
+  # filter(stimulusConditions=="B", testPos_appear1_initial==0)%>%
+  select(codeversion,run_id)
+
+levels(as.factor(ds$subject_id))
+
+ds=combined_df%>%filter(codeversion==1,is_finished==1)
+levels(as.factor(ds$subject_id))
+# ds
+```
+
+
 ## data clean
 ```{r}
 levels(as.factor(df_pl$task ))
@@ -377,6 +405,7 @@ df_rt_pl =
   combined_df %>% filter(task%in% c("initialTest_response","finalTest")) %>% 
   filter(is_finished==1)%>%
   mutate(rt=as.numeric(rt))%>%
+  filter(codeversion != 1)%>%
   filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")%>%
   filter(! subject_id%in%c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a"))%>% #accuracy too low
     filter(subject_id!="")%>%
@@ -502,6 +531,8 @@ df_rt_pl%>%group_by(subject_id)%>%
 
 combined_df%>%filter(subject_id=="6751acc5dc78128951a34f1f")%>%select(is_finished)
 # c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a") #final acc =0.2...
+
+# df_rt_pl%>%
 ```
 
 
@@ -1432,6 +1463,9 @@ ggplot(data=d1taf)+
              "Final Foil"="red" ),breaks=levelsStr_fn )
 
 
+```
+```{r}
+names(df_rt_pl)%>%
 ```
 
 
