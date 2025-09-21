@@ -1,5 +1,49 @@
 # Model Progress
 
+## Commit [ce0ea10](https://github.com/naszhu/REM_E3_model_fixed/commit/ce0ea10) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 22:45:45  
+**Message:**
+```
+feat(analysis-e3): add initial and final within-list analysis scripts
+
+- Introduced new R scripts for conducting comprehensive analyses of initial and final within-list data, focusing on correct response rates by test and study positions.
+- Implemented data processing steps to calculate means, standard deviations, and standard errors for correct responses, enhancing the clarity of results.
+- Included detailed output for performance hierarchies and statistical significance tests, providing insights into the effects of study and test positions on recognition performance.
+- Exported processed data to CSV files for further analysis and accessibility.
+```
+**Changed Files:**
+- `design1/data_analysis/correct_initial_analysis.R`  
+- `design1/data_analysis/final_between_list_complete_analysis.R`  
+- `design1/data_analysis/final_within_list_complete_analysis.R`  
+- `design1/data_analysis/initial_within_list_complete_analysis.R`  
+- `design1/data_analysis/trace_data_processing.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/ce0ea10_20250921_224545_plot1.png)  
+![](../plot_archive/ce0ea10_20250921_224545_plot2.png)  
+
+## Commit [cf5e824](https://github.com/naszhu/REM_E3_model_fixed/commit/cf5e824) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 21:51:01  
+**Message:**
+```
+feat(analysis-e3): refine initial and final test data analysis with enhanced summarization and visualization
+
+- Updated summarization steps to calculate means and standard errors for correct response rates in both initial and final test analyses.
+- Improved ggplot visualizations by adding ribbons for standard error and updating color and fill scales for better clarity and distinction among categories.
+- These enhancements aim to provide a more comprehensive and visually informative analysis of correct response rates across different test positions.
+```
+**Changed Files:**
+- `design1/data_analysis/E1_statistical_analysis.R`  
+- `design1/data_analysis/E1_statistical_results.txt`  
+- `design1/data_analysis/corrected_within_list.R`  
+- `design1/data_analysis/simple_mixed_effects.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_between_list_data_e3.r`  
+- `design3/data_analysis/initial_test_between_list_data_e3.r`  
+![](../plot_archive/cf5e824_20250921_215101_plot1.png)  
+![](../plot_archive/cf5e824_20250921_215101_plot2.png)  
+
 ## Commit [1a88bc4](https://github.com/naszhu/REM_E3_model_fixed/commit/1a88bc4) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-21 17:18:58  
 **Message:**
