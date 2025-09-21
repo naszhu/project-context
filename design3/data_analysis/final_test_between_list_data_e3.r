@@ -16,9 +16,9 @@ d1taf_initial = df_rt_pl%>%
   filter(task=="finalTest")%>%
   mutate(type_comment=type_comment_fn)%>%
          group_by(task, condition,type_comment, listNum_appear1_initial, subject_id)%>%
-         summarise(cr = mean(correct))%>%
+         summarise(crs = mean(correct))%>%
          group_by(task, condition,type_comment, listNum_appear1_initial)%>%
-         summarise(cr = mean(cr))%>%
+         summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop')%>%
   mutate(position_type = "Initial Position", position = listNum_appear1_initial)
 
 ############ Second plot - Final position
@@ -29,9 +29,9 @@ d1taf_final = df_rt_pl%>%
   filter(task=="finalTest")%>%
   mutate(type_comment=type_comment_fn)%>%
          group_by(task, condition,type_comment, listNum_infinalOrder, subject_id)%>%
-         summarise(cr = mean(correct))%>%
+         summarise(crs = mean(correct))%>%
          group_by(task, condition,type_comment, listNum_infinalOrder)%>%
-         summarise(cr = mean(cr))%>%
+         summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop')%>%
   mutate(listNum_infinalOrder=as.integer(listNum_infinalOrder))%>%
   mutate(position_type = "Final Position", position = listNum_infinalOrder)
 
@@ -52,14 +52,23 @@ print(dropped)
 
 # Create combined plot
 p=ggplot(data=d1taf_combined)+
+  geom_ribbon(aes(x=position, ymin= cr - se, ymax= cr + se, group=interaction(task,type_comment), fill= type_comment), alpha=0.3)+
   geom_line(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment),size=1)+
   geom_point(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=4)+
   facet_grid(.~position_type)+
-  scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="purple","Studied-only (n); Foil (n+1)"="green",
-             "Target: : started and tested at (n) ; Appear once" ="purple",
-             "Foil(n), Foil (n+1)" ="blue",
-             "Foil(n); Appear once" ="blue",
-             "Studied-only (n); Appear once" = "green",
+  scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="#2166AC",
+            "Studied-only (n); Foil (n+1)"="#1A9850",
+             "Target: : started and tested at (n) ; Appear once" ="#2166AC",
+             "Foil(n), Foil (n+1)" ="#E08214",
+             "Foil(n); Appear once" ="#E08214",
+             "Studied-only (n); Appear once" = "#1A9850",
+             "Final Foil"="red" ),breaks=levelsStr_fn )+
+  scale_fill_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="#2166AC",
+            "Studied-only (n); Foil (n+1)"="#1A9850",
+             "Target: : started and tested at (n) ; Appear once" ="#2166AC",
+             "Foil(n), Foil (n+1)" ="#E08214",
+             "Foil(n); Appear once" ="#E08214",
+             "Studied-only (n); Appear once" = "#1A9850",
              "Final Foil"="red" ),breaks=levelsStr_fn )+
   scale_shape_discrete(breaks=levelsStr_fn)+
   scale_linetype_discrete(breaks=levelsStr_fn)+

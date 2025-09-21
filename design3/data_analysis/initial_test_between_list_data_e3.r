@@ -15,10 +15,9 @@ d1ta = df_rt_pl %>%
   # mutate(colorskeme=type_comment)%>%
   mutate(colorskeme=typecomment_in)%>%
          group_by(task, condition, listNum_appear0_initial,colorskeme,subject_id)%>%
-         summarise(cr = mean(correct))%>%
+         summarise(crs = mean(correct))%>%
          group_by(task, condition, listNum_appear0_initial,colorskeme)%>%
-         summarise(cr = mean(cr))%>%
-  mutate(listNum_appear0_initial=as.factor(listNum_appear0_initial))
+         summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop')
   # mutate(type_comment=as.factor(type_comment))
   
 #   [1] "Inherented Foil - Last Foil"       
@@ -31,14 +30,41 @@ levelsStr = c("New Foil", "Target", "Inherented Foil - Last Foil" ,
 ############# Between list results
 #######################################################
 p <- ggplot(data=d1ta)+
-  geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+ 
+  geom_ribbon(aes(x=listNum_appear0_initial, ymin= cr - se, ymax= cr + se, group=interaction(task,colorskeme), fill=colorskeme), alpha=0.3)+
+  geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+
   geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
   facet_grid(.~task)+
   scale_color_manual(
-  values = c("Inherented Foil - Last Foil" = "green", "Inherented Foil - Last Studied Only" = "green", "Inherented Foil - Last Target" = "green","New Foil" = "blue","Target"=  "purple"),
-  breaks =  levelsStr# change order in legend
-)+
-  scale_shape_discrete(breaks=levelsStr)+
-  scale_linetype_discrete(breaks=levelsStr)
+    values = c(
+      "Inherented Foil - Last Foil" = "#E08214",  # warm orange-red
+      "Inherented Foil - Last Studied Only" = "#1A9850",  # warm yellow-orange
+      "Inherented Foil - Last Target" = "#2166AC",  # warm yellow
+      "New Foil" = "#E08214",  # warm orange
+      "Target" = "#2166AC"     # blue (cool, for contrast)
+    ),
+    breaks = levelsStr # change order in legend
+  )+
+  scale_fill_manual(
+    values = c(
+      "Inherented Foil - Last Foil" = "#E08214",  # warm orange-red
+      "Inherented Foil - Last Studied Only" = "#1A9850",  # warm yellow-orange
+      "Inherented Foil - Last Target" = "#2166AC",  # warm yellow
+      "New Foil" = "#E08214",  # warm orange
+      "Target" = "#2166AC"     # blue (cool, for contrast)
+    ),
+    breaks = levelsStr # change order in legend
+  )+
+  scale_linetype_manual(
+    values = c(
+      "Inherented Foil - Last Foil" = "dashed",
+      "Inherented Foil - Last Studied Only" = "dashed",
+      "Inherented Foil - Last Target" = "dashed",
+      "New Foil" = "solid",
+      "Target" = "solid"
+    ),
+    breaks = levelsStr
+  )+
+  scale_shape_discrete(breaks=levelsStr)
+  # scale_linetype_discrete(breaks=levelsStr)
 
 ggsave("initial_test_between_list_data_e3.png", plot = p, width = 10, height = 6, dpi = 300)

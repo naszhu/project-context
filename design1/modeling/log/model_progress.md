@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [1a88bc4](https://github.com/naszhu/REM_E3_model_fixed/commit/1a88bc4) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 17:18:58  
+**Message:**
+```
+feat(analysis-e3): enhance final test data analysis with improved summarization and visualization
+
+- Updated the data processing to include additional grouping and summarization steps for both test and study positions, calculating means and standard errors for correct response rates.
+- Enhanced the ggplot visualization by adding a ribbon for standard error and updating color scales for better clarity and distinction between categories.
+- These changes aim to provide a more comprehensive analysis of correct response rates across different positions in the final test data.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_within_list_data_e3.r`  
+![](../plot_archive/1a88bc4_20250921_171858_plot1.png)  
+![](../plot_archive/1a88bc4_20250921_171858_plot2.png)  
+
 ## Commit [656fbab](https://github.com/naszhu/REM_E3_model_fixed/commit/656fbab) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-21 17:16:38  
 **Message:**
