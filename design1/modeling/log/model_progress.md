@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [656fbab](https://github.com/naszhu/REM_E3_model_fixed/commit/656fbab) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 17:16:38  
+**Message:**
+```
+feat(analysis-e3): filter out specific code versions in data analysis
+
+- Added a filter to exclude entries with codeversion equal to 1 in the data processing pipeline.
+- This change aims to refine the dataset used for analysis by removing potentially irrelevant data points.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/R_design3_pilotExample.rmd`  
+- `design3/data_analysis/generate_data.r`  
+![](../plot_archive/656fbab_20250921_171638_plot1.png)  
+![](../plot_archive/656fbab_20250921_171638_plot2.png)  
+
 ## Commit [bc2316b](https://github.com/naszhu/REM_E3_model_fixed/commit/bc2316b) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-21 16:35:18  
 **Message:**
