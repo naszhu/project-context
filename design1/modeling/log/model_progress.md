@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [51f81a2](https://github.com/naszhu/REM_E3_model_fixed/commit/51f81a2) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 21:35:28  
+**Message:**
+```
+feat(analysis-e3): add plot generation to initial test within list script
+
+  - Remove temporary lock files for DataPlot documents
+  - Add trailing whitespace to combined_initial_within_list.R
+  - Add ggplot visualization and PNG export to initial_test_within_list_data_e3.r
+```
+**Changed Files:**
+- `Docs/.~lock.DataPlot-d1(exp1).odt#`  
+- `Docs/.~lock.Dataplot-e3-aug19.docx#`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/initial_test_within_list_data_e3.r`  
+![](../plot_archive/51f81a2_20250921_213528_plot1.png)  
+![](../plot_archive/51f81a2_20250921_213528_plot2.png)  
+
 ## Commit [b82909e](https://github.com/naszhu/REM_E3_model_fixed/commit/b82909e) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-21 21:29:54  
 **Message:**
