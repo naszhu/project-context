@@ -1,5 +1,18 @@
 # Model Progress
 
+## Commit [54c7452](https://github.com/naszhu/REM_E3_model_fixed/commit/54c7452) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 21:36:53  
+**Message:**
+```
+chore(all): update gitignore
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/54c7452_20250921_213653_plot1.png)  
+![](../plot_archive/54c7452_20250921_213653_plot2.png)  
+
 ## Commit [51f81a2](https://github.com/naszhu/REM_E3_model_fixed/commit/51f81a2) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-21 21:35:28  
 **Message:**
