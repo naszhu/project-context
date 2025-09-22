@@ -1,5 +1,19 @@
 [
   {
+    "commit": "0cd20ad",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e1): add context knowledge manipulation analysis script",
+    "timestamp": "2025-09-22 12:20:29",
+    "plot1": "plot_archive/0cd20ad_20250922_122029_plot1.png",
+    "plot2": "plot_archive/0cd20ad_20250922_122029_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/context_knowledge_manipulation_analysis.R",
+      "design1/data_analysis/final_between_list_complete_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "eabb67a",
     "branch": "sep12-analysisplot",
     "message": "feat(analysis-e1): add initial and final within-list analysis scripts",

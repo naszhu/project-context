@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [0cd20ad](https://github.com/naszhu/REM_E3_model_fixed/commit/0cd20ad) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-22 12:20:29  
+**Message:**
+```
+feat(analysis-e1): add context knowledge manipulation analysis script
+
+- Introduced a new R script for analyzing context knowledge manipulation, focusing on recognition performance based on exposure history, recency effects, and list order knowledge.
+- Implemented data processing steps to summarize performance metrics and conduct statistical analyses, including ANOVA and effect size calculations.
+- Created visualizations to illustrate the main effects and interactions, enhancing the interpretability of the results.
+- Exported analysis results and plots to CSV and PNG files for further review and accessibility.
+```
+**Changed Files:**
+- `design1/data_analysis/context_knowledge_manipulation_analysis.R`  
+- `design1/data_analysis/final_between_list_complete_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/0cd20ad_20250922_122029_plot1.png)  
+![](../plot_archive/0cd20ad_20250922_122029_plot2.png)  
+
 ## Commit [eabb67a](https://github.com/naszhu/REM_E3_model_fixed/commit/eabb67a) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-22 12:19:55  
 **Message:**

@@ -64,7 +64,15 @@ p <- ggplot(data=d1ta)+
     ),
     breaks = levelsStr
   )+
-  scale_shape_discrete(breaks=levelsStr)
-  # scale_linetype_discrete(breaks=levelsStr)
+  scale_shape_manual(
+    values = c(
+      "New Foil" = 17,                     # solid triangle
+      "Target" = 15,                       # solid square
+      "Inherented Foil - Last Foil" = 2,   # open triangle
+      "Inherented Foil - Last Target" = 0, # open square
+      "Inherented Foil - Last Studied Only" = 1 # open circle
+    ),
+    breaks = levelsStr
+  )
 
 ggsave("initial_test_between_list_data_e3.png", plot = p, width = 10, height = 6, dpi = 300)

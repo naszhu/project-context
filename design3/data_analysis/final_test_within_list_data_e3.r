@@ -63,6 +63,18 @@ p = ggplot(data=d1taf_combined)+
              "Foil(n); Appear once" ="#E08214",
              "Studied-only (n); Appear once" = "#1A9850",
              "Final Foil"="red" ),breaks=levelsStr_fn )+
+  scale_shape_manual(
+    values = c(
+      "Target: studied and tested at (n), Foil (n+1)" = 0,      # open square
+      "Target: : started and tested at (n) ; Appear once" = 15,  # solid square
+      "Studied-only (n); Foil (n+1)" = 1,                      # open circle
+      "Studied-only (n); Appear once" = 16,  # solid circle
+      "Foil(n), Foil (n+1)" = 2,                      # open triangle
+      "Foil(n); Appear once" = 17,                                # solid triangle
+      "Final Foil" = 8                                           # star
+    ),
+    breaks = levelsStr_fn
+  )+
   labs(x = "Position", y = "Correct Response Rate", title = "Final Test Within List by Position")
 
 ggsave("final_test_within_list_data_e3.png", plot = p, width = 12, height = 5, dpi = 300)
