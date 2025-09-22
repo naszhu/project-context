@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [eabb67a](https://github.com/naszhu/REM_E3_model_fixed/commit/eabb67a) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-22 12:19:55  
+**Message:**
+```
+feat(analysis-e1): add initial and final within-list analysis scripts
+
+- Introduced new R scripts for conducting comprehensive analyses of initial and final within-list data, focusing on correct response rates by test and study positions.
+- Implemented data processing steps to calculate means, standard deviations, and standard errors for correct responses, enhancing the clarity of results.
+- Included detailed output for performance hierarchies and statistical significance tests, providing insights into the effects of study and test positions on recognition performance.
+- Exported processed data to CSV files for further analysis and accessibility.
+```
+**Changed Files:**
+- `design1/data_analysis/correct_initial_analysis.R`  
+- `design1/data_analysis/final_between_list_complete_analysis.R`  
+- `design1/data_analysis/final_within_list_complete_analysis.R`  
+- `design1/data_analysis/initial_within_list_complete_analysis.R`  
+- `design1/data_analysis/trace_data_processing.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/eabb67a_20250922_121955_plot1.png)  
+![](../plot_archive/eabb67a_20250922_121955_plot2.png)  
+
 ## Commit [ce0ea10](https://github.com/naszhu/REM_E3_model_fixed/commit/ce0ea10) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-21 22:45:45  
 **Message:**

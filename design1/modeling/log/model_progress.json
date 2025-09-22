@@ -1,5 +1,22 @@
 [
   {
+    "commit": "eabb67a",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e1): add initial and final within-list analysis scripts",
+    "timestamp": "2025-09-22 12:19:55",
+    "plot1": "plot_archive/eabb67a_20250922_121955_plot1.png",
+    "plot2": "plot_archive/eabb67a_20250922_121955_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/correct_initial_analysis.R",
+      "design1/data_analysis/final_between_list_complete_analysis.R",
+      "design1/data_analysis/final_within_list_complete_analysis.R",
+      "design1/data_analysis/initial_within_list_complete_analysis.R",
+      "design1/data_analysis/trace_data_processing.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "ce0ea10",
     "branch": "sep12-analysisplot",
     "message": "feat(analysis-e3): add initial and final within-list analysis scripts",
