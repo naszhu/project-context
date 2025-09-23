@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [a9e2a04](https://github.com/naszhu/REM_E3_model_fixed/commit/a9e2a04) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-23 15:03:55  
+**Message:**
+```
+refactor(analysis-e1): unify styling constants and enhance ggplot aesthetics
+
+- Consolidated styling constants for data and prediction plots to improve consistency and readability.
+- Updated ggplot visualizations by adjusting point sizes, line widths, and font sizes for enhanced clarity.
+- Changed x-axis scale from discrete to continuous for better representation of position data.
+- Improved overall plot aesthetics with unified margins, grid styling, and background colors.
+- These changes aim to provide a more cohesive and visually appealing analysis of test results across different conditions.
+```
+**Changed Files:**
+- `design1/combined_finaltest_between_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a9e2a04_20250923_150355_plot1.png)  
+![](../plot_archive/a9e2a04_20250923_150355_plot2.png)  
+
 ## Commit [d97d4d5](https://github.com/naszhu/REM_E3_model_fixed/commit/d97d4d5) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-23 14:53:00  
 **Message:**
