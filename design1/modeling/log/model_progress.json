@@ -1,5 +1,33 @@
 [
   {
+    "commit": "153886b",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e1): add comprehensive GLMM analysis and results documentation",
+    "timestamp": "2025-09-23 11:40:41",
+    "plot1": "plot_archive/153886b_20250923_114041_plot1.png",
+    "plot2": "plot_archive/153886b_20250923_114041_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1_statistical_analysis.R",
+      "design1/data_analysis/E1_statistical_results.txt",
+      "design1/data_analysis/Experiment1_Professional_Manuscript_Results.txt",
+      "design1/data_analysis/analysis_output.txt",
+      "design1/data_analysis/context_knowledge_manipulation_analysis.R",
+      "design1/data_analysis/correct_initial_analysis.R",
+      "design1/data_analysis/corrected_within_list.R",
+      "design1/data_analysis/final_between_list_complete_analysis.R",
+      "design1/data_analysis/final_professional_analysis.R",
+      "design1/data_analysis/final_results_summary.txt",
+      "design1/data_analysis/final_within_list_complete_analysis.R",
+      "design1/data_analysis/initial_within_list_complete_analysis.R",
+      "design1/data_analysis/simple_mixed_effects.R",
+      "design1/data_analysis/streamlined_glmm_analysis.R",
+      "design1/data_analysis/test_initial_models.R",
+      "design1/data_analysis/trace_data_processing.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "54c2981",
     "branch": "sep12-analysisplot",
     "message": "feat(analysis-e3): enhance shape and color scales in test data visualizations",

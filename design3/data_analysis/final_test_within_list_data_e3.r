@@ -75,6 +75,19 @@ p = ggplot(data=d1taf_combined)+
     ),
     breaks = levelsStr_fn
   )+
-  labs(x = "Position", y = "Correct Response Rate", title = "Final Test Within List by Position")
+  labs(x = "Position", y = "Correct Response Rate", title = "Final Test Within List by Position")+
+  scale_x_continuous(breaks = seq(0, 10, by = 1))+
+  theme_bw(base_size = 24) + # Set a large base font size for all text
+    theme(
+    plot.title = element_text(size = 26, face = "bold"),
+    axis.title.x = element_text(size = 24, face = "bold"),
+    axis.title.y = element_text(size = 24, face = "bold"),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    legend.position = "none",
+    # legend.title = element_text(size = 20, face = "bold"),
+    # legend.text = element_text(size = 18),
+    strip.text = element_text(size = 28, face = "bold") # Facet grid label text size
+  )
 
-ggsave("final_test_within_list_data_e3.png", plot = p, width = 12, height = 5, dpi = 300)
+ggsave("final_test_within_list_data_e3.png", plot = p, width = 11, height = 6, dpi = 300)

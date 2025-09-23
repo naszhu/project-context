@@ -32,8 +32,8 @@ levelsStr = c("New Foil", "Target", "Inherented Foil - Last Foil" ,
 p <- ggplot(data=d1ta)+
   geom_ribbon(aes(x=listNum_appear0_initial, ymin= cr - se, ymax= cr + se, group=interaction(task,colorskeme), fill=colorskeme), alpha=0.3)+
   geom_line(aes(x=listNum_appear0_initial, y= cr ,group=interaction(task,colorskeme),color= colorskeme,linetype=colorskeme))+
-  geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =4 )+
-  facet_grid(.~task)+
+  geom_point(aes(x=listNum_appear0_initial,y=cr,group=interaction(task,colorskeme),color=colorskeme,shape=colorskeme),size =5 )+
+  
   scale_color_manual(
     values = c(
       "Inherented Foil - Last Foil" = "#E08214",  # warm orange-red
@@ -73,6 +73,29 @@ p <- ggplot(data=d1ta)+
       "Inherented Foil - Last Studied Only" = 1 # open circle
     ),
     breaks = levelsStr
-  )
+  )+theme_bw(base_size = 24) + # Set a large base font size for all text
+ 
+    theme(
+    plot.title = element_text(size = 18, face = "bold"),
+    axis.title.x = element_text(size = 24, face = "bold"),
+    axis.title.y = element_text(size = 24, face = "bold"),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    legend.position = "none",
+    # legend.title = element_text(size = 20, face = "bold"),
+    # legend.text = element_text(size = 18),
+    strip.text = element_text(size = 28, face = "bold") # Facet grid label text size
+  ) +
+  labs(
+    x = "Position", 
+    y = "Correct Response Rate", 
+    title = "Initial Test Between List Data"
+  ) +
+  # facet_grid(.~task)+
+  facet_grid(. ~ task, labeller = labeller(task = c("initialTest_response" = "Initial List Number")))+
+  scale_x_continuous(breaks = seq(0, 10, by = 1))
+  # scale_x_continuous(breaks = seq(min(d1ta_combined$position, na.rm=TRUE), max(d1ta_combined$position, na.rm=TRUE), by = 1)) +
+  # scale_y_continuous(breaks = seq(0.5, 1, by = 0.1), limits = c(0.5, 1))
 
-ggsave("initial_test_between_list_data_e3.png", plot = p, width = 10, height = 6, dpi = 300)
+
+ggsave("initial_test_between_list_data_e3.png", plot = p, width = 6, height = 6, dpi = 300)

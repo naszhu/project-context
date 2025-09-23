@@ -3,6 +3,10 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 
+# """
+# how to make the font of the stuff written in this plot way bigger, how to make the text in facet grid larger, and x, y axis biggwer, how to make the text in facet grid larger, and x, y axis biggwer, can I omit the type comment , and create my own legend, orange(and triangle) being previous foil, green(and circle) being previous studied only , blue(and square) being previous target and red star being final foil, and non-hollow point shape are for non-repeated items, and  hollow point shapes are for previous confusing foils (repeated item s
+# """
+
 df_rt_pl=read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design3/data/E3_AGGREGATED.csv")
 
 
@@ -27,6 +31,20 @@ d1taf_final = df_rt_pl%>%
                            correct=="False"~0,
                            TRUE ~ correct))%>%
   filter(task=="finalTest")%>%
+  mutate(listNum_infinalOrder=as.numeric(testPos_final))%>%
+  mutate(listNum_infinalOrder = case_when(
+    listNum_infinalOrder <= 49 ~ 1,
+    listNum_infinalOrder <= 98 ~ 2,
+    listNum_infinalOrder <= 147 ~ 3,
+    listNum_infinalOrder <= 196 ~ 4,
+    listNum_infinalOrder <= 245 ~ 5,
+    listNum_infinalOrder <= 294 ~ 6,
+    listNum_infinalOrder <= 343 ~ 7,
+    listNum_infinalOrder <= 392 ~ 8,
+    listNum_infinalOrder <= 442 ~ 9,
+    listNum_infinalOrder <= 492 ~ 10,
+    TRUE ~ NA_real_
+  ))%>%
   mutate(type_comment=type_comment_fn)%>%
          group_by(task, condition,type_comment, listNum_infinalOrder, subject_id)%>%
          summarise(crs = mean(correct))%>%
@@ -51,9 +69,9 @@ cat("Rows dropped due to missing values:\n")
 print(dropped)
 
 # Create combined plot
-p=ggplot(data=d1taf_combined)+
+p <- ggplot(data=d1taf_combined)+
   geom_ribbon(aes(x=position, ymin= cr - se, ymax= cr + se, group=interaction(task,type_comment), fill= type_comment), alpha=0.3)+
-  geom_line(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment),size=1)+
+  geom_line(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment),linewidth=1)+
   geom_point(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=4)+
   facet_grid(.~position_type)+
   scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="#2166AC",
@@ -81,8 +99,22 @@ p=ggplot(data=d1taf_combined)+
       "Final Foil" = 8                                           # star
     ),
     breaks = levelsStr_fn
-  )+
+  ) +
+  # theme()+
   scale_linetype_discrete(breaks=levelsStr_fn)+
-  labs(x = "Position", y = "Correct Response Rate", title = "Final Test by Position")
+  labs(x = "Position", y = "Correct Response Rate", title = "Final Test Between list") +
+  theme_bw(base_size = 24) + # Set a large base font size for all text
+  theme(
+    plot.title = element_text(size = 26, face = "bold"),
+    axis.title.x = element_text(size = 24, face = "bold"),
+    axis.title.y = element_text(size = 24, face = "bold"),
+    axis.text.x = element_text(size = 18),
+    axis.text.y = element_text(size = 18),
+    legend.position = "none",
+    # legend.title = element_text(size = 20, face = "bold"),
+    # legend.text = element_text(size = 18),
+    strip.text = element_text(size = 28, face = "bold") # Facet grid label text size
+  )+
+   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
-ggsave("final_test_between_list_data_e3.png", plot = p, width = 10, height = 4, dpi = 300)
+ggsave("final_test_between_list_data_e3.png", plot = p, width = 11, height = 6, dpi = 300)

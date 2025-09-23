@@ -1,5 +1,38 @@
 # Model Progress
 
+## Commit [153886b](https://github.com/naszhu/REM_E3_model_fixed/commit/153886b) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-23 11:40:41  
+**Message:**
+```
+feat(analysis-e1): add comprehensive GLMM analysis and results documentation
+
+- Introduced a new R script for conducting a comprehensive generalized linear mixed model (GLMM) analysis of Experiment 1 data, focusing on recognition performance across various conditions.
+- Implemented data preparation steps, including participant screening and accuracy calculations, to ensure robust statistical modeling.
+- Generated detailed results documentation summarizing key findings, including exposure history effects and list order knowledge impacts, with statistical significance reported.
+- Exported results to a text file for accessibility and further review, enhancing the interpretability of the analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/E1_statistical_analysis.R`  
+- `design1/data_analysis/E1_statistical_results.txt`  
+- `design1/data_analysis/Experiment1_Professional_Manuscript_Results.txt`  
+- `design1/data_analysis/analysis_output.txt`  
+- `design1/data_analysis/context_knowledge_manipulation_analysis.R`  
+- `design1/data_analysis/correct_initial_analysis.R`  
+- `design1/data_analysis/corrected_within_list.R`  
+- `design1/data_analysis/final_between_list_complete_analysis.R`  
+- `design1/data_analysis/final_professional_analysis.R`  
+- `design1/data_analysis/final_results_summary.txt`  
+- `design1/data_analysis/final_within_list_complete_analysis.R`  
+- `design1/data_analysis/initial_within_list_complete_analysis.R`  
+- `design1/data_analysis/simple_mixed_effects.R`  
+- `design1/data_analysis/streamlined_glmm_analysis.R`  
+- `design1/data_analysis/test_initial_models.R`  
+- `design1/data_analysis/trace_data_processing.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/153886b_20250923_114041_plot1.png)  
+![](../plot_archive/153886b_20250923_114041_plot2.png)  
+
 ## Commit [54c2981](https://github.com/naszhu/REM_E3_model_fixed/commit/54c2981) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-22 13:53:18  
 **Message:**
