@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [54c2981](https://github.com/naszhu/REM_E3_model_fixed/commit/54c2981) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-22 13:53:18  
+**Message:**
+```
+feat(analysis-e3): enhance shape and color scales in test data visualizations
+
+- Updated ggplot visualizations in final and initial test scripts to use manual shape and color scales for better clarity and distinction among categories.
+- Improved the representation of different response types by defining specific shapes and colors for each category in the plots.
+- These changes aim to enhance the interpretability of the results and provide a more visually informative analysis of correct response rates across various test positions.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_between_list_data_e3.r`  
+- `design3/data_analysis/final_test_within_list_data_e3.r`  
+- `design3/data_analysis/initial_test_between_list_data_e3.r`  
+- `design3/data_analysis/initial_test_within_list_data_e3.r`  
+![](../plot_archive/54c2981_20250922_135318_plot1.png)  
+![](../plot_archive/54c2981_20250922_135318_plot2.png)  
+
 ## Commit [0cd20ad](https://github.com/naszhu/REM_E3_model_fixed/commit/0cd20ad) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-22 12:20:29  
 **Message:**
