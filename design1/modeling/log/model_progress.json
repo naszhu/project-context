@@ -1,5 +1,21 @@
 [
   {
+    "commit": "e1a425f",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): enhance visualizations and data processing in test scripts",
+    "timestamp": "2025-09-23 13:38:46",
+    "plot1": "plot_archive/e1a425f_20250923_133846_plot1.png",
+    "plot2": "plot_archive/e1a425f_20250923_133846_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/final_test_between_list_data_e3.r",
+      "design3/data_analysis/final_test_within_list_data_e3.r",
+      "design3/data_analysis/initial_test_between_list_data_e3.r",
+      "design3/data_analysis/initial_test_within_list_data_e3.r"
+    ]
+  },
+  {
     "commit": "153886b",
     "branch": "sep12-analysisplot",
     "message": "feat(analysis-e1): add comprehensive GLMM analysis and results documentation",

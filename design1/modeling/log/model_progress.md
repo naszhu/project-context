@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [e1a425f](https://github.com/naszhu/REM_E3_model_fixed/commit/e1a425f) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-23 13:38:46  
+**Message:**
+```
+feat(analysis-e3): enhance visualizations and data processing in test scripts
+
+make good visulization bigger font etc data plot
+
+- Improved ggplot visualizations across multiple test scripts by increasing font sizes for better readability and adjusting point sizes for clarity.
+- Added new data processing steps to categorize list positions in the final test analysis, enhancing the interpretability of results.
+- Updated plot dimensions for exported images to ensure better presentation quality.
+- These changes aim to provide a more comprehensive and visually appealing analysis of correct response rates across different test conditions.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_between_list_data_e3.r`  
+- `design3/data_analysis/final_test_within_list_data_e3.r`  
+- `design3/data_analysis/initial_test_between_list_data_e3.r`  
+- `design3/data_analysis/initial_test_within_list_data_e3.r`  
+![](../plot_archive/e1a425f_20250923_133846_plot1.png)  
+![](../plot_archive/e1a425f_20250923_133846_plot2.png)  
+
 ## Commit [153886b](https://github.com/naszhu/REM_E3_model_fixed/commit/153886b) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-23 11:40:41  
 **Message:**
