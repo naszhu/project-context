@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [d97d4d5](https://github.com/naszhu/REM_E3_model_fixed/commit/d97d4d5) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-23 14:53:00  
+**Message:**
+```
+feat(analysis-e1): enhance data processing and visualization in final test analysis
+
+- Added constants for styling to improve the readability and aesthetics of plots.
+- Updated data processing steps to categorize positions more clearly, changing labels for better interpretability.
+- Enhanced ggplot visualizations by adjusting point sizes, line widths, and font sizes for improved clarity.
+- Removed commented-out code to streamline the script and focus on active data processing and visualization steps.
+- These changes aim to provide a more comprehensive and visually appealing analysis of correct response rates across different test conditions.
+```
+**Changed Files:**
+- `design1/combined_finaltest_between_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/d97d4d5_20250923_145300_plot1.png)  
+![](../plot_archive/d97d4d5_20250923_145300_plot2.png)  
+
 ## Commit [e1a425f](https://github.com/naszhu/REM_E3_model_fixed/commit/e1a425f) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-23 13:38:46  
 **Message:**
