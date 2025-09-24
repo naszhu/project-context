@@ -7,11 +7,51 @@ library(gridExtra)
 library(png)
 library(grid)
 
+# ===== SHARED CONSTANTS =====
+# Colors
+COLOR_FOIL <- "#E08214"
+COLOR_TARGET <- "#1A9850"
+COLOR_AVERAGE <- "#2C2C2C"
+
+# Shapes
+SHAPE_FOIL <- 17                             # solid triangle
+SHAPE_TARGET <- 15                      # solid square
+
+# Line types
+LINETYPE_FOIL <- "solid"
+LINETYPE_TARGET <- "longdash"
+
+ylabsname <- "Correct Response Rate"
+
+# Sizes
+BASE_FONT_SIZE <- 24
+POINT_SIZE <- 4.5
+LINE_WIDTH <- 1.8
+AVERAGE_LINE_WIDTH <- 2.2
+RIBBON_ALPHA <- 0.25
+LINE_ALPHA <- 0.85
+
+# Y-axis limits and breaks
+Y_MIN <- 0.82
+Y_MAX <- 0.96
+Y_BREAKS <- seq(Y_MIN, Y_MAX, by = 0.02)
+
+# X-axis breaks
+X_BREAKS <- 1:10
+X_LABELS <- as.character(X_BREAKS)
+
+# Theme settings
+BASE_TEXT_SIZE <- 24
+TITLE_SIZE <- 25
+AXIS_TITLE_SIZE <- 25
+AXIS_TEXT_SIZE <- 25
+LEGEND_POSITION <- "none"  # Hide legends
+
 # Set working directory to data_analysis folder for data plots
-setwd("data_analysis")
+# setwd("data_analysis")
 
 # Load the preprocessed data for data plot - EXACT COPY FROM ORIGINAL
-dfchanged <- read_csv("dfchanged.csv")
+dfchanged <- read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design1/data_analysis/dfchanged.csv")
 cat("Loaded dfchanged data from dfchanged.csv\n")
 
 # Create df_initialtestbyinitial (from the RMD file) - EXACT COPY FROM ORIGINAL
@@ -44,68 +84,60 @@ plot_data <- df_initialtestbyinitial%>%
                              TRUE ~ "target"))%>%
   mutate(conditionnow=paste(condition," - ",position_type))
 
-# Create the data plot with different shapes and line types - EXACT COPY FROM ORIGINAL
+# Create the data plot with different shapes and line types
 data_plot <- ggplot(data=plot_data, aes(position,meancr,group=interaction(position_type,conditionnow)))+
   # Enhanced points with different shapes for each probetype
   geom_point(aes(color=probetype, shape=probetype, group=probetype), 
-             size=4.5, alpha=0.9, stroke=1.5) +
+             size=POINT_SIZE, alpha=0.9, stroke=1.5) +
   # Enhanced lines with different line types  
   geom_line(aes(color=probetype, linetype=probetype, group=probetype), 
-            linewidth=1.8, alpha=0.85) +
+            linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
   # Enhanced ribbon with better visibility
   geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),
-              alpha=0.25) +
+              alpha=RIBBON_ALPHA) +
   # Enhanced average line with distinctive style
   geom_line(data=plot_data,
             aes(x=position,y=meancr_avg),
-            color="#2C2C2C", linewidth=2.2, linetype="dashed", alpha=0.9) +
+            color=COLOR_AVERAGE, linewidth=AVERAGE_LINE_WIDTH, linetype="dashed", alpha=0.9) +
   
-  scale_y_continuous(limits = c(0.82, 0.96),
-                      breaks = seq(0.82, 0.96, by = 0.02),
-                      name = "Performance (Hits/Correct Rejection)") +
+  scale_y_continuous(limits = c(Y_MIN, Y_MAX),
+                      breaks = Y_BREAKS,
+                      name = ylabsname) +
   # Enhanced styling and labels
   labs(x="List number in initial test",
-       y="Performance (Hits/Correct Rejection)",
+       y=ylabsname,
        title="E1 Initial Between List DATA",
        color="Type", fill="Type", shape="Type", linetype="Type") +
   
   # Enhanced color palette with high contrast
-  scale_color_manual(values=c("foil"="#D73027", "target"="#1A9850")) +
-  scale_fill_manual(values=c("foil"="#D73027", "target"="#1A9850")) +
-  scale_shape_manual(values=c("foil"=19, "target"=17)) +  # filled circle vs triangle
-  scale_linetype_manual(values=c("foil"="solid", "target"="longdash")) +
+  scale_color_manual(values=c("foil"=COLOR_FOIL, "target"=COLOR_TARGET)) +
+  scale_fill_manual(values=c("foil"=COLOR_FOIL, "target"=COLOR_TARGET)) +
+  scale_shape_manual(values=c("foil"=SHAPE_FOIL, "target"=SHAPE_TARGET)) +
+  scale_linetype_manual(values=c("foil"=LINETYPE_FOIL, "target"=LINETYPE_TARGET)) +
   
   # Enhanced theme with improved readability
-  theme_minimal() +
+ theme_bw(base_size = BASE_FONT_SIZE) +
   theme(
-    plot.caption = element_text(hjust = 0, size = 16, face = "bold", color = "darkblue", margin = margin(t = 25)),
-    plot.margin = margin(t = 20, r = 20, b = 60, l = 20),
-    text = element_text(size = 16),
-    axis.text = element_text(size = 15, color = "black"),
-    axis.title = element_text(size = 17, face = "bold", color = "black"),
-    panel.grid.major = element_line(color = "grey75", linewidth = 0.5),
-    panel.grid.minor = element_line(color = "grey85", linewidth = 0.3),
-    legend.position = "bottom",
-    legend.title = element_text(face = "bold", size = 15),
-    legend.text = element_text(size = 14),
-    legend.key.width = unit(2.5, "cm"),
-    legend.key.height = unit(0.8, "cm"),
-    legend.margin = margin(t = 25),
-    plot.title = element_text(face = "bold", hjust = 0.5, size = 18, margin = margin(b = 25)),
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8),
-    plot.background = element_rect(fill = "white", color = NA),
-    panel.background = element_rect(fill = "grey97", color = NA)
+          plot.title = element_text(hjust = 0.5, size = TITLE_SIZE, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 18, face = "bold", color = "blue"),
+        panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8),
+        panel.grid.major = element_line(color = "gray90", linewidth = 0.5),
+        panel.grid.minor = element_line(color = "gray95", linewidth = 0.3),
+        legend.position = LEGEND_POSITION,
+        text = element_text(size = BASE_TEXT_SIZE),
+        axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+        axis.text = element_text(size = AXIS_TEXT_SIZE)
   )
 
 # Save data plot
-ggsave("temp_data_plot.png", data_plot, width = 8, height = 8, dpi = 300, bg = "white")
+# ggsave("temp_data_plot.png", data_plot, width = 8, height = 8, dpi = 300, bg = "white")
 
 # Now switch to modeling folder for prediction plot
-setwd("../modeling/R_ploting")
+# setwd("../modeling/R_ploting")
 
 # Load data for prediction plot - EXACT COPY FROM ORIGINAL
-all_results <- read.csv("../../../all_results.csv")
-DF <- read.csv("../../../DF.csv")
+all_results <- read.csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/all_results.csv")
+DF <- read.csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/DF.csv")
 
 df_between <- DF %>% 
     mutate(meanx = case_when(is_target == "true" ~ meanx, TRUE ~ 1 - meanx)) %>%
@@ -124,64 +156,62 @@ df_between$is_target <- factor(df_between$is_target,
 
 ribbon_width <- 0.008
 
-# Create the prediction plot - EXACT COPY FROM ORIGINAL
+# Create the prediction plot
 prediction_plot <- ggplot(data = df_between, aes(x = list_number, y = meanx, group = is_target)) +
     # geom_ribbon(aes(ymin = meanx - ribbon_width, ymax = meanx + ribbon_width, fill = is_target), 
                 # alpha = 0.4) +
-    geom_line(aes(color = is_target, linetype = is_target), linewidth = 2) +
-    geom_point(aes(color = is_target, shape = is_target), size = 8) +
-    geom_line(aes(x = list_number, y = meanx_m), color = "black", linewidth = 2, linetype = "dashed") +
+    geom_line(aes(color = is_target, linetype = is_target), linewidth = LINE_WIDTH) +
+    geom_point(aes(color = is_target, shape = is_target), size = POINT_SIZE) +
+    geom_line(aes(x = list_number, y = meanx_m), color = COLOR_AVERAGE, linewidth = AVERAGE_LINE_WIDTH, linetype = "dashed") +
     # geom_point(aes(x = list_number, y = meanx_m), color = "black", shape = 15, size = 8) +
-    scale_color_manual(values = c("foil" = "#E74C3C", "target" = "#27AE60"),
+    scale_color_manual(values = c("foil" = COLOR_FOIL, "target" = COLOR_TARGET),
                       name = "Type") +
-    scale_fill_manual(values = c("foil" = "#E74C3C", "target" = "#27AE60"),
+    scale_fill_manual(values = c("foil" = COLOR_FOIL, "target" = COLOR_TARGET),
                      name = "Type") +
-    scale_shape_manual(values = c("foil" = 16, "target" = 17),
+    scale_shape_manual(values = c("foil" = SHAPE_FOIL, "target" = SHAPE_TARGET),
                       name = "Type") +
-    scale_linetype_manual(values = c("foil" = "solid", "target" = "dashed"),
+    scale_linetype_manual(values = c("foil" = LINETYPE_FOIL, "target" = LINETYPE_TARGET),
                          name = "Type") +
-    scale_y_continuous(limits = c(0.82, 0.96),
-                      breaks = seq(0.82, 0.96, by = 0.02),
-                      name = "Performance (Hits/Correct Rejection)") +
-    scale_x_continuous(breaks = 1:10,
-                      labels = as.character(1:10),
+    scale_y_continuous(limits = c(Y_MIN, Y_MAX),
+                      breaks = Y_BREAKS,
+                      name = ylabsname) +
+    scale_x_continuous(breaks = X_BREAKS,
+                      labels = X_LABELS,
                       name = "List number in initial test") +
     labs(title = "E1 Initial Between List PREDICTION",
         #  subtitle = "Figure 3. Between List Initial Test Results") +
          ) +
-    theme_minimal() +
+    theme_bw(base_size = BASE_FONT_SIZE) +
     theme(
-        plot.title = element_text(hjust = 0.5, size = 24, face = "bold"),
+        plot.title = element_text(hjust = 0.5, size = TITLE_SIZE, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5, size = 18, face = "bold", color = "blue"),
         panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8),
         panel.grid.major = element_line(color = "gray90", linewidth = 0.5),
         panel.grid.minor = element_line(color = "gray95", linewidth = 0.3),
-        legend.position = "bottom",
-        legend.title = element_text(size = 16, face = "bold"),
-        legend.text = element_text(size = 14),
-        text = element_text(size = 16),
-        axis.title = element_text(size = 16, face = "bold"),
-        axis.text = element_text(size = 14)
+        legend.position = LEGEND_POSITION,
+        text = element_text(size = BASE_TEXT_SIZE),
+        axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+        axis.text = element_text(size = AXIS_TEXT_SIZE)
     )
 
 # Save prediction plot
-ggsave("temp_prediction_plot.png", plot = prediction_plot, 
-       width = 10, height = 7, dpi = 300, bg = "white")
+# ggsave("temp_prediction_plot.png", plot = prediction_plot, 
+      #  width = 10, height = 7, dpi = 300, bg = "white")
 
 # Go back to main directory
-setwd("../../")
+# setwd("../../")
 
 # Load the saved plots as images
-data_img <- readPNG("data_analysis/temp_data_plot.png")
-prediction_img <- readPNG("modeling/R_ploting/temp_prediction_plot.png")
+# data_img <- readPNG("data_analysis/temp_data_plot.png")
+# prediction_img <- readPNG("modeling/R_ploting/temp_prediction_plot.png")
 
 # Convert to raster grobs
-data_grob <- rasterGrob(data_img, interpolate = TRUE)
-prediction_grob <- rasterGrob(prediction_img, interpolate = TRUE)
+# data_grob <- rasterGrob(data_img, interpolate = TRUE)
+# prediction_grob <- rasterGrob(prediction_img, interpolate = TRUE)
 
 # Create combined plot using grid.arrange
 combined_plot <- grid.arrange(
-  data_grob, prediction_grob,
+  data_plot, prediction_plot,
   ncol = 2,
   top = textGrob("E1 Initial Between List: DATA vs PREDICTION", 
                  gp = gpar(fontsize = 28, fontface = "bold"))

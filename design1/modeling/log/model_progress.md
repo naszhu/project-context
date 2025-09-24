@@ -1,5 +1,46 @@
 # Model Progress
 
+## Commit [a34ab7a](https://github.com/naszhu/REM_E3_model_fixed/commit/a34ab7a) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-25 12:12:25  
+**Message:**
+```
+feat(analysis-e1): enhance data visualization and processing in initial list analysis
+
+- Introduced shared constants for colors, shapes, and line types to improve consistency across plots.
+- Updated ggplot visualizations with enhanced aesthetics, including adjusted point sizes, line widths, and font sizes for better readability.
+- Modified data loading paths for improved accessibility and streamlined data processing steps.
+- Removed commented-out code to enhance script clarity and focus on active analysis.
+- These changes aim to provide a more cohesive and visually appealing analysis of correct response rates across different test conditions.
+```
+**Changed Files:**
+- `Docs/.~lock.parameter_values_aug-19.docx#`  
+- `design1/combined_finaltest_between_list.R`  
+- `design1/combined_initial_between_list.R`  
+- `design1/combined_initial_within_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a34ab7a_20250925_121225_plot1.png)  
+![](../plot_archive/a34ab7a_20250925_121225_plot2.png)  
+
+## Commit [f802ef0](https://github.com/naszhu/REM_E3_model_fixed/commit/f802ef0) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-23 16:03:14  
+**Message:**
+```
+refactor(analysis-e1): unify styling constants and enhance ggplot aesthetics
+
+- Introduced unified styling constants for improved consistency across data and prediction plots.
+- Enhanced ggplot visualizations by adjusting point sizes, line widths, and font sizes for better clarity.
+- Updated data processing to handle FOIL performance separately and improved categorization of probetype and position_type.
+- Streamlined the script by removing commented-out code and ensuring active data processing steps are clear.
+- These changes aim to provide a more cohesive and visually appealing analysis of test results across different conditions.
+```
+**Changed Files:**
+- `design1/combined_finaltest_within_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/f802ef0_20250923_160314_plot1.png)  
+![](../plot_archive/f802ef0_20250923_160314_plot2.png)  
+
 ## Commit [a9e2a04](https://github.com/naszhu/REM_E3_model_fixed/commit/a9e2a04) (branch: `sep12-analysisplot`)
 **Time:** 2025-09-23 15:03:55  
 **Message:**

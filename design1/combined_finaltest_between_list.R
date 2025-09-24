@@ -80,7 +80,7 @@ dfserial=
 
 # For foils in Initial Study List Position, set position to 0 and calculate mean across all conditions
 dfserial <- dfserial %>%
-  mutate(position = as.numeric(position))
+  mutate(position = as.integer(position))
 
 # Create foil data at position 0 for Initial Study List Position (averaged across all conditions)
 # foil_zero_data <- dfserial %>%
