@@ -163,16 +163,16 @@ f2_aligned%>%group_by(subject_id)%>%
 # df_pl_combine = bind_rows(df_pl, dreal)
 
 
-df_pl_combine%>%filter(subject_id=="thisis_cool")%>%arrange(trial_index) 
-df_pl_combine%>%group_by(subject_id)%>%
-  summarize(n=n(),
-    ac=mean(all_accumulated_accuracy),
-            isf=mean(is_finished))
-
-df_pl_combine%>%filter(subject_id%in%c("67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548"))
-
-dreal%>%group_by(subject_id)%>%
-  summarize(n=n())
+# df_pl_combine%>%filter(subject_id=="thisis_cool")%>%arrange(trial_index) 
+# df_pl_combine%>%group_by(subject_id)%>%
+#   summarize(n=n(),
+#     ac=mean(all_accumulated_accuracy),
+#             isf=mean(is_finished))
+# 
+# df_pl_combine%>%filter(subject_id%in%c("67dc712c511053c8d90e2c29","67eac4d6bf3d1c4df7bd65df","67ed4e79983b8a8ba5517548"))
+# 
+# dreal%>%group_by(subject_id)%>%
+#   summarize(n=n())
 ```
 
 
@@ -369,6 +369,34 @@ levels(as.factor(df_pl$type_comment ))
 #   summarize(n=n())
 ```
 
+codeversion1: [1] "67eecbd7a0c98bad9a91d0c0" "67ef6e8e9bfc15c060497365"
+runid 5 (id: 67eecbd7a0c98bad9a91d0c0) source code version: 7dfe7f81cd9c80a1972070b6eed80b27 		2025-04-04 12:03:51
+runid 4: 800ada036aababc29b2738b065f35859 2025-04-19 04:58:17
+runid 6: 800ada036aababc29b2738b065f35859 2025-04-19 04:58:31
+
+id (67ef6e8e9bfc15c060497365)
+codev: 7dfe7f81cd9c80a1972070b6eed80b27
+runat: 2025-04-04 12:10:35
+runid: 6
+
+```{r}
+ds=
+combined_df%>% filter(task%in% c("initialTest_response","finalTest")) %>% 
+  filter(is_finished==1)%>%
+  filter(run_id==4)%>%
+  # filter(subject_id=="67ef6e8e9bfc15c060497365")%>%
+  # mutate()
+  # filter(stimulusConditions=="B", testPos_appear1_initial==0)%>%
+  select(codeversion,run_id)
+
+levels(as.factor(ds$subject_id))
+
+ds=combined_df%>%filter(codeversion==1,is_finished==1)
+levels(as.factor(ds$subject_id))
+# ds
+```
+
+
 ## data clean
 ```{r}
 levels(as.factor(df_pl$task ))
@@ -377,6 +405,7 @@ df_rt_pl =
   combined_df %>% filter(task%in% c("initialTest_response","finalTest")) %>% 
   filter(is_finished==1)%>%
   mutate(rt=as.numeric(rt))%>%
+  filter(codeversion != 1)%>%
   filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")%>%
   filter(! subject_id%in%c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a"))%>% #accuracy too low
     filter(subject_id!="")%>%
@@ -502,6 +531,8 @@ df_rt_pl%>%group_by(subject_id)%>%
 
 combined_df%>%filter(subject_id=="6751acc5dc78128951a34f1f")%>%select(is_finished)
 # c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a") #final acc =0.2...
+
+# df_rt_pl%>%
 ```
 
 
@@ -1433,6 +1464,9 @@ ggplot(data=d1taf)+
 
 
 ```
+```{r}
+names(df_rt_pl)%>%
+```
 
 
 
@@ -1486,8 +1520,8 @@ df_pl_with_init <-
 ```
 
 ```{r}
-df2%>%select(group_init,n_tests,correct_appear1,correct_appear2,probe_history, init_outcome, group_init)
-df2%>%select(group_init,n_tests)
+# df2%>%select(group_init,n_tests,correct_appear1,correct_appear2,probe_history, init_outcome, group_init)
+# df2%>%select(group_init,n_tests)
 ```
 
 ## Joint Prob Plot
@@ -2484,28 +2518,28 @@ Target studied from current list                     0.00814
 ## bayesian way
 ```{r}
  # Perform Bayesian paired t-test for each colorskeme category
-  library(BayesFactor)
-
-  # Reshape data for Bayesian paired t-test
-  d_perform_wide <- d_perform %>%
-    pivot_wider(names_from = listNum_appear0_initial, values_from = correct, names_prefix = "list_") %>%
-    filter(!is.na(list_2) & !is.na(list_3)) # Ensure no missing values
-
-  # Perform Bayesian paired t-test for each colorskeme
-  bayesian_results <- d_perform_wide %>%
-    group_by(colorskeme) %>%
-    summarise(
-      bf = list(ttestBF(x = list_2, y = list_3, paired = TRUE)),
-      .groups = "drop"
-    ) %>%
-    mutate(
-      bf_value = map_dbl(bf, ~ exp(.x@bayesFactor$bf))
-    )
-
-# BF > 1: Evidence favors the alternative hypothesis.
-# BF < 1: Evidence favors the null hypothesis.
-# BF ≈ 1: Evidence is inconclusive.
-  # Display results
-  bayesian_results %>%
-    select(colorskeme, bf_value)
+#   library(BayesFactor)
+# 
+#   # Reshape data for Bayesian paired t-test
+#   d_perform_wide <- d_perform %>%
+#     pivot_wider(names_from = listNum_appear0_initial, values_from = correct, names_prefix = "list_") %>%
+#     filter(!is.na(list_2) & !is.na(list_3)) # Ensure no missing values
+# 
+#   # Perform Bayesian paired t-test for each colorskeme
+#   bayesian_results <- d_perform_wide %>%
+#     group_by(colorskeme) %>%
+#     summarise(
+#       bf = list(ttestBF(x = list_2, y = list_3, paired = TRUE)),
+#       .groups = "drop"
+#     ) %>%
+#     mutate(
+#       bf_value = map_dbl(bf, ~ exp(.x@bayesFactor$bf))
+#     )
+# 
+# # BF > 1: Evidence favors the alternative hypothesis.
+# # BF < 1: Evidence favors the null hypothesis.
+# # BF ≈ 1: Evidence is inconclusive.
+#   # Display results
+#   bayesian_results %>%
+#     select(colorskeme, bf_value)
 ```

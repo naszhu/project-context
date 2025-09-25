@@ -1,5 +1,480 @@
 # Model Progress
 
+## Commit [b654343](https://github.com/naszhu/REM_E3_model_fixed/commit/b654343) (branch: `main`)
+**Time:** 2025-09-11 01:37:57  
+**Message:**
+```
+merge(predplot-e1): Merge branch 'sep-10-predplot'
+```
+![](../plot_archive/b654343_20250911_013757_plot1.png)  
+![](../plot_archive/b654343_20250911_013757_plot2.png)  
+
+## Commit [a34ab7a](https://github.com/naszhu/REM_E3_model_fixed/commit/a34ab7a) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-25 12:12:25  
+**Message:**
+```
+feat(analysis-e1): enhance data visualization and processing in initial list analysis
+
+- Introduced shared constants for colors, shapes, and line types to improve consistency across plots.
+- Updated ggplot visualizations with enhanced aesthetics, including adjusted point sizes, line widths, and font sizes for better readability.
+- Modified data loading paths for improved accessibility and streamlined data processing steps.
+- Removed commented-out code to enhance script clarity and focus on active analysis.
+- These changes aim to provide a more cohesive and visually appealing analysis of correct response rates across different test conditions.
+```
+**Changed Files:**
+- `Docs/.~lock.parameter_values_aug-19.docx#`  
+- `design1/combined_finaltest_between_list.R`  
+- `design1/combined_initial_between_list.R`  
+- `design1/combined_initial_within_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a34ab7a_20250925_121225_plot1.png)  
+![](../plot_archive/a34ab7a_20250925_121225_plot2.png)  
+
+## Commit [f802ef0](https://github.com/naszhu/REM_E3_model_fixed/commit/f802ef0) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-23 16:03:14  
+**Message:**
+```
+refactor(analysis-e1): unify styling constants and enhance ggplot aesthetics
+
+- Introduced unified styling constants for improved consistency across data and prediction plots.
+- Enhanced ggplot visualizations by adjusting point sizes, line widths, and font sizes for better clarity.
+- Updated data processing to handle FOIL performance separately and improved categorization of probetype and position_type.
+- Streamlined the script by removing commented-out code and ensuring active data processing steps are clear.
+- These changes aim to provide a more cohesive and visually appealing analysis of test results across different conditions.
+```
+**Changed Files:**
+- `design1/combined_finaltest_within_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/f802ef0_20250923_160314_plot1.png)  
+![](../plot_archive/f802ef0_20250923_160314_plot2.png)  
+
+## Commit [a9e2a04](https://github.com/naszhu/REM_E3_model_fixed/commit/a9e2a04) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-23 15:03:55  
+**Message:**
+```
+refactor(analysis-e1): unify styling constants and enhance ggplot aesthetics
+
+- Consolidated styling constants for data and prediction plots to improve consistency and readability.
+- Updated ggplot visualizations by adjusting point sizes, line widths, and font sizes for enhanced clarity.
+- Changed x-axis scale from discrete to continuous for better representation of position data.
+- Improved overall plot aesthetics with unified margins, grid styling, and background colors.
+- These changes aim to provide a more cohesive and visually appealing analysis of test results across different conditions.
+```
+**Changed Files:**
+- `design1/combined_finaltest_between_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a9e2a04_20250923_150355_plot1.png)  
+![](../plot_archive/a9e2a04_20250923_150355_plot2.png)  
+
+## Commit [d97d4d5](https://github.com/naszhu/REM_E3_model_fixed/commit/d97d4d5) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-23 14:53:00  
+**Message:**
+```
+feat(analysis-e1): enhance data processing and visualization in final test analysis
+
+- Added constants for styling to improve the readability and aesthetics of plots.
+- Updated data processing steps to categorize positions more clearly, changing labels for better interpretability.
+- Enhanced ggplot visualizations by adjusting point sizes, line widths, and font sizes for improved clarity.
+- Removed commented-out code to streamline the script and focus on active data processing and visualization steps.
+- These changes aim to provide a more comprehensive and visually appealing analysis of correct response rates across different test conditions.
+```
+**Changed Files:**
+- `design1/combined_finaltest_between_list.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/d97d4d5_20250923_145300_plot1.png)  
+![](../plot_archive/d97d4d5_20250923_145300_plot2.png)  
+
+## Commit [e1a425f](https://github.com/naszhu/REM_E3_model_fixed/commit/e1a425f) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-23 13:38:46  
+**Message:**
+```
+feat(analysis-e3): enhance visualizations and data processing in test scripts
+
+make good visulization bigger font etc data plot
+
+- Improved ggplot visualizations across multiple test scripts by increasing font sizes for better readability and adjusting point sizes for clarity.
+- Added new data processing steps to categorize list positions in the final test analysis, enhancing the interpretability of results.
+- Updated plot dimensions for exported images to ensure better presentation quality.
+- These changes aim to provide a more comprehensive and visually appealing analysis of correct response rates across different test conditions.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_between_list_data_e3.r`  
+- `design3/data_analysis/final_test_within_list_data_e3.r`  
+- `design3/data_analysis/initial_test_between_list_data_e3.r`  
+- `design3/data_analysis/initial_test_within_list_data_e3.r`  
+![](../plot_archive/e1a425f_20250923_133846_plot1.png)  
+![](../plot_archive/e1a425f_20250923_133846_plot2.png)  
+
+## Commit [153886b](https://github.com/naszhu/REM_E3_model_fixed/commit/153886b) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-23 11:40:41  
+**Message:**
+```
+feat(analysis-e1): add comprehensive GLMM analysis and results documentation
+
+- Introduced a new R script for conducting a comprehensive generalized linear mixed model (GLMM) analysis of Experiment 1 data, focusing on recognition performance across various conditions.
+- Implemented data preparation steps, including participant screening and accuracy calculations, to ensure robust statistical modeling.
+- Generated detailed results documentation summarizing key findings, including exposure history effects and list order knowledge impacts, with statistical significance reported.
+- Exported results to a text file for accessibility and further review, enhancing the interpretability of the analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/E1_statistical_analysis.R`  
+- `design1/data_analysis/E1_statistical_results.txt`  
+- `design1/data_analysis/Experiment1_Professional_Manuscript_Results.txt`  
+- `design1/data_analysis/analysis_output.txt`  
+- `design1/data_analysis/context_knowledge_manipulation_analysis.R`  
+- `design1/data_analysis/correct_initial_analysis.R`  
+- `design1/data_analysis/corrected_within_list.R`  
+- `design1/data_analysis/final_between_list_complete_analysis.R`  
+- `design1/data_analysis/final_professional_analysis.R`  
+- `design1/data_analysis/final_results_summary.txt`  
+- `design1/data_analysis/final_within_list_complete_analysis.R`  
+- `design1/data_analysis/initial_within_list_complete_analysis.R`  
+- `design1/data_analysis/simple_mixed_effects.R`  
+- `design1/data_analysis/streamlined_glmm_analysis.R`  
+- `design1/data_analysis/test_initial_models.R`  
+- `design1/data_analysis/trace_data_processing.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/153886b_20250923_114041_plot1.png)  
+![](../plot_archive/153886b_20250923_114041_plot2.png)  
+
+## Commit [54c2981](https://github.com/naszhu/REM_E3_model_fixed/commit/54c2981) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-22 13:53:18  
+**Message:**
+```
+feat(analysis-e3): enhance shape and color scales in test data visualizations
+
+- Updated ggplot visualizations in final and initial test scripts to use manual shape and color scales for better clarity and distinction among categories.
+- Improved the representation of different response types by defining specific shapes and colors for each category in the plots.
+- These changes aim to enhance the interpretability of the results and provide a more visually informative analysis of correct response rates across various test positions.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_between_list_data_e3.r`  
+- `design3/data_analysis/final_test_within_list_data_e3.r`  
+- `design3/data_analysis/initial_test_between_list_data_e3.r`  
+- `design3/data_analysis/initial_test_within_list_data_e3.r`  
+![](../plot_archive/54c2981_20250922_135318_plot1.png)  
+![](../plot_archive/54c2981_20250922_135318_plot2.png)  
+
+## Commit [0cd20ad](https://github.com/naszhu/REM_E3_model_fixed/commit/0cd20ad) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-22 12:20:29  
+**Message:**
+```
+feat(analysis-e1): add context knowledge manipulation analysis script
+
+- Introduced a new R script for analyzing context knowledge manipulation, focusing on recognition performance based on exposure history, recency effects, and list order knowledge.
+- Implemented data processing steps to summarize performance metrics and conduct statistical analyses, including ANOVA and effect size calculations.
+- Created visualizations to illustrate the main effects and interactions, enhancing the interpretability of the results.
+- Exported analysis results and plots to CSV and PNG files for further review and accessibility.
+```
+**Changed Files:**
+- `design1/data_analysis/context_knowledge_manipulation_analysis.R`  
+- `design1/data_analysis/final_between_list_complete_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/0cd20ad_20250922_122029_plot1.png)  
+![](../plot_archive/0cd20ad_20250922_122029_plot2.png)  
+
+## Commit [eabb67a](https://github.com/naszhu/REM_E3_model_fixed/commit/eabb67a) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-22 12:19:55  
+**Message:**
+```
+feat(analysis-e1): add initial and final within-list analysis scripts
+
+- Introduced new R scripts for conducting comprehensive analyses of initial and final within-list data, focusing on correct response rates by test and study positions.
+- Implemented data processing steps to calculate means, standard deviations, and standard errors for correct responses, enhancing the clarity of results.
+- Included detailed output for performance hierarchies and statistical significance tests, providing insights into the effects of study and test positions on recognition performance.
+- Exported processed data to CSV files for further analysis and accessibility.
+```
+**Changed Files:**
+- `design1/data_analysis/correct_initial_analysis.R`  
+- `design1/data_analysis/final_between_list_complete_analysis.R`  
+- `design1/data_analysis/final_within_list_complete_analysis.R`  
+- `design1/data_analysis/initial_within_list_complete_analysis.R`  
+- `design1/data_analysis/trace_data_processing.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/eabb67a_20250922_121955_plot1.png)  
+![](../plot_archive/eabb67a_20250922_121955_plot2.png)  
+
+## Commit [ce0ea10](https://github.com/naszhu/REM_E3_model_fixed/commit/ce0ea10) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 22:45:45  
+**Message:**
+```
+feat(analysis-e3): add initial and final within-list analysis scripts
+
+- Introduced new R scripts for conducting comprehensive analyses of initial and final within-list data, focusing on correct response rates by test and study positions.
+- Implemented data processing steps to calculate means, standard deviations, and standard errors for correct responses, enhancing the clarity of results.
+- Included detailed output for performance hierarchies and statistical significance tests, providing insights into the effects of study and test positions on recognition performance.
+- Exported processed data to CSV files for further analysis and accessibility.
+```
+**Changed Files:**
+- `design1/data_analysis/correct_initial_analysis.R`  
+- `design1/data_analysis/final_between_list_complete_analysis.R`  
+- `design1/data_analysis/final_within_list_complete_analysis.R`  
+- `design1/data_analysis/initial_within_list_complete_analysis.R`  
+- `design1/data_analysis/trace_data_processing.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/ce0ea10_20250921_224545_plot1.png)  
+![](../plot_archive/ce0ea10_20250921_224545_plot2.png)  
+
+## Commit [cf5e824](https://github.com/naszhu/REM_E3_model_fixed/commit/cf5e824) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 21:51:01  
+**Message:**
+```
+feat(analysis-e3): refine initial and final test data analysis with enhanced summarization and visualization
+
+- Updated summarization steps to calculate means and standard errors for correct response rates in both initial and final test analyses.
+- Improved ggplot visualizations by adding ribbons for standard error and updating color and fill scales for better clarity and distinction among categories.
+- These enhancements aim to provide a more comprehensive and visually informative analysis of correct response rates across different test positions.
+```
+**Changed Files:**
+- `design1/data_analysis/E1_statistical_analysis.R`  
+- `design1/data_analysis/E1_statistical_results.txt`  
+- `design1/data_analysis/corrected_within_list.R`  
+- `design1/data_analysis/simple_mixed_effects.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_between_list_data_e3.r`  
+- `design3/data_analysis/initial_test_between_list_data_e3.r`  
+![](../plot_archive/cf5e824_20250921_215101_plot1.png)  
+![](../plot_archive/cf5e824_20250921_215101_plot2.png)  
+
+## Commit [1a88bc4](https://github.com/naszhu/REM_E3_model_fixed/commit/1a88bc4) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 17:18:58  
+**Message:**
+```
+feat(analysis-e3): enhance final test data analysis with improved summarization and visualization
+
+- Updated the data processing to include additional grouping and summarization steps for both test and study positions, calculating means and standard errors for correct response rates.
+- Enhanced the ggplot visualization by adding a ribbon for standard error and updating color scales for better clarity and distinction between categories.
+- These changes aim to provide a more comprehensive analysis of correct response rates across different positions in the final test data.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_within_list_data_e3.r`  
+![](../plot_archive/1a88bc4_20250921_171858_plot1.png)  
+![](../plot_archive/1a88bc4_20250921_171858_plot2.png)  
+
+## Commit [656fbab](https://github.com/naszhu/REM_E3_model_fixed/commit/656fbab) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 17:16:38  
+**Message:**
+```
+feat(analysis-e3): filter out specific code versions in data analysis
+
+- Added a filter to exclude entries with codeversion equal to 1 in the data processing pipeline.
+- This change aims to refine the dataset used for analysis by removing potentially irrelevant data points.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/R_design3_pilotExample.rmd`  
+- `design3/data_analysis/generate_data.r`  
+![](../plot_archive/656fbab_20250921_171638_plot1.png)  
+![](../plot_archive/656fbab_20250921_171638_plot2.png)  
+
+## Commit [bc2316b](https://github.com/naszhu/REM_E3_model_fixed/commit/bc2316b) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 16:35:18  
+**Message:**
+```
+feat(analysis-e3): add final test within list data analysis script
+
+- Introduced a new R script for analyzing final test data within lists, focusing on correct response rates by test and study positions.
+- Implemented data processing and visualization using ggplot2, generating a combined plot for enhanced clarity.
+- Exported the final plot as a PNG file for improved accessibility and presentation.
+- Updated .gitignore to include new plot files, ensuring they are not tracked by Git.
+```
+**Changed Files:**
+- `.gitignore`  
+- `Docs/.~lock.DataPlot-d3(exp2).docx#`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_within_list_data_e3.r`  
+![](../plot_archive/bc2316b_20250921_163518_plot1.png)  
+![](../plot_archive/bc2316b_20250921_163518_plot2.png)  
+
+## Commit [6841965](https://github.com/naszhu/REM_E3_model_fixed/commit/6841965) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 22:24:45  
+**Message:**
+```
+feat(analysis-e3): add final test analysis script with combined data visualization
+
+- Introduced a new R script for analyzing final test data between lists, including data processing for initial and final positions.
+- Created a combined dataset for both positions to facilitate comprehensive visualization of correct response rates.
+- Implemented ggplot2 for generating a combined plot, enhancing clarity and insight into the analysis.
+- Exported the final plot as a PNG file for improved accessibility and presentation.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_between_list_data_e3.r`  
+![](../plot_archive/6841965_20250921_222445_plot1.png)  
+![](../plot_archive/6841965_20250921_222445_plot2.png)  
+
+## Commit [da9bdaf](https://github.com/naszhu/REM_E3_model_fixed/commit/da9bdaf) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 21:45:02  
+**Message:**
+```
+feat(analysis-e3): enhance initial test analysis with combined data visualization
+
+- Refactored the initial test data processing to separate analyses by test and study positions.
+- Introduced a combined dataset for both test and study positions, allowing for comprehensive visualization.
+- Updated ggplot generation to create a combined plot, improving clarity and insight into correct response rates across different positions.
+- Exported the updated plot as a PNG file for better accessibility and presentation.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/initial_test_within_list_data_e3.r`  
+![](../plot_archive/da9bdaf_20250921_214502_plot1.png)  
+![](../plot_archive/da9bdaf_20250921_214502_plot2.png)  
+
+## Commit [54c7452](https://github.com/naszhu/REM_E3_model_fixed/commit/54c7452) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 21:36:53  
+**Message:**
+```
+chore(all): update gitignore
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/54c7452_20250921_213653_plot1.png)  
+![](../plot_archive/54c7452_20250921_213653_plot2.png)  
+
+## Commit [51f81a2](https://github.com/naszhu/REM_E3_model_fixed/commit/51f81a2) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 21:35:28  
+**Message:**
+```
+feat(analysis-e3): add plot generation to initial test within list script
+
+  - Remove temporary lock files for DataPlot documents
+  - Add trailing whitespace to combined_initial_within_list.R
+  - Add ggplot visualization and PNG export to initial_test_within_list_data_e3.r
+```
+**Changed Files:**
+- `Docs/.~lock.DataPlot-d1(exp1).odt#`  
+- `Docs/.~lock.Dataplot-e3-aug19.docx#`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/initial_test_within_list_data_e3.r`  
+![](../plot_archive/51f81a2_20250921_213528_plot1.png)  
+![](../plot_archive/51f81a2_20250921_213528_plot2.png)  
+
+## Commit [b82909e](https://github.com/naszhu/REM_E3_model_fixed/commit/b82909e) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-21 21:29:54  
+**Message:**
+```
+refactor(analysis-e3): comment out unused data processing steps in R script
+
+- Commented out several data filtering and summarization lines in `R_design3_pilotExample.rmd` to improve script clarity and maintainability.
+- These changes aim to streamline the analysis process by reducing clutter while preserving the original code for potential future use.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/R_design3_pilotExample.rmd`  
+![](../plot_archive/b82909e_20250921_212954_plot1.png)  
+![](../plot_archive/b82909e_20250921_212954_plot2.png)  
+
+## Commit [78509d4](https://github.com/naszhu/REM_E3_model_fixed/commit/78509d4) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-12 23:41:17  
+**Message:**
+```
+feat(analysis-e3): add initial test analysis scripts and visualization
+
+- Introduced new R scripts for analyzing initial test data between lists, including `initial_test_between_list_data_e3.r` and `quick_plot.r`.
+- Implemented data processing and visualization using ggplot2, enhancing the ability to generate insightful plots from aggregated data.
+- Updated `.gitignore` to include new R script files, ensuring they are not tracked by Git.
+
+These changes aim to improve the analysis capabilities for initial test data and streamline the visualization process.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/generate_data.r`  
+- `design3/data_analysis/initial_test_between_list_data_e3.r`  
+- `design3/data_analysis/quick_plot.r`  
+![](../plot_archive/78509d4_20250912_234117_plot1.png)  
+![](../plot_archive/78509d4_20250912_234117_plot2.png)  
+
+## Commit [69e5a88](https://github.com/naszhu/REM_E3_model_fixed/commit/69e5a88) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-12 23:26:53  
+**Message:**
+```
+feat(analysis-e3): add CSV export functionality to generate_data.r
+
+- Implemented a write.csv function to export the processed data frame to a specified file path.
+- This addition allows for easier data sharing and further analysis outside of the R environment.
+
+These changes enhance the usability of the data processing script by enabling direct output of results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/generate_data.r`  
+![](../plot_archive/69e5a88_20250912_232653_plot1.png)  
+![](../plot_archive/69e5a88_20250912_232653_plot2.png)  
+
+## Commit [d7a5b5a](https://github.com/naszhu/REM_E3_model_fixed/commit/d7a5b5a) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-12 23:22:20  
+**Message:**
+```
+refactor(analysis-e3): clean up generate_data.r by removing redundant summarization steps
+
+- Removed unnecessary group_by and summarize calls that were not contributing to the final output.
+- Streamlined the data processing workflow to enhance readability and maintainability of the script.
+- Ensured that the essential data transformations and filtering steps remain intact for accurate analysis.
+
+These changes aim to simplify the data analysis process and improve the overall structure of the script.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/generate_data.r`  
+![](../plot_archive/d7a5b5a_20250912_232220_plot1.png)  
+![](../plot_archive/d7a5b5a_20250912_232220_plot2.png)  
+
+## Commit [42e40a9](https://github.com/naszhu/REM_E3_model_fixed/commit/42e40a9) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-12 23:16:36  
+**Message:**
+```
+feat(analysis-e3): add generate_data.r script for comprehensive data processing
+
+- Introduced a new R script to handle data generation and processing for various datasets, including IMUSE and Firestone data.
+- Implemented data cleaning and transformation steps, including type alignment and handling of logical values.
+- Enhanced data summarization and visualization capabilities, allowing for better insights into participant performance and accuracy.
+- Streamlined the integration of multiple data sources, ensuring consistent analysis across different datasets.
+
+These changes aim to facilitate a more robust and organized approach to data analysis within the project.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/generate_data.r`  
+![](../plot_archive/42e40a9_20250912_231636_plot1.png)  
+![](../plot_archive/42e40a9_20250912_231636_plot2.png)  
+
+## Commit [b654343](https://github.com/naszhu/REM_E3_model_fixed/commit/b654343) (branch: `sep12-analysisplot`)
+**Time:** 2025-09-11 01:37:57  
+**Message:**
+```
+merge(predplot-e1): Merge branch 'sep-10-predplot'
+```
+![](../plot_archive/b654343_20250911_013757_plot1.png)  
+![](../plot_archive/b654343_20250911_013757_plot2.png)  
+
 ## Commit [ad4025a](https://github.com/naszhu/REM_E3_model_fixed/commit/ad4025a) (branch: `sep-10-predplot`)
 **Time:** 2025-09-11 00:22:15  
 **Message:**

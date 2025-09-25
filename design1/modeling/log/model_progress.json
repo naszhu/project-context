@@ -1,5 +1,368 @@
 [
   {
+    "commit": "b654343",
+    "branch": "main",
+    "message": "merge(predplot-e1): Merge branch 'sep-10-predplot'",
+    "timestamp": "2025-09-11 01:37:57",
+    "plot1": "plot_archive/b654343_20250911_013757_plot1.png",
+    "plot2": "plot_archive/b654343_20250911_013757_plot2.png",
+    "changed_files": []
+  },
+  {
+    "commit": "a34ab7a",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e1): enhance data visualization and processing in initial list analysis",
+    "timestamp": "2025-09-25 12:12:25",
+    "plot1": "plot_archive/a34ab7a_20250925_121225_plot1.png",
+    "plot2": "plot_archive/a34ab7a_20250925_121225_plot2.png",
+    "changed_files": [
+      "Docs/.~lock.parameter_values_aug-19.docx#",
+      "design1/combined_finaltest_between_list.R",
+      "design1/combined_initial_between_list.R",
+      "design1/combined_initial_within_list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "f802ef0",
+    "branch": "sep12-analysisplot",
+    "message": "refactor(analysis-e1): unify styling constants and enhance ggplot aesthetics",
+    "timestamp": "2025-09-23 16:03:14",
+    "plot1": "plot_archive/f802ef0_20250923_160314_plot1.png",
+    "plot2": "plot_archive/f802ef0_20250923_160314_plot2.png",
+    "changed_files": [
+      "design1/combined_finaltest_within_list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "a9e2a04",
+    "branch": "sep12-analysisplot",
+    "message": "refactor(analysis-e1): unify styling constants and enhance ggplot aesthetics",
+    "timestamp": "2025-09-23 15:03:55",
+    "plot1": "plot_archive/a9e2a04_20250923_150355_plot1.png",
+    "plot2": "plot_archive/a9e2a04_20250923_150355_plot2.png",
+    "changed_files": [
+      "design1/combined_finaltest_between_list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "d97d4d5",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e1): enhance data processing and visualization in final test analysis",
+    "timestamp": "2025-09-23 14:53:00",
+    "plot1": "plot_archive/d97d4d5_20250923_145300_plot1.png",
+    "plot2": "plot_archive/d97d4d5_20250923_145300_plot2.png",
+    "changed_files": [
+      "design1/combined_finaltest_between_list.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "e1a425f",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): enhance visualizations and data processing in test scripts",
+    "timestamp": "2025-09-23 13:38:46",
+    "plot1": "plot_archive/e1a425f_20250923_133846_plot1.png",
+    "plot2": "plot_archive/e1a425f_20250923_133846_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/final_test_between_list_data_e3.r",
+      "design3/data_analysis/final_test_within_list_data_e3.r",
+      "design3/data_analysis/initial_test_between_list_data_e3.r",
+      "design3/data_analysis/initial_test_within_list_data_e3.r"
+    ]
+  },
+  {
+    "commit": "153886b",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e1): add comprehensive GLMM analysis and results documentation",
+    "timestamp": "2025-09-23 11:40:41",
+    "plot1": "plot_archive/153886b_20250923_114041_plot1.png",
+    "plot2": "plot_archive/153886b_20250923_114041_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1_statistical_analysis.R",
+      "design1/data_analysis/E1_statistical_results.txt",
+      "design1/data_analysis/Experiment1_Professional_Manuscript_Results.txt",
+      "design1/data_analysis/analysis_output.txt",
+      "design1/data_analysis/context_knowledge_manipulation_analysis.R",
+      "design1/data_analysis/correct_initial_analysis.R",
+      "design1/data_analysis/corrected_within_list.R",
+      "design1/data_analysis/final_between_list_complete_analysis.R",
+      "design1/data_analysis/final_professional_analysis.R",
+      "design1/data_analysis/final_results_summary.txt",
+      "design1/data_analysis/final_within_list_complete_analysis.R",
+      "design1/data_analysis/initial_within_list_complete_analysis.R",
+      "design1/data_analysis/simple_mixed_effects.R",
+      "design1/data_analysis/streamlined_glmm_analysis.R",
+      "design1/data_analysis/test_initial_models.R",
+      "design1/data_analysis/trace_data_processing.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "54c2981",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): enhance shape and color scales in test data visualizations",
+    "timestamp": "2025-09-22 13:53:18",
+    "plot1": "plot_archive/54c2981_20250922_135318_plot1.png",
+    "plot2": "plot_archive/54c2981_20250922_135318_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/final_test_between_list_data_e3.r",
+      "design3/data_analysis/final_test_within_list_data_e3.r",
+      "design3/data_analysis/initial_test_between_list_data_e3.r",
+      "design3/data_analysis/initial_test_within_list_data_e3.r"
+    ]
+  },
+  {
+    "commit": "0cd20ad",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e1): add context knowledge manipulation analysis script",
+    "timestamp": "2025-09-22 12:20:29",
+    "plot1": "plot_archive/0cd20ad_20250922_122029_plot1.png",
+    "plot2": "plot_archive/0cd20ad_20250922_122029_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/context_knowledge_manipulation_analysis.R",
+      "design1/data_analysis/final_between_list_complete_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "eabb67a",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e1): add initial and final within-list analysis scripts",
+    "timestamp": "2025-09-22 12:19:55",
+    "plot1": "plot_archive/eabb67a_20250922_121955_plot1.png",
+    "plot2": "plot_archive/eabb67a_20250922_121955_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/correct_initial_analysis.R",
+      "design1/data_analysis/final_between_list_complete_analysis.R",
+      "design1/data_analysis/final_within_list_complete_analysis.R",
+      "design1/data_analysis/initial_within_list_complete_analysis.R",
+      "design1/data_analysis/trace_data_processing.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "ce0ea10",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): add initial and final within-list analysis scripts",
+    "timestamp": "2025-09-21 22:45:45",
+    "plot1": "plot_archive/ce0ea10_20250921_224545_plot1.png",
+    "plot2": "plot_archive/ce0ea10_20250921_224545_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/correct_initial_analysis.R",
+      "design1/data_analysis/final_between_list_complete_analysis.R",
+      "design1/data_analysis/final_within_list_complete_analysis.R",
+      "design1/data_analysis/initial_within_list_complete_analysis.R",
+      "design1/data_analysis/trace_data_processing.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "cf5e824",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): refine initial and final test data analysis with enhanced summarization and visualization",
+    "timestamp": "2025-09-21 21:51:01",
+    "plot1": "plot_archive/cf5e824_20250921_215101_plot1.png",
+    "plot2": "plot_archive/cf5e824_20250921_215101_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1_statistical_analysis.R",
+      "design1/data_analysis/E1_statistical_results.txt",
+      "design1/data_analysis/corrected_within_list.R",
+      "design1/data_analysis/simple_mixed_effects.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/final_test_between_list_data_e3.r",
+      "design3/data_analysis/initial_test_between_list_data_e3.r"
+    ]
+  },
+  {
+    "commit": "1a88bc4",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): enhance final test data analysis with improved summarization and visualization",
+    "timestamp": "2025-09-21 17:18:58",
+    "plot1": "plot_archive/1a88bc4_20250921_171858_plot1.png",
+    "plot2": "plot_archive/1a88bc4_20250921_171858_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/final_test_within_list_data_e3.r"
+    ]
+  },
+  {
+    "commit": "656fbab",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): filter out specific code versions in data analysis",
+    "timestamp": "2025-09-21 17:16:38",
+    "plot1": "plot_archive/656fbab_20250921_171638_plot1.png",
+    "plot2": "plot_archive/656fbab_20250921_171638_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/R_design3_pilotExample.rmd",
+      "design3/data_analysis/generate_data.r"
+    ]
+  },
+  {
+    "commit": "bc2316b",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): add final test within list data analysis script",
+    "timestamp": "2025-09-21 16:35:18",
+    "plot1": "plot_archive/bc2316b_20250921_163518_plot1.png",
+    "plot2": "plot_archive/bc2316b_20250921_163518_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "Docs/.~lock.DataPlot-d3(exp2).docx#",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/final_test_within_list_data_e3.r"
+    ]
+  },
+  {
+    "commit": "6841965",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): add final test analysis script with combined data visualization",
+    "timestamp": "2025-09-21 22:24:45",
+    "plot1": "plot_archive/6841965_20250921_222445_plot1.png",
+    "plot2": "plot_archive/6841965_20250921_222445_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/final_test_between_list_data_e3.r"
+    ]
+  },
+  {
+    "commit": "da9bdaf",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): enhance initial test analysis with combined data visualization",
+    "timestamp": "2025-09-21 21:45:02",
+    "plot1": "plot_archive/da9bdaf_20250921_214502_plot1.png",
+    "plot2": "plot_archive/da9bdaf_20250921_214502_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/initial_test_within_list_data_e3.r"
+    ]
+  },
+  {
+    "commit": "54c7452",
+    "branch": "sep12-analysisplot",
+    "message": "chore(all): update gitignore",
+    "timestamp": "2025-09-21 21:36:53",
+    "plot1": "plot_archive/54c7452_20250921_213653_plot1.png",
+    "plot2": "plot_archive/54c7452_20250921_213653_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "51f81a2",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): add plot generation to initial test within list script",
+    "timestamp": "2025-09-21 21:35:28",
+    "plot1": "plot_archive/51f81a2_20250921_213528_plot1.png",
+    "plot2": "plot_archive/51f81a2_20250921_213528_plot2.png",
+    "changed_files": [
+      "Docs/.~lock.DataPlot-d1(exp1).odt#",
+      "Docs/.~lock.Dataplot-e3-aug19.docx#",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/initial_test_within_list_data_e3.r"
+    ]
+  },
+  {
+    "commit": "b82909e",
+    "branch": "sep12-analysisplot",
+    "message": "refactor(analysis-e3): comment out unused data processing steps in R script",
+    "timestamp": "2025-09-21 21:29:54",
+    "plot1": "plot_archive/b82909e_20250921_212954_plot1.png",
+    "plot2": "plot_archive/b82909e_20250921_212954_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/R_design3_pilotExample.rmd"
+    ]
+  },
+  {
+    "commit": "78509d4",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): add initial test analysis scripts and visualization",
+    "timestamp": "2025-09-12 23:41:17",
+    "plot1": "plot_archive/78509d4_20250912_234117_plot1.png",
+    "plot2": "plot_archive/78509d4_20250912_234117_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/generate_data.r",
+      "design3/data_analysis/initial_test_between_list_data_e3.r",
+      "design3/data_analysis/quick_plot.r"
+    ]
+  },
+  {
+    "commit": "69e5a88",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): add CSV export functionality to generate_data.r",
+    "timestamp": "2025-09-12 23:26:53",
+    "plot1": "plot_archive/69e5a88_20250912_232653_plot1.png",
+    "plot2": "plot_archive/69e5a88_20250912_232653_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/generate_data.r"
+    ]
+  },
+  {
+    "commit": "d7a5b5a",
+    "branch": "sep12-analysisplot",
+    "message": "refactor(analysis-e3): clean up generate_data.r by removing redundant summarization steps",
+    "timestamp": "2025-09-12 23:22:20",
+    "plot1": "plot_archive/d7a5b5a_20250912_232220_plot1.png",
+    "plot2": "plot_archive/d7a5b5a_20250912_232220_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/generate_data.r"
+    ]
+  },
+  {
+    "commit": "42e40a9",
+    "branch": "sep12-analysisplot",
+    "message": "feat(analysis-e3): add generate_data.r script for comprehensive data processing",
+    "timestamp": "2025-09-12 23:16:36",
+    "plot1": "plot_archive/42e40a9_20250912_231636_plot1.png",
+    "plot2": "plot_archive/42e40a9_20250912_231636_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/generate_data.r"
+    ]
+  },
+  {
+    "commit": "b654343",
+    "branch": "sep12-analysisplot",
+    "message": "merge(predplot-e1): Merge branch 'sep-10-predplot'",
+    "timestamp": "2025-09-11 01:37:57",
+    "plot1": "plot_archive/b654343_20250911_013757_plot1.png",
+    "plot2": "plot_archive/b654343_20250911_013757_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "ad4025a",
     "branch": "sep-10-predplot",
     "message": "feat(model-e1): back to asymptotic final criterion shift",

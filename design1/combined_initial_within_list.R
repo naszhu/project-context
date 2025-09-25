@@ -7,12 +7,54 @@ library(gridExtra)
 library(png)
 library(grid)
 
+# ===== SHARED CONSTANTS =====
+# Colors
+COLOR_FOIL <- "#E08214"
+COLOR_TARGET <- "#1A9850"
+COLOR_AVERAGE <- "#2C2C2C"
+
+# Shapes
+SHAPE_FOIL <- 17                             # solid triangle
+SHAPE_TARGET <- 15                      # solid square
+
+# Line types
+LINETYPE_FOIL <- "solid"
+LINETYPE_TARGET <- "longdash"
+
+ylabsname <- "Correct Response Rate"
+xaxisname <- "Position"
+
+# Sizes
+BASE_FONT_SIZE <- 28
+POINT_SIZE <- 4.5
+LINE_WIDTH <- 1.8
+AVERAGE_LINE_WIDTH <- 2.2
+RIBBON_ALPHA <- 0.25
+LINE_ALPHA <- 0.85
+
+# Y-axis limits and breaks
+Y_MIN <- 0.75
+Y_MAX <- 1.00
+Y_BREAKS <- seq(Y_MIN, Y_MAX, by = 0.05)
+
+# X-axis breaks
+X_BREAKS <- seq(0, 20, by = 5)
+X_LABELS <- as.character(X_BREAKS)
+
+# Theme settings
+BASE_TEXT_SIZE <- 28
+TITLE_SIZE <- 28
+AXIS_TITLE_SIZE <- 28
+AXIS_TEXT_SIZE <- 28
+LEGEND_POSITION <- "none"  # Hide legends
+
 # Set working directory to data_analysis folder for data plots
-setwd("data_analysis")
+# setwd("data_analysis")
 
 # Load the preprocessed data for data plot - EXACT COPY FROM ORIGINAL
-dfchanged <- read_csv("dfchanged.csv")
+dfchanged <- read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design1/data_analysis/dfchanged.csv")
 cat("Loaded dfchanged data from dfchanged.csv\n")
+
 
 # Create dfserial data for within-list analysis - EXACT COPY FROM ORIGINAL
 dfserial=dfchanged%>%
@@ -42,72 +84,58 @@ dfserial_meandf=dfchanged%>%
 
 dfserial_all=rbind(dfserial,dfserial_meandf)
 
-# Create the data plot - EXACT COPY FROM ORIGINAL
+# Create the data plot
 data_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction(position_type)))+
   # Enhanced points with different shapes for each probetype
   geom_point(aes(color=probetype, shape=probetype, group=probetype), 
-             size=4, alpha=0.9, stroke=1.2) +
+             size=POINT_SIZE, alpha=0.9, stroke=1.2) +
   # Enhanced lines with different line types
   geom_line(aes(color=probetype, linetype=probetype, group=probetype), 
-            linewidth=1.5, alpha=0.8) +
+            linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
   # Enhanced ribbon with better visibility (exclude Average from error bands)
   geom_ribbon(data=dfserial_all %>% filter(probetype != "Average"),
               aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),
-              alpha=0.25) +
+              alpha=RIBBON_ALPHA) +
   # Facet by position type
   facet_grid(.~position_type) +
-      scale_y_continuous(limits = c(0.75, 1.00),
-                      breaks = seq(0.75, 1.00, by = 0.05),
-                      name = "Performance (Hits/Correct Rejection)") +
+      scale_y_continuous(limits = c(Y_MIN, Y_MAX),
+                      breaks = Y_BREAKS,
+                      name = ylabsname) +
   
   # Enhanced styling and labels
-  labs(x="Initial Study position (left column), Initial Test position (right column)",
-       y="Performance (Hits/Correct Rejection)",
+  labs(x=xaxisname,
+       y=ylabsname,
        title="E1 Initial Within List DATA",
        color="Type", fill="Type", shape="Type", linetype="Type") +
   
   # Enhanced color palette with high contrast
-  scale_color_manual(values=c("Average"="#2C2C2C", "Foil - Correct rejection"="#D73027", "Target - Hits"="#1A9850")) +
-  scale_fill_manual(values=c("Average"="#2C2C2C", "Foil - Correct rejection"="#D73027", "Target - Hits"="#1A9850")) +
-  scale_shape_manual(values=c("Average"=15, "Foil - Correct rejection"=19, "Target - Hits"=17)) +  # square, circle, triangle
-  scale_linetype_manual(values=c("Average"="dashed", "Foil - Correct rejection"="solid", "Target - Hits"="longdash")) +
+  scale_color_manual(values=c("Average"=COLOR_AVERAGE, "Foil - Correct rejection"=COLOR_FOIL, "Target - Hits"=COLOR_TARGET)) +
+  scale_fill_manual(values=c("Average"=COLOR_AVERAGE, "Foil - Correct rejection"=COLOR_FOIL, "Target - Hits"=COLOR_TARGET)) +
+  scale_shape_manual(values=c("Average"=SHAPE_TARGET, "Foil - Correct rejection"=SHAPE_FOIL, "Target - Hits"=SHAPE_TARGET)) +
+  scale_linetype_manual(values=c("Average"="dashed", "Foil - Correct rejection"=LINETYPE_FOIL, "Target - Hits"=LINETYPE_TARGET)) +
   
   # Enhanced theme with improved readability
-  theme_minimal() +
+  theme_bw(base_size = BASE_FONT_SIZE) +
   theme(
-    plot.caption = element_text(hjust = 0, size = 14, face = "bold", color = "darkblue", margin = margin(t = 20)),
-    plot.margin = margin(t = 15, r = 15, b = 50, l = 15),
-    text = element_text(size = 14),
-    axis.text = element_text(size = 12, color = "black"),
-    axis.title = element_text(size = 14, face = "bold", color = "black"),
-    panel.grid.major = element_line(color = "grey75", linewidth = 0.4),
-    panel.grid.minor = element_line(color = "grey85", linewidth = 0.2),
-    legend.position = "bottom",
-    legend.title = element_text(face = "bold", size = 12),
-    legend.text = element_text(size = 11),
-    legend.key.width = unit(1.5, "cm"),
-    legend.key.height = unit(0.6, "cm"),
-    legend.margin = margin(t = 20),
-    legend.box = "horizontal",
-    legend.direction = "horizontal",
-    plot.title = element_text(face = "bold", hjust = 0.5, size = 16, margin = margin(b = 20)),
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.6),
-    plot.background = element_rect(fill = "white", color = NA),
-    panel.background = element_rect(fill = "grey98", color = NA),
-    strip.background = element_rect(fill = "grey90", color = "black", linewidth = 0.5),
-    strip.text = element_text(face = "bold", size = 12)
-  ) +
-  guides(fill = "none")
+        plot.title = element_text(hjust = 0.5, size = TITLE_SIZE, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 18, face = "bold", color = "blue"),
+        panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8),
+        panel.grid.major = element_line(color = "gray90", linewidth = 0.5),
+        panel.grid.minor = element_line(color = "gray95", linewidth = 0.3),
+        legend.position = LEGEND_POSITION,
+        text = element_text(size = BASE_TEXT_SIZE),
+        axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+        axis.text = element_text(size = AXIS_TEXT_SIZE)
+  )
 
 # Save data plot
-ggsave("temp_data_plot.png", data_plot, width = 10, height = 7, dpi = 300, bg = "white")
+# ggsave("temp_data_plot.png", data_plot, width = 10, height = 7, dpi = 300, bg = "white")
 
 # Now switch to modeling folder for prediction plot
-setwd("../modeling/R_ploting")
+# setwd("../modeling/R_ploting")
 
 # Load data for prediction plot - EXACT COPY FROM ORIGINAL
-all_results <- read.csv("../../../all_results.csv")
-
+all_results <- read.csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/all_results.csv")
 df_study <- all_results %>%
     mutate(is_target = case_when(is_target == "true" ~ 1, TRUE ~ 0),
            correct = decision_isold == is_target) %>%
@@ -144,74 +172,70 @@ df_combined$position_type <- factor(df_combined$position_type,
                                    levels = c("Study", "Test"),
                                    labels = c("Initial Study Position", "Initial Test Position"))
 
-# Create the prediction plot - EXACT COPY FROM ORIGINAL
+# Create the prediction plot
 prediction_plot <- ggplot(data = df_combined, aes(x = position, y = meanx, group = is_target)) +
 #     geom_ribbon(aes(ymin = meanx - 0.01, ymax = meanx + 0.01, fill = is_target), alpha = 0.3) +
-    geom_line(aes(color = is_target, linetype = is_target), linewidth = 1.5) +
-    geom_point(aes(color = is_target, shape = is_target), size = 6) +
+    geom_line(aes(color = is_target, linetype = is_target), linewidth = LINE_WIDTH) +
+    geom_point(aes(color = is_target, shape = is_target), size = POINT_SIZE) +
     # Add black average line ONLY for test position
     geom_line(data = df_combined %>% filter(position_type == "Initial Test Position"), 
-              aes(x = position, y = meanx_m), color = "black", linewidth = 2, linetype = "solid") +
+              aes(x = position, y = meanx_m), color = COLOR_AVERAGE, linewidth = AVERAGE_LINE_WIDTH, linetype = "solid") +
     # Add black square points for the average line
     geom_point(data = df_combined %>% filter(position_type == "Initial Test Position"), 
-               aes(x = position, y = meanx_m), color = "black", shape = 15, size = 4) +
+               aes(x = position, y = meanx_m), color = COLOR_AVERAGE, shape = 15, size = 4) +
     facet_grid(~ position_type, scales = "free_x") +
-    scale_color_manual(values = c("Foil - Correct rejection" = "#E74C3C", 
-                                 "Target - Hits" = "#27AE60"),
+    scale_color_manual(values = c("Foil - Correct rejection" = COLOR_FOIL, 
+                                 "Target - Hits" = COLOR_TARGET),
                       name = "Type") +
-    scale_fill_manual(values = c("Foil - Correct rejection" = "#E74C3C", 
-                                "Target - Hits" = "#27AE60"),
+    scale_fill_manual(values = c("Foil - Correct rejection" = COLOR_FOIL, 
+                                "Target - Hits" = COLOR_TARGET),
                      name = "Type") +
-    scale_shape_manual(values = c("Foil - Correct rejection" = 16, 
-                                 "Target - Hits" = 17),
+    scale_shape_manual(values = c("Foil - Correct rejection" = SHAPE_FOIL, 
+                                 "Target - Hits" = SHAPE_TARGET),
                       name = "Type") +
-    scale_linetype_manual(values = c("Foil - Correct rejection" = "solid", 
-                                    "Target - Hits" = "dotted"),
+    scale_linetype_manual(values = c("Foil - Correct rejection" = LINETYPE_FOIL, 
+                                    "Target - Hits" = LINETYPE_TARGET),
                          name = "Type") +
-    scale_y_continuous(limits = c(0.75, 1.00),
-                      breaks = seq(0.75, 1.00, by = 0.05),
-                      name = "Performance (Hits/Correct Rejection)") +
-    scale_x_continuous(breaks = seq(0, 20, by = 5),
-                      name = "Initial Study position (left column), Initial Test position (right column)") +
+    scale_y_continuous(limits = c(Y_MIN, Y_MAX),
+                      breaks = Y_BREAKS,
+                      name = ylabsname) +
+    scale_x_continuous(breaks = X_BREAKS,
+                      name = xaxisname) +
     labs(
         title = "E1 Initial Within List PREDICTION",
-        subtitle = ""
+       #  subtitle = ""
     ) +
-    theme_minimal() +
+    theme_bw(base_size = BASE_FONT_SIZE) +
     theme(
-        plot.title = element_text(hjust = 0.5, size = 24, face = "bold"),
+        plot.title = element_text(hjust = 0.5, size = TITLE_SIZE, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5, size = 18, face = "bold", color = "blue"),
-        strip.text = element_text(size = 18, face = "bold"),
-        strip.background = element_rect(fill = "lightgray", color = "black"),
         panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8),
         panel.grid.major = element_line(color = "gray90", linewidth = 0.5),
         panel.grid.minor = element_line(color = "gray95", linewidth = 0.3),
-        legend.position = "bottom",
-        legend.title = element_text(size = 16, face = "bold"),
-        legend.text = element_text(size = 14),
-        text = element_text(size = 16),
-        axis.title = element_text(size = 16, face = "bold"),
-        axis.text = element_text(size = 14)
+        legend.position = LEGEND_POSITION,
+        text = element_text(size = BASE_TEXT_SIZE),
+        axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+        axis.text = element_text(size = AXIS_TEXT_SIZE)
     )
 
 # Save prediction plot
-ggsave("temp_prediction_plot.png", plot = prediction_plot, 
-       width = 12, height = 7, dpi = 300, bg = "white")
+# ggsave("temp_prediction_plot.png", plot = prediction_plot, 
+       # width = 12, height = 7, dpi = 300, bg = "white")
 
 # Go back to main directory
-setwd("../../")
+# setwd("../../")
 
 # Load the saved plots as images
-data_img <- readPNG("data_analysis/temp_data_plot.png")
-prediction_img <- readPNG("modeling/R_ploting/temp_prediction_plot.png")
+# data_img <- readPNG("data_analysis/temp_data_plot.png")
+# prediction_img <- readPNG("modeling/R_ploting/temp_prediction_plot.png")
 
 # Convert to raster grobs
-data_grob <- rasterGrob(data_img, interpolate = TRUE)
-prediction_grob <- rasterGrob(prediction_img, interpolate = TRUE)
+# data_grob <- rasterGrob(data_img, interpolate = TRUE)
+# prediction_grob <- rasterGrob(prediction_img, interpolate = TRUE)
 
 # Create combined plot using grid.arrange
 combined_plot <- grid.arrange(
-  data_grob, prediction_grob,
+  data_plot, prediction_plot,
   ncol = 2,
   top = textGrob("E1 Initial Within List: DATA vs PREDICTION", 
                  gp = gpar(fontsize = 28, fontface = "bold"))
@@ -224,7 +248,7 @@ ggsave("E1_initial_within_list_combined.png", combined_plot,
 # Display the plot using eog
 
 # Clean up temporary files
-file.remove("data_analysis/temp_data_plot.png")
-file.remove("modeling/R_ploting/temp_prediction_plot.png")
+# file.remove("data_analysis/temp_data_plot.png")
+# file.remove("modeling/R_ploting/temp_prediction_plot.png")
 
 cat("Combined initial within-list plot saved as E1_initial_within_list_combined.png\n")
