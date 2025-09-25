@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [4c52ca7](https://github.com/naszhu/REM_E3_model_fixed/commit/4c52ca7) (branch: `main`)
+**Time:** 2025-09-25 13:19:01  
+**Message:**
+```
+refactor(analysis-e3): adjust y-axis scale for improved data visualization
+
+- Updated the y-axis scale in the initial test plot to enhance clarity, changing the breaks to range from 0.4 to 0.9 and adjusting limits accordingly.
+- This change aims to provide a more accurate representation of response rates in the visual analysis.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/initial_test_between_list_data_e3.r`  
+![](../plot_archive/4c52ca7_20250925_131901_plot1.png)  
+![](../plot_archive/4c52ca7_20250925_131901_plot2.png)  
+
 ## Commit [9261d2c](https://github.com/naszhu/REM_E3_model_fixed/commit/9261d2c) (branch: `main`)
 **Time:** 2025-09-25 12:14:56  
 **Message:**
