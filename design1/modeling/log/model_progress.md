@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [9c1af3a](https://github.com/naszhu/REM_E3_model_fixed/commit/9c1af3a) (branch: `main`)
+**Time:** 2025-09-25 13:20:12  
+**Message:**
+```
+feat(constants): add plot formatting constants for consistent styling
+
+- Introduced a new R script to define constants for plot formatting, including font sizes, point sizes, line widths, and plot dimensions.
+- Implemented a unified theme for ggplot visualizations to ensure consistent styling across all plots.
+- Updated the initial test analysis script to utilize these constants, enhancing readability and maintainability of the code.
+- These changes aim to improve the visual consistency and clarity of plots in the analysis.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/initial_test_between_list_data_e3.r`  
+- `design3/plot_constants.R`  
+![](../plot_archive/9c1af3a_20250925_132012_plot1.png)  
+![](../plot_archive/9c1af3a_20250925_132012_plot2.png)  
+
 ## Commit [4c52ca7](https://github.com/naszhu/REM_E3_model_fixed/commit/4c52ca7) (branch: `main`)
 **Time:** 2025-09-25 13:19:01  
 **Message:**

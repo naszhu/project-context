@@ -2,7 +2,31 @@
 library(readr)
 library(dplyr)
 library(ggplot2)
-source("../plot_constants.R")
+
+# Plot formatting constants
+PLOT_TITLE_SIZE <- 18
+AXIS_TITLE_SIZE <- 24
+AXIS_TEXT_SIZE <- 18
+STRIP_TEXT_SIZE <- 28
+BASE_SIZE <- 24
+POINT_SIZE <- 4
+LINE_WIDTH <- 1
+PLOT_WIDTH <- 6
+PLOT_HEIGHT <- 6
+PLOT_DPI <- 300
+POSITION_LABEL <- "Position"
+CORRECT_RATE_LABEL <- "Correct Response Rate"
+
+PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
+  theme(
+    plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
+    axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+    axis.title.y = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+    axis.text.x = element_text(size = AXIS_TEXT_SIZE),
+    axis.text.y = element_text(size = AXIS_TEXT_SIZE),
+    legend.position = "none",
+    strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
+  )
 
 df_rt_pl=read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design3/data/E3_AGGREGATED.csv")
 
