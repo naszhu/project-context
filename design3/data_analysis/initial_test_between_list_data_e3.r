@@ -93,9 +93,9 @@ p <- ggplot(data=d1ta)+
   ) +
   # facet_grid(.~task)+
   facet_grid(. ~ task, labeller = labeller(task = c("initialTest_response" = "Initial List Number")))+
-  scale_x_continuous(breaks = seq(0, 10, by = 1))
+  scale_x_continuous(breaks = seq(0, 10, by = 1))+
   # scale_x_continuous(breaks = seq(min(d1ta_combined$position, na.rm=TRUE), max(d1ta_combined$position, na.rm=TRUE), by = 1)) +
-  # scale_y_continuous(breaks = seq(0.5, 1, by = 0.1), limits = c(0.5, 1))
+  scale_y_continuous(breaks = seq(0.4, 0.9, by = 0.1), limits = c(0.38, 0.9))
 
 
 ggsave("initial_test_between_list_data_e3.png", plot = p, width = 6, height = 6, dpi = 300)
