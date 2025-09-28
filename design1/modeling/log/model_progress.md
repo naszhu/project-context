@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [929ffbb](https://github.com/naszhu/REM_E3_model_fixed/commit/929ffbb) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 20:05:22  
+**Message:**
+```
+feat(analysis-e1): implement simplified models and model comparisons
+
+- Added simplified versions of the final within-study, within-test, between-final, and between-initial models to enhance model interpretability and reduce complexity.
+- Integrated model comparison analyses using ANOVA to evaluate the significance of quadratic terms and interactions, providing insights into model fit.
+- Updated results saving process to include summaries for both original and simplified models, improving accessibility for reporting.
+- Enhanced convergence diagnostics and error handling during model comparisons, ensuring robust analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full_with_interactions.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/929ffbb_20250928_200522_plot1.png)  
+![](../plot_archive/929ffbb_20250928_200522_plot2.png)  
+
 ## Commit [e418375](https://github.com/naszhu/REM_E3_model_fixed/commit/e418375) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 19:47:07  
 **Message:**
