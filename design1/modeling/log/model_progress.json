@@ -1,5 +1,20 @@
 [
   {
+    "commit": "9250c88",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): add comprehensive and simplified analysis scripts for Experiment 1",
+    "timestamp": "2025-09-28 09:16:40",
+    "plot1": "plot_archive/9250c88_20250928_091640_plot1.png",
+    "plot2": "plot_archive/9250c88_20250928_091640_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-Analysis-Report.md",
+      "design1/data_analysis/E1-comprehensive-analysis.R",
+      "design1/data_analysis/E1-simplified-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "a2f6ebe",
     "branch": "sep-28-analysis",
     "message": "refactor(analysis-e1, analysis-e3): remove grid lines for improved plot aesthetics",

@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [9250c88](https://github.com/naszhu/REM_E3_model_fixed/commit/9250c88) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 09:16:40  
+**Message:**
+```
+feat(analysis-e1): add comprehensive and simplified analysis scripts for Experiment 1
+
+- Introduced two new R scripts: E1-comprehensive-analysis.R and E1-simplified-analysis.R, to perform detailed and simplified analyses of recognition memory data.
+- The comprehensive script includes mixed-effects logistic regression models for within-list and between-list effects, along with detailed statistical summaries.
+- The simplified script provides descriptive statistics and key model summaries for initial and final test performance, enhancing accessibility of results.
+- Both scripts save results to CSV files for easy access and further analysis.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/data_analysis/E1-comprehensive-analysis.R`  
+- `design1/data_analysis/E1-simplified-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/9250c88_20250928_091640_plot1.png)  
+![](../plot_archive/9250c88_20250928_091640_plot2.png)  
+
 ## Commit [a2f6ebe](https://github.com/naszhu/REM_E3_model_fixed/commit/a2f6ebe) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 09:02:05  
 **Message:**
