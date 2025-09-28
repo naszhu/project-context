@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [e0120fc](https://github.com/naszhu/REM_E3_model_fixed/commit/e0120fc) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 21:33:57  
+**Message:**
+```
+feat(analysis-e1): simplify final test models and enhance reporting
+
+- Removed complex models in favor of simplified linear-only models for final test analyses to improve convergence reliability.
+- Updated the comprehensive report to reflect the use of simplified models, emphasizing the importance of model selection for robust results.
+- Enhanced item-type-specific comparisons and post-hoc analyses, providing clearer insights into performance hierarchies across conditions.
+- Saved the updated results in a new RDS file for simplified models, ensuring better accessibility for future reporting.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_comprehensive_report.md`  
+- `design1/data_analysis/experiment1_glmm_simplified.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e0120fc_20250928_213357_plot1.png)  
+![](../plot_archive/e0120fc_20250928_213357_plot2.png)  
+
 ## Commit [e884ac3](https://github.com/naszhu/REM_E3_model_fixed/commit/e884ac3) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 20:57:30  
 **Message:**

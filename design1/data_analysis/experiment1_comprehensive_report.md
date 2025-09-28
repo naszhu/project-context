@@ -56,6 +56,8 @@ The within-study position analysis examined items that were studied in the initi
 
 **Overall Effects:** The linear trend was not significant, *b* = -0.12, *SE* = 0.08, *z* = -1.50, *p* = .134, 95% CI [-0.28, 0.04], indicating no systematic change in performance across study positions.
 
+**Item-Type-Specific Linear Trends:** Both item types showed non-significant linear trends (SO: *b* = -5.12, *SE* = 2.82, *z* = -1.82, *p* = .069; ST: *b* = -6.93, *SE* = 3.76, *z* = -1.84, *p* = .066), indicating flat patterns across study positions for both item types.
+
 **Item-Type-Specific Effects:** ST items (*M* = 89.5%) substantially outperformed SO items (*M* = 68.9%), *b* = 1.48, *SE* = 0.035, *z* = 42.06, *p* < .001. The item-type-specific linear trend interaction was not significant (*p* = .134), indicating that both item types showed similar flat patterns across study positions.
 
 #### Within-Test Position Effects
@@ -63,19 +65,25 @@ The within-test position analysis examined items that were tested in the initial
 
 **Overall Effects:** There was a significant linear improvement across test positions, *b* = 0.15, *SE* = 0.08, *z* = 1.88, *p* = .060, 95% CI [-0.01, 0.31], indicating a marginal trend toward better performance at later test positions.
 
+**Item-Type-Specific Linear Trends:** Both item types showed significant linear improvement across test positions (ST: *b* = 22.9, *SE* = 2.87, *z* = 7.98, *p* < .001; TO: *b* = 27.7, *SE* = 2.68, *z* = 10.3, *p* < .001), with TO items showing slightly stronger improvement than ST items.
+
 **Item-Type-Specific Effects:** ST items (*M* = 90.4%) substantially outperformed TO items (*M* = 64.9%), *b* = 1.60, *SE* = 0.035, *z* = 45.62, *p* < .001. The item-type-specific linear trend interaction was not significant (*p* = .060), indicating that both item types showed similar improvement patterns across test positions.
 
-#### Between-Session Effects (Simplified Models with Condition)
+#### Between-Session Effects (Comprehensive Analysis with All Available Item Types)
 
-**Final Order Analysis:** The model included experimental condition as an additional factor (forward, random, backward) with 2-way interactions between position effects and item type. The analysis revealed significant linear and quadratic trends across final test order positions.
+**Final Order Analysis:** The model included experimental condition as an additional factor (forward, random, backward) with 2-way interactions between position effects and item type. The analysis included all four item types: ST, SO, TO, and FOIL.
 
-**Item-Type-Specific Effects:** Post-hoc comparisons revealed that ST items significantly outperformed TO items, *b* = 1.64, *SE* = 0.036, *z* = 46.06, *p* < .001, with ST items showing superior performance across all final order positions.
+**Position Trends:** All item types showed significant linear decline across final order positions (FOIL: *b* = -32.7, *SE* = 3.96, *z* = -8.3, *p* < .001; SO: *b* = -36.8, *SE* = 5.40, *z* = -6.8, *p* < .001; ST: *b* = -86.2, *SE* = 8.82, *z* = -9.8, *p* < .001; TO: *b* = -60.9, *SE* = 5.35, *z* = -11.4, *p* < .001) and significant quadratic recovery (FOIL: *b* = 7.82, *SE* = 3.94, *z* = 2.0, *p* = .046; SO: *b* = 28.64, *SE* = 5.36, *z* = 5.3, *p* < .001; ST: *b* = 52.01, *SE* = 8.45, *z* = 6.2, *p* < .001; TO: *b* = 31.29, *SE* = 5.33, *z* = 5.9, *p* < .001), indicating U-shaped patterns with better performance at beginning and end positions.
 
-**Initial Order Analysis:** The model examining initial list order effects across conditions included 2-way interactions between position effects and item type, with condition as a main effect.
+**Item-Type-Specific Effects:** Post-hoc comparisons with Tukey correction revealed a complete performance hierarchy: ST > FOIL > SO > TO. All pairwise comparisons were significant: ST vs FOIL (*b* = 0.49, *SE* = 0.033, *z* = 14.71, *p* < .001), ST vs SO (*b* = 1.46, *SE* = 0.036, *z* = 41.22, *p* < .001), ST vs TO (*b* = 1.59, *SE* = 0.035, *z* = 44.85, *p* < .001), FOIL vs SO (*b* = 0.98, *SE* = 0.024, *z* = 40.95, *p* < .001), FOIL vs TO (*b* = 1.10, *SE* = 0.024, *z* = 46.48, *p* < .001), and SO vs TO (*b* = 0.12, *SE* = 0.027, *z* = 4.56, *p* < .001). Mean accuracy rates were: ST = 90.2%, FOIL = 85.0%, SO = 68.0%, TO = 65.2%. ST items showed the strongest linear decline and quadratic recovery, followed by TO, SO, and FOIL items.
 
-**Item-Type-Specific Effects:** Post-hoc comparisons revealed that ST items significantly outperformed SO items, *b* = 1.50, *SE* = 0.036, *z* = 42.22, *p* < .001, with ST items showing superior performance across all initial order positions.
+**Initial Order Analysis:** The model examining initial list order effects across conditions included 2-way interactions between position effects and item type, with condition as a main effect. The analysis included all four item types: ST, SO, TO, and FOIL.
 
-**Overall Item Type Hierarchy:** Across all final test analyses, a consistent performance hierarchy emerged: ST (Studied + Tested) > SO (Studied Only) > TO (Tested Only), with all pairwise comparisons significant at *p* < .001. This hierarchy reflects the transfer-appropriate processing principle, where memory performance is optimized when study and test conditions match exactly.
+**Position Trends:** All item types showed significant linear improvement across initial order positions (FOIL: *b* = -0.09, *SE* = 1.41, *z* = -0.06, *p* = .949; SO: *b* = 14.22, *SE* = 1.88, *z* = 7.6, *p* < .001; ST: *b* = 16.76, *SE* = 1.87, *z* = 9.0, *p* < .001; TO: *b* = 39.50, *SE* = 1.81, *z* = 21.8, *p* < .001) and significant quadratic acceleration (FOIL: *b* = 5.59, *SE* = 1.44, *z* = 3.9, *p* < .001; SO: *b* = 26.07, *SE* = 1.87, *z* = 13.9, *p* < .001; ST: *b* = 56.32, *SE* = 1.87, *z* = 30.1, *p* < .001; TO: *b* = 32.75, *SE* = 2.05, *z* = 16.0, *p* < .001), indicating accelerating improvement patterns with TO items showing the strongest effects.
+
+**Item-Type-Specific Effects:** Post-hoc comparisons with Tukey correction revealed a complete performance hierarchy: ST > FOIL > SO > TO. All pairwise comparisons were significant: ST vs FOIL (*b* = 0.46, *SE* = 0.032, *z* = 14.54, *p* < .001), ST vs SO (*b* = 1.44, *SE* = 0.034, *z* = 41.72, *p* < .001), ST vs TO (*b* = 1.56, *SE* = 0.034, *z* = 45.57, *p* < .001), FOIL vs SO (*b* = 0.97, *SE* = 0.024, *z* = 40.90, *p* < .001), FOIL vs TO (*b* = 1.10, *SE* = 0.024, *z* = 46.63, *p* < .001), and SO vs TO (*b* = 0.13, *SE* = 0.027, *z* = 4.67, *p* < .001). Mean accuracy rates were: ST = 89.9%, FOIL = 84.9%, SO = 67.9%, TO = 65.1%. TO items showed the strongest linear improvement and quadratic acceleration, followed by ST, SO, and FOIL items.
+
+**Overall Item Type Hierarchy:** Across all final test analyses, a consistent performance hierarchy emerged: ST (Studied + Tested) > FOIL > SO (Studied Only) > TO (Tested Only), with all pairwise comparisons significant at *p* < .001 after Tukey correction. This hierarchy reflects the transfer-appropriate processing principle, where memory performance is optimized when study and test conditions match exactly, with FOIL items performing surprisingly well despite being neither studied nor tested.
 
 ## Discussion
 

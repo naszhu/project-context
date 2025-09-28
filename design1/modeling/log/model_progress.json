@@ -1,5 +1,20 @@
 [
   {
+    "commit": "e0120fc",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): simplify final test models and enhance reporting",
+    "timestamp": "2025-09-28 21:33:57",
+    "plot1": "plot_archive/e0120fc_20250928_213357_plot1.png",
+    "plot2": "plot_archive/e0120fc_20250928_213357_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_comprehensive_report.md",
+      "design1/data_analysis/experiment1_glmm_simplified.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "e884ac3",
     "branch": "sep-28-analysis",
     "message": "feat(anlaysis-e1-report): refine final test phase analysis with model convergence insights",

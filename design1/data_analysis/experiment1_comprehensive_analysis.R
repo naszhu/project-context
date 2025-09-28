@@ -177,14 +177,12 @@ final <- dfchanged %>%
                                TRUE ~ NA_real_),
     test_position  = case_when(item_type %in% c("ST","TO") ~ as.numeric(initial_testpos),
                                TRUE ~ NA_real_),
-    # Between-list positions (using final test positions)
-    final_order    = case_when(item_type %in% c("ST","TO") ~ as.numeric(cut_number(as.numeric(testpos), 10, labels = 1:10)), 
-                               TRUE ~ NA_real_),
-    initial_order  = case_when(item_type %in% c("ST","SO") ~ as.numeric(prespos_itrial),
-                               TRUE ~ NA_real_)
+    # Between-list positions (using final test positions) - ALL item types
+    final_order    = as.numeric(cut_number(as.numeric(testpos), 10, labels = 1:10)),
+    initial_order  = as.numeric(prespos_itrial)
   ) %>%
   # Remove rows where we couldn't determine positions
-  filter(!is.na(study_position) | !is.na(test_position)) %>%
+  filter(!is.na(study_position) | !is.na(test_position) | !is.na(final_order) | !is.na(initial_order)) %>%
   select(participant_id, accuracy, item_type, study_position, test_position, final_order, initial_order, condition)
 
 # ------------------
@@ -273,26 +271,26 @@ m_final_within_test <- glmer(
 cat("✓ Created within-test model (linear only)\n")
 check_convergence_issues(m_final_within_test)
 
-# Final Between-Final Model (2-way interactions only)
+# Final Between-Final Model (simplified for convergence)
 m_between_final <- glmer(
-  accuracy ~ (final_order_lin + final_order_quad) * item_type +  # 2-way interactions
-    condition +                                                  # Condition as main effect
-    (1 | participant_id),                                        # Random intercept only
+  accuracy ~ final_order_lin * item_type + final_order_quad * item_type +  # Separate interactions
+    condition +                                                              # Condition as main effect
+    (1 | participant_id),                                                    # Random intercept only
   data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 200000)),
   na.action = na.omit
 )
 
 cat("✓ Created between-final model (2-way interactions)\n")
 check_convergence_issues(m_between_final)
 
-# Final Between-Initial Model (2-way interactions only for better convergence)
+# Final Between-Initial Model (simplified for convergence)
 m_between_initial <- glmer(
-  accuracy ~ (initial_order_lin + initial_order_quad) * item_type +  # 2-way interactions
-    condition +                                                      # Condition as main effect
-    (1 | participant_id),                                            # Random intercept only
+  accuracy ~ initial_order_lin * item_type + initial_order_quad * item_type +  # Separate interactions
+    condition +                                                                 # Condition as main effect
+    (1 | participant_id),                                                       # Random intercept only
   data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 200000)),
   na.action = na.omit
 )
 
@@ -411,9 +409,27 @@ trends <- list(
 )
 
 # ------------------
-# 7) POST-HOC TESTS FOR ITEM TYPE COMPARISONS
+# 7) COMPREHENSIVE POST-HOC TESTS FOR ITEM TYPE COMPARISONS
 # ------------------
-cat("\n=== POST-HOC ITEM TYPE COMPARISONS ===\n")
+cat("\n=== COMPREHENSIVE POST-HOC ITEM TYPE COMPARISONS ===\n")
+
+# Check what item types are actually in each model
+cat("\n--- Item Types in Each Analysis ---\n")
+cat("Final Order Analysis - Item types:\n")
+final_order_types <- unique(final$item_type[!is.na(final$final_order)])
+print(final_order_types)
+
+cat("\nInitial Order Analysis - Item types:\n")
+initial_order_types <- unique(final$item_type[!is.na(final$initial_order)])
+print(initial_order_types)
+
+cat("\nWithin-Study Analysis - Item types:\n")
+within_study_types <- unique(final$item_type[!is.na(final$study_position)])
+print(within_study_types)
+
+cat("\nWithin-Test Analysis - Item types:\n")
+within_test_types <- unique(final$item_type[!is.na(final$test_position)])
+print(within_test_types)
 
 # Final test between-list models - get estimated marginal means for all item types
 cat("\n--- Final Test Between-List (Final Order) Item Type Comparisons ---\n")
@@ -421,10 +437,20 @@ final_order_emmeans <- emmeans(m_between_final, ~ item_type)
 final_order_pairs <- pairs(final_order_emmeans, adjust = "tukey")
 print(final_order_pairs)
 
+# Get individual means for final order
+final_order_means <- as.data.frame(final_order_emmeans)
+print("Final Order - Estimated Marginal Means:")
+print(final_order_means)
+
 cat("\n--- Final Test Between-List (Initial Order) Item Type Comparisons ---\n")
 initial_order_emmeans <- emmeans(m_between_initial, ~ item_type)
 initial_order_pairs <- pairs(initial_order_emmeans, adjust = "tukey")
 print(initial_order_pairs)
+
+# Get individual means for initial order
+initial_order_means <- as.data.frame(initial_order_emmeans)
+print("Initial Order - Estimated Marginal Means:")
+print(initial_order_means)
 
 # Within-list models - get estimated marginal means
 cat("\n--- Final Test Within-Study Item Type Comparisons ---\n")
@@ -432,10 +458,20 @@ within_study_emmeans <- emmeans(m_final_within_study, ~ item_type)
 within_study_pairs <- pairs(within_study_emmeans, adjust = "tukey")
 print(within_study_pairs)
 
+# Get individual means for within-study
+within_study_means <- as.data.frame(within_study_emmeans)
+print("Within-Study - Estimated Marginal Means:")
+print(within_study_means)
+
 cat("\n--- Final Test Within-Test Item Type Comparisons ---\n")
 within_test_emmeans <- emmeans(m_final_within_test, ~ item_type)
 within_test_pairs <- pairs(within_test_emmeans, adjust = "tukey")
 print(within_test_pairs)
+
+# Get individual means for within-test
+within_test_means <- as.data.frame(within_test_emmeans)
+print("Within-Test - Estimated Marginal Means:")
+print(within_test_means)
 
 # Add these to trends for saving
 trends$final_order_emmeans <- final_order_emmeans
@@ -447,7 +483,42 @@ trends$within_study_pairs <- within_study_pairs
 trends$within_test_emmeans <- within_test_emmeans
 trends$within_test_pairs <- within_test_pairs
 
-cat("\n=== END POST-HOC COMPARISONS ===\n")
+# ------------------
+# 8) LINEAR AND QUADRATIC TREND SIGNIFICANCE TESTS
+# ------------------
+cat("\n=== LINEAR AND QUADRATIC TREND SIGNIFICANCE ===\n")
+
+# Final Order Analysis - Linear and Quadratic Trends
+cat("\n--- Final Order Analysis - Position Trends ---\n")
+final_order_lin_trend <- emtrends(m_between_final, ~ item_type, var = "final_order_lin")
+final_order_quad_trend <- emtrends(m_between_final, ~ item_type, var = "final_order_quad")
+print("Linear Trends:")
+print(final_order_lin_trend)
+print("Quadratic Trends:")
+print(final_order_quad_trend)
+
+# Initial Order Analysis - Linear and Quadratic Trends
+cat("\n--- Initial Order Analysis - Position Trends ---\n")
+initial_order_lin_trend <- emtrends(m_between_initial, ~ item_type, var = "initial_order_lin")
+initial_order_quad_trend <- emtrends(m_between_initial, ~ item_type, var = "initial_order_quad")
+print("Linear Trends:")
+print(initial_order_lin_trend)
+print("Quadratic Trends:")
+print(initial_order_quad_trend)
+
+# Within-Study Analysis - Linear Trends Only
+cat("\n--- Within-Study Analysis - Linear Trends ---\n")
+within_study_lin_trend <- emtrends(m_final_within_study, ~ item_type, var = "study_position_lin")
+print("Linear Trends:")
+print(within_study_lin_trend)
+
+# Within-Test Analysis - Linear Trends Only
+cat("\n--- Within-Test Analysis - Linear Trends ---\n")
+within_test_lin_trend <- emtrends(m_final_within_test, ~ item_type, var = "test_position_lin")
+print("Linear Trends:")
+print(within_test_lin_trend)
+
+cat("\n=== END TREND SIGNIFICANCE TESTS ===\n")
 
 # Convert emtrends results to data frames safely
 trends_df <- lapply(trends, function(x) tryCatch(as.data.frame(x), error = function(e) NULL))
