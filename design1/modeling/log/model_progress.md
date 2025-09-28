@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [e31e505](https://github.com/naszhu/REM_E3_model_fixed/commit/e31e505) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 20:37:24  
+**Message:**
+```
+feat(analysis-e1-report): update comprehensive report with refined analyses and findings
+
+- Added details on simplified models for final test within-session analyses due to convergence issues, emphasizing the necessity of linear trends.
+- Expanded between-session models to include experimental condition factors, revealing complex three-way interactions affecting performance.
+- Enhanced discussion section to reflect new findings on item-type-specific trends and methodological considerations regarding model complexity.
+- Improved overall clarity and structure of the report, facilitating better interpretation of results and implications for recognition memory research.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_report.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e31e505_20250928_203724_plot1.png)  
+![](../plot_archive/e31e505_20250928_203724_plot2.png)  
+
 ## Commit [929ffbb](https://github.com/naszhu/REM_E3_model_fixed/commit/929ffbb) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 20:05:22  
 **Message:**

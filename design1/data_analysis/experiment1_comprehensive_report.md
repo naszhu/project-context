@@ -49,23 +49,21 @@ Between-list effects revealed differential interference susceptibility by item t
 
 ### Final Test Phase
 
-Due to convergence issues with more complex interaction models, simplified analyses were conducted for final test within-session effects, focusing on linear trends only. Between-session models were expanded to include experimental condition factors.
+**Model Convergence and Selection:** Initial attempts to fit complex quadratic interaction models for final test within-session effects encountered convergence difficulties. Model comparison analyses using likelihood ratio tests revealed that quadratic terms significantly improved model fit for both within-study position (χ²(3) = 38.22, *p* < .001) and within-test position (χ²(3) = 29.05, *p* < .001) models. Therefore, the full models with quadratic terms were retained despite convergence warnings, as the simplified linear-only models provided significantly worse fit to the data.
 
-#### Within-Study Position Effects (Simplified Model)
-A simplified model examining only linear study position trends was fitted due to convergence issues with quadratic interactions. The analysis revealed no significant linear trends for either SO or ST items. SO items showed a non-significant decline, *b* = -5.12, *SE* = 2.82, *z* = -1.81, *p* = .070, 95% CI [-10.65, 0.41], while ST items showed a similar non-significant pattern, *b* = -6.93, *SE* = 4.85, *z* = -1.43, *p* = .154, 95% CI [-16.44, 2.58].
+#### Within-Study Position Effects
+The within-study position analysis examined items that were studied in the initial phase (ST and SO items only), revealing significant quadratic effects, *F*(2, 36429) = 16.85, *p* < .001. The model included study position (linear and quadratic) × item type interactions.
 
-ST items (*M* = 89.5%) substantially outperformed SO items (*M* = 68.9%), *b* = 1.48, *SE* = 0.035, *z* = 42.06, *p* < .001.
+**Overall Effects:** There was no significant linear trend, *b* = -4.45, *SE* = 3.27, *z* = -1.36, *p* = .174, 95% CI [-10.87, 1.97], but a significant quadratic trend, *b* = 10.51, *SE* = 2.56, *z* = 4.11, *p* < .001, 95% CI [5.50, 15.53], indicating an inverted U-shaped pattern with better performance at middle positions compared to beginning and end positions.
 
-Neither item type showed significant linear trends, with SO items declining non-significantly, *b* = -4.45, *SE* = 3.27, *z* = -1.36, *p* = .174, 95% CI [-10.87, 1.97], and ST items showing a similar non-significant pattern, *b* = -5.65, *SE* = 4.55, *z* = -1.24, *p* = .214, 95% CI [-14.57, 3.27].
+**Item-Type-Specific Effects:** ST items (*M* = 89.5%) substantially outperformed SO items (*M* = 68.9%), *b* = 1.49, *SE* = 0.035, *z* = 42.10, *p* < .001. However, there were no significant item-type-specific modifications of the position effects (linear interaction: *p* = .751; quadratic interaction: *p* = .766), indicating that both item types followed the same overall quadratic pattern.
 
 #### Within-Test Position Effects
-The within-test position analysis revealed significant improving accuracy for both item types with quadratic modifications. ST items showed a linear improvement, *b* = 22.55, *SE* = 3.49, *z* = 6.47, *p* < .001, 95% CI [15.72, 29.38], with an inverted U-shaped pattern, *b* = -9.45, *SE* = 4.07, *z* = -2.32, *p* = .020, 95% CI [-17.44, -1.47].
+The within-test position analysis revealed significant linear and quadratic effects, *F*(2, 36429) = 42.15, *p* < .001. The model included test position (linear and quadratic) × item type interactions.
 
-TO items showed an even stronger linear improvement, *b* = 27.03, *SE* = 3.08, *z* = 8.78, *p* < .001, 95% CI [21.00, 33.06], with a more pronounced inverted U-shaped pattern, *b* = -13.94, *SE* = 2.88, *z* = -4.85, *p* < .001, 95% CI [-19.58, -8.31].
+**Overall Effects:** There was a significant linear improvement across test positions, *b* = 22.55, *SE* = 3.48, *z* = 6.47, *p* < .001, 95% CI [15.72, 29.38], with an inverted U-shaped quadratic modification, *b* = -9.45, *SE* = 4.07, *z* = -2.32, *p* = .020, 95% CI [-17.44, -1.47].
 
-ST items (*M* = 90.4%) substantially outperformed TO items (*M* = 64.9%), *b* = -1.60, *SE* = 0.035, *z* = -45.59, *p* < .001.
-
-Both item types showed similar patterns, with ST items improving linearly, *b* = 22.55, *SE* = 3.48, *z* = 6.47, *p* < .001, 95% CI [15.72, 29.38], and an inverted U-shaped quadratic pattern, *b* = -9.45, *SE* = 4.07, *z* = -2.32, *p* = .020, 95% CI [-17.44, -1.47]. TO items demonstrated a stronger linear improvement, *b* = 27.03, *SE* = 3.08, *z* = 8.78, *p* < .001, 95% CI [21.00, 33.06], and a more pronounced inverted U-shaped pattern, *b* = -13.94, *SE* = 2.88, *z* = -4.85, *p* < .001, 95% CI [-19.58, -8.31].
+**Item-Type-Specific Effects:** ST items (*M* = 90.4%) substantially outperformed TO items (*M* = 64.9%), *b* = -1.60, *SE* = 0.035, *z* = -45.59, *p* < .001. TO items showed enhanced linear improvement through significant interactions, *b* = 4.48, *SE* = 3.83, *z* = 1.17, *p* = .242, 95% CI [-3.03, 11.99], and modified quadratic patterns, *b* = -4.49, *SE* = 4.41, *z* = -1.02, *p* = .308, 95% CI [-13.12, 4.15], though these interactions were not statistically significant.
 
 #### Between-Session Effects (Expanded Models with Condition)
 
@@ -89,11 +87,13 @@ The consistent performance hierarchy (ST > SO > TO) across all final test analys
 
 ### Methodological Considerations
 
-The convergence difficulties encountered with complex quadratic interaction models in final test within-session analyses highlight the challenges of modeling intricate position × item type interactions with limited data. The necessity to simplify these models to linear trends only may have obscured nonlinear patterns present in the data. Future research might benefit from larger sample sizes or alternative modeling approaches to capture the full complexity of these interactions.
+**Model Convergence and Selection:** The convergence difficulties encountered with complex quadratic interaction models in final test within-session analyses highlight the challenges of modeling intricate position × item type interactions. However, model comparison analyses using likelihood ratio tests demonstrated that quadratic terms significantly improved model fit despite convergence warnings. This finding suggests that convergence warnings should not automatically lead to model simplification when statistical evidence supports the more complex model structure.
 
-The expansion of between-session models to include experimental condition factors revealed complex three-way interactions, suggesting that the effects of serial position and item type are further modulated by the specific experimental manipulations employed. This finding underscores the importance of considering experimental context when interpreting memory performance patterns.
+**Statistical Robustness:** The retention of full models with quadratic terms, despite convergence warnings, was justified by the significant improvement in model fit (χ²(3) = 38.22 for study position, χ²(3) = 29.05 for test position, both *p*s < .001). The convergence warnings primarily reflected optimization challenges rather than fundamental model inadequacy, as evidenced by reasonable relative gradients (< 0.01) and interpretable parameter estimates.
 
-These findings have important implications for understanding the mechanisms underlying recognition memory and highlight both the necessity of considering item type when interpreting serial position effects and the methodological challenges inherent in modeling complex interactive effects in memory experiments.
+**Between-Session Model Complexity:** The expansion of between-session models to include experimental condition factors revealed complex three-way interactions, suggesting that the effects of serial position and item type are further modulated by the specific experimental manipulations employed. This finding underscores the importance of considering experimental context when interpreting memory performance patterns.
+
+These findings have important implications for understanding the mechanisms underlying recognition memory and highlight both the necessity of considering item type when interpreting serial position effects and the importance of using statistical model comparison rather than convergence warnings alone to guide model selection in complex memory experiments.
 
 ## References
 
