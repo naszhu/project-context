@@ -294,6 +294,123 @@ m_between_initial <- glmer(
 cat("\n=== Final Between-Initial Model ===\n")
 check_convergence_issues(m_between_initial)
 
+# ------------------
+# SIMPLIFIED MODELS FOR PROBLEMATIC CASES
+# ------------------
+cat("\n=== CREATING SIMPLIFIED MODELS ===\n")
+
+# Simplified Final Within-Study Model (linear only)
+m_final_within_study_linear <- glmer(
+  accuracy ~ study_position_lin * item_type +  # Remove quadratic term
+    (1 | participant_id),                      # Keep only random intercept
+  data = final, family = binomial,
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+  na.action = na.omit
+)
+
+cat("✓ Created simplified within-study model (linear only)\n")
+check_convergence_issues(m_final_within_study_linear)
+
+# Simplified Final Within-Test Model (linear only)
+m_final_within_test_linear <- glmer(
+  accuracy ~ test_position_lin * item_type +   # Remove quadratic term
+    (1 | participant_id),                      # Keep only random intercept
+  data = final, family = binomial,
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+  na.action = na.omit
+)
+
+cat("✓ Created simplified within-test model (linear only)\n")
+check_convergence_issues(m_final_within_test_linear)
+
+# Simplified Between-Final Model (remove 3-way interaction)
+m_between_final_simple <- glmer(
+  accuracy ~ (final_order_lin + final_order_quad) * item_type +  # Keep 2-way interactions
+    condition +                                                  # Add condition as main effect
+    (1 | participant_id),                                        # Random intercept only
+  data = final, family = binomial,
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+  na.action = na.omit
+)
+
+cat("✓ Created simplified between-final model (no 3-way interaction)\n")
+check_convergence_issues(m_between_final_simple)
+
+# Simplified Between-Initial Model (remove random slopes)
+m_between_initial_simple <- glmer(
+  accuracy ~ (initial_order_lin + initial_order_quad) * item_type * condition +
+    (1 | participant_id),  # Simplified to random intercept only
+  data = final, family = binomial,
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+  na.action = na.omit
+)
+
+cat("✓ Created simplified between-initial model (no random slopes)\n")
+check_convergence_issues(m_between_initial_simple)
+
+# ------------------
+# MODEL COMPARISONS (ANOVA)
+# ------------------
+cat("\n=== MODEL COMPARISONS ===\n")
+
+# Compare within-study models (full vs linear)
+cat("\n--- Within-Study Position: Full vs Linear ---\n")
+tryCatch({
+  comparison_study <- anova(m_final_within_study, m_final_within_study_linear)
+  print(comparison_study)
+  if (comparison_study$`Pr(>Chisq)`[2] < 0.05) {
+    cat("✓ Quadratic term significantly improves model fit\n")
+  } else {
+    cat("✗ Quadratic term does not significantly improve model fit - linear model is sufficient\n")
+  }
+}, error = function(e) {
+  cat("✗ Could not compare within-study models:", e$message, "\n")
+})
+
+# Compare within-test models (full vs linear)
+cat("\n--- Within-Test Position: Full vs Linear ---\n")
+tryCatch({
+  comparison_test <- anova(m_final_within_test, m_final_within_test_linear)
+  print(comparison_test)
+  if (comparison_test$`Pr(>Chisq)`[2] < 0.05) {
+    cat("✓ Quadratic term significantly improves model fit\n")
+  } else {
+    cat("✗ Quadratic term does not significantly improve model fit - linear model is sufficient\n")
+  }
+}, error = function(e) {
+  cat("✗ Could not compare within-test models:", e$message, "\n")
+})
+
+# Compare between-final models (full vs simplified)
+cat("\n--- Between-Final Order: Full vs Simplified ---\n")
+tryCatch({
+  comparison_between_final <- anova(m_between_final, m_between_final_simple)
+  print(comparison_between_final)
+  if (comparison_between_final$`Pr(>Chisq)`[2] < 0.05) {
+    cat("✓ 3-way interaction significantly improves model fit\n")
+  } else {
+    cat("✗ 3-way interaction does not significantly improve model fit - simplified model is sufficient\n")
+  }
+}, error = function(e) {
+  cat("✗ Could not compare between-final models:", e$message, "\n")
+})
+
+# Compare between-initial models (full vs simplified)
+cat("\n--- Between-Initial Order: Full vs Simplified ---\n")
+tryCatch({
+  comparison_between_initial <- anova(m_between_initial, m_between_initial_simple)
+  print(comparison_between_initial)
+  if (comparison_between_initial$`Pr(>Chisq)`[2] < 0.05) {
+    cat("✓ Random slopes significantly improve model fit\n")
+  } else {
+    cat("✗ Random slopes do not significantly improve model fit - simplified model is sufficient\n")
+  }
+}, error = function(e) {
+  cat("✗ Could not compare between-initial models:", e$message, "\n")
+})
+
+cat("\n=== END MODEL COMPARISONS ===\n")
+
 # m_final_within_study <- glmer(
 #   accuracy ~ study_position_lin * item_type + study_position_quad * item_type +
 #     (1 + study_position_lin + study_position_quad || participant_id),
@@ -535,19 +652,32 @@ m_final_within_test <- all_models[["Final Within-Test"]]
 m_between_final <- all_models[["Final Between-Final"]]
 m_between_initial <- all_models[["Final Between-Initial"]]
 
+# Add simplified models to the list for saving
+all_models[["Final Within-Study Linear"]] <- m_final_within_study_linear
+all_models[["Final Within-Test Linear"]] <- m_final_within_test_linear
+all_models[["Final Between-Final Simple"]] <- m_between_final_simple
+all_models[["Final Between-Initial Simple"]] <- m_between_initial_simple
+
 cat("=== END CONVERGENCE CHECK ===\n\n")
 
 # ------------------
 # 5) Summaries (fixed effects)
 # ------------------
 results <- list(
+  # Original models
   init_studypos        = broom.mixed::tidy(m_init_studypos,        effects = "fixed", conf.int = TRUE),
   init_testpos         = broom.mixed::tidy(m_init_testpos,         effects = "fixed", conf.int = TRUE),
   init_between         = broom.mixed::tidy(m_init_between,         effects = "fixed", conf.int = TRUE),
   final_within_study   = broom.mixed::tidy(m_final_within_study,   effects = "fixed", conf.int = TRUE),
   final_within_test    = broom.mixed::tidy(m_final_within_test,    effects = "fixed", conf.int = TRUE),
   final_between_final  = broom.mixed::tidy(m_between_final,        effects = "fixed", conf.int = TRUE),
-  final_between_initial= broom.mixed::tidy(m_between_initial,      effects = "fixed", conf.int = TRUE)
+  final_between_initial= broom.mixed::tidy(m_between_initial,      effects = "fixed", conf.int = TRUE),
+  
+  # Simplified models
+  final_within_study_linear = broom.mixed::tidy(m_final_within_study_linear, effects = "fixed", conf.int = TRUE),
+  final_within_test_linear  = broom.mixed::tidy(m_final_within_test_linear,  effects = "fixed", conf.int = TRUE),
+  final_between_final_simple = broom.mixed::tidy(m_between_final_simple,    effects = "fixed", conf.int = TRUE),
+  final_between_initial_simple = broom.mixed::tidy(m_between_initial_simple, effects = "fixed", conf.int = TRUE)
 )
 
 # ------------------
@@ -600,13 +730,20 @@ saveRDS(
 
 # Also export flat CSV for reporting
 bind_rows(
+  # Original models
   results$init_studypos          %>% mutate(model = "init_studypos"),
   results$init_testpos           %>% mutate(model = "init_testpos"),
   results$init_between           %>% mutate(model = "init_between"),
   results$final_within_study     %>% mutate(model = "final_within_study"),
   results$final_within_test      %>% mutate(model = "final_within_test"),
   results$final_between_final    %>% mutate(model = "final_between_final"),
-  results$final_between_initial  %>% mutate(model = "final_between_initial")
+  results$final_between_initial  %>% mutate(model = "final_between_initial"),
+  
+  # Simplified models
+  results$final_within_study_linear %>% mutate(model = "final_within_study_linear"),
+  results$final_within_test_linear  %>% mutate(model = "final_within_test_linear"),
+  results$final_between_final_simple %>% mutate(model = "final_between_final_simple"),
+  results$final_between_initial_simple %>% mutate(model = "final_between_initial_simple")
 ) %>%
   write_csv("all_model_summaries_with_interactions.csv")
 
