@@ -62,6 +62,44 @@ create_polynomial_terms <- function(data, var_name) {
   return(out)
 }
 
+# Add convergence diagnostics function
+check_convergence_issues <- function(model) {
+  if (!is.null(model@optinfo$conv$lme4$messages)) {
+    cat("Convergence warnings:\n")
+    cat(paste(model@optinfo$conv$lme4$messages, collapse = "\n"), "\n")
+  }
+  
+  if (!is.null(model@optinfo$warnings)) {
+    cat("Optimization warnings:\n")
+    cat(paste(model@optinfo$warnings, collapse = "\n"), "\n")
+  }
+  
+  # Check gradient
+  if (!is.null(model@optinfo$derivs)) {
+    rel_grad <- with(model@optinfo$derivs, max(abs(solve(Hessian, gradient))))
+    cat("Relative gradient:", rel_grad, "\n")
+    if (rel_grad > 0.001) {
+      cat("WARNING: Large relative gradient - model may not have converged\n")
+    }
+    
+    # Check Hessian
+    if (any(eigen(model@optinfo$derivs$Hessian)$values <= 0)) {
+      cat("WARNING: Hessian matrix is not positive definite\n")
+    }
+  }
+}
+
+# Add data validation function
+validate_position_data <- function(df, position_var) {
+  pos_vals <- df[[position_var]]
+  unique_vals <- length(unique(na.omit(pos_vals)))
+  cat("Unique values in", position_var, ":", unique_vals, "\n")
+  if (unique_vals < 3) {
+    cat("WARNING: Insufficient unique values for", position_var, 
+        "- polynomial terms may be invalid\n")
+  }
+}
+
 # 2) Initial test 
 # Prepare initial test data
 initial <- dfchanged %>%
@@ -85,6 +123,10 @@ initial <- dfchanged %>%
   bind_cols(create_polynomial_terms(., "list_number"))
 
 cat("Initial test data prepared:", nrow(initial), "trials\n")
+
+# Validate position data
+validate_position_data(initial, "study_position")
+validate_position_data(initial, "test_position")
 
 # 3) Final test (trial-level)
 # ------------------
@@ -154,6 +196,11 @@ final <- final %>%
   bind_cols(create_polynomial_terms(., "final_order")) %>%
   bind_cols(create_polynomial_terms(., "initial_order"))
 
+# Validate final test position data
+validate_position_data(final, "study_position")
+validate_position_data(final, "test_position")
+validate_position_data(final, "final_order")
+validate_position_data(final, "initial_order")
 
 # 4) Models (random intercepts; item-type-specific trends via interactions)
 # Initial: Study Position × Item Type
@@ -165,6 +212,10 @@ m_init_studypos <- glmer(
   na.action = na.omit
 )
 
+# Check convergence for initial study position model
+cat("\n=== Initial Study Position Model ===\n")
+check_convergence_issues(m_init_studypos)
+
 # Initial: Test Position × Item Type
 m_init_testpos <- glmer(
   accuracy ~ (test_position_lin + test_position_quad) * item_type +
@@ -173,6 +224,10 @@ m_init_testpos <- glmer(
   control = glmerControl(optimizer = "bobyqa"),
   na.action = na.omit
 )
+
+# Check convergence for initial test position model
+cat("\n=== Initial Test Position Model ===\n")
+check_convergence_issues(m_init_testpos)
 
 # Initial: Between-List (List Index) × Item Type
 m_init_between <- glmer(
@@ -183,6 +238,10 @@ m_init_between <- glmer(
   na.action = na.omit
 )
 
+# Check convergence for initial between-list model
+cat("\n=== Initial Between-List Model ===\n")
+check_convergence_issues(m_init_between)
+
 # Final test: Within-list study position × item type
 m_final_within_study <- glmer(
   accuracy ~ (study_position_lin + study_position_quad) * item_type +
@@ -191,6 +250,10 @@ m_final_within_study <- glmer(
   control = glmerControl(optimizer = "bobyqa"),
   na.action = na.omit
 )
+
+# Check convergence for final within-study model
+cat("\n=== Final Within-Study Model ===\n")
+check_convergence_issues(m_final_within_study)
 
 # Final test: Within-list test position × item type
 m_final_within_test <- glmer(
@@ -201,6 +264,10 @@ m_final_within_test <- glmer(
   na.action = na.omit
 )
 
+# Check convergence for final within-test model
+cat("\n=== Final Within-Test Model ===\n")
+check_convergence_issues(m_final_within_test)
+
 # Final test: Between-list final order × item type × condition
 m_between_final <- glmer(
   accuracy ~ (final_order_lin + final_order_quad) * item_type * condition +
@@ -210,6 +277,10 @@ m_between_final <- glmer(
   na.action = na.omit
 )
 
+# Check convergence for final between-final model
+cat("\n=== Final Between-Final Model ===\n")
+check_convergence_issues(m_between_final)
+
 # Final test: Between-list initial order × item type × condition
 m_between_initial <- glmer(
   accuracy ~ (initial_order_lin + initial_order_quad) * item_type * condition +
@@ -218,6 +289,11 @@ m_between_initial <- glmer(
   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 10000)),
   na.action = na.omit
 )
+
+# Check convergence for final between-initial model
+cat("\n=== Final Between-Initial Model ===\n")
+check_convergence_issues(m_between_initial)
+
 # m_final_within_study <- glmer(
 #   accuracy ~ study_position_lin * item_type + study_position_quad * item_type +
 #     (1 + study_position_lin + study_position_quad || participant_id),
@@ -410,27 +486,44 @@ for (i in seq_along(all_models)) {
     cat("? ", model_name, "convergence status unknown\n")
   } else if (convergence_code == 0) {
     cat("✓", model_name, "converged successfully\n")
-  } else {
-    cat("✗", model_name, "failed to converge (code:", convergence_code, ")\n")
-    cat("  Trying alternative optimizer...\n")
-    
-    # Try different optimizer
-    tryCatch({
-      all_models[[i]] <- update(model, 
-                               control = glmerControl(optimizer = "nloptwrap", 
-                                                    optCtrl = list(maxfun = 20000)))
-      new_convergence <- all_models[[i]]@optinfo$convergence
-      if (is.null(new_convergence) || length(new_convergence) == 0) {
-        cat("  ? Retry status unknown\n")
-      } else if (new_convergence == 0) {
-        cat("  ✓ Retry successful with nloptwrap\n")
-      } else {
-        cat("  ✗ Retry failed\n")
-      }
-    }, error = function(e) {
-      cat("  ✗ Retry failed with error:", e$message, "\n")
-    })
-  }
+    } else {
+      cat("✗", model_name, "failed to converge (code:", convergence_code, ")\n")
+      cat("  Trying alternative optimizer...\n")
+      
+      # Try different optimizer
+      tryCatch({
+        all_models[[i]] <- update(model, 
+                                 control = glmerControl(optimizer = "nloptwrap", 
+                                                      optCtrl = list(maxfun = 20000)))
+        new_convergence <- all_models[[i]]@optinfo$convergence
+        if (is.null(new_convergence) || length(new_convergence) == 0) {
+          cat("  ? Retry status unknown\n")
+        } else if (new_convergence == 0) {
+          cat("  ✓ Retry successful with nloptwrap\n")
+        } else {
+          cat("  ✗ Retry failed, trying step-wise simplification...\n")
+          
+          # Step-wise simplification
+          tryCatch({
+            # Try removing quadratic terms first
+            simple_model <- update(model, formula. = . ~ . - study_position_quad - test_position_quad - final_order_quad - initial_order_quad - list_number_quad)
+            cat("  ✓ Removed quadratic terms\n")
+            all_models[[i]] <- simple_model
+          }, error = function(e1) {
+            # If still fails, remove random slopes
+            tryCatch({
+              simple_model <- update(model, formula. = . ~ . - (0 + study_position_lin | participant_id) - (0 + test_position_lin | participant_id) - (0 + list_number_lin | participant_id))
+              cat("  ✓ Removed random slopes\n")
+              all_models[[i]] <- simple_model
+            }, error = function(e2) {
+              cat("  ✗ All simplification attempts failed\n")
+            })
+          })
+        }
+      }, error = function(e) {
+        cat("  ✗ Retry failed with error:", e$message, "\n")
+      })
+    }
 }
 
 # Update model objects

@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [1f55436](https://github.com/naszhu/REM_E3_model_fixed/commit/1f55436) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 19:36:25  
+**Message:**
+```
+feat(analysis-e1): enhance final test data analysis with condition interactions and diagnostics
+
+fixed the within-list partial problems but have convergence warining
+
+- Updated the final test data preparation to include the 'condition' variable, improving model specifications for GLMM analyses.
+- Expanded model formulas to incorporate interactions between item type and condition for both final order and initial order analyses.
+- Added diagnostic analysis for within-list study position discrepancies, including effect size checks and model predictions visualization.
+- Implemented a convergence check for all models, with retry mechanisms for failed convergence, enhancing robustness of the analysis workflow.
+- Improved overall script organization and clarity, facilitating better interpretation of results and future updates.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full_with_interactions.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/1f55436_20250928_193625_plot1.png)  
+![](../plot_archive/1f55436_20250928_193625_plot2.png)  
+
 ## Commit [72c5f36](https://github.com/naszhu/REM_E3_model_fixed/commit/72c5f36) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 17:30:18  
 **Message:**

@@ -1,5 +1,19 @@
 [
   {
+    "commit": "1f55436",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): enhance final test data analysis with condition interactions and diagnostics",
+    "timestamp": "2025-09-28 19:36:25",
+    "plot1": "plot_archive/1f55436_20250928_193625_plot1.png",
+    "plot2": "plot_archive/1f55436_20250928_193625_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_glmm_full_with_interactions.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "72c5f36",
     "branch": "sep-28-analysis",
     "message": "feat(analysis-e1-report): add comprehensive report on item-type-specific serial position effects in recognition memory",
