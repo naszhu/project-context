@@ -243,7 +243,7 @@ print(between_list_summary)
 # 3. FINAL WITHIN-LIST EFFECTS
 # ============================================================================
 
-cat("\n=== FINAL WITHIN-LIST ANALYSIS ===\n")
+cat("\n=== FINAL TEST ANALYSIS (GLMM) ===\n")
 
 # Create final test data with initial positions
 df_initial_positions <- dfchanged %>%
@@ -372,6 +372,97 @@ if(nrow(final_test_pos_data) > 0) {
 } else {
   cat("No data available for initial test position effects in final test\n")
 }
+
+# ============================================================================
+# 3.5. FINAL TEST EXPOSURE HISTORY EFFECTS (PROPER GLMM)
+# ============================================================================
+
+cat("\n=== FINAL TEST EXPOSURE HISTORY GLMM ===\n")
+
+# Prepare final test trial-level data with proper GLMM structure
+final_glmm_data <- dfchanged %>%
+  filter(task == "finalt_response", response != "null") %>%
+  mutate(
+    accuracy = as.numeric(correct),
+    subject = factor(ip),
+    # Create exposure history categories
+    exposure_history = case_when(
+      probetype == "TARGET_target" ~ "Studied-and-Tested",
+      probetype == "TARGET_nontarget" ~ "Studied-Only",
+      probetype == "TARGET_foil" ~ "Tested-Only",
+      probetype == "FOIL" ~ "Novel-Foil"
+    ),
+    exposure_history = factor(exposure_history,
+                             levels = c("Tested-Only", "Studied-Only", "Studied-and-Tested", "Novel-Foil")),
+    condition = factor(condition),
+    # Center study position for position effects analysis
+    prespos_c = scale(prespos_itrial, center = TRUE, scale = FALSE)[,1],
+    prespos_c_sq = prespos_c^2
+  ) %>%
+  filter(!is.na(accuracy), !is.na(exposure_history))
+
+cat("Prepared final test GLMM data:", nrow(final_glmm_data), "trials\n")
+
+# === MAIN EXPOSURE HISTORY EFFECTS ===
+cat("\n--- Main Exposure History Effects (GLMM) ---\n")
+
+# Main model: exposure history effects
+m_exposure_glmm <- glmer(
+  accuracy ~ exposure_history + condition + (1 | subject),
+  data = final_glmm_data,
+  family = binomial,
+  control = glmerControl(optimizer = "bobyqa")
+)
+
+exposure_glmm_summary <- summary(m_exposure_glmm)
+tidy_exposure_glmm <- tidy(m_exposure_glmm, effects = "fixed")
+
+cat("Final Test Exposure History GLMM Fixed Effects:\n")
+print(tidy_exposure_glmm)
+
+# === POSITION EFFECTS BY EXPOSURE HISTORY ===
+cat("\n--- Position Effects by Exposure History (Separate GLMMs) ---\n")
+
+# Separate models for each exposure type (excluding Novel-Foil for position effects)
+exposure_types <- c("Studied-and-Tested", "Studied-Only", "Tested-Only")
+
+for(exp_type in exposure_types) {
+  cat(sprintf("\n--- %s Position Effects ---\n", exp_type))
+
+  exp_data <- final_glmm_data %>% filter(exposure_history == exp_type)
+
+  if(nrow(exp_data) > 100) {  # Only if sufficient data
+    suppressWarnings({
+      m_pos <- glmer(
+        accuracy ~ prespos_c + prespos_c_sq + condition + (1 | subject),
+        data = exp_data,
+        family = binomial,
+        control = glmerControl(optimizer = "bobyqa")
+      )
+    })
+
+    tidy_pos <- tidy(m_pos, effects = "fixed")
+    linear_effect <- tidy_pos %>% filter(term == "prespos_c")
+    quad_effect <- tidy_pos %>% filter(term == "prespos_c_sq")
+
+    cat(sprintf("%s Linear: β = %.3f, SE = %.3f, z = %.2f, p = %.3f\n",
+                exp_type, linear_effect$estimate, linear_effect$std.error,
+                linear_effect$statistic, linear_effect$p.value))
+    cat(sprintf("%s Quadratic: β = %.3f, SE = %.3f, z = %.2f, p = %.3f\n",
+                exp_type, quad_effect$estimate, quad_effect$std.error,
+                quad_effect$statistic, quad_effect$p.value))
+  } else {
+    cat(sprintf("Insufficient data for %s position analysis\n", exp_type))
+  }
+}
+
+# === MANUSCRIPT SUMMARY ===
+cat("\n--- GLMM Results Summary for Manuscript ---\n")
+
+# Main exposure history contrast (Studied-and-Tested vs Tested-Only)
+studied_tested_effect <- tidy_exposure_glmm %>% filter(term == "exposure_historyStudied-and-Tested")
+cat(sprintf("Studied-and-Tested vs Tested-Only: β = %.3f, SE = %.3f, z = %.2f, p < .001\n",
+            studied_tested_effect$estimate, studied_tested_effect$std.error, studied_tested_effect$statistic))
 
 # ============================================================================
 # 4. FINAL BETWEEN-LIST EFFECTS

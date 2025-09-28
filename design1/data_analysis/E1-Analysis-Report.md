@@ -39,11 +39,11 @@ Trial-level analyses across the 10 study–test lists revealed significant chang
 
 ### Final Recognition Test Performance
 
-#### Within-List Final Test Results
+#### Within-List Final Test Results (GLMM Analysis)
 
-Study Position Effects: Final recognition accuracy was analyzed as a function of initial study position and exposure history (Studied-and-Tested, Studied-Only, Tested-Only). Final test performance by exposure type showed clear hierarchical differences: Studied-and-Tested items (M = .89, SD = .31) performed best, followed by Studied-Only items (M = .67, SD = .47) and Tested-Only items (M = .64, SD = .48). For Studied-and-Tested items, recognition remained relatively stable across initial study positions, suggesting that initial study position effects observed during initial testing were not primarily due to changes in trace strength but rather to retrieval dynamics during the initial test.
+Exposure History Effects: A mixed-effects logistic regression revealed strong differences in recognition across exposure history, with Studied-and-Tested items outperforming Tested-Only items (β = 1.551, SE = 0.034, z = 45.37, p < .001). Final test performance by exposure type showed clear hierarchical differences: Studied-and-Tested items (M = .890, SD = .087) performed best, followed by Studied-Only items (M = .670, SD = .148) and Tested-Only items (M = .642, SD = .151).
 
-Test Position Effects: Test position effects from the initial test strongly predicted final test performance, suggesting initial test position effects were due to trace strength differences. The substantial performance difference between Studied-and-Tested items and other exposure types (Δ = .22-.25) indicates that the combination of initial study and test strengthened memory traces considerably.
+Study Position Effects: Position effects varied by exposure history. Studied-and-Tested items showed both linear (β = 0.022, SE = 0.011, z = 2.03, p = .042) and quadratic effects (β = 0.029, SE = 0.004, z = 7.01, p < .001). Studied-Only items showed similar linear (β = 0.019, SE = 0.007, z = 2.72, p = .007) and quadratic effects (β = 0.014, SE = 0.003, z = 5.02, p < .001). Tested-Only items showed the strongest linear (β = 0.052, SE = 0.007, z = 7.60, p < .001) and quadratic effects (β = 0.017, SE = 0.003, z = 6.36, p < .001).
 
 #### Between-List Final Test Results
 
@@ -67,6 +67,28 @@ Initial List Position: When final test performance was analyzed by initial list 
 - Linear × Target interaction: β = -51.36, SE = 5.74, z = -8.95, p < .001
 - Quadratic × Target interaction: β = 32.75, SE = 3.11, z = 10.53, p < .001
 - Quadratic main effect: β = 6.51, SE = 2.40, z = 2.72, p < .01
+
+### Overall Performance Test Position Model (GLMM)
+- Linear effect (overall trend): β = 0.015, SE = 0.004, z = 3.60, p < .001
+- Performance change: M = .895 (early) to M = .909 (late positions)
+
+### Final Test Exposure History Model (GLMM)
+- Studied-and-Tested vs Tested-Only: β = 1.551, SE = 0.034, z = 45.37, p < .001
+- Studied-Only vs Tested-Only: β = 0.129, SE = 0.027, z = 4.80, p < .001
+- Novel-Foil vs Tested-Only: β = 1.105, SE = 0.024, z = 46.95, p < .001
+
+### Final Test Position Effects by Exposure History (GLMM)
+**Studied-and-Tested Items:**
+- Linear effect: β = 0.022, SE = 0.011, z = 2.03, p = .042
+- Quadratic effect: β = 0.029, SE = 0.004, z = 7.01, p < .001
+
+**Studied-Only Items:**
+- Linear effect: β = 0.019, SE = 0.007, z = 2.72, p = .007
+- Quadratic effect: β = 0.014, SE = 0.003, z = 5.02, p < .001
+
+**Tested-Only Items:**
+- Linear effect: β = 0.052, SE = 0.007, z = 7.60, p < .001
+- Quadratic effect: β = 0.017, SE = 0.003, z = 6.36, p < .001
 
 ## Key Findings
 

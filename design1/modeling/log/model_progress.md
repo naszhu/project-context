@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [3b9a65c](https://github.com/naszhu/REM_E3_model_fixed/commit/3b9a65c) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 09:44:51  
+**Message:**
+```
+feat(analysis-e1): add overall performance analysis to comprehensive analysis script
+
+- Introduced a new section in E1-comprehensive-analysis.R to analyze overall performance across test positions, including both pure and adjusted trends.
+- Implemented mixed-effects logistic regression models to evaluate accuracy based on test position, item type, and condition.
+- Calculated and reported descriptive statistics for early and late test positions, enhancing the depth of analysis in the report.
+- Updated E1-Analysis-Report.md to reflect the new findings on overall performance trends.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/data_analysis/E1-comprehensive-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/3b9a65c_20250928_094451_plot1.png)  
+![](../plot_archive/3b9a65c_20250928_094451_plot2.png)  
+
 ## Commit [91c5cc6](https://github.com/naszhu/REM_E3_model_fixed/commit/91c5cc6) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 09:21:32  
 **Message:**
