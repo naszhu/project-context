@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [7bedbec](https://github.com/naszhu/REM_E3_model_fixed/commit/7bedbec) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 12:42:27  
+**Message:**
+```
+feat(analysis-e1): add initial and final test data analysis results and workspace
+
+Complicated version, after fixing mistake of left_join for final test between list (won't need left join), but might not need the item term in the model either will work later
+
+- Introduced new binary files for storing analysis results and workspace data related to Experiment 1.
+- Updated the comprehensive analysis script to streamline data loading, preprocessing, and model fitting for initial and final test analyses.
+- Enhanced data preparation steps, including polynomial term creation and filtering for accuracy, to improve analysis clarity and efficiency.
+- These changes facilitate a more organized approach to data analysis and result storage for Experiment 1.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_analysis_results.rds`  
+- `design1/data_analysis/experiment1_analysis_workspace.RData`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full.rds`  
+- `design1/data_analysis/experiment1_glmm_results.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/7bedbec_20250928_124227_plot1.png)  
+![](../plot_archive/7bedbec_20250928_124227_plot2.png)  
+
 ## Commit [31dc4a3](https://github.com/naszhu/REM_E3_model_fixed/commit/31dc4a3) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 12:37:55  
 **Message:**
