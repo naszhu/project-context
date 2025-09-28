@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [74502d6](https://github.com/naszhu/REM_E3_model_fixed/commit/74502d6) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 17:07:15  
+**Message:**
+```
+feat(analysis-e1):  in solving the convergency, take less terms
+
+But might still be too much to ask?
+
+- Implemented final GLMM models for within-list and between-list analyses, incorporating polynomial terms for study and test positions.
+- Streamlined the results saving process to include comprehensive summaries and trends, improving accessibility for reporting.
+- Added functionality to export model summaries and item-type trends to CSV files for better data management and interpretation.
+- Enhanced overall script organization and clarity, ensuring a more efficient analysis workflow.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full_with_interactions.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/74502d6_20250928_170715_plot1.png)  
+![](../plot_archive/74502d6_20250928_170715_plot2.png)  
+
 ## Commit [bdc8798](https://github.com/naszhu/REM_E3_model_fixed/commit/bdc8798) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 16:53:00  
 **Message:**
