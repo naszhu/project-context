@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [e884ac3](https://github.com/naszhu/REM_E3_model_fixed/commit/e884ac3) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 20:57:30  
+**Message:**
+```
+feat(anlaysis-e1-report): refine final test phase analysis with model convergence insights
+
+- Updated the final test phase section to clarify model convergence issues and the justification for retaining complex quadratic models despite warnings.
+- Enhanced the within-study and within-test position effects analyses, revealing significant quadratic trends and item-type-specific performance patterns.
+- Expanded the discussion on methodological considerations, emphasizing the importance of model comparison in guiding analysis decisions.
+- Improved overall clarity and structure of the report to facilitate better interpretation of findings related to recognition memory.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_report.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e884ac3_20250928_205730_plot1.png)  
+![](../plot_archive/e884ac3_20250928_205730_plot2.png)  
+
 ## Commit [e31e505](https://github.com/naszhu/REM_E3_model_fixed/commit/e31e505) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 20:37:24  
 **Message:**

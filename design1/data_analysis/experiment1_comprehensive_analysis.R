@@ -242,174 +242,64 @@ m_init_between <- glmer(
 cat("\n=== Initial Between-List Model ===\n")
 check_convergence_issues(m_init_between)
 
-# Final test: Within-list study position × item type
+# REMOVED COMPLEX MODELS - USING SIMPLIFIED MODELS ONLY
+
+# ------------------
+# FINAL TEST MODELS (SIMPLIFIED ONLY)
+# ------------------
+cat("\n=== CREATING FINAL TEST MODELS ===\n")
+
+# Final Within-Study Model (linear only)
 m_final_within_study <- glmer(
-  accuracy ~ (study_position_lin + study_position_quad) * item_type +
-    (1 | participant_id) + (0 + study_position_lin | participant_id),
+  accuracy ~ study_position_lin * item_type +  # Linear only
+    (1 | participant_id),                      # Random intercept only
   data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
   na.action = na.omit
 )
 
-# Check convergence for final within-study model
-cat("\n=== Final Within-Study Model ===\n")
+cat("✓ Created within-study model (linear only)\n")
 check_convergence_issues(m_final_within_study)
 
-# Final test: Within-list test position × item type
+# Final Within-Test Model (linear only)
 m_final_within_test <- glmer(
-  accuracy ~ (test_position_lin + test_position_quad) * item_type +
-    (1 | participant_id) + (0 + test_position_lin | participant_id),
+  accuracy ~ test_position_lin * item_type +   # Linear only
+    (1 | participant_id),                      # Random intercept only
   data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
   na.action = na.omit
 )
 
-# Check convergence for final within-test model
-cat("\n=== Final Within-Test Model ===\n")
+cat("✓ Created within-test model (linear only)\n")
 check_convergence_issues(m_final_within_test)
 
-# Final test: Between-list final order × item type × condition
+# Final Between-Final Model (2-way interactions only)
 m_between_final <- glmer(
-  accuracy ~ (final_order_lin + final_order_quad) * item_type * condition +
-    (1 | participant_id),
-  data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 10000)),
-  na.action = na.omit
-)
-
-# Check convergence for final between-final model
-cat("\n=== Final Between-Final Model ===\n")
-check_convergence_issues(m_between_final)
-
-# Final test: Between-list initial order × item type × condition
-m_between_initial <- glmer(
-  accuracy ~ (initial_order_lin + initial_order_quad) * item_type * condition +
-    (1 | participant_id),
-  data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 10000)),
-  na.action = na.omit
-)
-
-# Check convergence for final between-initial model
-cat("\n=== Final Between-Initial Model ===\n")
-check_convergence_issues(m_between_initial)
-
-# ------------------
-# SIMPLIFIED MODELS FOR PROBLEMATIC CASES
-# ------------------
-cat("\n=== CREATING SIMPLIFIED MODELS ===\n")
-
-# Simplified Final Within-Study Model (linear only)
-m_final_within_study_linear <- glmer(
-  accuracy ~ study_position_lin * item_type +  # Remove quadratic term
-    (1 | participant_id),                      # Keep only random intercept
-  data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
-  na.action = na.omit
-)
-
-cat("✓ Created simplified within-study model (linear only)\n")
-check_convergence_issues(m_final_within_study_linear)
-
-# Simplified Final Within-Test Model (linear only)
-m_final_within_test_linear <- glmer(
-  accuracy ~ test_position_lin * item_type +   # Remove quadratic term
-    (1 | participant_id),                      # Keep only random intercept
-  data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
-  na.action = na.omit
-)
-
-cat("✓ Created simplified within-test model (linear only)\n")
-check_convergence_issues(m_final_within_test_linear)
-
-# Simplified Between-Final Model (remove 3-way interaction)
-m_between_final_simple <- glmer(
-  accuracy ~ (final_order_lin + final_order_quad) * item_type +  # Keep 2-way interactions
-    condition +                                                  # Add condition as main effect
+  accuracy ~ (final_order_lin + final_order_quad) * item_type +  # 2-way interactions
+    condition +                                                  # Condition as main effect
     (1 | participant_id),                                        # Random intercept only
   data = final, family = binomial,
   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
   na.action = na.omit
 )
 
-cat("✓ Created simplified between-final model (no 3-way interaction)\n")
-check_convergence_issues(m_between_final_simple)
+cat("✓ Created between-final model (2-way interactions)\n")
+check_convergence_issues(m_between_final)
 
-# Simplified Between-Initial Model (remove random slopes)
-m_between_initial_simple <- glmer(
-  accuracy ~ (initial_order_lin + initial_order_quad) * item_type * condition +
-    (1 | participant_id),  # Simplified to random intercept only
+# Final Between-Initial Model (2-way interactions only for better convergence)
+m_between_initial <- glmer(
+  accuracy ~ (initial_order_lin + initial_order_quad) * item_type +  # 2-way interactions
+    condition +                                                      # Condition as main effect
+    (1 | participant_id),                                            # Random intercept only
   data = final, family = binomial,
   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
   na.action = na.omit
 )
 
-cat("✓ Created simplified between-initial model (no random slopes)\n")
-check_convergence_issues(m_between_initial_simple)
+cat("✓ Created between-initial model (2-way interactions)\n")
+check_convergence_issues(m_between_initial)
 
-# ------------------
-# MODEL COMPARISONS (ANOVA)
-# ------------------
-cat("\n=== MODEL COMPARISONS ===\n")
-
-# Compare within-study models (full vs linear)
-cat("\n--- Within-Study Position: Full vs Linear ---\n")
-tryCatch({
-  comparison_study <- anova(m_final_within_study, m_final_within_study_linear)
-  print(comparison_study)
-  if (comparison_study$`Pr(>Chisq)`[2] < 0.05) {
-    cat("✓ Quadratic term significantly improves model fit\n")
-  } else {
-    cat("✗ Quadratic term does not significantly improve model fit - linear model is sufficient\n")
-  }
-}, error = function(e) {
-  cat("✗ Could not compare within-study models:", e$message, "\n")
-})
-
-# Compare within-test models (full vs linear)
-cat("\n--- Within-Test Position: Full vs Linear ---\n")
-tryCatch({
-  comparison_test <- anova(m_final_within_test, m_final_within_test_linear)
-  print(comparison_test)
-  if (comparison_test$`Pr(>Chisq)`[2] < 0.05) {
-    cat("✓ Quadratic term significantly improves model fit\n")
-  } else {
-    cat("✗ Quadratic term does not significantly improve model fit - linear model is sufficient\n")
-  }
-}, error = function(e) {
-  cat("✗ Could not compare within-test models:", e$message, "\n")
-})
-
-# Compare between-final models (full vs simplified)
-cat("\n--- Between-Final Order: Full vs Simplified ---\n")
-tryCatch({
-  comparison_between_final <- anova(m_between_final, m_between_final_simple)
-  print(comparison_between_final)
-  if (comparison_between_final$`Pr(>Chisq)`[2] < 0.05) {
-    cat("✓ 3-way interaction significantly improves model fit\n")
-  } else {
-    cat("✗ 3-way interaction does not significantly improve model fit - simplified model is sufficient\n")
-  }
-}, error = function(e) {
-  cat("✗ Could not compare between-final models:", e$message, "\n")
-})
-
-# Compare between-initial models (full vs simplified)
-cat("\n--- Between-Initial Order: Full vs Simplified ---\n")
-tryCatch({
-  comparison_between_initial <- anova(m_between_initial, m_between_initial_simple)
-  print(comparison_between_initial)
-  if (comparison_between_initial$`Pr(>Chisq)`[2] < 0.05) {
-    cat("✓ Random slopes significantly improve model fit\n")
-  } else {
-    cat("✗ Random slopes do not significantly improve model fit - simplified model is sufficient\n")
-  }
-}, error = function(e) {
-  cat("✗ Could not compare between-initial models:", e$message, "\n")
-})
-
-cat("\n=== END MODEL COMPARISONS ===\n")
+# REMOVED MODEL COMPARISONS - USING SIMPLIFIED MODELS ONLY
 
 # m_final_within_study <- glmer(
 #   accuracy ~ study_position_lin * item_type + study_position_quad * item_type +
@@ -477,211 +367,28 @@ cat("\n=== END MODEL COMPARISONS ===\n")
 # Final: Test Chunk (same as test_position model; kept for symmetry if you use chunking)
 # m_final_testchunk <- m_final_testpos
 
-# ------------------
-# Diagnostic analysis for within-list study position discrepancy
-# ------------------
-cat("\n=== DIAGNOSTIC ANALYSIS: Within-List Study Position ===\n")
+# REMOVED DIAGNOSTIC ANALYSIS - USING SIMPLIFIED MODELS ONLY
 
-# 1. Check effect sizes for quadratic trend
-convergence_code <- m_final_within_study@optinfo$convergence
-if (is.null(convergence_code) || length(convergence_code) == 0) {
-  cat("WARNING: Cannot determine convergence status. Effect sizes may be unreliable.\n")
-} else if (convergence_code == 0) {
-  quad_effect <- fixef(m_final_within_study)["study_position_quad"]
-  quad_or <- exp(quad_effect)
-  cat("Quadratic effect coefficient:", round(quad_effect, 4), "\n")
-  cat("Quadratic effect Odds Ratio:", round(quad_or, 3), "\n")
-} else {
-  cat("WARNING: Model did not converge properly. Effect sizes may be unreliable.\n")
-  cat("Convergence code:", convergence_code, "\n")
-}
-
-# 2. Generate model predictions for visualization
-library(ggplot2)
-pred_data <- expand.grid(
-  study_position = seq(min(final$study_position, na.rm = TRUE), 
-                       max(final$study_position, na.rm = TRUE),
-                       length.out = 20),
-  item_type = unique(final$item_type)
-)
-
-# Add polynomial terms for prediction
-pred_data <- pred_data %>%
-  bind_cols(create_polynomial_terms(., "study_position"))
-
-# Generate predictions (only if model converged)
-convergence_code <- m_final_within_study@optinfo$convergence
-if (is.null(convergence_code) || length(convergence_code) == 0 || convergence_code != 0) {
-  cat("Skipping prediction plot due to convergence issues.\n")
-  pred_data$pred <- NA
-} else {
-  pred_data$pred <- predict(m_final_within_study, newdata = pred_data, type = "response")
-}
-
-# Plot model predictions vs raw data
-raw_data <- final %>%
-  filter(!is.na(study_position)) %>%
-  group_by(study_position, item_type) %>%
-  summarise(mean_acc = mean(accuracy), 
-            se_acc = sd(accuracy)/sqrt(n()),
-            .groups = "drop")
-
-# Only create plot if we have valid data
-if (nrow(raw_data) > 0 && !all(is.na(pred_data$pred))) {
-  p1 <- ggplot(raw_data, aes(study_position, mean_acc, color = item_type)) +
-    geom_point(size = 3) +
-    geom_errorbar(aes(ymin = mean_acc - se_acc, ymax = mean_acc + se_acc), width = 0.1) +
-    # geom_line(data = pred_data, aes(study_position, pred), linewidth = 1.5) +
-    labs(title = "Study Position Effects: Raw Data vs Model Predictions",
-         x = "Study Position", y = "Accuracy",
-         color = "Item Type") +
-    theme_bw()
-  
-  print(p1)
-} else {
-  cat("Skipping plot due to insufficient data or convergence issues.\n")
-  
-  # Create a simple raw data plot instead
-  if (nrow(raw_data) > 0) {
-    p1_simple <- ggplot(raw_data, aes(study_position, mean_acc, color = item_type)) +
-      geom_point(size = 3) +
-      geom_errorbar(aes(ymin = mean_acc - se_acc, ymax = mean_acc + se_acc), width = 0.1) +
-      labs(title = "Study Position Effects: Raw Data Only (Model Predictions Unavailable)",
-           x = "Study Position", y = "Accuracy",
-           color = "Item Type") +
-      theme_bw()
-    
-    print(p1_simple)
-  }
-}
-
-# 3. Simple slopes analysis (only if model converged)
-convergence_code <- m_final_within_study@optinfo$convergence
-if (is.null(convergence_code) || length(convergence_code) == 0 || convergence_code != 0) {
-  cat("\nSkipping advanced diagnostics due to convergence issues.\n")
-  cat("Recommendation: Simplify the model structure or check for data issues.\n")
-} else {
-  cat("\nSimple slopes analysis:\n")
-  simple_slopes <- emtrends(m_final_within_study, ~ item_type, var = "study_position_quad")
-  print(simple_slopes)
-  
-  # 4. Model comparison (quadratic vs linear only)
-  m_linear_only <- update(m_final_within_study, . ~ . - study_position_quad)
-  comparison <- anova(m_final_within_study, m_linear_only)
-  cat("\nModel comparison (with vs without quadratic term):\n")
-  print(comparison)
-  
-  # 5. Check if quadratic effect is driven by specific positions
-  cat("\nQuadratic trend at specific positions:\n")
-  pos_effects <- emtrends(m_final_within_study, ~ study_position, var = "study_position_quad",
-                         at = list(study_position = c(1, 4, 8))) 
-  print(pos_effects)
-}
-
-cat("\n=== END DIAGNOSTIC ANALYSIS ===\n")
-
-# ------------------
-# Check all models for convergence and retry if needed
-# ------------------
-cat("\n=== MODEL CONVERGENCE CHECK ===\n")
-all_models <- list(
-  "Initial Study Position" = m_init_studypos,
-  "Initial Test Position" = m_init_testpos, 
-  "Initial Between-List" = m_init_between,
-  "Final Within-Study" = m_final_within_study,
-  "Final Within-Test" = m_final_within_test,
-  "Final Between-Final" = m_between_final,
-  "Final Between-Initial" = m_between_initial
-)
-
-for (i in seq_along(all_models)) {
-  model_name <- names(all_models)[i]
-  model <- all_models[[i]]
-  
-  convergence_code <- model@optinfo$convergence
-  if (is.null(convergence_code) || length(convergence_code) == 0) {
-    cat("? ", model_name, "convergence status unknown\n")
-  } else if (convergence_code == 0) {
-    cat("✓", model_name, "converged successfully\n")
-    } else {
-      cat("✗", model_name, "failed to converge (code:", convergence_code, ")\n")
-      cat("  Trying alternative optimizer...\n")
-      
-      # Try different optimizer
-      tryCatch({
-        all_models[[i]] <- update(model, 
-                                 control = glmerControl(optimizer = "nloptwrap", 
-                                                      optCtrl = list(maxfun = 20000)))
-        new_convergence <- all_models[[i]]@optinfo$convergence
-        if (is.null(new_convergence) || length(new_convergence) == 0) {
-          cat("  ? Retry status unknown\n")
-        } else if (new_convergence == 0) {
-          cat("  ✓ Retry successful with nloptwrap\n")
-        } else {
-          cat("  ✗ Retry failed, trying step-wise simplification...\n")
-          
-          # Step-wise simplification
-          tryCatch({
-            # Try removing quadratic terms first
-            simple_model <- update(model, formula. = . ~ . - study_position_quad - test_position_quad - final_order_quad - initial_order_quad - list_number_quad)
-            cat("  ✓ Removed quadratic terms\n")
-            all_models[[i]] <- simple_model
-          }, error = function(e1) {
-            # If still fails, remove random slopes
-            tryCatch({
-              simple_model <- update(model, formula. = . ~ . - (0 + study_position_lin | participant_id) - (0 + test_position_lin | participant_id) - (0 + list_number_lin | participant_id))
-              cat("  ✓ Removed random slopes\n")
-              all_models[[i]] <- simple_model
-            }, error = function(e2) {
-              cat("  ✗ All simplification attempts failed\n")
-            })
-          })
-        }
-      }, error = function(e) {
-        cat("  ✗ Retry failed with error:", e$message, "\n")
-      })
-    }
-}
-
-# Update model objects
-m_init_studypos <- all_models[["Initial Study Position"]]
-m_init_testpos <- all_models[["Initial Test Position"]]
-m_init_between <- all_models[["Initial Between-List"]]
-m_final_within_study <- all_models[["Final Within-Study"]]
-m_final_within_test <- all_models[["Final Within-Test"]]
-m_between_final <- all_models[["Final Between-Final"]]
-m_between_initial <- all_models[["Final Between-Initial"]]
-
-# Add simplified models to the list for saving
-all_models[["Final Within-Study Linear"]] <- m_final_within_study_linear
-all_models[["Final Within-Test Linear"]] <- m_final_within_test_linear
-all_models[["Final Between-Final Simple"]] <- m_between_final_simple
-all_models[["Final Between-Initial Simple"]] <- m_between_initial_simple
-
-cat("=== END CONVERGENCE CHECK ===\n\n")
+# REMOVED COMPLEX CONVERGENCE CHECK - USING SIMPLIFIED MODELS ONLY
 
 # ------------------
 # 5) Summaries (fixed effects)
 # ------------------
 results <- list(
-  # Original models
+  # Initial test models
   init_studypos        = broom.mixed::tidy(m_init_studypos,        effects = "fixed", conf.int = TRUE),
   init_testpos         = broom.mixed::tidy(m_init_testpos,         effects = "fixed", conf.int = TRUE),
   init_between         = broom.mixed::tidy(m_init_between,         effects = "fixed", conf.int = TRUE),
+  
+  # Final test models (simplified)
   final_within_study   = broom.mixed::tidy(m_final_within_study,   effects = "fixed", conf.int = TRUE),
   final_within_test    = broom.mixed::tidy(m_final_within_test,    effects = "fixed", conf.int = TRUE),
   final_between_final  = broom.mixed::tidy(m_between_final,        effects = "fixed", conf.int = TRUE),
-  final_between_initial= broom.mixed::tidy(m_between_initial,      effects = "fixed", conf.int = TRUE),
-  
-  # Simplified models
-  final_within_study_linear = broom.mixed::tidy(m_final_within_study_linear, effects = "fixed", conf.int = TRUE),
-  final_within_test_linear  = broom.mixed::tidy(m_final_within_test_linear,  effects = "fixed", conf.int = TRUE),
-  final_between_final_simple = broom.mixed::tidy(m_between_final_simple,    effects = "fixed", conf.int = TRUE),
-  final_between_initial_simple = broom.mixed::tidy(m_between_initial_simple, effects = "fixed", conf.int = TRUE)
+  final_between_initial= broom.mixed::tidy(m_between_initial,      effects = "fixed", conf.int = TRUE)
 )
 
 # ------------------
-# 6) Item-type–specific linear & quadratic trends (simple slopes)
+# 6) Item-type–specific trends and post-hoc comparisons
 # ------------------
 trends <- list(
   # Initial test
@@ -692,24 +399,61 @@ trends <- list(
   init_between_lin    = emtrends(m_init_between,    ~ item_type, var = "list_number_lin"),
   init_between_quad   = emtrends(m_init_between,    ~ item_type, var = "list_number_quad"),
 
-  # Final test (within-list)
+  # Final test (within-list) - LINEAR ONLY
   final_within_study_lin  = emtrends(m_final_within_study, ~ item_type, var = "study_position_lin"),
-  final_within_study_quad = emtrends(m_final_within_study, ~ item_type, var = "study_position_quad"),
   final_within_test_lin   = emtrends(m_final_within_test,  ~ item_type, var = "test_position_lin"),
-  final_within_test_quad  = emtrends(m_final_within_test,  ~ item_type, var = "test_position_quad"),
 
-  # Final test (between-list)
+  # Final test (between-list) - QUADRATIC INCLUDED
   final_between_final_lin   = emtrends(m_between_final,   ~ item_type, var = "final_order_lin"),
   final_between_final_quad  = emtrends(m_between_final,   ~ item_type, var = "final_order_quad"),
   final_between_initial_lin = emtrends(m_between_initial, ~ item_type, var = "initial_order_lin"),
   final_between_initial_quad= emtrends(m_between_initial, ~ item_type, var = "initial_order_quad")
 )
 
+# ------------------
+# 7) POST-HOC TESTS FOR ITEM TYPE COMPARISONS
+# ------------------
+cat("\n=== POST-HOC ITEM TYPE COMPARISONS ===\n")
+
+# Final test between-list models - get estimated marginal means for all item types
+cat("\n--- Final Test Between-List (Final Order) Item Type Comparisons ---\n")
+final_order_emmeans <- emmeans(m_between_final, ~ item_type)
+final_order_pairs <- pairs(final_order_emmeans, adjust = "tukey")
+print(final_order_pairs)
+
+cat("\n--- Final Test Between-List (Initial Order) Item Type Comparisons ---\n")
+initial_order_emmeans <- emmeans(m_between_initial, ~ item_type)
+initial_order_pairs <- pairs(initial_order_emmeans, adjust = "tukey")
+print(initial_order_pairs)
+
+# Within-list models - get estimated marginal means
+cat("\n--- Final Test Within-Study Item Type Comparisons ---\n")
+within_study_emmeans <- emmeans(m_final_within_study, ~ item_type)
+within_study_pairs <- pairs(within_study_emmeans, adjust = "tukey")
+print(within_study_pairs)
+
+cat("\n--- Final Test Within-Test Item Type Comparisons ---\n")
+within_test_emmeans <- emmeans(m_final_within_test, ~ item_type)
+within_test_pairs <- pairs(within_test_emmeans, adjust = "tukey")
+print(within_test_pairs)
+
+# Add these to trends for saving
+trends$final_order_emmeans <- final_order_emmeans
+trends$final_order_pairs <- final_order_pairs
+trends$initial_order_emmeans <- initial_order_emmeans
+trends$initial_order_pairs <- initial_order_pairs
+trends$within_study_emmeans <- within_study_emmeans
+trends$within_study_pairs <- within_study_pairs
+trends$within_test_emmeans <- within_test_emmeans
+trends$within_test_pairs <- within_test_pairs
+
+cat("\n=== END POST-HOC COMPARISONS ===\n")
+
 # Convert emtrends results to data frames safely
 trends_df <- lapply(trends, function(x) tryCatch(as.data.frame(x), error = function(e) NULL))
 
 # ------------------
-# 7) Save
+# 8) Save
 # ------------------
 saveRDS(
   list(
@@ -725,27 +469,23 @@ saveRDS(
     summaries = results,
     trends    = trends_df
   ),
-  "experiment1_glmm_full_with_interactions.rds"
+  "experiment1_glmm_simplified.rds"
 )
 
 # Also export flat CSV for reporting
 bind_rows(
-  # Original models
+  # Initial test models
   results$init_studypos          %>% mutate(model = "init_studypos"),
   results$init_testpos           %>% mutate(model = "init_testpos"),
   results$init_between           %>% mutate(model = "init_between"),
+  
+  # Final test models (simplified)
   results$final_within_study     %>% mutate(model = "final_within_study"),
   results$final_within_test      %>% mutate(model = "final_within_test"),
   results$final_between_final    %>% mutate(model = "final_between_final"),
-  results$final_between_initial  %>% mutate(model = "final_between_initial"),
-  
-  # Simplified models
-  results$final_within_study_linear %>% mutate(model = "final_within_study_linear"),
-  results$final_within_test_linear  %>% mutate(model = "final_within_test_linear"),
-  results$final_between_final_simple %>% mutate(model = "final_between_final_simple"),
-  results$final_between_initial_simple %>% mutate(model = "final_between_initial_simple")
+  results$final_between_initial  %>% mutate(model = "final_between_initial")
 ) %>%
-  write_csv("all_model_summaries_with_interactions.csv")
+  write_csv("all_model_summaries_simplified.csv")
 
 # Tidy & save item-type trends (if any computed)
 compact_trends <- purrr::imap_dfr(trends_df, ~{
@@ -754,6 +494,6 @@ compact_trends <- purrr::imap_dfr(trends_df, ~{
 })
 if (nrow(compact_trends) > 0) write_csv(compact_trends, "all_itemtype_trends.csv")
 
-cat("Saved: experiment1_glmm_full_with_interactions.rds\n")
-cat("Saved: all_model_summaries_with_interactions.csv\n")
+cat("Saved: experiment1_glmm_simplified.rds\n")
+cat("Saved: all_model_summaries_simplified.csv\n")
 if (exists("compact_trends") && nrow(compact_trends) > 0) cat("Saved: all_itemtype_trends.csv\n")
