@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [bdc8798](https://github.com/naszhu/REM_E3_model_fixed/commit/bdc8798) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 16:53:00  
+**Message:**
+```
+feat(analysis-e1): enhance polynomial term creation and streamline model handling
+
+The version that doesn't converge but more thorough (partially suggested by deepseek)
+
+- Improved the `create_polynomial_terms` function to handle NA values more effectively and set proper column names for output.
+- Added additional libraries for data manipulation and streamlined the data loading process.
+- Commented out unused model fitting code to improve clarity and focus on relevant analyses.
+- Enhanced the overall structure of the analysis script for better readability and maintainability.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/bdc8798_20250928_165300_plot1.png)  
+![](../plot_archive/bdc8798_20250928_165300_plot2.png)  
+
 ## Commit [030a7ec](https://github.com/naszhu/REM_E3_model_fixed/commit/030a7ec) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 16:23:35  
 **Message:**
