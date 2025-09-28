@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [771e0ae](https://github.com/naszhu/REM_E3_model_fixed/commit/771e0ae) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 16:10:18  
+**Message:**
+```
+feat(analysis-e1): refine comprehensive analysis with enhanced data handling and model specifications
+
+(uncompleted)
+
+- Updated the data loading process to use an absolute path for the dfchanged dataset, ensuring consistent access.
+- Simplified the calculation of study and test positions by removing unnecessary coalescing and warnings.
+- Enhanced the final test data preparation by creating initial position data and a lookup table for study and test positions.
+- Improved model specifications for within-list and between-list analyses, incorporating polynomial terms and ensuring proper convergence checks.
+- Streamlined the results saving process to include new summaries and trends, facilitating better interpretation of analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/771e0ae_20250928_161018_plot1.png)  
+![](../plot_archive/771e0ae_20250928_161018_plot2.png)  
+
 ## Commit [e6c7f9b](https://github.com/naszhu/REM_E3_model_fixed/commit/e6c7f9b) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 15:13:36  
 **Message:**

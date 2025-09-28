@@ -13,32 +13,23 @@ cat("Loaded dfchanged data with", nrow(dfchanged), "rows\n")
 # 1) Helper: safe poly (always returns *_lin, *_quad)
 create_polynomial_terms <- function(data, var_name) {
   v <- suppressWarnings(as.numeric(data[[var_name]]))
-  # Preserve NAs instead of imputing - models will handle them
-  if (all(is.na(v))) return(data.frame(lin = rep(NA, length(v)), quad = rep(NA, length(v))))
-  
-  # Center but don't scale - preserves original units
+  v[is.na(v)] <- mean(v, na.rm = TRUE)
   v_center <- v - mean(v, na.rm = TRUE)
-  
-  # Handle special cases
-  unique_vals <- unique(na.omit(v_center))
-  n_unique <- length(unique_vals)
-  
-  if (n_unique < 2) {
-    # Constant variable - return zeros
-    return(data.frame(lin = rep(0, length(v)), 
-                     quad = rep(0, length(v))))
-  } else if (n_unique == 2) {
-    # Binary variable - use contrast coding
-    lin <- as.integer(v_center == unique_vals[2])
-    return(data.frame(lin = lin, quad = rep(0, length(v))))
+  u <- length(unique(v_center)); n <- length(v_center)
+  if (u < 2) {
+    out <- data.frame(lin = rep(0, n), quad = rep(0, n))
+  } else if (u < 3) {
+    lin <- as.numeric(scale(v_center, center = TRUE, scale = TRUE))
+    out <- data.frame(lin = lin, quad = rep(0, n))
   } else {
-    # Continuous variable - use orthogonal polynomials
-    poly_res <- poly(v_center, degree = 2, raw = FALSE, simple = TRUE)
-    return(data.frame(lin = poly_res[,1], quad = poly_res[,2]))
+    out <- as.data.frame(poly(v_center, degree = 2, raw = FALSE))
   }
+  names(out) <- c(paste0(var_name, "_lin"), paste0(var_name, "_quad"))
+  out
 }
 
-# 2) Initial test 
+# 2) Initial test (trial-level) summary and plots
+
 # Prepare initial test data
 initial <- dfchanged %>%
   filter(task == "pretest_response", response != "null") %>%
@@ -55,13 +46,117 @@ initial <- dfchanged %>%
     )
   ) %>%
   mutate(item_type = factor(item_type, levels = c("foil","target"))) %>%
-  filter(!is.na(participant_id), !is.na(item_type)) %>%
-  bind_cols(create_polynomial_terms(., "study_position")) %>%
-  bind_cols(create_polynomial_terms(., "test_position")) %>%
-  bind_cols(create_polynomial_terms(., "list_number"))
+  filter(!is.na(participant_id), !is.na(item_type))
+
+# Summarize performance by test position (within-list)
+initial_by_testpos <- initial %>%
+  group_by(test_position, item_type) %>%
+  summarise(
+    performance = mean(accuracy, na.rm = TRUE),
+    se = sd(accuracy, na.rm = TRUE)/sqrt(n()),
+    n = n()
+  ) %>%
+  ungroup()
+
+# Summarize performance by list number (between-list)
+initial_by_listnum <- initial %>%
+  group_by(list_number, item_type) %>%
+  summarise(
+    performance = mean(accuracy, na.rm = TRUE),
+    se = sd(accuracy, na.rm = TRUE)/sqrt(n()),
+    n = n()
+  ) %>%
+  ungroup()
+
+# Plot: Within-list (test position)
+p_within <- ggplot(initial_by_testpos, aes(x = test_position, y = performance, color = item_type, group = item_type)) +
+  geom_line() +
+  geom_point() +
+  geom_ribbon(aes(ymin = performance - se, ymax = performance + se, fill = item_type), alpha = 0.2, color = NA) +
+  labs(
+    x = "Test Position (Within List)",
+    y = "Mean Correct (Performance)",
+    title = "Initial Test: Within-List Position",
+    color = "Item Type",
+    fill = "Item Type"
+  ) +
+  theme_bw()
+
+# Plot: Between-list (list number)
+p_between <- ggplot(initial_by_listnum, aes(x = list_number, y = performance, color = item_type, group = item_type)) +
+  geom_line() +
+  geom_point(size = 6) +
+  geom_ribbon(aes(ymin = performance - se, ymax = performance + se, fill = item_type), alpha = 0.2, color = NA) +
+  labs(
+    x = "List Number",
+    y = "Mean Correct (Performance)",
+    title = "Initial Test: List Number (Between Lists)",
+    color = "Item Type",
+    fill = "Item Type"
+  ) +
+  theme_bw()
+
+# Arrange plots side by side with larger, clearer output
+library(gridExtra)
+# Save to file with larger width/height for clarity
+ggsave("initial_test_within_between.png", 
+       grid.arrange(p_within, p_between, ncol = 2), 
+       width = 25, height = 7, dpi = 300)
+
+# Also show in RStudio/interactive session with larger window
+grid.newpage()
+grid.draw(arrangeGrob(p_within, p_between, ncol = 2, widths = c(1,1)))
 
 cat("Initial test data prepared:", nrow(initial), "trials\n")
 
+#---------------
+
+# Create summary data for initial test by initial study and test position
+initial_long <- initial %>%
+  pivot_longer(cols = c(study_position, test_position), names_to = "position_type", values_to = "position") %>%
+  filter(!is.na(position))
+
+initial_within_summary <- initial_long %>%
+  group_by(position_type, position, item_type) %>%
+  summarise(
+    mean_accuracy = mean(accuracy, na.rm = TRUE),
+    se = sd(accuracy, na.rm = TRUE)/sqrt(n()),
+    n = n(),
+    .groups = "drop"
+  )
+
+# Make position_type labels more readable
+initial_within_summary <- initial_within_summary %>%
+  mutate(
+    position_type = recode(position_type,
+                           "study_position" = "Initial Study Position",
+                           "test_position" = "Initial Test Position"),
+    item_type = recode(item_type,
+                       "foil" = "Foil - Correct rejection",
+                       "target" = "Target - Hits")
+  )
+
+# Plot: Initial test within-list by initial study and test position, faceted
+p_initial_within_facet <- ggplot(initial_within_summary, aes(x = position, y = mean_accuracy, color = item_type, group = item_type)) +
+  geom_point(size = 3) +
+  geom_line(linewidth = 1) +
+  geom_ribbon(aes(ymin = mean_accuracy - se, ymax = mean_accuracy + se, fill = item_type), alpha = 0.2, color = NA) +
+  facet_grid(. ~ position_type) +
+  labs(
+    x = "Position",
+    y = "Mean Correct (Performance)",
+    title = "Initial Test: Within-List by Initial Study/Test Position",
+    color = "Item Type",
+    fill = "Item Type"
+  ) +
+  theme_bw(base_size = 18) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "top"
+  )
+
+# Optionally save the plot
+# ggsave("initial_test_withinlist_by_study_test_facet.png", p_initial_within_facet, width = 12, height = 6, dpi = 300)
 # 3) Final test (trial-level)
 # ------------------
 # First, create the initial position data like in the reference file
@@ -130,49 +225,32 @@ final <- final %>%
   bind_cols(create_polynomial_terms(., "final_order")) %>%
   bind_cols(create_polynomial_terms(., "initial_order"))
 
-
+b
 # 4) Models (random intercepts; item-type-specific trends via interactions)
 
 # Initial: Study Position × Item Type
 m_init_studypos <- glmer(
   accuracy ~ (study_position_lin + study_position_quad) * item_type +
-    (1 | participant_id) + (0 + study_position_lin | participant_id) + (0 + study_position_quad | participant_id),
+    (1 | participant_id),
   data = initial, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
-  na.action = na.omit
+  control = glmerControl(optimizer = "bobyqa")
 )
 
 # Initial: Test Position × Item Type
 m_init_testpos <- glmer(
   accuracy ~ (test_position_lin + test_position_quad) * item_type +
-    (1 | participant_id) + (0 + test_position_lin | participant_id) + (0 + test_position_quad | participant_id),
+    (1 | participant_id),
   data = initial, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
-  na.action = na.omit
+  control = glmerControl(optimizer = "bobyqa")
 )
 
 # Initial: Between-List (List Index) × Item Type
 m_init_between <- glmer(
   accuracy ~ (list_number_lin + list_number_quad) * item_type +
-    (1 | participant_id) + (0 + list_number_lin | participant_id) + (0 + list_number_quad | participant_id),
+    (1 | participant_id),
   data = initial, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
-  na.action = na.omit
+  control = glmerControl(optimizer = "bobyqa")
 )
-
-# Check initial models for convergence
-initial_models <- list(m_init_studypos, m_init_testpos, m_init_between)
-cat("Initial model observation counts:\n")
-cat("Study position model:", nrow(model.frame(m_init_studypos)), "observations\n")
-cat("Test position model:", nrow(model.frame(m_init_testpos)), "observations\n")
-cat("Between-list model:", nrow(model.frame(m_init_between)), "observations\n")
-for (i in seq_along(initial_models)) {
-  if (!initial_models[[i]]@optinfo$convergence) {
-    cat(paste0("Initial model ", i, " did not converge! Trying different optimizer...\n"))
-    initial_models[[i]] <- update(initial_models[[i]], 
-                                 control = glmerControl(optimizer = "nloptwrap", calc.derivs = FALSE))
-  }
-}
 
 # m_final_within_study <- glmer(
 #   accuracy ~ study_position_lin * item_type + study_position_quad * item_type +
