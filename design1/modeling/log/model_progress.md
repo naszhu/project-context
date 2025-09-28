@@ -1,5 +1,31 @@
 # Model Progress
 
+## Commit [a2f6ebe](https://github.com/naszhu/REM_E3_model_fixed/commit/a2f6ebe) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 09:02:05  
+**Message:**
+```
+refactor(analysis-e1, analysis-e3): remove grid lines for improved plot aesthetics
+
+- Updated multiple R scripts to eliminate major and minor grid lines in ggplot themes, enhancing visual clarity.
+- Adjusted plot themes across various analysis scripts to create a more cohesive and minimalistic design.
+- These changes aim to improve the overall presentation of visualizations in the analysis.
+```
+**Changed Files:**
+- `design1/combined_finaltest_between_list.R`  
+- `design1/combined_finaltest_within_list.R`  
+- `design1/combined_initial_between_list.R`  
+- `design1/combined_initial_within_list.R`  
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/data_analysis/E1-finaltest-within-list.R`  
+- `design1/data_analysis/E1-initial-between-list.R`  
+- `design1/data_analysis/E1-initial-within-list.R`  
+- `design1/data_analysis/E1-participant-performance-plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/a2f6ebe_20250928_090205_plot1.png)  
+![](../plot_archive/a2f6ebe_20250928_090205_plot2.png)  
+
 ## Commit [54ee98c](https://github.com/naszhu/REM_E3_model_fixed/commit/54ee98c) (branch: `main`)
 **Time:** 2025-09-28 08:46:47  
 **Message:**
