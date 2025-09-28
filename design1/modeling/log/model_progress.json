@@ -1,5 +1,27 @@
 [
   {
+    "commit": "c82f31e",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): expand final test analysis with new scripts and detailed GLMM models",
+    "timestamp": "2025-09-28 10:52:08",
+    "plot1": "plot_archive/c82f31e_20250928_105208_plot1.png",
+    "plot2": "plot_archive/c82f31e_20250928_105208_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-Analysis-Report.md",
+      "design1/data_analysis/E1-comprehensive-analysis.R",
+      "design1/data_analysis/E1-final-test-GLMM-analysis.R",
+      "design1/data_analysis/E1-final-test-fast-analysis.R",
+      "design1/data_analysis/E1-final-test-simplified-GLMM.R",
+      "design1/data_analysis/Experiment1_Professional_Manuscript_Results.txt",
+      "design1/data_analysis/final_professional_analysis.R",
+      "design1/data_analysis/final_results_summary.txt",
+      "design1/data_analysis/overall_testpos_results.rds",
+      "design1/data_analysis/streamlined_glmm_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "de0bddb",
     "branch": "sep-28-analysis",
     "message": "feat(analysis-e1): enhance final test analysis with GLMM and exposure history effects",

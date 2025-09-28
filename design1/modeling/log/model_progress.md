@@ -1,5 +1,32 @@
 # Model Progress
 
+## Commit [c82f31e](https://github.com/naszhu/REM_E3_model_fixed/commit/c82f31e) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 10:52:08  
+**Message:**
+```
+feat(analysis-e1): expand final test analysis with new scripts and detailed GLMM models
+
+- Added new R scripts for fast and simplified GLMM analyses of final test performance, enhancing the overall analytical framework.
+- Updated E1-Analysis-Report.md to reflect new findings and methodologies, including detailed sections on within-list and between-list effects.
+- Removed outdated files to streamline the analysis process and improve clarity in the project structure.
+- These changes provide a more comprehensive understanding of recognition performance across different exposure histories and test conditions.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/data_analysis/E1-comprehensive-analysis.R`  
+- `design1/data_analysis/E1-final-test-GLMM-analysis.R`  
+- `design1/data_analysis/E1-final-test-fast-analysis.R`  
+- `design1/data_analysis/E1-final-test-simplified-GLMM.R`  
+- `design1/data_analysis/Experiment1_Professional_Manuscript_Results.txt`  
+- `design1/data_analysis/final_professional_analysis.R`  
+- `design1/data_analysis/final_results_summary.txt`  
+- `design1/data_analysis/overall_testpos_results.rds`  
+- `design1/data_analysis/streamlined_glmm_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/c82f31e_20250928_105208_plot1.png)  
+![](../plot_archive/c82f31e_20250928_105208_plot2.png)  
+
 ## Commit [de0bddb](https://github.com/naszhu/REM_E3_model_fixed/commit/de0bddb) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 09:54:56  
 **Message:**
