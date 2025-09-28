@@ -1,155 +1,165 @@
 # ------------------
-# 1. Libraries
+# 0. Libraries
 # ------------------
 library(tidyverse)
 library(lme4)
 library(broom.mixed)
-library(performance)
 
 # ------------------
-# 2. Data load
+# 1. Load Data
 # ------------------
 dfchanged <- read_csv("dfchanged.csv")
 cat("Loaded dfchanged data with", nrow(dfchanged), "rows\n")
 
 # ------------------
-# 3. Helper: polynomial + centering
+# 2. Helper: polynomial terms
 # ------------------
-create_poly <- function(x, degree = 2) {
-  x <- as.numeric(x)
-  x <- x - mean(x, na.rm = TRUE)
-  poly(x, degree = degree, raw = FALSE)
+create_polynomial_terms <- function(data, var_name) {
+  v <- suppressWarnings(as.numeric(data[[var_name]]))
+  v[is.na(v)] <- mean(v, na.rm = TRUE)
+  v_center <- v - mean(v, na.rm = TRUE)
+
+  u <- length(unique(v_center))
+  n <- length(v_center)
+
+  if (u < 2) {
+    # 没有变异：线性、二次都置 0
+    out <- data.frame(
+      lin  = rep(0, n),
+      quad = rep(0, n)
+    )
+  } else if (u < 3) {
+    # 只有两种取值：只给线性（标准化），二次置 0
+    lin  <- as.numeric(scale(v_center, center = TRUE, scale = TRUE))
+    out <- data.frame(
+      lin  = lin,
+      quad = rep(0, n)
+    )
+  } else {
+    # 足够变异：用正交多项式
+    P <- poly(v_center, degree = 2, raw = FALSE)
+    out <- as.data.frame(P)
+  }
+
+  names(out) <- c(paste0(var_name, "_lin"), paste0(var_name, "_quad"))
+  return(out)
 }
 
 # ------------------
-# 4. Helper: run model with convergence check
+# 3. Initial Test Data
 # ------------------
-run_model <- function(formula, data, name) {
-  cat("\n========================\n")
-  cat("Fitting:", name, "\n")
-  m <- glmer(
-    formula,
-    data = data,
-    family = binomial,
-    control = glmerControl(optimizer = "bobyqa", calc.derivs = TRUE)
-  )
-  
-  # Summary
-  print(summary(m)$coefficients)
-  
-  # 收敛检查
-  cat("\n--- Convergence check ---\n")
-  print(check_convergence(m))
-  print(check_singularity(m))
-  
-  return(m)
-}
-
-# ------------------
-# 5. Initial test data
-# ------------------
-initial_data <- dfchanged %>%
+initial <- dfchanged %>%
   filter(task == "pretest_response", response != "null") %>%
   mutate(
+    participant_id = factor(PROLIFIC_PID),
     accuracy = as.numeric(correct),
-    study_position_c = scale(as.numeric(prespos), center = TRUE, scale = FALSE)[,1],
-    test_position_c  = scale(as.numeric(testpos), center = TRUE, scale = FALSE)[,1],
-    list_c = scale(as.numeric(trialnum), center = TRUE, scale = FALSE)[,1],
-    item_type = ifelse(probetype == "TARGET_target", "target", "foil"),
-    subject = factor(ip),
-    condition = factor(condition)
+    study_position = as.numeric(coalesce(as.numeric(prespos_iposintrial_study), as.numeric(prespos))),
+    test_position = as.numeric(coalesce(as.numeric(prespos_iposintrial_test), as.numeric(testpos))),
+    list_number = as.numeric(trialnum),
+    item_type = case_when(
+      probetype == "TARGET_target" ~ "target",
+      probetype == "TARGET_foil"   ~ "foil",
+      TRUE ~ NA_character_
+    )
   ) %>%
-  filter(!is.na(accuracy), !is.na(study_position_c), !is.na(test_position_c))
+  filter(!is.na(study_position), !is.na(test_position), !is.na(item_type)) %>%
+  bind_cols(create_polynomial_terms(., "study_position")) %>%
+  bind_cols(create_polynomial_terms(., "test_position")) %>%
+  bind_cols(create_polynomial_terms(., "list_number"))
 
-cat("Initial test data prepared:", nrow(initial_data), "trials\n")
+cat("Initial test data prepared:", nrow(initial), "trials\n")
 
 # ------------------
-# 6. Final test data
+# 4. Final Test Data
 # ------------------
-final_data <- dfchanged %>%
+final <- dfchanged %>%
   filter(task == "finalt_response", response != "null") %>%
   mutate(
+    participant_id = factor(PROLIFIC_PID),
     accuracy = as.numeric(correct),
-    study_position_c = scale(as.numeric(prespos), center = TRUE, scale = FALSE)[,1],
-    test_position_c  = scale(as.numeric(testpos), center = TRUE, scale = FALSE)[,1],
-    list_c = scale(as.numeric(prespos_itrial), center = TRUE, scale = FALSE)[,1],
-    item_type = case_when(
-      probetype == "TARGET_target" ~ "S&T",
-      probetype == "TARGET_nontarget" ~ "SO",
-      probetype == "TARGET_foil" ~ "TO",
-      probetype == "FOIL" ~ "foil"
+    # 对 foil 没有 prespos 的情况特殊处理
+    study_position = case_when(
+      probetype == "FOIL" ~ NA_real_,
+      TRUE ~ as.numeric(prespos)
     ),
-    subject = factor(ip),
-    condition = factor(condition)
+    test_position = as.numeric(testpos),
+    list_number = as.numeric(trialnum),
+    item_type = case_when(
+      probetype == "TARGET_target"    ~ "ST",  # Studied & Tested
+      probetype == "TARGET_nontarget" ~ "SO",  # Studied Only
+      probetype == "TARGET_foil"      ~ "TO",  # Tested Only
+      probetype == "FOIL"             ~ "foil",
+      TRUE ~ NA_character_
+    )
   ) %>%
-  filter(!is.na(accuracy), !is.na(study_position_c), !is.na(test_position_c))
+  filter(!is.na(test_position), !is.na(item_type)) %>%
+  bind_cols(create_polynomial_terms(., "study_position")) %>%
+  bind_cols(create_polynomial_terms(., "test_position")) %>%
+  bind_cols(create_polynomial_terms(., "list_number"))
 
-cat("Final test data prepared:", nrow(final_data), "trials\n")
+cat("Final test data prepared:", nrow(final), "trials\n")
+# ------------------
+# 5. Models (all || and no item_id)
+# ------------------
+
+# Initial: Study Position
+m_init_studypos <- glmer(
+  accuracy ~ study_position_lin + study_position_quad + item_type +
+    (1 + study_position_lin + study_position_quad || participant_id),
+  data = initial, family = binomial,
+  control = glmerControl(optimizer = "bobyqa")
+)
+
+# Initial: Test Position
+m_init_testpos <- glmer(
+  accuracy ~ test_position_lin + test_position_quad + item_type +
+    (1 + test_position_lin + test_position_quad || participant_id),
+  data = initial, family = binomial,
+  control = glmerControl(optimizer = "bobyqa")
+)
+
+# Initial: Between-List
+m_init_between <- glmer(
+  accuracy ~ list_number_lin + list_number_quad + item_type +
+    (1 + list_number_lin + list_number_quad || participant_id),
+  data = initial, family = binomial,
+  control = glmerControl(optimizer = "bobyqa")
+)
+
+# Final: Study Position
+m_final_studypos <- glmer(
+  accuracy ~ study_position_lin + study_position_quad + item_type +
+    (1 + study_position_lin + study_position_quad || participant_id),
+  data = final, family = binomial,
+  control = glmerControl(optimizer = "bobyqa")
+)
+
+# Final: Test Position
+m_final_testpos <- glmer(
+  accuracy ~ test_position_lin + test_position_quad + item_type +
+    (1 + test_position_lin + test_position_quad || participant_id),
+  data = final, family = binomial,
+  control = glmerControl(optimizer = "bobyqa")
+)
+
+# Final: Initial List Position
+m_final_initiallist <- glmer(
+  accuracy ~ list_number_lin + list_number_quad + item_type +
+    (1 + list_number_lin + list_number_quad || participant_id),
+  data = final, family = binomial,
+  control = glmerControl(optimizer = "bobyqa")
+)
+
+# Final: Test Chunk (using test_position)
+m_final_testchunk <- glmer(
+  accuracy ~ test_position_lin + test_position_quad + item_type +
+    (1 + test_position_lin + test_position_quad || participant_id),
+  data = final, family = binomial,
+  control = glmerControl(optimizer = "bobyqa")
+)
 
 # ------------------
-# 7. Models
-# ------------------
-
-# Initial study position
-m_init_studypos <- run_model(
-  accuracy ~ study_position_c + I(study_position_c^2) * item_type * condition +
-    (1 + study_position_c | subject),
-  initial_data,
-  "Initial Study Position"
-)
-
-# Initial test position
-m_init_testpos <- run_model(
-  accuracy ~ test_position_c + I(test_position_c^2) * item_type * condition +
-    (1 + test_position_c | subject),
-  initial_data,
-  "Initial Test Position"
-)
-
-# Initial between-list
-m_init_between <- run_model(
-  accuracy ~ list_c + I(list_c^2) * item_type * condition +
-    (1 + list_c | subject),
-  initial_data,
-  "Initial Between-List"
-)
-
-# Final study position
-m_final_studypos <- run_model(
-  accuracy ~ study_position_c + I(study_position_c^2) * item_type * condition +
-    (1 + study_position_c | subject),
-  final_data,
-  "Final Study Position"
-)
-
-# Final test position
-m_final_testpos <- run_model(
-  accuracy ~ test_position_c + I(test_position_c^2) * item_type * condition +
-    (1 + test_position_c | subject),
-  final_data,
-  "Final Test Position"
-)
-
-# Final initial list position
-m_final_initiallist <- run_model(
-  accuracy ~ list_c + I(list_c^2) * item_type * condition +
-    (1 + list_c | subject),
-  final_data,
-  "Final Initial List Position"
-)
-
-# Final test chunk (if you chunk testpos into 10 bins)
-final_data <- final_data %>%
-  mutate(test_chunk = cut_number(test_position_c, 10, labels = 1:10))
-m_final_testchunk <- run_model(
-  accuracy ~ as.numeric(test_chunk) * item_type * condition +
-    (1 | subject),
-  final_data,
-  "Final Test Chunk"
-)
-
-# ------------------
-# 8. Save results
+# 6. Save Results
 # ------------------
 results <- list(
   init_studypos = broom.mixed::tidy(m_init_studypos, effects = "fixed", conf.int = TRUE),
@@ -177,4 +187,5 @@ saveRDS(
   "experiment1_glmm_full.rds"
 )
 
-cat("\nAll models finished. Results saved to experiment1_glmm_full.rds\n")
+cat("Results saved to experiment1_glmm_full.rds\n")
+

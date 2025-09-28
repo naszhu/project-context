@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [5ba78cd](https://github.com/naszhu/REM_E3_model_fixed/commit/5ba78cd) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 12:59:58  
+**Message:**
+```
+feat(analysis-e1): streamline data analysis script and enhance model fitting
+
+Have problems of fail to converge, and some rows are discarded need to check why and how
+
+- Refactored the comprehensive analysis script to improve data loading and preprocessing, including renaming variables for clarity.
+- Updated helper functions for polynomial term creation and model fitting, ensuring convergence checks are integrated.
+- Enhanced data preparation for initial and final test datasets, focusing on accuracy and scaling of study and test positions.
+- Improved model specifications for initial and final analyses, incorporating polynomial terms and adjusting for item types and conditions.
+- Results are now saved in a structured format, facilitating easier access and interpretation of analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/5ba78cd_20250928_125958_plot1.png)  
+![](../plot_archive/5ba78cd_20250928_125958_plot2.png)  
+
 ## Commit [7bedbec](https://github.com/naszhu/REM_E3_model_fixed/commit/7bedbec) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 12:42:27  
 **Message:**
