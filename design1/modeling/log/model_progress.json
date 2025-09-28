@@ -1,5 +1,33 @@
 [
   {
+    "commit": "517d49d",
+    "branch": "main",
+    "message": "feat(analysis-e3): enhance final test between list data visualization",
+    "timestamp": "2025-09-28 08:32:00",
+    "plot1": "plot_archive/517d49d_20250928_083200_plot1.png",
+    "plot2": "plot_archive/517d49d_20250928_083200_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r",
+      "design3/data_analysis/final_test_between_list_data_e3.r"
+    ]
+  },
+  {
+    "commit": "517d49d",
+    "branch": "main",
+    "message": "feat(analysis-e3): enhance final test between list data visualization",
+    "timestamp": "2025-09-28 08:32:00",
+    "plot1": "plot_archive/517d49d_20250928_083200_plot1.png",
+    "plot2": "plot_archive/517d49d_20250928_083200_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r",
+      "design3/data_analysis/final_test_between_list_data_e3.r"
+    ]
+  },
+  {
     "commit": "43467be",
     "branch": "main",
     "message": "refactor(dataplot-e1): update subproject commit and enhance plot aesthetics in analysis scripts",

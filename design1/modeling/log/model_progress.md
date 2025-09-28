@@ -1,5 +1,45 @@
 # Model Progress
 
+## Commit [517d49d](https://github.com/naszhu/REM_E3_model_fixed/commit/517d49d) (branch: `main`)
+**Time:** 2025-09-28 08:32:00  
+**Message:**
+```
+feat(analysis-e3): enhance final test between list data visualization
+
+- Introduced plot formatting constants for improved readability and maintainability of the final test between list analysis script.
+- Adjusted font sizes, point sizes, and line widths to enhance the clarity of visualizations.
+- Unified ggplot themes and axis scales to ensure consistent styling across plots.
+- Updated the export dimensions for the final test between list plot to improve presentation quality.
+- These changes aim to provide a more cohesive and visually appealing analysis of correct response rates in the final test between list context.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+- `design3/data_analysis/final_test_between_list_data_e3.r`  
+![](../plot_archive/517d49d_20250928_083200_plot1.png)  
+![](../plot_archive/517d49d_20250928_083200_plot2.png)  
+
+## Commit [517d49d](https://github.com/naszhu/REM_E3_model_fixed/commit/517d49d) (branch: `main`)
+**Time:** 2025-09-28 08:32:00  
+**Message:**
+```
+feat(analysis-e3): enhance final test between list data visualization
+
+- Introduced plot formatting constants for improved readability and maintainability of the final test between list analysis script.
+- Adjusted font sizes, point sizes, and line widths to enhance the clarity of visualizations.
+- Unified ggplot themes and axis scales to ensure consistent styling across plots.
+- Updated the export dimensions for the final test between list plot to improve presentation quality.
+- These changes aim to provide a more cohesive and visually appealing analysis of correct response rates in the final test between list context.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+- `design3/data_analysis/final_test_between_list_data_e3.r`  
+![](../plot_archive/517d49d_20250928_083200_plot1.png)  
+![](../plot_archive/517d49d_20250928_083200_plot2.png)  
+
 ## Commit [43467be](https://github.com/naszhu/REM_E3_model_fixed/commit/43467be) (branch: `main`)
 **Time:** 2025-09-25 14:58:46  
 **Message:**
