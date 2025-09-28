@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [72c5f36](https://github.com/naszhu/REM_E3_model_fixed/commit/72c5f36) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 17:30:18  
+**Message:**
+```
+feat(analysis-e1-report): add comprehensive report on item-type-specific serial position effects in recognition memory
+
+- Introduced a new markdown report detailing findings from a study on recognition memory, utilizing generalized linear mixed models (GLMM).
+- Included sections on abstract, method, results, discussion, and references, summarizing key insights on item-type-specific trends and performance patterns.
+- Highlighted significant findings regarding the differential effects of item types on serial position performance during initial and final testing phases.
+- Provided a structured format for future updates and references, enhancing the documentation of research outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_report.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/72c5f36_20250928_173018_plot1.png)  
+![](../plot_archive/72c5f36_20250928_173018_plot2.png)  
+
 ## Commit [74502d6](https://github.com/naszhu/REM_E3_model_fixed/commit/74502d6) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 17:07:15  
 **Message:**

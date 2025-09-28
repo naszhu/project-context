@@ -1,5 +1,18 @@
 [
   {
+    "commit": "72c5f36",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1-report): add comprehensive report on item-type-specific serial position effects in recognition memory",
+    "timestamp": "2025-09-28 17:30:18",
+    "plot1": "plot_archive/72c5f36_20250928_173018_plot1.png",
+    "plot2": "plot_archive/72c5f36_20250928_173018_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_report.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "74502d6",
     "branch": "sep-28-analysis",
     "message": "feat(analysis-e1):  in solving the convergency, take less terms",

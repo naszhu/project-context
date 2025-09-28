@@ -117,7 +117,7 @@ initial_positions <- df_initial_all %>%
 # Now create the final test data with correct initial positions
 final <- dfchanged %>%
   filter(task == "finalt_response", response != "null") %>%
-  select(ip, correct, probetype, stimulus_id, testpos, trialnum, prespos_itrial) %>%
+  select(ip, correct, probetype, stimulus_id, testpos, trialnum, prespos_itrial, condition) %>%
   left_join(initial_positions, by = c("ip", "stimulus_id")) %>%
   mutate(
     participant_id = factor(ip),
@@ -143,7 +143,7 @@ final <- dfchanged %>%
   ) %>%
   # Remove rows where we couldn't determine positions
   filter(!is.na(study_position) | !is.na(test_position)) %>%
-  select(participant_id, accuracy, item_type, study_position, test_position, final_order, initial_order)
+  select(participant_id, accuracy, item_type, study_position, test_position, final_order, initial_order, condition)
 
 # ------------------
 # Add polynomial terms
@@ -201,21 +201,21 @@ m_final_within_test <- glmer(
   na.action = na.omit
 )
 
-# Final test: Between-list final order × item type
+# Final test: Between-list final order × item type × condition
 m_between_final <- glmer(
-  accuracy ~ (final_order_lin + final_order_quad) * item_type +
-    (1 | participant_id) + (0 + final_order_lin | participant_id),
+  accuracy ~ (final_order_lin + final_order_quad) * item_type * condition +
+    (1 | participant_id),
   data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 10000)),
   na.action = na.omit
 )
 
-# Final test: Between-list initial order × item type
+# Final test: Between-list initial order × item type × condition
 m_between_initial <- glmer(
-  accuracy ~ (initial_order_lin + initial_order_quad) * item_type +
-    (1 | participant_id) + (0 + initial_order_lin | participant_id),
+  accuracy ~ (initial_order_lin + initial_order_quad) * item_type * condition +
+    (1 | participant_id),
   data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 10000)),
   na.action = na.omit
 )
 # m_final_within_study <- glmer(
@@ -283,6 +283,167 @@ m_between_initial <- glmer(
 # )
 # Final: Test Chunk (same as test_position model; kept for symmetry if you use chunking)
 # m_final_testchunk <- m_final_testpos
+
+# ------------------
+# Diagnostic analysis for within-list study position discrepancy
+# ------------------
+cat("\n=== DIAGNOSTIC ANALYSIS: Within-List Study Position ===\n")
+
+# 1. Check effect sizes for quadratic trend
+convergence_code <- m_final_within_study@optinfo$convergence
+if (is.null(convergence_code) || length(convergence_code) == 0) {
+  cat("WARNING: Cannot determine convergence status. Effect sizes may be unreliable.\n")
+} else if (convergence_code == 0) {
+  quad_effect <- fixef(m_final_within_study)["study_position_quad"]
+  quad_or <- exp(quad_effect)
+  cat("Quadratic effect coefficient:", round(quad_effect, 4), "\n")
+  cat("Quadratic effect Odds Ratio:", round(quad_or, 3), "\n")
+} else {
+  cat("WARNING: Model did not converge properly. Effect sizes may be unreliable.\n")
+  cat("Convergence code:", convergence_code, "\n")
+}
+
+# 2. Generate model predictions for visualization
+library(ggplot2)
+pred_data <- expand.grid(
+  study_position = seq(min(final$study_position, na.rm = TRUE), 
+                       max(final$study_position, na.rm = TRUE),
+                       length.out = 20),
+  item_type = unique(final$item_type)
+)
+
+# Add polynomial terms for prediction
+pred_data <- pred_data %>%
+  bind_cols(create_polynomial_terms(., "study_position"))
+
+# Generate predictions (only if model converged)
+convergence_code <- m_final_within_study@optinfo$convergence
+if (is.null(convergence_code) || length(convergence_code) == 0 || convergence_code != 0) {
+  cat("Skipping prediction plot due to convergence issues.\n")
+  pred_data$pred <- NA
+} else {
+  pred_data$pred <- predict(m_final_within_study, newdata = pred_data, type = "response")
+}
+
+# Plot model predictions vs raw data
+raw_data <- final %>%
+  filter(!is.na(study_position)) %>%
+  group_by(study_position, item_type) %>%
+  summarise(mean_acc = mean(accuracy), 
+            se_acc = sd(accuracy)/sqrt(n()),
+            .groups = "drop")
+
+# Only create plot if we have valid data
+if (nrow(raw_data) > 0 && !all(is.na(pred_data$pred))) {
+  p1 <- ggplot(raw_data, aes(study_position, mean_acc, color = item_type)) +
+    geom_point(size = 3) +
+    geom_errorbar(aes(ymin = mean_acc - se_acc, ymax = mean_acc + se_acc), width = 0.1) +
+    # geom_line(data = pred_data, aes(study_position, pred), linewidth = 1.5) +
+    labs(title = "Study Position Effects: Raw Data vs Model Predictions",
+         x = "Study Position", y = "Accuracy",
+         color = "Item Type") +
+    theme_bw()
+  
+  print(p1)
+} else {
+  cat("Skipping plot due to insufficient data or convergence issues.\n")
+  
+  # Create a simple raw data plot instead
+  if (nrow(raw_data) > 0) {
+    p1_simple <- ggplot(raw_data, aes(study_position, mean_acc, color = item_type)) +
+      geom_point(size = 3) +
+      geom_errorbar(aes(ymin = mean_acc - se_acc, ymax = mean_acc + se_acc), width = 0.1) +
+      labs(title = "Study Position Effects: Raw Data Only (Model Predictions Unavailable)",
+           x = "Study Position", y = "Accuracy",
+           color = "Item Type") +
+      theme_bw()
+    
+    print(p1_simple)
+  }
+}
+
+# 3. Simple slopes analysis (only if model converged)
+convergence_code <- m_final_within_study@optinfo$convergence
+if (is.null(convergence_code) || length(convergence_code) == 0 || convergence_code != 0) {
+  cat("\nSkipping advanced diagnostics due to convergence issues.\n")
+  cat("Recommendation: Simplify the model structure or check for data issues.\n")
+} else {
+  cat("\nSimple slopes analysis:\n")
+  simple_slopes <- emtrends(m_final_within_study, ~ item_type, var = "study_position_quad")
+  print(simple_slopes)
+  
+  # 4. Model comparison (quadratic vs linear only)
+  m_linear_only <- update(m_final_within_study, . ~ . - study_position_quad)
+  comparison <- anova(m_final_within_study, m_linear_only)
+  cat("\nModel comparison (with vs without quadratic term):\n")
+  print(comparison)
+  
+  # 5. Check if quadratic effect is driven by specific positions
+  cat("\nQuadratic trend at specific positions:\n")
+  pos_effects <- emtrends(m_final_within_study, ~ study_position, var = "study_position_quad",
+                         at = list(study_position = c(1, 4, 8))) 
+  print(pos_effects)
+}
+
+cat("\n=== END DIAGNOSTIC ANALYSIS ===\n")
+
+# ------------------
+# Check all models for convergence and retry if needed
+# ------------------
+cat("\n=== MODEL CONVERGENCE CHECK ===\n")
+all_models <- list(
+  "Initial Study Position" = m_init_studypos,
+  "Initial Test Position" = m_init_testpos, 
+  "Initial Between-List" = m_init_between,
+  "Final Within-Study" = m_final_within_study,
+  "Final Within-Test" = m_final_within_test,
+  "Final Between-Final" = m_between_final,
+  "Final Between-Initial" = m_between_initial
+)
+
+for (i in seq_along(all_models)) {
+  model_name <- names(all_models)[i]
+  model <- all_models[[i]]
+  
+  convergence_code <- model@optinfo$convergence
+  if (is.null(convergence_code) || length(convergence_code) == 0) {
+    cat("? ", model_name, "convergence status unknown\n")
+  } else if (convergence_code == 0) {
+    cat("✓", model_name, "converged successfully\n")
+  } else {
+    cat("✗", model_name, "failed to converge (code:", convergence_code, ")\n")
+    cat("  Trying alternative optimizer...\n")
+    
+    # Try different optimizer
+    tryCatch({
+      all_models[[i]] <- update(model, 
+                               control = glmerControl(optimizer = "nloptwrap", 
+                                                    optCtrl = list(maxfun = 20000)))
+      new_convergence <- all_models[[i]]@optinfo$convergence
+      if (is.null(new_convergence) || length(new_convergence) == 0) {
+        cat("  ? Retry status unknown\n")
+      } else if (new_convergence == 0) {
+        cat("  ✓ Retry successful with nloptwrap\n")
+      } else {
+        cat("  ✗ Retry failed\n")
+      }
+    }, error = function(e) {
+      cat("  ✗ Retry failed with error:", e$message, "\n")
+    })
+  }
+}
+
+# Update model objects
+m_init_studypos <- all_models[["Initial Study Position"]]
+m_init_testpos <- all_models[["Initial Test Position"]]
+m_init_between <- all_models[["Initial Between-List"]]
+m_final_within_study <- all_models[["Final Within-Study"]]
+m_final_within_test <- all_models[["Final Within-Test"]]
+m_between_final <- all_models[["Final Between-Final"]]
+m_between_initial <- all_models[["Final Between-Initial"]]
+
+cat("=== END CONVERGENCE CHECK ===\n\n")
+
 # ------------------
 # 5) Summaries (fixed effects)
 # ------------------
