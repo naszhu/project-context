@@ -1,5 +1,20 @@
 [
   {
+    "commit": "ec612bd",
+    "branch": "main",
+    "message": "feat(analysis-e3): add participant performance analysis and visualization",
+    "timestamp": "2025-09-28 08:32:26",
+    "plot1": "plot_archive/ec612bd_20250928_083226_plot1.png",
+    "plot2": "plot_archive/ec612bd_20250928_083226_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-participant-performance-plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3-participant-performance-plots.r",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "517d49d",
     "branch": "main",
     "message": "feat(analysis-e3): enhance final test between list data visualization",

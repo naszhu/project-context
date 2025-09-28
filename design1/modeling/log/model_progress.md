@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [ec612bd](https://github.com/naszhu/REM_E3_model_fixed/commit/ec612bd) (branch: `main`)
+**Time:** 2025-09-28 08:32:26  
+**Message:**
+```
+feat(analysis-e3): add participant performance analysis and visualization
+
+- Introduced a new script for analyzing participant performance in initial and final tests.
+- Calculated overall performance metrics for each participant and filtered results based on performance thresholds.
+- Created visualizations for both tests, enhancing clarity with improved ggplot themes and styling.
+- Saved performance data and generated combined plots for comprehensive analysis.
+- This addition aims to provide insights into participant performance trends across different test conditions.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-participant-performance-plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3-participant-performance-plots.r`  
+- `design3/modeling`  
+![](../plot_archive/ec612bd_20250928_083226_plot1.png)  
+![](../plot_archive/ec612bd_20250928_083226_plot2.png)  
+
 ## Commit [517d49d](https://github.com/naszhu/REM_E3_model_fixed/commit/517d49d) (branch: `main`)
 **Time:** 2025-09-28 08:32:00  
 **Message:**

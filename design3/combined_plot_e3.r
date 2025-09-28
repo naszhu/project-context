@@ -454,11 +454,12 @@ ggsave("E3_initial_between_list_combined.png", combined_plot,
 ###############################################################
 
 # Plot formatting constants
-PLOT_TITLE_SIZE <- 30
-AXIS_TITLE_SIZE <- 30
-AXIS_TEXT_SIZE <- 30
-STRIP_TEXT_SIZE <- 30
-BASE_SIZE <- 30
+PLOT_TITLE_SIZE <- 35
+AXIS_TITLE_SIZE <- 35
+AXIS_TEXT_SIZE <- 35
+STRIP_TEXT_SIZE <- 35
+BASE_SIZE <- 35
+POINT_STROKE <- 2
 POINT_SIZE <- 7
 LINE_WIDTH <- 2
 PLOT_WIDTH <- 11
@@ -678,15 +679,15 @@ ggsave("E3_final_test_within_list_combined.png", combined_plot,
 
 # Plot formatting constants
 PLOT_TITLE_SIZE <- 30
-AXIS_TITLE_SIZE <- 25
+AXIS_TITLE_SIZE <- 30
 AXIS_TEXT_SIZE <- 30
-STRIP_TEXT_SIZE <- 30
+STRIP_TEXT_SIZE <- 35
 BASE_SIZE <- 25
 POINT_SIZE <- 6
 POINT_STROKE <- 2
-LINE_WIDTH <- 1.5
+LINE_WIDTH <- 2
 PLOT_WIDTH <- 11
-PLOT_HEIGHT <- 6
+PLOT_HEIGHT <- 6.5
 PLOT_DPI <- 300
 POSITION_LABEL <- "Position"
 CORRECT_RATE_LABEL <- "Correct Response Rate"
