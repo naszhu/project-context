@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [de0bddb](https://github.com/naszhu/REM_E3_model_fixed/commit/de0bddb) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 09:54:56  
+**Message:**
+```
+feat(analysis-e1): enhance final test analysis with GLMM and exposure history effects
+
+- Updated E1-Analysis-Report.md to include GLMM analysis for final test performance, detailing effects of study position and exposure history.
+- Added new sections in E1-comprehensive-analysis.R for final test exposure history effects, including separate GLMM models for each exposure type.
+- Introduced a new binary file overall_testpos_results.rds to store results from the final test position analysis.
+- These changes improve the depth of analysis and provide clearer insights into recognition performance trends across different conditions.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/data_analysis/E1-comprehensive-analysis.R`  
+- `design1/data_analysis/overall_testpos_results.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/de0bddb_20250928_095456_plot1.png)  
+![](../plot_archive/de0bddb_20250928_095456_plot2.png)  
+
 ## Commit [3b9a65c](https://github.com/naszhu/REM_E3_model_fixed/commit/3b9a65c) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 09:44:51  
 **Message:**

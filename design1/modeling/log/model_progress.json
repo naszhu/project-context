@@ -1,5 +1,20 @@
 [
   {
+    "commit": "de0bddb",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): enhance final test analysis with GLMM and exposure history effects",
+    "timestamp": "2025-09-28 09:54:56",
+    "plot1": "plot_archive/de0bddb_20250928_095456_plot1.png",
+    "plot2": "plot_archive/de0bddb_20250928_095456_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-Analysis-Report.md",
+      "design1/data_analysis/E1-comprehensive-analysis.R",
+      "design1/data_analysis/overall_testpos_results.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "3b9a65c",
     "branch": "sep-28-analysis",
     "message": "feat(analysis-e1): add overall performance analysis to comprehensive analysis script",

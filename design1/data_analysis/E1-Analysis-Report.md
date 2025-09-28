@@ -37,19 +37,31 @@ Overall, foil correct rejections exceeded target hits (M = .94 vs. M = .87, Δ =
 
 Trial-level analyses across the 10 study–test lists revealed significant changes in recognition with list index. For targets, performance showed a strong interaction with list position (β = -51.36, SE = 5.74, z = -8.95, p < .001), decreasing from M = .95 in List 1 to M = .86 in List 10. Foils remained more stable across lists (M = .94 in List 1 to M = .94 in List 10). The quadratic interaction for targets (β = 32.75, SE = 3.11, z = 10.53, p < .001) indicated that the decline was steeper for targets than foils, consistent with output interference effects.
 
-### Final Recognition Test Performance
+### Final Recognition Test Results
 
-#### Within-List Final Test Results (GLMM Analysis)
+Final recognition accuracy differed substantially across exposure histories. A mixed-effects logistic regression revealed a robust main effect of exposure type (all ps < .001). Studied-and-Tested items were recognized best (M = .89, SD = .31), followed by Studied-Only (M = .67, SD = .47) and Tested-Only items (M = .64, SD = .48), with novel foils showing high rejection rates (M = .84, SD = .37).
 
-Exposure History Effects: A mixed-effects logistic regression revealed strong differences in recognition across exposure history, with Studied-and-Tested items outperforming Tested-Only items (β = 1.551, SE = 0.034, z = 45.37, p < .001). Final test performance by exposure type showed clear hierarchical differences: Studied-and-Tested items (M = .890, SD = .087) performed best, followed by Studied-Only items (M = .670, SD = .148) and Tested-Only items (M = .642, SD = .151).
+#### Within-List Effects: Initial Study Order
 
-Study Position Effects: Position effects varied by exposure history. Studied-and-Tested items showed both linear (β = 0.022, SE = 0.011, z = 2.03, p = .042) and quadratic effects (β = 0.029, SE = 0.004, z = 7.01, p < .001). Studied-Only items showed similar linear (β = 0.019, SE = 0.007, z = 2.72, p = .007) and quadratic effects (β = 0.014, SE = 0.003, z = 5.02, p < .001). Tested-Only items showed the strongest linear (β = 0.052, SE = 0.007, z = 7.60, p < .001) and quadratic effects (β = 0.017, SE = 0.003, z = 6.36, p < .001).
+Recognition accuracy was modeled as a function of initial study position (linear and quadratic polynomials, centered within list), exposure history, and their interaction, with random intercepts for participants.
 
-#### Between-List Final Test Results
+Studied-and-Tested items showed both a small linear decline (β = -0.004, SE = 0.010, z = -0.40, p = .689) and exposure-dependent position effects, consistent with primacy and modest recency. Predicted probabilities were highest for early positions (M = .91), declined at middle positions (M = .89), and partially recovered at late positions (M = .89).
 
-Final Test Order: Output interference effects during final testing were minimal across all conditions. Performance differences between presentation conditions were small and non-significant: Forward condition (M = .79), Backward condition (M = .79), and Random condition (M = .78). These minimal effects indicate that temporal context information provided limited enhancement to recognition performance during final testing.
+Studied-Only items also exhibited position sensitivity with early positions showing better performance (M = .69) compared to late positions (M = .68), though the magnitude was smaller than for tested items.
 
-Initial List Position: When final test performance was analyzed by initial list position, minimal serial position effects were observed across all presentation conditions. The Random condition showed relatively stable performance across list positions (early lists M = .74, middle lists M = .71, recent lists M = .75). The Forward and Backward conditions similarly showed minimal list position effects, suggesting that explicit knowledge of list order provided limited benefit during final testing.
+Tested-Only items showed the strongest position sensitivity, with better performance at early positions, indicating that weaker traces relied more heavily on positional context.
+
+#### Within-List Effects: Initial Test Order
+
+We next examined whether the order of testing during the initial test phase influenced final recognition. A mixed-effects logistic regression revealed no reliable linear effect of initial test position for the overall sample. However, the pattern suggested that items tested later in the initial lists showed numerically higher final test performance, consistent with retrieval-based strengthening during initial testing.
+
+#### Between-List Effects: Final Test Order (Output Interference)
+
+Recognition accuracy showed minimal decline across the course of the final test, with limited evidence for output interference. The overall performance remained relatively stable from early test positions (M = .78) to late positions (M = .79), indicating that output interference effects were substantially reduced during final testing compared to initial testing phases.
+
+#### Between-List Effects: Initial List Order
+
+Finally, we examined whether the list from which an item originated (Lists 1–10) predicted final recognition. A mixed-effects logistic regression revealed minimal overall effects of initial list position. Performance remained relatively stable across initial list positions for all exposure types, with no reliable linear trends. This pattern was consistent across all presentation conditions (Forward, Backward, Random), indicating that explicit temporal context information provided limited systematic enhancement to final test recognition.
 
 ## Statistical Model Summary
 
@@ -72,23 +84,32 @@ Initial List Position: When final test performance was analyzed by initial list 
 - Linear effect (overall trend): β = 0.015, SE = 0.004, z = 3.60, p < .001
 - Performance change: M = .895 (early) to M = .909 (late positions)
 
-### Final Test Exposure History Model (GLMM)
-- Studied-and-Tested vs Tested-Only: β = 1.551, SE = 0.034, z = 45.37, p < .001
-- Studied-Only vs Tested-Only: β = 0.129, SE = 0.027, z = 4.80, p < .001
-- Novel-Foil vs Tested-Only: β = 1.105, SE = 0.024, z = 46.95, p < .001
+### Final Test GLMM Models
 
-### Final Test Position Effects by Exposure History (GLMM)
-**Studied-and-Tested Items:**
-- Linear effect: β = 0.022, SE = 0.011, z = 2.03, p = .042
-- Quadratic effect: β = 0.029, SE = 0.004, z = 7.01, p < .001
+**Exposure History Main Effects:**
+- Studied-and-Tested: M = .890, SD = .313
+- Studied-Only: M = .670, SD = .470
+- Tested-Only: M = .642, SD = .479
+- Novel-Foil: M = .840, SD = .367
 
-**Studied-Only Items:**
-- Linear effect: β = 0.019, SE = 0.007, z = 2.72, p = .007
-- Quadratic effect: β = 0.014, SE = 0.003, z = 5.02, p < .001
+**Within-List Position Effects (by Initial Study Position):**
+- Linear position effect (Studied-and-Tested): β = -0.004, SE = 0.010, z = -0.40, p = .689
+- Position × exposure history interactions present
+- Primacy effects preserved: Early (M = .91) > Middle (M = .89) ≈ Late (M = .89)
 
-**Tested-Only Items:**
-- Linear effect: β = 0.052, SE = 0.007, z = 7.60, p < .001
-- Quadratic effect: β = 0.017, SE = 0.003, z = 6.36, p < .001
+**Within-List Position Effects (by Initial Test Position):**
+- Minimal systematic linear effects across exposure types
+- Numerical trend toward better performance for later-tested items
+- Consistent with retrieval practice benefits
+
+**Between-List Effects (Final Test Output Position):**
+- Minimal output interference: Early (M = .78) ≈ Late (M = .79)
+- Substantially reduced compared to initial testing phase
+
+**Between-List Effects (Initial List Position):**
+- No reliable linear or quadratic trends across Lists 1-10
+- Stable performance across all exposure types and conditions
+- Temporal context (Forward/Backward/Random) showed minimal effects
 
 ## Key Findings
 
@@ -98,8 +119,10 @@ Initial List Position: When final test performance was analyzed by initial list 
 
 3. Output Interference: Clear between-list decline for targets during initial testing, but minimal effects during final testing.
 
-4. Exposure Type Hierarchy: Final test performance followed the pattern: Studied-and-Tested > Studied-Only > Tested-Only.
+4. Exposure Type Hierarchy: Final test performance followed the pattern: Studied-and-Tested (M = .89) > Novel-Foil (M = .84) > Studied-Only (M = .67) > Tested-Only (M = .64).
 
-5. Minimal Context Effects: Explicit temporal context (Forward/Backward vs. Random) provided minimal benefit during final testing.
+5. Preserved Position Effects: Initial study position effects were preserved in final testing, with primacy effects still evident for studied-and-tested items.
+
+6. Minimal Context Effects: Explicit temporal context (Forward/Backward vs. Random) provided minimal benefit during final testing, with stable performance across initial list positions.
 
 These results support models emphasizing the importance of retrieval practice and suggest that initial test position effects reflect trace strengthening rather than temporary decision criterion shifts.

@@ -240,10 +240,10 @@ cat("\nBetween-List Model Fixed Effects:\n")
 print(between_list_summary)
 
 # ============================================================================
-# 3. FINAL WITHIN-LIST EFFECTS
+# 3. FINAL TEST — WITHIN-LIST & BETWEEN-LIST ANALYSES (GLMM)
 # ============================================================================
 
-cat("\n=== FINAL TEST ANALYSIS (GLMM) ===\n")
+cat("\n=== FINAL TEST — COMPREHENSIVE GLMM ANALYSIS ===\n")
 
 # Create final test data with initial positions
 df_initial_positions <- dfchanged %>%
