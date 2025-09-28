@@ -97,7 +97,6 @@ enhanced_plot <- ggplot(data=df_finalwithin,
   theme(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.grid = element_blank(),
     plot.caption = element_text(hjust = 0, size = 14, face = "bold", color = "darkblue", margin = margin(t = 20)),
     plot.margin = margin(t = 15, r = 15, b = 60, l = 15),
     text = element_text(size = 14),

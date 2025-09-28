@@ -76,7 +76,6 @@ enhanced_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction
     axis.title = element_text(size = 14, face = "bold", color = "black"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.grid = element_blank(),
     legend.position = "bottom",
     legend.title = element_text(face = "bold", size = 12),
     legend.text = element_text(size = 11),

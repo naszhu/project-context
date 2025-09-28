@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [54ee98c](https://github.com/naszhu/REM_E3_model_fixed/commit/54ee98c) (branch: `main`)
+**Time:** 2025-09-28 08:46:47  
+**Message:**
+```
+feat(analysis-e1, analysis-e3): enhance plot themes and aesthetics across multiple scripts
+
+- Updated ggplot themes in various analysis scripts to use minimal themes, improving visual clarity by removing grid lines.
+- Adjusted font sizes and styling for axis titles, text, and legends to enhance readability.
+- Introduced a new script for participant performance analysis, calculating overall performance metrics and generating visualizations for initial and final tests.
+- These changes aim to provide a more cohesive and visually appealing representation of participant performance data.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/data_analysis/E1-finaltest-within-list.R`  
+- `design1/data_analysis/E1-initial-between-list.R`  
+- `design1/data_analysis/E1-initial-within-list.R`  
+- `design1/data_analysis/E1-participant-performance-plots (2).R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+- `design3/data_analysis/E3-participant-performance-plots.r`  
+![](../plot_archive/54ee98c_20250928_084647_plot1.png)  
+![](../plot_archive/54ee98c_20250928_084647_plot2.png)  
+
 ## Commit [b569368](https://github.com/naszhu/REM_E3_model_fixed/commit/b569368) (branch: `main`)
 **Time:** 2025-09-28 08:32:36  
 **Message:**

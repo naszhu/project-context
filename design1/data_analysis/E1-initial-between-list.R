@@ -73,7 +73,6 @@ enhanced_plot <- ggplot(data=plot_data, aes(position,meancr,group=interaction(po
   theme(
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.grid = element_blank(),
     plot.caption = element_text(hjust = 0, size = 16, face = "bold", color = "darkblue", margin = margin(t = 25)),
     plot.margin = margin(t = 20, r = 20, b = 60, l = 20),
     text = element_text(size = 16),
