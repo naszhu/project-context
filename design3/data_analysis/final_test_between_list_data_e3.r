@@ -3,9 +3,35 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 
-# """
-# how to make the font of the stuff written in this plot way bigger, how to make the text in facet grid larger, and x, y axis biggwer, how to make the text in facet grid larger, and x, y axis biggwer, can I omit the type comment , and create my own legend, orange(and triangle) being previous foil, green(and circle) being previous studied only , blue(and square) being previous target and red star being final foil, and non-hollow point shape are for non-repeated items, and  hollow point shapes are for previous confusing foils (repeated item s
-# """
+# Plot formatting constants
+PLOT_TITLE_SIZE <- 18
+AXIS_TITLE_SIZE <- 24
+AXIS_TEXT_SIZE <- 18
+STRIP_TEXT_SIZE <- 28
+BASE_SIZE <- 24
+POINT_SIZE <- 4
+LINE_WIDTH <- 1
+PLOT_WIDTH <- 11
+PLOT_HEIGHT <- 6
+PLOT_DPI <- 300
+POSITION_LABEL <- "Position"
+CORRECT_RATE_LABEL <- "Correct Response Rate"
+
+# Y-axis scale constants
+Y_MIN <- 0.47
+Y_MAX <- 0.96
+Y_BREAKS <- seq(0.5, 1.0, by = 0.1)
+
+PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
+  theme(
+    plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
+    axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+    axis.title.y = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+    axis.text.x = element_text(size = AXIS_TEXT_SIZE),
+    axis.text.y = element_text(size = AXIS_TEXT_SIZE),
+    legend.position = "none",
+    strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
+  )
 
 df_rt_pl=read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design3/data/E3_AGGREGATED.csv")
 
@@ -72,7 +98,7 @@ print(dropped)
 p <- ggplot(data=d1taf_combined)+
   geom_ribbon(aes(x=position, ymin= cr - se, ymax= cr + se, group=interaction(task,type_comment), fill= type_comment), alpha=0.3)+
   geom_line(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment),linewidth=1)+
-  geom_point(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=4)+
+  geom_point(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=POINT_SIZE)+
   facet_grid(.~position_type)+
   scale_color_manual(values=c("Target: studied and tested at (n), Foil (n+1)"="#2166AC",
             "Studied-only (n); Foil (n+1)"="#1A9850",
@@ -100,21 +126,14 @@ p <- ggplot(data=d1taf_combined)+
     ),
     breaks = levelsStr_fn
   ) +
-  # theme()+
-  scale_linetype_discrete(breaks=levelsStr_fn)+
-  labs(x = "Position", y = "Correct Response Rate", title = "Final Test Between list") +
-  theme_bw(base_size = 24) + # Set a large base font size for all text
-  theme(
-    plot.title = element_text(size = 26, face = "bold"),
-    axis.title.x = element_text(size = 24, face = "bold"),
-    axis.title.y = element_text(size = 24, face = "bold"),
-    axis.text.x = element_text(size = 18),
-    axis.text.y = element_text(size = 18),
-    legend.position = "none",
-    # legend.title = element_text(size = 20, face = "bold"),
-    # legend.text = element_text(size = 18),
-    strip.text = element_text(size = 28, face = "bold") # Facet grid label text size
-  )+
-   scale_x_continuous(breaks = seq(0, 10, by = 1))
+  scale_linetype_discrete(breaks=levelsStr_fn) +
+  PLOT_THEME +
+  labs(
+    x = POSITION_LABEL, 
+    y = CORRECT_RATE_LABEL, 
+    title = "Final Test Between List DATA"
+  ) +
+  scale_x_continuous(breaks = seq(0, 10, by = 1)) +
+  scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
 
-ggsave("final_test_between_list_data_e3.png", plot = p, width = 11, height = 6, dpi = 300)
+ggsave("final_test_between_list_data_e3.png", plot = p, width = PLOT_WIDTH, height = PLOT_HEIGHT, dpi = PLOT_DPI)

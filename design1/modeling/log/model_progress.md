@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [43467be](https://github.com/naszhu/REM_E3_model_fixed/commit/43467be) (branch: `main`)
+**Time:** 2025-09-25 14:58:46  
+**Message:**
+```
+refactor(dataplot-e1): update subproject commit and enhance plot aesthetics in analysis scripts
+
+- Updated the subproject commit reference for consistency.
+- Introduced plot formatting constants in both initial and final test analysis scripts to improve readability and maintainability.
+- Adjusted point sizes and y-axis scales for better visualization clarity.
+- Unified ggplot themes across scripts to ensure consistent styling in visualizations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/final_test_within_list_data_e3.r`  
+- `design3/data_analysis/initial_test_within_list_data_e3.r`  
+- `design3/modeling`  
+![](../plot_archive/43467be_20250925_145846_plot1.png)  
+![](../plot_archive/43467be_20250925_145846_plot2.png)  
+
 ## Commit [6b98324](https://github.com/naszhu/REM_E3_model_fixed/commit/6b98324) (branch: `main`)
 **Time:** 2025-09-25 13:21:15  
 **Message:**
