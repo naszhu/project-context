@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [030a7ec](https://github.com/naszhu/REM_E3_model_fixed/commit/030a7ec) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 16:23:35  
+**Message:**
+```
+feat(analysis-e1): introduce comprehensive analysis script for GLMM with item-type-specific trends
+
+This v have checked that the data was correct
+
+- Added a new script for comprehensive analysis, implementing GLMM models with item-type-specific interactions.
+- Enhanced data preparation processes, including improved handling of missing values and polynomial term creation.
+- Streamlined initial and final test data analysis, ensuring proper model specifications and convergence checks.
+- Included visualizations for performance trends across test positions and item types, facilitating better interpretation of results.
+- Saved analysis outputs in structured formats for easier access and reporting.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_comprehensive_analysis_tempsave_plotdatacheck.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/030a7ec_20250928_162335_plot1.png)  
+![](../plot_archive/030a7ec_20250928_162335_plot2.png)  
+
 ## Commit [771e0ae](https://github.com/naszhu/REM_E3_model_fixed/commit/771e0ae) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 16:10:18  
 **Message:**

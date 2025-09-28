@@ -5,6 +5,12 @@ library(tidyverse)
 library(lme4)
 library(broom.mixed)
 library(emmeans)
+library(dplyr)
+library(readr)
+library(purrr)
+library(stringr)
+library(broom.mixed)
+library(emmeans)
 
 # 0) Load
 dfchanged <- read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design1/data_analysis/dfchanged.csv")
@@ -14,7 +20,11 @@ cat("Loaded dfchanged data with", nrow(dfchanged), "rows\n")
 create_polynomial_terms <- function(data, var_name) {
   v <- suppressWarnings(as.numeric(data[[var_name]]))
   # Preserve NAs instead of imputing - models will handle them
-  if (all(is.na(v))) return(data.frame(lin = rep(NA, length(v)), quad = rep(NA, length(v))))
+  if (all(is.na(v))) {
+    out <- data.frame(lin = rep(NA, length(v)), quad = rep(NA, length(v)))
+    names(out) <- c(paste0(var_name, "_lin"), paste0(var_name, "_quad"))
+    return(out)
+  }
   
   # Center but don't scale - preserves original units
   v_center <- v - mean(v, na.rm = TRUE)
@@ -25,17 +35,31 @@ create_polynomial_terms <- function(data, var_name) {
   
   if (n_unique < 2) {
     # Constant variable - return zeros
-    return(data.frame(lin = rep(0, length(v)), 
-                     quad = rep(0, length(v))))
+    out <- data.frame(lin = rep(0, length(v)), quad = rep(0, length(v)))
   } else if (n_unique == 2) {
     # Binary variable - use contrast coding
     lin <- as.integer(v_center == unique_vals[2])
-    return(data.frame(lin = lin, quad = rep(0, length(v))))
+    out <- data.frame(lin = lin, quad = rep(0, length(v)))
   } else {
     # Continuous variable - use orthogonal polynomials
-    poly_res <- poly(v_center, degree = 2, raw = FALSE, simple = TRUE)
-    return(data.frame(lin = poly_res[,1], quad = poly_res[,2]))
+    # Handle NAs by computing polynomials only on non-NA values
+    nona_idx <- !is.na(v_center)
+    if (sum(nona_idx) < 3) {
+      # Not enough non-NA values for polynomial
+      out <- data.frame(lin = rep(NA, length(v)), quad = rep(NA, length(v)))
+    } else {
+      poly_res <- poly(v_center[nona_idx], degree = 2, raw = FALSE, simple = TRUE)
+      lin <- rep(NA, length(v))
+      quad <- rep(NA, length(v))
+      lin[nona_idx] <- poly_res[,1]
+      quad[nona_idx] <- poly_res[,2]
+      out <- data.frame(lin = lin, quad = quad)
+    }
   }
+  
+  # Set proper column names
+  names(out) <- c(paste0(var_name, "_lin"), paste0(var_name, "_quad"))
+  return(out)
 }
 
 # 2) Initial test 
@@ -202,136 +226,140 @@ for (i in seq_along(initial_models)) {
 #   data = final, family = binomial, control = glmerControl(optimizer="bobyqa")
 # )
 
-# Within-list: Study Position
-m_final_within_study <- glmer(
-  accuracy ~ study_position_lin * item_type + study_position_quad * item_type +
-    (1 | participant_id) + (0 + study_position_lin | participant_id) + (0 + study_position_quad | participant_id),
-  data = final, family = binomial, control = glmerControl(optimizer="bobyqa"),
-  na.action = na.omit
-)
 
-# Within-list: Test Position
-m_final_within_test <- glmer(
-  accuracy ~ test_position_lin * item_type + test_position_quad * item_type +
-    (1 | participant_id) + (0 + test_position_lin | participant_id) + (0 + test_position_quad | participant_id),
-  data = final, family = binomial, control = glmerControl(optimizer="bobyqa"),
-  na.action = na.omit
-)
 
-# Between-list: Final Order
-m_between_final <- glmer(
-  accuracy ~ final_order_lin * item_type + final_order_quad * item_type +
-    (1 | participant_id) + (0 + final_order_lin | participant_id) + (0 + final_order_quad | participant_id),
-  data = final, family = binomial, control = glmerControl(optimizer="bobyqa"),
-  na.action = na.omit
-)
+###################################################33
 
-# Between-list: Initial Order
-m_between_initial <- glmer(
-  accuracy ~ initial_order_lin * item_type + initial_order_quad * item_type +
-    (1 | participant_id) + (0 + initial_order_lin | participant_id) + (0 + initial_order_quad | participant_id),
-  data = final, family = binomial, control = glmerControl(optimizer="bobyqa"),
-  na.action = na.omit
-)
+# # Within-list: Study Position
+# m_final_within_study <- glmer(
+#   accuracy ~ study_position_lin * item_type + study_position_quad * item_type +
+#     (1 | participant_id) + (0 + study_position_lin | participant_id) + (0 + study_position_quad | participant_id),
+#   data = final, family = binomial, control = glmerControl(optimizer="bobyqa"),
+#   na.action = na.omit
+# )
 
-# Check all models for convergence
-models <- list(m_final_within_study, m_final_within_test, m_between_final, m_between_initial)
-# Add diagnostic information about observations used in each model
-cat("Model observation counts:\n")
-cat("Study position model:", nrow(model.frame(m_final_within_study)), "observations\n")
-cat("Test position model:", nrow(model.frame(m_final_within_test)), "observations\n")
-cat("Final order model:", nrow(model.frame(m_between_final)), "observations\n")
-cat("Initial order model:", nrow(model.frame(m_between_initial)), "observations\n")
-for (i in seq_along(models)) {
-  if (!models[[i]]@optinfo$convergence) {
-    cat(paste0("Model ", i, " did not converge! Trying different optimizer...\n"))
-    models[[i]] <- update(models[[i]], 
-                         control = glmerControl(optimizer = "nloptwrap", calc.derivs = FALSE))
-  }
-}
+# # Within-list: Test Position
+# m_final_within_test <- glmer(
+#   accuracy ~ test_position_lin * item_type + test_position_quad * item_type +
+#     (1 | participant_id) + (0 + test_position_lin | participant_id) + (0 + test_position_quad | participant_id),
+#   data = final, family = binomial, control = glmerControl(optimizer="bobyqa"),
+#   na.action = na.omit
+# )
 
-# Final: Test Chunk (same as test_position model; kept for symmetry if you use chunking)
-m_final_testchunk <- m_final_testpos
-# ------------------
-# 5) Summaries (fixed effects)
-# ------------------
-results <- list(
-  init_studypos        = broom.mixed::tidy(m_init_studypos,        effects = "fixed", conf.int = TRUE),
-  init_testpos         = broom.mixed::tidy(m_init_testpos,         effects = "fixed", conf.int = TRUE),
-  init_between         = broom.mixed::tidy(m_init_between,         effects = "fixed", conf.int = TRUE),
-  final_within_study   = broom.mixed::tidy(m_final_within_study,   effects = "fixed", conf.int = TRUE),
-  final_within_test    = broom.mixed::tidy(m_final_within_test,    effects = "fixed", conf.int = TRUE),
-  final_between_final  = broom.mixed::tidy(m_between_final,        effects = "fixed", conf.int = TRUE),
-  final_between_initial= broom.mixed::tidy(m_between_initial,      effects = "fixed", conf.int = TRUE)
-)
+# # Between-list: Final Order
+# m_between_final <- glmer(
+#   accuracy ~ final_order_lin * item_type + final_order_quad * item_type +
+#     (1 | participant_id) + (0 + final_order_lin | participant_id) + (0 + final_order_quad | participant_id),
+#   data = final, family = binomial, control = glmerControl(optimizer="bobyqa"),
+#   na.action = na.omit
+# )
 
-# ------------------
-# 6) Item-type–specific linear & quadratic trends (simple slopes)
-# ------------------
-trends <- list(
-  # Initial test
-  init_studypos_lin   = emtrends(m_init_studypos,   ~ item_type, var = "study_position_lin"),
-  init_studypos_quad  = emtrends(m_init_studypos,   ~ item_type, var = "study_position_quad"),
-  init_testpos_lin    = emtrends(m_init_testpos,    ~ item_type, var = "test_position_lin"),
-  init_testpos_quad   = emtrends(m_init_testpos,    ~ item_type, var = "test_position_quad"),
-  init_between_lin    = emtrends(m_init_between,    ~ item_type, var = "list_number_lin"),
-  init_between_quad   = emtrends(m_init_between,    ~ item_type, var = "list_number_quad"),
+# # Between-list: Initial Order
+# m_between_initial <- glmer(
+#   accuracy ~ initial_order_lin * item_type + initial_order_quad * item_type +
+#     (1 | participant_id) + (0 + initial_order_lin | participant_id) + (0 + initial_order_quad | participant_id),
+#   data = final, family = binomial, control = glmerControl(optimizer="bobyqa"),
+#   na.action = na.omit
+# )
 
-  # Final test (within-list)
-  final_within_study_lin  = emtrends(m_final_within_study, ~ item_type, var = "study_position_lin"),
-  final_within_study_quad = emtrends(m_final_within_study, ~ item_type, var = "study_position_quad"),
-  final_within_test_lin   = emtrends(m_final_within_test,  ~ item_type, var = "test_position_lin"),
-  final_within_test_quad  = emtrends(m_final_within_test,  ~ item_type, var = "test_position_quad"),
+# # Check all models for convergence
+# models <- list(m_final_within_study, m_final_within_test, m_between_final, m_between_initial)
+# # Add diagnostic information about observations used in each model
+# cat("Model observation counts:\n")
+# cat("Study position model:", nrow(model.frame(m_final_within_study)), "observations\n")
+# cat("Test position model:", nrow(model.frame(m_final_within_test)), "observations\n")
+# cat("Final order model:", nrow(model.frame(m_between_final)), "observations\n")
+# cat("Initial order model:", nrow(model.frame(m_between_initial)), "observations\n")
+# for (i in seq_along(models)) {
+#   if (!models[[i]]@optinfo$convergence) {
+#     cat(paste0("Model ", i, " did not converge! Trying different optimizer...\n"))
+#     models[[i]] <- update(models[[i]], 
+#                          control = glmerControl(optimizer = "nloptwrap", calc.derivs = FALSE))
+#   }
+# }
 
-  # Final test (between-list)
-  final_between_final_lin   = emtrends(m_between_final,   ~ item_type, var = "final_order_lin"),
-  final_between_final_quad  = emtrends(m_between_final,   ~ item_type, var = "final_order_quad"),
-  final_between_initial_lin = emtrends(m_between_initial, ~ item_type, var = "initial_order_lin"),
-  final_between_initial_quad= emtrends(m_between_initial, ~ item_type, var = "initial_order_quad")
-)
+# # Final: Test Chunk (same as test_position model; kept for symmetry if you use chunking)
+# m_final_testchunk <- m_final_testpos
+# # ------------------
+# # 5) Summaries (fixed effects)
+# # ------------------
+# results <- list(
+#   init_studypos        = broom.mixed::tidy(m_init_studypos,        effects = "fixed", conf.int = TRUE),
+#   init_testpos         = broom.mixed::tidy(m_init_testpos,         effects = "fixed", conf.int = TRUE),
+#   init_between         = broom.mixed::tidy(m_init_between,         effects = "fixed", conf.int = TRUE),
+#   final_within_study   = broom.mixed::tidy(m_final_within_study,   effects = "fixed", conf.int = TRUE),
+#   final_within_test    = broom.mixed::tidy(m_final_within_test,    effects = "fixed", conf.int = TRUE),
+#   final_between_final  = broom.mixed::tidy(m_between_final,        effects = "fixed", conf.int = TRUE),
+#   final_between_initial= broom.mixed::tidy(m_between_initial,      effects = "fixed", conf.int = TRUE)
+# )
 
-# Convert emtrends results to data frames safely
-trends_df <- lapply(trends, function(x) tryCatch(as.data.frame(x), error = function(e) NULL))
+# # ------------------
+# # 6) Item-type–specific linear & quadratic trends (simple slopes)
+# # ------------------
+# trends <- list(
+#   # Initial test
+#   init_studypos_lin   = emtrends(m_init_studypos,   ~ item_type, var = "study_position_lin"),
+#   init_studypos_quad  = emtrends(m_init_studypos,   ~ item_type, var = "study_position_quad"),
+#   init_testpos_lin    = emtrends(m_init_testpos,    ~ item_type, var = "test_position_lin"),
+#   init_testpos_quad   = emtrends(m_init_testpos,    ~ item_type, var = "test_position_quad"),
+#   init_between_lin    = emtrends(m_init_between,    ~ item_type, var = "list_number_lin"),
+#   init_between_quad   = emtrends(m_init_between,    ~ item_type, var = "list_number_quad"),
 
-# ------------------
-# 7) Save
-# ------------------
-saveRDS(
-  list(
-    models = list(
-      m_init_studypos       = m_init_studypos,
-      m_init_testpos        = m_init_testpos,
-      m_init_between        = m_init_between,
-      m_final_within_study  = m_final_within_study,
-      m_final_within_test   = m_final_within_test,
-      m_between_final       = m_between_final,
-      m_between_initial     = m_between_initial
-    ),
-    summaries = results,
-    trends    = trends_df
-  ),
-  "experiment1_glmm_full_with_interactions.rds"
-)
+#   # Final test (within-list)
+#   final_within_study_lin  = emtrends(m_final_within_study, ~ item_type, var = "study_position_lin"),
+#   final_within_study_quad = emtrends(m_final_within_study, ~ item_type, var = "study_position_quad"),
+#   final_within_test_lin   = emtrends(m_final_within_test,  ~ item_type, var = "test_position_lin"),
+#   final_within_test_quad  = emtrends(m_final_within_test,  ~ item_type, var = "test_position_quad"),
 
-# Also export flat CSV for reporting
-bind_rows(
-  results$init_studypos          %>% mutate(model = "init_studypos"),
-  results$init_testpos           %>% mutate(model = "init_testpos"),
-  results$init_between           %>% mutate(model = "init_between"),
-  results$final_within_study     %>% mutate(model = "final_within_study"),
-  results$final_within_test      %>% mutate(model = "final_within_test"),
-  results$final_between_final    %>% mutate(model = "final_between_final"),
-  results$final_between_initial  %>% mutate(model = "final_between_initial")
-) %>%
-  write_csv("all_model_summaries_with_interactions.csv")
+#   # Final test (between-list)
+#   final_between_final_lin   = emtrends(m_between_final,   ~ item_type, var = "final_order_lin"),
+#   final_between_final_quad  = emtrends(m_between_final,   ~ item_type, var = "final_order_quad"),
+#   final_between_initial_lin = emtrends(m_between_initial, ~ item_type, var = "initial_order_lin"),
+#   final_between_initial_quad= emtrends(m_between_initial, ~ item_type, var = "initial_order_quad")
+# )
 
-# Tidy & save item-type trends (if any computed)
-compact_trends <- purrr::imap_dfr(trends_df, ~{
-  if (is.null(.x)) return(NULL)
-  as_tibble(.x) %>% mutate(contrast = .y)
-})
-if (nrow(compact_trends) > 0) write_csv(compact_trends, "all_itemtype_trends.csv")
+# # Convert emtrends results to data frames safely
+# trends_df <- lapply(trends, function(x) tryCatch(as.data.frame(x), error = function(e) NULL))
 
-cat("Saved: experiment1_glmm_full_with_interactions.rds\n")
-cat("Saved: all_model_summaries_with_interactions.csv\n")
-if (exists("compact_trends") && nrow(compact_trends) > 0) cat("Saved: all_itemtype_trends.csv\n")
+# # ------------------
+# # 7) Save
+# # ------------------
+# saveRDS(
+#   list(
+#     models = list(
+#       m_init_studypos       = m_init_studypos,
+#       m_init_testpos        = m_init_testpos,
+#       m_init_between        = m_init_between,
+#       m_final_within_study  = m_final_within_study,
+#       m_final_within_test   = m_final_within_test,
+#       m_between_final       = m_between_final,
+#       m_between_initial     = m_between_initial
+#     ),
+#     summaries = results,
+#     trends    = trends_df
+#   ),
+#   "experiment1_glmm_full_with_interactions.rds"
+# )
+
+# # Also export flat CSV for reporting
+# bind_rows(
+#   results$init_studypos          %>% mutate(model = "init_studypos"),
+#   results$init_testpos           %>% mutate(model = "init_testpos"),
+#   results$init_between           %>% mutate(model = "init_between"),
+#   results$final_within_study     %>% mutate(model = "final_within_study"),
+#   results$final_within_test      %>% mutate(model = "final_within_test"),
+#   results$final_between_final    %>% mutate(model = "final_between_final"),
+#   results$final_between_initial  %>% mutate(model = "final_between_initial")
+# ) %>%
+#   write_csv("all_model_summaries_with_interactions.csv")
+
+# # Tidy & save item-type trends (if any computed)
+# compact_trends <- purrr::imap_dfr(trends_df, ~{
+#   if (is.null(.x)) return(NULL)
+#   as_tibble(.x) %>% mutate(contrast = .y)
+# })
+# if (nrow(compact_trends) > 0) write_csv(compact_trends, "all_itemtype_trends.csv")
+
+# cat("Saved: experiment1_glmm_full_with_interactions.rds\n")
+# cat("Saved: all_model_summaries_with_interactions.csv\n")
+# if (exists("compact_trends") && nrow(compact_trends) > 0) cat("Saved: all_itemtype_trends.csv\n")
