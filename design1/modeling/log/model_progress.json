@@ -1,5 +1,367 @@
 [
   {
+    "commit": "e0120fc",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): simplify final test models and enhance reporting",
+    "timestamp": "2025-09-28 21:33:57",
+    "plot1": "plot_archive/e0120fc_20250928_213357_plot1.png",
+    "plot2": "plot_archive/e0120fc_20250928_213357_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_comprehensive_report.md",
+      "design1/data_analysis/experiment1_glmm_simplified.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "e884ac3",
+    "branch": "sep-28-analysis",
+    "message": "feat(anlaysis-e1-report): refine final test phase analysis with model convergence insights",
+    "timestamp": "2025-09-28 20:57:30",
+    "plot1": "plot_archive/e884ac3_20250928_205730_plot1.png",
+    "plot2": "plot_archive/e884ac3_20250928_205730_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_report.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "e31e505",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1-report): update comprehensive report with refined analyses and findings",
+    "timestamp": "2025-09-28 20:37:24",
+    "plot1": "plot_archive/e31e505_20250928_203724_plot1.png",
+    "plot2": "plot_archive/e31e505_20250928_203724_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_report.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "929ffbb",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): implement simplified models and model comparisons",
+    "timestamp": "2025-09-28 20:05:22",
+    "plot1": "plot_archive/929ffbb_20250928_200522_plot1.png",
+    "plot2": "plot_archive/929ffbb_20250928_200522_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_glmm_full_with_interactions.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "e418375",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): add convergence diagnostics and data validation functions",
+    "timestamp": "2025-09-28 19:47:07",
+    "plot1": "plot_archive/e418375_20250928_194707_plot1.png",
+    "plot2": "plot_archive/e418375_20250928_194707_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "1f55436",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): enhance final test data analysis with condition interactions and diagnostics",
+    "timestamp": "2025-09-28 19:36:25",
+    "plot1": "plot_archive/1f55436_20250928_193625_plot1.png",
+    "plot2": "plot_archive/1f55436_20250928_193625_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_glmm_full_with_interactions.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "72c5f36",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1-report): add comprehensive report on item-type-specific serial position effects in recognition memory",
+    "timestamp": "2025-09-28 17:30:18",
+    "plot1": "plot_archive/72c5f36_20250928_173018_plot1.png",
+    "plot2": "plot_archive/72c5f36_20250928_173018_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_report.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "74502d6",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1):  in solving the convergency, take less terms",
+    "timestamp": "2025-09-28 17:07:15",
+    "plot1": "plot_archive/74502d6_20250928_170715_plot1.png",
+    "plot2": "plot_archive/74502d6_20250928_170715_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_glmm_full_with_interactions.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "bdc8798",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): enhance polynomial term creation and streamline model handling",
+    "timestamp": "2025-09-28 16:53:00",
+    "plot1": "plot_archive/bdc8798_20250928_165300_plot1.png",
+    "plot2": "plot_archive/bdc8798_20250928_165300_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "030a7ec",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): introduce comprehensive analysis script for GLMM with item-type-specific trends",
+    "timestamp": "2025-09-28 16:23:35",
+    "plot1": "plot_archive/030a7ec_20250928_162335_plot1.png",
+    "plot2": "plot_archive/030a7ec_20250928_162335_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_comprehensive_analysis_tempsave_plotdatacheck.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "771e0ae",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): refine comprehensive analysis with enhanced data handling and model specifications",
+    "timestamp": "2025-09-28 16:10:18",
+    "plot1": "plot_archive/771e0ae_20250928_161018_plot1.png",
+    "plot2": "plot_archive/771e0ae_20250928_161018_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "e6c7f9b",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): enhance comprehensive analysis with item-type-specific trends",
+    "timestamp": "2025-09-28 15:13:36",
+    "plot1": "plot_archive/e6c7f9b_20250928_151336_plot1.png",
+    "plot2": "plot_archive/e6c7f9b_20250928_151336_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "d1b6b5a",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): update comprehensive analysis script for clarity and efficiency",
+    "timestamp": "2025-09-28 14:28:46",
+    "plot1": "plot_archive/d1b6b5a_20250928_142846_plot1.png",
+    "plot2": "plot_archive/d1b6b5a_20250928_142846_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_glmm_full.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "5ba78cd",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): streamline data analysis script and enhance model fitting",
+    "timestamp": "2025-09-28 12:59:58",
+    "plot1": "plot_archive/5ba78cd_20250928_125958_plot1.png",
+    "plot2": "plot_archive/5ba78cd_20250928_125958_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "7bedbec",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): add initial and final test data analysis results and workspace",
+    "timestamp": "2025-09-28 12:42:27",
+    "plot1": "plot_archive/7bedbec_20250928_124227_plot1.png",
+    "plot2": "plot_archive/7bedbec_20250928_124227_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_analysis_results.rds",
+      "design1/data_analysis/experiment1_analysis_workspace.RData",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_glmm_full.rds",
+      "design1/data_analysis/experiment1_glmm_results.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "31dc4a3",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): add initial and final test data analysis results and workspace",
+    "timestamp": "2025-09-28 12:37:55",
+    "plot1": "plot_archive/31dc4a3_20250928_123755_plot1.png",
+    "plot2": "plot_archive/31dc4a3_20250928_123755_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_analysis_results.rds",
+      "design1/data_analysis/experiment1_analysis_workspace.RData",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_glmm_full.rds",
+      "design1/data_analysis/experiment1_glmm_results.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "a931107",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): add initial and final test data analysis results and workspace",
+    "timestamp": "2025-09-28 12:30:14",
+    "plot1": "plot_archive/a931107_20250928_123014_plot1.png",
+    "plot2": "plot_archive/a931107_20250928_123014_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_analysis_results.rds",
+      "design1/data_analysis/experiment1_analysis_workspace.RData",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "12a33ed",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): enhance data analysis with new debug script and updated .gitignore",
+    "timestamp": "2025-09-28 11:46:07",
+    "plot1": "plot_archive/12a33ed_20250928_114607_plot1.png",
+    "plot2": "plot_archive/12a33ed_20250928_114607_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/data_analysis/E1-Analysis-Report.md",
+      "design1/data_analysis/E1-comprehensive-analysis.R",
+      "design1/data_analysis/E1-final-test-GLMM-analysis.R",
+      "design1/data_analysis/E1-final-test-fast-analysis.R",
+      "design1/data_analysis/E1-final-test-simplified-GLMM.R",
+      "design1/data_analysis/E1-simplified-analysis.R",
+      "design1/data_analysis/debug_data.R",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/results/experiment1_analysis_results.RData",
+      "design1/data_analysis/results/experiment1_results_summary.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "c82f31e",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): expand final test analysis with new scripts and detailed GLMM models",
+    "timestamp": "2025-09-28 10:52:08",
+    "plot1": "plot_archive/c82f31e_20250928_105208_plot1.png",
+    "plot2": "plot_archive/c82f31e_20250928_105208_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-Analysis-Report.md",
+      "design1/data_analysis/E1-comprehensive-analysis.R",
+      "design1/data_analysis/E1-final-test-GLMM-analysis.R",
+      "design1/data_analysis/E1-final-test-fast-analysis.R",
+      "design1/data_analysis/E1-final-test-simplified-GLMM.R",
+      "design1/data_analysis/Experiment1_Professional_Manuscript_Results.txt",
+      "design1/data_analysis/final_professional_analysis.R",
+      "design1/data_analysis/final_results_summary.txt",
+      "design1/data_analysis/overall_testpos_results.rds",
+      "design1/data_analysis/streamlined_glmm_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "de0bddb",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): enhance final test analysis with GLMM and exposure history effects",
+    "timestamp": "2025-09-28 09:54:56",
+    "plot1": "plot_archive/de0bddb_20250928_095456_plot1.png",
+    "plot2": "plot_archive/de0bddb_20250928_095456_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-Analysis-Report.md",
+      "design1/data_analysis/E1-comprehensive-analysis.R",
+      "design1/data_analysis/overall_testpos_results.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "3b9a65c",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): add overall performance analysis to comprehensive analysis script",
+    "timestamp": "2025-09-28 09:44:51",
+    "plot1": "plot_archive/3b9a65c_20250928_094451_plot1.png",
+    "plot2": "plot_archive/3b9a65c_20250928_094451_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-Analysis-Report.md",
+      "design1/data_analysis/E1-comprehensive-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "91c5cc6",
+    "branch": "sep-28-analysis",
+    "message": "refactor(analysis-e1): remove bold formatting for improved readability in E1 analysis report",
+    "timestamp": "2025-09-28 09:21:32",
+    "plot1": "plot_archive/91c5cc6_20250928_092132_plot1.png",
+    "plot2": "plot_archive/91c5cc6_20250928_092132_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-Analysis-Report.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "9250c88",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): add comprehensive and simplified analysis scripts for Experiment 1",
+    "timestamp": "2025-09-28 09:16:40",
+    "plot1": "plot_archive/9250c88_20250928_091640_plot1.png",
+    "plot2": "plot_archive/9250c88_20250928_091640_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-Analysis-Report.md",
+      "design1/data_analysis/E1-comprehensive-analysis.R",
+      "design1/data_analysis/E1-simplified-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "a2f6ebe",
+    "branch": "sep-28-analysis",
+    "message": "refactor(analysis-e1, analysis-e3): remove grid lines for improved plot aesthetics",
+    "timestamp": "2025-09-28 09:02:05",
+    "plot1": "plot_archive/a2f6ebe_20250928_090205_plot1.png",
+    "plot2": "plot_archive/a2f6ebe_20250928_090205_plot2.png",
+    "changed_files": [
+      "design1/combined_finaltest_between_list.R",
+      "design1/combined_finaltest_within_list.R",
+      "design1/combined_initial_between_list.R",
+      "design1/combined_initial_within_list.R",
+      "design1/data_analysis/E1-finaltest-between-list.R",
+      "design1/data_analysis/E1-finaltest-within-list.R",
+      "design1/data_analysis/E1-initial-between-list.R",
+      "design1/data_analysis/E1-initial-within-list.R",
+      "design1/data_analysis/E1-participant-performance-plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r"
+    ]
+  },
+  {
     "commit": "54ee98c",
     "branch": "main",
     "message": "feat(analysis-e1, analysis-e3): enhance plot themes and aesthetics across multiple scripts",

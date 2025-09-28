@@ -1,5 +1,508 @@
 # Model Progress
 
+## Commit [e0120fc](https://github.com/naszhu/REM_E3_model_fixed/commit/e0120fc) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 21:33:57  
+**Message:**
+```
+feat(analysis-e1): simplify final test models and enhance reporting
+
+- Removed complex models in favor of simplified linear-only models for final test analyses to improve convergence reliability.
+- Updated the comprehensive report to reflect the use of simplified models, emphasizing the importance of model selection for robust results.
+- Enhanced item-type-specific comparisons and post-hoc analyses, providing clearer insights into performance hierarchies across conditions.
+- Saved the updated results in a new RDS file for simplified models, ensuring better accessibility for future reporting.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_comprehensive_report.md`  
+- `design1/data_analysis/experiment1_glmm_simplified.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e0120fc_20250928_213357_plot1.png)  
+![](../plot_archive/e0120fc_20250928_213357_plot2.png)  
+
+## Commit [e884ac3](https://github.com/naszhu/REM_E3_model_fixed/commit/e884ac3) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 20:57:30  
+**Message:**
+```
+feat(anlaysis-e1-report): refine final test phase analysis with model convergence insights
+
+- Updated the final test phase section to clarify model convergence issues and the justification for retaining complex quadratic models despite warnings.
+- Enhanced the within-study and within-test position effects analyses, revealing significant quadratic trends and item-type-specific performance patterns.
+- Expanded the discussion on methodological considerations, emphasizing the importance of model comparison in guiding analysis decisions.
+- Improved overall clarity and structure of the report to facilitate better interpretation of findings related to recognition memory.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_report.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e884ac3_20250928_205730_plot1.png)  
+![](../plot_archive/e884ac3_20250928_205730_plot2.png)  
+
+## Commit [e31e505](https://github.com/naszhu/REM_E3_model_fixed/commit/e31e505) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 20:37:24  
+**Message:**
+```
+feat(analysis-e1-report): update comprehensive report with refined analyses and findings
+
+- Added details on simplified models for final test within-session analyses due to convergence issues, emphasizing the necessity of linear trends.
+- Expanded between-session models to include experimental condition factors, revealing complex three-way interactions affecting performance.
+- Enhanced discussion section to reflect new findings on item-type-specific trends and methodological considerations regarding model complexity.
+- Improved overall clarity and structure of the report, facilitating better interpretation of results and implications for recognition memory research.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_report.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e31e505_20250928_203724_plot1.png)  
+![](../plot_archive/e31e505_20250928_203724_plot2.png)  
+
+## Commit [929ffbb](https://github.com/naszhu/REM_E3_model_fixed/commit/929ffbb) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 20:05:22  
+**Message:**
+```
+feat(analysis-e1): implement simplified models and model comparisons
+
+- Added simplified versions of the final within-study, within-test, between-final, and between-initial models to enhance model interpretability and reduce complexity.
+- Integrated model comparison analyses using ANOVA to evaluate the significance of quadratic terms and interactions, providing insights into model fit.
+- Updated results saving process to include summaries for both original and simplified models, improving accessibility for reporting.
+- Enhanced convergence diagnostics and error handling during model comparisons, ensuring robust analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full_with_interactions.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/929ffbb_20250928_200522_plot1.png)  
+![](../plot_archive/929ffbb_20250928_200522_plot2.png)  
+
+## Commit [e418375](https://github.com/naszhu/REM_E3_model_fixed/commit/e418375) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 19:47:07  
+**Message:**
+```
+feat(analysis-e1): add convergence diagnostics and data validation functions
+
+- Introduced functions to check model convergence issues and validate position data, enhancing the robustness of the analysis.
+- Implemented validation checks for unique values in position variables to ensure adequate data for polynomial term creation.
+- Integrated convergence diagnostics into model fitting processes for initial and final tests, improving error handling and model reliability.
+- Updated the analysis script to include these new functionalities, facilitating better interpretation of model performance and data integrity.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e418375_20250928_194707_plot1.png)  
+![](../plot_archive/e418375_20250928_194707_plot2.png)  
+
+## Commit [1f55436](https://github.com/naszhu/REM_E3_model_fixed/commit/1f55436) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 19:36:25  
+**Message:**
+```
+feat(analysis-e1): enhance final test data analysis with condition interactions and diagnostics
+
+fixed the within-list partial problems but have convergence warining
+
+- Updated the final test data preparation to include the 'condition' variable, improving model specifications for GLMM analyses.
+- Expanded model formulas to incorporate interactions between item type and condition for both final order and initial order analyses.
+- Added diagnostic analysis for within-list study position discrepancies, including effect size checks and model predictions visualization.
+- Implemented a convergence check for all models, with retry mechanisms for failed convergence, enhancing robustness of the analysis workflow.
+- Improved overall script organization and clarity, facilitating better interpretation of results and future updates.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full_with_interactions.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/1f55436_20250928_193625_plot1.png)  
+![](../plot_archive/1f55436_20250928_193625_plot2.png)  
+
+## Commit [72c5f36](https://github.com/naszhu/REM_E3_model_fixed/commit/72c5f36) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 17:30:18  
+**Message:**
+```
+feat(analysis-e1-report): add comprehensive report on item-type-specific serial position effects in recognition memory
+
+- Introduced a new markdown report detailing findings from a study on recognition memory, utilizing generalized linear mixed models (GLMM).
+- Included sections on abstract, method, results, discussion, and references, summarizing key insights on item-type-specific trends and performance patterns.
+- Highlighted significant findings regarding the differential effects of item types on serial position performance during initial and final testing phases.
+- Provided a structured format for future updates and references, enhancing the documentation of research outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_report.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/72c5f36_20250928_173018_plot1.png)  
+![](../plot_archive/72c5f36_20250928_173018_plot2.png)  
+
+## Commit [74502d6](https://github.com/naszhu/REM_E3_model_fixed/commit/74502d6) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 17:07:15  
+**Message:**
+```
+feat(analysis-e1):  in solving the convergency, take less terms
+
+But might still be too much to ask?
+
+- Implemented final GLMM models for within-list and between-list analyses, incorporating polynomial terms for study and test positions.
+- Streamlined the results saving process to include comprehensive summaries and trends, improving accessibility for reporting.
+- Added functionality to export model summaries and item-type trends to CSV files for better data management and interpretation.
+- Enhanced overall script organization and clarity, ensuring a more efficient analysis workflow.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full_with_interactions.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/74502d6_20250928_170715_plot1.png)  
+![](../plot_archive/74502d6_20250928_170715_plot2.png)  
+
+## Commit [bdc8798](https://github.com/naszhu/REM_E3_model_fixed/commit/bdc8798) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 16:53:00  
+**Message:**
+```
+feat(analysis-e1): enhance polynomial term creation and streamline model handling
+
+The version that doesn't converge but more thorough (partially suggested by deepseek)
+
+- Improved the `create_polynomial_terms` function to handle NA values more effectively and set proper column names for output.
+- Added additional libraries for data manipulation and streamlined the data loading process.
+- Commented out unused model fitting code to improve clarity and focus on relevant analyses.
+- Enhanced the overall structure of the analysis script for better readability and maintainability.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/bdc8798_20250928_165300_plot1.png)  
+![](../plot_archive/bdc8798_20250928_165300_plot2.png)  
+
+## Commit [030a7ec](https://github.com/naszhu/REM_E3_model_fixed/commit/030a7ec) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 16:23:35  
+**Message:**
+```
+feat(analysis-e1): introduce comprehensive analysis script for GLMM with item-type-specific trends
+
+This v have checked that the data was correct
+
+- Added a new script for comprehensive analysis, implementing GLMM models with item-type-specific interactions.
+- Enhanced data preparation processes, including improved handling of missing values and polynomial term creation.
+- Streamlined initial and final test data analysis, ensuring proper model specifications and convergence checks.
+- Included visualizations for performance trends across test positions and item types, facilitating better interpretation of results.
+- Saved analysis outputs in structured formats for easier access and reporting.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_comprehensive_analysis_tempsave_plotdatacheck.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/030a7ec_20250928_162335_plot1.png)  
+![](../plot_archive/030a7ec_20250928_162335_plot2.png)  
+
+## Commit [771e0ae](https://github.com/naszhu/REM_E3_model_fixed/commit/771e0ae) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 16:10:18  
+**Message:**
+```
+feat(analysis-e1): refine comprehensive analysis with enhanced data handling and model specifications
+
+(uncompleted)
+
+- Updated the data loading process to use an absolute path for the dfchanged dataset, ensuring consistent access.
+- Simplified the calculation of study and test positions by removing unnecessary coalescing and warnings.
+- Enhanced the final test data preparation by creating initial position data and a lookup table for study and test positions.
+- Improved model specifications for within-list and between-list analyses, incorporating polynomial terms and ensuring proper convergence checks.
+- Streamlined the results saving process to include new summaries and trends, facilitating better interpretation of analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/771e0ae_20250928_161018_plot1.png)  
+![](../plot_archive/771e0ae_20250928_161018_plot2.png)  
+
+## Commit [e6c7f9b](https://github.com/naszhu/REM_E3_model_fixed/commit/e6c7f9b) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 15:13:36  
+**Message:**
+```
+feat(analysis-e1): enhance comprehensive analysis with item-type-specific trends
+
+- Updated the comprehensive analysis script to include item-type-specific interactions in GLMM models.
+- Streamlined data preparation for initial and final test datasets, ensuring proper handling of missing values and participant identifiers.
+- Added functionality for calculating and saving item-type-specific linear trends using emtrends.
+- Refined results saving process to include new summaries and trends, improving accessibility and interpretation of analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e6c7f9b_20250928_151336_plot1.png)  
+![](../plot_archive/e6c7f9b_20250928_151336_plot2.png)  
+
+## Commit [d1b6b5a](https://github.com/naszhu/REM_E3_model_fixed/commit/d1b6b5a) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 14:28:46  
+**Message:**
+```
+feat(analysis-e1): update comprehensive analysis script for clarity and efficiency
+
+- Renamed sections and variables for improved readability and organization.
+- Replaced helper functions for polynomial term creation and model fitting to enhance clarity and ensure proper convergence checks.
+- Streamlined data preparation for initial and final test datasets, focusing on accuracy and handling of missing values.
+- Updated model specifications to utilize polynomial terms and adjusted for participant identifiers.
+- Results saving process refined for better accessibility and interpretation of analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/d1b6b5a_20250928_142846_plot1.png)  
+![](../plot_archive/d1b6b5a_20250928_142846_plot2.png)  
+
+## Commit [5ba78cd](https://github.com/naszhu/REM_E3_model_fixed/commit/5ba78cd) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 12:59:58  
+**Message:**
+```
+feat(analysis-e1): streamline data analysis script and enhance model fitting
+
+Have problems of fail to converge, and some rows are discarded need to check why and how
+
+- Refactored the comprehensive analysis script to improve data loading and preprocessing, including renaming variables for clarity.
+- Updated helper functions for polynomial term creation and model fitting, ensuring convergence checks are integrated.
+- Enhanced data preparation for initial and final test datasets, focusing on accuracy and scaling of study and test positions.
+- Improved model specifications for initial and final analyses, incorporating polynomial terms and adjusting for item types and conditions.
+- Results are now saved in a structured format, facilitating easier access and interpretation of analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/5ba78cd_20250928_125958_plot1.png)  
+![](../plot_archive/5ba78cd_20250928_125958_plot2.png)  
+
+## Commit [7bedbec](https://github.com/naszhu/REM_E3_model_fixed/commit/7bedbec) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 12:42:27  
+**Message:**
+```
+feat(analysis-e1): add initial and final test data analysis results and workspace
+
+Complicated version, after fixing mistake of left_join for final test between list (won't need left join), but might not need the item term in the model either will work later
+
+- Introduced new binary files for storing analysis results and workspace data related to Experiment 1.
+- Updated the comprehensive analysis script to streamline data loading, preprocessing, and model fitting for initial and final test analyses.
+- Enhanced data preparation steps, including polynomial term creation and filtering for accuracy, to improve analysis clarity and efficiency.
+- These changes facilitate a more organized approach to data analysis and result storage for Experiment 1.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_analysis_results.rds`  
+- `design1/data_analysis/experiment1_analysis_workspace.RData`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full.rds`  
+- `design1/data_analysis/experiment1_glmm_results.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/7bedbec_20250928_124227_plot1.png)  
+![](../plot_archive/7bedbec_20250928_124227_plot2.png)  
+
+## Commit [31dc4a3](https://github.com/naszhu/REM_E3_model_fixed/commit/31dc4a3) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 12:37:55  
+**Message:**
+```
+feat(analysis-e1): add initial and final test data analysis results and workspace
+
+Complicated version, after fixing mistake of left_join for final test between list (won't need left join), but might not need the item term in the model either will work later
+
+- Introduced new binary files for storing analysis results and workspace data related to Experiment 1.
+- Updated the comprehensive analysis script to streamline data loading, preprocessing, and model fitting for initial and final test analyses.
+- Enhanced data preparation steps, including polynomial term creation and filtering for accuracy, to improve analysis clarity and efficiency.
+- These changes facilitate a more organized approach to data analysis and result storage for Experiment 1.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_analysis_results.rds`  
+- `design1/data_analysis/experiment1_analysis_workspace.RData`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full.rds`  
+- `design1/data_analysis/experiment1_glmm_results.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/31dc4a3_20250928_123755_plot1.png)  
+![](../plot_archive/31dc4a3_20250928_123755_plot2.png)  
+
+## Commit [a931107](https://github.com/naszhu/REM_E3_model_fixed/commit/a931107) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 12:30:14  
+**Message:**
+```
+feat(analysis-e1): add initial and final test data analysis results and workspace
+
+Complicated version, after fixing mistake of left_join for final test between list (won't need left join), but might not need the item term in the model either will work later
+
+- Introduced new binary files for storing analysis results and workspace data related to Experiment 1.
+- Updated the comprehensive analysis script to streamline data loading, preprocessing, and model fitting for initial and final test analyses.
+- Enhanced data preparation steps, including polynomial term creation and filtering for accuracy, to improve analysis clarity and efficiency.
+- These changes facilitate a more organized approach to data analysis and result storage for Experiment 1.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_analysis_results.rds`  
+- `design1/data_analysis/experiment1_analysis_workspace.RData`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a931107_20250928_123014_plot1.png)  
+![](../plot_archive/a931107_20250928_123014_plot2.png)  
+
+## Commit [12a33ed](https://github.com/naszhu/REM_E3_model_fixed/commit/12a33ed) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 11:46:07  
+**Message:**
+```
+feat(analysis-e1): enhance data analysis with new debug script and updated .gitignore
+
+- Added a new debug script (debug_data.R) to facilitate data structure checks and ensure data integrity during analysis.
+- Updated .gitignore to include all PNG files across directories, streamlining file management and preventing unnecessary files from being tracked.
+- These changes improve the overall analysis workflow and maintain a cleaner project structure.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/data_analysis/E1-comprehensive-analysis.R`  
+- `design1/data_analysis/E1-final-test-GLMM-analysis.R`  
+- `design1/data_analysis/E1-final-test-fast-analysis.R`  
+- `design1/data_analysis/E1-final-test-simplified-GLMM.R`  
+- `design1/data_analysis/E1-simplified-analysis.R`  
+- `design1/data_analysis/debug_data.R`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/results/experiment1_analysis_results.RData`  
+- `design1/data_analysis/results/experiment1_results_summary.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/12a33ed_20250928_114607_plot1.png)  
+![](../plot_archive/12a33ed_20250928_114607_plot2.png)  
+
+## Commit [c82f31e](https://github.com/naszhu/REM_E3_model_fixed/commit/c82f31e) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 10:52:08  
+**Message:**
+```
+feat(analysis-e1): expand final test analysis with new scripts and detailed GLMM models
+
+- Added new R scripts for fast and simplified GLMM analyses of final test performance, enhancing the overall analytical framework.
+- Updated E1-Analysis-Report.md to reflect new findings and methodologies, including detailed sections on within-list and between-list effects.
+- Removed outdated files to streamline the analysis process and improve clarity in the project structure.
+- These changes provide a more comprehensive understanding of recognition performance across different exposure histories and test conditions.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/data_analysis/E1-comprehensive-analysis.R`  
+- `design1/data_analysis/E1-final-test-GLMM-analysis.R`  
+- `design1/data_analysis/E1-final-test-fast-analysis.R`  
+- `design1/data_analysis/E1-final-test-simplified-GLMM.R`  
+- `design1/data_analysis/Experiment1_Professional_Manuscript_Results.txt`  
+- `design1/data_analysis/final_professional_analysis.R`  
+- `design1/data_analysis/final_results_summary.txt`  
+- `design1/data_analysis/overall_testpos_results.rds`  
+- `design1/data_analysis/streamlined_glmm_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/c82f31e_20250928_105208_plot1.png)  
+![](../plot_archive/c82f31e_20250928_105208_plot2.png)  
+
+## Commit [de0bddb](https://github.com/naszhu/REM_E3_model_fixed/commit/de0bddb) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 09:54:56  
+**Message:**
+```
+feat(analysis-e1): enhance final test analysis with GLMM and exposure history effects
+
+- Updated E1-Analysis-Report.md to include GLMM analysis for final test performance, detailing effects of study position and exposure history.
+- Added new sections in E1-comprehensive-analysis.R for final test exposure history effects, including separate GLMM models for each exposure type.
+- Introduced a new binary file overall_testpos_results.rds to store results from the final test position analysis.
+- These changes improve the depth of analysis and provide clearer insights into recognition performance trends across different conditions.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/data_analysis/E1-comprehensive-analysis.R`  
+- `design1/data_analysis/overall_testpos_results.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/de0bddb_20250928_095456_plot1.png)  
+![](../plot_archive/de0bddb_20250928_095456_plot2.png)  
+
+## Commit [3b9a65c](https://github.com/naszhu/REM_E3_model_fixed/commit/3b9a65c) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 09:44:51  
+**Message:**
+```
+feat(analysis-e1): add overall performance analysis to comprehensive analysis script
+
+- Introduced a new section in E1-comprehensive-analysis.R to analyze overall performance across test positions, including both pure and adjusted trends.
+- Implemented mixed-effects logistic regression models to evaluate accuracy based on test position, item type, and condition.
+- Calculated and reported descriptive statistics for early and late test positions, enhancing the depth of analysis in the report.
+- Updated E1-Analysis-Report.md to reflect the new findings on overall performance trends.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/data_analysis/E1-comprehensive-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/3b9a65c_20250928_094451_plot1.png)  
+![](../plot_archive/3b9a65c_20250928_094451_plot2.png)  
+
+## Commit [91c5cc6](https://github.com/naszhu/REM_E3_model_fixed/commit/91c5cc6) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 09:21:32  
+**Message:**
+```
+refactor(analysis-e1): remove bold formatting for improved readability in E1 analysis report
+
+- Simplified the text by removing bold formatting from key terms and phrases throughout the E1-Analysis-Report.md file.
+- This change enhances the overall readability and presentation of the report without altering the content or meaning.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/91c5cc6_20250928_092132_plot1.png)  
+![](../plot_archive/91c5cc6_20250928_092132_plot2.png)  
+
+## Commit [9250c88](https://github.com/naszhu/REM_E3_model_fixed/commit/9250c88) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 09:16:40  
+**Message:**
+```
+feat(analysis-e1): add comprehensive and simplified analysis scripts for Experiment 1
+
+- Introduced two new R scripts: E1-comprehensive-analysis.R and E1-simplified-analysis.R, to perform detailed and simplified analyses of recognition memory data.
+- The comprehensive script includes mixed-effects logistic regression models for within-list and between-list effects, along with detailed statistical summaries.
+- The simplified script provides descriptive statistics and key model summaries for initial and final test performance, enhancing accessibility of results.
+- Both scripts save results to CSV files for easy access and further analysis.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/data_analysis/E1-comprehensive-analysis.R`  
+- `design1/data_analysis/E1-simplified-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/9250c88_20250928_091640_plot1.png)  
+![](../plot_archive/9250c88_20250928_091640_plot2.png)  
+
+## Commit [a2f6ebe](https://github.com/naszhu/REM_E3_model_fixed/commit/a2f6ebe) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 09:02:05  
+**Message:**
+```
+refactor(analysis-e1, analysis-e3): remove grid lines for improved plot aesthetics
+
+- Updated multiple R scripts to eliminate major and minor grid lines in ggplot themes, enhancing visual clarity.
+- Adjusted plot themes across various analysis scripts to create a more cohesive and minimalistic design.
+- These changes aim to improve the overall presentation of visualizations in the analysis.
+```
+**Changed Files:**
+- `design1/combined_finaltest_between_list.R`  
+- `design1/combined_finaltest_within_list.R`  
+- `design1/combined_initial_between_list.R`  
+- `design1/combined_initial_within_list.R`  
+- `design1/data_analysis/E1-finaltest-between-list.R`  
+- `design1/data_analysis/E1-finaltest-within-list.R`  
+- `design1/data_analysis/E1-initial-between-list.R`  
+- `design1/data_analysis/E1-initial-within-list.R`  
+- `design1/data_analysis/E1-participant-performance-plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/a2f6ebe_20250928_090205_plot1.png)  
+![](../plot_archive/a2f6ebe_20250928_090205_plot2.png)  
+
 ## Commit [54ee98c](https://github.com/naszhu/REM_E3_model_fixed/commit/54ee98c) (branch: `main`)
 **Time:** 2025-09-28 08:46:47  
 **Message:**
