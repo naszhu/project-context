@@ -1,5 +1,78 @@
 # Model Progress
 
+## Commit [31dc4a3](https://github.com/naszhu/REM_E3_model_fixed/commit/31dc4a3) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 12:37:55  
+**Message:**
+```
+feat(analysis-e1): add initial and final test data analysis results and workspace
+
+Complicated version, after fixing mistake of left_join for final test between list (won't need left join), but might not need the item term in the model either will work later
+
+- Introduced new binary files for storing analysis results and workspace data related to Experiment 1.
+- Updated the comprehensive analysis script to streamline data loading, preprocessing, and model fitting for initial and final test analyses.
+- Enhanced data preparation steps, including polynomial term creation and filtering for accuracy, to improve analysis clarity and efficiency.
+- These changes facilitate a more organized approach to data analysis and result storage for Experiment 1.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_analysis_results.rds`  
+- `design1/data_analysis/experiment1_analysis_workspace.RData`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full.rds`  
+- `design1/data_analysis/experiment1_glmm_results.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/31dc4a3_20250928_123755_plot1.png)  
+![](../plot_archive/31dc4a3_20250928_123755_plot2.png)  
+
+## Commit [a931107](https://github.com/naszhu/REM_E3_model_fixed/commit/a931107) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 12:30:14  
+**Message:**
+```
+feat(analysis-e1): add initial and final test data analysis results and workspace
+
+Complicated version, after fixing mistake of left_join for final test between list (won't need left join), but might not need the item term in the model either will work later
+
+- Introduced new binary files for storing analysis results and workspace data related to Experiment 1.
+- Updated the comprehensive analysis script to streamline data loading, preprocessing, and model fitting for initial and final test analyses.
+- Enhanced data preparation steps, including polynomial term creation and filtering for accuracy, to improve analysis clarity and efficiency.
+- These changes facilitate a more organized approach to data analysis and result storage for Experiment 1.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_analysis_results.rds`  
+- `design1/data_analysis/experiment1_analysis_workspace.RData`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a931107_20250928_123014_plot1.png)  
+![](../plot_archive/a931107_20250928_123014_plot2.png)  
+
+## Commit [12a33ed](https://github.com/naszhu/REM_E3_model_fixed/commit/12a33ed) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 11:46:07  
+**Message:**
+```
+feat(analysis-e1): enhance data analysis with new debug script and updated .gitignore
+
+- Added a new debug script (debug_data.R) to facilitate data structure checks and ensure data integrity during analysis.
+- Updated .gitignore to include all PNG files across directories, streamlining file management and preventing unnecessary files from being tracked.
+- These changes improve the overall analysis workflow and maintain a cleaner project structure.
+```
+**Changed Files:**
+- `.gitignore`  
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/data_analysis/E1-comprehensive-analysis.R`  
+- `design1/data_analysis/E1-final-test-GLMM-analysis.R`  
+- `design1/data_analysis/E1-final-test-fast-analysis.R`  
+- `design1/data_analysis/E1-final-test-simplified-GLMM.R`  
+- `design1/data_analysis/E1-simplified-analysis.R`  
+- `design1/data_analysis/debug_data.R`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/results/experiment1_analysis_results.RData`  
+- `design1/data_analysis/results/experiment1_results_summary.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/12a33ed_20250928_114607_plot1.png)  
+![](../plot_archive/12a33ed_20250928_114607_plot2.png)  
+
 ## Commit [c82f31e](https://github.com/naszhu/REM_E3_model_fixed/commit/c82f31e) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 10:52:08  
 **Message:**

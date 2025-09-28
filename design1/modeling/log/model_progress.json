@@ -1,5 +1,60 @@
 [
   {
+    "commit": "31dc4a3",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): add initial and final test data analysis results and workspace",
+    "timestamp": "2025-09-28 12:37:55",
+    "plot1": "plot_archive/31dc4a3_20250928_123755_plot1.png",
+    "plot2": "plot_archive/31dc4a3_20250928_123755_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_analysis_results.rds",
+      "design1/data_analysis/experiment1_analysis_workspace.RData",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/experiment1_glmm_full.rds",
+      "design1/data_analysis/experiment1_glmm_results.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "a931107",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): add initial and final test data analysis results and workspace",
+    "timestamp": "2025-09-28 12:30:14",
+    "plot1": "plot_archive/a931107_20250928_123014_plot1.png",
+    "plot2": "plot_archive/a931107_20250928_123014_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_analysis_results.rds",
+      "design1/data_analysis/experiment1_analysis_workspace.RData",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "12a33ed",
+    "branch": "sep-28-analysis",
+    "message": "feat(analysis-e1): enhance data analysis with new debug script and updated .gitignore",
+    "timestamp": "2025-09-28 11:46:07",
+    "plot1": "plot_archive/12a33ed_20250928_114607_plot1.png",
+    "plot2": "plot_archive/12a33ed_20250928_114607_plot2.png",
+    "changed_files": [
+      ".gitignore",
+      "design1/data_analysis/E1-Analysis-Report.md",
+      "design1/data_analysis/E1-comprehensive-analysis.R",
+      "design1/data_analysis/E1-final-test-GLMM-analysis.R",
+      "design1/data_analysis/E1-final-test-fast-analysis.R",
+      "design1/data_analysis/E1-final-test-simplified-GLMM.R",
+      "design1/data_analysis/E1-simplified-analysis.R",
+      "design1/data_analysis/debug_data.R",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/results/experiment1_analysis_results.RData",
+      "design1/data_analysis/results/experiment1_results_summary.rds",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "c82f31e",
     "branch": "sep-28-analysis",
     "message": "feat(analysis-e1): expand final test analysis with new scripts and detailed GLMM models",
