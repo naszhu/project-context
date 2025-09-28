@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [d1b6b5a](https://github.com/naszhu/REM_E3_model_fixed/commit/d1b6b5a) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 14:28:46  
+**Message:**
+```
+feat(analysis-e1): update comprehensive analysis script for clarity and efficiency
+
+- Renamed sections and variables for improved readability and organization.
+- Replaced helper functions for polynomial term creation and model fitting to enhance clarity and ensure proper convergence checks.
+- Streamlined data preparation for initial and final test datasets, focusing on accuracy and handling of missing values.
+- Updated model specifications to utilize polynomial terms and adjusted for participant identifiers.
+- Results saving process refined for better accessibility and interpretation of analysis outcomes.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/experiment1_glmm_full.rds`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/d1b6b5a_20250928_142846_plot1.png)  
+![](../plot_archive/d1b6b5a_20250928_142846_plot2.png)  
+
 ## Commit [5ba78cd](https://github.com/naszhu/REM_E3_model_fixed/commit/5ba78cd) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 12:59:58  
 **Message:**
