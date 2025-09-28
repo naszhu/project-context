@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [91c5cc6](https://github.com/naszhu/REM_E3_model_fixed/commit/91c5cc6) (branch: `sep-28-analysis`)
+**Time:** 2025-09-28 09:21:32  
+**Message:**
+```
+refactor(analysis-e1): remove bold formatting for improved readability in E1 analysis report
+
+- Simplified the text by removing bold formatting from key terms and phrases throughout the E1-Analysis-Report.md file.
+- This change enhances the overall readability and presentation of the report without altering the content or meaning.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-Analysis-Report.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/91c5cc6_20250928_092132_plot1.png)  
+![](../plot_archive/91c5cc6_20250928_092132_plot2.png)  
+
 ## Commit [9250c88](https://github.com/naszhu/REM_E3_model_fixed/commit/9250c88) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 09:16:40  
 **Message:**

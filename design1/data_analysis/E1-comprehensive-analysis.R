@@ -110,6 +110,78 @@ cat("\nTest Position Model Fixed Effects:\n")
 print(test_pos_summary)
 
 # ============================================================================
+# 1.5. OVERALL PERFORMANCE ACROSS TEST POSITIONS (INITIAL TEST)
+# ============================================================================
+
+cat("\n=== OVERALL PERFORMANCE ANALYSIS ===\n")
+
+# Prepare initial-test trial-level data for overall performance analysis
+overall_data <- dfchanged %>%
+  filter(task == "pretest_response", response != "null") %>%
+  mutate(
+    accuracy = as.numeric(correct),
+    subject  = factor(ip),
+    # center test position within list (recommended)
+    testpos_c = scale(testpos, center = TRUE, scale = FALSE)[,1]
+  ) %>%
+  filter(!is.na(accuracy))
+
+cat("Prepared overall performance data: ", nrow(overall_data), " trials\n")
+
+# --- Option A: Pure overall trend (collapse across item_type/condition) ---
+cat("\n--- Option A: Pure Overall Trend ---\n")
+m_overall <- glmer(
+  accuracy ~ testpos_c + (1 + testpos_c | subject),
+  data = overall_data, family = binomial,
+  control = glmerControl(optimizer = "bobyqa")
+)
+
+overall_summary <- summary(m_overall)
+tidy_overall <- tidy(m_overall, effects = "fixed")
+
+# Calculate descriptive statistics
+early_positions <- overall_data %>% filter(testpos <= 5) %>% pull(accuracy) %>% mean()
+late_positions <- overall_data %>% filter(testpos >= 16) %>% pull(accuracy) %>% mean()
+
+cat(sprintf("Overall performance linear effect: β = %.3f, SE = %.3f, z = %.2f, p = %.3f\n",
+            tidy_overall$estimate[2], tidy_overall$std.error[2],
+            tidy_overall$statistic[2], tidy_overall$p.value[2]))
+cat(sprintf("Early positions (1-5): M = %.3f\n", early_positions))
+cat(sprintf("Late positions (16-20): M = %.3f\n", late_positions))
+cat(sprintf("Overall change: +%.3f\n", late_positions - early_positions))
+
+# --- Option B: Adjusted overall trend (controls for item_type & condition) ---
+cat("\n--- Option B: Adjusted Overall Trend ---\n")
+overall_data_adj <- dfchanged %>%
+  filter(task == "pretest_response", response != "null") %>%
+  mutate(
+    accuracy  = as.numeric(correct),
+    subject   = factor(ip),
+    item_type = case_when(
+      probetype == "TARGET_target" ~ "target",
+      probetype == "TARGET_foil"   ~ "foil",
+      TRUE ~ NA_character_
+    ),
+    condition = factor(condition),
+    testpos_c = scale(testpos, center = TRUE, scale = FALSE)[,1]
+  ) %>%
+  filter(!is.na(accuracy), !is.na(item_type))
+
+m_overall_adj <- glmer(
+  accuracy ~ testpos_c + item_type + condition +          # main effect of test position = "overall"
+    (1 + testpos_c | subject),
+  data = overall_data_adj, family = binomial,
+  control = glmerControl(optimizer = "bobyqa")
+)
+
+overall_adj_summary <- summary(m_overall_adj)
+tidy_overall_adj <- tidy(m_overall_adj, effects = "fixed")
+
+cat(sprintf("Adjusted overall performance linear effect: β = %.3f, SE = %.3f, z = %.2f, p = %.3f\n",
+            tidy_overall_adj$estimate[2], tidy_overall_adj$std.error[2],
+            tidy_overall_adj$statistic[2], tidy_overall_adj$p.value[2]))
+
+# ============================================================================
 # 2. INITIAL BETWEEN-LIST EFFECTS
 # ============================================================================
 

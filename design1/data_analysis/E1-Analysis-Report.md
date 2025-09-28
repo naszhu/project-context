@@ -27,7 +27,7 @@ For targets, the quadratic effect was significant (β = 31.07, SE = 1.87, z = 16
 
 ### Initial Within-List Test Position (Experiment 1)
 
-A separate model tested the influence of test order (centered) on recognition accuracy. Results revealed diverging linear trends for targets and foils. Targets improved across the test sequence (linear interaction: β = 74.94, SE = 2.68, z = 27.93, p < .001), from M = .82 at early positions to M = .90 at late positions. In contrast, foils showed a different pattern with the main linear effect (β = -37.14, SE = 2.80, z = -13.29, p < .001) and quadratic effect (β = 9.22, SE = 2.79, z = 3.30, p < .001), declining from M = .95 early to M = .93 late.
+A separate model tested the influence of test order (centered) on recognition accuracy. Results revealed diverging linear trends for targets and foils. Targets improved across the test sequence (linear interaction: β = 74.94, SE = 2.68, z = 27.93, p < .001), from M = .82 at early positions to M = .90 at late positions. In contrast, foils showed a different pattern with the main linear effect (β = -37.14, SE = 2.80, z = -13.29, p < .001) and quadratic effect (β = 9.22, SE = 2.79, z = 3.30, p < .001), declining from M = .95 early to M = .93 late, and an increase in overall performance (β = 0.011, SE = 0.003, z = 3.59, p < .001) from M = .89 early to M = .91 late positions.
 
 ### Performance Hierarchy
 
