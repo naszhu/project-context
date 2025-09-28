@@ -47,7 +47,7 @@ Y_BREAKS <- seq(0.4, 0.9, by = 0.1)
 
 
 
-PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
+PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
@@ -55,7 +55,10 @@ PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
     axis.text.y = element_text(size = AXIS_TEXT_SIZE),
     legend.position = "none",
-    strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
+    strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid = element_blank()
   )
 
 #########################  DATA  ##############################
@@ -263,7 +266,7 @@ POSITION_LABEL <- "Position"
 CORRECT_RATE_LABEL <- "Correct Response Rate"
 
 
-PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
+PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
@@ -271,7 +274,10 @@ PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
     axis.text.y = element_text(size = AXIS_TEXT_SIZE),
     legend.position = "none",
-    strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
+    strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid = element_blank()
   )
 
 
@@ -473,7 +479,7 @@ Y_MIN <- 0.5
 Y_MAX <- 1.0
 Y_BREAKS <- seq(0.5, 1.0, by = 0.1)
 
-PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
+PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
@@ -481,7 +487,10 @@ PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
     axis.text.y = element_text(size = AXIS_TEXT_SIZE),
     legend.position = "none",
-    strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
+    strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid = element_blank()
   )
 
 #########################  DATA FINAL TEST WITHIN LIST  ##############################
@@ -697,7 +706,7 @@ Y_MIN <- 0.47
 Y_MAX <- 0.96
 Y_BREAKS <- seq(0.5, 1.0, by = 0.1)
 
-PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
+PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
@@ -705,7 +714,10 @@ PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
     axis.text.y = element_text(size = AXIS_TEXT_SIZE),
     legend.position = "none",
-    strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
+    strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid = element_blank()
   )
 
 #########################  DATA FINAL TEST BETWEEN LIST   ##############################

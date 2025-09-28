@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [b569368](https://github.com/naszhu/REM_E3_model_fixed/commit/b569368) (branch: `main`)
+**Time:** 2025-09-28 08:32:36  
+**Message:**
+```
+feat(analysis-e3): update plot formatting constants for enhanced visualization
+
+- Increased font sizes for plot titles, axis titles, and strip text to improve readability.
+- Adjusted point sizes and line widths for better clarity in visualizations.
+- Modified plot height to enhance presentation quality.
+- These changes aim to provide a more visually appealing and cohesive analysis of participant performance in the E3 context.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/b569368_20250928_083236_plot1.png)  
+![](../plot_archive/b569368_20250928_083236_plot2.png)  
+
 ## Commit [ec612bd](https://github.com/naszhu/REM_E3_model_fixed/commit/ec612bd) (branch: `main`)
 **Time:** 2025-09-28 08:32:26  
 **Message:**

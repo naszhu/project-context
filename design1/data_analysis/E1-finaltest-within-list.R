@@ -95,13 +95,14 @@ enhanced_plot <- ggplot(data=df_finalwithin,
   # Enhanced theme with improved readability and larger legend
   theme_minimal() +
   theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid = element_blank(),
     plot.caption = element_text(hjust = 0, size = 14, face = "bold", color = "darkblue", margin = margin(t = 20)),
     plot.margin = margin(t = 15, r = 15, b = 60, l = 15),
     text = element_text(size = 14),
     axis.text = element_text(size = 12, color = "black"),
     axis.title = element_text(size = 14, face = "bold", color = "black"),
-    panel.grid.major = element_line(color = "grey75", linewidth = 0.4),
-    panel.grid.minor = element_line(color = "grey85", linewidth = 0.2),
     legend.position = "bottom",
     legend.title = element_text(face = "bold", size = 16),   # Increased legend title size
     legend.text = element_text(size = 14),                   # Increased legend text size
