@@ -1,27 +1,15 @@
 [
   {
-    "commit": "0c4c0c3",
+    "commit": "b46bb21",
     "branch": "main",
-    "message": "refactor(simulation): update probability parameters for context drift",
-    "timestamp": "2025-09-29 13:16:31",
-    "plot1": "plot_archive/0c4c0c3_20250929_131631_plot1.png",
-    "plot2": "plot_archive/0c4c0c3_20250929_131631_plot2.png",
+    "message": "fix(log-e1): restore the model_progress merge sep-28-analysis without large R data files",
+    "timestamp": "2025-09-29 14:31:35",
+    "plot1": "plot_archive/b46bb21_20250929_143135_plot1.png",
+    "plot2": "plot_archive/b46bb21_20250929_143135_plot2.png",
     "changed_files": [
       "design1/modeling/log/model_progress.json",
-      "design1/modeling/log/model_progress.md",
-      "design1/modeling/module_jl/constants.jl",
-      "design1/modeling/simulation.jl",
-      "design3/modeling"
+      "design1/modeling/log/model_progress.md"
     ]
-  },
-  {
-    "commit": "e6869c8",
-    "branch": "main",
-    "message": "merge(analysis-e1, clean): merge sep-28-analysis without large R data files",
-    "timestamp": "2025-09-29 12:22:13",
-    "plot1": "plot_archive/e6869c8_20250929_122213_plot1.png",
-    "plot2": "plot_archive/e6869c8_20250929_122213_plot2.png",
-    "changed_files": []
   },
   {
     "commit": "2c66c90",

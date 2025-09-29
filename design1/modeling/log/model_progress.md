@@ -1,40 +1,22 @@
 # Model Progress
 
-## Commit [0c4c0c3](https://github.com/naszhu/REM_E3_model_fixed/commit/0c4c0c3) (branch: `main`)
-**Time:** 2025-09-29 13:16:31  
+## Commit [b46bb21](https://github.com/naszhu/REM_E3_model_fixed/commit/b46bb21) (branch: `main`)
+**Time:** 2025-09-29 14:31:35  
 **Message:**
 ```
-refactor(simulation): update probability parameters for context drift
-
-- Replaced the combined drift probability parameter with separate parameters for study-test and between-list changes to enhance clarity and maintain equivalent overall probabilities.
-- Adjusted the number of steps for drift study-test and between-list change from 9 and 20 to 1, respectively, to simplify the simulation process.
-- Updated related calculations and print statements to reflect the new parameter structure, ensuring accurate probability outputs.
-
-Fixes naszhu/REM_E3_model_fixed#14
+fix(log-e1): restore the model_progress merge sep-28-analysis without large R data files
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
 - `design1/modeling/log/model_progress.md`  
-- `design1/modeling/module_jl/constants.jl`  
-- `design1/modeling/simulation.jl`  
-- `design3/modeling`  
-![](../plot_archive/0c4c0c3_20250929_131631_plot1.png)  
-![](../plot_archive/0c4c0c3_20250929_131631_plot2.png)  
-
-## Commit [e6869c8](https://github.com/naszhu/REM_E3_model_fixed/commit/e6869c8) (branch: `main`)
-**Time:** 2025-09-29 12:22:13  
-**Message:**
-```
-merge(analysis-e1, clean): merge sep-28-analysis without large R data files
-```
-![](../plot_archive/e6869c8_20250929_122213_plot1.png)  
-![](../plot_archive/e6869c8_20250929_122213_plot2.png)  
+![](../plot_archive/b46bb21_20250929_143135_plot1.png)  
+![](../plot_archive/b46bb21_20250929_143135_plot2.png)  
 
 ## Commit [2c66c90](https://github.com/naszhu/REM_E3_model_fixed/commit/2c66c90) (branch: `main`)
 **Time:** 2025-09-28 22:20:45  
 **Message:**
 ```
-Unable to retrieve full message.
+merge(analysis-e1): Merge branch 'sep-28-analysis'
 ```
 ![](../plot_archive/2c66c90_20250928_222045_plot1.png)  
 ![](../plot_archive/2c66c90_20250928_222045_plot2.png)  
@@ -43,7 +25,12 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 21:33:57  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): simplify final test models and enhance reporting
+
+- Removed complex models in favor of simplified linear-only models for final test analyses to improve convergence reliability.
+- Updated the comprehensive report to reflect the use of simplified models, emphasizing the importance of model selection for robust results.
+- Enhanced item-type-specific comparisons and post-hoc analyses, providing clearer insights into performance hierarchies across conditions.
+- Saved the updated results in a new RDS file for simplified models, ensuring better accessibility for future reporting.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -58,7 +45,12 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 20:57:30  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(anlaysis-e1-report): refine final test phase analysis with model convergence insights
+
+- Updated the final test phase section to clarify model convergence issues and the justification for retaining complex quadratic models despite warnings.
+- Enhanced the within-study and within-test position effects analyses, revealing significant quadratic trends and item-type-specific performance patterns.
+- Expanded the discussion on methodological considerations, emphasizing the importance of model comparison in guiding analysis decisions.
+- Improved overall clarity and structure of the report to facilitate better interpretation of findings related to recognition memory.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_report.md`  
@@ -71,7 +63,12 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 20:37:24  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1-report): update comprehensive report with refined analyses and findings
+
+- Added details on simplified models for final test within-session analyses due to convergence issues, emphasizing the necessity of linear trends.
+- Expanded between-session models to include experimental condition factors, revealing complex three-way interactions affecting performance.
+- Enhanced discussion section to reflect new findings on item-type-specific trends and methodological considerations regarding model complexity.
+- Improved overall clarity and structure of the report, facilitating better interpretation of results and implications for recognition memory research.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_report.md`  
@@ -84,7 +81,12 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 20:05:22  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): implement simplified models and model comparisons
+
+- Added simplified versions of the final within-study, within-test, between-final, and between-initial models to enhance model interpretability and reduce complexity.
+- Integrated model comparison analyses using ANOVA to evaluate the significance of quadratic terms and interactions, providing insights into model fit.
+- Updated results saving process to include summaries for both original and simplified models, improving accessibility for reporting.
+- Enhanced convergence diagnostics and error handling during model comparisons, ensuring robust analysis outcomes.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -98,7 +100,14 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 19:47:07  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): add convergence diagnostics and data validation functions
+
+- Introduced functions to check model convergence issues and validate position data, enhancing the robustness of the analysis.
+- Implemented validation checks for unique values in position variables to ensure adequate data for polynomial term creation.
+- Integrated convergence diagnostics into model fitting processes for initial and final tests, improving error handling and model reliability.
+- Updated the analysis script to include these new functionalities, facilitating better interpretation of model performance and data integrity.
+
+Refs #39
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -111,7 +120,15 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 19:36:25  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): enhance final test data analysis with condition interactions and diagnostics
+
+fixed the within-list partial problems but have convergence warining
+
+- Updated the final test data preparation to include the 'condition' variable, improving model specifications for GLMM analyses.
+- Expanded model formulas to incorporate interactions between item type and condition for both final order and initial order analyses.
+- Added diagnostic analysis for within-list study position discrepancies, including effect size checks and model predictions visualization.
+- Implemented a convergence check for all models, with retry mechanisms for failed convergence, enhancing robustness of the analysis workflow.
+- Improved overall script organization and clarity, facilitating better interpretation of results and future updates.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -125,7 +142,12 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 17:30:18  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1-report): add comprehensive report on item-type-specific serial position effects in recognition memory
+
+- Introduced a new markdown report detailing findings from a study on recognition memory, utilizing generalized linear mixed models (GLMM).
+- Included sections on abstract, method, results, discussion, and references, summarizing key insights on item-type-specific trends and performance patterns.
+- Highlighted significant findings regarding the differential effects of item types on serial position performance during initial and final testing phases.
+- Provided a structured format for future updates and references, enhancing the documentation of research outcomes.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_report.md`  
@@ -138,7 +160,14 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 17:07:15  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1):  in solving the convergency, take less terms
+
+But might still be too much to ask?
+
+- Implemented final GLMM models for within-list and between-list analyses, incorporating polynomial terms for study and test positions.
+- Streamlined the results saving process to include comprehensive summaries and trends, improving accessibility for reporting.
+- Added functionality to export model summaries and item-type trends to CSV files for better data management and interpretation.
+- Enhanced overall script organization and clarity, ensuring a more efficient analysis workflow.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -152,7 +181,14 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 16:53:00  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): enhance polynomial term creation and streamline model handling
+
+The version that doesn't converge but more thorough (partially suggested by deepseek)
+
+- Improved the `create_polynomial_terms` function to handle NA values more effectively and set proper column names for output.
+- Added additional libraries for data manipulation and streamlined the data loading process.
+- Commented out unused model fitting code to improve clarity and focus on relevant analyses.
+- Enhanced the overall structure of the analysis script for better readability and maintainability.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -165,7 +201,15 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 16:23:35  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): introduce comprehensive analysis script for GLMM with item-type-specific trends
+
+This v have checked that the data was correct
+
+- Added a new script for comprehensive analysis, implementing GLMM models with item-type-specific interactions.
+- Enhanced data preparation processes, including improved handling of missing values and polynomial term creation.
+- Streamlined initial and final test data analysis, ensuring proper model specifications and convergence checks.
+- Included visualizations for performance trends across test positions and item types, facilitating better interpretation of results.
+- Saved analysis outputs in structured formats for easier access and reporting.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -179,7 +223,15 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 16:10:18  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): refine comprehensive analysis with enhanced data handling and model specifications
+
+(uncompleted)
+
+- Updated the data loading process to use an absolute path for the dfchanged dataset, ensuring consistent access.
+- Simplified the calculation of study and test positions by removing unnecessary coalescing and warnings.
+- Enhanced the final test data preparation by creating initial position data and a lookup table for study and test positions.
+- Improved model specifications for within-list and between-list analyses, incorporating polynomial terms and ensuring proper convergence checks.
+- Streamlined the results saving process to include new summaries and trends, facilitating better interpretation of analysis outcomes.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -192,7 +244,12 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 15:13:36  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): enhance comprehensive analysis with item-type-specific trends
+
+- Updated the comprehensive analysis script to include item-type-specific interactions in GLMM models.
+- Streamlined data preparation for initial and final test datasets, ensuring proper handling of missing values and participant identifiers.
+- Added functionality for calculating and saving item-type-specific linear trends using emtrends.
+- Refined results saving process to include new summaries and trends, improving accessibility and interpretation of analysis outcomes.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -205,7 +262,13 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 14:28:46  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): update comprehensive analysis script for clarity and efficiency
+
+- Renamed sections and variables for improved readability and organization.
+- Replaced helper functions for polynomial term creation and model fitting to enhance clarity and ensure proper convergence checks.
+- Streamlined data preparation for initial and final test datasets, focusing on accuracy and handling of missing values.
+- Updated model specifications to utilize polynomial terms and adjusted for participant identifiers.
+- Results saving process refined for better accessibility and interpretation of analysis outcomes.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -219,7 +282,15 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 12:59:58  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): streamline data analysis script and enhance model fitting
+
+Have problems of fail to converge, and some rows are discarded need to check why and how
+
+- Refactored the comprehensive analysis script to improve data loading and preprocessing, including renaming variables for clarity.
+- Updated helper functions for polynomial term creation and model fitting, ensuring convergence checks are integrated.
+- Enhanced data preparation for initial and final test datasets, focusing on accuracy and scaling of study and test positions.
+- Improved model specifications for initial and final analyses, incorporating polynomial terms and adjusting for item types and conditions.
+- Results are now saved in a structured format, facilitating easier access and interpretation of analysis outcomes.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_comprehensive_analysis.R`  
@@ -232,7 +303,14 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 12:42:27  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): add initial and final test data analysis results and workspace
+
+Complicated version, after fixing mistake of left_join for final test between list (won't need left join), but might not need the item term in the model either will work later
+
+- Introduced new binary files for storing analysis results and workspace data related to Experiment 1.
+- Updated the comprehensive analysis script to streamline data loading, preprocessing, and model fitting for initial and final test analyses.
+- Enhanced data preparation steps, including polynomial term creation and filtering for accuracy, to improve analysis clarity and efficiency.
+- These changes facilitate a more organized approach to data analysis and result storage for Experiment 1.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_analysis_results.rds`  
@@ -249,7 +327,14 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 12:37:55  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): add initial and final test data analysis results and workspace
+
+Complicated version, after fixing mistake of left_join for final test between list (won't need left join), but might not need the item term in the model either will work later
+
+- Introduced new binary files for storing analysis results and workspace data related to Experiment 1.
+- Updated the comprehensive analysis script to streamline data loading, preprocessing, and model fitting for initial and final test analyses.
+- Enhanced data preparation steps, including polynomial term creation and filtering for accuracy, to improve analysis clarity and efficiency.
+- These changes facilitate a more organized approach to data analysis and result storage for Experiment 1.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_analysis_results.rds`  
@@ -266,7 +351,14 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 12:30:14  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): add initial and final test data analysis results and workspace
+
+Complicated version, after fixing mistake of left_join for final test between list (won't need left join), but might not need the item term in the model either will work later
+
+- Introduced new binary files for storing analysis results and workspace data related to Experiment 1.
+- Updated the comprehensive analysis script to streamline data loading, preprocessing, and model fitting for initial and final test analyses.
+- Enhanced data preparation steps, including polynomial term creation and filtering for accuracy, to improve analysis clarity and efficiency.
+- These changes facilitate a more organized approach to data analysis and result storage for Experiment 1.
 ```
 **Changed Files:**
 - `design1/data_analysis/experiment1_analysis_results.rds`  
@@ -281,7 +373,11 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 11:46:07  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): enhance data analysis with new debug script and updated .gitignore
+
+- Added a new debug script (debug_data.R) to facilitate data structure checks and ensure data integrity during analysis.
+- Updated .gitignore to include all PNG files across directories, streamlining file management and preventing unnecessary files from being tracked.
+- These changes improve the overall analysis workflow and maintain a cleaner project structure.
 ```
 **Changed Files:**
 - `.gitignore`  
@@ -304,7 +400,12 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 10:52:08  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): expand final test analysis with new scripts and detailed GLMM models
+
+- Added new R scripts for fast and simplified GLMM analyses of final test performance, enhancing the overall analytical framework.
+- Updated E1-Analysis-Report.md to reflect new findings and methodologies, including detailed sections on within-list and between-list effects.
+- Removed outdated files to streamline the analysis process and improve clarity in the project structure.
+- These changes provide a more comprehensive understanding of recognition performance across different exposure histories and test conditions.
 ```
 **Changed Files:**
 - `design1/data_analysis/E1-Analysis-Report.md`  
@@ -326,7 +427,12 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 09:54:56  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): enhance final test analysis with GLMM and exposure history effects
+
+- Updated E1-Analysis-Report.md to include GLMM analysis for final test performance, detailing effects of study position and exposure history.
+- Added new sections in E1-comprehensive-analysis.R for final test exposure history effects, including separate GLMM models for each exposure type.
+- Introduced a new binary file overall_testpos_results.rds to store results from the final test position analysis.
+- These changes improve the depth of analysis and provide clearer insights into recognition performance trends across different conditions.
 ```
 **Changed Files:**
 - `design1/data_analysis/E1-Analysis-Report.md`  
@@ -341,7 +447,12 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 09:44:51  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): add overall performance analysis to comprehensive analysis script
+
+- Introduced a new section in E1-comprehensive-analysis.R to analyze overall performance across test positions, including both pure and adjusted trends.
+- Implemented mixed-effects logistic regression models to evaluate accuracy based on test position, item type, and condition.
+- Calculated and reported descriptive statistics for early and late test positions, enhancing the depth of analysis in the report.
+- Updated E1-Analysis-Report.md to reflect the new findings on overall performance trends.
 ```
 **Changed Files:**
 - `design1/data_analysis/E1-Analysis-Report.md`  
@@ -355,7 +466,10 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 09:21:32  
 **Message:**
 ```
-Unable to retrieve full message.
+refactor(analysis-e1): remove bold formatting for improved readability in E1 analysis report
+
+- Simplified the text by removing bold formatting from key terms and phrases throughout the E1-Analysis-Report.md file.
+- This change enhances the overall readability and presentation of the report without altering the content or meaning.
 ```
 **Changed Files:**
 - `design1/data_analysis/E1-Analysis-Report.md`  
@@ -368,7 +482,12 @@ Unable to retrieve full message.
 **Time:** 2025-09-28 09:16:40  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): add comprehensive and simplified analysis scripts for Experiment 1
+
+- Introduced two new R scripts: E1-comprehensive-analysis.R and E1-simplified-analysis.R, to perform detailed and simplified analyses of recognition memory data.
+- The comprehensive script includes mixed-effects logistic regression models for within-list and between-list effects, along with detailed statistical summaries.
+- The simplified script provides descriptive statistics and key model summaries for initial and final test performance, enhancing accessibility of results.
+- Both scripts save results to CSV files for easy access and further analysis.
 ```
 **Changed Files:**
 - `design1/data_analysis/E1-Analysis-Report.md`  
@@ -603,7 +722,13 @@ merge(predplot-e1): Merge branch 'sep-10-predplot'
 **Time:** 2025-09-25 12:12:25  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e1): enhance data visualization and processing in initial list analysis
+
+- Introduced shared constants for colors, shapes, and line types to improve consistency across plots.
+- Updated ggplot visualizations with enhanced aesthetics, including adjusted point sizes, line widths, and font sizes for better readability.
+- Modified data loading paths for improved accessibility and streamlined data processing steps.
+- Removed commented-out code to enhance script clarity and focus on active analysis.
+- These changes aim to provide a more cohesive and visually appealing analysis of correct response rates across different test conditions.
 ```
 **Changed Files:**
 - `Docs/.~lock.parameter_values_aug-19.docx#`  
@@ -793,7 +918,12 @@ feat(analysis-e1): add initial and final within-list analysis scripts
 **Time:** 2025-09-21 22:45:45  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(analysis-e3): add initial and final within-list analysis scripts
+
+- Introduced new R scripts for conducting comprehensive analyses of initial and final within-list data, focusing on correct response rates by test and study positions.
+- Implemented data processing steps to calculate means, standard deviations, and standard errors for correct responses, enhancing the clarity of results.
+- Included detailed output for performance hierarchies and statistical significance tests, providing insights into the effects of study and test positions on recognition performance.
+- Exported processed data to CSV files for further analysis and accessibility.
 ```
 **Changed Files:**
 - `design1/data_analysis/correct_initial_analysis.R`  
@@ -1308,7 +1438,15 @@ These changes aim to improve the visual quality and accessibility of the final t
 **Time:** 2025-09-10 19:58:35  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(data-analysis): enhance final test between-list plot aesthetics and readability
+
+- Added the 'grid' library for improved unit handling in plots.
+- Increased font sizes across all plot elements for better visibility.
+- Updated plot labels for clarity and adjusted legend layout.
+- Enhanced theme settings to improve overall readability and presentation.
+- Adjusted dimensions for saved plot images to accommodate new layout.
+
+These changes aim to improve the visual quality and accessibility of the final test between-list analysis outputs.
 ```
 **Changed Files:**
 - `design1/data_analysis/E1-finaltest-between-list.R`  
@@ -1344,7 +1482,14 @@ These changes aim to expand the data analysis capabilities and enhance the quali
 **Time:** 2025-09-10 19:50:28  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(predplot-e1): add enhanced initial and final test plots for between and within lists
+
+- Introduced new R scripts for generating enhanced plots for both initial and final test analyses, improving data visualization.
+- Enhanced plot aesthetics with improved color palettes, shapes, and line types for better clarity and readability.
+- Updated the shell script to automate the execution of all plot scripts, ensuring a streamlined workflow for generating visual outputs.
+- Saved the generated plots in PNG format for easy access and presentation.
+
+These changes aim to expand the data analysis capabilities and enhance the quality of visual outputs.
 ```
 **Changed Files:**
 - `design1/modeling/R_ploting/E1-finaltest-between-list-enhanced.R`  
@@ -1428,7 +1573,11 @@ These changes aim to enhance the data analysis workflow and improve the quality 
 **Time:** 2025-09-10 18:44:03  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(data-analysis): add final test within list scripts and corresponding plot files
+
+- Introduced a new R script for final test within-list analysis to enhance data visualization.
+- Updated the shell script to include the new final test plot file in the expected output list.
+- These changes aim to expand the data analysis capabilities and improve the quality of visual outputs.
 ```
 **Changed Files:**
 - `design1/data_analysis/E1-finaltest-within-list.R`  
@@ -1489,7 +1638,10 @@ feat(predplot-e1): add between-list enhanced plot files to ignore list
 **Time:** 2025-09-10 18:14:03  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(predplot): add between-list enhanced plot files to ignore list
+
+- Included new enhanced plot files and patterns to the .gitignore to prevent tracking of generated images.
+- This update helps maintain a cleaner repository by excluding unnecessary output files.
 ```
 **Changed Files:**
 - `.gitignore`  
@@ -1902,7 +2054,19 @@ These changes aim to enhance the clarity and effectiveness of the visual outputs
 **Time:** 2025-09-08 23:24:35  
 **Message:**
 ```
-Unable to retrieve full message.
+debug(model-e1): probe distortion tracing for issue 38
+
+Add debugging functionality to track probe distortion in initial tests:
+- Add distortion markers to word.item when probes are distorted
+- Add debug print statements in restore functions to trace memory storage
+- Fix immutable Word struct handling by creating new instances
+- Enable verification of distorted probe storage affecting final test predictions
+
+Related to issue 38: E1 Model final test prediction by within-list testposition
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -1916,7 +2080,19 @@ Unable to retrieve full message.
 **Time:** 2025-09-08 23:24:35  
 **Message:**
 ```
-Unable to retrieve full message.
+debug(model-e1): probe distortion tracing for issue 38
+
+Add debugging functionality to track probe distortion in initial tests:
+- Add distortion markers to word.item when probes are distorted
+- Add debug print statements in restore functions to trace memory storage
+- Fix immutable Word struct handling by creating new instances
+- Enable verification of distorted probe storage affecting final test predictions
+
+Related to issue 38: E1 Model final test prediction by within-list testposition
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -1930,7 +2106,18 @@ Unable to retrieve full message.
 **Time:** 2025-09-08 23:32:28  
 **Message:**
 ```
-Unable to retrieve full message.
+debug(model-e1): narrow debug output to NEW judgments only
+
+Filter debug print statements to only show traces added when decision_isold == 0:
+- Focus on items judged as NEW in both initial and final tests
+- Reduce debug noise to better identify distorted probe storage patterns
+- Help isolate distorted foils that fail recognition and get stored as traces
+
+Related to issue 38: probe distortion debugging
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -1943,7 +2130,19 @@ Unable to retrieve full message.
 **Time:** 2025-09-08 23:24:35  
 **Message:**
 ```
-Unable to retrieve full message.
+debug(model-e1): probe distortion tracing for issue 38
+
+Add debugging functionality to track probe distortion in initial tests:
+- Add distortion markers to word.item when probes are distorted
+- Add debug print statements in restore functions to trace memory storage
+- Fix immutable Word struct handling by creating new instances
+- Enable verification of distorted probe storage affecting final test predictions
+
+Related to issue 38: E1 Model final test prediction by within-list testposition
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -2195,7 +2394,16 @@ Refs #36
 **Time:** 2025-09-07 18:04:21  
 **Message:**
 ```
-Unable to retrieve full message.
+explore(model-e1): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased  from 7 to 12 to enhance content drift modeling.
+- Updated , , and  values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -2208,7 +2416,16 @@ Unable to retrieve full message.
 **Time:** 2025-09-07 18:03:11  
 **Message:**
 ```
-Unable to retrieve full message.
+explore(model-e1): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased  from 7 to 12 to enhance content drift modeling.
+- Updated , , and  values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -2221,7 +2438,16 @@ Unable to retrieve full message.
 **Time:** 2025-09-07 18:00:48  
 **Message:**
 ```
-Unable to retrieve full message.
+explore(constants): increase kappa for (foil params)
+
+doesn't hlep much
+
+- Increased `max_distortion_probes` from 7 to 12 to enhance content drift modeling.
+- Updated `ks_base`, `kb_base`, and `kt_base` values from 0.45 to 0.95 to better align with study requirements.
+
+These changes aim to refine the model's constants and improve overall performance.
+
+Refs #36
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -2340,7 +2566,14 @@ These changes aim to improve the analysis and visualization of simulation result
 **Time:** 2025-09-07 17:08:16  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(predplot-e1):  add sampling accuracy plots
+
+- Updated the DataFrame structures in `simulation.jl` to include new fields `is_sampled` and `is_same_item`, improving data tracking during simulations.
+- Modified the `probe_evaluation` function to store additional sampling information.
+- Introduced sampling accuracy plots in R scripts, allowing for better visualization of sampling performance based on new data fields.
+- Adjusted plotting logic to conditionally include sampling accuracy plots based on the presence of relevant columns.
+
+These changes aim to improve the analysis and visualization of simulation results, enhancing the overall functionality of the modeling framework.
 ```
 **Changed Files:**
 - `design1/modeling/R_ploting/R_plots.r`  
@@ -2408,7 +2641,13 @@ These changes enhance the organization of simulation outputs and facilitate easi
 **Time:** 2025-09-07 16:03:23  
 **Message:**
 ```
-Unable to retrieve full message.
+fix(shell): fix the bug in data processing
+
+- Removed aggregation steps from the initial simulation results, now saving raw data directly to CSV files.
+- Introduced a new aggregation step after combining results, ensuring clarity and separation of raw data and processed outputs.
+- Updated the script to handle the creation of aggregated CSV files for both initial and final test results, improving data management.
+
+These changes enhance the organization of simulation outputs and facilitate easier analysis of raw and aggregated data.
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -2612,7 +2851,16 @@ Closes #32
 **Time:** 2025-09-04 22:03:23  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(model-e1): enhance content distortion and parameter integration
+
+- Added new advantage parameters `u_star_adv` and `c_adv` to align with E3 specifications.
+- Refactored context copying parameters to use `fill` instead of `LinRange` for consistency.
+- Introduced content distortion functions with linear decay in probability for probe features, enhancing the model's ability to simulate content drift between study and test phases.
+- Updated probe generation logic to apply content distortion based on new parameters, improving the realism of memory simulations.
+
+These changes aim to refine the modeling framework by integrating advanced distortion mechanisms and ensuring parameter consistency across the system.
+
+Closes #32
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -2735,7 +2983,12 @@ This addition aims to enhance project documentation and provide clarity on decis
 **Time:** 2025-08-23 00:34:00  
 **Message:**
 ```
-Unable to retrieve full message.
+docs(all): add meeting log for August 21
+
+- Introduced a new document detailing discussions and insights from the meeting held on August 21.
+- The log covers key topics such as parameter separation, recall mechanisms, and the importance of origin information in trace sampling.
+
+This addition aims to enhance project documentation and provide clarity on decision-making processes discussed during the meeting.
 ```
 **Changed Files:**
 - `Docs/meetinglog_aug_21.md`  
@@ -2869,7 +3122,14 @@ These changes aim to improve the model's performance and accuracy in simulations
 **Time:** 2025-08-17 21:11:03  
 **Message:**
 ```
-Unable to retrieve full message.
+finetune(model-e1): a good start of between-list list 1
+
+- Adjusted `adv_u_star_strengthen` to 0.06 and `adv_c_strenghten` to 0.1 to enhance feature restoration logic.
+- Corrected `c` parameter to 0.8 for consistency in copying behavior.
+- Updated `v_criterion_initial` to 0.78 for better alignment with model expectations.
+- Increased `n_driftStudyTest` from 9 to 10 to refine testing conditions.
+
+These changes aim to improve the model's performance and accuracy in simulations.
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -2908,7 +3168,19 @@ Refs #23 decrease target tunning
 **Time:** 2025-08-17 18:13:47  
 **Message:**
 ```
-Unable to retrieve full message.
+finetune(model-e3): 23 tune, between-list prediction (while keep u_star)
+
+- Set `is_finaltest` to false and reduced `n_simulations` to 800 for more efficient testing.
+- Decreased `n_lists` from 10 to 4 to streamline the simulation process.
+- Updated `v_criterion_initial` to 0.87 for better alignment with model expectations.
+- Modified base probabilities for targets and foils to enhance recall accuracy.
+- Adjusted z-value increase parameters to refine target and foil classifications.
+
+These changes aim to enhance the model's performance and accuracy in simulations.
+
+-  NEXT STEP: chagne u_star
+
+Refs #23 decrease target tunning
 ```
 **Changed Files:**
 - `design1/modeling/R_ploting/R_plots.r`  
@@ -3043,7 +3315,16 @@ These changes aim to refine the model's predictive capabilities and strengthen t
 **Time:** 2025-08-15 22:52:20  
 **Message:**
 ```
-Unable to retrieve full message.
+explore(model-e1): solve 22, within-list: update ratio parameters and restore feature logic
+
+- Reintroduced ratio parameters for initial and final tests
+- Adjusted v_criterion_initial from 0.001^power_taken to 0.01^power_taken
+- Modified recall_odds_threshold to 0.0^power_taken
+- Updated feature restoration logic for target feature assignment
+
+These changes improve simulation consistency and accuracy.
+
+Refs #22: taking out strenghtening advantage makes good within-list prediction
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -3164,7 +3445,12 @@ finetune(model-e1): resolve performance issue by adjusting c parameter - closes 
 **Time:** 2025-08-12 23:03:39  
 **Message:**
 ```
-Unable to retrieve full message.
+fix(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -3177,7 +3463,12 @@ Unable to retrieve full message.
 **Time:** 2025-08-12 23:03:27  
 **Message:**
 ```
-Unable to retrieve full message.
+fix(model-e1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -3190,7 +3481,12 @@ Unable to retrieve full message.
 **Time:** 2025-08-12 22:58:01  
 **Message:**
 ```
-Unable to retrieve full message.
+fix(E1): resolve performance issue by adjusting c parameter - closes #20, references #13
+
+- Performance was too high for within-list test positions
+- Solved by adjusting copying parameter (c) instead of complex parameter tuning
+- Most parameters now aligned between E1 and E3
+- Major milestone in E1/E3 parameter alignment achieved
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -3237,7 +3533,23 @@ Create tech-debt #18
 **Time:** 2025-08-12 21:52:22  
 **Message:**
 ```
-Unable to retrieve full message.
+feat(model-E3): Integrate E3 model logic into design1 framework
+
+Major update integrating E3 experiment model architecture with design1 data structures:
+
+- Add E3-specific parameters: recall_to_addtrace_threshold, is_strengthen_contextandcontent
+- Add context copying parameters: c_context_c, c_context_un for changing/unchanging context
+- Add final test chunk parameters: total_probe_L1, total_probe_Ln, nItemPerUnit_final
+- Create feature_updates.jl with helper functions: add_features_from_empty! and restore_features!
+- Update memory_restorage.jl to use E3 decision criteria and logic flow
+- Fix parameter consistency: c_storeintest now properly defined as array
+- Maintain design1 data structures while integrating E3 model logic
+- Update probe_evaluation.jl to use new function signatures
+- Fix bounds errors from inconsistent array/scalar parameter usage
+
+This update enables design1 to run E3 model simulations while preserving existing architecture.
+
+Closes #13
 ```
 **Changed Files:**
 - `design1/modeling/JL_V6-6_2finalize.jl`  
@@ -3281,7 +3593,25 @@ several simulation parameter issues that were affecting model performance.
 **Time:** 2025-08-12 20:54:38  
 **Message:**
 ```
-Unable to retrieve full message.
+merge aug-11-explore: align E1 modeling with E3 structure and enhance simulation parameters
+
+This merge brings in significant improvements to the E1 modeling system:
+
+- Aligns E1 modeling structure with E3 approach for consistency
+
+- Reorganizes constants.jl into logical blocks for better maintainability
+
+- Updates simulation parameters for drift study and reinstatement rates
+
+- Fixes critical bug in ratio_unchanging setting
+
+- Enhances probe evaluation and memory restorage modules
+
+- Updates gitignore and removes temporary files
+
+The changes improve model consistency between experiments and fix
+
+several simulation parameter issues that were affecting model performance.
 ```
 ![](../plot_archive/c341998_20250812_205438_plot1.png)  
 ![](../plot_archive/c341998_20250812_205438_plot2.png)  
@@ -3340,7 +3670,12 @@ impossible for items to pass the recall threshold. New value of 0.3^power_taken
 **Time:** 2025-08-12 19:09:46  
 **Message:**
 ```
-Unable to retrieve full message.
+fix(constants): update u_star_context initialization to use variable for consistency
+
+- Changed u_star_context to initialize with u_star_v instead of a fixed value.
+- This adjustment aims to enhance consistency across parameter definitions.
+
+Align work #13
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -3353,7 +3688,12 @@ Unable to retrieve full message.
 **Time:** 2025-08-12 19:04:12  
 **Message:**
 ```
-Unable to retrieve full message.
+fix(constants): update u_star_context initialization to use variable for consistency
+
+- Changed u_star_context to initialize with u_star_v instead of a fixed value.
+- This adjustment aims to enhance consistency across parameter definitions.
+
+Align work #13
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -3366,7 +3706,13 @@ Unable to retrieve full message.
 **Time:** 2025-08-12 19:03:00  
 **Message:**
 ```
-Unable to retrieve full message.
+refactor(model-e3): reorganize constants.jl into logical blocks and move debug output
+
+- Group related parameters into clear sections with descriptive headers
+- Move probability calculations and debug println statements to end of file
+- Preserve all dependency relationships between constants
+- Improve code readability and maintainability
+- Remove debug output from parameter definition sections
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -3424,7 +3770,17 @@ Align work #13
 **Time:** 2025-08-12 18:52:24  
 **Message:**
 ```
-Unable to retrieve full message.
+fix(model-e1): update constants for drift study and reinstatement rates
+
+- Supprisingly worked well
+
+- Adjusted n_driftStudyTest from 7 to 11 for better testing conditions.
+- Modified p_reinstate_rate from 0.2 to 0.1 to refine reinstatement probability.
+
+Align work:
+- Changed g_word from 0.4 to 0.3 to align with new geometric base rate.
+
+Align work #13
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
@@ -3450,7 +3806,7 @@ chore(model-e1): redo, changed nothing
 **Time:** 2025-08-12 18:16:19  
 **Message:**
 ```
-Unable to retrieve full message.
+chore(model-e1): redo, changed nothing
 ```
 **Changed Files:**
 - `design1/modeling/log/model_progress.json`  
