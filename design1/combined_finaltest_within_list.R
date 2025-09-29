@@ -104,6 +104,15 @@ df_finalwithin_nonfoil = df_final %>%
   group_by(position, position_type, probetype) %>%
   summarize(meancr = mean(meancr1), sd = sd(meancr1), se = sd/sqrt(n()))
 
+# Add overall performance for non-tested items in Initial Test Position facet
+nontarget_performance <- df_final %>%
+  filter(probetype == "TARGET_nontarget") %>%
+  group_by(ip, probetype) %>%
+  summarize(meancr1 = mean(correct)) %>%
+  group_by(probetype) %>%
+  summarize(meancr = mean(meancr1), sd = sd(meancr1), se = sd/sqrt(n())) %>%
+  mutate(position = 0, position_type = "Initial Test Position")
+
 # Combine and create duplicate FOIL rows for both facets (like pivot_longer does)
 df_finalwithin = df_finalwithin_nonfoil %>%
   mutate(probetype = case_when(
@@ -124,6 +133,12 @@ df_finalwithin = df_finalwithin_nonfoil %>%
   bind_rows(
     foil_performance %>% 
       mutate(position_type = "Initial Test Position", probetype = "FOIL") %>%
+      select(position, position_type, probetype, meancr, sd, se)
+  ) %>%
+  # Add non-target performance for Initial Test Position facet
+  bind_rows(
+    nontarget_performance %>%
+      mutate(probetype = "Target, Studied only - HITS") %>%
       select(position, position_type, probetype, meancr, sd, se)
   ) %>%
   mutate(position = as.numeric(position))

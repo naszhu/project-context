@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [0c4c0c3](https://github.com/naszhu/REM_E3_model_fixed/commit/0c4c0c3) (branch: `main`)
+**Time:** 2025-09-29 13:16:31  
+**Message:**
+```
+refactor(simulation): update probability parameters for context drift
+
+- Replaced the combined drift probability parameter with separate parameters for study-test and between-list changes to enhance clarity and maintain equivalent overall probabilities.
+- Adjusted the number of steps for drift study-test and between-list change from 9 and 20 to 1, respectively, to simplify the simulation process.
+- Updated related calculations and print statements to reflect the new parameter structure, ensuring accurate probability outputs.
+
+Fixes naszhu/REM_E3_model_fixed#14
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/simulation.jl`  
+- `design3/modeling`  
+![](../plot_archive/0c4c0c3_20250929_131631_plot1.png)  
+![](../plot_archive/0c4c0c3_20250929_131631_plot2.png)  
+
 ## Commit [e6869c8](https://github.com/naszhu/REM_E3_model_fixed/commit/e6869c8) (branch: `main`)
 **Time:** 2025-09-29 12:22:13  
 **Message:**
