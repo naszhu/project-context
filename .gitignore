@@ -45,3 +45,9 @@ final_test_between_list_data_e3.png
 # Ignore all PNG files in all directories
 *.png
 **/*.png
+
+# Ignore R data files (large files that shouldn't be in git)
+*.RData
+*.rds
+**/*.RData
+**/*.rds

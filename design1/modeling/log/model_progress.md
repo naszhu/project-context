@@ -1,5 +1,14 @@
 # Model Progress
 
+## Commit [2c66c90](https://github.com/naszhu/REM_E3_model_fixed/commit/2c66c90) (branch: `main`)
+**Time:** 2025-09-28 22:20:45  
+**Message:**
+```
+merge(analysis-e1): Merge branch 'sep-28-analysis'
+```
+![](../plot_archive/2c66c90_20250928_222045_plot1.png)  
+![](../plot_archive/2c66c90_20250928_222045_plot2.png)  
+
 ## Commit [e0120fc](https://github.com/naszhu/REM_E3_model_fixed/commit/e0120fc) (branch: `sep-28-analysis`)
 **Time:** 2025-09-28 21:33:57  
 **Message:**
