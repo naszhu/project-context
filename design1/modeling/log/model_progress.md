@@ -1,5 +1,67 @@
 # Model Progress
 
+## Commit [ec7f7ab](https://github.com/naszhu/REM_E3_model_fixed/commit/ec7f7ab) (branch: `main`)
+**Time:** 2025-09-29 14:39:25  
+**Message:**
+```
+fix(log-e1): preserve model progress history after git rewrite
+
+- Modified generate_md_from_json.py to only append newest commits instead of regenerating entire file
+- Restored detailed commit messages from e6869c8 that were lost after history rewrite
+- Prevents future loss of valuable commit documentation when old SHAs become invalid
+- Script now preserves existing markdown content and only processes new entries
+
+The issue occurred after a repository history rewrite to remove large R data files.
+The rewrite invalidated all previous commit SHAs, causing the log generation script
+to fail when trying to fetch commit messages with git show, defaulting to
+"Unable to retrieve full message" for all historical entries.
+
+Closes #42
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/script/generate_md_from_json.py`  
+![](../plot_archive/ec7f7ab_20250929_143925_plot1.png)  
+![](../plot_archive/ec7f7ab_20250929_143925_plot2.png)  
+
+## Commit [61b0deb](https://github.com/naszhu/REM_E3_model_fixed/commit/61b0deb) (branch: `main`)
+**Time:** 2025-09-29 14:38:14  
+**Message:**
+```
+fix(hooks): preserve model progress history after git rewrite
+
+- Modified generate_md_from_json.py to only append newest commits instead of regenerating entire file
+- Restored detailed commit messages from e6869c8 that were lost after history rewrite
+- Prevents future loss of valuable commit documentation when old SHAs become invalid
+- Script now preserves existing markdown content and only processes new entries
+
+The issue occurred after a repository history rewrite to remove large R data files.
+The rewrite invalidated all previous commit SHAs, causing the log generation script
+to fail when trying to fetch commit messages with git show, defaulting to
+"Unable to retrieve full message" for all historical entries.
+
+Closes #42
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/script/generate_md_from_json.py`  
+![](../plot_archive/61b0deb_20250929_143814_plot1.png)  
+![](../plot_archive/61b0deb_20250929_143814_plot2.png)  
+
+## Commit [0cbfdb6](https://github.com/naszhu/REM_E3_model_fixed/commit/0cbfdb6) (branch: `main`)
+**Time:** 2025-09-29 14:35:51  
+**Message:**
+```
+fix(log-e1): restore the model_progress merge sep-28-analysis without large R data files
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/0cbfdb6_20250929_143551_plot1.png)  
+![](../plot_archive/0cbfdb6_20250929_143551_plot2.png)  
+
 ## Commit [b46bb21](https://github.com/naszhu/REM_E3_model_fixed/commit/b46bb21) (branch: `main`)
 **Time:** 2025-09-29 14:31:35  
 **Message:**

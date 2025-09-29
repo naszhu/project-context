@@ -1,5 +1,43 @@
 [
   {
+    "commit": "ec7f7ab",
+    "branch": "main",
+    "message": "fix(log-e1): preserve model progress history after git rewrite",
+    "timestamp": "2025-09-29 14:39:25",
+    "plot1": "plot_archive/ec7f7ab_20250929_143925_plot1.png",
+    "plot2": "plot_archive/ec7f7ab_20250929_143925_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/script/generate_md_from_json.py"
+    ]
+  },
+  {
+    "commit": "61b0deb",
+    "branch": "main",
+    "message": "fix(hooks): preserve model progress history after git rewrite",
+    "timestamp": "2025-09-29 14:38:14",
+    "plot1": "plot_archive/61b0deb_20250929_143814_plot1.png",
+    "plot2": "plot_archive/61b0deb_20250929_143814_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/script/generate_md_from_json.py"
+    ]
+  },
+  {
+    "commit": "0cbfdb6",
+    "branch": "main",
+    "message": "fix(log-e1): restore the model_progress merge sep-28-analysis without large R data files",
+    "timestamp": "2025-09-29 14:35:51",
+    "plot1": "plot_archive/0cbfdb6_20250929_143551_plot1.png",
+    "plot2": "plot_archive/0cbfdb6_20250929_143551_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "b46bb21",
     "branch": "main",
     "message": "fix(log-e1): restore the model_progress merge sep-28-analysis without large R data files",
