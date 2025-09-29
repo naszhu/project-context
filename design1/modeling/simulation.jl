@@ -73,7 +73,7 @@ function simulate_rem()
 
                 # drift for changing context
                 for cf in eachindex(test_list_context)
-                    if rand() < p_driftAndListChange #cf.change_probability # this equals p_change
+                    if rand() < p_driftStudyTest #cf.change_probability # this equals p_change
                         test_list_context[cf] = rand(Geometric(g_context)) + 1
                     end
                 end
@@ -81,7 +81,7 @@ function simulate_rem()
                 # drift for unchanging context
                 if is_UnchangeCtxDriftAndReinstate
                     for cf in eachindex(test_list_context_unchange)
-                        if rand() < p_driftAndListChange
+                        if rand() < p_driftStudyTest
                             test_list_context_unchange[cf] = rand(Geometric(g_context)) + 1
                         end
                     end
@@ -114,10 +114,10 @@ function simulate_rem()
                 # odds = Float64[], Nratio_iprobe = Float64[], Nratio_iimageinlist = Float64[], ilist_image = Int[])
                 push!(df_inital, row)
             end
-            # Update list_change_context_features 
+            # Update list_change_context_features
             for _ in 1:n_between_listchange
                 for cf in eachindex(list_change_context_features)
-                    if rand() < p_driftAndListChange #cf.change_probability # this equals p_change
+                    if rand() < p_driftBetweenList #cf.change_probability # this equals p_change
                         list_change_context_features[cf] = rand(Geometric(g_context)) + 1
                     end
                 end

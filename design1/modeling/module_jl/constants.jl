@@ -40,10 +40,10 @@ const g_context = 0.3; #0.3 originallly geometric base rate of context, or 0.2
 # TIME AND STORAGE PARAMETERS
 # =============================================================================
 n_grade = 2 #only first to be special 
-const n_units_time = 13 #number of steps                                                                                                                                                                                                                        
+const n_units_time = 1 #number of steps                                                                                                                                                                                                                        
 
 # u_star parameters
-u_star_v = 0.04
+u_star_v = 1-(1-0.04)^13 #0.04
 u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
@@ -167,11 +167,16 @@ p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hun
 p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
-n_driftStudyTest = round.(Int, ones(10) * 9) #7
+#n_driftStudyTest = round.(Int, ones(10) * 9) #7 # ORIGINAL: was 9 steps
+n_driftStudyTest = round.(Int, ones(10) * 1) # Changed from 9 to 1
 
-n_between_listchange = 20 #20 in E3 #25 originally 
+#n_between_listchange = 20 #20 in E3 #25 originally # ORIGINAL: was 20 steps
+n_between_listchange = 1 # Changed from 20 to 1
 
-const p_driftAndListChange = 0.03; # studied prior list probability change
+# Separate probability parameters to maintain equivalent overall probabilities
+#const p_driftAndListChange = 0.03; # ORIGINAL: single parameter for both
+const p_driftStudyTest = 0.2396; # Equivalent to (1-(1-0.03)^9) for study-test drift
+const p_driftBetweenList = 0.4562; # Equivalent to (1-(1-0.03)^20) for between-list change
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 15  # Number of probes until distortion probability reaches 0
@@ -299,10 +304,12 @@ is_strengthen_contextandcontent = true;  # E3 parameter for strengthening contex
 # PROBABILITY CALCULATIONS AND DEBUG OUTPUT
 # =============================================================================
 # n_driftStudyTest = round.(Int,ones(10)*25)
-println("prob of each feature change between list $(1-(1-p_driftAndListChange)^n_between_listchange)")
-println("prob of each feature drift between study and test $(1-(1-p_driftAndListChange)^n_driftStudyTest[1])")
-aa = (1 - (1 - p_driftAndListChange)^n_between_listchange);
+# Updated to use separate probability parameters
+println("prob of each feature change between list $(1-(1-p_driftBetweenList)^n_between_listchange)")
+println("prob of each feature drift between study and test $(1-(1-p_driftStudyTest)^n_driftStudyTest[1])")
+aa = (1 - (1 - p_driftBetweenList)^n_between_listchange);
 println("prob of feature change after 4 lists $(1-(aa)^8)")
+# Note: With n=1, the probability formulas simplify to just the p values themselves
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 println("The actual u_star after nsteps is", 1-(1-u_star[1])^n_units_time)
 
