@@ -1,5 +1,47 @@
 # Model Progress
 
+## Commit [9622c48](https://github.com/naszhu/REM_E3_model_fixed/commit/9622c48) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 13:42:10  
+**Message:**
+```
+refactor(analysis-e3): replace robust model fitting function with direct GLMM calls
+
+back to HEAD~1 and simplified version
+
+- Removed the `fit_robust_glmer` function, simplifying the model fitting process by directly using `glmer` for initial test models.
+- Updated model specifications to enhance clarity and maintainability, ensuring convergence diagnostics are still included.
+- This change streamlines the analysis workflow for Experiment 3 while retaining essential model fitting capabilities.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/9622c48_20250930_134210_plot1.png)  
+![](../plot_archive/9622c48_20250930_134210_plot2.png)  
+
+## Commit [e488e3b](https://github.com/naszhu/REM_E3_model_fixed/commit/e488e3b) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 13:06:18  
+**Message:**
+```
+feat(analysis-e3): implement robust model fitting function for GLMMs
+
+- Added a new function `fit_robust_glmer` to enhance model fitting with multiple optimizers and fallback strategies for Generalized Linear Mixed Models (GLMMs).
+- Updated initial test models to utilize the new robust fitting function, improving convergence handling and model reliability.
+- The function includes error handling and attempts simplified random effects if all optimizers fail, ensuring better model performance.
+
+This enhancement significantly improves the robustness of model fitting in the analysis of Experiment 3.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/e488e3b_20250930_130618_plot1.png)  
+![](../plot_archive/e488e3b_20250930_130618_plot2.png)  
+
 ## Commit [b924652](https://github.com/naszhu/REM_E3_model_fixed/commit/b924652) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-09-30 12:44:54  
 **Message:**

@@ -1,5 +1,31 @@
 [
   {
+    "commit": "9622c48",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "refactor(analysis-e3): replace robust model fitting function with direct GLMM calls",
+    "timestamp": "2025-09-30 13:42:10",
+    "plot1": "plot_archive/9622c48_20250930_134210_plot1.png",
+    "plot2": "plot_archive/9622c48_20250930_134210_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "e488e3b",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "feat(analysis-e3): implement robust model fitting function for GLMMs",
+    "timestamp": "2025-09-30 13:06:18",
+    "plot1": "plot_archive/e488e3b_20250930_130618_plot1.png",
+    "plot2": "plot_archive/e488e3b_20250930_130618_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
     "commit": "b924652",
     "branch": "sep-30-finetune-some-parm",
     "message": "feat(analysis-e3): add comprehensive GLMM analysis for Experiment 3",
