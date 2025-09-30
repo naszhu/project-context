@@ -1,5 +1,31 @@
 [
   {
+    "commit": "40f2614",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "finetune(model-e1):  align ratio init CC with E2",
+    "timestamp": "2025-09-30 09:58:54",
+    "plot1": "plot_archive/40f2614_20250930_095854_plot1.png",
+    "plot2": "plot_archive/40f2614_20250930_095854_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "f2e472a",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "fix(logsr-e1): preserve model progress history after git rewrite",
+    "timestamp": "2025-09-29 14:39:39",
+    "plot1": "plot_archive/f2e472a_20250929_143939_plot1.png",
+    "plot2": "plot_archive/f2e472a_20250929_143939_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/script/generate_md_from_json.py"
+    ]
+  },
+  {
     "commit": "ec7f7ab",
     "branch": "main",
     "message": "fix(log-e1): preserve model progress history after git rewrite",

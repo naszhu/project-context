@@ -1,7 +1,7 @@
 
 
-is_finaltest = true
-n_simulations = is_finaltest ? 200 : 1000;
+is_finaltest = false
+n_simulations = is_finaltest ? 1000 : 2000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.88 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.85 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -187,7 +187,7 @@ base_distortion_prob = 0.16  # Base probability of distortion for the first prob
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
-ratio_unchanging_to_itself_init = LinRange(0.3, 0.3, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(0.46, 0.46, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]

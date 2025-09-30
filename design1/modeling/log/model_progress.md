@@ -1,5 +1,47 @@
 # Model Progress
 
+## Commit [40f2614](https://github.com/naszhu/REM_E3_model_fixed/commit/40f2614) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 09:58:54  
+**Message:**
+```
+finetune(model-e1):  align ratio init CC with E2
+
+- Changed is_finaltest flag to false, adjusting n_simulations from 200 to 1000.
+- Modified nnnow value from 0.88 to 0.85 to refine model behavior.
+- Updated ratio_unchanging_to_itself_init from 0.3 to 0.46 for improved parameter alignment in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/40f2614_20250930_095854_plot1.png)  
+![](../plot_archive/40f2614_20250930_095854_plot2.png)  
+
+## Commit [f2e472a](https://github.com/naszhu/REM_E3_model_fixed/commit/f2e472a) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-29 14:39:39  
+**Message:**
+```
+fix(logsr-e1): preserve model progress history after git rewrite
+
+- Modified generate_md_from_json.py to only append newest commits instead of regenerating entire file
+- Restored detailed commit messages from e6869c8 that were lost after history rewrite
+- Prevents future loss of valuable commit documentation when old SHAs become invalid
+- Script now preserves existing markdown content and only processes new entries
+
+The issue occurred after a repository history rewrite to remove large R data files.
+The rewrite invalidated all previous commit SHAs, causing the log generation script
+to fail when trying to fetch commit messages with git show, defaulting to
+"Unable to retrieve full message" for all historical entries.
+
+Closes #42
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/script/generate_md_from_json.py`  
+![](../plot_archive/f2e472a_20250929_143939_plot1.png)  
+![](../plot_archive/f2e472a_20250929_143939_plot2.png)  
+
 ## Commit [ec7f7ab](https://github.com/naszhu/REM_E3_model_fixed/commit/ec7f7ab) (branch: `main`)
 **Time:** 2025-09-29 14:39:25  
 **Message:**
