@@ -208,7 +208,7 @@ cat("\n=== Initial Study Position Model ===\n")
 check_convergence_issues(m_init_studypos_e3)
 
 m_init_testpos_e3 <- glmer(
-  accuracy ~ (test_position_lin + test_position_quad) * item_type +
+  accuracy ~ test_position_lin * item_type + test_position_quad +
     (1 | participant_id),
   data = initial_e3, family = binomial,
   control = glmerControl(optimizer = "bobyqa"),
@@ -219,7 +219,7 @@ cat("\n=== Initial Test Position Model ===\n")
 check_convergence_issues(m_init_testpos_e3)
 
 m_init_between_e3 <- glmer(
-  accuracy ~ (list_number_lin + list_number_quad) * item_type +
+  accuracy ~ list_number_lin * item_type + list_number_quad +
     (1 | participant_id),
   data = initial_e3, family = binomial,
   control = glmerControl(optimizer = "bobyqa"),

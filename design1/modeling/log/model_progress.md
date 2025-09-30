@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [fd27f8c](https://github.com/naszhu/REM_E3_model_fixed/commit/fd27f8c) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 13:44:13  
+**Message:**
+```
+refactor(analysis-e3): replace robust model fitting function with direct GLMM calls
+
+back to HEAD~1 and simplified version
+
+- Removed the `fit_robust_glmer` function, simplifying the model fitting process by directly using `glmer` for initial test models.
+- Updated model specifications to enhance clarity and maintainability, ensuring convergence diagnostics are still included.
+- This change streamlines the analysis workflow for Experiment 3 while retaining essential model fitting capabilities.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/fd27f8c_20250930_134413_plot1.png)  
+![](../plot_archive/fd27f8c_20250930_134413_plot2.png)  
+
 ## Commit [9622c48](https://github.com/naszhu/REM_E3_model_fixed/commit/9622c48) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-09-30 13:42:10  
 **Message:**
