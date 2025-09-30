@@ -1,5 +1,32 @@
 [
   {
+    "commit": "25d024e",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "feat(analysis-e3): add comprehensive GLMM analysis for Experiment 3",
+    "timestamp": "2025-09-30 12:41:50",
+    "plot1": "plot_archive/25d024e_20250930_124150_plot1.png",
+    "plot2": "plot_archive/25d024e_20250930_124150_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "a73cd9c",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "fix(model-e1): introduce chunk_size_final_change for probe generation",
+    "timestamp": "2025-09-30 12:41:31",
+    "plot1": "plot_archive/a73cd9c_20250930_124131_plot1.png",
+    "plot2": "plot_archive/a73cd9c_20250930_124131_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
     "commit": "ee8b2d9",
     "branch": "sep-30-finetune-some-parm",
     "message": "finetune(model-e1):  align ratio init CC with E2",
