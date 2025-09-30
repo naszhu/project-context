@@ -215,13 +215,14 @@ function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::S
 
             
             if condition == :true_random
-                iprobe_chunk = ceil(Int, iprobe / 42)  # Divide 420 into 10 chunks, each with 42 probes
+                
+                iprobe_chunk = ceil(Int, iprobe / chunk_size_final_change)  # Divide 420 into 10 chunks, each with 42 probes
 
                 #the following is to change context by chunk (of list) for random condition
                 # don't change context when (list in iprobe == 1) ||
 
                 # TODO: should only change if not first list, check here
-                if (iprobe!=1) && (iprobe_chunk != ceil(Int, (iprobe - 1) / 42))
+                if (iprobe!=1) && (iprobe_chunk != ceil(Int, (iprobe - 1) / chunk_size_final_change))
                     drift_between_lists_final!(listcg, icount)
                     drift_between_lists_final!(generalcg, icount)
                 end

@@ -197,6 +197,7 @@ nC_in = round.(Int, nC .* ratio_changing_to_itself_init)[1]
 # FINAL TEST PARAMETERS
 # =============================================================================
 const n_finalprobs = 420;
+chunk_size_final_change = 42; 
 
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
 

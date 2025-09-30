@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [ee8b2d9](https://github.com/naszhu/REM_E3_model_fixed/commit/ee8b2d9) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 10:10:46  
+**Message:**
+```
+finetune(model-e1):  align ratio init CC with E2
+
+- Changed is_finaltest flag to false, adjusting n_simulations from 200 to 1000.
+- Modified nnnow value from 0.88 to 0.85 to refine model behavior.
+- Updated ratio_unchanging_to_itself_init from 0.3 to 0.46 for improved parameter alignment in simulations.
+
+Refs #43
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/ee8b2d9_20250930_101046_plot1.png)  
+![](../plot_archive/ee8b2d9_20250930_101046_plot2.png)  
+
 ## Commit [40f2614](https://github.com/naszhu/REM_E3_model_fixed/commit/40f2614) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-09-30 09:58:54  
 **Message:**
