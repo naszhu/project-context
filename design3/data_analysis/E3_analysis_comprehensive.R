@@ -95,6 +95,62 @@ validate_position_data <- function(df, position_var) {
   }
 }
 
+# Add robust model fitting function with multiple optimizers and fallback strategies
+fit_robust_glmer <- function(formula, data, family = binomial, max_attempts = 3) {
+  optimizers <- c("bobyqa", "Nelder_Mead", "optimx")
+  
+  for (i in 1:max_attempts) {
+    optimizer <- optimizers[i]
+    cat("Attempting fit with optimizer:", optimizer, "\n")
+    
+    tryCatch({
+      model <- glmer(
+        formula = formula,
+        data = data,
+        family = family,
+        control = glmerControl(
+          optimizer = optimizer,
+          check.conv.grad = .makeCC("warning", tol = 1e-3, relTol = NULL),
+          check.conv.singular = .makeCC("warning", tol = 1e-4)
+        ),
+        na.action = na.omit
+      )
+      
+      # Check if model converged
+      if (is.null(model@optinfo$conv$lme4$messages) || 
+          length(model@optinfo$conv$lme4$messages) == 0) {
+        cat("✓ Model converged successfully with", optimizer, "\n")
+        return(model)
+      } else {
+        cat("⚠ Model did not converge with", optimizer, "- trying next optimizer\n")
+      }
+    }, error = function(e) {
+      cat("✗ Error with", optimizer, ":", e$message, "\n")
+    })
+  }
+  
+  # If all optimizers failed, try simplified random effects
+  cat("⚠ All optimizers failed - trying simplified random effects structure\n")
+  simplified_formula <- update(formula, . ~ . - (0 + study_position_lin | participant_id) + (1 | participant_id))
+  
+  tryCatch({
+    model <- glmer(
+      formula = simplified_formula,
+      data = data,
+      family = family,
+      control = glmerControl(optimizer = "bobyqa"),
+      na.action = na.omit
+    )
+    cat("✓ Simplified model converged\n")
+    return(model)
+  }, error = function(e) {
+    cat("✗ Simplified model also failed:", e$message, "\n")
+  })
+  
+  cat("⚠ All attempts failed - returning last attempt\n")
+  return(model)
+}
+
 # 2) Initial test data preparation with confusing foils
 initial_e3 <- df_e3 %>%
   filter(task == "initialTest_response") %>%
@@ -196,34 +252,31 @@ validate_position_data(final_e3, "final_test_position")
 cat("\n=== FITTING INITIAL TEST MODELS ===\n")
 
 # Initial test models with confusing foils
-m_init_studypos_e3 <- glmer(
+cat("Fitting initial study position model...\n")
+m_init_studypos_e3 <- fit_robust_glmer(
   accuracy ~ (study_position_lin + study_position_quad) * item_type +
     (1 | participant_id) + (0 + study_position_lin | participant_id),
-  data = initial_e3, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
-  na.action = na.omit
+  data = initial_e3
 )
 
 cat("\n=== Initial Study Position Model ===\n")
 check_convergence_issues(m_init_studypos_e3)
 
-m_init_testpos_e3 <- glmer(
+cat("Fitting initial test position model...\n")
+m_init_testpos_e3 <- fit_robust_glmer(
   accuracy ~ (test_position_lin + test_position_quad) * item_type +
     (1 | participant_id) + (0 + test_position_lin | participant_id),
-  data = initial_e3, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
-  na.action = na.omit
+  data = initial_e3
 )
 
 cat("\n=== Initial Test Position Model ===\n")
 check_convergence_issues(m_init_testpos_e3)
 
-m_init_between_e3 <- glmer(
+cat("Fitting initial between-list model...\n")
+m_init_between_e3 <- fit_robust_glmer(
   accuracy ~ (list_number_lin + list_number_quad) * item_type +
     (1 | participant_id) + (0 + list_number_lin | participant_id),
-  data = initial_e3, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
-  na.action = na.omit
+  data = initial_e3
 )
 
 cat("\n=== Initial Between-List Model ===\n")

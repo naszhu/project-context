@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [b924652](https://github.com/naszhu/REM_E3_model_fixed/commit/b924652) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 12:44:54  
+**Message:**
+```
+feat(analysis-e3): add comprehensive GLMM analysis for Experiment 3
+
+- Introduced a new R script for a comprehensive analysis of Experiment 3 using Generalized Linear Mixed Models (GLMMs).
+- Implemented data preparation steps for initial and final test datasets, including polynomial term creation and data validation.
+- Developed models to analyze item-type-specific trends and included convergence diagnostics.
+- Added functionality for post-hoc comparisons and trend significance tests, enhancing the analysis of recognition memory performance.
+- Results and summaries are saved in both RDS and CSV formats for further reporting.
+
+This addition significantly expands the analytical capabilities for Experiment 3, providing detailed insights into item performance across different conditions.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/b924652_20250930_124454_plot1.png)  
+![](../plot_archive/b924652_20250930_124454_plot2.png)  
+
 ## Commit [25d024e](https://github.com/naszhu/REM_E3_model_fixed/commit/25d024e) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-09-30 12:41:50  
 **Message:**
