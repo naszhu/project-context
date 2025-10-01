@@ -1,5 +1,18 @@
 [
   {
+    "commit": "6fc8b56",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "finetune(model-e1): Making recall threshold > 0 , adjust criterion and drift between list",
+    "timestamp": "2025-10-01 07:35:01",
+    "plot1": "plot_archive/6fc8b56_20251001_073501_plot1.png",
+    "plot2": "plot_archive/6fc8b56_20251001_073501_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "24d1e37",
     "branch": "sep-30-finetune-some-parm",
     "message": "feat(analysis-e3): simplify model specifications in GLMMs",

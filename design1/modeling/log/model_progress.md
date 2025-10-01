@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [6fc8b56](https://github.com/naszhu/REM_E3_model_fixed/commit/6fc8b56) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 07:35:01  
+**Message:**
+```
+finetune(model-e1): Making recall threshold > 0 , adjust criterion and drift between list
+
+- Adjusted v_criterion_initial from 0.11 to 0.14 and recall_odds_threshold from 0.0 to 0.17
+
+These changes enhance the model's accuracy and reliability in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/6fc8b56_20251001_073501_plot1.png)  
+![](../plot_archive/6fc8b56_20251001_073501_plot2.png)  
+
 ## Commit [24d1e37](https://github.com/naszhu/REM_E3_model_fixed/commit/24d1e37) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-09-30 15:56:33  
 **Message:**
