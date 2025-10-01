@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [f49c375](https://github.com/naszhu/REM_E3_model_fixed/commit/f49c375) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 10:13:24  
+**Message:**
+```
+feat(analysis-e3): add pairwise comparison (again) bit potential but remain, why change first term?
+
+- Introduced a new results file detailing the statistical analysis approach and findings from Experiment 2.
+- Included detailed sections on initial test performance, between-list effects, and final test results, highlighting trends in memory performance across different item types and positions.
+- Enhanced clarity and accessibility of results for future reference and analysis.
+
+This addition significantly enriches the documentation of Experiment 2, providing a thorough overview of the findings and methodologies used.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E2_Results_Complete.txt`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/f49c375_20251001_101324_plot1.png)  
+![](../plot_archive/f49c375_20251001_101324_plot2.png)  
+
 ## Commit [c68c2ec](https://github.com/naszhu/REM_E3_model_fixed/commit/c68c2ec) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-10-01 10:08:55  
 **Message:**

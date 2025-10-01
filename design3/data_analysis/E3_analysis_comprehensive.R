@@ -101,7 +101,13 @@ initial_e3 <- df_e3 %>%
   mutate(
     participant_id = factor(subject_id),
     item_type = factor(typecomment_in),
-    study_position = as.numeric(studyPos_appear0_initial),
+    study_position_primary = suppressWarnings(as.numeric(studyPos_appear0_initial)),
+    study_position_alternate = suppressWarnings(as.numeric(studyPos_appear1_initial)),
+    study_position = case_when(
+      item_type %in% c("Inherented Foil - Last Studied Only", "Inherented Foil - Last Target") &
+        !is.na(study_position_alternate) & study_position_alternate > 0 ~ study_position_alternate,
+      TRUE ~ study_position_primary
+    ),
     test_position = as.numeric(testPos_appear0_initial),
     list_number = as.numeric(listNum_appear0_initial),
     accuracy=correct
