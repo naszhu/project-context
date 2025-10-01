@@ -51,8 +51,8 @@ adv_u_star_strengthen = 0.00# 0.06 no adv during strenghtening for now
 adv_c_strenghten = 0.0# 0.1
 
 # Additional advantage parameters from E3
-u_star_adv = 0  # 0.06 in E3
-c_adv = 0  # 0.06 in E3
+u_star_adv = 0.4  # 0.06 in E3
+c_adv = 0.15  # 0.06 in E3
 
 # u_star_context parameters
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
@@ -115,7 +115,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.4^power_taken
+v_criterion_initial = 0.5^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.17^power_taken;
@@ -187,7 +187,7 @@ base_distortion_prob = 0.16  # Base probability of distortion for the first prob
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
-ratio_unchanging_to_itself_init = LinRange(0.46, 0.46, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]

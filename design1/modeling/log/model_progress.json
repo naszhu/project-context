@@ -1,5 +1,18 @@
 [
   {
+    "commit": "c8c6d39",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "explore(model-e1): a test of not using Z feature.",
+    "timestamp": "2025-10-01 17:52:24",
+    "plot1": "plot_archive/c8c6d39_20251001_175224_plot1.png",
+    "plot2": "plot_archive/c8c6d39_20251001_175224_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "30d655b",
     "branch": "sep-30-finetune-some-parm",
     "message": "finetune(model-e1):making u star 0.4",

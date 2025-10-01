@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [c8c6d39](https://github.com/naszhu/REM_E3_model_fixed/commit/c8c6d39) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 17:52:24  
+**Message:**
+```
+explore(model-e1): a test of not using Z feature.
+
+- Adjusted v_criterion_initial from 0.14 to 0.4 to enhance model performance.
+- Changed use_Z_feature from true to false to simplify model configuration.
+
+These modifications aim to improve the accuracy and reliability of the model's simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c8c6d39_20251001_175224_plot1.png)  
+![](../plot_archive/c8c6d39_20251001_175224_plot2.png)  
+
 ## Commit [30d655b](https://github.com/naszhu/REM_E3_model_fixed/commit/30d655b) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-10-01 17:35:36  
 **Message:**
