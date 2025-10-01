@@ -1,5 +1,18 @@
 [
   {
+    "commit": "30d655b",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "finetune(model-e1):making u star 0.4",
+    "timestamp": "2025-10-01 17:35:36",
+    "plot1": "plot_archive/30d655b_20251001_173536_plot1.png",
+    "plot2": "plot_archive/30d655b_20251001_173536_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "8496cf7",
     "branch": "sep-30-finetune-some-parm",
     "message": "fix(analysis-e3): add study position for confusing foils for analysis code",

@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [30d655b](https://github.com/naszhu/REM_E3_model_fixed/commit/30d655b) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 17:35:36  
+**Message:**
+```
+finetune(model-e1):making u star 0.4
+
+- Adjusted the u_star_v constant from a calculated value to a fixed value of 0.4 to improve model performance.
+- This change aims to enhance the reliability of simulations by refining the parameters used in the model.
+
+This update ensures that the model's behavior aligns more closely with expected outcomes.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/30d655b_20251001_173536_plot1.png)  
+![](../plot_archive/30d655b_20251001_173536_plot2.png)  
+
 ## Commit [8496cf7](https://github.com/naszhu/REM_E3_model_fixed/commit/8496cf7) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-10-01 10:14:00  
 **Message:**

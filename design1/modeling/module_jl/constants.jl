@@ -115,7 +115,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.14^power_taken
+v_criterion_initial = 0.4^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 recall_odds_threshold = 0.17^power_taken;
@@ -246,7 +246,7 @@ nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
 #
 # STATUS: ✓ Fully implemented and aligned with E3 (see issue 64 in E3 repo)
 # Z feature configuration for E1 - no confusing foils (simpler than E3)
-use_Z_feature = true
+use_Z_feature = false
 
 # Number of Z features to add (1 for the tested_before status)
 n_z_features = 1
