@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [24d1e37](https://github.com/naszhu/REM_E3_model_fixed/commit/24d1e37) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 15:56:33  
+**Message:**
+```
+feat(analysis-e3): simplify model specifications in GLMMs
+
+- Updated model formulas in the comprehensive analysis script to remove unnecessary parentheses, enhancing readability and clarity.
+- Maintained the structure of the models while ensuring that the interaction terms remain intact for accurate analysis of item-type effects.
+
+This change streamlines the model definitions, making the code easier to understand and maintain.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/24d1e37_20250930_155633_plot1.png)  
+![](../plot_archive/24d1e37_20250930_155633_plot2.png)  
+
 ## Commit [fd27f8c](https://github.com/naszhu/REM_E3_model_fixed/commit/fd27f8c) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-09-30 13:44:13  
 **Message:**

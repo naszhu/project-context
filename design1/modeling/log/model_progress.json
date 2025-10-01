@@ -1,5 +1,18 @@
 [
   {
+    "commit": "24d1e37",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "feat(analysis-e3): simplify model specifications in GLMMs",
+    "timestamp": "2025-09-30 15:56:33",
+    "plot1": "plot_archive/24d1e37_20250930_155633_plot1.png",
+    "plot2": "plot_archive/24d1e37_20250930_155633_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
     "commit": "fd27f8c",
     "branch": "sep-30-finetune-some-parm",
     "message": "refactor(analysis-e3): replace robust model fitting function with direct GLMM calls",

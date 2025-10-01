@@ -115,10 +115,10 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.11^power_taken
+v_criterion_initial = 0.14^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
-recall_odds_threshold = 0.0^power_taken;
+recall_odds_threshold = 0.17^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
 p_recallFeatureStore = 0.85;
 
@@ -176,7 +176,7 @@ n_between_listchange = 1 # Changed from 20 to 1
 # Separate probability parameters to maintain equivalent overall probabilities
 #const p_driftAndListChange = 0.03; # ORIGINAL: single parameter for both
 const p_driftStudyTest = 0.2396; # Equivalent to (1-(1-0.03)^9) for study-test drift
-const p_driftBetweenList = 0.4562; # Equivalent to (1-(1-0.03)^20) for between-list change
+const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-list change
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 15  # Number of probes until distortion probability reaches 0
