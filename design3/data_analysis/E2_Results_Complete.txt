@@ -1,0 +1,106 @@
+EXPERIMENT 2: RESULTS
+
+Statistical Analysis Approach
+
+We analyzed trial-level accuracy using generalized linear mixed-effects models (GLMMs) with a logit link function, using the lme4 package (Bates et al., 2015) in R. We initially specified a maximal model consistent with our theoretical aims, including fixed effects for linear and quadratic serial position terms fully interacting with item type. The random effects structure included random intercepts for participants and random slopes for the linear effect of serial position by participant.
+
+However, this maximal model failed to converge across multiple initial test models, showing warnings of a degenerate Hessian matrix and large relative gradients (max|grad| = 0.016), which indicates the model was over-parameterized and could not provide a stable fit to the data.
+
+To achieve a convergent model, we followed a principled simplification procedure, systematically removing sources of complexity while retaining theoretically crucial predictors (Barr, Levy, Scheepers, & Tily, 2013). First, we removed the random slopes for the linear position effect. While this resolved convergence for the study position model (max|grad| = 0.002), warnings persisted for the test position and between-list models.
+
+As a final step, we simplified the fixed effects structure by removing the interaction between the quadratic position term and item type. This retained the theoretically important interaction between the linear trend and item type, allowing each item to have a unique linear slope, while fitting a single, shared quadratic trend across all item types.
+
+The final, convergent model used for analysis included fixed effects for the interaction of the linear position term with item type, a main effect of the quadratic position term, and random intercepts for participants. All models reported are based on this final specification.
+
+
+Initial Test - Within-List Serial Position Effects
+
+Study Position Effects
+
+We examined memory performance as a function of study position using a generalized linear mixed-effects model with linear and quadratic position terms. The model included the linear study position term, item type, a shared quadratic study position term, and their interaction, with random intercepts for participants.
+
+The analysis revealed a significant quadratic trend shared across all item types, b = 27.65, SE = 1.67, z = 16.55, p < .001, 95% CI [24.38, 30.93], indicating a U-shaped serial position curve. For target items, the linear trend was negative but relatively modest, b = -6.16, SE = 2.18, z = -2.82, p = .005, 95% CI [-10.44, -1.89], suggesting a slight overall decline that is overwhelmed by the strong quadratic trend producing the classic U-shaped pattern.
+
+The intercept term representing the baseline accuracy level was b = 0.62, SE = 0.07, z = 9.42, p < .001, 95% CI [0.49, 0.75]. Item type significantly modulated performance relative to the baseline TO(n-1) confusing foils. SO(n-1) confusing foils showed reduced performance, b = -0.49, SE = 0.04, z = -11.43, p < .001, 95% CI [-0.57, -0.41], as did ST(n-1) confusing foils, b = -0.29, SE = 0.04, z = -6.74, p < .001, 95% CI [-0.37, -0.21]. In contrast, both FTO items, b = 0.74, SE = 0.04, z = 19.46, p < .001, 95% CI [0.66, 0.81], and ST targets, b = 0.71, SE = 0.04, z = 18.78, p < .001, 95% CI [0.64, 0.79], showed significantly higher performance.
+
+Note: The estimated marginal means and pairwise comparisons could not be computed for study position effects due to model fitting characteristics. Only target items showed a valid linear trend estimate.
+
+
+Test Position Effects
+
+We examined memory performance as a function of test position with the same model structure. The model included the linear test position term interacting with item type, a shared quadratic test position term, and random intercepts for participants.
+
+The baseline linear trend (for TO(n-1) confusing foils) showed a strong decline, b = -10.92, SE = 1.90, z = -5.75, p < .001, 95% CI [-14.64, -7.20]. However, this pattern reversed dramatically for different item types. ST targets showed a strong positive linear trend interaction, b = 34.45, SE = 1.92, z = 17.95, p < .001, 95% CI [30.69, 38.21], indicating improving accuracy across test positions (estimated marginal linear trend b = 23.53). SO(n-1) confusing foils showed the steepest decline, with an interaction term of b = -48.42, SE = 2.22, z = -21.79, p < .001, 95% CI [-52.77, -44.06], yielding an estimated marginal linear trend of b = -59.34. FTO items also showed a declining trend (estimated marginal b = -23.37, interaction b = -12.45, SE = 2.08, z = -5.99, p < .001, 95% CI [-16.52, -8.38]), while ST(n-1) confusing foils showed a smaller decline (estimated marginal b = -17.91, interaction b = -6.98, SE = 3.23, z = -2.17, p = .030, 95% CI [-13.31, -0.66]). All item types showed a shared quadratic trend, b = -11.14, SE = 1.81, z = -6.16, p < .001, 95% CI [-14.68, -7.59], indicating an inverted U-shaped pattern.
+
+Averaged across test positions, planned pairwise comparisons with Tukey correction revealed a clear performance hierarchy (all pairwise differences p < .001 unless noted otherwise): FTO items showed the highest performance (EMM = 1.44, SE = 0.062), followed by ST targets (EMM = 1.26, SE = 0.060), TO(n-1) confusing foils (EMM = 0.70, SE = 0.066), ST(n-1) confusing foils (EMM = 0.41, SE = 0.065), and SO(n-1) confusing foils showing the lowest performance (EMM = 0.21, SE = 0.065). Specific pairwise contrasts confirmed this hierarchy: TO(n-1) vs. SO(n-1) (b = 0.49, SE = 0.043, z = 11.42, p < .001), TO(n-1) vs. ST(n-1) (b = 0.29, SE = 0.043, z = 6.76, p < .001), TO(n-1) vs. FTO (b = -0.74, SE = 0.038, z = -19.48, p < .001), TO(n-1) vs. ST targets (b = -0.57, SE = 0.034, z = -16.67, p < .001), SO(n-1) vs. ST(n-1) (b = -0.20, SE = 0.042, z = -4.72, p < .001), SO(n-1) vs. FTO (b = -1.23, SE = 0.037, z = -32.93, p < .001), SO(n-1) vs. ST targets (b = -1.06, SE = 0.033, z = -31.72, p < .001), ST(n-1) vs. FTO (b = -1.03, SE = 0.037, z = -27.55, p < .001), ST(n-1) vs. ST targets (b = -0.86, SE = 0.033, z = -25.69, p < .001), and FTO vs. ST targets (b = 0.17, SE = 0.026, z = 6.54, p < .001).
+
+
+Initial Test - Between-List Effects
+
+We examined how memory performance changed across the ten study-test lists using a model with linear and quadratic list number terms. The model included the linear list number term interacting with item type, a shared quadratic list number term, and random intercepts for participants.
+
+The baseline linear trend (for TO(n-1) confusing foils) showed a strong positive increase across lists, b = 57.01, SE = 1.65, z = 34.47, p < .001, 95% CI [53.77, 60.25], indicating that these confusing foils became easier to correctly reject as the experiment progressed. This pattern was further enhanced for ST(n-1) confusing foils, which showed an even steeper increase (estimated marginal linear trend b = 74.69, interaction b = 17.68, SE = 2.59, z = 6.82, p < .001, 95% CI [12.60, 22.77]), while SO(n-1) confusing foils showed a similar positive trend (estimated marginal b = 52.67, interaction b = -4.34, SE = 2.27, z = -1.92, p = .055, 95% CI [-8.78, 0.10]).
+
+In striking contrast, both FTO items and ST targets showed strong negative linear trends across lists. FTO items declined steeply (estimated marginal linear trend b = -13.21, interaction b = -70.22, SE = 2.03, z = -34.55, p < .001, 95% CI [-74.20, -66.24]), as did ST targets (estimated marginal b = -54.60, interaction b = -111.60, SE = 2.11, z = -53.02, p < .001, 95% CI [-115.73, -107.48]). This indicates that as participants progressed through the lists, they became increasingly prone to false alarms to FTO items and misses to ST targets, likely due to mounting proactive interference from prior lists.
+
+All item types showed a shared positive quadratic trend, b = 11.26, SE = 1.52, z = 7.40, p < .001, 95% CI [8.28, 14.24], indicating an accelerating pattern of change across lists.
+
+Averaged across list numbers, planned pairwise comparisons with Tukey correction revealed a clear performance hierarchy (all pairwise differences p < .001 unless noted otherwise): FTO items showed the highest performance (EMM = 1.42, SE = 0.063), followed by ST targets (EMM = 1.27, SE = 0.060), TO(n-1) confusing foils (EMM = 0.67, SE = 0.066), ST(n-1) confusing foils (EMM = 0.37, SE = 0.066), and SO(n-1) confusing foils showing the lowest performance (EMM = 0.18, SE = 0.066). Specific pairwise contrasts confirmed this hierarchy: TO(n-1) vs. SO(n-1) (b = 0.49, SE = 0.043, z = 11.43, p < .001), TO(n-1) vs. ST(n-1) (b = 0.30, SE = 0.043, z = 7.01, p < .001), TO(n-1) vs. FTO (b = -0.74, SE = 0.038, z = -19.49, p < .001), TO(n-1) vs. ST targets (b = -0.60, SE = 0.034, z = -17.63, p < .001), SO(n-1) vs. ST(n-1) (b = -0.19, SE = 0.043, z = -4.44, p < .001), SO(n-1) vs. FTO (b = -1.23, SE = 0.037, z = -32.95, p < .001), SO(n-1) vs. ST targets (b = -1.09, SE = 0.033, z = -32.75, p < .001), ST(n-1) vs. FTO (b = -1.05, SE = 0.038, z = -27.78, p < .001), ST(n-1) vs. ST targets (b = -0.90, SE = 0.034, z = -26.92, p < .001), and FTO vs. ST targets (b = 0.14, SE = 0.026, z = 5.36, p < .001).
+
+
+Final Test Results
+
+Overview
+
+The final test examined long-term memory for items from all ten initial study-test lists. Items were categorized based on their initial appearance and whether they later appeared as confusing foils: ST targets from list n that appeared only once versus ST(n) items that later appeared as confusing foils on list n+1; SO items from list n that appeared only once versus SO(n) items that later appeared as confusing foils on list n+1; TO items from list n that appeared only once versus TO(n) items that later appeared as confusing foils on list n+1; and FTO items that never appeared in initial tests.
+
+
+Final Test Position Effects
+
+We examined memory performance as a function of final test position using a generalized linear mixed-effects model with linear and quadratic position terms. The model included the linear final test position term interacting with item type, a shared quadratic final test position term, and random intercepts for participants.
+
+Note: Model summary statistics were not available in the saved results, but estimated marginal means and pairwise comparisons provide comprehensive performance patterns.
+
+Averaged across final test positions, planned pairwise comparisons with Tukey correction revealed a clear performance hierarchy (all pairwise differences p < .001 unless noted otherwise): ST(n) items showed the highest performance (EMM = 2.17, SE = 0.068), followed by ST targets appearing once (EMM = 1.58, SE = 0.050), SO(n) items (EMM = 1.46, SE = 0.061), TO(n) items (EMM = 1.26, SE = 0.060), FTO items (EMM = 0.98, SE = 0.047), TO items appearing once (EMM = 0.38, SE = 0.054), and SO items appearing once showing the lowest performance (EMM = 0.55, SE = 0.048).
+
+Specific pairwise contrasts: FTO vs. TO(n) (b = -0.28, SE = 0.040, z = -7.08, p < .001), FTO vs. TO appearing once (b = 0.60, SE = 0.032, z = 18.87, p < .001), FTO vs. SO appearing once (b = 0.43, SE = 0.020, z = 21.29, p < .001), FTO vs. SO(n) (b = -0.48, SE = 0.042, z = -11.47, p < .001), FTO vs. ST appearing once (b = -0.61, SE = 0.024, z = -25.80, p < .001), FTO vs. ST(n) (b = -1.19, SE = 0.052, z = -22.96, p < .001). TO(n) vs. TO appearing once (b = 0.88, SE = 0.049, z = 17.99, p < .001), TO(n) vs. SO appearing once (b = 0.71, SE = 0.042, z = 16.79, p < .001), TO(n) vs. SO(n) (b = -0.20, SE = 0.056, z = -3.52, p = .008), TO(n) vs. ST appearing once (b = -0.32, SE = 0.044, z = -7.29, p < .001), TO(n) vs. ST(n) (b = -0.90, SE = 0.064, z = -14.16, p < .001). TO appearing once vs. SO appearing once (b = -0.17, SE = 0.034, z = -4.88, p < .001), TO appearing once vs. SO(n) (b = -1.08, SE = 0.051, z = -21.36, p < .001), TO appearing once vs. ST appearing once (b = -1.20, SE = 0.037, z = -32.90, p < .001), TO appearing once vs. ST(n) (b = -1.79, SE = 0.059, z = -30.32, p < .001). SO appearing once vs. SO(n) (b = -0.91, SE = 0.044, z = -20.59, p < .001), SO appearing once vs. ST appearing once (b = -1.04, SE = 0.027, z = -38.01, p < .001), SO appearing once vs. ST(n) (b = -1.62, SE = 0.054, z = -30.19, p < .001). SO(n) vs. ST appearing once (b = -0.12, SE = 0.046, z = -2.70, p = .099), SO(n) vs. ST(n) (b = -0.71, SE = 0.065, z = -10.85, p < .001). ST appearing once vs. ST(n) (b = -0.58, SE = 0.055, z = -10.61, p < .001).
+
+The key findings are: (1) Items that appeared twice (denoted with the (n) marker, indicating they served as confusing foils on list n+1) consistently outperformed items appearing only once, demonstrating a clear benefit of repetition. (2) Within items appearing once, ST targets greatly outperformed SO items, which in turn outperformed TO items. (3) The same hierarchy held for items appearing twice, though the absolute performance was elevated.
+
+
+Initial List Position Effects
+
+We examined final test memory performance as a function of which initial list (1-10) the item originally appeared on. The model included the linear initial list number term interacting with item type, a shared quadratic initial list number term, and random intercepts for participants.
+
+Note: Model summary statistics were not available in the saved results, but estimated marginal means and pairwise comparisons provide comprehensive performance patterns.
+
+Averaged across initial list positions, planned pairwise comparisons with Tukey correction revealed a clear performance hierarchy (all pairwise differences p < .001 unless noted otherwise): ST(n) items showed the highest performance (EMM = 2.16, SE = 0.068), followed by ST targets appearing once (EMM = 1.61, SE = 0.050), SO(n) items (EMM = 1.32, SE = 0.061), TO(n) items (EMM = 1.16, SE = 0.060), SO items appearing once (EMM = 0.59, SE = 0.049), and TO items appearing once showing the lowest performance (EMM = 0.29, SE = 0.054).
+
+Specific pairwise contrasts: TO(n) vs. TO appearing once (b = 0.87, SE = 0.049, z = 17.85, p < .001), TO(n) vs. SO appearing once (b = 0.57, SE = 0.042, z = 13.37, p < .001), TO(n) vs. SO(n) (b = -0.16, SE = 0.056, z = -2.87, p = .048), TO(n) vs. ST appearing once (b = -0.44, SE = 0.044, z = -10.07, p < .001), TO(n) vs. ST(n) (b = -0.99, SE = 0.064, z = -15.60, p < .001). TO appearing once vs. SO appearing once (b = -0.31, SE = 0.035, z = -8.86, p < .001), TO appearing once vs. SO(n) (b = -1.04, SE = 0.050, z = -20.50, p < .001), TO appearing once vs. ST appearing once (b = -1.32, SE = 0.037, z = -35.96, p < .001), TO appearing once vs. ST(n) (b = -1.87, SE = 0.059, z = -31.77, p < .001). SO appearing once vs. SO(n) (b = -0.73, SE = 0.044, z = -16.46, p < .001), SO appearing once vs. ST appearing once (b = -1.01, SE = 0.027, z = -36.93, p < .001), SO appearing once vs. ST(n) (b = -1.56, SE = 0.054, z = -29.18, p < .001). SO(n) vs. ST appearing once (b = -0.28, SE = 0.046, z = -6.19, p < .001), SO(n) vs. ST(n) (b = -0.83, SE = 0.065, z = -12.85, p < .001). ST appearing once vs. ST(n) (b = -0.55, SE = 0.055, z = -10.04, p < .001).
+
+The pattern mirrors that of final test position effects: ST targets consistently outperformed SO items, which in turn outperformed TO items. Items appearing twice (denoted with the (n) marker) consistently showed superior retention compared to items appearing only once.
+
+
+Final Test - Within-List Effects by Study Position
+
+For items that originally appeared in the study phase of initial lists, we examined how their study position modulated final test performance. The model included the linear study position term interacting with item type, a shared quadratic study position term, and random intercepts for participants. This analysis excluded items that never appeared in study phases (TO items and foils).
+
+Note: Model summary statistics were not available in the saved results. Only a subset of pairwise comparisons was available for SO and ST items.
+
+The available pairwise comparisons showed: SO appearing once vs. SO(n) (b = -0.93, SE = 0.044, z = -21.05, p < .001), SO appearing once vs. ST appearing once (b = -1.02, SE = 0.027, z = -37.11, p < .001), SO appearing once vs. ST(n) (b = -1.60, SE = 0.053, z = -29.86, p < .001). SO(n) vs. ST appearing once (b = -0.09, SE = 0.046, z = -2.00, p = .189), SO(n) vs. ST(n) (b = -0.67, SE = 0.065, z = -10.31, p < .001). ST appearing once vs. ST(n) (b = -0.58, SE = 0.055, z = -10.53, p < .001).
+
+These results confirm the same overall hierarchy seen in other final test analyses: ST targets outperform SO items, and items appearing twice (denoted with the (n) marker) outperform items appearing once. Study position had no effect on FTO items (which never appeared in study phases) or TO items (which only appeared at test).
+
+
+Final Test - Within-List Effects by Test Position
+
+For items that originally appeared in the test phase of initial lists, we examined how their initial test position modulated final test performance. The model included the linear test position term interacting with item type, a shared quadratic test position term, and random intercepts for participants. This analysis excluded items that never appeared in initial tests (FTO items) and SO items (which never appeared at test).
+
+Note: Model summary statistics were not available in the saved results. Only a subset of estimated marginal means and pairwise comparisons was available.
+
+Averaged across test positions, the available estimated marginal means showed: TO(n) items (EMM = 1.20, SE = 0.060), TO items appearing once (EMM = 0.29, SE = 0.054), ST targets appearing once (EMM = 1.47, SE = 0.050), and ST(n) items (EMM = 2.05, SE = 0.068).
+
+The available pairwise comparisons confirmed: TO(n) vs. TO appearing once (b = 0.90, SE = 0.049, z = 18.43, p < .001), TO(n) vs. ST appearing once (b = -0.27, SE = 0.044, z = -6.01, p < .001), TO(n) vs. ST(n) (b = -0.85, SE = 0.064, z = -13.34, p < .001). TO appearing once vs. ST appearing once (b = -1.17, SE = 0.037, z = -31.49, p < .001), TO appearing once vs. ST(n) (b = -1.75, SE = 0.059, z = -29.80, p < .001). ST appearing once vs. ST(n) (b = -0.58, SE = 0.055, z = -10.62, p < .001).
+
+These results mirror the general pattern: ST targets consistently outperformed TO items, and items appearing twice (denoted with the (n) marker) showed substantially better retention than items appearing only once. Test position on the initial tests had no effect on SO items (which never appeared at initial tests) or FTO items (which were never tested initially).
+

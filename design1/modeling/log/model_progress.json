@@ -1,5 +1,18 @@
 [
   {
+    "commit": "c68c2ec",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "fix(analysis-e3): Forgot to put study position for confusing foils",
+    "timestamp": "2025-10-01 10:08:55",
+    "plot1": "plot_archive/c68c2ec_20251001_100855_plot1.png",
+    "plot2": "plot_archive/c68c2ec_20251001_100855_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r"
+    ]
+  },
+  {
     "commit": "894bf6e",
     "branch": "sep-30-finetune-some-parm",
     "message": "feat(analysis-e1, analysis-e3): add pairwise comparisons and results to comprehensive analysis",

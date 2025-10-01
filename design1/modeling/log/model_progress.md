@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [c68c2ec](https://github.com/naszhu/REM_E3_model_fixed/commit/c68c2ec) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 10:08:55  
+**Message:**
+```
+fix(analysis-e3): Forgot to put study position for confusing foils
+
+- Updated the data preparation for study positions by introducing alternate study position handling and grouping logic.
+- Simplified the calculation of study position groups, improving clarity and maintainability of the code.
+- Ensured that the new logic accommodates different types of comments for more accurate data representation.
+
+This refactor enhances the robustness of the data processing pipeline for Experiment 3, facilitating better analysis of study position effects.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/c68c2ec_20251001_100855_plot1.png)  
+![](../plot_archive/c68c2ec_20251001_100855_plot2.png)  
+
 ## Commit [894bf6e](https://github.com/naszhu/REM_E3_model_fixed/commit/894bf6e) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-10-01 09:35:30  
 **Message:**

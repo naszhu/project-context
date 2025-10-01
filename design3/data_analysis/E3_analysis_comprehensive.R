@@ -197,6 +197,7 @@ cat("\n=== FITTING INITIAL TEST MODELS ===\n")
 
 # Initial test models with confusing foils
 m_init_studypos_e3 <- glmer(
+#   accuracy ~ (study_position_lin + study_position_quad) * item_type +
   accuracy ~ study_position_lin * item_type + study_position_quad +
     (1 | participant_id),
   data = initial_e3, family = binomial,
