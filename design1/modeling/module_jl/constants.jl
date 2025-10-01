@@ -43,7 +43,7 @@ n_grade = 2 #only first to be special
 const n_units_time = 1 #number of steps                                                                                                                                                                                                                        
 
 # u_star parameters
-u_star_v = 1-(1-0.04)^13 #0.04
+u_star_v = 0.4#1-(1-0.04)^13 #0.04
 u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
