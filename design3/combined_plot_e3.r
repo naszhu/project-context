@@ -86,19 +86,32 @@ d1ta_test = df_rt_pl%>%
   mutate(position_type = "Test Position", position = testPos_appear0_initial)
 
 ####################################### Within list by study position
-d1ta_study = df_rt_pl%>%
-  filter(task=="initialTest_response")%>%
-  mutate(type_comment = typecomment_in, studyPos_appear0_initial = as.numeric(studyPos_appear0_initial))%>%
-  mutate(studyPos_appear0_initial = ceiling(studyPos_appear0_initial/3))%>%
-         group_by(task, condition,type_comment, studyPos_appear0_initial,subject_id )%>%
-  mutate(studyPos_appear0_initial=as.numeric(studyPos_appear0_initial))%>%
-         summarise(crs = mean(correct))%>%
-           group_by(task, condition,type_comment, studyPos_appear0_initial )%>%
-         summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop')%>%
-  mutate(position_type = "Study Position", position = studyPos_appear0_initial)
+d1ta_study = df_rt_pl %>%
+  filter(task == "initialTest_response") %>%
+  mutate(
+    type_comment = typecomment_in,
+    study_pos_primary = suppressWarnings(as.numeric(studyPos_appear0_initial)),
+    study_pos_alternate = suppressWarnings(as.numeric(studyPos_appear1_initial)),
+    study_pos_choice = case_when(
+      type_comment %in% c(
+        "Inherented Foil - Last Studied Only",
+        "Inherented Foil - Last Target"
+      ) & !is.na(study_pos_alternate) & study_pos_alternate > 0 ~ study_pos_alternate,
+      TRUE ~ study_pos_primary
+    ),
+    study_position_group = ceiling(study_pos_choice / 3)
+  ) %>%
+  group_by(task, condition, type_comment, study_position_group, subject_id) %>%
+  summarise(crs = mean(correct)) %>%
+  group_by(task, condition, type_comment, study_position_group) %>%
+  summarise(cr = mean(crs), se = sd(crs) / sqrt(n()), .groups = "drop") %>%
+  mutate(position_type = "Study Position", position = study_position_group)
 
 # Combine both datasets
 d1ta_combined = bind_rows(d1ta_test, d1ta_study)
+
+# df_rt_pl%>%filter(task=="initialTest_response")%>%filter(type_comment=="studied only, in next trial, from last trial")%>%select(studyPos_appear1_initial )
+# d1ta_study %>% filter(type_comment=="studied only, in next trial, from last trial")%>% select(study_position_group)
 
 # Create combined plot with facet_grid
 p1_d = ggplot(data=d1ta_combined)+

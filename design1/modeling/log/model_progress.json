@@ -1,5 +1,20 @@
 [
   {
+    "commit": "894bf6e",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "feat(analysis-e1, analysis-e3): add pairwise comparisons and results to comprehensive analysis",
+    "timestamp": "2025-10-01 09:35:30",
+    "plot1": "plot_archive/894bf6e_20251001_093530_plot1.png",
+    "plot2": "plot_archive/894bf6e_20251001_093530_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_analysis_output.log",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
     "commit": "6fc8b56",
     "branch": "sep-30-finetune-some-parm",
     "message": "finetune(model-e1): Making recall threshold > 0 , adjust criterion and drift between list",

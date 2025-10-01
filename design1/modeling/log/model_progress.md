@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [894bf6e](https://github.com/naszhu/REM_E3_model_fixed/commit/894bf6e) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 09:35:30  
+**Message:**
+```
+feat(analysis-e1, analysis-e3): add pairwise comparisons and results to comprehensive analysis
+
+- Introduced initial test item type comparisons for study position, test position, and between-list analyses in the comprehensive analysis script.
+- Added functionality to compute and print estimated marginal means and pairwise comparisons using the `emmeans` package.
+- Enhanced the trends list to include results from initial test comparisons, improving the overall analysis of item-type effects.
+
+This update expands the analytical capabilities by providing detailed insights into initial test performance across different conditions.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_analysis_output.log`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/894bf6e_20251001_093530_plot1.png)  
+![](../plot_archive/894bf6e_20251001_093530_plot2.png)  
+
 ## Commit [6fc8b56](https://github.com/naszhu/REM_E3_model_fixed/commit/6fc8b56) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-10-01 07:35:01  
 **Message:**
