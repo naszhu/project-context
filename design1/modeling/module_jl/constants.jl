@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.85 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.8 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -118,7 +118,7 @@ power_taken = 1  # raise to 1/11 power for sampling
 # v_criterion_initial = 0.1^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
-criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.13, 0.5, 5.0)
+criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.15, 0.55, 5.0)
 
 recall_odds_threshold = 0.08^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling

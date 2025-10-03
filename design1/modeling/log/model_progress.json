@@ -1,5 +1,21 @@
 [
   {
+    "commit": "8085570",
+    "branch": "oct-3-new-e1-model",
+    "message": "fix(model-e1): A working version criterion change model and fix criterion change parmaeter setting issue",
+    "timestamp": "2025-10-04 00:36:17",
+    "plot1": "plot_archive/8085570_20251004_003617_plot1.png",
+    "plot2": "plot_archive/8085570_20251004_003617_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/utils.jl",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
     "commit": "bd50b55",
     "branch": "oct-3-new-e1-model",
     "message": "explore(model-e1): update simulation parameters and criteria",

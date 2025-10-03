@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [8085570](https://github.com/naszhu/REM_E3_model_fixed/commit/8085570) (branch: `oct-3-new-e1-model`)
+**Time:** 2025-10-04 00:36:17  
+**Message:**
+```
+fix(model-e1): A working version criterion change model and fix criterion change parmaeter setting issue
+
+- Modified criterion_initial calculation to enhance model precision.
+- Adjusted recall_odds_threshold from 0.17 to 0.08 for better decision-making.
+- Updated the logic in memory restoration functions to use the new criterion variable.
+- Changed the generation of the normalized range in utils.jl for improved parameter handling.
+
+These changes aim to refine the model's performance and reliability in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/8085570_20251004_003617_plot1.png)  
+![](../plot_archive/8085570_20251004_003617_plot2.png)  
+
 ## Commit [bd50b55](https://github.com/naszhu/REM_E3_model_fixed/commit/bd50b55) (branch: `oct-3-new-e1-model`)
 **Time:** 2025-10-03 12:43:10  
 **Message:**
