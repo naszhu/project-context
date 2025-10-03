@@ -309,7 +309,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         sampled_item = nothing
         is_same_item = false  # Initialize is_same_item
         is_sampled = false    # Initialize is_sampled
-        if (odds > criterion_initial[i_testpos, ilist_probe]) && (odds > recall_odds_threshold)
+        # if (odds > criterion_initial[i_testpos, ilist_probe]) && (odds > recall_odds_threshold)
             is_sampled = true
             
             if sampling_method
@@ -328,7 +328,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
                 # Check if the sampled item is the same as the probe being tested
                 is_same_item = sampled_item.word.item == probes[i].image.word.item
             end
-        end
+        # end
 
         # decision_isold = odds > criterion_initial[i_testpos] ? 1 : 0;
 

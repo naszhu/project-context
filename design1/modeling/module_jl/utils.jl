@@ -39,6 +39,7 @@ function generate_asymptotic_values(p::Float64, within_list_start::Float64, with
     
     return M
 end
+# generate_asymptotic_values(1.0, 0.05, 0.05, 1.0, 1.0, 5.0)
 
 
 # asym_range(start_val, end_val, beta, n)

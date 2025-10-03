@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [7143346](https://github.com/naszhu/REM_E3_model_fixed/commit/7143346) (branch: `oct-3-new-e1-model`)
+**Time:** 2025-10-01 20:37:45  
+**Message:**
+```
+explore(model-e1): ratio UC go 100%
+
+- Updated u_star_adv from 0 to 0.4 and c_adv from 0 to 0.15 to align with E3 specifications, enhancing model performance.
+- Modified v_criterion_initial from 0.4 to 0.5 to improve the model's accuracy in simulations.
+- Changed ratio_unchanging_to_itself_init to LinRange(1, 1, n_lists) for better parameter handling.
+
+These adjustments aim to refine the model's behavior and ensure it meets expected outcomes more closely.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/7143346_20251001_203745_plot1.png)  
+![](../plot_archive/7143346_20251001_203745_plot2.png)  
+
 ## Commit [c8c6d39](https://github.com/naszhu/REM_E3_model_fixed/commit/c8c6d39) (branch: `sep-30-finetune-some-parm`)
 **Time:** 2025-10-01 17:52:24  
 **Message:**

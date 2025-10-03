@@ -37,7 +37,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
     # end
 
         
-    if ((odds > v_criterion_initial) & (odds > recall_odds_threshold) )
+    # if ((odds > v_criterion_initial) & (odds > recall_odds_threshold) )
 
         if !isnothing(sampled_item)
             # Use the pre-sampled item
@@ -48,7 +48,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
             error("No item was sampled but restoration was attempted. This indicates a logic error.")
         end
     
-    end
+    # end
 
 
 
@@ -81,7 +81,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
 
     ###### STRENGHTEN TRACE ######################
     # RESTORE CONTEXT & CONTENT
-    if ((odds > v_criterion_initial) & (odds > recall_odds_threshold) )
+    # if ((odds > v_criterion_initial) & (odds > recall_odds_threshold) )
 
         # println(iprobe_img.word.type)
         if is_strengthen_contextandcontent #true
@@ -103,12 +103,12 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
          
         !is_restore_context ? error("context restored in initial is not well written this part") : nothing
 
-    end
+    # end
 
 
     is_strenghten = (odds > recall_odds_threshold) 
 
-    if (odds < v_criterion_initial) || ((odds > v_criterion_initial) && (odds < recall_odds_threshold))|| ((odds > v_criterion_initial) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold)) 
+    if (odds < criterion) || ((odds > criterion) && (odds < recall_odds_threshold))|| ((odds > criterion) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold)) 
         
         if is_strenghten #Add trace while strengthening is also happening.
             # Use E3 Z-update rules based on decision type

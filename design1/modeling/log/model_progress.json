@@ -1,5 +1,18 @@
 [
   {
+    "commit": "7143346",
+    "branch": "oct-3-new-e1-model",
+    "message": "explore(model-e1): ratio UC go 100%",
+    "timestamp": "2025-10-01 20:37:45",
+    "plot1": "plot_archive/7143346_20251001_203745_plot1.png",
+    "plot2": "plot_archive/7143346_20251001_203745_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "c8c6d39",
     "branch": "sep-30-finetune-some-parm",
     "message": "explore(model-e1): a test of not using Z feature.",

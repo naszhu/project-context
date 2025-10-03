@@ -1,7 +1,7 @@
 
 
 is_finaltest = false
-n_simulations = is_finaltest ? 1000 : 2000;
+n_simulations = is_finaltest ? 1000 : 500;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -115,8 +115,10 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.5^power_taken
+# v_criterion_initial = 0.1^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
+
+criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.06, 0.16, 5.0)
 
 recall_odds_threshold = 0.17^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
@@ -187,7 +189,7 @@ base_distortion_prob = 0.16  # Base probability of distortion for the first prob
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
-ratio_unchanging_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(1, 0.46, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
