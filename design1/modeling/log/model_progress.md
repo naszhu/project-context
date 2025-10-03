@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [bd50b55](https://github.com/naszhu/REM_E3_model_fixed/commit/bd50b55) (branch: `oct-3-new-e1-model`)
+**Time:** 2025-10-03 12:43:10  
+**Message:**
+```
+explore(model-e1): update simulation parameters and criteria
+
+- Reduced n_simulations from 2000 to 500 for efficiency in testing.
+- Introduced criterion_initial using generate_asymptotic_values for improved model accuracy.
+- Adjusted recall_odds_threshold from 0.17 to 0.08 to refine decision-making thresholds.
+- Updated ratio_unchanging_to_itself_init to LinRange(1, 0.46, n_lists) for better parameter handling.
+
+These changes aim to enhance the model's performance and reliability in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/bd50b55_20251003_124310_plot1.png)  
+![](../plot_archive/bd50b55_20251003_124310_plot2.png)  
+
 ## Commit [7143346](https://github.com/naszhu/REM_E3_model_fixed/commit/7143346) (branch: `oct-3-new-e1-model`)
 **Time:** 2025-10-01 20:37:45  
 **Message:**

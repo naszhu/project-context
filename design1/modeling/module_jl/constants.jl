@@ -118,9 +118,9 @@ power_taken = 1  # raise to 1/11 power for sampling
 # v_criterion_initial = 0.1^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
-criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.06, 0.16, 5.0)
+criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.13, 0.5, 5.0)
 
-recall_odds_threshold = 0.17^power_taken;
+recall_odds_threshold = 0.08^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
 p_recallFeatureStore = 0.85;
 

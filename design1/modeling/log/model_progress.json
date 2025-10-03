@@ -1,5 +1,21 @@
 [
   {
+    "commit": "bd50b55",
+    "branch": "oct-3-new-e1-model",
+    "message": "explore(model-e1): update simulation parameters and criteria",
+    "timestamp": "2025-10-03 12:43:10",
+    "plot1": "plot_archive/bd50b55_20251003_124310_plot1.png",
+    "plot2": "plot_archive/bd50b55_20251003_124310_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
     "commit": "7143346",
     "branch": "oct-3-new-e1-model",
     "message": "explore(model-e1): ratio UC go 100%",
