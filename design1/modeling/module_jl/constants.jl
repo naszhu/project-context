@@ -1,7 +1,7 @@
 
 
-is_finaltest = true
-n_simulations = is_finaltest ? 200 : 1000;
+is_finaltest = false
+n_simulations = is_finaltest ? 1000 : 500;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -43,7 +43,7 @@ n_grade = 2 #only first to be special
 const n_units_time = 1 #number of steps                                                                                                                                                                                                                        
 
 # u_star parameters
-u_star_v = 1-(1-0.04)^13 #0.04
+u_star_v = 0.4#1-(1-0.04)^13 #0.04
 u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
@@ -51,8 +51,8 @@ adv_u_star_strengthen = 0.00# 0.06 no adv during strenghtening for now
 adv_c_strenghten = 0.0# 0.1
 
 # Additional advantage parameters from E3
-u_star_adv = 0  # 0.06 in E3
-c_adv = 0  # 0.06 in E3
+u_star_adv = 0.4  # 0.06 in E3
+c_adv = 0.15  # 0.06 in E3
 
 # u_star_context parameters
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.88 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.8 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -115,10 +115,12 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-v_criterion_initial = 0.11^power_taken
+# v_criterion_initial = 0.1^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
-recall_odds_threshold = 0.0^power_taken;
+criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.15, 0.55, 5.0)
+
+recall_odds_threshold = 0.08^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
 p_recallFeatureStore = 0.85;
 
@@ -176,7 +178,7 @@ n_between_listchange = 1 # Changed from 20 to 1
 # Separate probability parameters to maintain equivalent overall probabilities
 #const p_driftAndListChange = 0.03; # ORIGINAL: single parameter for both
 const p_driftStudyTest = 0.2396; # Equivalent to (1-(1-0.03)^9) for study-test drift
-const p_driftBetweenList = 0.4562; # Equivalent to (1-(1-0.03)^20) for between-list change
+const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-list change
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 15  # Number of probes until distortion probability reaches 0
@@ -187,7 +189,7 @@ base_distortion_prob = 0.16  # Base probability of distortion for the first prob
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
-ratio_unchanging_to_itself_init = LinRange(0.3, 0.3, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(1, 0.46, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
@@ -197,6 +199,7 @@ nC_in = round.(Int, nC .* ratio_changing_to_itself_init)[1]
 # FINAL TEST PARAMETERS
 # =============================================================================
 const n_finalprobs = 420;
+chunk_size_final_change = 42; 
 
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
 
@@ -245,7 +248,7 @@ nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
 #
 # STATUS: ✓ Fully implemented and aligned with E3 (see issue 64 in E3 repo)
 # Z feature configuration for E1 - no confusing foils (simpler than E3)
-use_Z_feature = true
+use_Z_feature = false
 
 # Number of Z features to add (1 for the tested_before status)
 n_z_features = 1

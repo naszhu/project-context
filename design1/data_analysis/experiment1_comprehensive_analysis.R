@@ -413,6 +413,32 @@ trends <- list(
 # ------------------
 cat("\n=== COMPREHENSIVE POST-HOC ITEM TYPE COMPARISONS ===\n")
 
+# INITIAL TEST COMPARISONS
+cat("\n--- Initial Test Study Position Item Type Comparisons ---\n")
+init_studypos_emmeans <- emmeans(m_init_studypos, ~ item_type)
+init_studypos_pairs <- pairs(init_studypos_emmeans, adjust = "tukey")
+print(init_studypos_pairs)
+init_studypos_means <- as.data.frame(init_studypos_emmeans)
+print("Initial Study Position - Estimated Marginal Means:")
+print(init_studypos_means)
+
+cat("\n--- Initial Test Position Item Type Comparisons ---\n")
+init_testpos_emmeans <- emmeans(m_init_testpos, ~ item_type)
+init_testpos_pairs <- pairs(init_testpos_emmeans, adjust = "tukey")
+print(init_testpos_pairs)
+init_testpos_means <- as.data.frame(init_testpos_emmeans)
+print("Initial Test Position - Estimated Marginal Means:")
+print(init_testpos_means)
+
+cat("\n--- Initial Test Between-List Item Type Comparisons ---\n")
+init_between_emmeans <- emmeans(m_init_between, ~ item_type)
+init_between_pairs <- pairs(init_between_emmeans, adjust = "tukey")
+print(init_between_pairs)
+init_between_means <- as.data.frame(init_between_emmeans)
+print("Initial Between-List - Estimated Marginal Means:")
+print(init_between_means)
+
+# FINAL TEST COMPARISONS
 # Check what item types are actually in each model
 cat("\n--- Item Types in Each Analysis ---\n")
 cat("Final Order Analysis - Item types:\n")
@@ -474,6 +500,15 @@ print("Within-Test - Estimated Marginal Means:")
 print(within_test_means)
 
 # Add these to trends for saving
+# Initial test pairwise comparisons
+trends$init_studypos_emmeans <- init_studypos_emmeans
+trends$init_studypos_pairs <- init_studypos_pairs
+trends$init_testpos_emmeans <- init_testpos_emmeans
+trends$init_testpos_pairs <- init_testpos_pairs
+trends$init_between_emmeans <- init_between_emmeans
+trends$init_between_pairs <- init_between_pairs
+
+# Final test pairwise comparisons
 trends$final_order_emmeans <- final_order_emmeans
 trends$final_order_pairs <- final_order_pairs
 trends$initial_order_emmeans <- initial_order_emmeans

@@ -1,5 +1,430 @@
 # Model Progress
 
+## Commit [3fde0f2](https://github.com/naszhu/REM_E3_model_fixed/commit/3fde0f2) (branch: `oct-3-new-e1-model`)
+**Time:** 2025-10-04 00:39:32  
+**Message:**
+```
+finetune(model-e1): update simulation parameters for improved model accuracy
+
+- Set is_finaltest to true and adjusted n_simulations to 500 for consistent testing conditions.
+- Modified nnnow from 0.85 to 0.8 to refine model dynamics.
+- Updated criterion_initial calculation parameters to enhance model precision.
+
+These changes aim to improve the reliability and performance of the model in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/3fde0f2_20251004_003932_plot1.png)  
+![](../plot_archive/3fde0f2_20251004_003932_plot2.png)  
+
+## Commit [8085570](https://github.com/naszhu/REM_E3_model_fixed/commit/8085570) (branch: `oct-3-new-e1-model`)
+**Time:** 2025-10-04 00:36:17  
+**Message:**
+```
+fix(model-e1): A working version criterion change model and fix criterion change parmaeter setting issue
+
+- Modified criterion_initial calculation to enhance model precision.
+- Adjusted recall_odds_threshold from 0.17 to 0.08 for better decision-making.
+- Updated the logic in memory restoration functions to use the new criterion variable.
+- Changed the generation of the normalized range in utils.jl for improved parameter handling.
+
+These changes aim to refine the model's performance and reliability in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/8085570_20251004_003617_plot1.png)  
+![](../plot_archive/8085570_20251004_003617_plot2.png)  
+
+## Commit [bd50b55](https://github.com/naszhu/REM_E3_model_fixed/commit/bd50b55) (branch: `oct-3-new-e1-model`)
+**Time:** 2025-10-03 12:43:10  
+**Message:**
+```
+explore(model-e1): update simulation parameters and criteria
+
+- Reduced n_simulations from 2000 to 500 for efficiency in testing.
+- Introduced criterion_initial using generate_asymptotic_values for improved model accuracy.
+- Adjusted recall_odds_threshold from 0.17 to 0.08 to refine decision-making thresholds.
+- Updated ratio_unchanging_to_itself_init to LinRange(1, 0.46, n_lists) for better parameter handling.
+
+These changes aim to enhance the model's performance and reliability in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/bd50b55_20251003_124310_plot1.png)  
+![](../plot_archive/bd50b55_20251003_124310_plot2.png)  
+
+## Commit [7143346](https://github.com/naszhu/REM_E3_model_fixed/commit/7143346) (branch: `oct-3-new-e1-model`)
+**Time:** 2025-10-01 20:37:45  
+**Message:**
+```
+explore(model-e1): ratio UC go 100%
+
+- Updated u_star_adv from 0 to 0.4 and c_adv from 0 to 0.15 to align with E3 specifications, enhancing model performance.
+- Modified v_criterion_initial from 0.4 to 0.5 to improve the model's accuracy in simulations.
+- Changed ratio_unchanging_to_itself_init to LinRange(1, 1, n_lists) for better parameter handling.
+
+These adjustments aim to refine the model's behavior and ensure it meets expected outcomes more closely.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/7143346_20251001_203745_plot1.png)  
+![](../plot_archive/7143346_20251001_203745_plot2.png)  
+
+## Commit [c8c6d39](https://github.com/naszhu/REM_E3_model_fixed/commit/c8c6d39) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 17:52:24  
+**Message:**
+```
+explore(model-e1): a test of not using Z feature.
+
+- Adjusted v_criterion_initial from 0.14 to 0.4 to enhance model performance.
+- Changed use_Z_feature from true to false to simplify model configuration.
+
+These modifications aim to improve the accuracy and reliability of the model's simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c8c6d39_20251001_175224_plot1.png)  
+![](../plot_archive/c8c6d39_20251001_175224_plot2.png)  
+
+## Commit [30d655b](https://github.com/naszhu/REM_E3_model_fixed/commit/30d655b) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 17:35:36  
+**Message:**
+```
+finetune(model-e1):making u star 0.4
+
+- Adjusted the u_star_v constant from a calculated value to a fixed value of 0.4 to improve model performance.
+- This change aims to enhance the reliability of simulations by refining the parameters used in the model.
+
+This update ensures that the model's behavior aligns more closely with expected outcomes.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/30d655b_20251001_173536_plot1.png)  
+![](../plot_archive/30d655b_20251001_173536_plot2.png)  
+
+## Commit [8496cf7](https://github.com/naszhu/REM_E3_model_fixed/commit/8496cf7) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 10:14:00  
+**Message:**
+```
+fix(analysis-e3): add study position for confusing foils for analysis code
+
+- Introduced separate handling for primary and alternate study positions to improve accuracy in data representation.
+- Updated the logic for determining study position based on item type, ensuring more robust data processing for Experiment 3.
+- Simplified the calculation of study positions, enhancing code clarity and maintainability.
+
+This refactor strengthens the data preparation pipeline, facilitating better analysis of study position effects.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/8496cf7_20251001_101400_plot1.png)  
+![](../plot_archive/8496cf7_20251001_101400_plot2.png)  
+
+## Commit [f49c375](https://github.com/naszhu/REM_E3_model_fixed/commit/f49c375) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 10:13:24  
+**Message:**
+```
+feat(analysis-e3): add pairwise comparison (again) bit potential but remain, why change first term?
+
+- Introduced a new results file detailing the statistical analysis approach and findings from Experiment 2.
+- Included detailed sections on initial test performance, between-list effects, and final test results, highlighting trends in memory performance across different item types and positions.
+- Enhanced clarity and accessibility of results for future reference and analysis.
+
+This addition significantly enriches the documentation of Experiment 2, providing a thorough overview of the findings and methodologies used.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E2_Results_Complete.txt`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/f49c375_20251001_101324_plot1.png)  
+![](../plot_archive/f49c375_20251001_101324_plot2.png)  
+
+## Commit [c68c2ec](https://github.com/naszhu/REM_E3_model_fixed/commit/c68c2ec) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 10:08:55  
+**Message:**
+```
+fix(analysis-e3): Forgot to put study position for confusing foils
+
+- Updated the data preparation for study positions by introducing alternate study position handling and grouping logic.
+- Simplified the calculation of study position groups, improving clarity and maintainability of the code.
+- Ensured that the new logic accommodates different types of comments for more accurate data representation.
+
+This refactor enhances the robustness of the data processing pipeline for Experiment 3, facilitating better analysis of study position effects.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/c68c2ec_20251001_100855_plot1.png)  
+![](../plot_archive/c68c2ec_20251001_100855_plot2.png)  
+
+## Commit [894bf6e](https://github.com/naszhu/REM_E3_model_fixed/commit/894bf6e) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 09:35:30  
+**Message:**
+```
+feat(analysis-e1, analysis-e3): add pairwise comparisons and results to comprehensive analysis
+
+- Introduced initial test item type comparisons for study position, test position, and between-list analyses in the comprehensive analysis script.
+- Added functionality to compute and print estimated marginal means and pairwise comparisons using the `emmeans` package.
+- Enhanced the trends list to include results from initial test comparisons, improving the overall analysis of item-type effects.
+
+This update expands the analytical capabilities by providing detailed insights into initial test performance across different conditions.
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_analysis_output.log`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/894bf6e_20251001_093530_plot1.png)  
+![](../plot_archive/894bf6e_20251001_093530_plot2.png)  
+
+## Commit [6fc8b56](https://github.com/naszhu/REM_E3_model_fixed/commit/6fc8b56) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-10-01 07:35:01  
+**Message:**
+```
+finetune(model-e1): Making recall threshold > 0 , adjust criterion and drift between list
+
+- Adjusted v_criterion_initial from 0.11 to 0.14 and recall_odds_threshold from 0.0 to 0.17
+
+These changes enhance the model's accuracy and reliability in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/6fc8b56_20251001_073501_plot1.png)  
+![](../plot_archive/6fc8b56_20251001_073501_plot2.png)  
+
+## Commit [24d1e37](https://github.com/naszhu/REM_E3_model_fixed/commit/24d1e37) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 15:56:33  
+**Message:**
+```
+feat(analysis-e3): simplify model specifications in GLMMs
+
+- Updated model formulas in the comprehensive analysis script to remove unnecessary parentheses, enhancing readability and clarity.
+- Maintained the structure of the models while ensuring that the interaction terms remain intact for accurate analysis of item-type effects.
+
+This change streamlines the model definitions, making the code easier to understand and maintain.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/24d1e37_20250930_155633_plot1.png)  
+![](../plot_archive/24d1e37_20250930_155633_plot2.png)  
+
+## Commit [fd27f8c](https://github.com/naszhu/REM_E3_model_fixed/commit/fd27f8c) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 13:44:13  
+**Message:**
+```
+refactor(analysis-e3): replace robust model fitting function with direct GLMM calls
+
+back to HEAD~1 and simplified version
+
+- Removed the `fit_robust_glmer` function, simplifying the model fitting process by directly using `glmer` for initial test models.
+- Updated model specifications to enhance clarity and maintainability, ensuring convergence diagnostics are still included.
+- This change streamlines the analysis workflow for Experiment 3 while retaining essential model fitting capabilities.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/fd27f8c_20250930_134413_plot1.png)  
+![](../plot_archive/fd27f8c_20250930_134413_plot2.png)  
+
+## Commit [9622c48](https://github.com/naszhu/REM_E3_model_fixed/commit/9622c48) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 13:42:10  
+**Message:**
+```
+refactor(analysis-e3): replace robust model fitting function with direct GLMM calls
+
+back to HEAD~1 and simplified version
+
+- Removed the `fit_robust_glmer` function, simplifying the model fitting process by directly using `glmer` for initial test models.
+- Updated model specifications to enhance clarity and maintainability, ensuring convergence diagnostics are still included.
+- This change streamlines the analysis workflow for Experiment 3 while retaining essential model fitting capabilities.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/9622c48_20250930_134210_plot1.png)  
+![](../plot_archive/9622c48_20250930_134210_plot2.png)  
+
+## Commit [e488e3b](https://github.com/naszhu/REM_E3_model_fixed/commit/e488e3b) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 13:06:18  
+**Message:**
+```
+feat(analysis-e3): implement robust model fitting function for GLMMs
+
+- Added a new function `fit_robust_glmer` to enhance model fitting with multiple optimizers and fallback strategies for Generalized Linear Mixed Models (GLMMs).
+- Updated initial test models to utilize the new robust fitting function, improving convergence handling and model reliability.
+- The function includes error handling and attempts simplified random effects if all optimizers fail, ensuring better model performance.
+
+This enhancement significantly improves the robustness of model fitting in the analysis of Experiment 3.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/e488e3b_20250930_130618_plot1.png)  
+![](../plot_archive/e488e3b_20250930_130618_plot2.png)  
+
+## Commit [b924652](https://github.com/naszhu/REM_E3_model_fixed/commit/b924652) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 12:44:54  
+**Message:**
+```
+feat(analysis-e3): add comprehensive GLMM analysis for Experiment 3
+
+- Introduced a new R script for a comprehensive analysis of Experiment 3 using Generalized Linear Mixed Models (GLMMs).
+- Implemented data preparation steps for initial and final test datasets, including polynomial term creation and data validation.
+- Developed models to analyze item-type-specific trends and included convergence diagnostics.
+- Added functionality for post-hoc comparisons and trend significance tests, enhancing the analysis of recognition memory performance.
+- Results and summaries are saved in both RDS and CSV formats for further reporting.
+
+This addition significantly expands the analytical capabilities for Experiment 3, providing detailed insights into item performance across different conditions.
+
+Refs #39
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/b924652_20250930_124454_plot1.png)  
+![](../plot_archive/b924652_20250930_124454_plot2.png)  
+
+## Commit [25d024e](https://github.com/naszhu/REM_E3_model_fixed/commit/25d024e) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 12:41:50  
+**Message:**
+```
+feat(analysis-e3): add comprehensive GLMM analysis for Experiment 3
+
+- Introduced a new R script for a comprehensive analysis of Experiment 3 using Generalized Linear Mixed Models (GLMMs).
+- Implemented data preparation steps for initial and final test datasets, including polynomial term creation and data validation.
+- Developed models to analyze item-type-specific trends and included convergence diagnostics.
+- Added functionality for post-hoc comparisons and trend significance tests, enhancing the analysis of recognition memory performance.
+- Results and summaries are saved in both RDS and CSV formats for further reporting.
+
+This addition significantly expands the analytical capabilities for Experiment 3, providing detailed insights into item performance across different conditions.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_analysis_comprehensive.R`  
+![](../plot_archive/25d024e_20250930_124150_plot1.png)  
+![](../plot_archive/25d024e_20250930_124150_plot2.png)  
+
+## Commit [a73cd9c](https://github.com/naszhu/REM_E3_model_fixed/commit/a73cd9c) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 12:41:31  
+**Message:**
+```
+fix(model-e1): introduce chunk_size_final_change for probe generation
+
+- Added chunk_size_final_change constant to improve flexibility in probe generation logic.
+- Updated the probe generation function to utilize the new constant instead of hardcoded values, enhancing maintainability and readability.
+
+This change allows for easier adjustments to chunk sizes in future iterations.
+
+Closes #43
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/a73cd9c_20250930_124131_plot1.png)  
+![](../plot_archive/a73cd9c_20250930_124131_plot2.png)  
+
+## Commit [ee8b2d9](https://github.com/naszhu/REM_E3_model_fixed/commit/ee8b2d9) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 10:10:46  
+**Message:**
+```
+finetune(model-e1):  align ratio init CC with E2
+
+- Changed is_finaltest flag to false, adjusting n_simulations from 200 to 1000.
+- Modified nnnow value from 0.88 to 0.85 to refine model behavior.
+- Updated ratio_unchanging_to_itself_init from 0.3 to 0.46 for improved parameter alignment in simulations.
+
+Refs #43
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/ee8b2d9_20250930_101046_plot1.png)  
+![](../plot_archive/ee8b2d9_20250930_101046_plot2.png)  
+
+## Commit [40f2614](https://github.com/naszhu/REM_E3_model_fixed/commit/40f2614) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-30 09:58:54  
+**Message:**
+```
+finetune(model-e1):  align ratio init CC with E2
+
+- Changed is_finaltest flag to false, adjusting n_simulations from 200 to 1000.
+- Modified nnnow value from 0.88 to 0.85 to refine model behavior.
+- Updated ratio_unchanging_to_itself_init from 0.3 to 0.46 for improved parameter alignment in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/40f2614_20250930_095854_plot1.png)  
+![](../plot_archive/40f2614_20250930_095854_plot2.png)  
+
+## Commit [f2e472a](https://github.com/naszhu/REM_E3_model_fixed/commit/f2e472a) (branch: `sep-30-finetune-some-parm`)
+**Time:** 2025-09-29 14:39:39  
+**Message:**
+```
+fix(logsr-e1): preserve model progress history after git rewrite
+
+- Modified generate_md_from_json.py to only append newest commits instead of regenerating entire file
+- Restored detailed commit messages from e6869c8 that were lost after history rewrite
+- Prevents future loss of valuable commit documentation when old SHAs become invalid
+- Script now preserves existing markdown content and only processes new entries
+
+The issue occurred after a repository history rewrite to remove large R data files.
+The rewrite invalidated all previous commit SHAs, causing the log generation script
+to fail when trying to fetch commit messages with git show, defaulting to
+"Unable to retrieve full message" for all historical entries.
+
+Closes #42
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/script/generate_md_from_json.py`  
+![](../plot_archive/f2e472a_20250929_143939_plot1.png)  
+![](../plot_archive/f2e472a_20250929_143939_plot2.png)  
+
 ## Commit [ec7f7ab](https://github.com/naszhu/REM_E3_model_fixed/commit/ec7f7ab) (branch: `main`)
 **Time:** 2025-09-29 14:39:25  
 **Message:**

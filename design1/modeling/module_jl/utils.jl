@@ -31,7 +31,8 @@ function generate_asymptotic_values(p::Float64, within_list_start::Float64, with
     # Generate linearly decreasing dim1 from 6 to 4
     dim1 = asym_decrease(within_list_start, within_list_end,b_rate, n_probes)
     
-    t = LinRange(between_list_start, between_list_end, n_lists)   # Normalized range for column positions (0 to 1)
+    # t = LinRange(between_list_start, between_list_end, n_lists)   # Normalized range for column positions (0 to 1)
+    t = asym_decrease(between_list_start, between_list_end,5.0, n_lists)   # Normalized range for column positions (0 to 1)
     dim2 = t .^ p  # Apply the power-law to create the asymptotic increase
     
     # 3) Create the 2D matrix by outer-product of dim1 and dim2
@@ -39,6 +40,7 @@ function generate_asymptotic_values(p::Float64, within_list_start::Float64, with
     
     return M
 end
+# generate_asymptotic_values(1.0, 0.05, 0.05, 1.0, 1.0, 5.0)
 
 
 # asym_range(start_val, end_val, beta, n)

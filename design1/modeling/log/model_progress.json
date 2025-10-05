@@ -1,5 +1,288 @@
 [
   {
+    "commit": "3fde0f2",
+    "branch": "oct-3-new-e1-model",
+    "message": "finetune(model-e1): update simulation parameters for improved model accuracy",
+    "timestamp": "2025-10-04 00:39:32",
+    "plot1": "plot_archive/3fde0f2_20251004_003932_plot1.png",
+    "plot2": "plot_archive/3fde0f2_20251004_003932_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "8085570",
+    "branch": "oct-3-new-e1-model",
+    "message": "fix(model-e1): A working version criterion change model and fix criterion change parmaeter setting issue",
+    "timestamp": "2025-10-04 00:36:17",
+    "plot1": "plot_archive/8085570_20251004_003617_plot1.png",
+    "plot2": "plot_archive/8085570_20251004_003617_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/utils.jl",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
+    "commit": "bd50b55",
+    "branch": "oct-3-new-e1-model",
+    "message": "explore(model-e1): update simulation parameters and criteria",
+    "timestamp": "2025-10-03 12:43:10",
+    "plot1": "plot_archive/bd50b55_20251003_124310_plot1.png",
+    "plot2": "plot_archive/bd50b55_20251003_124310_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
+    "commit": "7143346",
+    "branch": "oct-3-new-e1-model",
+    "message": "explore(model-e1): ratio UC go 100%",
+    "timestamp": "2025-10-01 20:37:45",
+    "plot1": "plot_archive/7143346_20251001_203745_plot1.png",
+    "plot2": "plot_archive/7143346_20251001_203745_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "c8c6d39",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "explore(model-e1): a test of not using Z feature.",
+    "timestamp": "2025-10-01 17:52:24",
+    "plot1": "plot_archive/c8c6d39_20251001_175224_plot1.png",
+    "plot2": "plot_archive/c8c6d39_20251001_175224_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "30d655b",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "finetune(model-e1):making u star 0.4",
+    "timestamp": "2025-10-01 17:35:36",
+    "plot1": "plot_archive/30d655b_20251001_173536_plot1.png",
+    "plot2": "plot_archive/30d655b_20251001_173536_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "8496cf7",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "fix(analysis-e3): add study position for confusing foils for analysis code",
+    "timestamp": "2025-10-01 10:14:00",
+    "plot1": "plot_archive/8496cf7_20251001_101400_plot1.png",
+    "plot2": "plot_archive/8496cf7_20251001_101400_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "f49c375",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "feat(analysis-e3): add pairwise comparison (again) bit potential but remain, why change first term?",
+    "timestamp": "2025-10-01 10:13:24",
+    "plot1": "plot_archive/f49c375_20251001_101324_plot1.png",
+    "plot2": "plot_archive/f49c375_20251001_101324_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E2_Results_Complete.txt",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "c68c2ec",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "fix(analysis-e3): Forgot to put study position for confusing foils",
+    "timestamp": "2025-10-01 10:08:55",
+    "plot1": "plot_archive/c68c2ec_20251001_100855_plot1.png",
+    "plot2": "plot_archive/c68c2ec_20251001_100855_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r"
+    ]
+  },
+  {
+    "commit": "894bf6e",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "feat(analysis-e1, analysis-e3): add pairwise comparisons and results to comprehensive analysis",
+    "timestamp": "2025-10-01 09:35:30",
+    "plot1": "plot_archive/894bf6e_20251001_093530_plot1.png",
+    "plot2": "plot_archive/894bf6e_20251001_093530_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_analysis_output.log",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "6fc8b56",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "finetune(model-e1): Making recall threshold > 0 , adjust criterion and drift between list",
+    "timestamp": "2025-10-01 07:35:01",
+    "plot1": "plot_archive/6fc8b56_20251001_073501_plot1.png",
+    "plot2": "plot_archive/6fc8b56_20251001_073501_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "24d1e37",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "feat(analysis-e3): simplify model specifications in GLMMs",
+    "timestamp": "2025-09-30 15:56:33",
+    "plot1": "plot_archive/24d1e37_20250930_155633_plot1.png",
+    "plot2": "plot_archive/24d1e37_20250930_155633_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "fd27f8c",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "refactor(analysis-e3): replace robust model fitting function with direct GLMM calls",
+    "timestamp": "2025-09-30 13:44:13",
+    "plot1": "plot_archive/fd27f8c_20250930_134413_plot1.png",
+    "plot2": "plot_archive/fd27f8c_20250930_134413_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "9622c48",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "refactor(analysis-e3): replace robust model fitting function with direct GLMM calls",
+    "timestamp": "2025-09-30 13:42:10",
+    "plot1": "plot_archive/9622c48_20250930_134210_plot1.png",
+    "plot2": "plot_archive/9622c48_20250930_134210_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "e488e3b",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "feat(analysis-e3): implement robust model fitting function for GLMMs",
+    "timestamp": "2025-09-30 13:06:18",
+    "plot1": "plot_archive/e488e3b_20250930_130618_plot1.png",
+    "plot2": "plot_archive/e488e3b_20250930_130618_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "b924652",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "feat(analysis-e3): add comprehensive GLMM analysis for Experiment 3",
+    "timestamp": "2025-09-30 12:44:54",
+    "plot1": "plot_archive/b924652_20250930_124454_plot1.png",
+    "plot2": "plot_archive/b924652_20250930_124454_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "25d024e",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "feat(analysis-e3): add comprehensive GLMM analysis for Experiment 3",
+    "timestamp": "2025-09-30 12:41:50",
+    "plot1": "plot_archive/25d024e_20250930_124150_plot1.png",
+    "plot2": "plot_archive/25d024e_20250930_124150_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_analysis_comprehensive.R"
+    ]
+  },
+  {
+    "commit": "a73cd9c",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "fix(model-e1): introduce chunk_size_final_change for probe generation",
+    "timestamp": "2025-09-30 12:41:31",
+    "plot1": "plot_archive/a73cd9c_20250930_124131_plot1.png",
+    "plot2": "plot_archive/a73cd9c_20250930_124131_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "ee8b2d9",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "finetune(model-e1):  align ratio init CC with E2",
+    "timestamp": "2025-09-30 10:10:46",
+    "plot1": "plot_archive/ee8b2d9_20250930_101046_plot1.png",
+    "plot2": "plot_archive/ee8b2d9_20250930_101046_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "40f2614",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "finetune(model-e1):  align ratio init CC with E2",
+    "timestamp": "2025-09-30 09:58:54",
+    "plot1": "plot_archive/40f2614_20250930_095854_plot1.png",
+    "plot2": "plot_archive/40f2614_20250930_095854_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "f2e472a",
+    "branch": "sep-30-finetune-some-parm",
+    "message": "fix(logsr-e1): preserve model progress history after git rewrite",
+    "timestamp": "2025-09-29 14:39:39",
+    "plot1": "plot_archive/f2e472a_20250929_143939_plot1.png",
+    "plot2": "plot_archive/f2e472a_20250929_143939_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/script/generate_md_from_json.py"
+    ]
+  },
+  {
     "commit": "ec7f7ab",
     "branch": "main",
     "message": "fix(log-e1): preserve model progress history after git rewrite",
