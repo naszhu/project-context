@@ -1,5 +1,18 @@
 [
   {
+    "commit": "3fde0f2",
+    "branch": "oct-3-new-e1-model",
+    "message": "finetune(model-e1): update simulation parameters for improved model accuracy",
+    "timestamp": "2025-10-04 00:39:32",
+    "plot1": "plot_archive/3fde0f2_20251004_003932_plot1.png",
+    "plot2": "plot_archive/3fde0f2_20251004_003932_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "8085570",
     "branch": "oct-3-new-e1-model",
     "message": "fix(model-e1): A working version criterion change model and fix criterion change parmaeter setting issue",

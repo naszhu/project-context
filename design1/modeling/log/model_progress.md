@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [3fde0f2](https://github.com/naszhu/REM_E3_model_fixed/commit/3fde0f2) (branch: `oct-3-new-e1-model`)
+**Time:** 2025-10-04 00:39:32  
+**Message:**
+```
+finetune(model-e1): update simulation parameters for improved model accuracy
+
+- Set is_finaltest to true and adjusted n_simulations to 500 for consistent testing conditions.
+- Modified nnnow from 0.85 to 0.8 to refine model dynamics.
+- Updated criterion_initial calculation parameters to enhance model precision.
+
+These changes aim to improve the reliability and performance of the model in simulations.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/3fde0f2_20251004_003932_plot1.png)  
+![](../plot_archive/3fde0f2_20251004_003932_plot2.png)  
+
 ## Commit [8085570](https://github.com/naszhu/REM_E3_model_fixed/commit/8085570) (branch: `oct-3-new-e1-model`)
 **Time:** 2025-10-04 00:36:17  
 **Message:**
