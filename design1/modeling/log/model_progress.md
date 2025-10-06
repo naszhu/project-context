@@ -1,5 +1,37 @@
 # Model Progress
 
+## Commit [9e67c96](https://github.com/naszhu/REM_E3_model_fixed/commit/9e67c96) (branch: `oct-6`)
+**Time:** 2025-10-07 13:23:18  
+**Message:**
+```
+fix(plot-e3): enhance prediction plots with conditional data processing
+
+fix  plote3 with some mistakes on poitn types and so on, and y axis
+
+- Introduced checks for the existence of final predictions before processing data for test and study positions.
+- Updated the plotting logic to conditionally create prediction plots based on the availability of data, improving robustness.
+- Adjusted y-axis limits and breaks for better visualization consistency across plots.
+
+These changes aim to enhance the functionality and reliability of the prediction plots in the design3 module.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+- `design3/modeling`  
+![](../plot_archive/9e67c96_20251007_132318_plot1.png)  
+![](../plot_archive/9e67c96_20251007_132318_plot2.png)  
+
+## Commit [e1e31b3](https://github.com/naszhu/REM_E3_model_fixed/commit/e1e31b3) (branch: `oct-6`)
+**Time:** 2025-10-05 15:02:04  
+**Message:**
+```
+merge(model-e1): Merge branch 'oct-3-new-e1-model'
+```
+![](../plot_archive/e1e31b3_20251005_150204_plot1.png)  
+![](../plot_archive/e1e31b3_20251005_150204_plot2.png)  
+
 ## Commit [3fde0f2](https://github.com/naszhu/REM_E3_model_fixed/commit/3fde0f2) (branch: `oct-3-new-e1-model`)
 **Time:** 2025-10-04 00:39:32  
 **Message:**

@@ -1,5 +1,29 @@
 [
   {
+    "commit": "9e67c96",
+    "branch": "oct-6",
+    "message": "fix(plot-e3): enhance prediction plots with conditional data processing",
+    "timestamp": "2025-10-07 13:23:18",
+    "plot1": "plot_archive/9e67c96_20251007_132318_plot1.png",
+    "plot2": "plot_archive/9e67c96_20251007_132318_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "e1e31b3",
+    "branch": "oct-6",
+    "message": "merge(model-e1): Merge branch 'oct-3-new-e1-model'",
+    "timestamp": "2025-10-05 15:02:04",
+    "plot1": "plot_archive/e1e31b3_20251005_150204_plot1.png",
+    "plot2": "plot_archive/e1e31b3_20251005_150204_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "3fde0f2",
     "branch": "oct-3-new-e1-model",
     "message": "finetune(model-e1): update simulation parameters for improved model accuracy",
