@@ -11,6 +11,11 @@ library(grid)
 dfchanged <- read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design1/data_analysis/dfchanged.csv")
 cat("Loaded dfchanged data from dfchanged.csv\n")
 
+# # A tibble: 1 × 2
+#   ip             overall_performance
+#   <chr>                        <dbl>
+# 1 47.158.129.211               0.523
+
 # 1. INITIAL TEST - Calculate overall performance for each participant
 initial_participant_performance <- dfchanged %>%
   filter(task == "pretest_response") %>%
@@ -21,7 +26,10 @@ initial_participant_performance <- dfchanged %>%
   arrange(overall_performance) %>%
   mutate(participant_rank = row_number(),
          test_type = "Initial Test")%>%
-         filter(overall_performance>0.53)
+        #  filter(ip!="47.158.129.211")
+        #  filter(ip%in%c("76.29.91.154","166.194.147.4"))%>%
+        #  filter(overall_performance<0.53)%>%
+        # select(ip,overall_performance)
 
 # 2. FINAL TEST - Calculate overall performance for each participant
 final_participant_performance <- dfchanged %>%
@@ -32,7 +40,12 @@ final_participant_performance <- dfchanged %>%
             .groups = 'drop') %>%
   arrange(overall_performance) %>%
   mutate(participant_rank = row_number(),
-         test_type = "Final Test")
+         test_type = "Final Test")%>%
+        #  filter(ip!="47.158.129.211")
+        #  filter(ip%in%c("76.29.91.154","166.194.147.4"))%>%
+        #  filter(ip!="47.158.129.211")
+        #  filter(overall_performance<0.53)%>%
+        # select(ip,overall_performance)
 
 # Combine both datasets
 all_participant_performance <- rbind(initial_participant_performance, final_participant_performance)

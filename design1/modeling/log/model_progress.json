@@ -1,5 +1,19 @@
 [
   {
+    "commit": "8b0be09",
+    "branch": "oct-6",
+    "message": "feat(analysis-e1): add comprehensive exclusion and outlier analysis scripts",
+    "timestamp": "2025-10-07 17:39:21",
+    "plot1": "plot_archive/8b0be09_20251007_173921_plot1.png",
+    "plot2": "plot_archive/8b0be09_20251007_173921_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-comprehensive-exclusion-analysis.R",
+      "design1/data_analysis/E1-outlier-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "2854e07",
     "branch": "oct-6",
     "message": "fix(combinedplot-e1): update simulation parameters and filtering logic",

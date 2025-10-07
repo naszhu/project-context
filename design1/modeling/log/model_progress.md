@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [8b0be09](https://github.com/naszhu/REM_E3_model_fixed/commit/8b0be09) (branch: `oct-6`)
+**Time:** 2025-10-07 17:39:21  
+**Message:**
+```
+feat(analysis-e1): add comprehensive exclusion and outlier analysis scripts
+
+- Introduced two new R scripts: E1-comprehensive-exclusion-analysis.R and E1-outlier-analysis.R for detailed participant data evaluation.
+- Implemented comprehensive exclusion criteria based on accuracy, reaction time, response patterns, and data completeness to enhance data quality.
+- Developed outlier detection methods including Z-score, IQR, and Mahalanobis distance to identify extreme performance cases.
+- Added visual diagnostics to support analysis findings and recommendations for participant exclusions.
+
+These additions aim to improve the rigor and clarity of participant data handling in the E1 study, ensuring robust analysis and reporting.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-comprehensive-exclusion-analysis.R`  
+- `design1/data_analysis/E1-outlier-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/8b0be09_20251007_173921_plot1.png)  
+![](../plot_archive/8b0be09_20251007_173921_plot2.png)  
+
 ## Commit [2854e07](https://github.com/naszhu/REM_E3_model_fixed/commit/2854e07) (branch: `oct-6`)
 **Time:** 2025-10-07 17:38:49  
 **Message:**
