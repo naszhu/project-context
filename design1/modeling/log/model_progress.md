@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [114941e](https://github.com/naszhu/REM_E3_model_fixed/commit/114941e) (branch: `oct-6`)
+**Time:** 2025-10-07 17:25:41  
+**Message:**
+```
+refactor(analysis-e1): data clearning, redo
+
+- Updated filtering logic to enhance data quality by excluding participants with low accuracy and specific outlier IPs.
+- Commented out previous filters for clarity and potential future use.
+- Added detailed comments to explain the rationale behind exclusions, improving code maintainability.
+
+These changes aim to refine the data preparation process for more accurate analysis in the E1 study.
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Participants_Section.txt`  
+- `design1/data_analysis/generate_data.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/114941e_20251007_172541_plot1.png)  
+![](../plot_archive/114941e_20251007_172541_plot2.png)  
+
 ## Commit [a3f8a57](https://github.com/naszhu/REM_E3_model_fixed/commit/a3f8a57) (branch: `oct-6`)
 **Time:** 2025-10-07 17:20:44  
 **Message:**

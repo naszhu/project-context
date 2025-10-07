@@ -1,5 +1,19 @@
 [
   {
+    "commit": "114941e",
+    "branch": "oct-6",
+    "message": "refactor(analysis-e1): data clearning, redo",
+    "timestamp": "2025-10-07 17:25:41",
+    "plot1": "plot_archive/114941e_20251007_172541_plot1.png",
+    "plot2": "plot_archive/114941e_20251007_172541_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Participants_Section.txt",
+      "design1/data_analysis/generate_data.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "a3f8a57",
     "branch": "oct-6",
     "message": "feat(analysis-e1): add comprehensive RT analysis for E1",
