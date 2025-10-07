@@ -1,0 +1,88 @@
+PARTICIPANTS SECTION (APA Style)
+===============================================
+
+Participants
+
+    Two hundred six participants completed the experiment through online recruitment. Participants were randomly assigned to one of three experimental conditions: backward (*n* = 50), forward (*n* = 53), or random (*n* = 103).
+
+    Data quality screening was conducted using multiple exclusion criteria following standard practices in cognitive psychology research (Van Selst & Jolicoeur, 1994). At the participant level, individuals were excluded if they met any of the following criteria: (a) overall task accuracy more than 2.5 standard deviations below the sample mean, (b) initial test performance more than 2.5 standard deviations below the sample mean, (c) median response time more than 3 standard deviations from the sample mean, (d) more than 10% of responses faster than 200 ms (indicating insufficient processing time), or (e) performance decline exceeding 30% from initial to final test (indicating disengagement or fatigue). At the trial level, responses faster than 150 ms or slower than 3,500 ms were excluded from all analyses, consistent with the experiment's response window parameters.
+
+    Ten participants (4.9%) were excluded based on participant-level criteria. Specifically, nine participants exhibited extremely low accuracy (*M* = 0.54, *SD* = 0.03, range = 0.51–0.59) combined with additional indicators of insufficient task engagement, including atypical response patterns (*z* > 3.0), rushed responding (>10% responses < 200 ms), or severe performance decline (>30% decrease). One additional participant was excluded due to extreme initial test performance (*z* = -5.16) followed by anomalous learning gains (*z* = 6.89), suggesting initial inattention rather than genuine inability. Participant exclusions were distributed across conditions: backward (*n* = 2, 4.0%), forward (*n* = 5, 9.4%), and random (*n* = 3, 2.9%). At the trial level, 351 trials (0.28% of all test trials) were excluded due to response times outside the 150–3,500 ms window (212 trials < 150 ms, 139 trials > 3,500 ms).
+
+    The final sample consisted of 196 participants (backward: *n* = 48; forward: *n* = 48; random: *n* = 100) contributing 126,876 valid test trials. All participants provided informed consent and were compensated for their time in accordance with institutional review board guidelines.
+
+
+---
+
+ALTERNATIVE VERSION (More Concise)
+===============================================
+
+Participants
+
+    Two hundred six participants completed the experiment online and were randomly assigned to one of three conditions: backward (*n* = 50), forward (*n* = 53), or random (*n* = 103). Following standard data quality screening procedures (Van Selst & Jolicoeur, 1994), 10 participants (4.9%) were excluded due to extremely low accuracy (>2.5 *SD* below the mean), extreme outlier response times (>3 *SD* from the mean), rushed responding (>10% responses <200 ms), or severe performance decline (>30% decrease from initial to final test). Additionally, 351 trials (0.28%) were excluded for response times outside the 150–3,500 ms window. Exclusions were distributed across conditions: backward (*n* = 2), forward (*n* = 5), and random (*n* = 3). The final sample consisted of 196 participants (backward: *n* = 48; forward: *n* = 48; random: *n* = 100) contributing 126,876 valid test trials.
+
+
+---
+
+REFERENCE
+===============================================
+
+Van Selst, M., & Jolicoeur, P. (1994). A solution to the effect of sample size on outlier elimination. *Quarterly Journal of Experimental Psychology Section A*, *47*(3), 631-650. https://doi.org/10.1080/14640749408401131
+
+
+---
+
+KEY STATISTICS FOR TEXT OR TABLE
+===============================================
+
+Initial Sample:
+- Total: N = 206
+- Backward: n = 50
+- Forward: n = 53
+- Random: n = 103
+- Total test trials: 127,227
+
+Participant-Level Exclusions:
+- Total excluded: n = 10 (4.9%)
+- Backward: n = 2 (4.0% of backward condition)
+- Forward: n = 5 (9.4% of forward condition)
+- Random: n = 3 (2.9% of random condition)
+
+Trial-Level Exclusions:
+- Total excluded: 351 trials (0.28% of test trials)
+- RT < 150 ms: 212 trials (0.17%)
+- RT > 3,500 ms: 139 trials (0.11%)
+
+Final Sample:
+- Total: N = 196
+- Backward: n = 48
+- Forward: n = 48
+- Random: n = 100
+- Valid test trials: 126,876
+
+Participant Exclusion Breakdown by Criterion:
+- Extreme low accuracy + low initial performance: n = 8
+- Extreme low accuracy + severe decline: n = 1
+- Extreme low accuracy + RT outlier + rushed responding: n = 1
+- Anomalous learning pattern (extreme initial outlier): n = 1
+
+
+---
+
+TABLE (Optional - APA Format)
+===============================================
+
+Table 1
+*Participant Distribution by Experimental Condition*
+
+Condition       Initial Sample    Excluded    Final Sample    Exclusion Rate
+-------------   ----------------  ----------  --------------  --------------
+Backward                50            2             48             4.0%
+Forward                 53            5             48             9.4%
+Random                 103            3            100             2.9%
+Total                  206           10            196             4.9%
+
+*Note.* Participants were excluded based on pre-established criteria including
+extreme low accuracy (>2.5 SD below mean), extreme response time outliers
+(>3 SD from mean), rushed responding (>10% responses <200 ms), or severe
+performance decline (>30% decrease).
