@@ -704,7 +704,7 @@ RIBBON_ALPHA <- 0.25
 LINE_ALPHA <- 0.85
 
 # Y-axis limits and breaks
-Y_MIN <- 0.82
+Y_MIN <- 0.8
 Y_MAX <- 0.96
 Y_BREAKS <- seq(Y_MIN, Y_MAX, by = 0.02)
 

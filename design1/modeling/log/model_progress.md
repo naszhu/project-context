@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [5513c5d](https://github.com/naszhu/REM_E3_model_fixed/commit/5513c5d) (branch: `oct-6`)
+**Time:** 2025-10-07 17:38:23  
+**Message:**
+```
+feat(analysis-e3): data cleaning e3
+
+- Introduced a new text file detailing the participants section for Experiment 3, including exclusion criteria and final sample statistics.
+- Added an R script for exclusion analysis, implementing data quality checks and generating an exclusion report based on performance metrics.
+- Enhanced data filtering logic to exclude participants with low accuracy and response time outliers, ensuring robust data quality for analysis.
+
+These additions aim to improve the clarity and rigor of participant data handling in Experiment 3.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/APA_Participants_Section_E3.txt`  
+- `design3/data_analysis/E3-exclusion-analysis.R`  
+- `design3/data_analysis/generate_data.r`  
+![](../plot_archive/5513c5d_20251007_173823_plot1.png)  
+![](../plot_archive/5513c5d_20251007_173823_plot2.png)  
+
 ## Commit [114941e](https://github.com/naszhu/REM_E3_model_fixed/commit/114941e) (branch: `oct-6`)
 **Time:** 2025-10-07 17:25:41  
 **Message:**
