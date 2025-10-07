@@ -1,5 +1,18 @@
 [
   {
+    "commit": "2854e07",
+    "branch": "oct-6",
+    "message": "fix(combinedplot-e1): update simulation parameters and filtering logic",
+    "timestamp": "2025-10-07 17:38:49",
+    "plot1": "plot_archive/2854e07_20251007_173849_plot1.png",
+    "plot2": "plot_archive/2854e07_20251007_173849_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "5513c5d",
     "branch": "oct-6",
     "message": "feat(analysis-e3): data cleaning e3",

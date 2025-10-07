@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [2854e07](https://github.com/naszhu/REM_E3_model_fixed/commit/2854e07) (branch: `oct-6`)
+**Time:** 2025-10-07 17:38:49  
+**Message:**
+```
+fix(combinedplot-e1): update simulation parameters and filtering logic
+
+- Adjusted Y_MIN value for improved plot consistency.
+- Updated filtering criteria in participant performance analysis to exclude specific IP addresses, enhancing data quality.
+- Modified simulation parameters for final tests to refine model accuracy.
+
+These changes aim to improve the robustness and clarity of data analysis and simulation processes across the project.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/2854e07_20251007_173849_plot1.png)  
+![](../plot_archive/2854e07_20251007_173849_plot2.png)  
+
 ## Commit [5513c5d](https://github.com/naszhu/REM_E3_model_fixed/commit/5513c5d) (branch: `oct-6`)
 **Time:** 2025-10-07 17:38:23  
 **Message:**
