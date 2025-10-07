@@ -1,5 +1,18 @@
 [
   {
+    "commit": "79b1ed3",
+    "branch": "oct-6",
+    "message": "refactor(analysis-e1): make exclusion criteria in data generation but not in analysis",
+    "timestamp": "2025-10-07 17:39:48",
+    "plot1": "plot_archive/79b1ed3_20251007_173948_plot1.png",
+    "plot2": "plot_archive/79b1ed3_20251007_173948_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-participant-performance-plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "8b0be09",
     "branch": "oct-6",
     "message": "feat(analysis-e1): add comprehensive exclusion and outlier analysis scripts",

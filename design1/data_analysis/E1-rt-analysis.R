@@ -64,6 +64,10 @@ RIBBON_ALPHA <- 0.25
 ###################################3333
 ## Data
 #####################################3
+
+###################################3333
+## Data
+#####################################3
 # Load the preprocessed data for data plot
 dfchanged <- read_csv(file.path(DATA_ANALYSIS_DIR, "dfchanged.csv"))
 cat("Loaded dfchanged data from dfchanged.csv\n")
@@ -72,94 +76,58 @@ cat("Loaded dfchanged data from dfchanged.csv\n")
 # unique((dfserial%>%filter(probetype=="FOIL"))$prespos)
 # unique(((dfserial%>%filter(probetype=="Foil - Correct rejection",position_type=="Initial Order"))$position)
 
-# Filter RTs and count excluded participants for RT < 180 and RT > 3000
-# (Assumes 'rt' and 'ip' columns exist in dfchanged)
+dfserial=
+  dfchanged%>%
+  filter(task=="finalt_response")%>%
+  mutate(testpos=cut_number(testpos,10,labels=1:10))%>%
+  mutate(prespos = case_when(probetype=="FOIL"~0,
+  TRUE~prespos_itrial))%>%
+  mutate(testpos=as.integer(testpos),prespos=as.integer(prespos))%>%
+  filter(response!="null")%>%
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position,ip,position_type,correct,condition,probetype)%>%
+  group_by(position,ip,position_type,condition,probetype)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position,position_type,condition,probetype)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(probetype=case_when(probetype=="FOIL"~"Foil - Correct rejection",
+                             TRUE~paste(probetype," - Hits")))%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Final Order",
+                                 TRUE~"Initial Order"))
 
-# Calculate the total number of final test response trials with non-NA RTs
-total_finalt_trials <- dfchanged %>%
-  filter(task == "finalt_response", !is.na(rt)) %>%
-  nrow()
-
-# Calculate the number of excluded trials (RT < 180 or RT > 3000, non-NA RT)
-n_excluded_rt_trials <- dfchanged %>%
-  filter(task == "finalt_response", !is.na(rt), (rt < 180 | rt > 3000)) %>%
-  nrow()
-
-# Calculate the proportion of excluded trials
-prop_excluded_rt_trials <- n_excluded_rt_trials / total_finalt_trials
-
-cat("Number of trials with RT < 180 or RT > 3000 (excluded):", n_excluded_rt_trials, "\n")
-cat("Proportion of excluded trials (RT < 180 or RT > 3000):", round(prop_excluded_rt_trials, 4), "\n")
-
-# Now filter to only keep RTs in [180, 3000]
-dfserial_rt <- dfchanged %>%
-  filter(task == "finalt_response") %>%
-  filter(!is.na(rt), rt >= 180, rt <= 3000) %>%
-  mutate(testpos = cut_number(testpos, 10, labels = 1:10)) %>%
-  mutate(
-    prespos = case_when(probetype == "FOIL" ~ 0,
-                        TRUE ~ prespos_itrial)
-  ) %>%
-  mutate(
-    testpos = as.integer(testpos),
-    prespos = as.integer(prespos)
-  ) %>%
-  filter(response != "null") %>%
-  pivot_longer(cols = c(testpos, prespos), names_to = "position_type", values_to = "position") %>%
-  select(position, ip, position_type, rt, condition, probetype)
-
-# Summarize RTs for plotting (mean, sd, se)
-dfserial_rt_summary <- dfserial_rt %>%
-  group_by(position, ip, position_type, condition, probetype) %>%
-  summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
-  group_by(position, position_type, condition, probetype) %>%
-  summarize(
-    meanrt = mean(meanrt1, na.rm = TRUE),
-    sd = sd(meanrt1, na.rm = TRUE),
-    se = sd / sqrt(n()),
-    .groups = "drop"
-  ) %>%
-  mutate(
-    probetype = case_when(
-      probetype == "FOIL" ~ "Foil - Correct rejection",
-      TRUE ~ paste(probetype, " - Hits")
-    ),
-    position_type = case_when(
-      position_type == "testpos" ~ "Final Order",
-      TRUE ~ "Initial Order"
-    )
-  )
-
-# Use dfserial_rt_summary for RT plotting
-dfserial <- dfserial_rt_summary
 
 # For foils in Initial Study List Position, set position to 0 and calculate mean across all conditions
 dfserial <- dfserial %>%
   mutate(position = as.integer(position))
 
-# Create the RT data plot
-rt_plot <- ggplot(data=dfserial, aes(position, meanrt, group=interaction(position_type, condition, probetype))) +
-  # Points for each probetype
+# Create the data plot - EXACT COPY FROM ORIGINAL
+data_plot <- ggplot(data=dfserial, aes(position,meancr,group=interaction(position_type,condition,probetype)))+
+  # Enhanced points with different shapes for each probetype (exclude Average)
   geom_point(
-    aes(color=probetype, shape=probetype),
-    size=POINT_SIZE, alpha=POINT_ALPHA, stroke=POINT_STROKE) +
-  # Lines for each probetype
-  geom_line(
-    aes(color=probetype, linetype=probetype),
-    linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
-  # Error ribbon (SE)
-  geom_ribbon(
-    aes(ymin=meanrt-se, ymax=meanrt+se, fill=probetype),
-    alpha=RIBBON_ALPHA, color=NA) +
+             aes(color=probetype, shape=probetype),
+             size=POINT_SIZE, alpha=POINT_ALPHA, stroke=POINT_STROKE) +
+  # Enhanced lines with different line types (exclude Average)
+  geom_line(data=dfserial %>% filter(probetype != "Average"),
+            aes(color=probetype, linetype=probetype),
+            linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
+  # Enhanced ribbon with better visibility (exclude Average from error bands)
+  geom_ribbon(data=dfserial %>% filter(probetype != "Average"),
+              aes(ymin=meancr-se,ymax=meancr+se,fill=probetype),
+              alpha=RIBBON_ALPHA) +
+  # Average line - COMMENTED OUT
+  # geom_line(data=dfserial_all %>% filter(probetype == "Average"),
+  #           aes(y=meancr), linewidth=1.5, color="black", linetype="dashed") +
   # Facet by condition and position type
   facet_grid(condition~position_type) +
-  # Labels and titles
+  # Enhanced styling and labels
   labs(x="Test Order",
-       y="Response Time (ms)",
-       title="E1 Final Test Between List RT DATA",
+       y="Performance (Hits/Correct Rejection)",
+       title="E1 Final Test Between List DATA",
        color="Type", fill="Type", shape="Type", linetype="Type") +
+
   # Set x-axis to include position 0
   scale_x_continuous(breaks = 0:10, labels = 0:10) +
+
   # Enhanced color palette with high contrast
   scale_color_manual(values=c("Average"="#2C2C2C",
                               "Foil - Correct rejection"="#D73027",
@@ -182,6 +150,7 @@ rt_plot <- ggplot(data=dfserial, aes(position, meanrt, group=interaction(positio
                                  "TARGET_foil  - Hits"="dotted",
                                  "TARGET_nontarget  - Hits"="longdash",
                                  "TARGET_target  - Hits"="twodash")) +
+
   # Enhanced theme with improved readability and much larger font sizes
    theme_bw(base_size = BASE_FONT_SIZE) + # Set a large base font size for all text
   theme(
@@ -192,7 +161,15 @@ rt_plot <- ggplot(data=dfserial, aes(position, meanrt, group=interaction(positio
     axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold", color = "black"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    legend.position="none",
+  legend.position="none",
+    # legend.position = "bottom",
+    # legend.title = element_text(face = "bold", size = BASE_FONT_SIZE, margin = margin(b = 5)),
+    # legend.text = element_text(size = BASE_FONT_SIZE - 2),
+    # legend.key.width = unit(2.0, "cm"),
+    # legend.key.height = unit(1.0, "cm"),
+    # legend.margin = margin(t = 20),
+    # legend.box = "horizontal",
+    # legend.direction = "horizontal",
     plot.title = element_text(face = "bold", hjust = 0.5, size = TITLE_SIZE, margin = margin(b = TITLE_MARGIN_BOTTOM)),
     panel.border = element_rect(color = "black", fill = NA, linewidth = PANEL_BORDER_WIDTH),
     plot.background = element_rect(fill = "white", color = NA),
@@ -207,16 +184,15 @@ rt_plot <- ggplot(data=dfserial, aes(position, meanrt, group=interaction(positio
     linetype = "none"
   )
 
-# Save RT data plot
-rt_plot_path <- file.path(DATA_ANALYSIS_DIR, "temp_rt_plot.png")
-ggsave(rt_plot_path, rt_plot, width = 9+3, height = 13+4, dpi = 300, bg = "white")
-
+# Save data plot
+data_plot_path <- file.path(DATA_ANALYSIS_DIR, "temp_data_plot.png")
+ggsave(data_plot_path, data_plot, width = 9+3, height = 13+4, dpi = 300, bg = "white")
 
 ############################################################
-## E1 Final Within
+## E1 Final Within 
 ############################################################
 ###########################################################
-## E1 Final Test Within List: RT DATA
+## E1 Final Test Within List: DATA vs PREDICTION
 ############################################################
 
 ###################################3333
@@ -282,43 +258,48 @@ df_initial_study =
 
 df_initial_all=rbind(df_initial,df_initial_study)
 
-# Filter for RT data (final test response)
-df_final_rt = dfchanged%>%
+df_final = dfchanged%>%
   filter(task=="finalt_response")%>%
-  filter(!is.na(rt), rt >= 180, rt <= 3000) %>%
-  filter(response!="null")%>%
-  select(ip,rt,probetype,stimulus_id)
+  # filter(prespos_itrial!=1)%>%
+  # filter(probetype!="FOIL") %>% #foil doesn't have inital test position
 
-# First, calculate FOIL RT separately (since FOIL doesn't have initial positions)
-foil_rt_performance <- df_final_rt %>%
+  filter(response!="null")%>%
+  select(ip,correct,probetype,stimulus_id)
+
+#now, combine initial test positions with final test correct,
+# intial test add column position_type (intial/final), position
+# final test add column correct(1/0) and probetype (3 kinds of Target and foil)
+
+# First, calculate FOIL performance separately (since FOIL doesn't have initial positions)
+foil_performance <- df_final %>%
   filter(probetype == "FOIL") %>%
   group_by(ip, probetype) %>%
-  summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
+  summarize(meancr1 = mean(correct)) %>%
   group_by(probetype) %>%
-  summarize(meanrt = mean(meanrt1, na.rm = TRUE), sd = sd(meanrt1, na.rm = TRUE), se = sd/sqrt(n()), .groups = "drop") %>%
+  summarize(meancr = mean(meancr1), sd = sd(meancr1), se = sd/sqrt(n())) %>%
   mutate(position = 0, position_type = "both") # Use "both" to indicate it should appear in both facets
 
-# Process non-FOIL RT data normally
-df_finalwithin_rt_nonfoil = df_final_rt %>%
+# Process non-FOIL data normally
+df_finalwithin_nonfoil = df_final %>%
   filter(probetype != "FOIL") %>%
   left_join(df_initial_all, by = c("ip", "stimulus_id")) %>%
-  filter(!is.na(rt)) %>%
+  filter(!is.na(correct)) %>%
   group_by(position, ip, position_type, probetype) %>%
-  summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
+  summarize(meancr1 = mean(correct)) %>%
   group_by(position, position_type, probetype) %>%
-  summarize(meanrt = mean(meanrt1, na.rm = TRUE), sd = sd(meanrt1, na.rm = TRUE), se = sd/sqrt(n()), .groups = "drop")
+  summarize(meancr = mean(meancr1), sd = sd(meancr1), se = sd/sqrt(n()))
 
-# Add overall RT for non-tested items in Initial Test Position facet
-nontarget_rt_performance <- df_final_rt %>%
+# Add overall performance for non-tested items in Initial Test Position facet
+nontarget_performance <- df_final %>%
   filter(probetype == "TARGET_nontarget") %>%
   group_by(ip, probetype) %>%
-  summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
+  summarize(meancr1 = mean(correct)) %>%
   group_by(probetype) %>%
-  summarize(meanrt = mean(meanrt1, na.rm = TRUE), sd = sd(meanrt1, na.rm = TRUE), se = sd/sqrt(n()), .groups = "drop") %>%
+  summarize(meancr = mean(meancr1), sd = sd(meancr1), se = sd/sqrt(n())) %>%
   mutate(position = 0, position_type = "Initial Test Position")
 
 # Combine and create duplicate FOIL rows for both facets (like pivot_longer does)
-df_finalwithin_rt = df_finalwithin_rt_nonfoil %>%
+df_finalwithin = df_finalwithin_nonfoil %>%
   mutate(probetype = case_when(
     probetype == "TARGET_foil" ~ "Foil, neither studied nor tested  - Correct rejection",
     probetype == "TARGET_target" ~ "Target, Studied and tested - HITS",
@@ -330,26 +311,26 @@ df_finalwithin_rt = df_finalwithin_rt_nonfoil %>%
   )) %>%
   # Add FOIL data for both facets
   bind_rows(
-    foil_rt_performance %>%
+    foil_performance %>%
       mutate(position_type = "Initial Study Position", probetype = "FOIL") %>%
-      select(position, position_type, probetype, meanrt, sd, se)
+      select(position, position_type, probetype, meancr, sd, se)
   ) %>%
   bind_rows(
-    foil_rt_performance %>%
+    foil_performance %>%
       mutate(position_type = "Initial Test Position", probetype = "FOIL") %>%
-      select(position, position_type, probetype, meanrt, sd, se)
+      select(position, position_type, probetype, meancr, sd, se)
   ) %>%
-  # Add non-target RT for Initial Test Position facet
+  # Add non-target performance for Initial Test Position facet
   bind_rows(
-    nontarget_rt_performance %>%
+    nontarget_performance %>%
       mutate(probetype = "Target, Studied only - HITS") %>%
-      select(position, position_type, probetype, meanrt, sd, se)
+      select(position, position_type, probetype, meancr, sd, se)
   ) %>%
   mutate(position = as.numeric(position))
 
-# Create the RT data plot
-data_plot <- ggplot(data=df_finalwithin_rt,
-                        aes(position,meanrt,group=interaction(position_type)))+
+# Create the data plot - EXACT COPY FROM ORIGINAL
+data_plot <- ggplot(data=df_finalwithin,
+                        aes(position,meancr,group=interaction(position_type)))+
   # Enhanced points with different shapes for each probetype
   geom_point(aes(color=probetype, shape=probetype, group=probetype),
              size=POINT_SIZE, alpha=POINT_ALPHA, stroke=POINT_STROKE) +
@@ -357,15 +338,15 @@ data_plot <- ggplot(data=df_finalwithin_rt,
   geom_line(aes(color=probetype, linetype=probetype, group=probetype),
             linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
   # Enhanced ribbon with better visibility
-  geom_ribbon(aes(ymin=meanrt-se,ymax=meanrt+se,fill=probetype,group=probetype),
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),
               alpha=RIBBON_ALPHA) +
   # Facet by position type
   facet_grid(.~position_type) +
 
   # Enhanced styling and labels
   labs(x="Position",
-       y="Response Time (ms)",
-       title="E1 Final Test Within List RT DATA",
+       y="Hit Rate",
+       title="E1 Final Test Within List DATA",
        color="Type", fill="Type", shape="Type", linetype="Type") +
 
   # Enhanced color palette with high contrast
@@ -421,7 +402,7 @@ data_plot <- ggplot(data=df_finalwithin_rt,
     linetype = "none"
   )
 
-# Save RT data plot
+# Save data plot
 ggsave(file.path(DESIGN1_DIR, "temp_data_plot.png"), data_plot, width = 10, height = 9, dpi = 300, bg = "white")
 
 
@@ -445,7 +426,7 @@ SHAPE_TARGET <- 15                      # solid square
 LINETYPE_FOIL <- "solid"
 LINETYPE_TARGET <- "longdash"
 
-ylabsname <- "Response Time (ms)"
+ylabsname <- "Correct Response Rate"
 
 # Sizes
 BASE_FONT_SIZE <- 24
@@ -454,6 +435,11 @@ LINE_WIDTH <- 1.8
 AVERAGE_LINE_WIDTH <- 2.2
 RIBBON_ALPHA <- 0.25
 LINE_ALPHA <- 0.85
+
+# Y-axis limits and breaks
+Y_MIN <- 0.82
+Y_MAX <- 0.96
+Y_BREAKS <- seq(Y_MIN, Y_MAX, by = 0.02)
 
 # X-axis breaks
 X_BREAKS <- 1:10
@@ -470,28 +456,28 @@ LEGEND_POSITION <- "none"  # Hide legends
 dfchanged <- read_csv(file.path(DATA_ANALYSIS_DIR, "dfchanged.csv"))
 cat("Loaded dfchanged data from dfchanged.csv\n")
 
-# Create df_initialtestbyinitial for RT data
-df_initialtestbyinitial_rt = dfchanged%>%
+
+# Create df_initialtestbyinitial (from the RMD file) - EXACT COPY FROM ORIGINAL
+df_initialtestbyinitial = dfchanged%>%
   filter(task=="pretest_response")%>%
-  filter(!is.na(rt), rt >= 180, rt <= 3000) %>%
-  select(trialnum,ip,rt,probetype)%>%
+  select(trialnum,ip,correct,probetype)%>%
   group_by(trialnum,ip,probetype)%>%
-  summarize(meanrt1=mean(rt, na.rm = TRUE), .groups = "drop")%>%
+  summarize(meancr1=mean(correct))%>%
   group_by(trialnum,probetype)%>%
-  summarize(meanrt=mean(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()), .groups = "drop")%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
   mutate(trialnum=as.factor(trialnum))%>%
   mutate(position=trialnum,position_type="ir")%>%
   mutate(condition="All conditions")%>%
-  select(position,position_type,probetype,meanrt,se,condition)%>%
+  select(position,position_type,probetype,meancr,se,condition)%>%
   mutate(probetype=case_when(probetype=="FOIL"~"Foil - Correct rejection",
                              TRUE~paste(probetype," - Hits"))) %>%
   mutate(condition=as.factor(condition))%>%
   mutate(condition=factor(condition,levels=levels(condition)[c(1,2,3)]))%>%
-  group_by(position)%>%
-  mutate(meanrt_avg=mean(meanrt))
+  group_by(trialnum)%>%
+  mutate(meancr_avg=mean(meancr))
 
 # Create the data plot - EXACT COPY FROM ORIGINAL
-plot_data <- df_initialtestbyinitial_rt%>%
+plot_data <- df_initialtestbyinitial%>%
   mutate(position_type=case_when(position_type=="testpos"~"Final Result\nFinal Test Position",
                                  position_type=="ir"~"Initial Result\nInitial List Position",
                                  position_type=="prespos"~"Final Result\nInitial List Position"))%>%
@@ -501,8 +487,8 @@ plot_data <- df_initialtestbyinitial_rt%>%
                              TRUE ~ "target"))%>%
   mutate(conditionnow=paste(condition," - ",position_type))
 
-# Create the RT data plot with different shapes and line types
-data_plot <- ggplot(data=plot_data, aes(position,meanrt,group=interaction(position_type,conditionnow)))+
+# Create the data plot with different shapes and line types
+data_plot <- ggplot(data=plot_data, aes(position,meancr,group=interaction(position_type,conditionnow)))+
   # Enhanced points with different shapes for each probetype
   geom_point(aes(color=probetype, shape=probetype, group=probetype),
              size=POINT_SIZE, alpha=0.9, stroke=1.5) +
@@ -510,17 +496,20 @@ data_plot <- ggplot(data=plot_data, aes(position,meanrt,group=interaction(positi
   geom_line(aes(color=probetype, linetype=probetype, group=probetype),
             linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
   # Enhanced ribbon with better visibility
-  geom_ribbon(aes(ymin=meanrt-se,ymax=meanrt+se,fill=probetype,group=probetype),
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),
               alpha=RIBBON_ALPHA) +
   # Enhanced average line with distinctive style
   geom_line(data=plot_data,
-            aes(x=position,y=meanrt_avg),
+            aes(x=position,y=meancr_avg),
             color=COLOR_AVERAGE, linewidth=AVERAGE_LINE_WIDTH, linetype="dashed", alpha=0.9) +
 
+  scale_y_continuous(limits = c(Y_MIN, Y_MAX),
+                      breaks = Y_BREAKS,
+                      name = ylabsname) +
   # Enhanced styling and labels
   labs(x="List number in initial test",
        y=ylabsname,
-       title="E1 Initial Between List RT DATA",
+       title="E1 Initial Between List DATA",
        color="Type", fill="Type", shape="Type", linetype="Type") +
 
   # Enhanced color palette with high contrast
@@ -544,6 +533,7 @@ data_plot <- ggplot(data=plot_data, aes(position,meanrt,group=interaction(positi
   )
 
 
+ggsave(file.path(DESIGN1_DIR, "temp_data_plot.png"), data_plot, width = 10, height = 9, dpi = 300, bg = "white")
 
 ############################################################
 ## E1 Initial Within
@@ -563,7 +553,7 @@ SHAPE_TARGET <- 15                      # solid square
 LINETYPE_FOIL <- "solid"
 LINETYPE_TARGET <- "longdash"
 
-ylabsname <- "Response Time (ms)"
+ylabsname <- "Correct Response Rate"
 xaxisname <- "Position"
 
 # Sizes
@@ -573,6 +563,11 @@ LINE_WIDTH <- 1.8
 AVERAGE_LINE_WIDTH <- 2.2
 RIBBON_ALPHA <- 0.25
 LINE_ALPHA <- 0.85
+
+# Y-axis limits and breaks
+Y_MIN <- 0.75
+Y_MAX <- 1.00
+Y_BREAKS <- seq(Y_MIN, Y_MAX, by = 0.05)
 
 # X-axis breaks
 X_BREAKS <- seq(0, 20, by = 5)
@@ -590,38 +585,36 @@ dfchanged <- read_csv(file.path(DATA_ANALYSIS_DIR, "dfchanged.csv"))
 cat("Loaded dfchanged data from dfchanged.csv\n")
 
 
-# Create dfserial data for within-list RT analysis
-dfserial_rt=dfchanged%>%
+# Create dfserial data for within-list analysis - EXACT COPY FROM ORIGINAL
+dfserial=dfchanged%>%
   filter(task=="pretest_response")%>%
-  filter(!is.na(rt), rt >= 180, rt <= 3000) %>%
   filter(response!="null")%>%
   pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
-  select(position,ip,position_type,rt,probetype)%>%
+  select(position,ip,position_type,correct,probetype)%>%
   group_by(position,ip,position_type,probetype)%>%
-  summarize(meanrt1=mean(rt, na.rm = TRUE), .groups = "drop")%>%
+  summarize(meancr1=mean(correct))%>%
   group_by(position,position_type,probetype)%>%
-  summarize(meanrt=mean(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()), .groups = "drop")%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
   mutate(probetype=case_when(probetype=="TARGET_foil"~"Foil - Correct rejection",
                              probetype=="TARGET_target"~"Target - Hits"))%>%
   mutate(position_type=case_when(position_type=="testpos"~"Initial Test Position",
                                  TRUE~"Initial Study Position"))
 
-dfserial_rt_meandf=dfchanged%>%
+dfserial_meandf=dfchanged%>%
   filter(task=="pretest_response")%>%
-  filter(!is.na(rt), rt >= 180, rt <= 3000) %>%
   filter(response!="null")%>%
-  select(testpos,ip,rt,probetype)%>%
+  select(testpos,ip,correct,probetype)%>%
   group_by(testpos,ip)%>%
-  summarize(meanrt1=mean(rt, na.rm = TRUE), .groups = "drop")%>%
+  summarize(meancr1=mean(correct))%>%
   group_by(testpos)%>%
-  summarize(meanrt=mean(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()), .groups = "drop")%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
   mutate(position_type="Initial Test Position",position=testpos,probetype="Average")%>%
-  select(position,position_type,probetype,meanrt,se)
+  select(position,position_type,probetype,meancr,se)
 
-dfserial_rt_all=rbind(dfserial_rt,dfserial_rt_meandf)
+dfserial_all=rbind(dfserial,dfserial_meandf)
 
-# Create the RT data plot
-data_plot <- ggplot(data=dfserial_rt_all, aes(position,meanrt,group=interaction(position_type)))+
+# Create the data plot
+data_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction(position_type)))+
   # Enhanced points with different shapes for each probetype
   geom_point(aes(color=probetype, shape=probetype, group=probetype),
              size=POINT_SIZE, alpha=0.9, stroke=1.2) +
@@ -629,16 +622,19 @@ data_plot <- ggplot(data=dfserial_rt_all, aes(position,meanrt,group=interaction(
   geom_line(aes(color=probetype, linetype=probetype, group=probetype),
             linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
   # Enhanced ribbon with better visibility (exclude Average from error bands)
-  geom_ribbon(data=dfserial_rt_all %>% filter(probetype != "Average"),
-              aes(ymin=meanrt-se,ymax=meanrt+se,fill=probetype,group=probetype),
+  geom_ribbon(data=dfserial_all %>% filter(probetype != "Average"),
+              aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),
               alpha=RIBBON_ALPHA) +
   # Facet by position type
   facet_grid(.~position_type) +
+      scale_y_continuous(limits = c(Y_MIN, Y_MAX),
+                      breaks = Y_BREAKS,
+                      name = ylabsname) +
 
   # Enhanced styling and labels
   labs(x=xaxisname,
        y=ylabsname,
-       title="E1 Initial Within List RT DATA",
+       title="E1 Initial Within List DATA",
        color="Type", fill="Type", shape="Type", linetype="Type") +
 
   # Enhanced color palette with high contrast

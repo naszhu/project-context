@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [79b1ed3](https://github.com/naszhu/REM_E3_model_fixed/commit/79b1ed3) (branch: `oct-6`)
+**Time:** 2025-10-07 17:39:48  
+**Message:**
+```
+refactor(analysis-e1): make exclusion criteria in data generation but not in analysis
+
+- Commented out specific IP address filters in the initial and final test performance calculations for clarity and potential future use.
+- Added comments to enhance understanding of the filtering process and its implications on data quality.
+
+These changes aim to improve the maintainability and clarity of the participant performance analysis in the E1 study.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-participant-performance-plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/79b1ed3_20251007_173948_plot1.png)  
+![](../plot_archive/79b1ed3_20251007_173948_plot2.png)  
+
 ## Commit [8b0be09](https://github.com/naszhu/REM_E3_model_fixed/commit/8b0be09) (branch: `oct-6`)
 **Time:** 2025-10-07 17:39:21  
 **Message:**
