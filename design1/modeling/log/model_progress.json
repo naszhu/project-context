@@ -1,5 +1,18 @@
 [
   {
+    "commit": "91234b7",
+    "branch": "oct-6",
+    "message": "fix(combined-plots-e3): apply RT filter for test trials to avoid NA issues",
+    "timestamp": "2025-10-08 15:24:14",
+    "plot1": "plot_archive/91234b7_20251008_152414_plot1.png",
+    "plot2": "plot_archive/91234b7_20251008_152414_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "3821281",
     "branch": "oct-6",
     "message": "fix(data-generation-e1): RT filter causes problem for intial test join, so need to apply RT filter later",

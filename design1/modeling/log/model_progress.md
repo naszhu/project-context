@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [91234b7](https://github.com/naszhu/REM_E3_model_fixed/commit/91234b7) (branch: `oct-6`)
+**Time:** 2025-10-08 15:24:14  
+**Message:**
+```
+fix(combined-plots-e3): apply RT filter for test trials to avoid NA issues
+
+- Implemented a reaction time (RT) filter for test trials directly in the combined_all_plots.R script to prevent NA issues caused by removing initial test items.
+- This change enhances data integrity by ensuring that only relevant trials are included in the analysis.
+
+These modifications aim to improve the accuracy of the data analysis process.
+
+Closes #45
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/91234b7_20251008_152414_plot1.png)  
+![](../plot_archive/91234b7_20251008_152414_plot2.png)  
+
 ## Commit [3821281](https://github.com/naszhu/REM_E3_model_fixed/commit/3821281) (branch: `oct-6`)
 **Time:** 2025-10-08 15:21:41  
 **Message:**
