@@ -1,5 +1,18 @@
 # Model Progress
 
+## Commit [a7140c8](https://github.com/naszhu/REM_E3_model_fixed/commit/a7140c8) (branch: `oct-6`)
+**Time:** 2025-10-07 17:51:18  
+**Message:**
+```
+refactor(analysis-e1): mistakes might exist, recreate
+```
+**Changed Files:**
+- `design1/data_analysis/E1-rt-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a7140c8_20251007_175118_plot1.png)  
+![](../plot_archive/a7140c8_20251007_175118_plot2.png)  
+
 ## Commit [79b1ed3](https://github.com/naszhu/REM_E3_model_fixed/commit/79b1ed3) (branch: `oct-6`)
 **Time:** 2025-10-07 17:39:48  
 **Message:**

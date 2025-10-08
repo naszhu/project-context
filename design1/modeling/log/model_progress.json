@@ -1,5 +1,18 @@
 [
   {
+    "commit": "a7140c8",
+    "branch": "oct-6",
+    "message": "refactor(analysis-e1): mistakes might exist, recreate",
+    "timestamp": "2025-10-07 17:51:18",
+    "plot1": "plot_archive/a7140c8_20251007_175118_plot1.png",
+    "plot2": "plot_archive/a7140c8_20251007_175118_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-rt-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "79b1ed3",
     "branch": "oct-6",
     "message": "refactor(analysis-e1): make exclusion criteria in data generation but not in analysis",
