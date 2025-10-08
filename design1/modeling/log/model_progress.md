@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [37120ae](https://github.com/naszhu/REM_E3_model_fixed/commit/37120ae) (branch: `oct-6`)
+**Time:** 2025-10-08 14:44:47  
+**Message:**
+```
+feat(analysis-e3): implement comprehensive RT analysis and visualizations
+
+- Added a new R script for detailed response time (RT) analysis, covering both initial and final tests.
+- Implemented data loading, filtering, and summarization processes to calculate mean RTs and standard errors for various conditions.
+- Developed visualizations for RT data, including individual participant analysis and combined plots, enhancing clarity and presentation.
+- Saved participant RT data to a CSV file for further reference.
+
+These additions aim to provide a robust framework for analyzing and visualizing response times in Experiment 3.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3-rt-analysis.R`  
+![](../plot_archive/37120ae_20251008_144447_plot1.png)  
+![](../plot_archive/37120ae_20251008_144447_plot2.png)  
+
 ## Commit [a7140c8](https://github.com/naszhu/REM_E3_model_fixed/commit/a7140c8) (branch: `oct-6`)
 **Time:** 2025-10-07 17:51:18  
 **Message:**

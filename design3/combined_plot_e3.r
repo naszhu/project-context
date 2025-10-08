@@ -676,8 +676,8 @@ if (has_final_predictions) {
                 "Fn_p1" = 2,
                 "SO" = 16,
                 "SOn_p1" = 1,
-                "T" = 0,
-                "Tn_p1" = 15)
+                "T" = 15, #solid square
+                "Tn_p1" = 0) #open square
     ) +
     scale_linetype_manual(
       values = c("F" = "dashed",
@@ -774,13 +774,20 @@ levelsStr_fn = levels(as.factor(df_rt_pl$type_comment_fn))
 d1taf_initial = df_rt_pl%>%
   mutate(correct=case_when(correct=="True"~1,
                            correct=="False"~0,
-                           TRUE ~ correct))%>%
-  filter(task=="finalTest")%>%
-  mutate(type_comment=type_comment_fn)%>%
-         group_by(task, condition,type_comment, listNum_appear1_initial, subject_id)%>%
-         summarise(crs = mean(correct))%>%
-         group_by(task, condition,type_comment, listNum_appear1_initial)%>%
-         summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop')%>%
+                           TRUE ~ correct)) %>%
+  filter(task=="finalTest") %>%
+  mutate(type_comment=type_comment_fn) %>%
+  # If initial position is 10, change type_comment for the specified types
+  mutate(type_comment = case_when(
+    listNum_appear1_initial == 10 & type_comment == "Foil(n), Foil (n+1)" ~ "Foil(n); Appear once",
+    listNum_appear1_initial == 10 & type_comment == "Studied-only (n); Foil (n+1)" ~ "Studied-only (n); Appear once",
+    listNum_appear1_initial == 10 & type_comment == "Target: studied and tested at (n), Foil (n+1)" ~ "Target: : started and tested at (n) ; Appear once",
+    TRUE ~ type_comment
+  )) %>%
+  group_by(task, condition, type_comment, listNum_appear1_initial, subject_id) %>%
+  summarise(crs = mean(correct)) %>%
+  group_by(task, condition, type_comment, listNum_appear1_initial) %>%
+  summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop') %>%
   mutate(position_type = "Initial Position", position = listNum_appear1_initial)
 
 ############ Second plot - Final position
