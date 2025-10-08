@@ -61,6 +61,11 @@ RIBBON_ALPHA <- 0.25
 dfchanged <- read_csv(file.path(DATA_ANALYSIS_DIR, "dfchanged.csv"))
 cat("Loaded dfchanged data from dfchanged.csv\n")
 
+# Apply RT filter for test trials (150-3500ms) - done here instead of in generate_data.R
+# to avoid NA issues from removing initial test items that appear in final test
+dfchanged <- dfchanged %>%
+  filter(!(task %in% c("pretest_response", "finalt_response") & (rt < 150 | rt > 3500)))
+
 # Create dfserial data for final test between-list analysis - EXACT COPY FROM ORIGINAL
 # unique((dfserial%>%filter(probetype=="FOIL"))$prespos)
 # unique(((dfserial%>%filter(probetype=="Foil - Correct rejection",position_type=="Initial Order"))$position)

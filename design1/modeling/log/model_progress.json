@@ -1,5 +1,18 @@
 [
   {
+    "commit": "3821281",
+    "branch": "oct-6",
+    "message": "fix(data-generation-e1): RT filter causes problem for intial test join, so need to apply RT filter later",
+    "timestamp": "2025-10-08 15:21:41",
+    "plot1": "plot_archive/3821281_20251008_152141_plot1.png",
+    "plot2": "plot_archive/3821281_20251008_152141_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/generate_data.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "c0538dc",
     "branch": "oct-6",
     "message": "fix(combined-plot-e3): correct type_comment mapping and update plot parameters",

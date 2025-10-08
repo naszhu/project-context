@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [3821281](https://github.com/naszhu/REM_E3_model_fixed/commit/3821281) (branch: `oct-6`)
+**Time:** 2025-10-08 15:21:41  
+**Message:**
+```
+fix(data-generation-e1): RT filter causes problem for intial test join, so need to apply RT filter later
+
+- Commented out the exclusion of specific task trials based on reaction time cutoffs in the data generation script.
+- This change aims to improve code clarity and maintainability while allowing for potential future use of the filtering logic.
+
+Fixes #45
+```
+**Changed Files:**
+- `design1/data_analysis/generate_data.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/3821281_20251008_152141_plot1.png)  
+![](../plot_archive/3821281_20251008_152141_plot2.png)  
+
 ## Commit [c0538dc](https://github.com/naszhu/REM_E3_model_fixed/commit/c0538dc) (branch: `oct-6`)
 **Time:** 2025-10-08 15:16:34  
 **Message:**
