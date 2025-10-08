@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [b65f8a5](https://github.com/naszhu/REM_E3_model_fixed/commit/b65f8a5) (branch: `oct-6`)
+**Time:** 2025-10-08 15:34:40  
+**Message:**
+```
+refactor(rt-analysis-e1): update analysis to focus on response times
+
+- Enhanced the data processing pipeline to filter and summarize reaction times (RT) for final and initial tests, ensuring only valid RTs are included.
+- Updated visualizations to reflect mean RTs instead of accuracy metrics, improving the clarity of the analysis.
+- Renamed output files to better represent the content, focusing on RT data.
+
+These changes aim to provide a more accurate and meaningful analysis of response times in Experiment 1.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-rt-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/b65f8a5_20251008_153440_plot1.png)  
+![](../plot_archive/b65f8a5_20251008_153440_plot2.png)  
+
 ## Commit [91234b7](https://github.com/naszhu/REM_E3_model_fixed/commit/91234b7) (branch: `oct-6`)
 **Time:** 2025-10-08 15:24:14  
 **Message:**

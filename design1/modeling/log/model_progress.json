@@ -1,5 +1,18 @@
 [
   {
+    "commit": "b65f8a5",
+    "branch": "oct-6",
+    "message": "refactor(rt-analysis-e1): update analysis to focus on response times",
+    "timestamp": "2025-10-08 15:34:40",
+    "plot1": "plot_archive/b65f8a5_20251008_153440_plot1.png",
+    "plot2": "plot_archive/b65f8a5_20251008_153440_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-rt-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "91234b7",
     "branch": "oct-6",
     "message": "fix(combined-plots-e3): apply RT filter for test trials to avoid NA issues",
