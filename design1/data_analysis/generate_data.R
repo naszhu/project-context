@@ -80,7 +80,7 @@ dfchanged = df %>%
   filter(ip != "73.244.145.220") %>%     # 57.2% accuracy, extreme low (Z=-2.53), severe learning decline
   filter(ip != "73.58.238.227") %>%      # 58.8% accuracy, extreme RT outlier (310ms), rushing (11.7% fast), severe decline (-33.8%)
   # Exclude trials outside experiment's RT cutoffs (150-3500ms) - affects test trials only
-  filter(!(task %in% c("pretest_response", "finalt_response") & (rt < 150 | rt > 3500))) %>%  # 351 trials (0.276%)
+  # filter(!(task %in% c("pretest_response", "finalt_response") & (rt < 150 | rt > 3500))) %>%  # 351 trials (0.276%)
   mutate()
 
 

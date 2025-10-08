@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [c0538dc](https://github.com/naszhu/REM_E3_model_fixed/commit/c0538dc) (branch: `oct-6`)
+**Time:** 2025-10-08 15:16:34  
+**Message:**
+```
+fix(combined-plot-e3): correct type_comment mapping and update plot parameters
+
+- Adjusted the mapping of type_comment for specific initial positions to improve clarity in data representation.
+- Updated the parameters for the plot to reflect correct values for "T" and "Tn_p1", enhancing the accuracy of visual outputs.
+- Improved data summarization logic to ensure correct calculation of mean and standard error for response times.
+
+These changes aim to refine the analysis and visualization of response times in Experiment 3.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/c0538dc_20251008_151634_plot1.png)  
+![](../plot_archive/c0538dc_20251008_151634_plot2.png)  
+
 ## Commit [37120ae](https://github.com/naszhu/REM_E3_model_fixed/commit/37120ae) (branch: `oct-6`)
 **Time:** 2025-10-08 14:44:47  
 **Message:**
