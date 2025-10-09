@@ -1,5 +1,18 @@
 [
   {
+    "commit": "f7e11da",
+    "branch": "oct-6",
+    "message": "finetune(model-e1): Update simulation parameters and criteria in constants.jl",
+    "timestamp": "2025-10-09 20:22:11",
+    "plot1": "plot_archive/f7e11da_20251009_202211_plot1.png",
+    "plot2": "plot_archive/f7e11da_20251009_202211_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "eee86e3",
     "branch": "oct-6",
     "message": "feat(apa-tables-e1): generate comprehensive APA-style tables and text summaries for E1 data analysis",

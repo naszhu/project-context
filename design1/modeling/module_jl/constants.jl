@@ -215,9 +215,9 @@ criterion_final = LinRange((0.09+0.18)^power_taken, 0.27+0.03^power_taken, 10)
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
 final_gap_change = 0.07; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
-p_ListChange_finaltest = ones(10) * 0.02 #0.8 in E3, but undecided as well in E3
+p_ListChange_finaltest = ones(10) * 0.0 #0.8 in E3, but undecided as well in E3
 ratio_unchanging_to_itself_final = LinRange(1.0,1.0, n_lists) # if use no unchanging
-ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchanging 
+ratio_changing_to_itself_final = LinRange(0.0,0.0, n_lists) # if use no unchanging 
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)

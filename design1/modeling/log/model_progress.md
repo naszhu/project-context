@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [f7e11da](https://github.com/naszhu/REM_E3_model_fixed/commit/f7e11da) (branch: `oct-6`)
+**Time:** 2025-10-09 20:22:11  
+**Message:**
+```
+finetune(model-e1): Update simulation parameters and criteria in constants.jl
+
+- Changed the final test flag to true and adjusted the number of simulations accordingly.
+- Modified the criterion_final calculation to reflect new parameters for asymptotic behavior.
+- Updated final_gap_change and p_ListChange_finaltest values for improved simulation accuracy.
+- Adjusted ratio_changing_to_itself_final to zero to align with the new testing conditions.
+
+These changes enhance the simulation setup for more accurate modeling outcomes.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/f7e11da_20251009_202211_plot1.png)  
+![](../plot_archive/f7e11da_20251009_202211_plot2.png)  
+
 ## Commit [eee86e3](https://github.com/naszhu/REM_E3_model_fixed/commit/eee86e3) (branch: `oct-6`)
 **Time:** 2025-10-09 17:42:32  
 **Message:**
