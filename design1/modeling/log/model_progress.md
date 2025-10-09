@@ -1,5 +1,31 @@
 # Model Progress
 
+## Commit [eee86e3](https://github.com/naszhu/REM_E3_model_fixed/commit/eee86e3) (branch: `oct-6`)
+**Time:** 2025-10-09 17:42:32  
+**Message:**
+```
+feat(apa-tables-e1): generate comprehensive APA-style tables and text summaries for E1 data analysis
+
+- Created R scripts to generate four APA-style tables summarizing performance metrics for E1, including Final Test Between List, Final Test Within List, Initial Between List, and Initial Within List.
+- Implemented data processing steps to calculate means and standard errors for various probe types and positions, ensuring clarity and accuracy in reporting.
+- Generated corresponding text files for each table, providing detailed descriptions and formatted outputs for easy reference.
+- Included a summary document outlining the contents and structure of the generated tables.
+
+These additions enhance the presentation and accessibility of E1 data analysis results, facilitating better understanding and reporting.
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Tables_Summary.txt`  
+- `design1/data_analysis/Table1_APA_Text.txt`  
+- `design1/data_analysis/Table2_APA_Text.txt`  
+- `design1/data_analysis/Table3_APA_Text.txt`  
+- `design1/data_analysis/Table4_APA_Text.txt`  
+- `design1/generate_apa_tables.R`  
+- `design1/generate_apa_text_tables.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/eee86e3_20251009_174232_plot1.png)  
+![](../plot_archive/eee86e3_20251009_174232_plot2.png)  
+
 ## Commit [adfbbce](https://github.com/naszhu/REM_E3_model_fixed/commit/adfbbce) (branch: `oct-6`)
 **Time:** 2025-10-08 15:43:22  
 **Message:**
