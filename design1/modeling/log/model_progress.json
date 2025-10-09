@@ -1,5 +1,19 @@
 [
   {
+    "commit": "adfbbce",
+    "branch": "oct-6",
+    "message": "feat(outlier-analysis-e1-e3): add detailed explanations for retaining slow participants",
+    "timestamp": "2025-10-08 15:43:22",
+    "plot1": "plot_archive/adfbbce_20251008_154322_plot1.png",
+    "plot2": "plot_archive/adfbbce_20251008_154322_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1_RT_Outliers_Explanation.txt",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_RT_Outliers_Explanation.txt"
+    ]
+  },
+  {
     "commit": "b65f8a5",
     "branch": "oct-6",
     "message": "refactor(rt-analysis-e1): update analysis to focus on response times",

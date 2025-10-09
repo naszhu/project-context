@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [adfbbce](https://github.com/naszhu/REM_E3_model_fixed/commit/adfbbce) (branch: `oct-6`)
+**Time:** 2025-10-08 15:43:22  
+**Message:**
+```
+feat(outlier-analysis-e1-e3): add detailed explanations for retaining slow participants
+
+- Introduced comprehensive documentation for the retention of slow participants in Experiments 1 and 3, outlining the rationale based on accuracy, individual differences, and methodological considerations.
+- Emphasized the use of median RT and a conservative 3 SD threshold to justify the inclusion of participants with elevated response times while maintaining data integrity.
+- Provided recommendations for reporting these findings in research papers to address potential concerns regarding outlier retention.
+
+These additions aim to enhance the transparency and scientific rigor of the analysis regarding participant response times.
+```
+**Changed Files:**
+- `design1/data_analysis/E1_RT_Outliers_Explanation.txt`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_RT_Outliers_Explanation.txt`  
+![](../plot_archive/adfbbce_20251008_154322_plot1.png)  
+![](../plot_archive/adfbbce_20251008_154322_plot2.png)  
+
 ## Commit [b65f8a5](https://github.com/naszhu/REM_E3_model_fixed/commit/b65f8a5) (branch: `oct-6`)
 **Time:** 2025-10-08 15:34:40  
 **Message:**
