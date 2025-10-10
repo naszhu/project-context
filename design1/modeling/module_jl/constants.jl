@@ -205,7 +205,7 @@ chunk_size_final_change = 42;
 is_reconstruct_finaltest_forward = true   # Enable CC reconstruction for forward condition
 is_reconstruct_finaltest_backward = false  # Disable CC reconstruction for backward condition
 # is_reconstruct_finaltest_random = false   # never do reconstruction for random condition
-p_reinstate_rate_finaltest = 0.1          # Probability of reinstating original CC features in final test 
+p_reinstate_rate_finaltest = 0.3          # Probability of reinstating original CC features in final test 
 
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
 

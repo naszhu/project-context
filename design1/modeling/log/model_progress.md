@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [9791ba6](https://github.com/naszhu/REM_E3_model_fixed/commit/9791ba6) (branch: `oct-6`)
+**Time:** 2025-10-11 00:13:51  
+**Message:**
+```
+refactor(model-e1): final test context reconstruction also for list 1
+
+- Adjusted the probability of reinstating original CC features in the final test from 0.04 to 0.1 for enhanced context recall.
+- Modified the ratio of changing to itself in the final test to 0.15, aligning with updated simulation requirements.
+- Refined the context reconstruction logic in the `generate_finalt_probes` function to ensure proper handling of conditions, improving simulation accuracy.
+
+These changes aim to optimize the context-related simulations in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/9791ba6_20251011_001351_plot1.png)  
+![](../plot_archive/9791ba6_20251011_001351_plot2.png)  
+
 ## Commit [ef8444a](https://github.com/naszhu/REM_E3_model_fixed/commit/ef8444a) (branch: `oct-6`)
 **Time:** 2025-10-11 00:12:20  
 **Message:**
