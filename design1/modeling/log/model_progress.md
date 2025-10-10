@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [c00b8b1](https://github.com/naszhu/REM_E3_model_fixed/commit/c00b8b1) (branch: `oct-6`)
+**Time:** 2025-10-09 20:26:14  
+**Message:**
+```
+explore(model-e1): Final test CC UC tune - OI why?
+
+- Set p_ListChange_finaltest to 0.0 to reflect new testing conditions.
+- Adjusted ratio_changing_to_itself_final to 0.0, aligning with the updated simulation framework.
+- These modifications enhance the accuracy and relevance of the simulation setup.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c00b8b1_20251009_202614_plot1.png)  
+![](../plot_archive/c00b8b1_20251009_202614_plot2.png)  
+
 ## Commit [f7e11da](https://github.com/naszhu/REM_E3_model_fixed/commit/f7e11da) (branch: `oct-6`)
 **Time:** 2025-10-09 20:22:11  
 **Message:**

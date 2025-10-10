@@ -149,10 +149,10 @@ end
 
 
 """Input the flattened studied pool, first 30 are t/n/f in list 1, and etc; give last list's list_change_cf to change from list to list for probes
-    
+
     Add, make initial_testpos in probes
     """
-function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::Symbol, general_context_features::Vector{Int64}, list_change_context_features::Vector{Int64})::Vector{Probe}
+function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::Symbol, general_context_features::Vector{Int64}, list_change_context_features::Vector{Int64}, original_list_CC_by_list::Dict{Int64, Vector{Int64}})::Vector{Probe}
 
     listcg = deepcopy(list_change_context_features)
     generalcg = deepcopy(general_context_features);
@@ -184,6 +184,10 @@ function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::S
         if (icount !=1) && (condition != :true_random)
             drift_between_lists_final!(listcg, icount)
             drift_between_lists_final!(generalcg, icount)
+
+            # Context reconstruction
+            original_CC = original_list_CC_by_list[list_number]
+            reinstate_CC_finaltest!(listcg, original_CC, condition)
         end
 
 

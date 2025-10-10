@@ -1,7 +1,7 @@
 
 
 is_finaltest = true
-n_simulations = is_finaltest ? 100 : 500;
+n_simulations = is_finaltest ? 500 : 500;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -201,6 +201,12 @@ nC_in = round.(Int, nC .* ratio_changing_to_itself_init)[1]
 const n_finalprobs = 420;
 chunk_size_final_change = 42; 
 
+# Context reconstruction flags for final test (between-list)
+is_reconstruct_finaltest_forward = false   # Enable CC reconstruction for forward condition
+is_reconstruct_finaltest_backward = false  # Disable CC reconstruction for backward condition
+# is_reconstruct_finaltest_random = false   # never do reconstruction for random condition
+p_reinstate_rate_finaltest = 0.04          # Probability of reinstating original CC features in final test 
+
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
 
 # E3 final test chunk parameters this part is wrong, M1 don't have this
@@ -215,9 +221,9 @@ criterion_final = LinRange((0.09+0.18)^power_taken, 0.27+0.03^power_taken, 10)
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
 final_gap_change = 0.07; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
-p_ListChange_finaltest = ones(10) * 0.0 #0.8 in E3, but undecided as well in E3
+p_ListChange_finaltest = ones(10) * 0.013 #0.8 in E3, but undecided as well in E3
 ratio_unchanging_to_itself_final = LinRange(1.0,1.0, n_lists) # if use no unchanging
-ratio_changing_to_itself_final = LinRange(0.0,0.0, n_lists) # if use no unchanging 
+ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchanging 
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)
