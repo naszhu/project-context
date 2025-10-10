@@ -181,13 +181,25 @@ function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::S
     icount = 0
     for list_number in lists #lists is [1] for random condition
         icount += 1
-        if (icount !=1) && (condition != :true_random)
-            drift_between_lists_final!(listcg, icount)
-            drift_between_lists_final!(generalcg, icount)
+        # if (icount !=1) && (condition != :true_random)
+        #     drift_between_lists_final!(listcg, icount)
+        #     drift_between_lists_final!(generalcg, icount)
 
-            # Context reconstruction
-            original_CC = original_list_CC_by_list[list_number]
-            reinstate_CC_finaltest!(listcg, original_CC, condition)
+        #     # Context reconstruction
+        #     original_CC = original_list_CC_by_list[list_number]
+        #     reinstate_CC_finaltest!(listcg, original_CC, condition)
+        # end
+
+        if condition != :true_random
+
+             # Context reconstruction
+             original_CC = original_list_CC_by_list[list_number]
+             reinstate_CC_finaltest!(listcg, original_CC, condition)
+             
+            if icount != 1
+                drift_between_lists_final!(listcg, icount)
+                drift_between_lists_final!(generalcg, icount)
+            end
         end
 
 

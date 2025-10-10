@@ -1,5 +1,49 @@
 [
   {
+    "commit": "ef8444a",
+    "branch": "oct-6",
+    "message": "refactor(model-e1): final test context reconstruction also for list 1",
+    "timestamp": "2025-10-11 00:12:20",
+    "plot1": "plot_archive/ef8444a_20251011_001220_plot1.png",
+    "plot2": "plot_archive/ef8444a_20251011_001220_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "dc21c61",
+    "branch": "oct-6",
+    "message": "refactor(model-e1): final test context reconstruction also for list 1",
+    "timestamp": "2025-10-11 00:08:36",
+    "plot1": "plot_archive/dc21c61_20251011_000836_plot1.png",
+    "plot2": "plot_archive/dc21c61_20251011_000836_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "0e4f8be",
+    "branch": "oct-6",
+    "message": "feat(model-e1): add final context reconstruction",
+    "timestamp": "2025-10-10 23:28:53",
+    "plot1": "plot_archive/0e4f8be_20251010_232853_plot1.png",
+    "plot2": "plot_archive/0e4f8be_20251010_232853_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
     "commit": "c00b8b1",
     "branch": "oct-6",
     "message": "explore(model-e1): Final test CC UC tune - OI why?",
