@@ -1,5 +1,44 @@
 # Model Progress
 
+## Commit [f2e50f7](https://github.com/naszhu/REM_E3_model_fixed/commit/f2e50f7) (branch: `oct-6`)
+**Time:** 2025-10-11 00:33:17  
+**Message:**
+```
+explore(constants-e1): criterion final biger at end, what if?
+
+- Updated the calculation of criterion_final to ensure proper asymptotic behavior by adjusting the exponent for the upper limit.
+- This change enhances the accuracy of the model's criteria in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/f2e50f7_20251011_003317_plot1.png)  
+![](../plot_archive/f2e50f7_20251011_003317_plot2.png)  
+
+## Commit [b47e204](https://github.com/naszhu/REM_E3_model_fixed/commit/b47e204) (branch: `oct-6`)
+**Time:** 2025-10-11 00:30:17  
+**Message:**
+```
+refactor(model-e1): test back and force
+
+- Increased the probability of reinstating original CC features in the final test from 0.1 to 0.3 to enhance context recall.
+- Refined the context reconstruction logic in the `generate_finalt_probes` function to ensure reinstatement occurs only for specific conditions, improving simulation accuracy.
+
+These changes aim to optimize context-related simulations in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/b47e204_20251011_003017_plot1.png)  
+![](../plot_archive/b47e204_20251011_003017_plot2.png)  
+
 ## Commit [9791ba6](https://github.com/naszhu/REM_E3_model_fixed/commit/9791ba6) (branch: `oct-6`)
 **Time:** 2025-10-11 00:13:51  
 **Message:**

@@ -215,7 +215,7 @@ const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
 
 # Original criterion_final (commented out to try asymptotic version)
-criterion_final = LinRange((0.09+0.18)^power_taken, 0.27+0.03^power_taken, 10)
+criterion_final = LinRange((0.09+0.18)^power_taken, 0.27^power_taken, 10)
 # Generate asymptotic criterion_final using asym_increase_shift for nonlinear behavior
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)

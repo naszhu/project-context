@@ -1,5 +1,32 @@
 [
   {
+    "commit": "f2e50f7",
+    "branch": "oct-6",
+    "message": "explore(constants-e1): criterion final biger at end, what if?",
+    "timestamp": "2025-10-11 00:33:17",
+    "plot1": "plot_archive/f2e50f7_20251011_003317_plot1.png",
+    "plot2": "plot_archive/f2e50f7_20251011_003317_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "b47e204",
+    "branch": "oct-6",
+    "message": "refactor(model-e1): test back and force",
+    "timestamp": "2025-10-11 00:30:17",
+    "plot1": "plot_archive/b47e204_20251011_003017_plot1.png",
+    "plot2": "plot_archive/b47e204_20251011_003017_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
     "commit": "9791ba6",
     "branch": "oct-6",
     "message": "refactor(model-e1): final test context reconstruction also for list 1",
