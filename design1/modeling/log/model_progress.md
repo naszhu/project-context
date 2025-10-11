@@ -1,5 +1,31 @@
 # Model Progress
 
+## Commit [74aca5d](https://github.com/naszhu/REM_E3_model_fixed/commit/74aca5d) (branch: `oct-11`)
+**Time:** 2025-10-11 14:46:36  
+**Message:**
+```
+feat(analysis-e1): final between by intial order
+
+- Activated a Generalized Linear Mixed Model (GLMM) to analyze the effects of initial test order on final test performance, incorporating linear and quadratic trends across item types (ST, SO, TO, FTO) and conditions (Backward, Forward, Random).
+- Deactivated previous within-list models to focus on between-list analyses, ensuring clarity in the reporting of results.
+- Updated analysis scripts to reflect the new model structure, including condition-specific interactions and comprehensive output files for model summaries and item type trends.
+- Generated summary tables detailing significant findings, including accuracy comparisons and trend analyses, highlighting the complex interactions between initial test order and final performance.
+
+These changes aim to enhance the understanding of how initial testing order influences final test outcomes, providing a robust framework for future analyses.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Between_Initial_Results_Comprehensive.txt`  
+- `design1/data_analysis/APA_Results_Brief_Between_Initial.txt`  
+- `design1/data_analysis/Between_Initial_Results_Summary_Tables.md`  
+- `design1/data_analysis/CHANGES_SUMMARY_between_initial_model.md`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/74aca5d_20251011_144636_plot1.png)  
+![](../plot_archive/74aca5d_20251011_144636_plot2.png)  
+
 ## Commit [a167ccd](https://github.com/naszhu/REM_E3_model_fixed/commit/a167ccd) (branch: `oct-11`)
 **Time:** 2025-10-11 14:09:34  
 **Message:**

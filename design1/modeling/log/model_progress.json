@@ -1,5 +1,22 @@
 [
   {
+    "commit": "74aca5d",
+    "branch": "oct-11",
+    "message": "feat(analysis-e1): final between by intial order",
+    "timestamp": "2025-10-11 14:46:36",
+    "plot1": "plot_archive/74aca5d_20251011_144636_plot1.png",
+    "plot2": "plot_archive/74aca5d_20251011_144636_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Between_Initial_Results_Comprehensive.txt",
+      "design1/data_analysis/APA_Results_Brief_Between_Initial.txt",
+      "design1/data_analysis/Between_Initial_Results_Summary_Tables.md",
+      "design1/data_analysis/CHANGES_SUMMARY_between_initial_model.md",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "a167ccd",
     "branch": "oct-11",
     "message": "refactor(analysis-e1): final test within-list analysis redo",

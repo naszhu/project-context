@@ -13,7 +13,7 @@ DATA_ANALYSIS_DIR <- file.path(DESIGN1_DIR, "data_analysis")
 MODELING_DIR <- file.path(DESIGN1_DIR, "modeling")
 R_PLOTTING_DIR <- file.path(MODELING_DIR, "R_ploting")
 
-############################################################
+##################################################### x#######
 ## E1 Final Test Between List: DATA vs PREDICTION
 ############################################################
 
@@ -730,7 +730,7 @@ cat("Loaded dfchanged data from dfchanged.csv\n")
 
 # Create df_initialtestbyinitial (from the RMD file) - EXACT COPY FROM ORIGINAL
 df_initialtestbyinitial = dfchanged%>%
-  filter(task=="pretest_response")%>%
+  filter(task=="pretest_response", response != "null")%>%
   select(trialnum,ip,correct,probetype)%>%
   group_by(trialnum,ip,probetype)%>%
   summarize(meancr1=mean(correct))%>%
