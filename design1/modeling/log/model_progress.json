@@ -1,5 +1,23 @@
 [
   {
+    "commit": "a167ccd",
+    "branch": "oct-11",
+    "message": "refactor(analysis-e1): final test within-list analysis redo",
+    "timestamp": "2025-10-11 14:09:34",
+    "plot1": "plot_archive/a167ccd_20251011_140934_plot1.png",
+    "plot2": "plot_archive/a167ccd_20251011_140934_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Results_Brief_Within_List.txt",
+      "design1/data_analysis/APA_Within_List_Results_Comprehensive.txt",
+      "design1/data_analysis/CHANGES_SUMMARY_within_list_models.md",
+      "design1/data_analysis/Within_List_Results_Summary_Tables.md",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/within_list_analysis_output.txt",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "81567f6",
     "branch": "oct-11",
     "message": "merge(all): Merge branch 'oct-6'",

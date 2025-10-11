@@ -1,5 +1,33 @@
 # Model Progress
 
+## Commit [a167ccd](https://github.com/naszhu/REM_E3_model_fixed/commit/a167ccd) (branch: `oct-11`)
+**Time:** 2025-10-11 14:09:34  
+**Message:**
+```
+refactor(analysis-e1): final test within-list analysis redo
+
+- Activated two Generalized Linear Mixed Models (GLMMs) to analyze within-list position effects on final test performance: one for study position effects (ST vs SO) and another for test position effects (ST vs TO).
+- Deactivated the previous between-list model to focus on within-list analyses.
+- Updated analysis scripts to include linear and quadratic terms for both models, enhancing the robustness of the findings.
+- Generated new output files for within-list model summaries and item type trends, replacing previous outputs.
+- Added comprehensive results and summary tables detailing significant findings, including accuracy comparisons and trend analyses.
+
+These changes aim to refine the analysis of within-list position effects and improve the clarity of reporting results.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Results_Brief_Within_List.txt`  
+- `design1/data_analysis/APA_Within_List_Results_Comprehensive.txt`  
+- `design1/data_analysis/CHANGES_SUMMARY_within_list_models.md`  
+- `design1/data_analysis/Within_List_Results_Summary_Tables.md`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/within_list_analysis_output.txt`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a167ccd_20251011_140934_plot1.png)  
+![](../plot_archive/a167ccd_20251011_140934_plot2.png)  
+
 ## Commit [81567f6](https://github.com/naszhu/REM_E3_model_fixed/commit/81567f6) (branch: `oct-11`)
 **Time:** 2025-10-11 13:41:33  
 **Message:**

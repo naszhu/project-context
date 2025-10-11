@@ -1,0 +1,31 @@
+RESULTS (Brief Manuscript Version)
+
+Between-List Initial Order Effects
+
+A Generalized Linear Mixed Model examined how the order in which items were tested in Phase 1 influenced Phase 2 performance, including three-way interactions for linear trends (initial_order × item_type × condition), two-way interactions for quadratic trends, and random intercepts for participants (N = 196, 82,093 observations). The model converged successfully (relative gradient = 0.0078).
+
+Item Type Effects
+
+ST items (M = 0.89) showed significantly higher accuracy than FTO items (M = 0.84), b = 0.56, SE = 0.06, z = 9.03, p < .001, which in turn exceeded SO items (M = 0.67), b = -0.95, SE = 0.05, z = -20.69, p < .001, and TO items (M = 0.66), b = -0.99, SE = 0.05, z = -21.46, p < .001.
+
+Initial Order Linear Trends
+
+A significant positive linear trend emerged overall (b = 49.87, SE = 1.36, z = 36.63, p < .001), indicating that items tested later in Phase 1 showed enhanced Phase 2 performance. However, this effect was dramatically moderated by condition and item type (all three-way interactions p < .001).
+
+Condition × Item Type × Position Interactions (Linear)
+
+For FTO items, Backward condition showed a strong positive trend (b = 49.87), Forward showed a strong negative trend (b = -44.15), and Random showed minimal effect (b = -3.33). All pairwise condition differences were highly significant (all ps < .001).
+
+For ST items, the pattern was amplified: Backward (b = 102.16), Forward (b = -75.68), Random (b = 24.50), with the Backward vs Forward difference reaching z = 81.74, p < .001.
+
+For TO items, effects were strongest: Backward (b = 120.58), Forward (b = -6.30), Random (b = 27.19), Backward vs Forward: z = 56.58, p < .001.
+
+SO items showed intermediate effects: Backward (b = 40.74), Forward (b = -22.05), Random (b = 14.22), all pairwise ps < .001.
+
+Initial Order Quadratic Trends
+
+Significant positive quadratic trends (U-shaped patterns) emerged across conditions (b = 24.21, SE = 1.14, z = 21.32, p < .001), with stronger curvature for ST items (b = 67.16) than FTO items (b = 10.64), interaction: b = 56.51, SE = 1.80, z = 31.33, p < .001. The Backward condition showed stronger U-shaped patterns (b = 24.21) than Forward (b = 7.15), difference: b = -17.06, SE = 1.56, z = -10.91, p < .001, or Random (b = 0.56), difference: b = -23.66, SE = 1.62, z = -14.62, p < .001.
+
+Summary
+
+Initial test order dramatically influenced final test performance, but this influence was completely reversed depending on the relationship between Phase 1 and Phase 2 test order. Backward condition (testing in reverse order) produced strong positive facilitation for later-tested items, Forward condition produced interference or minimal facilitation, and Random condition showed intermediate effects. These patterns were most pronounced for ST and TO items, which required target information during initial testing. The opposing linear trends across conditions (Backward: +50 to +120; Forward: -75 to -44) suggest complex encoding-retrieval dynamics beyond simple retrieval practice or output interference accounts.
