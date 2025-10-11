@@ -1,5 +1,48 @@
 # Model Progress
 
+## Commit [c7cc5f8](https://github.com/naszhu/REM_E3_model_fixed/commit/c7cc5f8) (branch: `oct-6`)
+**Time:** 2025-10-11 13:17:47  
+**Message:**
+```
+feat(analysis-e1): re-analyse final-between
+
+- Introduced detailed results and summaries for the final test between-list analysis, including significant findings on Output Interference patterns across different test conditions (Backward, Forward, Random) and item types (ST, SO, TO, Foil).
+- Implemented a Generalized Linear Mixed Model (GLMM) to analyze the effects of test order condition, item type, and final test position on recognition accuracy, revealing critical interactions and trends.
+- Added Bayesian analysis results to complement frequentist findings, providing a robust framework for understanding condition effects on Output Interference.
+- Enhanced data exploration scripts to validate data integrity and ensure proper analysis setup.
+
+These additions aim to improve the clarity and comprehensiveness of the data analysis process, facilitating better understanding and reporting of results.
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Results_Section_Final.txt`  
+- `design1/data_analysis/APA_results_summary_final_analysis.md`  
+- `design1/data_analysis/Bayesian_Results_Summary.md`  
+- `design1/data_analysis/data_exploration_check.R`  
+- `design1/data_analysis/experiment1_bayesian_condition_analysis.R`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/c7cc5f8_20251011_131747_plot1.png)  
+![](../plot_archive/c7cc5f8_20251011_131747_plot2.png)  
+
+## Commit [9d4f295](https://github.com/naszhu/REM_E3_model_fixed/commit/9d4f295) (branch: `oct-6`)
+**Time:** 2025-10-11 00:33:50  
+**Message:**
+```
+explore(constants-e1): criterion final smaller at end, lower FF higher others, what if?
+
+- Updated the calculation of criterion_final to ensure proper asymptotic behavior by adjusting the exponent for the upper limit.
+- This change enhances the accuracy of the model's criteria in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/9d4f295_20251011_003350_plot1.png)  
+![](../plot_archive/9d4f295_20251011_003350_plot2.png)  
+
 ## Commit [f2e50f7](https://github.com/naszhu/REM_E3_model_fixed/commit/f2e50f7) (branch: `oct-6`)
 **Time:** 2025-10-11 00:33:17  
 **Message:**
