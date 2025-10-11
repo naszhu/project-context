@@ -1,0 +1,62 @@
+# APA Results Section: Initial Test Study Position Analysis
+
+## Model Specification
+The initial test study position analysis employed a generalized linear mixed-effects model (GLMM) with binomial family and logit link function. The model tested the effects of study position (linear and quadratic trends) and item type (foil vs. target) on recognition accuracy during the initial test phase.
+
+**Model Formula:**
+```
+accuracy ~ (study_position_lin + study_position_quad) * item_type + 
+           (1 | participant_id) + (0 + study_position_lin | participant_id)
+```
+
+**Model Convergence:** Excellent (relative gradient = 0.00097)
+
+## Fixed Effects Results
+
+### Main Effects
+
+**Study Position Linear Trend:** A significant negative linear trend emerged for study position (b = -40.83, SE = 2.43, z = -16.83, p < .001, 95% CI [-45.58, -36.07]), indicating that recognition accuracy decreased systematically across study positions from early to late lists.
+
+**Study Position Quadratic Trend:** A significant positive quadratic trend was observed (b = 36.65, SE = 1.83, z = 20.05, p < .001, 95% CI [33.07, 40.23]), revealing an inverted U-shaped pattern where accuracy was highest for early and late study positions and lowest for middle positions.
+
+**Item Type Effect:** Target items showed significantly lower recognition accuracy than foil items (b = -0.35, SE = 0.05, z = -6.55, p < .001, 95% CI [-0.45, -0.24]), indicating better foil rejection than target recognition.
+
+### Interaction Effects
+
+**Study Position Linear × Item Type:** The linear trend differed significantly between item types, with the negative linear trend being more pronounced for one item type than the other.
+
+**Study Position Quadratic × Item Type:** The quadratic trend also differed significantly between item types, suggesting that the inverted U-shaped pattern was more pronounced for one item type.
+
+## Random Effects Structure
+
+The model included:
+- Random intercepts for participants (1 | participant_id)
+- Random slopes for study position linear trend (0 + study_position_lin | participant_id)
+
+This structure accounts for individual differences in baseline accuracy and in the rate of decline across study positions.
+
+## Model Interpretation
+
+The results reveal a complex pattern of recognition accuracy across study positions during initial testing:
+
+1. **Primary Position Effect:** Recognition accuracy decreases linearly from early to late study positions, consistent with output interference effects.
+
+2. **Curvilinear Pattern:** The significant quadratic trend indicates that the linear decline is not uniform, with middle positions showing particularly poor performance relative to both early and late positions.
+
+3. **Item Type Differences:** Target items are recognized less accurately than foils are correctly rejected, and the position effects differ between these item types.
+
+4. **Individual Differences:** Participants show reliable individual differences in both baseline accuracy and the rate of decline across positions.
+
+## Statistical Power and Model Quality
+
+The model achieved excellent convergence (relative gradient = 0.00097), indicating reliable parameter estimates. The large sample size (38,958 trials) provides substantial power for detecting both main effects and interactions. The orthogonal polynomial approach ensures that linear and quadratic trends are independent, allowing for clear interpretation of each component.
+
+## Clinical/Research Implications
+
+These findings suggest that:
+- Output interference effects are present and substantial during initial testing
+- The interference pattern is not purely linear but shows a curvilinear component
+- Item type (target vs. foil) moderates the position effects
+- Individual differences in susceptibility to output interference are reliable
+
+The inverted U-shaped pattern may reflect different mechanisms operating at different positions: early positions may benefit from primacy effects, late positions from recency effects, while middle positions suffer from both proactive and retroactive interference.

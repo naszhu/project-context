@@ -1,0 +1,198 @@
+# APA Results Section: Final Test Between-List Final Order Analysis
+
+## Model Specification
+The final test between-list final order analysis employed a generalized linear mixed-effects model (GLMM) with binomial family and logit link function. The model tested the effects of final test order (linear and quadratic trends), item type (foil, SO, ST, TO), and condition (backward, forward, random) on recognition accuracy during the final test phase.
+
+**Model Formula:**
+```
+accuracy ~ final_order_lin * item_type * condition + 
+           final_order_quad * item_type * condition +
+           (1 | participant_id)
+```
+
+**Item Types:**
+- **Foil**: New items not presented during initial phase (reference level)
+- **SO (Study Only)**: Items studied but not tested in initial phase
+- **ST (Study-Test)**: Items both studied and tested in initial phase
+- **TO (Test Only)**: Items tested as foils in initial phase (not studied)
+
+**Conditions:**
+- **Backward**: Final test presented in reverse order of initial lists (reference level)
+- **Forward**: Final test presented in same order as initial lists
+- **Random**: Final test presented in random order
+
+**Model Convergence:** Excellent (relative gradient = 0.0000047)
+
+## Fixed Effects Results
+
+### Main Effects
+
+**Final Order Linear Trend:** A significant negative linear trend emerged for final test order (b = -46.72, SE = 7.90, z = -5.92, p < .001, 95% CI [-62.20, -31.25]), indicating that for foil items in the backward condition, recognition accuracy decreased as the final test progressed. This represents classic output interference during the final test itself.
+
+**Final Order Quadratic Trend:** The quadratic trend was not significant (b = 10.96, SE = 7.83, z = 1.40, p = .162, 95% CI [-4.39, 26.31]), indicating no reliable curvilinear pattern for foils in the backward condition.
+
+**Item Type Effects:** 
+- SO items showed significantly lower accuracy than foils (b = -0.95, SE = 0.05, z = -20.57, p < .001, 95% CI [-1.05, -0.86])
+- ST items showed significantly higher accuracy than foils (b = 0.56, SE = 0.07, z = 8.57, p < .001, 95% CI [0.44, 0.69])
+- TO items showed significantly lower accuracy than foils (b = -0.99, SE = 0.05, z = -21.04, p < .001, 95% CI [-1.08, -0.90])
+
+The ST advantage demonstrates the robust testing effect persisting through the final test.
+
+**Condition Effects:** The main effects of condition were not significant (forward: p = .187; random: p = .717), indicating no overall accuracy differences between conditions when averaged across all item types and final test positions.
+
+### Two-Way Interactions
+
+**Final Order Linear × Item Type:**
+- SO × linear: Non-significant (b = 6.48, p = .633)
+- ST × linear: Significant (b = -55.08, SE = 20.37, z = -2.70, p = .007)
+- TO × linear: Significant (b = -76.00, SE = 13.94, z = -5.45, p < .001)
+
+These interactions indicate that ST and TO items show MORE NEGATIVE (stronger output interference) linear trends during final testing than foils.
+
+**Final Order Linear × Condition:**
+- Forward × linear: Non-significant (b = 2.52, p = .818)
+- Random × linear: Significant positive (b = 23.31, SE = 9.61, z = 2.43, p = .015)
+
+The random condition reduces output interference during final testing.
+
+**Item Type × Condition:**
+Multiple significant interactions indicate that item type effects vary across conditions:
+- SO items show better performance in forward condition (b = 0.17, p = .011)
+- TO items show better performance in forward condition (b = 0.19, p = .004)
+- ST and TO items show worse performance in random condition (ST: p = .053; TO: b = -0.16, p = .004)
+
+**Final Order Quadratic × Item Type:**
+All item types show significant positive quadratic interactions:
+- SO: b = 36.90 (z = 2.75, p = .006)
+- ST: b = 74.75 (z = 3.85, p < .001)
+- TO: b = 57.05 (z = 4.17, p < .001)
+
+This indicates inverted U-shaped patterns during final testing, with middle positions showing relatively better performance.
+
+**Final Order Quadratic × Condition:**
+Both condition interactions were non-significant (forward: p = .905; random: p = .384), indicating similar curvilinear patterns across conditions.
+
+### Three-Way Interactions
+
+**Final Order Linear × Item Type × Condition:**
+
+**Forward Condition:**
+- SO × forward × linear: Non-significant (b = 15.09, p = .428)
+- ST × forward × linear: Non-significant (b = 19.93, p = .470)
+- TO × forward × linear: **Strong positive** (b = 114.59, SE = 19.23, z = 5.96, p < .001)
+
+**Random Condition:**
+- SO × random × linear: Non-significant (b = -27.20, p = .098)
+- ST × random × linear: Non-significant (b = -9.22, p = .701)
+- TO × random × linear: Significant positive (b = 40.34, SE = 16.68, z = 2.42, p = .016)
+
+**Final Order Quadratic × Item Type × Condition:**
+
+**Forward Condition:**
+- SO × forward × quadratic: Non-significant (p = .521)
+- ST × forward × quadratic: Non-significant (p = .567)
+- TO × forward × quadratic: Significant negative (b = -53.94, SE = 19.01, z = -2.84, p = .005)
+
+**Random Condition:**
+- SO × random × quadratic: Non-significant (p = .228)
+- ST × random × quadratic: Marginal negative (b = -46.05, SE = 23.05, z = -2.00, p = .046)
+- TO × random × quadratic: Marginal negative (b = -32.69, SE = 16.48, z = -1.98, p = .047)
+
+## Net Linear Trends by Item Type and Condition
+
+### Backward Condition (Reference)
+- **Foil:** -46.72 (output interference)
+- **SO:** -46.72 + 6.48 = -40.24 (output interference)
+- **ST:** -46.72 - 55.08 = -101.80 (strong output interference)
+- **TO:** -46.72 - 76.00 = -122.72 (very strong output interference)
+
+### Forward Condition
+- **Foil:** -46.72 + 2.52 = -44.20 (output interference)
+- **SO:** -44.20 + 6.48 + 15.09 = -22.63 (moderate output interference)
+- **ST:** -44.20 - 55.08 + 19.93 = -79.35 (strong output interference)
+- **TO:** -44.20 - 76.00 + 114.59 = -5.61 (minimal output interference!)
+
+### Random Condition
+- **Foil:** -46.72 + 23.31 = -23.41 (reduced output interference)
+- **SO:** -23.41 + 6.48 - 27.20 = -44.13 (output interference)
+- **ST:** -23.41 - 55.08 - 9.22 = -87.71 (strong output interference)
+- **TO:** -23.41 - 76.00 + 40.34 = -59.07 (moderate output interference)
+
+## Model Interpretation
+
+The results reveal complex patterns of output interference within the final test that depend on both item type and condition:
+
+### 1. **Within-Final-Test Output Interference**
+
+Unlike the earlier within-list test position analysis (which showed POSITIVE trends), this between-list final order analysis shows NEGATIVE trends, indicating classic output interference as participants progress through the lengthy final test.
+
+### 2. **Item-Type-Specific Output Interference During Final Test**
+
+**ST and TO items** show STRONGER output interference during final testing than foils:
+- **ST:** -101.80 in backward (vs -46.72 for foils)
+- **TO:** -122.72 in backward (vs -46.72 for foils)
+
+Items with prior initial test experience are MORE vulnerable to output interference during final testing.
+
+### 3. **TO Items Show Massive Condition-Dependent Effects**
+
+The three-way interaction for TO items in forward condition (b = 114.59, z = 5.96, p < .001) is extremely large and represents a dramatic reduction in output interference:
+- **Backward:** TO items show severe OI (-122.72)
+- **Forward:** TO items show minimal OI (-5.61)
+- **Net difference:** 117.11 units!
+
+### 4. **Random Condition Reduces Overall Output Interference**
+
+The significant linear × random interaction (b = 23.31) indicates that random presentation reduces output interference across item types by disrupting systematic interference patterns.
+
+### 5. **Curvilinear Patterns Vary by Item Type**
+
+The significant quadratic interactions for all item types indicate inverted U-shaped patterns, suggesting that output interference operates differently at different stages of the lengthy final test.
+
+## Statistical Power and Model Quality
+
+The model achieved excellent convergence (relative gradient = 0.0000047), indicating highly reliable parameter estimates. The critical three-way interaction for TO items in forward condition is extremely robust (z = 5.96), demonstrating a powerful and reliable effect.
+
+## Clinical/Research Implications
+
+These findings have important implications for understanding output interference dynamics during extended testing:
+
+### 1. **Output Interference Operates During Final Test**
+
+Despite the delay between initial and final testing, output interference continues to operate as participants progress through the final test, with accuracy declining across the test.
+
+### 2. **Prior Testing Experience Increases Vulnerability**
+
+Items that were tested during the initial phase (ST, TO) show STRONGER output interference during final testing than items without prior test experience. This suggests that test experience sensitizes items to subsequent output interference.
+
+### 3. **Context Effects Persist Into Final Test**
+
+The massive TO × forward interaction indicates that the relationship between initial test order and final test order continues to affect output interference patterns even during the final test itself.
+
+### 4. **TO Items Benefit from Forward Presentation During Final Test**
+
+The striking finding that TO items show minimal output interference in forward condition (-5.61) compared to backward condition (-122.72) suggests that:
+- Reinstating temporal context during final testing REDUCES output interference for items previously tested as foils
+- This is opposite to the effect seen for initial order (where forward increased interference)
+- Different mechanisms may operate for "initial order" vs "final test order"
+
+### 5. **Random Presentation is Protective**
+
+The random condition reduces output interference during final testing, suggesting that disrupting systematic temporal relationships provides some protection against output interference accumulation.
+
+### 6. **Testing Effect Survives Output Interference**
+
+Despite strong output interference during final testing (ST: -101.80 in backward), ST items maintain their overall advantage (b = 0.56) over foils, demonstrating the robustness of the testing effect.
+
+## Comparison to Initial Order Effects
+
+This analysis examines output interference as a function of FINAL TEST ORDER (position within the final test), while the initial order analysis examined output interference as a function of INITIAL LIST ORDER.
+
+**Key Differences:**
+- **Initial order effects:** Large condition-dependent reversals (backward = facilitation, forward = interference)
+- **Final order effects:** Consistent output interference, but magnitude varies by condition
+- **TO items:** Show opposite patterns - initial order forward increases interference, final order forward REDUCES interference during final test
+
+This suggests different mechanisms operate for:
+1. Interference based on when items appeared in initial phase (initial order)
+2. Interference based on when items appear during final test (final order)

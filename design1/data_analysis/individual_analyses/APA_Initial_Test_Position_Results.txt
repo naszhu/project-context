@@ -1,0 +1,74 @@
+# APA Results Section: Initial Test Position Analysis
+
+## Model Specification
+The initial test position analysis employed a generalized linear mixed-effects model (GLMM) with binomial family and logit link function. The model tested the effects of test position (linear and quadratic trends) and item type (foil vs. target) on recognition accuracy during the initial test phase.
+
+**Model Formula:**
+```
+accuracy ~ (test_position_lin + test_position_quad) * item_type + 
+           (1 | participant_id) + (0 + test_position_lin | participant_id)
+```
+
+**Model Convergence:** Very good (relative gradient = 0.0015)
+
+## Fixed Effects Results
+
+### Main Effects
+
+**Test Position Linear Trend:** A significant negative linear trend emerged for test position (b = -40.96, SE = 2.58, z = -15.87, p < .001, 95% CI [-46.02, -35.90]), indicating that recognition accuracy decreased systematically across test positions, reflecting output interference effects during the test phase itself.
+
+**Test Position Quadratic Trend:** A significant positive quadratic trend was observed (b = 9.05, SE = 3.52, z = 2.57, p = .010, 95% CI [2.15, 15.94]), revealing a modest inverted U-shaped pattern where accuracy was slightly higher for early and late test positions compared to middle positions.
+
+**Item Type Effect:** Target items showed substantially lower recognition accuracy than foil items (b = -0.89, SE = 0.04, z = -24.18, p < .001, 95% CI [-0.96, -0.82]), indicating considerably better foil rejection than target recognition during initial testing.
+
+### Interaction Effects
+
+**Test Position Linear × Item Type:** A strong significant interaction emerged (b = 76.70, SE = 2.84, z = 27.02, p < .001, 95% CI [71.13, 82.26]). This large positive interaction indicates that while both item types show declining accuracy across test positions, the patterns differ dramatically: the negative linear trend is much stronger for foil items, while target items show a relatively flatter or even positive trend across test positions.
+
+**Test Position Quadratic × Item Type:** A significant negative interaction was found (b = -27.92, SE = 3.26, z = -8.57, p < .001, 95% CI [-34.31, -21.54]). This interaction reveals that the curvilinear pattern differs substantially between item types: the inverted U-shape observed for foil items is reversed or substantially reduced for target items.
+
+## Random Effects Structure
+
+The model included:
+- Random intercepts for participants (1 | participant_id)
+- Random slopes for test position linear trend (0 + test_position_lin | participant_id)
+
+This structure accounts for individual differences in baseline accuracy and in the rate of decline across test positions.
+
+## Item-Type-Specific Patterns
+
+The strong interactions indicate qualitatively different patterns for the two item types:
+
+**Foil Items:** Show a strong negative linear trend across test positions, indicating substantial output interference. Early foils benefit from high correct rejection rates, but performance declines sharply as testing progresses.
+
+**Target Items:** Show a much weaker or potentially reversed trend. The large positive interaction coefficient (76.70) nearly offsets the main negative linear effect (-40.96), suggesting that target recognition may remain relatively stable or even improve slightly across test positions.
+
+## Model Interpretation
+
+The results reveal fundamentally different output interference patterns for target and foil items during initial testing:
+
+1. **Differential Output Interference:** Output interference operates differently for recognition (targets) versus rejection (foils). Foil rejection shows strong output interference effects, while target recognition is relatively resistant.
+
+2. **Curvilinear Components:** The significant quadratic effects and interactions suggest that output interference is not simply linear but involves more complex patterns, potentially reflecting different mechanisms at different test positions.
+
+3. **Overall Accuracy Differences:** Targets are recognized less accurately than foils are rejected overall, consistent with memory strength differences or decision criterion effects.
+
+4. **Individual Differences:** Participants show reliable individual differences in both baseline accuracy and the rate of change across test positions.
+
+## Statistical Power and Model Quality
+
+The model achieved very good convergence (relative gradient = 0.0015), indicating reliable parameter estimates. The large sample size (38,958 trials) provides substantial power for detecting both main effects and interactions. All fixed effects reached significance at p < .001 (except the quadratic main effect at p = .010), demonstrating robust effects.
+
+## Clinical/Research Implications
+
+These findings have important theoretical implications:
+
+1. **Output Interference Mechanisms:** Output interference appears to be primarily driven by foil accumulation during testing, with foil rejection becoming increasingly difficult as more foils are encountered.
+
+2. **Target Stability:** Target recognition shows relative stability across test positions, suggesting that target traces may be more resistant to output interference, possibly due to stronger encoding or different retrieval mechanisms.
+
+3. **Test Design Considerations:** The differential patterns suggest that test order effects may differ substantially depending on the proportion of targets versus foils in a recognition test.
+
+4. **Memory Theory:** These results challenge simple output interference models that predict uniform declines across all item types, suggesting instead that output interference may be specific to foil rejection processes.
+
+The large magnitude of the interaction effects (particularly b = 76.70 for the linear interaction) indicates that item type is not merely a moderator but fundamentally changes the nature of output interference during testing.

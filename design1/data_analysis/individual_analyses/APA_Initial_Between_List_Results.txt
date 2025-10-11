@@ -1,0 +1,80 @@
+# APA Results Section: Initial Test Between-List Analysis
+
+## Model Specification
+The initial test between-list analysis employed a generalized linear mixed-effects model (GLMM) with binomial family and logit link function. The model tested the effects of list number (linear and quadratic trends) and item type (foil vs. target) on recognition accuracy during the initial test phase.
+
+**Model Formula:**
+```
+accuracy ~ (list_number_lin + list_number_quad) * item_type + 
+           (1 | participant_id) + (0 + list_number_lin | participant_id)
+```
+
+**Model Convergence:** Excellent (relative gradient = 0.00039)
+
+## Fixed Effects Results
+
+### Main Effects
+
+**List Number Linear Trend:** The linear trend for list number was not significant (b = 0.54, SE = 2.61, z = 0.21, p = .835, 95% CI [-4.57, 5.66]), indicating no systematic linear increase or decrease in accuracy across lists for foil items.
+
+**List Number Quadratic Trend:** A significant positive quadratic trend emerged (b = 11.38, SE = 2.29, z = 4.97, p < .001, 95% CI [6.89, 15.86]), revealing an inverted U-shaped pattern where recognition accuracy was higher for early and late lists compared to middle lists. This pattern suggests that both primacy (early lists) and recency (late lists) effects are present, with middle lists suffering from dual interference.
+
+**Item Type Effect:** Target items showed substantially lower recognition accuracy than foil items (b = -0.86, SE = 0.04, z = -23.30, p < .001, 95% CI [-0.93, -0.78]), indicating considerably better foil rejection than target recognition across all lists.
+
+### Interaction Effects
+
+**List Number Linear × Item Type:** A strong significant negative interaction emerged (b = -55.06, SE = 2.50, z = -22.06, p < .001, 95% CI [-59.95, -50.17]). This large negative interaction indicates that while foil items show no linear trend across lists (b = 0.54), target items show a strong negative linear trend (0.54 - 55.06 = -54.52), meaning target recognition systematically declines from early to late lists.
+
+**List Number Quadratic × Item Type:** A significant positive interaction was found (b = 32.66, SE = 2.38, z = 13.74, p < .001, 95% CI [28.00, 37.32]). This interaction reveals that the inverted U-shaped pattern differs substantially between item types: while foil items show a modest inverted U-shape (b = 11.38), target items show a much more pronounced inverted U-shape (11.38 + 32.66 = 44.04), indicating stronger primacy and recency effects for targets.
+
+## Random Effects Structure
+
+The model included:
+- Random intercepts for participants (1 | participant_id)
+- Random slopes for list number linear trend (0 + list_number_lin | participant_id)
+
+This structure accounts for individual differences in baseline accuracy and in the rate of change across lists.
+
+## Item-Type-Specific Patterns
+
+The strong interactions indicate qualitatively different patterns for the two item types:
+
+**Foil Items:** Show no significant linear trend across lists but exhibit a modest inverted U-shaped pattern. Foil rejection performance is relatively stable across lists with slight advantages for early and late lists.
+
+**Target Items:** Show a strong negative linear trend (b = -54.52) combined with a pronounced inverted U-shape (b = 44.04). This suggests that target recognition shows both:
+1. A systematic decline from early to late lists (proactive interference)
+2. Strong primacy and recency effects that partially offset the linear decline at list extremes
+
+## Model Interpretation
+
+The results reveal fundamentally different patterns of interference across lists for target and foil items:
+
+1. **Differential List Effects:** List number effects are primarily driven by target items, which show strong sensitivity to list position, while foil rejection remains relatively stable.
+
+2. **Proactive Interference for Targets:** The strong negative linear trend for targets (b = -54.52) indicates substantial proactive interference accumulation as more lists are studied and tested.
+
+3. **Primacy and Recency Effects:** Both item types show inverted U-shaped patterns, but these effects are much stronger for targets, suggesting that targets benefit more from special processing of list extremes (possibly enhanced encoding for early lists and enhanced accessibility for recent lists).
+
+4. **Foil Stability:** Foil rejection shows remarkable stability across lists, suggesting that foil rejection processes are less vulnerable to proactive interference from previous lists.
+
+5. **Individual Differences:** Participants show reliable individual differences in both baseline accuracy and the rate of change across lists.
+
+## Statistical Power and Model Quality
+
+The model achieved excellent convergence (relative gradient = 0.00039), indicating highly reliable parameter estimates. The large sample size (38,958 trials) provides substantial power for detecting both main effects and interactions. The interaction effects are extremely large (z = -22.06, z = 13.74), demonstrating robust and substantial differences between item types.
+
+## Clinical/Research Implications
+
+These findings have important theoretical and practical implications:
+
+1. **Memory Interference Specificity:** Proactive interference across lists is specific to target recognition, not foil rejection. This suggests different memory mechanisms for recognition versus rejection decisions.
+
+2. **List-Level Organization:** The strong curvilinear effects indicate that memory is organized at the list level, with special status for first and last lists (primacy and recency effects).
+
+3. **Target Vulnerability:** Target traces appear more vulnerable to interference from other lists, while foil rejection processes operate more independently across lists.
+
+4. **Experimental Design:** These results suggest that list position can have substantial effects on target recognition but minimal effects on foil rejection, which should be considered in experimental design and counterbalancing.
+
+5. **Theoretical Models:** Simple interference models that predict uniform effects across item types cannot account for these patterns. Models must incorporate item-type-specific interference mechanisms and list-level organizational effects.
+
+The combination of a strong linear decline for targets (b = -54.52) with a pronounced inverted U-shape (b = 44.04) suggests that multiple interference mechanisms operate simultaneously, with their relative strengths varying across list positions.

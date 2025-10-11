@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [fdae3c1](https://github.com/naszhu/REM_E3_model_fixed/commit/fdae3c1) (branch: `oct-11`)
+**Time:** 2025-10-11 17:52:06  
+**Message:**
+```
+refactor(data-analysis):  Move initial plots to the front
+
+- Revised plot titles and labels to reflect the transition from initial to final test analyses, enhancing clarity in visual representations.
+- Improved data processing steps to ensure accurate filtering and summarization of performance metrics across different test conditions.
+- Enhanced styling and formatting of plots for better readability and presentation, including adjustments to color schemes and legend placements.
+- Updated the combined plot generation to reflect the new naming conventions and ensure consistency across outputs.
+
+These changes aim to provide a clearer and more accurate representation of test performance across various conditions and item types.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/fdae3c1_20251011_175206_plot1.png)  
+![](../plot_archive/fdae3c1_20251011_175206_plot2.png)  
+
 ## Commit [3d91bb1](https://github.com/naszhu/REM_E3_model_fixed/commit/3d91bb1) (branch: `oct-11`)
 **Time:** 2025-10-11 17:41:35  
 **Message:**
