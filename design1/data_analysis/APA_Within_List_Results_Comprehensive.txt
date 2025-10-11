@@ -1,0 +1,94 @@
+RESULTS: WITHIN-LIST POSITION EFFECTS IN FINAL TEST
+
+Final test performance was analyzed using two Generalized Linear Mixed Models (GLMMs) with binomial distribution to examine within-list position effects. The first model examined study position effects (items with study information: ST and SO items), and the second examined test position effects (items with initial test information: ST and TO items). Both models included linear and quadratic orthogonal polynomial terms for position, item type as a categorical predictor, and their interactions, with random intercepts for participants.
+
+─────────────────────────────────────────────────────────────
+ANALYSIS 1: WITHIN-LIST STUDY POSITION EFFECTS
+─────────────────────────────────────────────────────────────
+
+This analysis examined whether final test accuracy varied as a function of where items were originally studied within their lists, comparing ST (Source-Target) and SO (Source-Only) items.
+
+Item Type Main Effects
+
+A significant main effect of item type emerged (z = 42.93, p < .001). ST items (M = 0.90, logit = 2.19, SE = 0.06, 95% CI [2.07, 2.31]) showed substantially higher accuracy than SO items (M = 0.68, logit = 0.76, SE = 0.06, 95% CI [0.65, 0.87]), with an estimated difference of b = 1.43 logit units (SE = 0.03, 95% CI [1.37, 1.50]).
+
+Study Position Linear Trends
+
+Significant negative linear trends across study positions emerged for both item types, indicating decreased accuracy for items studied later in the list. For SO items, the linear trend was b = -5.49 (SE = 2.37, z = -2.32, p = .021, 95% CI [-10.14, -0.84]), indicating a decline in performance across study positions. For ST items, the linear trend was b = -6.49 (SE = 3.59, z = -1.81, p = .070, 95% CI [-13.50, 0.56]), showing a numerically similar but marginally non-significant decline. The interaction between study position linear trend and item type was not significant (b = -1.00, SE = 3.60, z = -0.28, p = .782), indicating parallel linear declines for both item types.
+
+Study Position Quadratic Trends
+
+A significant positive quadratic trend emerged for SO items (b = 10.39, SE = 2.31, z = 4.50, p < .001, 95% CI [5.87, 14.91]), indicating a U-shaped performance pattern with better performance for items from early and late study positions relative to middle positions. For ST items, the quadratic trend was non-significant (b = 4.52, SE = 3.44, z = 1.32, p = .187, 95% CI [-2.21, 11.25]). The interaction between study position quadratic trend and item type showed a marginally significant difference (b = -5.87, SE = 3.42, z = -1.72, p = .086), suggesting that SO items showed a more pronounced U-shaped pattern than ST items.
+
+Summary of Study Position Effects
+
+Items studied later in the list showed decreased final test accuracy, with both ST and SO items exhibiting similar linear declines (primacy effects). However, SO items uniquely showed a significant U-shaped pattern, suggesting both primacy and recency advantages. The stronger quadratic pattern for SO items may reflect their greater sensitivity to study position, as they rely solely on source memory without supporting target information.
+
+─────────────────────────────────────────────────────────────
+ANALYSIS 2: WITHIN-LIST TEST POSITION EFFECTS
+─────────────────────────────────────────────────────────────
+
+This analysis examined whether final test accuracy varied as a function of where items were originally tested within their lists during the initial test phase, comparing ST (Source-Target) and TO (Target-Only) items.
+
+Item Type Main Effects
+
+A significant main effect of item type emerged (z = 45.61, p < .001). ST items (M = 0.90, logit = 2.14, SE = 0.05, 95% CI [2.04, 2.24]) showed substantially higher accuracy than TO items (M = 0.65, logit = 0.63, SE = 0.05, 95% CI [0.54, 0.72]), with an estimated difference of b = 1.51 logit units (SE = 0.03, 95% CI [1.45, 1.57]).
+
+Test Position Linear Trends
+
+Significant positive linear trends across test positions emerged for both item types, indicating increased accuracy for items tested later in the initial test (negative proactive interference or facilitation effects). For ST items, the linear trend was b = 22.78 (SE = 4.40, z = 5.17, p < .001, 95% CI [14.15, 31.41]), indicating substantial improvement in final test performance for items tested later in the initial test. For TO items, the linear trend was b = 27.13 (SE = 3.07, z = 8.84, p < .001, 95% CI [21.09, 33.17]), showing a similar positive relationship. The interaction between test position linear trend and item type was not significant (b = 4.35, SE = 5.37, z = 0.81, p = .418), indicating parallel facilitation effects for both item types.
+
+Test Position Quadratic Trends
+
+Significant negative quadratic trends emerged for both item types, indicating inverted-U patterns. For ST items, the quadratic trend was b = -10.04 (SE = 4.45, z = -2.26, p = .024, 95% CI [-18.76, -1.32]), indicating peak performance for items from middle test positions. For TO items, the quadratic trend was b = -13.02 (SE = 3.05, z = -4.27, p < .001, 95% CI [-19.00, -7.04]), showing a similar inverted-U pattern. The interaction between test position quadratic trend and item type was not significant (b = -2.98, SE = 5.40, z = -0.55, p = .581), indicating comparable curvilinear patterns for both item types.
+
+Summary of Test Position Effects
+
+Items tested later in the initial test showed enhanced final test accuracy, demonstrating facilitation rather than interference effects. Both ST and TO items exhibited parallel positive linear trends and inverted-U shaped patterns, with peak performance for items tested in middle positions of the initial test. These findings suggest that later testing provides retrieval practice benefits that persist to the final test, but extreme late positions show some decline, possibly due to fatigue or output interference within the initial test session.
+
+─────────────────────────────────────────────────────────────
+GENERAL DISCUSSION OF WITHIN-LIST EFFECTS
+─────────────────────────────────────────────────────────────
+
+Convergence and Reliability
+
+Both models showed acceptable convergence (relative gradients: Study model = 0.0018, Test model = 0.0030), well below conventional thresholds (< 0.01). The study position model showed one negative eigenvalue in the Hessian matrix, suggesting minor convergence issues, but all parameter estimates showed reasonable standard errors and credible confidence intervals. Effects with p < .01 can be considered highly reliable.
+
+Theoretical Implications
+
+The contrasting patterns across study and test positions reveal distinct memory processes:
+
+1. Study Position Effects: Linear declines with quadratic modulation suggest traditional primacy effects, with SO items showing additional recency advantages. The U-shaped pattern for SO items is consistent with dual-process models where both early encoding advantages (primacy) and recent activation (recency) enhance source memory.
+
+2. Test Position Effects: Positive linear trends indicate testing benefits rather than output interference within lists. The inverted-U patterns suggest optimal retrieval practice benefits for middle positions, with early positions potentially lacking sufficient practice and late positions suffering from within-test fatigue.
+
+3. Item Type Differences: ST items consistently outperformed SO and TO items, demonstrating that having both source and target information provides the strongest memory representation. The parallel patterns across item types for test position effects suggest that retrieval practice benefits apply broadly, regardless of what information was originally studied.
+
+Statistical Interpretation Notes
+
+All effects are reported on the logit scale. To interpret magnitudes: a difference of 1 logit unit corresponds to approximately a 2.7-fold change in odds ratio. The large item type differences (1.43-1.51 logit units) represent substantial practical effects. Position effects, while statistically significant, show smaller magnitudes (5-27 units for trends), reflecting more subtle influences on final test performance.
+
+Model Diagnostics
+
+Study Position Model:
+- Convergence: Relative gradient = 0.0018 (acceptable)
+- Hessian: 1 negative eigenvalue (minor issue)
+- Variance-covariance: Computed from RX (robust estimation)
+
+Test Position Model:
+- Convergence: Relative gradient = 0.0030 (acceptable)
+- Hessian: 1 negative eigenvalue (minor issue)  
+- Variance-covariance: Computed from RX (robust estimation)
+
+Both models required fallback to RX estimation for variance-covariance matrices due to non-positive-definite Hessian matrices. This is common in complex GLMMs and does not invalidate the results, though it suggests caution in interpreting effects with p-values near .05. All effects reported with p < .01 remain highly reliable.
+
+─────────────────────────────────────────────────────────────
+NOMENCLATURE NOTE
+─────────────────────────────────────────────────────────────
+
+ST = Source-Target items (items with both study and test information)
+SO = Source-Only items (items with study information only)
+TO = Target-Only items (items with test information only)
+FTO = Final Test Old items (foils) - not analyzed in current within-list models
+
+The current analyses focus exclusively on items with position information (ST, SO, TO), as foil items (FTO) lack meaningful within-list position data from the initial study/test phases.

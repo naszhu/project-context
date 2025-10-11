@@ -1,0 +1,163 @@
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+Loading required package: Matrix
+
+Attaching package: ‘Matrix’
+
+The following objects are masked from ‘package:tidyr’:
+
+    expand, pack, unpack
+
+Welcome to emmeans.
+Caution: You lose important information if you filter this package's results.
+See '? untidy'
+Rows: 276361 Columns: 33
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (13): condition, ip, PROLIFIC_PID, response, task, stimulus_id, correct_...
+dbl (16): time_elapsed, is_finished, codeversion, timepassed_mins, all_accum...
+lgl  (4): id, success, timeout, isold
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Warning message:
+One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat <- vroom(...)
+  problems(dat) 
+Loaded dfchanged data with 276361 rows
+Initial test data prepared: 38974 trials
+Unique values in study_position : 21 
+Unique values in test_position : 20 
+Unique values in study_position : 20 
+Unique values in test_position : 20 
+Unique values in final_order : 10 
+Unique values in initial_order : 10 
+✓ Created within-study model (linear and quadratic)
+Optimization warnings:
+ 
+Relative gradient: 0.001806657 
+WARNING: Large relative gradient - model may not have converged
+Warning messages:
+1: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  unable to evaluate scaled gradient
+2: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge: degenerate  Hessian with 1 negative eigenvalues
+✓ Created within-test model (linear and quadratic)
+Convergence warnings:
+unable to evaluate scaled gradient
+Model failed to converge: degenerate  Hessian with 1 negative eigenvalues 
+Optimization warnings:
+ 
+Relative gradient: 0.00295402 
+WARNING: Large relative gradient - model may not have converged
+WARNING: Hessian matrix is not positive definite
+Warning messages:
+1: In vcov.merMod(object, use.hessian = use.hessian) :
+  variance-covariance matrix computed from finite-difference Hessian is
+not positive definite or contains NA values: falling back to var-cov estimated from RX
+2: In vcov.merMod(object, correlation = correlation, sigm = sig) :
+  variance-covariance matrix computed from finite-difference Hessian is
+not positive definite or contains NA values: falling back to var-cov estimated from RX
+3: In vcov.merMod(object) :
+  variance-covariance matrix computed from finite-difference Hessian is
+not positive definite or contains NA values: falling back to var-cov estimated from RX
+Warning messages:
+1: In vcov.merMod(object, complete = FALSE, ...) :
+  variance-covariance matrix computed from finite-difference Hessian is
+not positive definite or contains NA values: falling back to var-cov estimated from RX
+2: In vcov.merMod(object, complete = FALSE, ...) :
+  variance-covariance matrix computed from finite-difference Hessian is
+not positive definite or contains NA values: falling back to var-cov estimated from RX
+
+=== COMPREHENSIVE POST-HOC ITEM TYPE COMPARISONS ===
+
+--- Item Types in Each Analysis ---
+Within-Study Analysis - Item types:
+[1] "ST" "SO"
+
+Within-Test Analysis - Item types:
+[1] "ST" "TO"
+
+--- Final Test Within-Study Item Type Comparisons ---
+NOTE: Results may be misleading due to involvement in interactions
+ contrast estimate     SE  df z.ratio p.value
+ SO - ST     -1.43 0.0333 Inf -42.929  <.0001
+
+Results are given on the log odds ratio (not the response) scale. 
+[1] "Within-Study - Estimated Marginal Means:"
+ item_type    emmean         SE  df asymp.LCL asymp.UCL
+ SO        0.7584475 0.05575088 Inf 0.6491778 0.8677172
+ ST        2.1900622 0.05942989 Inf 2.0735818 2.3065427
+
+Results are given on the logit (not the response) scale. 
+Confidence level used: 0.95 
+
+--- Final Test Within-Test Item Type Comparisons ---
+NOTE: Results may be misleading due to involvement in interactions
+Warning message:
+In vcov.merMod(object, complete = FALSE, ...) :
+  variance-covariance matrix computed from finite-difference Hessian is
+not positive definite or contains NA values: falling back to var-cov estimated from RX
+ contrast estimate     SE  df z.ratio p.value
+ ST - TO      1.51 0.0331 Inf  45.614  <.0001
+
+Results are given on the log odds ratio (not the response) scale. 
+[1] "Within-Test - Estimated Marginal Means:"
+ item_type    emmean         SE  df asymp.LCL asymp.UCL
+ ST        2.1403498 0.05086674 Inf 2.0406528 2.2400468
+ TO        0.6303049 0.04652318 Inf 0.5391211 0.7214886
+
+Results are given on the logit (not the response) scale. 
+Confidence level used: 0.95 
+
+=== LINEAR AND QUADRATIC TREND SIGNIFICANCE ===
+
+--- Within-Study Analysis - Position Trends ---
+[1] "Linear Trends:"
+ item_type study_position_lin.trend   SE  df asymp.LCL asymp.UCL
+ SO                           -5.49 2.37 Inf     -10.1    -0.842
+ ST                           -6.49 3.59 Inf     -13.5     0.558
+
+Confidence level used: 0.95 
+[1] "Quadratic Trends:"
+ item_type study_position_quad.trend   SE  df asymp.LCL asymp.UCL
+ SO                            10.39 2.31 Inf      5.87      14.9
+ ST                             4.52 3.44 Inf     -2.21      11.3
+
+Confidence level used: 0.95 
+
+--- Within-Test Analysis - Position Trends ---
+Warning message:
+In vcov.merMod(object, complete = FALSE, ...) :
+  variance-covariance matrix computed from finite-difference Hessian is
+not positive definite or contains NA values: falling back to var-cov estimated from RX
+Warning message:
+In vcov.merMod(object, complete = FALSE, ...) :
+  variance-covariance matrix computed from finite-difference Hessian is
+not positive definite or contains NA values: falling back to var-cov estimated from RX
+[1] "Linear Trends:"
+ item_type test_position_lin.trend   SE  df asymp.LCL asymp.UCL
+ ST                           22.8 4.40 Inf      14.2      31.4
+ TO                           27.1 3.07 Inf      21.1      33.1
+
+Confidence level used: 0.95 
+[1] "Quadratic Trends:"
+ item_type test_position_quad.trend   SE  df asymp.LCL asymp.UCL
+ ST                             -10 4.45 Inf     -18.8     -1.32
+ TO                             -13 3.05 Inf     -19.0     -7.04
+
+Confidence level used: 0.95 
+
+=== END TREND SIGNIFICANCE TESTS ===
+Saved: experiment1_glmm_within_list_models.rds
+Saved: all_model_summaries_within_list.csv
+Saved: all_itemtype_trends_within_list.csv
