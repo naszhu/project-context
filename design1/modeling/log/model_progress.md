@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [0f67eac](https://github.com/naszhu/REM_E3_model_fixed/commit/0f67eac) (branch: `oct-11`)
+**Time:** 2025-10-11 15:41:23  
+**Message:**
+```
+fix(allplot-e1): bug not filter out null for initial between
+
+- Updated the data filtering process in `df_initialtestbyinitial` to exclude null responses, ensuring cleaner data for analysis.
+- Adjusted comments for clarity and consistency in the script.
+
+These changes aim to enhance data integrity and improve the accuracy of subsequent analyses.
+
+Closes #49
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/0f67eac_20251011_154123_plot1.png)  
+![](../plot_archive/0f67eac_20251011_154123_plot2.png)  
+
 ## Commit [74aca5d](https://github.com/naszhu/REM_E3_model_fixed/commit/74aca5d) (branch: `oct-11`)
 **Time:** 2025-10-11 14:46:36  
 **Message:**

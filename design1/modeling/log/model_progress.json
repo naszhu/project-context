@@ -1,5 +1,18 @@
 [
   {
+    "commit": "0f67eac",
+    "branch": "oct-11",
+    "message": "fix(allplot-e1): bug not filter out null for initial between",
+    "timestamp": "2025-10-11 15:41:23",
+    "plot1": "plot_archive/0f67eac_20251011_154123_plot1.png",
+    "plot2": "plot_archive/0f67eac_20251011_154123_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "74aca5d",
     "branch": "oct-11",
     "message": "feat(analysis-e1): final between by intial order",

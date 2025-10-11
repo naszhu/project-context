@@ -435,7 +435,7 @@ df_final = dfchanged%>%
   # filter(probetype!="FOIL") %>% #foil doesn't have inital test position
 
   filter(response!="null")%>%
-  select(ip,correct,probetype,stimulus_id)
+  select(ip,correct,probetype,stimulus_id, rt)
 
 #now, combine initial test positions with final test correct,
 # intial test add column position_type (intial/final), position
@@ -444,6 +444,7 @@ df_final = dfchanged%>%
 # First, calculate FOIL performance separately (since FOIL doesn't have initial positions)
 foil_performance <- df_final %>%
   filter(probetype == "FOIL") %>%
+  filter((rt < 150 | rt > 3500))%>%
   group_by(ip, probetype) %>%
   summarize(meancr1 = mean(correct)) %>%
   group_by(probetype) %>%
@@ -454,6 +455,7 @@ foil_performance <- df_final %>%
 df_finalwithin_nonfoil = df_final %>%
   filter(probetype != "FOIL") %>%
   left_join(df_initial_all, by = c("ip", "stimulus_id")) %>%
+  filter((rt < 150 | rt > 3500))%>%
   filter(!is.na(correct)) %>%
   group_by(position, ip, position_type, probetype) %>%
   summarize(meancr1 = mean(correct)) %>%
@@ -464,6 +466,7 @@ df_finalwithin_nonfoil = df_final %>%
 nontarget_performance <- df_final %>%
   filter(probetype == "TARGET_nontarget") %>%
   group_by(ip, probetype) %>%
+  filter((rt < 150 | rt > 3500))%>%
   summarize(meancr1 = mean(correct)) %>%
   group_by(probetype) %>%
   summarize(meancr = mean(meancr1), sd = sd(meancr1), se = sd/sqrt(n())) %>%
@@ -937,7 +940,8 @@ dfserial=dfchanged%>%
   filter(task=="pretest_response")%>%
   filter(response!="null")%>%
   pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
-  select(position,ip,position_type,correct,probetype)%>%
+  select(position,ip,position_type,correct,probetype, rt)%>%
+  filter((rt < 150 | rt > 3500))%>%
   group_by(position,ip,position_type,probetype)%>%
   summarize(meancr1=mean(correct))%>%
   group_by(position,position_type,probetype)%>%
@@ -950,7 +954,8 @@ dfserial=dfchanged%>%
 dfserial_meandf=dfchanged%>%
   filter(task=="pretest_response")%>%
   filter(response!="null")%>%
-  select(testpos,ip,correct,probetype)%>%
+  select(testpos,ip,correct,probetype, rt)%>%
+  filter((rt < 150 | rt > 3500))%>%
   group_by(testpos,ip)%>%
   summarize(meancr1=mean(correct))%>%
   group_by(testpos)%>%
