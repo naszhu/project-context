@@ -1,5 +1,30 @@
 # Model Progress
 
+## Commit [3d91bb1](https://github.com/naszhu/REM_E3_model_fixed/commit/3d91bb1) (branch: `oct-11`)
+**Time:** 2025-10-11 17:41:35  
+**Message:**
+```
+feat(data-analysis): enhance comprehensive analysis and model outputs
+
+BUT WRONG SOMEWHERE? MY MIND IS BLOWING
+
+- Updated data loading and filtering processes to improve data integrity by removing invalid responses.
+- Refined the filtering criteria for reaction times to ensure only valid data is included in analyses.
+- Activated and documented Generalized Linear Mixed Models (GLMMs) for both initial and final test analyses, incorporating linear and quadratic trends across item types and conditions.
+- Generated comprehensive output files for model summaries, item type trends, and condition interactions, facilitating a clearer understanding of performance metrics.
+- Improved reporting of significant findings and trends, enhancing the overall clarity and robustness of the analysis framework.
+
+These enhancements aim to provide a more thorough and accurate analysis of test performance across various conditions and item types.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/3d91bb1_20251011_174135_plot1.png)  
+![](../plot_archive/3d91bb1_20251011_174135_plot2.png)  
+
 ## Commit [05c6406](https://github.com/naszhu/REM_E3_model_fixed/commit/05c6406) (branch: `oct-11`)
 **Time:** 2025-10-11 17:41:02  
 **Message:**
