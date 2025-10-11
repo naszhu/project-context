@@ -13,7 +13,8 @@ library(broom.mixed)
 library(emmeans)
 
 # 0) Load
-dfchanged <- read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design1/data_analysis/dfchanged.csv")
+dfchanged <- read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design1/data_analysis/dfchanged.csv")%>%
+  filter(!(task %in% c("pretest_response", "finalt_response")))
 cat("Loaded dfchanged data with", nrow(dfchanged), "rows\n")
 
 # 1) Helper: safe poly (always returns *_lin, *_quad)
@@ -103,6 +104,8 @@ validate_position_data <- function(df, position_var) {
 # 2) Initial test 
 # Prepare initial test data
 initial <- dfchanged %>%
+# %>%
+  # filter(!(task %in% c("pretest_response", "finalt_response") & (rt < 150 | rt > 3500)))%>%
   filter(task == "pretest_response", response != "null") %>%
   mutate(
     participant_id = factor(PROLIFIC_PID),
@@ -117,14 +120,18 @@ initial <- dfchanged %>%
     )
   ) %>%
   mutate(item_type = factor(item_type, levels = c("foil","target"))) %>%
-  filter(!is.na(participant_id), !is.na(item_type)) %>%
+  # filter(!is.na(participant_id), !is.na(item_type)) %>%
   bind_cols(create_polynomial_terms(., "study_position")) %>%
   bind_cols(create_polynomial_terms(., "test_position")) %>%
-  bind_cols(create_polynomial_terms(., "list_number"))
+  bind_cols(create_polynomial_terms(., "list_number"))%>%
+  filter((rt < 150 | rt > 3500))
 
 cat("Initial test data prepared:", nrow(initial), "trials\n")
 
-# Validate position data
+# temp plot check of the data
+# p=ggplot(data=initial%>%group_by(list_number, item_type, participant_id)%>%summarize(ms=mean(accuracy))%>%group_by(list_number, item_type)%>%summarize(ms=mean(ms)))+geom_line(aes(list_number,ms,color=item_type  ))
+# ggsave("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design1/data_analysis/A_temp.png",p)
+Validate position data
 validate_position_data(initial, "study_position")
 validate_position_data(initial, "test_position")
 
@@ -159,7 +166,7 @@ initial_positions <- df_initial_all %>%
 # Now create the final test data with correct initial positions
 final <- dfchanged %>%
   filter(task == "finalt_response", response != "null") %>%
-  select(ip, correct, probetype, stimulus_id, testpos, trialnum, prespos_itrial, condition) %>%
+  select(ip, correct, probetype, stimulus_id, testpos, trialnum, prespos_itrial, condition,rt) %>%
   left_join(initial_positions, by = c("ip", "stimulus_id")) %>%
   mutate(
     participant_id = factor(ip),
@@ -182,8 +189,9 @@ final <- dfchanged %>%
     initial_order  = as.numeric(prespos_itrial)
   ) %>%
   # Remove rows where we couldn't determine positions
-  filter(!is.na(study_position) | !is.na(test_position) | !is.na(final_order) | !is.na(initial_order)) %>%
-  select(participant_id, accuracy, item_type, study_position, test_position, final_order, initial_order, condition)
+  # filter(!is.na(study_position) | !is.na(test_position) | !is.na(final_order) | !is.na(initial_order)) %>%
+  select(participant_id, accuracy, item_type, study_position, test_position, final_order, initial_order, condition,rt)%>%
+  filter((rt < 150 | rt > 3500))
 
 # ------------------
 # Add polynomial terms
@@ -227,18 +235,18 @@ validate_position_data(final, "initial_order")
 # cat("\n=== Initial Test Position Model ===\n")
 # check_convergence_issues(m_init_testpos)
 
-# # Initial: Between-List (List Index) × Item Type
-# m_init_between <- glmer(
-#   accuracy ~ (list_number_lin + list_number_quad) * item_type +
-#     (1 | participant_id) + (0 + list_number_lin | participant_id),
-#   data = initial, family = binomial,
-#   control = glmerControl(optimizer = "bobyqa"),
-#   na.action = na.omit
-# )
+# Initial: Between-List (List Index) × Item Type
+m_init_between <- glmer(
+  accuracy ~ (list_number_lin + list_number_quad) * item_type +
+    (1 | participant_id) + (0 + list_number_lin | participant_id),
+  data = initial, family = binomial,
+  control = glmerControl(optimizer = "bobyqa"),
+  na.action = na.omit
+)
 
-# # Check convergence for initial between-list model
-# cat("\n=== Initial Between-List Model ===\n")
-# check_convergence_issues(m_init_between)
+# Check convergence for initial between-list model
+cat("\n=== Initial Between-List Model ===\n")
+check_convergence_issues(m_init_between)
 
 # # REMOVED COMPLEX MODELS - USING SIMPLIFIED MODELS ONLY
 
@@ -284,18 +292,18 @@ validate_position_data(final, "initial_order")
 # check_convergence_issues(m_between_final)
 
 # Final Between-Initial Model (remove problematic quadratic × item_type interaction)
-m_between_initial <- glmer(
-  accuracy ~ initial_order_lin * item_type * condition +  # Full 3-way for linear
-             initial_order_quad * condition +              # Only condition interaction for quadratic
-             initial_order_quad * item_type +              # Keep this if you want, or remove it too
-    (1 | participant_id),
-  data = final, family = binomial,
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 500000)),
-  na.action = na.omit
-)
+# m_between_initial <- glmer(
+#   accuracy ~ initial_order_lin * item_type * condition +  # Full 3-way for linear
+#              initial_order_quad * condition +              # Only condition interaction for quadratic
+#              initial_order_quad * item_type +              # Keep this if you want, or remove it too
+#     (1 | participant_id),
+#   data = final, family = binomial,
+#   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 500000)),
+#   na.action = na.omit
+# )
 
-cat("✓ Created between-initial model (3-way interactions)\n")
-check_convergence_issues(m_between_initial)
+# cat("✓ Created between-initial model (3-way interactions)\n")
+# check_convergence_issues(m_between_initial)
 
 # REMOVED MODEL COMPARISONS - USING SIMPLIFIED MODELS ONLY
 
@@ -376,13 +384,13 @@ results <- list(
   # Initial test models
   # init_studypos        = broom.mixed::tidy(m_init_studypos,        effects = "fixed", conf.int = TRUE),
   # init_testpos         = broom.mixed::tidy(m_init_testpos,         effects = "fixed", conf.int = TRUE),
-  # init_between         = broom.mixed::tidy(m_init_between,         effects = "fixed", conf.int = TRUE),
+  init_between         = broom.mixed::tidy(m_init_between,         effects = "fixed", conf.int = TRUE)
   
   # Final test models - between-list
   # final_within_study   = broom.mixed::tidy(m_final_within_study,   effects = "fixed", conf.int = TRUE),
   # final_within_test    = broom.mixed::tidy(m_final_within_test,    effects = "fixed", conf.int = TRUE),
   # final_between_final  = broom.mixed::tidy(m_between_final,        effects = "fixed", conf.int = TRUE),
-  final_between_initial= broom.mixed::tidy(m_between_initial,      effects = "fixed", conf.int = TRUE)
+  # final_between_initial= broom.mixed::tidy(m_between_initial,      effects = "fixed", conf.int = TRUE)
 )
 
 # ------------------
@@ -394,8 +402,8 @@ trends <- list(
   # init_studypos_quad  = emtrends(m_init_studypos,   ~ item_type, var = "study_position_quad"),
   # init_testpos_lin    = emtrends(m_init_testpos,    ~ item_type, var = "test_position_lin"),
   # init_testpos_quad   = emtrends(m_init_testpos,    ~ item_type, var = "test_position_quad"),
-  # init_between_lin    = emtrends(m_init_between,    ~ item_type, var = "list_number_lin"),
-  # init_between_quad   = emtrends(m_init_between,    ~ item_type, var = "list_number_quad"),
+  init_between_lin    = emtrends(m_init_between,    ~ item_type, var = "list_number_lin"),
+  init_between_quad   = emtrends(m_init_between,    ~ item_type, var = "list_number_quad")
 
   # Final test (within-list) - LINEAR AND QUADRATIC
   # final_within_study_lin  = emtrends(m_final_within_study, ~ item_type, var = "study_position_lin"),
@@ -406,8 +414,8 @@ trends <- list(
   # Final test (between-list) - QUADRATIC INCLUDED
   # final_between_final_lin   = emtrends(m_between_final,   ~ item_type, var = "final_order_lin"),
   # final_between_final_quad  = emtrends(m_between_final,   ~ item_type, var = "final_order_quad"),
-  final_between_initial_lin = emtrends(m_between_initial, ~ item_type, var = "initial_order_lin"),
-  final_between_initial_quad= emtrends(m_between_initial, ~ item_type, var = "initial_order_quad")
+  # final_between_initial_lin = emtrends(m_between_initial, ~ item_type, var = "initial_order_lin"),
+  # final_between_initial_quad= emtrends(m_between_initial, ~ item_type, var = "initial_order_quad")
 )
 
 # ------------------
@@ -440,12 +448,16 @@ cat("\n=== COMPREHENSIVE POST-HOC ITEM TYPE COMPARISONS ===\n")
 # print("Initial Between-List - Estimated Marginal Means:")
 # print(init_between_means)
 
-# FINAL TEST COMPARISONS
+# INITIAL TEST COMPARISONS
 # Check what item types are actually in each model
 cat("\n--- Item Types in Each Analysis ---\n")
-cat("Initial Order Analysis - Item types:\n")
-initial_order_types <- unique(final$item_type[!is.na(final$initial_order)])
-print(initial_order_types)
+cat("Initial Between-List Analysis - Item types:\n")
+init_between_types <- unique(initial$item_type)
+print(init_between_types)
+
+# cat("Initial Order Analysis - Item types:\n")
+# initial_order_types <- unique(final$item_type[!is.na(final$initial_order)])
+# print(initial_order_types)
 
 # cat("Final Order Analysis - Item types:\n")
 # final_order_types <- unique(final$item_type[!is.na(final$final_order)])
@@ -459,16 +471,16 @@ print(initial_order_types)
 # within_test_types <- unique(final$item_type[!is.na(final$test_position)])
 # print(within_test_types)
 
-# Final test between-list models - get estimated marginal means for all item types
-cat("\n--- Final Test Between-List (Initial Order) Item Type Comparisons ---\n")
-initial_order_emmeans <- emmeans(m_between_initial, ~ item_type)
-initial_order_pairs <- pairs(initial_order_emmeans, adjust = "tukey")
-print(initial_order_pairs)
+# Initial test between-list models - get estimated marginal means for all item types
+cat("\n--- Initial Test Between-List Item Type Comparisons ---\n")
+init_between_emmeans <- emmeans(m_init_between, ~ item_type)
+init_between_pairs <- pairs(init_between_emmeans, adjust = "tukey")
+print(init_between_pairs)
 
-# Get individual means for initial order
-initial_order_means <- as.data.frame(initial_order_emmeans)
-print("Initial Order - Estimated Marginal Means:")
-print(initial_order_means)
+# Get individual means for initial between-list
+init_between_means <- as.data.frame(init_between_emmeans)
+print("Initial Between-List - Estimated Marginal Means:")
+print(init_between_means)
 
 # cat("\n--- Final Test Between-List (Final Order) Item Type Comparisons ---\n")
 # final_order_emmeans <- emmeans(m_between_final, ~ item_type)
@@ -506,8 +518,8 @@ print(initial_order_means)
 # trends$init_studypos_pairs <- init_studypos_pairs
 # trends$init_testpos_emmeans <- init_testpos_emmeans
 # trends$init_testpos_pairs <- init_testpos_pairs
-# trends$init_between_emmeans <- init_between_emmeans
-# trends$init_between_pairs <- init_between_pairs
+trends$init_between_emmeans <- init_between_emmeans
+trends$init_between_pairs <- init_between_pairs
 
 # Final test pairwise comparisons - between-list
 # trends$within_study_emmeans <- within_study_emmeans
@@ -516,22 +528,31 @@ print(initial_order_means)
 # trends$within_test_pairs <- within_test_pairs
 # trends$final_order_emmeans <- final_order_emmeans
 # trends$final_order_pairs <- final_order_pairs
-trends$initial_order_emmeans <- initial_order_emmeans
-trends$initial_order_pairs <- initial_order_pairs
+# trends$initial_order_emmeans <- initial_order_emmeans
+# trends$initial_order_pairs <- initial_order_pairs
 
 # ------------------
 # 8) LINEAR AND QUADRATIC TREND SIGNIFICANCE TESTS
 # ------------------
 cat("\n=== LINEAR AND QUADRATIC TREND SIGNIFICANCE ===\n")
 
-# Initial Order Analysis - Linear and Quadratic Trends
-cat("\n--- Initial Order Analysis - Position Trends ---\n")
-initial_order_lin_trend <- emtrends(m_between_initial, ~ item_type, var = "initial_order_lin")
-initial_order_quad_trend <- emtrends(m_between_initial, ~ item_type, var = "initial_order_quad")
+# Initial Between-List Analysis - Linear and Quadratic Trends
+cat("\n--- Initial Between-List Analysis - List Number Trends ---\n")
+init_between_lin_trend <- emtrends(m_init_between, ~ item_type, var = "list_number_lin")
+init_between_quad_trend <- emtrends(m_init_between, ~ item_type, var = "list_number_quad")
 print("Linear Trends:")
-print(initial_order_lin_trend)
+print(init_between_lin_trend)
 print("Quadratic Trends:")
-print(initial_order_quad_trend)
+print(init_between_quad_trend)
+
+# Initial Order Analysis - Linear and Quadratic Trends
+# cat("\n--- Initial Order Analysis - Position Trends ---\n")
+# initial_order_lin_trend <- emtrends(m_between_initial, ~ item_type, var = "initial_order_lin")
+# initial_order_quad_trend <- emtrends(m_between_initial, ~ item_type, var = "initial_order_quad")
+# print("Linear Trends:")
+# print(initial_order_lin_trend)
+# print("Quadratic Trends:")
+# print(initial_order_quad_trend)
 
 # Within-Study Analysis - Linear and Quadratic Trends
 # cat("\n--- Within-Study Analysis - Position Trends ---\n")
@@ -565,37 +586,40 @@ cat("\n=== END TREND SIGNIFICANCE TESTS ===\n")
 # ------------------
 # 9) CONDITION × POSITION INTERACTION ANALYSIS
 # ------------------
-cat("\n=== CONDITION × POSITION INTERACTION ANALYSIS ===\n")
+# NOTE: Initial test models do not include condition (condition assigned after initial test)
+# Only uncomment this section for final test models with condition
 
-# Test whether conditions show different OI patterns for initial order
-cat("\n--- Testing Condition × Initial Order Interactions ---\n")
+# cat("\n=== CONDITION × POSITION INTERACTION ANALYSIS ===\n")
 
-# Get condition-specific trends for initial order
-initial_order_condition_lin <- emtrends(m_between_initial, ~ condition | item_type, var = "initial_order_lin")
-initial_order_condition_quad <- emtrends(m_between_initial, ~ condition | item_type, var = "initial_order_quad")
+# # Test whether conditions show different OI patterns for initial order
+# cat("\n--- Testing Condition × Initial Order Interactions ---\n")
 
-print("Initial Order Linear Trends by Condition and Item Type:")
-print(initial_order_condition_lin)
+# # Get condition-specific trends for initial order
+# initial_order_condition_lin <- emtrends(m_between_initial, ~ condition | item_type, var = "initial_order_lin")
+# initial_order_condition_quad <- emtrends(m_between_initial, ~ condition | item_type, var = "initial_order_quad")
 
-print("Initial Order Quadratic Trends by Condition and Item Type:")
-print(initial_order_condition_quad)
+# print("Initial Order Linear Trends by Condition and Item Type:")
+# print(initial_order_condition_lin)
 
-# Test pairwise differences between conditions for each item type
-cat("\n--- Pairwise Comparisons of Condition Effects ---\n")
-initial_order_condition_pairs_lin <- pairs(initial_order_condition_lin, by = "item_type", adjust = "tukey")
-initial_order_condition_pairs_quad <- pairs(initial_order_condition_quad, by = "item_type", adjust = "tukey")
+# print("Initial Order Quadratic Trends by Condition and Item Type:")
+# print(initial_order_condition_quad)
 
-print("Linear Trend Differences Between Conditions (by Item Type):")
-print(initial_order_condition_pairs_lin)
+# # Test pairwise differences between conditions for each item type
+# cat("\n--- Pairwise Comparisons of Condition Effects ---\n")
+# initial_order_condition_pairs_lin <- pairs(initial_order_condition_lin, by = "item_type", adjust = "tukey")
+# initial_order_condition_pairs_quad <- pairs(initial_order_condition_quad, by = "item_type", adjust = "tukey")
 
-print("Quadratic Trend Differences Between Conditions (by Item Type):")
-print(initial_order_condition_pairs_quad)
+# print("Linear Trend Differences Between Conditions (by Item Type):")
+# print(initial_order_condition_pairs_lin)
 
-# Add these to trends for saving
-trends$initial_order_condition_lin <- initial_order_condition_lin
-trends$initial_order_condition_quad <- initial_order_condition_quad
-trends$initial_order_condition_pairs_lin <- initial_order_condition_pairs_lin
-trends$initial_order_condition_pairs_quad <- initial_order_condition_pairs_quad
+# print("Quadratic Trend Differences Between Conditions (by Item Type):")
+# print(initial_order_condition_pairs_quad)
+
+# # Add these to trends for saving
+# trends$initial_order_condition_lin <- initial_order_condition_lin
+# trends$initial_order_condition_quad <- initial_order_condition_quad
+# trends$initial_order_condition_pairs_lin <- initial_order_condition_pairs_lin
+# trends$initial_order_condition_pairs_quad <- initial_order_condition_pairs_quad
 
 # # Test whether conditions show different OI patterns for final order
 # cat("\n--- Testing Condition × Final Order Interactions ---\n")
@@ -640,16 +664,16 @@ saveRDS(
     models = list(
       # m_init_studypos       = m_init_studypos,
       # m_init_testpos        = m_init_testpos,
-      # m_init_between        = m_init_between,
+      m_init_between        = m_init_between
       # m_final_within_study  = m_final_within_study,
       # m_final_within_test   = m_final_within_test,
       # m_between_final       = m_between_final,
-      m_between_initial     = m_between_initial
+      # m_between_initial     = m_between_initial
     ),
     summaries = results,
     trends    = trends_df
   ),
-  "experiment1_glmm_between_initial_model.rds"
+  "experiment1_glmm_init_between_model.rds"
 )
 
 # Also export flat CSV for reporting
@@ -657,23 +681,23 @@ bind_rows(
   # Initial test models
   # results$init_studypos          %>% mutate(model = "init_studypos"),
   # results$init_testpos           %>% mutate(model = "init_testpos"),
-  # results$init_between           %>% mutate(model = "init_between"),
+  results$init_between           %>% mutate(model = "init_between")
   
   # Final test models - between-list
   # results$final_within_study     %>% mutate(model = "final_within_study"),
   # results$final_within_test      %>% mutate(model = "final_within_test"),
   # results$final_between_final    %>% mutate(model = "final_between_final"),
-  results$final_between_initial  %>% mutate(model = "final_between_initial")
+  # results$final_between_initial  %>% mutate(model = "final_between_initial")
 ) %>%
-  write_csv("all_model_summaries_between_initial.csv")
+  write_csv("all_model_summaries_init_between.csv")
 
 # Tidy & save item-type trends (if any computed)
 compact_trends <- purrr::imap_dfr(trends_df, ~{
   if (is.null(.x)) return(NULL)
   as_tibble(.x) %>% mutate(contrast = .y)
 })
-if (nrow(compact_trends) > 0) write_csv(compact_trends, "all_itemtype_trends_between_initial.csv")
+if (nrow(compact_trends) > 0) write_csv(compact_trends, "all_itemtype_trends_init_between.csv")
 
-cat("Saved: experiment1_glmm_between_initial_model.rds\n")
-cat("Saved: all_model_summaries_between_initial.csv\n")
-if (exists("compact_trends") && nrow(compact_trends) > 0) cat("Saved: all_itemtype_trends_between_initial.csv\n")
+cat("Saved: experiment1_glmm_init_between_model.rds\n")
+cat("Saved: all_model_summaries_init_between.csv\n")
+if (exists("compact_trends") && nrow(compact_trends) > 0) cat("Saved: all_itemtype_trends_init_between.csv\n")

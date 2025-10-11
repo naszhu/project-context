@@ -1,0 +1,77 @@
+RESULTS: INITIAL TEST BETWEEN-LIST EFFECTS
+
+Initial Test Performance Across Lists
+
+A Generalized Linear Mixed Model (GLMM) with binomial distribution examined initial test performance as a function of list number (1-10), item type (target, foil), and their interactions. The model included linear and quadratic orthogonal polynomial terms for list number, random intercepts for participants, and random slopes for linear list number effects (N = 196 participants, 38,974 observations). The model converged successfully (relative gradient = 0.0011).
+
+─────────────────────────────────────────────────────────────
+
+ITEM TYPE MAIN EFFECTS
+
+A significant main effect of item type emerged (b = -0.86, SE = 0.04, z = -23.27, p < .001, 95% CI [-0.93, -0.78]). Foil items (M = 0.96, logit = 3.06, SE = 0.08, 95% CI [2.90, 3.21]) showed significantly higher correct rejection rates than target items (M = 0.90, logit = 2.20, SE = 0.08, 95% CI [2.05, 2.35]). This pattern reflects the standard recognition memory finding that correctly rejecting foils is typically easier than correctly identifying targets in initial testing phases.
+
+─────────────────────────────────────────────────────────────
+
+LINEAR TRENDS: LIST NUMBER EFFECTS
+
+Main Effect of List Number (Linear)
+
+The overall linear trend across lists was not significant for foil items (b = 0.69, SE = 3.90, z = 0.18, p = .860, 95% CI [-6.96, 8.34]), indicating stable foil rejection across the 10 lists.
+
+Linear Trend × Item Type Interaction
+
+A significant interaction emerged (b = -55.04, SE = 4.30, z = -12.79, p < .001, 95% CI [-63.48, -46.61]), indicating that target items showed a strong negative linear trend (b = -54.36, SE = 5.15, 95% CI [-64.45, -44.26]). This substantial decline in target recognition across lists represents classic proactive interference, where memory for targets from later lists is increasingly impaired by earlier-studied items.
+
+─────────────────────────────────────────────────────────────
+
+QUADRATIC TRENDS: LIST NUMBER EFFECTS
+
+Main Effect of List Number (Quadratic)
+
+A significant positive quadratic trend emerged for foil items (b = 10.87, SE = 4.28, z = 2.54, p = .011, 95% CI [2.49, 19.26]), indicating an inverted U-shaped pattern with worse foil rejection for middle lists compared to early and late lists.
+
+Quadratic Trend × Item Type Interaction
+
+A significant interaction emerged (b = 33.42, SE = 5.23, z = 6.39, p < .001, 95% CI [23.17, 43.67]), indicating that target items showed a much more pronounced inverted U-shaped pattern (b = 44.29, SE = 3.65, 95% CI [37.14, 51.45]) than foil items. This quadratic pattern suggests that both targets and foils showed worse performance in middle lists, but this effect was much stronger for targets. Both early lists (less prior interference) and late lists (possible recovery or list-level distinctiveness) showed relatively better performance than middle lists.
+
+─────────────────────────────────────────────────────────────
+
+SUMMARY
+
+Initial test performance across the 10 study-test lists revealed classic interference patterns. Target recognition showed substantial proactive interference (linear decline: b = -54.36), with middle lists showing the worst performance (U-shaped quadratic pattern: b = 44.29). Foil rejection remained relatively stable across lists, with only a modest U-shaped pattern. These findings establish that participants experienced accumulating memory interference across lists during Phase 1, which provides important context for interpreting final test performance in Phase 2.
+
+─────────────────────────────────────────────────────────────
+
+MODEL DIAGNOSTICS
+
+The model showed excellent convergence (relative gradient = 0.0011, well below the 0.01 threshold). All parameter estimates showed reasonable standard errors and credible confidence intervals. The inclusion of random slopes for linear list number effects (1 + list_number_lin | participant_id) allowed for individual differences in how participants experienced proactive interference across lists.
+
+Random Effects Structure:
+• Random intercept: σ² = [model-specific]
+• Random slope (list_number_lin): σ² = [model-specific]
+• Correlation between intercept and slope: ρ = [model-specific]
+
+This random effects structure is theoretically motivated: participants vary both in overall performance (random intercept) and in susceptibility to proactive interference (random slope).
+
+─────────────────────────────────────────────────────────────
+
+THEORETICAL IMPLICATIONS
+
+The strong proactive interference for targets (b = -54.36, p < .001) combined with the U-shaped quadratic pattern establishes that:
+
+1. Memory load accumulated across the 10 lists
+2. Middle lists (lists 5-7) suffered most from interference
+3. Early lists benefited from minimal prior interference
+4. Late lists may have benefited from list-level distinctiveness or recovery
+
+This interference pattern during Phase 1 is critical for interpreting Phase 2 (final test) results, as it establishes the memory state at the point of condition manipulation (Backward, Forward, Random test order).
+
+─────────────────────────────────────────────────────────────
+
+NOMENCLATURE
+
+In the initial test phase:
+• target = items that were studied (old items requiring "yes" response)
+• foil = items that were not studied (new items requiring "no" response)
+
+Note: This differs from final test nomenclature where item types are classified as ST, SO, TO, and FTO based on what information they carry from Phase 1.

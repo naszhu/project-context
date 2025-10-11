@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [185b1a3](https://github.com/naszhu/REM_E3_model_fixed/commit/185b1a3) (branch: `oct-11`)
+**Time:** 2025-10-11 15:49:44  
+**Message:**
+```
+fix(allplot-e1): filter reaction times for performance calculations
+
+- Updated data selection to include reaction time (rt) in multiple data frames, ensuring comprehensive analysis of performance metrics.
+- Added filtering criteria to exclude outliers based on reaction time (rt < 150 or rt > 3500) for FOIL and non-FOIL performance calculations.
+- Improved data integrity by ensuring that only valid responses are considered in the analysis.
+
+These changes aim to refine the data analysis process and enhance the accuracy of performance evaluations.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/185b1a3_20251011_154944_plot1.png)  
+![](../plot_archive/185b1a3_20251011_154944_plot2.png)  
+
 ## Commit [0f67eac](https://github.com/naszhu/REM_E3_model_fixed/commit/0f67eac) (branch: `oct-11`)
 **Time:** 2025-10-11 15:41:23  
 **Message:**

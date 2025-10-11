@@ -1,5 +1,18 @@
 [
   {
+    "commit": "185b1a3",
+    "branch": "oct-11",
+    "message": "fix(allplot-e1): filter reaction times for performance calculations",
+    "timestamp": "2025-10-11 15:49:44",
+    "plot1": "plot_archive/185b1a3_20251011_154944_plot1.png",
+    "plot2": "plot_archive/185b1a3_20251011_154944_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "0f67eac",
     "branch": "oct-11",
     "message": "fix(allplot-e1): bug not filter out null for initial between",
