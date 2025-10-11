@@ -18,7 +18,7 @@ df_rt_pl <- read_csv(file.path(DATA_DIR, "E3_AGGREGATED.csv")) %>%
 cat("Loaded aggregated data from E3_AGGREGATED.csv\n")
 
 # ------------------------------------------------------------
-# E3 Initial Test Within List RT DATA
+# Exp. 2 Initial Test Within List RT DATA
 # ------------------------------------------------------------
 
 PLOT_TITLE_SIZE <- 30
@@ -29,7 +29,7 @@ BASE_SIZE <- 30
 POINT_SIZE <- 6
 POINT_STROKE <- 2
 LINE_WIDTH <- 2
-PLOT_WIDTH <- 19
+PLOT_WIDTH <- 18/3*2
 PLOT_HEIGHT <- 6.5
 PLOT_DPI <- 300
 POSITION_LABEL <- "Position"
@@ -64,7 +64,7 @@ initial_within_test_rt <- df_rt_pl %>%
   summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
   group_by(task, condition, type_comment, position) %>%
   summarize(
-    meanrt = mean(meanrt1, na.rm = TRUE),
+    meanrt = median(meanrt1, na.rm = TRUE),
     sd = sd(meanrt1, na.rm = TRUE),
     se = sd / sqrt(n()),
     .groups = "drop"
@@ -92,7 +92,7 @@ initial_within_study_rt <- df_rt_pl %>%
   summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
   group_by(task, condition, type_comment, position) %>%
   summarize(
-    meanrt = mean(meanrt1, na.rm = TRUE),
+    meanrt = median(meanrt1, na.rm = TRUE),
     sd = sd(meanrt1, na.rm = TRUE),
     se = sd / sqrt(n()),
     .groups = "drop"
@@ -173,12 +173,12 @@ initial_within_rt_plot <- ggplot(initial_within_rt) +
   labs(
     x = POSITION_LABEL,
     y = RT_LABEL,
-    title = "E3 Initial Test Within List RT DATA"
+    title = "Exp. 2 Initial Test Within List RT DATA"
   ) +
   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
 ggsave(
-  file.path(DATA_ANALYSIS_DIR, "E3_initial_within_rt.png"),
+  file.path(DATA_ANALYSIS_DIR, "Exp. 2_initial_within_rt.png"),
   initial_within_rt_plot,
   width = PLOT_WIDTH,
   height = PLOT_HEIGHT,
@@ -187,7 +187,7 @@ ggsave(
 )
 
 # ------------------------------------------------------------
-# E3 Initial Test Between List RT DATA
+# Exp. 2 Initial Test Between List RT DATA
 # ------------------------------------------------------------
 
 PLOT_TITLE_SIZE <- 26
@@ -197,7 +197,7 @@ STRIP_TEXT_SIZE <- 30
 BASE_SIZE <- 30
 POINT_SIZE <- 8
 LINE_WIDTH <- 2
-PLOT_WIDTH <- 16
+PLOT_WIDTH <- 16/3*1.5
 PLOT_HEIGHT <- 8
 PLOT_DPI <- 300
 
@@ -233,7 +233,7 @@ initial_between_rt <- df_rt_pl %>%
   summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
   group_by(task, condition, listNum_appear0_initial, colorskeme) %>%
   summarize(
-    meanrt = mean(meanrt1, na.rm = TRUE),
+    meanrt = median(meanrt1, na.rm = TRUE),
     sd = sd(meanrt1, na.rm = TRUE),
     se = sd / sqrt(n()),
     .groups = "drop"
@@ -316,12 +316,12 @@ initial_between_rt_plot <- ggplot(initial_between_rt) +
   labs(
     x = POSITION_LABEL,
     y = RT_LABEL,
-    title = "E3 Initial Between List RT DATA"
+    title = "Exp. 2 Initial Between List RT DATA"
   ) +
   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
 ggsave(
-  file.path(DATA_ANALYSIS_DIR, "E3_initial_between_rt.png"),
+  file.path(DATA_ANALYSIS_DIR, "Exp. 2_initial_between_rt.png"),
   initial_between_rt_plot,
   width = PLOT_WIDTH,
   height = PLOT_HEIGHT,
@@ -330,7 +330,7 @@ ggsave(
 )
 
 # ------------------------------------------------------------
-# E3 Final Test Within List RT DATA
+# Exp. 2 Final Test Within List RT DATA
 # ------------------------------------------------------------
 
 PLOT_TITLE_SIZE <- 35
@@ -341,8 +341,8 @@ BASE_SIZE <- 35
 POINT_STROKE <- 2
 POINT_SIZE <- 7
 LINE_WIDTH <- 2
-PLOT_WIDTH <- 11
-PLOT_HEIGHT <- 6
+PLOT_WIDTH <- 18/3*2
+PLOT_HEIGHT <- 6.5
 PLOT_DPI <- 300
 
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
@@ -376,7 +376,7 @@ final_within_test_rt <- df_rt_pl %>%
   summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
   group_by(task, condition, type_comment, position) %>%
   summarize(
-    meanrt = mean(meanrt1, na.rm = TRUE),
+    meanrt = median(meanrt1, na.rm = TRUE),
     sd = sd(meanrt1, na.rm = TRUE),
     se = sd / sqrt(n()),
     .groups = "drop"
@@ -396,7 +396,7 @@ final_within_study_rt <- df_rt_pl %>%
   summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
   group_by(task, condition, type_comment, position) %>%
   summarize(
-    meanrt = mean(meanrt1, na.rm = TRUE),
+    meanrt = median(meanrt1, na.rm = TRUE),
     sd = sd(meanrt1, na.rm = TRUE),
     se = sd / sqrt(n()),
     .groups = "drop"
@@ -469,12 +469,12 @@ final_within_rt_plot <- ggplot(final_within_rt) +
   labs(
     x = POSITION_LABEL,
     y = RT_LABEL,
-    title = "E3 Final Test Within List RT DATA"
+    title = "Exp. 2 Final Test Within List RT DATA"
   ) +
   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
 ggsave(
-  file.path(DATA_ANALYSIS_DIR, "E3_final_within_rt.png"),
+  file.path(DATA_ANALYSIS_DIR, "Exp. 2_final_within_rt.png"),
   final_within_rt_plot,
   width = PLOT_WIDTH,
   height = PLOT_HEIGHT,
@@ -483,7 +483,7 @@ ggsave(
 )
 
 # ------------------------------------------------------------
-# E3 Final Test Between List RT DATA
+# Exp. 2 Final Test Between List RT DATA
 # ------------------------------------------------------------
 
 PLOT_TITLE_SIZE <- 30
@@ -535,7 +535,7 @@ final_between_initial_rt <- df_rt_pl %>%
   summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
   group_by(task, condition, type_comment, position) %>%
   summarize(
-    meanrt = mean(meanrt1, na.rm = TRUE),
+    meanrt = median(meanrt1, na.rm = TRUE),
     sd = sd(meanrt1, na.rm = TRUE),
     se = sd / sqrt(n()),
     .groups = "drop"
@@ -568,7 +568,7 @@ final_between_final_rt <- df_rt_pl %>%
   summarize(meanrt1 = mean(rt, na.rm = TRUE), .groups = "drop") %>%
   group_by(task, condition, type_comment, position) %>%
   summarize(
-    meanrt = mean(meanrt1, na.rm = TRUE),
+    meanrt = median(meanrt1, na.rm = TRUE),
     sd = sd(meanrt1, na.rm = TRUE),
     se = sd / sqrt(n()),
     .groups = "drop"
@@ -641,12 +641,12 @@ final_between_rt_plot <- ggplot(final_between_rt) +
   labs(
     x = POSITION_LABEL,
     y = RT_LABEL,
-    title = "E3 Final Test Between List RT DATA"
+    title = "Exp. 2 Final Test Between List RT DATA"
   ) +
   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
 ggsave(
-  file.path(DATA_ANALYSIS_DIR, "E3_final_between_rt.png"),
+  file.path(DATA_ANALYSIS_DIR, "Exp. 2_final_between_rt.png"),
   final_between_rt_plot,
   width = PLOT_WIDTH,
   height = PLOT_HEIGHT,
@@ -656,7 +656,7 @@ ggsave(
 
 
 # ------------------------------------------------------------
-# E3 Individual Participant RT Analysis
+# Exp. 2 Individual Participant RT Analysis
 # ------------------------------------------------------------
 
 initial_participant_rt <- df_rt_pl %>%
@@ -687,16 +687,16 @@ participant_rt_data <- bind_rows(initial_participant_rt, final_participant_rt)
 
 write_csv(
   participant_rt_data,
-  file.path(DATA_ANALYSIS_DIR, "participant_rt_data_e3.csv")
+  file.path(DATA_ANALYSIS_DIR, "participant_rt_data_Exp. 2.csv")
 )
-cat("Participant RT data saved to participant_rt_data_e3.csv\n")
+cat("Participant RT data saved to participant_rt_data_Exp. 2.csv\n")
 
 initial_rt_plot <- ggplot(initial_participant_rt, aes(participant_rank, mean_rt)) +
   geom_point(size = 1, alpha = 0.7, color = "black") +
   labs(
     x = "Participant (ordered fastest to slowest)",
     y = "Mean RT (ms)",
-    title = "E3 Initial Test - Individual Participant Mean RT"
+    title = "Exp. 2 Initial Test - Individual Participant Mean RT"
   ) +
   ylim(0, NA) +
   theme_classic() +
@@ -721,7 +721,7 @@ final_rt_plot <- ggplot(final_participant_rt, aes(participant_rank, mean_rt)) +
   labs(
     x = "Participant (ordered fastest to slowest)",
     y = "Mean RT (ms)",
-    title = "E3 Final Test - Individual Participant Mean RT"
+    title = "Exp. 2 Final Test - Individual Participant Mean RT"
   ) +
   ylim(0, NA) +
   theme_classic() +
@@ -746,13 +746,13 @@ combined_rt_plot <- grid.arrange(
   final_rt_plot,
   ncol = 2,
   top = textGrob(
-    "E3 Individual Participant Mean RT",
+    "Exp. 2 Individual Participant Mean RT",
     gp = gpar(fontsize = 28, fontface = "bold")
   )
 )
 
 ggsave(
-  file.path(DATA_ANALYSIS_DIR, "E3_participant_mean_rt.png"),
+  file.path(DATA_ANALYSIS_DIR, "Exp. 2_participant_mean_rt.png"),
   combined_rt_plot,
   width = 13,
   height = 6,
@@ -765,6 +765,7 @@ cat("\n=== PARTICIPANT MEAN RT SUMMARY ===\n")
 cat("\nInitial Test Mean RT:\n")
 cat(sprintf("Number of participants: %d\n", nrow(initial_participant_rt)))
 cat(sprintf("Mean RT: %.2f ms\n", mean(initial_participant_rt$mean_rt)))
+cat(sprintf("Median RT: %.2f ms\n", median(initial_participant_rt$mean_rt)))
 cat(sprintf("SD RT: %.2f ms\n", sd(initial_participant_rt$mean_rt)))
 cat(sprintf(
   "Range: %.2f - %.2f ms\n",
@@ -775,6 +776,7 @@ cat(sprintf(
 cat("\nFinal Test Mean RT:\n")
 cat(sprintf("Number of participants: %d\n", nrow(final_participant_rt)))
 cat(sprintf("Mean RT: %.2f ms\n", mean(final_participant_rt$mean_rt)))
+cat(sprintf("Median RT: %.2f ms\n", median(final_participant_rt$mean_rt)))
 cat(sprintf("SD RT: %.2f ms\n", sd(final_participant_rt$mean_rt)))
 cat(sprintf(
   "Range: %.2f - %.2f ms\n",
@@ -784,7 +786,7 @@ cat(sprintf(
 
 cat("\n=== RT PLOTS CREATED SUCCESSFULLY! ===\n")
 cat("Files created:\n")
-cat("• participant_rt_data_e3.csv - Raw RT data\n")
-cat("• E3_participant_mean_rt.png - Combined RT plot\n")
+cat("• participant_rt_data_Exp. 2.csv - Raw RT data\n")
+cat("• Exp. 2_participant_mean_rt.png - Combined RT plot\n")
 
 

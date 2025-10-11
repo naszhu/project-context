@@ -1,5 +1,23 @@
 [
   {
+    "commit": "7af290f",
+    "branch": "oct-6",
+    "message": "feat(analysis-e1): re-analyse final-between",
+    "timestamp": "2025-10-11 13:39:38",
+    "plot1": "plot_archive/7af290f_20251011_133938_plot1.png",
+    "plot2": "plot_archive/7af290f_20251011_133938_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Results_Section_Final.txt",
+      "design1/data_analysis/APA_results_summary_final_analysis.md",
+      "design1/data_analysis/Bayesian_Results_Summary.md",
+      "design1/data_analysis/data_exploration_check.R",
+      "design1/data_analysis/experiment1_bayesian_condition_analysis.R",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "c7cc5f8",
     "branch": "oct-6",
     "message": "feat(analysis-e1): re-analyse final-between",

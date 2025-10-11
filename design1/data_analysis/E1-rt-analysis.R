@@ -90,7 +90,7 @@ dfserial=
   group_by(position,ip,position_type,condition,probetype)%>%
   summarize(meanrt1=mean(rt, na.rm = TRUE))%>%
   group_by(position,position_type,condition,probetype)%>%
-  summarize(meanrt=mean(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()))%>%
+  summarize(meanrt=median(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()))%>%
   mutate(probetype=case_when(probetype=="FOIL"~"Foil - Correct rejection",
                              TRUE~paste(probetype," - Hits")))%>%
   mutate(position_type=case_when(position_type=="testpos"~"Final Order",
@@ -275,7 +275,7 @@ foil_performance <- df_final %>%
   group_by(ip, probetype) %>%
   summarize(meanrt1 = mean(rt, na.rm = TRUE)) %>%
   group_by(probetype) %>%
-  summarize(meanrt = mean(meanrt1, na.rm = TRUE), sd = sd(meanrt1, na.rm = TRUE), se = sd/sqrt(n())) %>%
+  summarize(meanrt = median(meanrt1, na.rm = TRUE), sd = sd(meanrt1, na.rm = TRUE), se = sd/sqrt(n())) %>%
   mutate(position = 0, position_type = "both") # Use "both" to indicate it should appear in both facets
 
 # Process non-FOIL data normally
@@ -286,7 +286,7 @@ df_finalwithin_nonfoil = df_final %>%
   group_by(position, ip, position_type, probetype) %>%
   summarize(meanrt1 = mean(rt, na.rm = TRUE)) %>%
   group_by(position, position_type, probetype) %>%
-  summarize(meanrt = mean(meanrt1, na.rm = TRUE), sd = sd(meanrt1, na.rm = TRUE), se = sd/sqrt(n()))
+  summarize(meanrt = median(meanrt1, na.rm = TRUE), sd = sd(meanrt1, na.rm = TRUE), se = sd/sqrt(n()))
 
 # Add overall performance for non-tested items in Initial Test Position facet
 nontarget_performance <- df_final %>%
@@ -294,7 +294,7 @@ nontarget_performance <- df_final %>%
   group_by(ip, probetype) %>%
   summarize(meanrt1 = mean(rt, na.rm = TRUE)) %>%
   group_by(probetype) %>%
-  summarize(meanrt = mean(meanrt1, na.rm = TRUE), sd = sd(meanrt1, na.rm = TRUE), se = sd/sqrt(n())) %>%
+  summarize(meanrt = median(meanrt1, na.rm = TRUE), sd = sd(meanrt1, na.rm = TRUE), se = sd/sqrt(n())) %>%
   mutate(position = 0, position_type = "Initial Test Position")
 
 # Combine and create duplicate FOIL rows for both facets (like pivot_longer does)
@@ -464,7 +464,7 @@ df_initialtestbyinitial = dfchanged%>%
   group_by(trialnum,ip,probetype)%>%
   summarize(meanrt1=mean(rt, na.rm = TRUE))%>%
   group_by(trialnum,probetype)%>%
-  summarize(meanrt=mean(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()))%>%
+  summarize(meanrt=median(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()))%>%
   mutate(trialnum=as.factor(trialnum))%>%
   mutate(position=trialnum,position_type="ir")%>%
   mutate(condition="All conditions")%>%
@@ -474,7 +474,7 @@ df_initialtestbyinitial = dfchanged%>%
   mutate(condition=as.factor(condition))%>%
   mutate(condition=factor(condition,levels=levels(condition)[c(1,2,3)]))%>%
   group_by(trialnum)%>%
-  mutate(meanrt_avg=mean(meanrt))
+  mutate(meanrt_avg=median(meanrt))
 
 # Create the data plot - EXACT COPY FROM ORIGINAL
 plot_data <- df_initialtestbyinitial%>%
@@ -593,7 +593,7 @@ dfserial=dfchanged%>%
   group_by(position,ip,position_type,probetype)%>%
   summarize(meanrt1=mean(rt, na.rm = TRUE))%>%
   group_by(position,position_type,probetype)%>%
-  summarize(meanrt=mean(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()))%>%
+  summarize(meanrt=median(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()))%>%
   mutate(probetype=case_when(probetype=="TARGET_foil"~"Foil - Correct rejection",
                              probetype=="TARGET_target"~"Target - Hits"))%>%
   mutate(position_type=case_when(position_type=="testpos"~"Initial Test Position",
@@ -607,7 +607,7 @@ dfserial_meandf=dfchanged%>%
   group_by(testpos,ip)%>%
   summarize(meanrt1=mean(rt, na.rm = TRUE))%>%
   group_by(testpos)%>%
-  summarize(meanrt=mean(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()))%>%
+  summarize(meanrt=median(meanrt1, na.rm = TRUE),sd=sd(meanrt1, na.rm = TRUE),se=sd/sqrt(n()))%>%
   mutate(position_type="Initial Test Position",position=testpos,probetype="Average")%>%
   select(position,position_type,probetype,meanrt,se)
 
@@ -723,8 +723,8 @@ initial_rt_plot <- ggplot(initial_participant_rt,
                       aes(x = participant_rank, y = mean_rt)) +
   geom_point(size = 1, alpha = 0.7, color="black") +
   labs(x = "Participant (ordered fastest to slowest)",
-       y = "Mean RT (s)",
-       title = "E1 Initial Test - Individual Participant Mean RT") +
+       y = "Median RT (s)",
+       title = "E1 Initial Test - Individual Participant Median RT") +
   ylim(0, NA) +
   theme_minimal() +
   theme(
@@ -748,8 +748,8 @@ final_rt_plot <- ggplot(final_participant_rt,
                     aes(x = participant_rank, y = mean_rt)) +
   geom_point(size = 1, alpha = 0.7, color="black") +
   labs(x = "Participant (ordered fastest to slowest)",
-       y = "Mean RT (s)",
-       title = "E1 Final Test - Individual Participant Mean RT") +
+       y = "Median RT (s)",
+       title = "E1 Final Test - Individual Participant Median RT") +
   ylim(0, NA) +
   theme_classic() +
   theme(
@@ -782,7 +782,7 @@ final_rt_plot <- ggplot(final_participant_rt,
 combined_rt_plot <- grid.arrange(
   initial_rt_plot, final_rt_plot,
   ncol = 2,
-  top = textGrob("E1 Individual Participant Mean RT", 
+  top = textGrob("E1 Individual Participant Median RT", 
                  gp = gpar(fontsize = 28, fontface = "bold"))
 )
 
@@ -793,17 +793,19 @@ ggsave(file.path(DATA_ANALYSIS_DIR, "E1_participant_mean_rt.png"), combined_rt_p
 # 5. SUMMARY STATISTICS
 cat("\n=== PARTICIPANT MEAN RT SUMMARY ===\n")
 
-cat("\nInitial Test Mean RT:\n")
+cat("\nInitial Test Median RT:\n")
 cat(sprintf("Number of participants: %d\n", nrow(initial_participant_rt)))
-cat(sprintf("Mean RT: %.3f s\n", mean(initial_participant_rt$mean_rt)))
+cat(sprintf("Median RT: %.3f s\n", mean(initial_participant_rt$mean_rt)))
+cat(sprintf("Median RT: %.3f s\n", median(initial_participant_rt$mean_rt)))
 cat(sprintf("SD RT: %.3f s\n", sd(initial_participant_rt$mean_rt)))
 cat(sprintf("Range: %.3f - %.3f s\n",
     min(initial_participant_rt$mean_rt),
     max(initial_participant_rt$mean_rt)))
 
-cat("\nFinal Test Mean RT:\n")
+cat("\nFinal Test Median RT:\n")
 cat(sprintf("Number of participants: %d\n", nrow(final_participant_rt)))
-cat(sprintf("Mean RT: %.3f s\n", mean(final_participant_rt$mean_rt)))
+cat(sprintf("Median RT: %.3f s\n", mean(final_participant_rt$mean_rt)))
+cat(sprintf("Median RT: %.3f s\n", median(final_participant_rt$mean_rt)))
 cat(sprintf("SD RT: %.3f s\n", sd(final_participant_rt$mean_rt)))
 cat(sprintf("Range: %.3f - %.3f s\n",
     min(final_participant_rt$mean_rt),
