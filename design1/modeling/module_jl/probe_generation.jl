@@ -193,10 +193,10 @@ function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::S
         if condition != :true_random
 
              # Context reconstruction
-             if (list_number == 1) && (condition == :forward)
+            #  if (list_number == 1) && (condition == :forward)
                 original_CC = original_list_CC_by_list[list_number]
                 reinstate_CC_finaltest!(listcg, original_CC, condition)
-             end
+            #  end
 
             if icount != 1
                 drift_between_lists_final!(listcg, icount)

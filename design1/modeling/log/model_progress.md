@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [f9ec50d](https://github.com/naszhu/REM_E3_model_fixed/commit/f9ec50d) (branch: `oct-6`)
+**Time:** 2025-10-11 13:40:07  
+**Message:**
+```
+refactor(rt-analysis): use median RT
+
+- Changed the calculation of mean reaction times (RT) to median across various analyses in both E1 and E3 scripts, enhancing robustness against outliers.
+- Updated plot titles and labels to reflect the shift from mean to median RT, ensuring consistency in reporting.
+- Adjusted file names for saved outputs to align with the new experiment naming convention.
+
+These modifications aim to improve the accuracy and clarity of the data analysis process.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-rt-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3-rt-analysis.R`  
+![](../plot_archive/f9ec50d_20251011_134007_plot1.png)  
+![](../plot_archive/f9ec50d_20251011_134007_plot2.png)  
+
 ## Commit [7af290f](https://github.com/naszhu/REM_E3_model_fixed/commit/7af290f) (branch: `oct-6`)
 **Time:** 2025-10-11 13:39:38  
 **Message:**

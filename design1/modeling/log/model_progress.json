@@ -1,5 +1,19 @@
 [
   {
+    "commit": "f9ec50d",
+    "branch": "oct-6",
+    "message": "refactor(rt-analysis): use median RT",
+    "timestamp": "2025-10-11 13:40:07",
+    "plot1": "plot_archive/f9ec50d_20251011_134007_plot1.png",
+    "plot2": "plot_archive/f9ec50d_20251011_134007_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-rt-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3-rt-analysis.R"
+    ]
+  },
+  {
     "commit": "7af290f",
     "branch": "oct-6",
     "message": "feat(analysis-e1): re-analyse final-between",
