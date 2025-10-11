@@ -1,5 +1,424 @@
 [
   {
+    "commit": "f9ec50d",
+    "branch": "oct-6",
+    "message": "refactor(rt-analysis): use median RT",
+    "timestamp": "2025-10-11 13:40:07",
+    "plot1": "plot_archive/f9ec50d_20251011_134007_plot1.png",
+    "plot2": "plot_archive/f9ec50d_20251011_134007_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-rt-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3-rt-analysis.R"
+    ]
+  },
+  {
+    "commit": "7af290f",
+    "branch": "oct-6",
+    "message": "feat(analysis-e1): re-analyse final-between",
+    "timestamp": "2025-10-11 13:39:38",
+    "plot1": "plot_archive/7af290f_20251011_133938_plot1.png",
+    "plot2": "plot_archive/7af290f_20251011_133938_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Results_Section_Final.txt",
+      "design1/data_analysis/APA_results_summary_final_analysis.md",
+      "design1/data_analysis/Bayesian_Results_Summary.md",
+      "design1/data_analysis/data_exploration_check.R",
+      "design1/data_analysis/experiment1_bayesian_condition_analysis.R",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "c7cc5f8",
+    "branch": "oct-6",
+    "message": "feat(analysis-e1): re-analyse final-between",
+    "timestamp": "2025-10-11 13:17:47",
+    "plot1": "plot_archive/c7cc5f8_20251011_131747_plot1.png",
+    "plot2": "plot_archive/c7cc5f8_20251011_131747_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Results_Section_Final.txt",
+      "design1/data_analysis/APA_results_summary_final_analysis.md",
+      "design1/data_analysis/Bayesian_Results_Summary.md",
+      "design1/data_analysis/data_exploration_check.R",
+      "design1/data_analysis/experiment1_bayesian_condition_analysis.R",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "9d4f295",
+    "branch": "oct-6",
+    "message": "explore(constants-e1): criterion final smaller at end, lower FF higher others, what if?",
+    "timestamp": "2025-10-11 00:33:50",
+    "plot1": "plot_archive/9d4f295_20251011_003350_plot1.png",
+    "plot2": "plot_archive/9d4f295_20251011_003350_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "9d4f295",
+    "branch": "oct-6",
+    "message": "explore(constants-e1): criterion final smaller at end, lower FF higher others, what if?",
+    "timestamp": "2025-10-11 00:33:50",
+    "plot1": "plot_archive/9d4f295_20251011_003350_plot1.png",
+    "plot2": "plot_archive/9d4f295_20251011_003350_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "f2e50f7",
+    "branch": "oct-6",
+    "message": "explore(constants-e1): criterion final biger at end, what if?",
+    "timestamp": "2025-10-11 00:33:17",
+    "plot1": "plot_archive/f2e50f7_20251011_003317_plot1.png",
+    "plot2": "plot_archive/f2e50f7_20251011_003317_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "b47e204",
+    "branch": "oct-6",
+    "message": "refactor(model-e1): test back and force",
+    "timestamp": "2025-10-11 00:30:17",
+    "plot1": "plot_archive/b47e204_20251011_003017_plot1.png",
+    "plot2": "plot_archive/b47e204_20251011_003017_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "9791ba6",
+    "branch": "oct-6",
+    "message": "refactor(model-e1): final test context reconstruction also for list 1",
+    "timestamp": "2025-10-11 00:13:51",
+    "plot1": "plot_archive/9791ba6_20251011_001351_plot1.png",
+    "plot2": "plot_archive/9791ba6_20251011_001351_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "ef8444a",
+    "branch": "oct-6",
+    "message": "refactor(model-e1): final test context reconstruction also for list 1",
+    "timestamp": "2025-10-11 00:12:20",
+    "plot1": "plot_archive/ef8444a_20251011_001220_plot1.png",
+    "plot2": "plot_archive/ef8444a_20251011_001220_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "dc21c61",
+    "branch": "oct-6",
+    "message": "refactor(model-e1): final test context reconstruction also for list 1",
+    "timestamp": "2025-10-11 00:08:36",
+    "plot1": "plot_archive/dc21c61_20251011_000836_plot1.png",
+    "plot2": "plot_archive/dc21c61_20251011_000836_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "0e4f8be",
+    "branch": "oct-6",
+    "message": "feat(model-e1): add final context reconstruction",
+    "timestamp": "2025-10-10 23:28:53",
+    "plot1": "plot_archive/0e4f8be_20251010_232853_plot1.png",
+    "plot2": "plot_archive/0e4f8be_20251010_232853_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "c00b8b1",
+    "branch": "oct-6",
+    "message": "explore(model-e1): Final test CC UC tune - OI why?",
+    "timestamp": "2025-10-09 20:26:14",
+    "plot1": "plot_archive/c00b8b1_20251009_202614_plot1.png",
+    "plot2": "plot_archive/c00b8b1_20251009_202614_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "f7e11da",
+    "branch": "oct-6",
+    "message": "finetune(model-e1): Update simulation parameters and criteria in constants.jl",
+    "timestamp": "2025-10-09 20:22:11",
+    "plot1": "plot_archive/f7e11da_20251009_202211_plot1.png",
+    "plot2": "plot_archive/f7e11da_20251009_202211_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "eee86e3",
+    "branch": "oct-6",
+    "message": "feat(apa-tables-e1): generate comprehensive APA-style tables and text summaries for E1 data analysis",
+    "timestamp": "2025-10-09 17:42:32",
+    "plot1": "plot_archive/eee86e3_20251009_174232_plot1.png",
+    "plot2": "plot_archive/eee86e3_20251009_174232_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Tables_Summary.txt",
+      "design1/data_analysis/Table1_APA_Text.txt",
+      "design1/data_analysis/Table2_APA_Text.txt",
+      "design1/data_analysis/Table3_APA_Text.txt",
+      "design1/data_analysis/Table4_APA_Text.txt",
+      "design1/generate_apa_tables.R",
+      "design1/generate_apa_text_tables.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "adfbbce",
+    "branch": "oct-6",
+    "message": "feat(outlier-analysis-e1-e3): add detailed explanations for retaining slow participants",
+    "timestamp": "2025-10-08 15:43:22",
+    "plot1": "plot_archive/adfbbce_20251008_154322_plot1.png",
+    "plot2": "plot_archive/adfbbce_20251008_154322_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1_RT_Outliers_Explanation.txt",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_RT_Outliers_Explanation.txt"
+    ]
+  },
+  {
+    "commit": "b65f8a5",
+    "branch": "oct-6",
+    "message": "refactor(rt-analysis-e1): update analysis to focus on response times",
+    "timestamp": "2025-10-08 15:34:40",
+    "plot1": "plot_archive/b65f8a5_20251008_153440_plot1.png",
+    "plot2": "plot_archive/b65f8a5_20251008_153440_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-rt-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "91234b7",
+    "branch": "oct-6",
+    "message": "fix(combined-plots-e3): apply RT filter for test trials to avoid NA issues",
+    "timestamp": "2025-10-08 15:24:14",
+    "plot1": "plot_archive/91234b7_20251008_152414_plot1.png",
+    "plot2": "plot_archive/91234b7_20251008_152414_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "3821281",
+    "branch": "oct-6",
+    "message": "fix(data-generation-e1): RT filter causes problem for intial test join, so need to apply RT filter later",
+    "timestamp": "2025-10-08 15:21:41",
+    "plot1": "plot_archive/3821281_20251008_152141_plot1.png",
+    "plot2": "plot_archive/3821281_20251008_152141_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/generate_data.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "c0538dc",
+    "branch": "oct-6",
+    "message": "fix(combined-plot-e3): correct type_comment mapping and update plot parameters",
+    "timestamp": "2025-10-08 15:16:34",
+    "plot1": "plot_archive/c0538dc_20251008_151634_plot1.png",
+    "plot2": "plot_archive/c0538dc_20251008_151634_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r"
+    ]
+  },
+  {
+    "commit": "37120ae",
+    "branch": "oct-6",
+    "message": "feat(analysis-e3): implement comprehensive RT analysis and visualizations",
+    "timestamp": "2025-10-08 14:44:47",
+    "plot1": "plot_archive/37120ae_20251008_144447_plot1.png",
+    "plot2": "plot_archive/37120ae_20251008_144447_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3-rt-analysis.R"
+    ]
+  },
+  {
+    "commit": "a7140c8",
+    "branch": "oct-6",
+    "message": "refactor(analysis-e1): mistakes might exist, recreate",
+    "timestamp": "2025-10-07 17:51:18",
+    "plot1": "plot_archive/a7140c8_20251007_175118_plot1.png",
+    "plot2": "plot_archive/a7140c8_20251007_175118_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-rt-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "79b1ed3",
+    "branch": "oct-6",
+    "message": "refactor(analysis-e1): make exclusion criteria in data generation but not in analysis",
+    "timestamp": "2025-10-07 17:39:48",
+    "plot1": "plot_archive/79b1ed3_20251007_173948_plot1.png",
+    "plot2": "plot_archive/79b1ed3_20251007_173948_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-participant-performance-plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "8b0be09",
+    "branch": "oct-6",
+    "message": "feat(analysis-e1): add comprehensive exclusion and outlier analysis scripts",
+    "timestamp": "2025-10-07 17:39:21",
+    "plot1": "plot_archive/8b0be09_20251007_173921_plot1.png",
+    "plot2": "plot_archive/8b0be09_20251007_173921_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-comprehensive-exclusion-analysis.R",
+      "design1/data_analysis/E1-outlier-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "2854e07",
+    "branch": "oct-6",
+    "message": "fix(combinedplot-e1): update simulation parameters and filtering logic",
+    "timestamp": "2025-10-07 17:38:49",
+    "plot1": "plot_archive/2854e07_20251007_173849_plot1.png",
+    "plot2": "plot_archive/2854e07_20251007_173849_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "5513c5d",
+    "branch": "oct-6",
+    "message": "feat(analysis-e3): data cleaning e3",
+    "timestamp": "2025-10-07 17:38:23",
+    "plot1": "plot_archive/5513c5d_20251007_173823_plot1.png",
+    "plot2": "plot_archive/5513c5d_20251007_173823_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/APA_Participants_Section_E3.txt",
+      "design3/data_analysis/E3-exclusion-analysis.R",
+      "design3/data_analysis/generate_data.r"
+    ]
+  },
+  {
+    "commit": "114941e",
+    "branch": "oct-6",
+    "message": "refactor(analysis-e1): data clearning, redo",
+    "timestamp": "2025-10-07 17:25:41",
+    "plot1": "plot_archive/114941e_20251007_172541_plot1.png",
+    "plot2": "plot_archive/114941e_20251007_172541_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Participants_Section.txt",
+      "design1/data_analysis/generate_data.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "a3f8a57",
+    "branch": "oct-6",
+    "message": "feat(analysis-e1): add comprehensive RT analysis for E1",
+    "timestamp": "2025-10-07 17:20:44",
+    "plot1": "plot_archive/a3f8a57_20251007_172044_plot1.png",
+    "plot2": "plot_archive/a3f8a57_20251007_172044_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-rt-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "18b0e89",
+    "branch": "oct-6",
+    "message": "fix(plot-e3): enhance prediction plots with conditional data processing",
+    "timestamp": "2025-10-07 13:23:42",
+    "plot1": "plot_archive/18b0e89_20251007_132342_plot1.png",
+    "plot2": "plot_archive/18b0e89_20251007_132342_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "9e67c96",
+    "branch": "oct-6",
+    "message": "fix(plot-e3): enhance prediction plots with conditional data processing",
+    "timestamp": "2025-10-07 13:23:18",
+    "plot1": "plot_archive/9e67c96_20251007_132318_plot1.png",
+    "plot2": "plot_archive/9e67c96_20251007_132318_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "e1e31b3",
+    "branch": "oct-6",
+    "message": "merge(model-e1): Merge branch 'oct-3-new-e1-model'",
+    "timestamp": "2025-10-05 15:02:04",
+    "plot1": "plot_archive/e1e31b3_20251005_150204_plot1.png",
+    "plot2": "plot_archive/e1e31b3_20251005_150204_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "3fde0f2",
     "branch": "oct-3-new-e1-model",
     "message": "finetune(model-e1): update simulation parameters for improved model accuracy",

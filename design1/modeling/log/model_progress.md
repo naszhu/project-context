@@ -1,5 +1,592 @@
 # Model Progress
 
+## Commit [f9ec50d](https://github.com/naszhu/REM_E3_model_fixed/commit/f9ec50d) (branch: `oct-6`)
+**Time:** 2025-10-11 13:40:07  
+**Message:**
+```
+refactor(rt-analysis): use median RT
+
+- Changed the calculation of mean reaction times (RT) to median across various analyses in both E1 and E3 scripts, enhancing robustness against outliers.
+- Updated plot titles and labels to reflect the shift from mean to median RT, ensuring consistency in reporting.
+- Adjusted file names for saved outputs to align with the new experiment naming convention.
+
+These modifications aim to improve the accuracy and clarity of the data analysis process.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-rt-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3-rt-analysis.R`  
+![](../plot_archive/f9ec50d_20251011_134007_plot1.png)  
+![](../plot_archive/f9ec50d_20251011_134007_plot2.png)  
+
+## Commit [7af290f](https://github.com/naszhu/REM_E3_model_fixed/commit/7af290f) (branch: `oct-6`)
+**Time:** 2025-10-11 13:39:38  
+**Message:**
+```
+feat(analysis-e1): re-analyse final-between
+
+- Introduced detailed results and summaries for the final test between-list analysis, including significant findings on Output Interference patterns across different test conditions (Backward, Forward, Random) and item types (ST, SO, TO, Foil).
+- Implemented a Generalized Linear Mixed Model (GLMM) to analyze the effects of test order condition, item type, and final test position on recognition accuracy, revealing critical interactions and trends.
+- Added Bayesian analysis results to complement frequentist findings, providing a robust framework for understanding condition effects on Output Interference.
+- Enhanced data exploration scripts to validate data integrity and ensure proper analysis setup.
+
+These additions aim to improve the clarity and comprehensiveness of the data analysis process, facilitating better understanding and reporting of results.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Results_Section_Final.txt`  
+- `design1/data_analysis/APA_results_summary_final_analysis.md`  
+- `design1/data_analysis/Bayesian_Results_Summary.md`  
+- `design1/data_analysis/data_exploration_check.R`  
+- `design1/data_analysis/experiment1_bayesian_condition_analysis.R`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/7af290f_20251011_133938_plot1.png)  
+![](../plot_archive/7af290f_20251011_133938_plot2.png)  
+
+## Commit [c7cc5f8](https://github.com/naszhu/REM_E3_model_fixed/commit/c7cc5f8) (branch: `oct-6`)
+**Time:** 2025-10-11 13:17:47  
+**Message:**
+```
+feat(analysis-e1): re-analyse final-between
+
+- Introduced detailed results and summaries for the final test between-list analysis, including significant findings on Output Interference patterns across different test conditions (Backward, Forward, Random) and item types (ST, SO, TO, Foil).
+- Implemented a Generalized Linear Mixed Model (GLMM) to analyze the effects of test order condition, item type, and final test position on recognition accuracy, revealing critical interactions and trends.
+- Added Bayesian analysis results to complement frequentist findings, providing a robust framework for understanding condition effects on Output Interference.
+- Enhanced data exploration scripts to validate data integrity and ensure proper analysis setup.
+
+These additions aim to improve the clarity and comprehensiveness of the data analysis process, facilitating better understanding and reporting of results.
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Results_Section_Final.txt`  
+- `design1/data_analysis/APA_results_summary_final_analysis.md`  
+- `design1/data_analysis/Bayesian_Results_Summary.md`  
+- `design1/data_analysis/data_exploration_check.R`  
+- `design1/data_analysis/experiment1_bayesian_condition_analysis.R`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/c7cc5f8_20251011_131747_plot1.png)  
+![](../plot_archive/c7cc5f8_20251011_131747_plot2.png)  
+
+## Commit [9d4f295](https://github.com/naszhu/REM_E3_model_fixed/commit/9d4f295) (branch: `oct-6`)
+**Time:** 2025-10-11 00:33:50  
+**Message:**
+```
+explore(constants-e1): criterion final smaller at end, lower FF higher others, what if?
+
+- Updated the calculation of criterion_final to ensure proper asymptotic behavior by adjusting the exponent for the upper limit.
+- This change enhances the accuracy of the model's criteria in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/9d4f295_20251011_003350_plot1.png)  
+![](../plot_archive/9d4f295_20251011_003350_plot2.png)  
+
+## Commit [f2e50f7](https://github.com/naszhu/REM_E3_model_fixed/commit/f2e50f7) (branch: `oct-6`)
+**Time:** 2025-10-11 00:33:17  
+**Message:**
+```
+explore(constants-e1): criterion final biger at end, what if?
+
+- Updated the calculation of criterion_final to ensure proper asymptotic behavior by adjusting the exponent for the upper limit.
+- This change enhances the accuracy of the model's criteria in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/f2e50f7_20251011_003317_plot1.png)  
+![](../plot_archive/f2e50f7_20251011_003317_plot2.png)  
+
+## Commit [b47e204](https://github.com/naszhu/REM_E3_model_fixed/commit/b47e204) (branch: `oct-6`)
+**Time:** 2025-10-11 00:30:17  
+**Message:**
+```
+refactor(model-e1): test back and force
+
+- Increased the probability of reinstating original CC features in the final test from 0.1 to 0.3 to enhance context recall.
+- Refined the context reconstruction logic in the `generate_finalt_probes` function to ensure reinstatement occurs only for specific conditions, improving simulation accuracy.
+
+These changes aim to optimize context-related simulations in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/b47e204_20251011_003017_plot1.png)  
+![](../plot_archive/b47e204_20251011_003017_plot2.png)  
+
+## Commit [9791ba6](https://github.com/naszhu/REM_E3_model_fixed/commit/9791ba6) (branch: `oct-6`)
+**Time:** 2025-10-11 00:13:51  
+**Message:**
+```
+refactor(model-e1): final test context reconstruction also for list 1
+
+- Adjusted the probability of reinstating original CC features in the final test from 0.04 to 0.1 for enhanced context recall.
+- Modified the ratio of changing to itself in the final test to 0.15, aligning with updated simulation requirements.
+- Refined the context reconstruction logic in the `generate_finalt_probes` function to ensure proper handling of conditions, improving simulation accuracy.
+
+These changes aim to optimize the context-related simulations in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/9791ba6_20251011_001351_plot1.png)  
+![](../plot_archive/9791ba6_20251011_001351_plot2.png)  
+
+## Commit [ef8444a](https://github.com/naszhu/REM_E3_model_fixed/commit/ef8444a) (branch: `oct-6`)
+**Time:** 2025-10-11 00:12:20  
+**Message:**
+```
+refactor(model-e1): final test context reconstruction also for list 1
+
+- Adjusted the probability of reinstating original CC features in the final test from 0.04 to 0.1 for enhanced context recall.
+- Modified the ratio of changing to itself in the final test to 0.15, aligning with updated simulation requirements.
+- Refined the context reconstruction logic in the `generate_finalt_probes` function to ensure proper handling of conditions, improving simulation accuracy.
+
+These changes aim to optimize the context-related simulations in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/ef8444a_20251011_001220_plot1.png)  
+![](../plot_archive/ef8444a_20251011_001220_plot2.png)  
+
+## Commit [dc21c61](https://github.com/naszhu/REM_E3_model_fixed/commit/dc21c61) (branch: `oct-6`)
+**Time:** 2025-10-11 00:08:36  
+**Message:**
+```
+refactor(model-e1): final test context reconstruction also for list 1
+
+- Adjusted the probability of reinstating original CC features in the final test from 0.04 to 0.1 for enhanced context recall.
+- Modified the ratio of changing to itself in the final test to 0.15, aligning with updated simulation requirements.
+- Refined the context reconstruction logic in the `generate_finalt_probes` function to ensure proper handling of conditions, improving simulation accuracy.
+
+These changes aim to optimize the context-related simulations in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/dc21c61_20251011_000836_plot1.png)  
+![](../plot_archive/dc21c61_20251011_000836_plot2.png)  
+
+## Commit [0e4f8be](https://github.com/naszhu/REM_E3_model_fixed/commit/0e4f8be) (branch: `oct-6`)
+**Time:** 2025-10-10 23:28:53  
+**Message:**
+```
+feat(model-e1): add final context reconstruction
+
+- Introduced a mechanism to store and reinstate original changing context (CC) features during final tests, allowing for improved simulation of participants' context recall.
+- Updated the `generate_finalt_probes` function to accept original CC data, facilitating context reconstruction based on study-time values.
+- Added flags for controlling CC reconstruction behavior in different test conditions, enhancing flexibility in simulation scenarios.
+
+These changes aim to improve the accuracy of context-related simulations in the final testing phase.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/0e4f8be_20251010_232853_plot1.png)  
+![](../plot_archive/0e4f8be_20251010_232853_plot2.png)  
+
+## Commit [c00b8b1](https://github.com/naszhu/REM_E3_model_fixed/commit/c00b8b1) (branch: `oct-6`)
+**Time:** 2025-10-09 20:26:14  
+**Message:**
+```
+explore(model-e1): Final test CC UC tune - OI why?
+
+- Set p_ListChange_finaltest to 0.0 to reflect new testing conditions.
+- Adjusted ratio_changing_to_itself_final to 0.0, aligning with the updated simulation framework.
+- These modifications enhance the accuracy and relevance of the simulation setup.
+
+Refs #47
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c00b8b1_20251009_202614_plot1.png)  
+![](../plot_archive/c00b8b1_20251009_202614_plot2.png)  
+
+## Commit [f7e11da](https://github.com/naszhu/REM_E3_model_fixed/commit/f7e11da) (branch: `oct-6`)
+**Time:** 2025-10-09 20:22:11  
+**Message:**
+```
+finetune(model-e1): Update simulation parameters and criteria in constants.jl
+
+- Changed the final test flag to true and adjusted the number of simulations accordingly.
+- Modified the criterion_final calculation to reflect new parameters for asymptotic behavior.
+- Updated final_gap_change and p_ListChange_finaltest values for improved simulation accuracy.
+- Adjusted ratio_changing_to_itself_final to zero to align with the new testing conditions.
+
+These changes enhance the simulation setup for more accurate modeling outcomes.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/f7e11da_20251009_202211_plot1.png)  
+![](../plot_archive/f7e11da_20251009_202211_plot2.png)  
+
+## Commit [eee86e3](https://github.com/naszhu/REM_E3_model_fixed/commit/eee86e3) (branch: `oct-6`)
+**Time:** 2025-10-09 17:42:32  
+**Message:**
+```
+feat(apa-tables-e1): generate comprehensive APA-style tables and text summaries for E1 data analysis
+
+- Created R scripts to generate four APA-style tables summarizing performance metrics for E1, including Final Test Between List, Final Test Within List, Initial Between List, and Initial Within List.
+- Implemented data processing steps to calculate means and standard errors for various probe types and positions, ensuring clarity and accuracy in reporting.
+- Generated corresponding text files for each table, providing detailed descriptions and formatted outputs for easy reference.
+- Included a summary document outlining the contents and structure of the generated tables.
+
+These additions enhance the presentation and accessibility of E1 data analysis results, facilitating better understanding and reporting.
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Tables_Summary.txt`  
+- `design1/data_analysis/Table1_APA_Text.txt`  
+- `design1/data_analysis/Table2_APA_Text.txt`  
+- `design1/data_analysis/Table3_APA_Text.txt`  
+- `design1/data_analysis/Table4_APA_Text.txt`  
+- `design1/generate_apa_tables.R`  
+- `design1/generate_apa_text_tables.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/eee86e3_20251009_174232_plot1.png)  
+![](../plot_archive/eee86e3_20251009_174232_plot2.png)  
+
+## Commit [adfbbce](https://github.com/naszhu/REM_E3_model_fixed/commit/adfbbce) (branch: `oct-6`)
+**Time:** 2025-10-08 15:43:22  
+**Message:**
+```
+feat(outlier-analysis-e1-e3): add detailed explanations for retaining slow participants
+
+- Introduced comprehensive documentation for the retention of slow participants in Experiments 1 and 3, outlining the rationale based on accuracy, individual differences, and methodological considerations.
+- Emphasized the use of median RT and a conservative 3 SD threshold to justify the inclusion of participants with elevated response times while maintaining data integrity.
+- Provided recommendations for reporting these findings in research papers to address potential concerns regarding outlier retention.
+
+These additions aim to enhance the transparency and scientific rigor of the analysis regarding participant response times.
+```
+**Changed Files:**
+- `design1/data_analysis/E1_RT_Outliers_Explanation.txt`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_RT_Outliers_Explanation.txt`  
+![](../plot_archive/adfbbce_20251008_154322_plot1.png)  
+![](../plot_archive/adfbbce_20251008_154322_plot2.png)  
+
+## Commit [b65f8a5](https://github.com/naszhu/REM_E3_model_fixed/commit/b65f8a5) (branch: `oct-6`)
+**Time:** 2025-10-08 15:34:40  
+**Message:**
+```
+refactor(rt-analysis-e1): update analysis to focus on response times
+
+- Enhanced the data processing pipeline to filter and summarize reaction times (RT) for final and initial tests, ensuring only valid RTs are included.
+- Updated visualizations to reflect mean RTs instead of accuracy metrics, improving the clarity of the analysis.
+- Renamed output files to better represent the content, focusing on RT data.
+
+These changes aim to provide a more accurate and meaningful analysis of response times in Experiment 1.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-rt-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/b65f8a5_20251008_153440_plot1.png)  
+![](../plot_archive/b65f8a5_20251008_153440_plot2.png)  
+
+## Commit [91234b7](https://github.com/naszhu/REM_E3_model_fixed/commit/91234b7) (branch: `oct-6`)
+**Time:** 2025-10-08 15:24:14  
+**Message:**
+```
+fix(combined-plots-e3): apply RT filter for test trials to avoid NA issues
+
+- Implemented a reaction time (RT) filter for test trials directly in the combined_all_plots.R script to prevent NA issues caused by removing initial test items.
+- This change enhances data integrity by ensuring that only relevant trials are included in the analysis.
+
+These modifications aim to improve the accuracy of the data analysis process.
+
+Closes #45
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/91234b7_20251008_152414_plot1.png)  
+![](../plot_archive/91234b7_20251008_152414_plot2.png)  
+
+## Commit [3821281](https://github.com/naszhu/REM_E3_model_fixed/commit/3821281) (branch: `oct-6`)
+**Time:** 2025-10-08 15:21:41  
+**Message:**
+```
+fix(data-generation-e1): RT filter causes problem for intial test join, so need to apply RT filter later
+
+- Commented out the exclusion of specific task trials based on reaction time cutoffs in the data generation script.
+- This change aims to improve code clarity and maintainability while allowing for potential future use of the filtering logic.
+
+Fixes #45
+```
+**Changed Files:**
+- `design1/data_analysis/generate_data.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/3821281_20251008_152141_plot1.png)  
+![](../plot_archive/3821281_20251008_152141_plot2.png)  
+
+## Commit [c0538dc](https://github.com/naszhu/REM_E3_model_fixed/commit/c0538dc) (branch: `oct-6`)
+**Time:** 2025-10-08 15:16:34  
+**Message:**
+```
+fix(combined-plot-e3): correct type_comment mapping and update plot parameters
+
+- Adjusted the mapping of type_comment for specific initial positions to improve clarity in data representation.
+- Updated the parameters for the plot to reflect correct values for "T" and "Tn_p1", enhancing the accuracy of visual outputs.
+- Improved data summarization logic to ensure correct calculation of mean and standard error for response times.
+
+These changes aim to refine the analysis and visualization of response times in Experiment 3.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/c0538dc_20251008_151634_plot1.png)  
+![](../plot_archive/c0538dc_20251008_151634_plot2.png)  
+
+## Commit [37120ae](https://github.com/naszhu/REM_E3_model_fixed/commit/37120ae) (branch: `oct-6`)
+**Time:** 2025-10-08 14:44:47  
+**Message:**
+```
+feat(analysis-e3): implement comprehensive RT analysis and visualizations
+
+- Added a new R script for detailed response time (RT) analysis, covering both initial and final tests.
+- Implemented data loading, filtering, and summarization processes to calculate mean RTs and standard errors for various conditions.
+- Developed visualizations for RT data, including individual participant analysis and combined plots, enhancing clarity and presentation.
+- Saved participant RT data to a CSV file for further reference.
+
+These additions aim to provide a robust framework for analyzing and visualizing response times in Experiment 3.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3-rt-analysis.R`  
+![](../plot_archive/37120ae_20251008_144447_plot1.png)  
+![](../plot_archive/37120ae_20251008_144447_plot2.png)  
+
+## Commit [a7140c8](https://github.com/naszhu/REM_E3_model_fixed/commit/a7140c8) (branch: `oct-6`)
+**Time:** 2025-10-07 17:51:18  
+**Message:**
+```
+refactor(analysis-e1): mistakes might exist, recreate
+```
+**Changed Files:**
+- `design1/data_analysis/E1-rt-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a7140c8_20251007_175118_plot1.png)  
+![](../plot_archive/a7140c8_20251007_175118_plot2.png)  
+
+## Commit [79b1ed3](https://github.com/naszhu/REM_E3_model_fixed/commit/79b1ed3) (branch: `oct-6`)
+**Time:** 2025-10-07 17:39:48  
+**Message:**
+```
+refactor(analysis-e1): make exclusion criteria in data generation but not in analysis
+
+- Commented out specific IP address filters in the initial and final test performance calculations for clarity and potential future use.
+- Added comments to enhance understanding of the filtering process and its implications on data quality.
+
+These changes aim to improve the maintainability and clarity of the participant performance analysis in the E1 study.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-participant-performance-plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/79b1ed3_20251007_173948_plot1.png)  
+![](../plot_archive/79b1ed3_20251007_173948_plot2.png)  
+
+## Commit [8b0be09](https://github.com/naszhu/REM_E3_model_fixed/commit/8b0be09) (branch: `oct-6`)
+**Time:** 2025-10-07 17:39:21  
+**Message:**
+```
+feat(analysis-e1): add comprehensive exclusion and outlier analysis scripts
+
+- Introduced two new R scripts: E1-comprehensive-exclusion-analysis.R and E1-outlier-analysis.R for detailed participant data evaluation.
+- Implemented comprehensive exclusion criteria based on accuracy, reaction time, response patterns, and data completeness to enhance data quality.
+- Developed outlier detection methods including Z-score, IQR, and Mahalanobis distance to identify extreme performance cases.
+- Added visual diagnostics to support analysis findings and recommendations for participant exclusions.
+
+These additions aim to improve the rigor and clarity of participant data handling in the E1 study, ensuring robust analysis and reporting.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-comprehensive-exclusion-analysis.R`  
+- `design1/data_analysis/E1-outlier-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/8b0be09_20251007_173921_plot1.png)  
+![](../plot_archive/8b0be09_20251007_173921_plot2.png)  
+
+## Commit [2854e07](https://github.com/naszhu/REM_E3_model_fixed/commit/2854e07) (branch: `oct-6`)
+**Time:** 2025-10-07 17:38:49  
+**Message:**
+```
+fix(combinedplot-e1): update simulation parameters and filtering logic
+
+- Adjusted Y_MIN value for improved plot consistency.
+- Updated filtering criteria in participant performance analysis to exclude specific IP addresses, enhancing data quality.
+- Modified simulation parameters for final tests to refine model accuracy.
+
+These changes aim to improve the robustness and clarity of data analysis and simulation processes across the project.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/2854e07_20251007_173849_plot1.png)  
+![](../plot_archive/2854e07_20251007_173849_plot2.png)  
+
+## Commit [5513c5d](https://github.com/naszhu/REM_E3_model_fixed/commit/5513c5d) (branch: `oct-6`)
+**Time:** 2025-10-07 17:38:23  
+**Message:**
+```
+feat(analysis-e3): data cleaning e3
+
+- Introduced a new text file detailing the participants section for Experiment 3, including exclusion criteria and final sample statistics.
+- Added an R script for exclusion analysis, implementing data quality checks and generating an exclusion report based on performance metrics.
+- Enhanced data filtering logic to exclude participants with low accuracy and response time outliers, ensuring robust data quality for analysis.
+
+These additions aim to improve the clarity and rigor of participant data handling in Experiment 3.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/APA_Participants_Section_E3.txt`  
+- `design3/data_analysis/E3-exclusion-analysis.R`  
+- `design3/data_analysis/generate_data.r`  
+![](../plot_archive/5513c5d_20251007_173823_plot1.png)  
+![](../plot_archive/5513c5d_20251007_173823_plot2.png)  
+
+## Commit [114941e](https://github.com/naszhu/REM_E3_model_fixed/commit/114941e) (branch: `oct-6`)
+**Time:** 2025-10-07 17:25:41  
+**Message:**
+```
+refactor(analysis-e1): data clearning, redo
+
+- Updated filtering logic to enhance data quality by excluding participants with low accuracy and specific outlier IPs.
+- Commented out previous filters for clarity and potential future use.
+- Added detailed comments to explain the rationale behind exclusions, improving code maintainability.
+
+These changes aim to refine the data preparation process for more accurate analysis in the E1 study.
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Participants_Section.txt`  
+- `design1/data_analysis/generate_data.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/114941e_20251007_172541_plot1.png)  
+![](../plot_archive/114941e_20251007_172541_plot2.png)  
+
+## Commit [a3f8a57](https://github.com/naszhu/REM_E3_model_fixed/commit/a3f8a57) (branch: `oct-6`)
+**Time:** 2025-10-07 17:20:44  
+**Message:**
+```
+feat(analysis-e1): add comprehensive RT analysis for E1
+
+- Introduced a new R script for detailed response time (RT) analysis, including both final and initial test evaluations.
+- Implemented data loading, filtering, and summarization processes to calculate mean RTs and standard errors for various conditions.
+- Developed visualizations for RT data, enhancing clarity and presentation through improved styling and layout.
+- Included individual participant analysis to track performance across tests, saving results for further reference.
+
+These additions aim to provide a robust framework for analyzing and visualizing response times in the E1 study.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-rt-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a3f8a57_20251007_172044_plot1.png)  
+![](../plot_archive/a3f8a57_20251007_172044_plot2.png)  
+
+## Commit [18b0e89](https://github.com/naszhu/REM_E3_model_fixed/commit/18b0e89) (branch: `oct-6`)
+**Time:** 2025-10-07 13:23:42  
+**Message:**
+```
+fix(plot-e3): enhance prediction plots with conditional data processing
+
+fix  plote3 with some mistakes on poitn types and so on, and y axis
+
+- Introduced checks for the existence of final predictions before processing data for test and study positions.
+- Updated the plotting logic to conditionally create prediction plots based on the availability of data, improving robustness.
+- Adjusted y-axis limits and breaks for better visualization consistency across plots.
+
+These changes aim to enhance the functionality and reliability of the prediction plots in the design3 module.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+- `design3/modeling`  
+![](../plot_archive/18b0e89_20251007_132342_plot1.png)  
+![](../plot_archive/18b0e89_20251007_132342_plot2.png)  
+
+## Commit [9e67c96](https://github.com/naszhu/REM_E3_model_fixed/commit/9e67c96) (branch: `oct-6`)
+**Time:** 2025-10-07 13:23:18  
+**Message:**
+```
+fix(plot-e3): enhance prediction plots with conditional data processing
+
+fix  plote3 with some mistakes on poitn types and so on, and y axis
+
+- Introduced checks for the existence of final predictions before processing data for test and study positions.
+- Updated the plotting logic to conditionally create prediction plots based on the availability of data, improving robustness.
+- Adjusted y-axis limits and breaks for better visualization consistency across plots.
+
+These changes aim to enhance the functionality and reliability of the prediction plots in the design3 module.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+- `design3/modeling`  
+![](../plot_archive/9e67c96_20251007_132318_plot1.png)  
+![](../plot_archive/9e67c96_20251007_132318_plot2.png)  
+
+## Commit [e1e31b3](https://github.com/naszhu/REM_E3_model_fixed/commit/e1e31b3) (branch: `oct-6`)
+**Time:** 2025-10-05 15:02:04  
+**Message:**
+```
+merge(model-e1): Merge branch 'oct-3-new-e1-model'
+```
+![](../plot_archive/e1e31b3_20251005_150204_plot1.png)  
+![](../plot_archive/e1e31b3_20251005_150204_plot2.png)  
+
 ## Commit [3fde0f2](https://github.com/naszhu/REM_E3_model_fixed/commit/3fde0f2) (branch: `oct-3-new-e1-model`)
 **Time:** 2025-10-04 00:39:32  
 **Message:**

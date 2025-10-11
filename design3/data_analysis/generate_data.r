@@ -181,14 +181,28 @@ for (col in factor_cols) {
 combined_df = full_join(df_pl,f2_aligned)
 
 df_rt_pl =
-  combined_df %>% filter(task%in% c("initialTest_response","finalTest")) %>% 
+  combined_df %>% filter(task%in% c("initialTest_response","finalTest")) %>%
   filter(is_finished==1)%>%
   filter(codeversion != 1)%>%
   mutate(rt=as.numeric(rt))%>%
-  filter(subject_id!="67ecdf3dcb59c5e0f274ad2d")%>%
-  filter(! subject_id%in%c("6751acc5dc78128951a34f1f","67f909f80373c9f5af736a5a"))%>% #accuracy too low
-    filter(subject_id!="")%>%
-  filter(!is.na(rt),rt<3000)%>%
+  filter(subject_id!="")%>%  # Remove empty subject IDs
+  # Exclude participants with severe performance/engagement issues
+  filter(subject_id != "66c6fa245bf424072fb98375") %>%  # 49.3% accuracy, below chance
+  filter(subject_id != "6751acc5dc78128951a34f1f") %>%  # 22.9% accuracy, extreme low (Z=-3.77), below chance
+  filter(subject_id != "67acacf033444654db29a196") %>%  # 49.9% accuracy, below chance
+  filter(subject_id != "67c4a89c5774e227371675a2") %>%  # 48.2% accuracy, below chance
+  filter(subject_id != "67def81ba5ffb33a228e677b") %>%  # 49.8% accuracy, below chance
+  filter(subject_id != "67e089e7822d32764647ccb0") %>%  # 48.9% accuracy, below chance
+  filter(subject_id != "67e2fdf2d328f1e3dd7045b6") %>%  # 49.3% accuracy, below chance
+  filter(subject_id != "67e9875c5b9b26c19a3bdf88") %>%  # 48.8% accuracy, below chance
+  filter(subject_id != "67f909f80373c9f5af736a5a") %>%  # 29.1% accuracy, extreme low (Z=-3.29), below chance
+  filter(subject_id != "5910a5f8748d450001ba3a67") %>%  # RT outlier (281ms, Z=-3.33), rushing (19.5% fast RT)
+  filter(subject_id != "67917bf6747e6389b4743877") %>%  # RT outlier (1654ms, Z=4.03)
+  filter(subject_id != "67eefac7eaf3702ddd603092") %>%  # RT outlier (1669ms, Z=4.11)
+  filter(subject_id != "67ecdf3dcb59c5e0f274ad2d") %>%  # 59.9% accuracy, previously identified
+  # Exclude trials outside experiment's RT cutoffs (150-3500ms) - affects test trials only
+  filter(!(rt < 150 | rt > 3500)) %>%  # 479 trials (0.31%)
+  # filter(!is.na(rt),rt<3000)%>%
   # filter(id!=)%>%
     # select(id_picName,codeversion,task,subject_id,  rt, condition, stimulusConditions, stimulusConditionName_nPlusOneTrial, listNum_appear0_initial,correct,type_comment,listNum_infinalOrder,listNum_appear1_initial,listNum_appear2_initial, anRepeatedItem, testPos_final,testPos_appear0_initial,testPos_appear1_initial,testPos_appear2_initial,studyPos_appear0_initial,studyPos_appear1_initial,studyPos_appear2_initial ,is_finished,all_accumulated_accuracy, type_code_studiedCurr,type_code_testiedCurr,type_code_testiedNext,is_currentObjAppear1,current_assignmentTypesWithinList,listNum_infinalOrder, stimulusConditions, correct_appear2,correct_appear1)%>%
     mutate(type_comment_fn=case_when(

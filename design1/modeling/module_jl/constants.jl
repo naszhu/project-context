@@ -1,7 +1,7 @@
 
 
-is_finaltest = false
-n_simulations = is_finaltest ? 1000 : 500;
+is_finaltest = true
+n_simulations = is_finaltest ? 200 : 500;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -201,6 +201,12 @@ nC_in = round.(Int, nC .* ratio_changing_to_itself_init)[1]
 const n_finalprobs = 420;
 chunk_size_final_change = 42; 
 
+# Context reconstruction flags for final test (between-list)
+is_reconstruct_finaltest_forward = true   # Enable CC reconstruction for forward condition
+is_reconstruct_finaltest_backward = false  # Disable CC reconstruction for backward condition
+# is_reconstruct_finaltest_random = false   # never do reconstruction for random condition
+p_reinstate_rate_finaltest = 0.3          # Probability of reinstating original CC features in final test 
+
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
 
 # E3 final test chunk parameters this part is wrong, M1 don't have this
@@ -209,14 +215,15 @@ const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
 
 # Original criterion_final (commented out to try asymptotic version)
-# criterion_final = LinRange((0.09+0.18)^power_taken, 0.065^power_taken, 10)
+criterion_final = LinRange((0.09+0.18)^power_taken, 0.27-0.07^power_taken, 10)
 # Generate asymptotic criterion_final using asym_increase_shift for nonlinear behavior
-criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.065^power_taken, 0.3, 10)
-final_gap_change = 0.08; #0.16 in E3 
+# criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
+# criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
+final_gap_change = 0.1; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
-p_ListChange_finaltest = ones(10) * 0.02 #0.8 in E3, but undecided as well in E3
+p_ListChange_finaltest = ones(10) * 0.013 #0.8 in E3, but undecided as well in E3
 ratio_unchanging_to_itself_final = LinRange(1.0,1.0, n_lists) # if use no unchanging
-ratio_changing_to_itself_final = LinRange(0.3,0.3, n_lists) # if use no unchanging 
+ratio_changing_to_itself_final = LinRange(0.15,0.15, n_lists) # if use no unchanging 
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)

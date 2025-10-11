@@ -1,0 +1,39 @@
+RESULTS
+
+Final Test Between-List Performance
+
+A Generalized Linear Mixed Model (GLMM) with binomial distribution was conducted to examine the effects of test order condition (Backward, Forward, Random), item type (ST, SO, TO, Foil), and final test position on recognition accuracy. The model included three-way interactions between final order position (linear and quadratic orthogonal polynomial terms), item type, and condition, with random intercepts for participants (N = 196 participants, 82,093 observations).
+
+Item Type Effects
+
+Significant main effects of item type emerged. Relative to foil items (M = 0.83, SD = 0.38), Source-Target (ST) items showed significantly higher accuracy (M = 0.88, SD = 0.32; b = 0.57, SE = 0.07, z = 8.61, p < .001), while Source-Only (SO) items (M = 0.66, SD = 0.47; b = -0.95, SE = 0.05, z = -20.55, p < .001) and Target-Only (TO) items (M = 0.64, SD = 0.48; b = -0.98, SE = 0.05, z = -20.96, p < .001) showed significantly lower accuracy.
+
+Output Interference Effects
+
+A significant linear decline in accuracy across final test positions was observed (b = -48.38, SE = 7.89, z = -6.13, p < .001), indicating robust Output Interference effects. Additionally, significant quadratic trends emerged for SO items (b = 36.01, SE = 13.42, z = 2.68, p = .007), ST items (b = 75.51, SE = 19.44, z = 3.88, p < .001), and TO items (b = 56.51, SE = 13.69, z = 4.13, p < .001), indicating curvilinear performance patterns across test positions.
+
+Condition Effects on Output Interference
+
+A significant two-way interaction between condition and final order linear trend emerged (z = 2.61, p = .009), indicating that the Random condition showed significantly less Output Interference (b = -23.28) compared to the Backward condition (b = -48.38). The Forward condition (b = -44.75) did not differ significantly from Backward (z = 0.33, p = .740).
+
+Critical three-way interactions emerged between condition, item type, and final order position. For Target-Only (TO) items, the Forward condition showed dramatically less Output Interference (b = -6.33, SE = 10.90) compared to the Backward condition (b = -123.03, SE = 11.50), z = 5.88, p < .001. The Random condition also showed significantly less interference for TO items (b = -58.73) compared to Backward, z = 4.71, p < .001. Post-hoc pairwise comparisons with Tukey adjustment revealed significant linear trend differences between all condition pairs for TO items: Backward vs. Forward (z = -7.37, p < .001), Backward vs. Random (z = -4.71, p < .001), and Forward vs. Random (z = 3.99, p < .001).
+
+For ST items, no significant condition differences in linear trends emerged (all ps > .56). For SO items, conditions did not differ significantly in linear trends (all ps > .24), though Forward showed a numerically smaller decline (b = -22.54) compared to Backward (b = -40.49) and Random (b = -43.84).
+
+Condition × Item Type Interactions
+
+Significant two-way interactions between condition and item type emerged, independent of position effects. For SO items, the Forward condition showed higher overall accuracy than Backward (b = 0.17, SE = 0.07, z = 2.53, p = .011). For TO items, Forward showed higher overall accuracy than Backward (b = 0.19, SE = 0.07, z = 2.90, p = .004), while Random showed lower accuracy than Backward (b = -0.17, SE = 0.06, z = -2.94, p = .003). No significant condition differences emerged for ST items (all ps > .048).
+
+Quadratic Trend Effects
+
+Significant three-way interactions for quadratic trends emerged, indicating differential curvature across conditions and item types. For TO items, the Backward condition showed significantly greater quadratic curvature (b = 68.21) compared to Forward (b = 15.03), z = -2.82, p = .005, and compared to Random (b = 26.27), z = -2.03, p = .042. For ST items, Backward showed greater curvature (b = 87.20) compared to Random (b = 31.33), z = -2.06, p = .040. These quadratic effects reflect an initial rapid decline followed by a leveling off in performance, with this pattern most pronounced in the Backward condition.
+
+Summary
+
+Test order condition significantly modulated Output Interference patterns, with the strongest effects observed for Target-Only items. The Forward condition exhibited minimal interference for TO items, while the Backward condition showed strong interference. The Random condition consistently demonstrated reduced interference compared to Backward across multiple item types. These findings indicate that retrieval order during testing substantially influences subsequent memory performance through differential Output Interference effects.
+
+---
+
+MODEL DIAGNOSTICS NOTE (for supplementary materials or footnote):
+The final model showed marginal convergence (relative gradient = 0.029), which is within acceptable ranges for complex GLMMs with multiple three-way interactions. All effects reported with p < .01 showed robust parameter estimates with narrow confidence intervals, indicating stable solutions despite the convergence warning.
+

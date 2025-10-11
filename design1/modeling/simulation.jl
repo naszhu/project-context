@@ -16,8 +16,11 @@ function simulate_rem()
         #    sim_num=1
         image_pool = EpisodicImage[]
         studied_pool = Array{EpisodicImage}(undef, n_probes + Int(n_probes / 2), n_lists) #30 images (10 Tt, 10 Tn, 10 Tf) of 10 lists
-        general_context_features = rand(Geometric(g_context), nU) .+ 1#[ContextFeature(rand(Geometric(g_context)) + 1, :general, p_change) for _ in 1:div(w_context, 2)] 
+        general_context_features = rand(Geometric(g_context), nU) .+ 1#[ContextFeature(rand(Geometric(g_context)) + 1, :general, p_change) for _ in 1:div(w_context, 2)]
         list_change_context_features = rand(Geometric(g_context), nC) .+ 1#[ContextFeature(rand(Geometric(g_context)) + 1, :list_change, p_change) for _ in 1:div(w_context, 2)]
+
+        # Store original CC (changing context) for each list at study time for final test reconstruction
+        original_list_CC_by_list = Dict{Int64, Vector{Int64}}()
 
 
 
@@ -103,6 +106,10 @@ function simulate_rem()
             #    println(studied_pool[list_num,20])
             #    println(studied_pool[list_num,21])
             studied_pool[n_words+1:n_words+Int(n_words / 2), list_num] = foil_collections
+
+            # Store original CC for this list (before it changes between lists) for final test reconstruction
+            original_list_CC_by_list[list_num] = deepcopy(list_change_context_features)
+
             results = probe_evaluation(image_pool, probes, list_change_context_features, general_context_features, sim_num)
             # println("ImagePoolNow", [i.word.item for i in image_pool])
             
@@ -164,7 +171,7 @@ function simulate_rem()
             # println("Processing final tests for simulation $sim_num...")
             for icondition in [:forward, :backward, :true_random]
                 image_pool_bc = deepcopy(image_pool)
-                finalprobes = generate_finalt_probes(studied_pool, icondition, general_context_features, list_change_context_features)
+                finalprobes = generate_finalt_probes(studied_pool, icondition, general_context_features, list_change_context_features, original_list_CC_by_list)
                 results_final = probe_evaluation2(image_pool_bc, finalprobes)
                 for ii in eachindex(results_final)
                     res = results_final[ii]

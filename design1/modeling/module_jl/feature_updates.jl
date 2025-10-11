@@ -17,6 +17,43 @@ function drift_between_lists_final!(ctx::Vector{Int64}, icount::Int64)
     end
 end
 
+"""Reconstruct (reinstate) the changing context (CC) to original study-time values.
+
+This function reinstates the CC features to their original values from study time,
+simulating participants' ability to reconstruct the study context for a specific list
+during final test. The reinstatement happens once at the start of each list/chunk and
+persists throughout that list/chunk.
+
+Args:
+    current_CC: Current CC vector to be modified (will be modified in place)
+    original_CC: Original CC vector from study time for the target list
+    condition: Current test condition (:forward, :backward, or :true_random)
+
+Returns:
+    Nothing (modifies current_CC in place)
+"""
+function reinstate_CC_finaltest!(current_CC::Vector{Int64}, original_CC::Vector{Int64}, condition::Symbol)::Nothing
+    # Check if reconstruction is enabled for this condition
+    do_reconstruct = false
+    if condition == :forward && is_reconstruct_finaltest_forward
+        do_reconstruct = true
+    elseif condition == :backward && is_reconstruct_finaltest_backward
+        do_reconstruct = true
+    elseif condition == :true_random # && is_reconstruct_finaltest_random
+        do_reconstruct = false #never do reconstruction for random condition
+    end
+
+    # If reconstruction is enabled, fully reinstate all CC features
+    if do_reconstruct
+        # Copy all original CC values to current CC
+        for i in eachindex(current_CC)
+            current_CC[i] =  rand() < p_reinstate_rate_finaltest ? original_CC[i] : current_CC[i]
+        end
+    end
+
+    return nothing
+end
+
 ######### OK these were added from E3, used in memory_restorage
 
 """

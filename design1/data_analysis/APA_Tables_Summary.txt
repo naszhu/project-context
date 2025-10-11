@@ -1,0 +1,29 @@
+
+APA-STYLE TABLES FOR E1 DATA ANALYSIS
+=====================================
+
+All tables show Mean (Standard Error) across participants.
+
+TABLE 1: E1 Final Test Between List
+- Shows performance by condition (backward, forward, random)
+- Separated by position type (Final Order vs Initial Order)
+- Position 0-10 for each probe type
+- Probe types: Foil-CR, TARGET_foil-Hits, TARGET_nontarget-Hits, TARGET_target-Hits
+
+TABLE 2: E1 Final Test Within List  
+- Shows performance by position type (Initial Study Position vs Initial Test Position)
+- Position 0-20 for each probe type
+- Probe types: FOIL-CR, Foil neither studied nor tested-CR, Target Studied and tested-Hits, Target Studied only-Hits
+
+TABLE 3: E1 Initial Between List
+- Shows performance across list numbers 1-10
+- All conditions combined
+- Probe types: Foil-CR, TARGET_foil-Hits
+
+TABLE 4: E1 Initial Within List
+- Shows performance by position type (Initial Study Position vs Initial Test Position)
+- Position 1-20 for each probe type
+- Probe types: Foil-CR, Target-Hits, Average (test position only)
+
+Note: CR = Correct Rejection
+

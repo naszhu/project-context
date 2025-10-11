@@ -17,7 +17,12 @@ library(grid)
 
 all_results=read.csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design3/modeling/all_results.csv")
 DF=read.csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design3/modeling/DF.csv")
-allresf=read.csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design3/modeling/allresf.csv")
+allresf_path <- "/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design3/modeling/allresf.csv"
+has_final_predictions <- FALSE
+if (file.exists(allresf_path)) {
+  allresf=read.csv(allresf_path)
+  has_final_predictions <- TRUE
+}
 
 df_rt_pl=read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design3/data/E3_AGGREGATED.csv")
 
@@ -225,7 +230,8 @@ p1_p = ggplot(data=df1_combined, aes(x=position, y=meanx, group=is_target)) +
               "Fb-Fn" = 2,                # open triangle
               "Fb-SOn" = 1,               # open circle
               "Fb-Tn" = 0,                # open square
-              "T" = 0)                    # open square
+              "T" = 15                    # solid square
+              )                    
   ) +
   scale_linetype_manual(
     values = c("F" = "solid",
@@ -279,6 +285,11 @@ PLOT_HEIGHT <- 8
 PLOT_DPI <- 300
 POSITION_LABEL <- "Position"
 CORRECT_RATE_LABEL <- "Correct Response Rate"
+
+# Y-axis scale constants
+Y_MIN <- 0.38
+Y_MAX <- 0.93
+Y_BREAKS <- seq(0.4, 0.9, by = 0.1)
 
 
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
@@ -385,7 +396,8 @@ p2_d <- ggplot(data=d1ta)+
   facet_grid(. ~ task, labeller = labeller(task = c("initialTest_response" = "Initial List Number")))+
   scale_x_continuous(breaks = seq(0, 10, by = 1))+
   # scale_x_continuous(breaks = seq(min(d1ta_combined$position, na.rm=TRUE), max(d1ta_combined$position, na.rm=TRUE), by = 1)) +
-  scale_y_continuous(breaks = seq(0.4, 0.9, by = 0.1), limits = c(0.38, 0.9))
+  scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
+
 
 
 
@@ -437,7 +449,7 @@ p2_p = ggplot(data = DF2, aes(x = list_number, y = meanx, group = is_target)) +
       "Fb-Fn" = 2,       # open triangle
       "Fb-SOn" = 1,      # open circle
       "Fb-Tn" = 0,       # open square
-      "T" = 0            # open square
+      "T" = 15           # solid square
     )
   ) +
   scale_linetype_manual(
@@ -455,7 +467,8 @@ p2_p = ggplot(data = DF2, aes(x = list_number, y = meanx, group = is_target)) +
     y = CORRECT_RATE_LABEL, 
     title = "Initial Test Between List PREDICTION"
   ) +
-  facet_grid(. ~ task, labeller = labeller(task = c("initialTest_response" = "Initial List Number"))) 
+  facet_grid(. ~ task, labeller = labeller(task = c("initialTest_response" = "Initial List Number"))) +
+  scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
 # Create combined plot using grid.arrange
 combined_plot <- grid.arrange(
   p2_d, p2_p,
@@ -467,6 +480,7 @@ combined_plot <- grid.arrange(
 # Save the combined plot
 ggsave("E3_initial_between_list_combined.png", combined_plot, 
        width = PLOT_WIDTH, height = PLOT_HEIGHT, dpi = 300, bg = "white")
+
 
 ###############################################################
 ###############################################################
@@ -610,89 +624,93 @@ p3_d = ggplot(data=d1taf_combined)+
 ###############################################################
 
 
-# Data processing for prediction plot - Test Position
-df1_test = allresf %>% 
-  mutate(correct = case_when( 
-    (decision_isold==1) & (is_target=="true") ~ 1, 
-    decision_isold==0 & is_target=="false" ~ 1,
-    TRUE ~ 0)) %>%
-  mutate(is_target = sub('"[^"]*$', '', type_specific)) %>%
-  mutate(test_position_grouped = ceiling(as.numeric(initial_testpos) / 3)) %>%
-  group_by(test_position_grouped, is_target, simulation_number) %>%
-  summarize(meanx = mean(correct)) %>%
-  group_by(test_position_grouped, is_target) %>%
-  summarize(meanx = mean(meanx)) %>%
-  mutate(position_type = "Test Position", position = test_position_grouped)
+if (has_final_predictions) {
+  # Data processing for prediction plot - Test Position
+  df1_test = allresf %>% 
+    mutate(correct = case_when( 
+      (decision_isold==1) & (is_target=="true") ~ 1, 
+      decision_isold==0 & is_target=="false" ~ 1,
+      TRUE ~ 0)) %>%
+    mutate(is_target = sub('"[^"]*$', '', type_specific)) %>%
+    mutate(test_position_grouped = ceiling(as.numeric(initial_testpos) / 3)) %>%
+    group_by(test_position_grouped, is_target, simulation_number) %>%
+    summarize(meanx = mean(correct)) %>%
+    group_by(test_position_grouped, is_target) %>%
+    summarize(meanx = mean(meanx)) %>%
+    mutate(position_type = "Test Position", position = test_position_grouped)
 
-# Data processing for prediction plot - Study Position  
-df1_study = allresf %>% 
-  mutate(correct = case_when( 
-    (decision_isold==1) & (is_target=="true") ~ 1, 
-    decision_isold==0 & is_target=="false" ~ 1,
-    TRUE ~ 0)) %>%
-  mutate(is_target = sub('"[^"]*$', '', type_specific)) %>%
-  mutate(study_position_grouped = ceiling(as.numeric(initial_studypos) / 3)) %>%
-  group_by(study_position_grouped, is_target, simulation_number) %>%
-  summarize(meanx = mean(correct)) %>%
-  group_by(study_position_grouped, is_target) %>%
-  summarize(meanx = mean(meanx)) %>%
-  mutate(position_type = "Study Position", position = study_position_grouped)
+  # Data processing for prediction plot - Study Position  
+  df1_study = allresf %>% 
+    mutate(correct = case_when( 
+      (decision_isold==1) & (is_target=="true") ~ 1, 
+      decision_isold==0 & is_target=="false" ~ 1,
+      TRUE ~ 0)) %>%
+    mutate(is_target = sub('"[^"]*$', '', type_specific)) %>%
+    mutate(study_position_grouped = ceiling(as.numeric(initial_studypos) / 3)) %>%
+    group_by(study_position_grouped, is_target, simulation_number) %>%
+    summarize(meanx = mean(correct)) %>%
+    group_by(study_position_grouped, is_target) %>%
+    summarize(meanx = mean(meanx)) %>%
+    mutate(position_type = "Study Position", position = study_position_grouped)
 
-# Combine both datasets
-df1_combined = bind_rows(df1_test, df1_study)
+  # Combine both datasets
+  df1_combined = bind_rows(df1_test, df1_study)
 
-# Create combined plot with facet_grid
-pf3_p = ggplot(data=df1_combined, aes(x=position, y=meanx, group=is_target)) +
-  geom_line(aes(color=is_target, linetype=is_target), linewidth=LINE_WIDTH) +
-  geom_point(aes(color=is_target, shape=is_target), size=POINT_SIZE, stroke=POINT_STROKE) +
-  facet_grid(.~position_type) +
-  scale_color_manual(
-    values = c("F" = "#E08214",            # orange for previous initial foil
-              "FF" = "red",                # red for final new foil
-              "Fn_p1" = "#E08214",         # orange for previous confusing foil
-              "SO" = "#1A9850",            # green for previous studied only
-              "SOn_p1" = "#1A9850",        # green for previous studied only confusing foil
-              "T" = "#2166AC",             # blue for previous target
-              "Tn_p1" = "#2166AC")         # blue for previous target confusing foil
-  ) +
-  scale_shape_manual(
-    values = c("F" = 17,                    # solid triangle
-              "FF" = 8,                    # star
-              "Fn_p1" = 2,                 # open triangle
-              "SO" = 16,                   # solid circle
-              "SOn_p1" = 1,                # open circle
-              "T" = 0,                     # open square
-              "Tn_p1" = 15)                # solid square
-  ) +
-  scale_linetype_manual(
-    values = c("F" = "dashed",
-              "FF" = "solid",
-              "Fn_p1" = "dashed",
-              "SO" = "dashed",
-              "SOn_p1" = "dashed",
-              "T" = "solid",
-              "Tn_p1" = "solid")
-  ) +
-  PLOT_THEME +
-  labs(
-    x = POSITION_LABEL, 
-    y = CORRECT_RATE_LABEL, 
-    title = "Final Test Within List PREDICTION"
-  ) +
-  scale_x_continuous(breaks = seq(0, 10, by = 1)) +
-  scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
+  # Create combined plot with facet_grid
+  pf3_p = ggplot(data=df1_combined, aes(x=position, y=meanx, group=is_target)) +
+    geom_line(aes(color=is_target, linetype=is_target), linewidth=LINE_WIDTH) +
+    geom_point(aes(color=is_target, shape=is_target), size=POINT_SIZE, stroke=POINT_STROKE) +
+    facet_grid(.~position_type) +
+    scale_color_manual(
+      values = c("F" = "#E08214",
+                "FF" = "red",
+                "Fn_p1" = "#E08214",
+                "SO" = "#1A9850",
+                "SOn_p1" = "#1A9850",
+                "T" = "#2166AC",
+                "Tn_p1" = "#2166AC")
+    ) +
+    scale_shape_manual(
+      values = c("F" = 17,
+                "FF" = 8,
+                "Fn_p1" = 2,
+                "SO" = 16,
+                "SOn_p1" = 1,
+                "T" = 15, #solid square
+                "Tn_p1" = 0) #open square
+    ) +
+    scale_linetype_manual(
+      values = c("F" = "dashed",
+                "FF" = "solid",
+                "Fn_p1" = "dashed",
+                "SO" = "dashed",
+                "SOn_p1" = "dashed",
+                "T" = "solid",
+                "Tn_p1" = "solid")
+    ) +
+    PLOT_THEME +
+    labs(
+      x = POSITION_LABEL, 
+      y = CORRECT_RATE_LABEL, 
+      title = "Final Test Within List PREDICTION"
+    ) +
+    scale_x_continuous(breaks = seq(0, 10, by = 1)) +
+    scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
 
-# Create combined plot using grid.arrange
-combined_plot <- grid.arrange(
-  p3_d, pf3_p,
-  ncol = 2,
-  top = textGrob("E3 Final Test Within List: DATA vs PREDICTION", 
-                 gp = gpar(fontsize = 28, fontface = "bold"))
-)
+  # Create combined plot using grid.arrange
+  combined_plot <- grid.arrange(
+    p3_d, pf3_p,
+    ncol = 2,
+    top = textGrob("E3 Final Test Within List: DATA vs PREDICTION", 
+                   gp = gpar(fontsize = 28, fontface = "bold"))
+  )
 
-# Save the combined plot
-ggsave("E3_final_test_within_list_combined.png", combined_plot, 
-       width = 24, height = 8, dpi = 300, bg = "white")
+  # Save the combined plot
+  ggsave("E3_final_test_within_list_combined.png", combined_plot, 
+         width = 24, height = 8, dpi = 300, bg = "white")
+} else {
+  cat("Final test not predicted\n")
+}
 
 
 ###############################################################
@@ -704,7 +722,7 @@ ggsave("E3_final_test_within_list_combined.png", combined_plot,
 ###############################################################
 
 
-
+if (has_final_predictions) {
 # Plot formatting constants
 PLOT_TITLE_SIZE <- 30
 AXIS_TITLE_SIZE <- 30
@@ -756,13 +774,20 @@ levelsStr_fn = levels(as.factor(df_rt_pl$type_comment_fn))
 d1taf_initial = df_rt_pl%>%
   mutate(correct=case_when(correct=="True"~1,
                            correct=="False"~0,
-                           TRUE ~ correct))%>%
-  filter(task=="finalTest")%>%
-  mutate(type_comment=type_comment_fn)%>%
-         group_by(task, condition,type_comment, listNum_appear1_initial, subject_id)%>%
-         summarise(crs = mean(correct))%>%
-         group_by(task, condition,type_comment, listNum_appear1_initial)%>%
-         summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop')%>%
+                           TRUE ~ correct)) %>%
+  filter(task=="finalTest") %>%
+  mutate(type_comment=type_comment_fn) %>%
+  # If initial position is 10, change type_comment for the specified types
+  mutate(type_comment = case_when(
+    listNum_appear1_initial == 10 & type_comment == "Foil(n), Foil (n+1)" ~ "Foil(n); Appear once",
+    listNum_appear1_initial == 10 & type_comment == "Studied-only (n); Foil (n+1)" ~ "Studied-only (n); Appear once",
+    listNum_appear1_initial == 10 & type_comment == "Target: studied and tested at (n), Foil (n+1)" ~ "Target: : started and tested at (n) ; Appear once",
+    TRUE ~ type_comment
+  )) %>%
+  group_by(task, condition, type_comment, listNum_appear1_initial, subject_id) %>%
+  summarise(crs = mean(correct)) %>%
+  group_by(task, condition, type_comment, listNum_appear1_initial) %>%
+  summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop') %>%
   mutate(position_type = "Initial Position", position = listNum_appear1_initial)
 
 ############ Second plot - Final position
@@ -966,9 +991,13 @@ combined_plot <- grid.arrange(
   ncol = 2,
   top = textGrob("E3 Final Test Between List: DATA vs PREDICTION", 
                  gp = gpar(fontsize = 28, fontface = "bold"))
-)
+)}
 
 # Save the combined plot
+if (has_final_predictions) {
 ggsave("E3_final_test_between_list_combined.png", combined_plot, 
        width = 24, height = 7, dpi = 300, bg = "white")
+} else {
+  cat("Final test not predicted: skipping final between-list prediction plots.\n")
+}
  

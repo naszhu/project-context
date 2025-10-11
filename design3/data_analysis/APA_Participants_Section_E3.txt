@@ -1,0 +1,117 @@
+PARTICIPANTS SECTION - EXPERIMENT 3 (APA Style)
+===============================================
+
+Participants
+
+    One hundred ninety-nine participants completed the experiment through online recruitment via Prolific.
+
+    Data quality screening was conducted using multiple exclusion criteria following standard practices in cognitive psychology research (Van Selst & Jolicoeur, 1994). At the participant level, individuals were excluded if they met any of the following criteria: (a) below-chance performance (accuracy < 50%), indicating random responding; (b) overall task accuracy more than 2.5 standard deviations below the sample mean; (c) median response time more than 3 standard deviations from the sample mean, indicating atypical response patterns; or (d) more than 10% of responses faster than 200 ms, indicating insufficient processing time or rushed responding. At the trial level, responses faster than 150 ms or slower than 3,500 ms were excluded from all analyses, consistent with established response window parameters.
+
+    Thirteen participants (6.5%) were excluded based on participant-level criteria. Specifically, nine participants exhibited below-chance performance (*M* = 0.48, *SD* = 0.01, range = 0.48–0.50), indicating they were responding randomly or not engaging meaningfully with the task. Two additional participants exhibited extremely low accuracy (22.9% and 29.1%, both >3 *SD* below the mean) combined with below-chance performance. Three participants were excluded due to extreme response time outliers (median RTs of 281 ms, 1,654 ms, and 1,669 ms; |*z*| > 3.3), with one also exhibiting rushed responding (19.5% of responses < 200 ms). One participant who had been previously identified during initial screening (59.9% accuracy) was also excluded. At the trial level, 479 trials (0.31% of all test trials) were excluded due to response times outside the 150–3,500 ms window (355 trials < 150 ms, 124 trials > 3,500 ms).
+
+    The final sample consisted of 186 participants contributing 156,214 valid test trials. All participants provided informed consent and were compensated for their time in accordance with institutional review board guidelines.
+
+
+---
+
+ALTERNATIVE VERSION (More Concise)
+===============================================
+
+Participants
+
+    One hundred ninety-nine participants completed the experiment online via Prolific. Following standard data quality screening procedures (Van Selst & Jolicoeur, 1994), 13 participants (6.5%) were excluded due to below-chance performance (accuracy < 50%, *n* = 9), extremely low accuracy (>2.5 *SD* below the mean, *n* = 2), extreme outlier response times (>3 *SD* from the mean, *n* = 3), or rushed responding (>10% responses < 200 ms, *n* = 1). Additionally, 479 trials (0.31%) were excluded for response times outside the 150–3,500 ms window. The final sample consisted of 186 participants contributing 156,214 valid test trials.
+
+
+---
+
+KEY STATISTICS FOR TEXT OR TABLE
+===============================================
+
+Initial Sample:
+- Total: N = 199
+- Total test trials: 156,693
+
+Participant-Level Exclusions:
+- Total excluded: n = 13 (6.5%)
+
+Breakdown by Reason:
+- Below-chance performance only: n = 6
+- Below-chance + extreme low accuracy: n = 2
+- Extreme low accuracy only: n = 0
+- RT outlier (too slow): n = 2
+- RT outlier (too fast) + rushed responding: n = 1
+- Previously identified: n = 1
+- (Note: One participant had multiple issues)
+
+Trial-Level Exclusions:
+- Total excluded: 479 trials (0.31% of test trials)
+- RT < 150 ms: 355 trials (0.23%)
+- RT > 3,500 ms: 124 trials (0.08%)
+
+Final Sample:
+- Total: N = 186
+- Valid test trials: 156,214
+
+Detailed Participant Exclusions:
+1. 66c6fa245bf424072fb98375 - 49.3% accuracy (below chance)
+2. 6751acc5dc78128951a34f1f - 22.9% accuracy (extreme low, Z=-3.77, below chance)
+3. 67acacf033444654db29a196 - 49.9% accuracy (below chance)
+4. 67c4a89c5774e227371675a2 - 48.2% accuracy (below chance)
+5. 67def81ba5ffb33a228e677b - 49.8% accuracy (below chance)
+6. 67e089e7822d32764647ccb0 - 48.9% accuracy (below chance)
+7. 67e2fdf2d328f1e3dd7045b6 - 49.3% accuracy (below chance)
+8. 67e9875c5b9b26c19a3bdf88 - 48.8% accuracy (below chance)
+9. 67f909f80373c9f5af736a5a - 29.1% accuracy (extreme low, Z=-3.29, below chance)
+10. 5910a5f8748d450001ba3a67 - RT outlier (281ms, Z=-3.33), 19.5% fast responses
+11. 67917bf6747e6389b4743877 - RT outlier (1654ms, Z=4.03)
+12. 67eefac7eaf3702ddd603092 - RT outlier (1669ms, Z=4.11)
+13. 67ecdf3dcb59c5e0f274ad2d - 59.9% accuracy (previously identified)
+
+
+---
+
+TABLE (Optional - APA Format)
+===============================================
+
+Table 1
+*Participant Exclusions by Criterion for Experiment 3*
+
+Exclusion Criterion                                Count    Percentage
+-------------------------------------------------  -------  ----------
+Below-chance performance (< 50% accuracy)              9       4.5%
+Extreme low accuracy (> 2.5 SD below mean)             2       1.0%
+Extreme RT outlier (> 3 SD from mean)                  3       1.5%
+Rushed responding (> 10% responses < 200 ms)           1       0.5%
+Previously identified during screening                 1       0.5%
+Total unique participants excluded                    13       6.5%
+
+*Note.* Some participants met multiple exclusion criteria. The total reflects
+unique participants excluded.
+
+
+---
+
+REFERENCE
+===============================================
+
+Van Selst, M., & Jolicoeur, P. (1994). A solution to the effect of sample size on outlier elimination. *Quarterly Journal of Experimental Psychology Section A*, *47*(3), 631-650. https://doi.org/10.1080/14640749408401131
+
+
+---
+
+COMPARISON WITH E1
+===============================================
+
+Experiment 1:
+- Initial: 206 participants
+- Excluded: 10 (4.9%)
+- Final: 196 participants
+- Trial exclusions: 351 (0.28%)
+
+Experiment 3:
+- Initial: 199 participants
+- Excluded: 13 (6.5%)
+- Final: 186 participants
+- Trial exclusions: 479 (0.31%)
+
+Note: E3 had a slightly higher exclusion rate, primarily due to more participants performing at or below chance level (9 participants in E3 vs. 0 in E1), suggesting the E3 task may have been more challenging or required clearer instructions.
