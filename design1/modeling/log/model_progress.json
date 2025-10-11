@@ -1,5 +1,23 @@
 [
   {
+    "commit": "05c6406",
+    "branch": "oct-11",
+    "message": "feat(data-analysis): add initial test between-list results and comprehensive analysis outputs",
+    "timestamp": "2025-10-11 17:41:02",
+    "plot1": "plot_archive/05c6406_20251011_174102_plot1.png",
+    "plot2": "plot_archive/05c6406_20251011_174102_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Initial_Between_Results.txt",
+      "design1/data_analysis/MASTER_ANALYSIS_SUMMARY.md",
+      "design1/data_analysis/SUMMARY_initial_between_model.md",
+      "design1/data_analysis/between_final_analysis_output.txt",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/init_between_analysis_output.txt",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "185b1a3",
     "branch": "oct-11",
     "message": "fix(allplot-e1): filter reaction times for performance calculations",

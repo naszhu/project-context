@@ -1,5 +1,30 @@
 # Model Progress
 
+## Commit [05c6406](https://github.com/naszhu/REM_E3_model_fixed/commit/05c6406) (branch: `oct-11`)
+**Time:** 2025-10-11 17:41:02  
+**Message:**
+```
+feat(data-analysis): add initial test between-list results and comprehensive analysis outputs
+
+- Introduced new files for initial test between-list results and analysis outputs, detailing performance metrics across item types and list numbers.
+- Implemented a Generalized Linear Mixed Model (GLMM) to analyze the effects of list number and item type on recognition accuracy, revealing significant proactive interference and U-shaped patterns in target recognition.
+- Enhanced data preparation scripts to filter out invalid responses and ensure comprehensive analysis of performance metrics.
+- Generated summary tables and visual representations to facilitate understanding of key findings and trends.
+
+These additions aim to provide a robust framework for analyzing initial test performance and its implications for subsequent phases.
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Initial_Between_Results.txt`  
+- `design1/data_analysis/MASTER_ANALYSIS_SUMMARY.md`  
+- `design1/data_analysis/SUMMARY_initial_between_model.md`  
+- `design1/data_analysis/between_final_analysis_output.txt`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/init_between_analysis_output.txt`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/05c6406_20251011_174102_plot1.png)  
+![](../plot_archive/05c6406_20251011_174102_plot2.png)  
+
 ## Commit [185b1a3](https://github.com/naszhu/REM_E3_model_fixed/commit/185b1a3) (branch: `oct-11`)
 **Time:** 2025-10-11 15:49:44  
 **Message:**
