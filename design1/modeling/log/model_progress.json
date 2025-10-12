@@ -1,5 +1,31 @@
 [
   {
+    "commit": "fbf8c40",
+    "branch": "oct-11",
+    "message": "fix(model-e1): distortion of contents incorrect",
+    "timestamp": "2025-10-12 15:05:05",
+    "plot1": "plot_archive/fbf8c40_20251012_150505_plot1.png",
+    "plot2": "plot_archive/fbf8c40_20251012_150505_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "9e6a2ee",
+    "branch": "oct-11",
+    "message": "fix(constants): update simulation parameters and distortion settings",
+    "timestamp": "2025-10-12 15:00:32",
+    "plot1": "plot_archive/9e6a2ee_20251012_150032_plot1.png",
+    "plot2": "plot_archive/9e6a2ee_20251012_150032_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "20f70e1",
     "branch": "oct-11",
     "message": "run(data-analysis-e1): remove temporary lock files and add new reports",

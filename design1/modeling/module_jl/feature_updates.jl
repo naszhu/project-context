@@ -494,9 +494,10 @@ function distort_probes_with_linear_decay(
     if is_distort_probes
         # Calculate linear decrease in distortion probability
         for i in eachindex(probes)
-            if i <= max_distortion_probes
+            # if i <= max_distortion_probes
                 # Linear decrease from base_distortion_prob to 0
-                current_prob = base_distortion_prob * (1 - (i - 1) / max_distortion_probes)
+                # This was a bug, the distortion shouldn't change with the number of probes
+                current_prob = base_distortion_prob #* (1 - (i - 1) / max_distortion_probes)
                 
                 # Debug: Print distortion attempt info for position 1
                 # if i == 1
@@ -540,7 +541,7 @@ function distort_probes_with_linear_decay(
                     #     println("[DEBUG-DISTORTION-POS1] ✗ No features distorted - Type: $(distorted_probes[i].image.word.type)")
                     # end
                 end
-            end
+            # end
             # For probes beyond max_distortion_probes, no distortion (probability = 0)
         end #end for loop
     end

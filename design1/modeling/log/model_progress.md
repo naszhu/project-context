@@ -1,5 +1,51 @@
 # Model Progress
 
+## Commit [fbf8c40](https://github.com/naszhu/REM_E3_model_fixed/commit/fbf8c40) (branch: `oct-11`)
+**Time:** 2025-10-12 15:05:05  
+**Message:**
+```
+fix(model-e1): distortion of contents incorrect
+
+- Removed the erroneous linear decrease in distortion probability based on the number of probes, ensuring that the distortion probability remains constant at `base_distortion_prob`.
+- Updated comments for clarity regarding the distortion logic and loop structure.
+
+These changes aim to resolve a bug in the distortion handling, improving the accuracy of the distortion process in simulations.
+
+Refs #51
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/fbf8c40_20251012_150505_plot1.png)  
+![](../plot_archive/fbf8c40_20251012_150505_plot2.png)  
+
+## Commit [9e6a2ee](https://github.com/naszhu/REM_E3_model_fixed/commit/9e6a2ee) (branch: `oct-11`)
+**Time:** 2025-10-12 15:00:32  
+**Message:**
+```
+fix(constants): update simulation parameters and distortion settings
+
+- Changed `is_finaltest` to false and adjusted `n_simulations` to 1000 for broader testing.
+- Modified advantage parameters `u_star_adv` and `c_adv` to 0.0 for consistency with E3.
+- Updated `nnnow` value to 0.77 for better alignment with model behavior.
+- Revised `criterion_initial` generation parameters to enhance asymptotic value calculations.
+- Introduced `base_distortion_prob` and `max_distortion_probes` for improved content distortion handling.
+- Adjusted `p_driftStudyTest` to reflect the new base distortion probability.
+
+These changes aim to refine the simulation setup and improve the accuracy of model predictions.
+
+This is to make the context drift more obvious or limited , whatever
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/9e6a2ee_20251012_150032_plot1.png)  
+![](../plot_archive/9e6a2ee_20251012_150032_plot2.png)  
+
 ## Commit [20f70e1](https://github.com/naszhu/REM_E3_model_fixed/commit/20f70e1) (branch: `oct-11`)
 **Time:** 2025-10-12 14:59:31  
 **Message:**
