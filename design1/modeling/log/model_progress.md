@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [f760931](https://github.com/naszhu/REM_E3_model_fixed/commit/f760931) (branch: `HEAD`)
+**Time:** 2025-10-12 16:08:59  
+**Message:**
+```
+feat(model-e1): implement context distortion features for UC and CC
+
+- Added flags for unchanging context (UC) and changing context (CC) distortion in `constants.jl` to enable new distortion functionalities.
+- Introduced a new function `distort_probe_context_range_with_linear_decay` in `feature_updates.jl` to handle context distortion with a linear decay in probability.
+- Updated `generate_probes` in `probe_generation.jl` to apply UC and CC distortions based on the new flags, ensuring independent control over context types during testing.
+
+These enhancements aim to improve the model's ability to simulate varying context conditions
+
+Refs #50.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design3/modeling`  
+![](../plot_archive/f760931_20251012_160859_plot1.png)  
+![](../plot_archive/f760931_20251012_160859_plot2.png)  
+
 ## Commit [49832cf](https://github.com/naszhu/REM_E3_model_fixed/commit/49832cf) (branch: `HEAD`)
 **Time:** 2025-10-12 15:57:39  
 **Message:**

@@ -1,5 +1,21 @@
 [
   {
+    "commit": "f760931",
+    "branch": "HEAD",
+    "message": "feat(model-e1): implement context distortion features for UC and CC",
+    "timestamp": "2025-10-12 16:08:59",
+    "plot1": "plot_archive/f760931_20251012_160859_plot1.png",
+    "plot2": "plot_archive/f760931_20251012_160859_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "49832cf",
     "branch": "HEAD",
     "message": "chore(claude): introduce code modification policy guidelines",
