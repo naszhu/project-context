@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [f449696](https://github.com/naszhu/REM_E3_model_fixed/commit/f449696) (branch: `oct-11`)
+**Time:** 2025-10-12 15:07:28  
+**Message:**
+```
+fix(model-e1): distortion of contents incorrect
+
+- Removed the erroneous linear decrease in distortion probability based on the number of probes, ensuring that the distortion probability remains constant at `base_distortion_prob`.
+- Updated comments for clarity regarding the distortion logic and loop structure.
+
+These changes aim to resolve a bug in the distortion handling, improving the accuracy of the distortion process in simulations.
+
+Refs #51, #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/f449696_20251012_150728_plot1.png)  
+![](../plot_archive/f449696_20251012_150728_plot2.png)  
+
 ## Commit [fbf8c40](https://github.com/naszhu/REM_E3_model_fixed/commit/fbf8c40) (branch: `oct-11`)
 **Time:** 2025-10-12 15:05:05  
 **Message:**
