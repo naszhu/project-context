@@ -167,9 +167,13 @@ context_tau = 100 #foil odds should lower than this
 LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
-# CATION: uh, this needs to be 1 for E3 as well. 
-p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
-base_distortion_prob = 0.12  # distortion probability for content
+# CATION: uh, this needs to be 1 for E3 as well.
+p_reinstate_rate = 0.12 #0.4 #prob of reinstatement #do not reinstate. 
+
+# Distortion probability parameters (Issue #50)
+base_distortion_prob = 0.00  # distortion probability for content
+base_distortion_prob_UC = 0.12  # distortion probability for UC (set higher to test effect)
+base_distortion_prob_CC = 0.12  # distortion probability for CC (set higher to test effect)
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 10  # Number of probes until distortion probability reaches 0

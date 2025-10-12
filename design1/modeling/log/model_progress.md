@@ -1,5 +1,35 @@
 # Model Progress
 
+## Commit [e85ee8f](https://github.com/naszhu/REM_E3_model_fixed/commit/e85ee8f) (branch: `HEAD`)
+**Time:** 2025-10-12 16:33:34  
+**Message:**
+```
+run(data-analysis-e1): add concluding remarks to analysis reports
+
+- Added final remarks to several analysis reports, summarizing key findings and implications for memory performance.
+- Enhanced clarity by including additional insights on the mechanisms of interference and retrieval dynamics across different test conditions.
+
+These updates aim to provide a comprehensive overview of the analyses conducted and their significance in understanding memory processes.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e85ee8f_20251012_163334_plot1.png)  
+![](../plot_archive/e85ee8f_20251012_163334_plot2.png)  
+
 ## Commit [f760931](https://github.com/naszhu/REM_E3_model_fixed/commit/f760931) (branch: `HEAD`)
 **Time:** 2025-10-12 16:08:59  
 **Message:**

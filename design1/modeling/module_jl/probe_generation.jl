@@ -155,7 +155,7 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
             nU,  # End at last UC feature
             "UC",  # Context type name for debug
             max_distortion_probes;  # Use same decay rate as content
-            base_distortion_prob = base_distortion_prob,  # Use same distortion probability
+            base_distortion_prob = base_distortion_prob_UC,  # Use UC-specific distortion probability
             g_context = g_context  # Use context geometric parameter
         )
 
@@ -176,7 +176,7 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
             nU + nC,  # End at last CC feature
             "CC",  # Context type name for debug
             max_distortion_probes;  # Use same decay rate as content
-            base_distortion_prob = base_distortion_prob,  # Use same distortion probability
+            base_distortion_prob = base_distortion_prob_CC,  # Use CC-specific distortion probability
             g_context = g_context  # Use context geometric parameter
         )
 
