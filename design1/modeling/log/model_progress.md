@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [bcbadb0](https://github.com/naszhu/REM_E3_model_fixed/commit/bcbadb0) (branch: `HEAD`)
+**Time:** 2025-10-12 15:47:39  
+**Message:**
+```
+refactor(model-e1): reorganize Z feature functions and update module inclusions
+
+- Moved Z feature functions from `feature_updates.jl` to a new file `feature_origin.jl` for better modularity and clarity.
+- Updated module inclusions in `JL_V6-6_2finalize.jl` and `run_parallel.sh` to reflect the new file structure, ensuring proper functionality.
+- This refactor aims to streamline the codebase and enhance maintainability by separating concerns related to Z feature handling.
+
+Refs #52
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_origin.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/bcbadb0_20251012_154739_plot1.png)  
+![](../plot_archive/bcbadb0_20251012_154739_plot2.png)  
+
 ## Commit [b51dd7f](https://github.com/naszhu/REM_E3_model_fixed/commit/b51dd7f) (branch: `HEAD`)
 **Time:** 2025-10-12 15:47:31  
 **Message:**

@@ -1,5 +1,21 @@
 [
   {
+    "commit": "bcbadb0",
+    "branch": "HEAD",
+    "message": "refactor(model-e1): reorganize Z feature functions and update module inclusions",
+    "timestamp": "2025-10-12 15:47:39",
+    "plot1": "plot_archive/bcbadb0_20251012_154739_plot1.png",
+    "plot2": "plot_archive/bcbadb0_20251012_154739_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_origin.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
     "commit": "b51dd7f",
     "branch": "HEAD",
     "message": "refactor(modeling): reorganize Z feature functions and update module inclusions",
