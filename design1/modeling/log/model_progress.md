@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [e02f887](https://github.com/naszhu/REM_E3_model_fixed/commit/e02f887) (branch: `HEAD`)
+**Time:** 2025-10-12 19:42:43  
+**Message:**
+```
+refactor(model-e1): Make non-linear recovry rate
+
+- Introduced a utility function to pre-calculate asymptotic decrease in distortion probability, enhancing the efficiency of the distortion process.
+- Updated the `distort_probe_context_range_with_linear_decay` and `distort_probes_with_linear_decay` functions to utilize the new pre-calculated probabilities, replacing the previous linear decrease method.
+- These changes aim to improve the accuracy and performance of the model's distortion handling, ensuring more effective simulations in varying context conditions.
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/e02f887_20251012_194243_plot1.png)  
+![](../plot_archive/e02f887_20251012_194243_plot2.png)  
+
 ## Commit [9de758c](https://github.com/naszhu/REM_E3_model_fixed/commit/9de758c) (branch: `HEAD`)
 **Time:** 2025-10-12 19:26:43  
 **Message:**

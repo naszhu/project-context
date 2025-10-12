@@ -1,5 +1,18 @@
 [
   {
+    "commit": "e02f887",
+    "branch": "HEAD",
+    "message": "refactor(model-e1): Make non-linear recovry rate",
+    "timestamp": "2025-10-12 19:42:43",
+    "plot1": "plot_archive/e02f887_20251012_194243_plot1.png",
+    "plot2": "plot_archive/e02f887_20251012_194243_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
     "commit": "9de758c",
     "branch": "HEAD",
     "message": "refactor(model-e1): CC only change and restore",
