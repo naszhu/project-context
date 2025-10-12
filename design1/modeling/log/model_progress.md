@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [3f130c9](https://github.com/naszhu/REM_E3_model_fixed/commit/3f130c9) (branch: `HEAD`)
+**Time:** 2025-10-12 16:34:59  
+**Message:**
+```
+refactor(model-e1): make sure the model is working on distortion for UU and UC
+
+- Revised `p_reinstate_rate` to 0.12 for consistency with model requirements.
+- Introduced new distortion probability parameters: `base_distortion_prob_UC` and `base_distortion_prob_CC` for unchanging and changing contexts, respectively.
+- Updated `generate_probes` function to utilize context-specific distortion probabilities, enhancing model accuracy in simulating varying context conditions.
+
+These changes aim to refine the model's handling of distortion probabilities and improve the simulation of context effects.
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/3f130c9_20251012_163459_plot1.png)  
+![](../plot_archive/3f130c9_20251012_163459_plot2.png)  
+
 ## Commit [e85ee8f](https://github.com/naszhu/REM_E3_model_fixed/commit/e85ee8f) (branch: `HEAD`)
 **Time:** 2025-10-12 16:33:34  
 **Message:**

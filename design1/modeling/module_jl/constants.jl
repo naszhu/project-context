@@ -168,10 +168,10 @@ LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well.
-p_reinstate_rate = 0.12 #0.4 #prob of reinstatement #do not reinstate. 
+p_reinstate_rate = 0.00 #0.4 #prob of reinstatement #do not reinstate. 
 
 # Distortion probability parameters (Issue #50)
-base_distortion_prob = 0.00  # distortion probability for content
+base_distortion_prob = 0.12  # distortion probability for content
 base_distortion_prob_UC = 0.12  # distortion probability for UC (set higher to test effect)
 base_distortion_prob_CC = 0.12  # distortion probability for CC (set higher to test effect)
 
@@ -187,7 +187,7 @@ n_between_listchange = 1 # Changed from 20 to 1
 
 # Separate probability parameters to maintain equivalent overall probabilities
 #const p_driftAndListChange = 0.03; # ORIGINAL: single parameter for both
-const p_driftStudyTest = base_distortion_prob; # Equivalent to (1-(1-0.03)^9) for study-test drift
+const p_driftStudyTest = 0.15; # Equivalent to (1-(1-0.03)^9) for study-test drift
 const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-list change
 
 
