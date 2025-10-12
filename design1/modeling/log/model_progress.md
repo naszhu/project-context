@@ -1,5 +1,38 @@
 # Model Progress
 
+## Commit [1c6d428](https://github.com/naszhu/REM_E3_model_fixed/commit/1c6d428) (branch: `oct-11`)
+**Time:** 2025-10-12 14:59:19  
+**Message:**
+```
+feat(data-analysis-e3): add enhanced initial test position analysis script
+
+- Introduced a new R script for enhanced analysis of test position effects during the initial test, incorporating both item-specific and averaged trends.
+- Implemented data preparation steps, including filtering and polynomial term creation for study and test positions.
+- Fitted a Generalized Linear Mixed Model (GLMM) to analyze the interaction between test position and item type, providing insights into performance trends.
+- Added functions for model diagnostics and convergence checks, ensuring robust model fitting.
+- Generated output files for model summaries and results, facilitating further analysis and interpretation.
+
+This addition aims to improve the analytical framework for understanding test position effects on performance, enhancing the overall analysis pipeline.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design1/data_analysis/individual_analyses/02_initial_test_position_analysis_ENHANCED.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/individual_analyses/00_shared_setup.R`  
+- `design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/03_initial_between_list_analysis.R`  
+- `design3/data_analysis/individual_analyses/04_final_within_study_analysis.R`  
+- `design3/data_analysis/individual_analyses/05_final_within_test_analysis.R`  
+- `design3/data_analysis/individual_analyses/06_final_between_final_order_analysis.R`  
+- `design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+- `design3/data_analysis/individual_analyses/README.md`  
+![](../plot_archive/1c6d428_20251012_145919_plot1.png)  
+![](../plot_archive/1c6d428_20251012_145919_plot2.png)  
+
 ## Commit [9a1f780](https://github.com/naszhu/REM_E3_model_fixed/commit/9a1f780) (branch: `oct-11`)
 **Time:** 2025-10-12 14:58:32  
 **Message:**

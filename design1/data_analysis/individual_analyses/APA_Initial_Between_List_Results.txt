@@ -78,3 +78,4 @@ These findings have important theoretical and practical implications:
 5. **Theoretical Models:** Simple interference models that predict uniform effects across item types cannot account for these patterns. Models must incorporate item-type-specific interference mechanisms and list-level organizational effects.
 
 The combination of a strong linear decline for targets (b = -54.52) with a pronounced inverted U-shape (b = 44.04) suggests that multiple interference mechanisms operate simultaneously, with their relative strengths varying across list positions.
+

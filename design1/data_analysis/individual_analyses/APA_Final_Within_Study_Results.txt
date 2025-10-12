@@ -84,3 +84,4 @@ These findings have important implications for learning and memory:
 5. **Memory Consolidation:** The preserved position effects in the final test suggest that list-level contextual information is encoded and retained along with item information, influencing later retrieval.
 
 The absence of significant interactions suggests that study position effects and testing effects operate through independent mechanisms, with testing providing an additive benefit that does not interact with encoding position effects.
+

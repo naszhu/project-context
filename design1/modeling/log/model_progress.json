@@ -1,5 +1,28 @@
 [
   {
+    "commit": "1c6d428",
+    "branch": "oct-11",
+    "message": "feat(data-analysis-e3): add enhanced initial test position analysis script",
+    "timestamp": "2025-10-12 14:59:19",
+    "plot1": "plot_archive/1c6d428_20251012_145919_plot1.png",
+    "plot2": "plot_archive/1c6d428_20251012_145919_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/02_initial_test_position_analysis.R",
+      "design1/data_analysis/individual_analyses/02_initial_test_position_analysis_ENHANCED.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/individual_analyses/00_shared_setup.R",
+      "design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R",
+      "design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R",
+      "design3/data_analysis/individual_analyses/03_initial_between_list_analysis.R",
+      "design3/data_analysis/individual_analyses/04_final_within_study_analysis.R",
+      "design3/data_analysis/individual_analyses/05_final_within_test_analysis.R",
+      "design3/data_analysis/individual_analyses/06_final_between_final_order_analysis.R",
+      "design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R",
+      "design3/data_analysis/individual_analyses/README.md"
+    ]
+  },
+  {
     "commit": "9a1f780",
     "branch": "oct-11",
     "message": "feat(data-analysis): add enhanced initial test position analysis script",

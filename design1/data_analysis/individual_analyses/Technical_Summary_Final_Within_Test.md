@@ -178,3 +178,4 @@ Items tested later in initial phase may benefit from:
 - More time between initial exposure and final test
 - Retrieval-induced strengthening of related items
 - Progressive consolidation during initial test phase
+

@@ -253,3 +253,4 @@ This analysis reveals:
 5. **Different mechanisms for "initial order" vs "final test order" effects**
 
 The TO × forward interaction (b = 114.59, z = 5.96) is a critical finding showing that context reinstatement during final testing can REDUCE output interference for items initially encountered as foils!
+

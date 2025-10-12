@@ -104,3 +104,4 @@ This reversal suggests fundamentally different retrieval dynamics for immediate 
 - Reduced vulnerability to output interference in long-term memory
 - Greater role of practice effects in delayed testing
 - Different strategic approaches to immediate vs. delayed recognition
+

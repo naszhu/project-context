@@ -72,3 +72,4 @@ These findings have important theoretical implications:
 4. **Memory Theory:** These results challenge simple output interference models that predict uniform declines across all item types, suggesting instead that output interference may be specific to foil rejection processes.
 
 The large magnitude of the interaction effects (particularly b = 76.70 for the linear interaction) indicates that item type is not merely a moderator but fundamentally changes the nature of output interference during testing.
+
