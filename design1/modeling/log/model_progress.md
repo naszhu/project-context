@@ -1,5 +1,84 @@
 # Model Progress
 
+## Commit [9a1f780](https://github.com/naszhu/REM_E3_model_fixed/commit/9a1f780) (branch: `oct-11`)
+**Time:** 2025-10-12 14:58:32  
+**Message:**
+```
+feat(data-analysis): add enhanced initial test position analysis script
+
+- Introduced a new R script for enhanced analysis of test position effects during the initial test, incorporating both item-specific and averaged trends.
+- Implemented data preparation steps, including filtering and polynomial term creation for study and test positions.
+- Fitted a Generalized Linear Mixed Model (GLMM) to analyze the interaction between test position and item type, providing insights into performance trends.
+- Added functions for model diagnostics and convergence checks, ensuring robust model fitting.
+- Generated output files for model summaries and results, facilitating further analysis and interpretation.
+
+This addition aims to improve the analytical framework for understanding test position effects on performance, enhancing the overall analysis pipeline.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design1/data_analysis/individual_analyses/02_initial_test_position_analysis_ENHANCED.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/individual_analyses/00_shared_setup.R`  
+- `design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/03_initial_between_list_analysis.R`  
+- `design3/data_analysis/individual_analyses/04_final_within_study_analysis.R`  
+- `design3/data_analysis/individual_analyses/05_final_within_test_analysis.R`  
+- `design3/data_analysis/individual_analyses/06_final_between_final_order_analysis.R`  
+- `design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+- `design3/data_analysis/individual_analyses/README.md`  
+![](../plot_archive/9a1f780_20251012_145832_plot1.png)  
+![](../plot_archive/9a1f780_20251012_145832_plot2.png)  
+
+## Commit [d6976b4](https://github.com/naszhu/REM_E3_model_fixed/commit/d6976b4) (branch: `oct-11`)
+**Time:** 2025-10-12 01:42:02  
+**Message:**
+```
+feat(data-analysis): add individual analysis scripts and shared setup
+
+- Introduced a series of individual R scripts for various analyses, including initial study position, test position, between-list, and within-list analyses, enhancing modularity and clarity.
+- Created a shared setup script (`00_shared_setup.R`) to load common libraries and define helper functions, streamlining the analysis process across all scripts.
+- Each analysis script includes data loading, preparation, model fitting using Generalized Linear Mixed Models (GLMMs), and output generation for model summaries and results.
+- Enhanced documentation within scripts to clarify the purpose and methodology of each analysis, facilitating easier navigation and understanding for future users.
+
+These additions aim to provide a comprehensive framework for analyzing test performance across different conditions and item types, improving the overall structure and usability of the analysis pipeline.
+
+Reds #48
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/00_shared_setup.R`  
+- `design1/data_analysis/individual_analyses/01_initial_study_position_analysis.R`  
+- `design1/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design1/data_analysis/individual_analyses/03_initial_between_list_analysis.R`  
+- `design1/data_analysis/individual_analyses/04_final_within_study_analysis.R`  
+- `design1/data_analysis/individual_analyses/05_final_within_test_analysis.R`  
+- `design1/data_analysis/individual_analyses/06_final_between_final_order_analysis.R`  
+- `design1/data_analysis/individual_analyses/06_final_between_final_order_analysis_FAST.R`  
+- `design1/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+- `design1/data_analysis/individual_analyses/07_final_between_initial_order_analysis_FAST.R`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Study_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/README.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/d6976b4_20251012_014202_plot1.png)  
+![](../plot_archive/d6976b4_20251012_014202_plot2.png)  
+
 ## Commit [fdae3c1](https://github.com/naszhu/REM_E3_model_fixed/commit/fdae3c1) (branch: `oct-11`)
 **Time:** 2025-10-11 17:52:06  
 **Message:**

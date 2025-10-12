@@ -32,6 +32,11 @@ initial <- dfchanged %>%
 
 cat("Initial test data prepared:", nrow(initial), "trials\n")
 
+# p0=ggplot(initial%>%group_by(test_position,item_type,participant_id)%>%summarize(ac=mean(accuracy))%>%group_by(test_position,item_type)%>%summarize(ac=mean(ac)))+
+# geom_point(aes(x=test_position,y=ac,color=item_type))+
+# geom_line(aes(x=test_position,y=ac,color=item_type))
+# ggsave("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design1/data_analysis/individual_analyses/A0-temp.png",p0)
+
 # Validate position data
 validate_position_data(initial, "test_position")
 
