@@ -192,11 +192,16 @@ function distort_probe_context_range_with_linear_decay(
     original_probes = deepcopy(probes)
     distorted_probes = deepcopy(probes)
 
+    # Pre-calculate asymptotic decrease in distortion probability using utility function
+    # beta=5.0 controls decay rate - higher values decay faster early, slower later
+    # start, end, beta, max distortion
+    distortion_probs = asym_decrease(base_distortion_prob, 0.0, 5.0, max_distortion_probes)
+
     # Calculate linear decrease in distortion probability
     for i in eachindex(probes)
         if i <= max_distortion_probes
-            # Linear decrease from base_distortion_prob to 0
-            current_prob = base_distortion_prob * (1 - (i - 1) / max_distortion_probes)
+            # Use pre-calculated asymptotic decrease probability
+            current_prob = distortion_probs[i]
 
             # Distort features in specified range
             distorted_count = 0
@@ -264,13 +269,17 @@ function distort_probes_with_linear_decay(
     # Create deep copies of original probes for reference
     original_probes = deepcopy(probes)
     distorted_probes = deepcopy(probes)
-    
+
     if is_distort_probes
+        # Pre-calculate asymptotic decrease in distortion probability using utility function
+        # beta=5.0 controls decay rate - higher values decay faster early, slower later
+        distortion_probs = asym_decrease(base_distortion_prob, 0.0, 5.0, max_distortion_probes)
+
         # Calculate linear decrease in distortion probability
         for i in eachindex(probes)
             if i <= max_distortion_probes
-                # Linear decrease from base_distortion_prob to 0
-                current_prob = base_distortion_prob * (1 - (i - 1) / max_distortion_probes)
+                # Use pre-calculated asymptotic decrease probability
+                current_prob = distortion_probs[i]
                 
                 # Debug: Print distortion attempt info for position 1
                 # if i == 1

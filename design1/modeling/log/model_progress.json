@@ -1,5 +1,18 @@
 [
   {
+    "commit": "9de758c",
+    "branch": "HEAD",
+    "message": "refactor(model-e1): CC only change and restore",
+    "timestamp": "2025-10-12 19:26:43",
+    "plot1": "plot_archive/9de758c_20251012_192643_plot1.png",
+    "plot2": "plot_archive/9de758c_20251012_192643_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "add0840",
     "branch": "HEAD",
     "message": "finetune(model-e1): update reinstatement and distortion probability parameters",

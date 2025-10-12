@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [9de758c](https://github.com/naszhu/REM_E3_model_fixed/commit/9de758c) (branch: `HEAD`)
+**Time:** 2025-10-12 19:26:43  
+**Message:**
+```
+refactor(model-e1): CC only change and restore
+
+- Set `base_distortion_prob` and `base_distortion_prob_UC` to 0.0 for consistency in distortion handling.
+- Increased `base_distortion_prob_CC` to 0.52 to enhance context distortion effects.
+- Updated `max_distortion_probes` from 10 to 20 to allow for more extensive probing before reaching distortion limits.
+
+These changes aim to refine the model's distortion parameters, improving the accuracy and effectiveness of simulations in varying context conditions.
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/9de758c_20251012_192643_plot1.png)  
+![](../plot_archive/9de758c_20251012_192643_plot2.png)  
+
 ## Commit [add0840](https://github.com/naszhu/REM_E3_model_fixed/commit/add0840) (branch: `HEAD`)
 **Time:** 2025-10-12 18:05:58  
 **Message:**
