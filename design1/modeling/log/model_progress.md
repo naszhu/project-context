@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [add0840](https://github.com/naszhu/REM_E3_model_fixed/commit/add0840) (branch: `HEAD`)
+**Time:** 2025-10-12 18:05:58  
+**Message:**
+```
+finetune(model-e1): update reinstatement and distortion probability parameters
+
+- Set `p_reinstate_rate` to 0.00 to prevent reinstatement.
+- Adjusted `base_distortion_prob` and `base_distortion_prob_UC` to 0 for consistency in distortion handling.
+- Updated `p_driftStudyTest` to 0.15 to reflect new distortion settings.
+
+These changes aim to refine the model's parameters for better alignment with intended behavior and improve the accuracy of simulations.
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/add0840_20251012_180558_plot1.png)  
+![](../plot_archive/add0840_20251012_180558_plot2.png)  
+
 ## Commit [3f130c9](https://github.com/naszhu/REM_E3_model_fixed/commit/3f130c9) (branch: `HEAD`)
 **Time:** 2025-10-12 16:34:59  
 **Message:**

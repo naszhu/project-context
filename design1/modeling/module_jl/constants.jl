@@ -171,12 +171,12 @@ p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hun
 p_reinstate_rate = 0.00 #0.4 #prob of reinstatement #do not reinstate. 
 
 # Distortion probability parameters (Issue #50)
-base_distortion_prob = 0.12  # distortion probability for content
-base_distortion_prob_UC = 0.12  # distortion probability for UC (set higher to test effect)
-base_distortion_prob_CC = 0.12  # distortion probability for CC (set higher to test effect)
+base_distortion_prob = 0.0  # distortion probability for content
+base_distortion_prob_UC = 0.0  # distortion probability for UC (set higher to test effect)
+base_distortion_prob_CC = 0.52  # distortion probability for CC (set higher to test effect)
 
 # Content distortion parameters (from E3) for content drift between study and test
-max_distortion_probes = 10  # Number of probes until distortion probability reaches 0
+max_distortion_probes = 20  # Number of probes until distortion probability reaches 0
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
 #n_driftStudyTest = round.(Int, ones(10) * 9) #7 # ORIGINAL: was 9 steps
