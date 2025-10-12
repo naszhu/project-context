@@ -1,5 +1,40 @@
 # Model Progress
 
+## Commit [20f70e1](https://github.com/naszhu/REM_E3_model_fixed/commit/20f70e1) (branch: `oct-11`)
+**Time:** 2025-10-12 14:59:31  
+**Message:**
+```
+run(data-analysis-e1): remove temporary lock files and add new reports
+
+- Deleted temporary lock files for `DataPlot-d3(exp2).docx` and `parameter_values_aug-19.docx` to clean up the repository.
+- Added two new reports: `REPORT_Average_Performance_Test_Position_APA.md` and `REPORT_Average_Performance_Test_Position.md`, detailing average performance across test positions with comprehensive analyses and results.
+- Enhanced documentation and structure in the new reports to facilitate understanding of test position effects on recognition performance.
+
+These changes aim to streamline the repository and provide clearer insights into performance trends across test positions.
+```
+**Changed Files:**
+- `Docs/.~lock.DataPlot-d3(exp2).docx#`  
+- `Docs/.~lock.parameter_values_aug-19.docx#`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/REPORT_Average_Performance_Test_Position.md`  
+- `design1/data_analysis/individual_analyses/REPORT_Average_Performance_Test_Position_APA.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/20f70e1_20251012_145931_plot1.png)  
+![](../plot_archive/20f70e1_20251012_145931_plot2.png)  
+
 ## Commit [1c6d428](https://github.com/naszhu/REM_E3_model_fixed/commit/1c6d428) (branch: `oct-11`)
 **Time:** 2025-10-12 14:59:19  
 **Message:**

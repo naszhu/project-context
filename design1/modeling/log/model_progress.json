@@ -1,5 +1,34 @@
 [
   {
+    "commit": "20f70e1",
+    "branch": "oct-11",
+    "message": "run(data-analysis-e1): remove temporary lock files and add new reports",
+    "timestamp": "2025-10-12 14:59:31",
+    "plot1": "plot_archive/20f70e1_20251012_145931_plot1.png",
+    "plot2": "plot_archive/20f70e1_20251012_145931_plot2.png",
+    "changed_files": [
+      "Docs/.~lock.DataPlot-d3(exp2).docx#",
+      "Docs/.~lock.parameter_values_aug-19.docx#",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt",
+      "design1/data_analysis/individual_analyses/REPORT_Average_Performance_Test_Position.md",
+      "design1/data_analysis/individual_analyses/REPORT_Average_Performance_Test_Position_APA.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "1c6d428",
     "branch": "oct-11",
     "message": "feat(data-analysis-e3): add enhanced initial test position analysis script",
