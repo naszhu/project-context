@@ -1,5 +1,53 @@
 # Model Progress
 
+## Commit [b51dd7f](https://github.com/naszhu/REM_E3_model_fixed/commit/b51dd7f) (branch: `HEAD`)
+**Time:** 2025-10-12 15:47:31  
+**Message:**
+```
+refactor(modeling): reorganize Z feature functions and update module inclusions
+
+- Moved Z feature functions from `feature_updates.jl` to a new file `feature_origin.jl` for better modularity and clarity.
+- Updated module inclusions in `JL_V6-6_2finalize.jl` and `run_parallel.sh` to reflect the new file structure, ensuring proper functionality.
+- This refactor aims to streamline the codebase and enhance maintainability by separating concerns related to Z feature handling.
+
+Refs #52
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_origin.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/b51dd7f_20251012_154731_plot1.png)  
+![](../plot_archive/b51dd7f_20251012_154731_plot2.png)  
+
+## Commit [9e6a2ee](https://github.com/naszhu/REM_E3_model_fixed/commit/9e6a2ee) (branch: `HEAD`)
+**Time:** 2025-10-12 15:00:32  
+**Message:**
+```
+fix(constants): update simulation parameters and distortion settings
+
+- Changed `is_finaltest` to false and adjusted `n_simulations` to 1000 for broader testing.
+- Modified advantage parameters `u_star_adv` and `c_adv` to 0.0 for consistency with E3.
+- Updated `nnnow` value to 0.77 for better alignment with model behavior.
+- Revised `criterion_initial` generation parameters to enhance asymptotic value calculations.
+- Introduced `base_distortion_prob` and `max_distortion_probes` for improved content distortion handling.
+- Adjusted `p_driftStudyTest` to reflect the new base distortion probability.
+
+These changes aim to refine the simulation setup and improve the accuracy of model predictions.
+
+This is to make the context drift more obvious or limited , whatever
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/9e6a2ee_20251012_150032_plot1.png)  
+![](../plot_archive/9e6a2ee_20251012_150032_plot2.png)  
+
 ## Commit [20f70e1](https://github.com/naszhu/REM_E3_model_fixed/commit/20f70e1) (branch: `oct-11`)
 **Time:** 2025-10-12 14:59:31  
 **Message:**
