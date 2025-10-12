@@ -101,6 +101,8 @@ is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
 is_restore_context = true # currently don't want to restore context features, only add new context features tarce
 is_content_drift_between_study_and_test = true  # Enable content distortion (from E3)
+is_UC_drift_between_study_and_test = true  # Enable UC (unchanging context) distortion (Issue #50)
+is_CC_drift_between_study_and_test = true  # Enable CC (changing context) distortion (Issue #50)
 
 # Stage control flags
 is_firststage = true;

@@ -154,6 +154,88 @@ end
 ########### Z feature functions moved to feature_origin.jl
 
 # =============================================================================
+# CONTEXT DISTORTION FUNCTIONS (Issue #50)
+# =============================================================================
+
+"""
+Distort specific range of probe context features with linear decrease in distortion probability.
+
+This flexible function can distort UC, CC, or any range of context features separately:
+- Distortion probability starts high for early probes and linearly decreases
+- Can be called separately for UC and CC to allow independent control
+- Original context is preserved in foils_collection (for final test)
+- Distorted context is used for testing (and gets stored in memory)
+
+Args:
+    probes: Vector of probes to potentially distort context
+    start_idx: Starting index of context features to distort (1-based)
+    end_idx: Ending index of context features to distort (inclusive)
+    context_type_name: Name for debug messages ("UC", "CC", etc.)
+    max_distortion_probes: Number of probes until distortion probability reaches 0
+    base_distortion_prob: Base probability of distortion for the first probe
+    g_context: Geometric distribution parameter for generating new feature values
+
+Returns:
+    Tuple of (distorted_probes, original_probes) where original_probes are deep copies for reference
+"""
+function distort_probe_context_range_with_linear_decay(
+    probes::Vector{Probe},
+    start_idx::Int64,
+    end_idx::Int64,
+    context_type_name::String,
+    max_distortion_probes::Int;
+    base_distortion_prob::Float64 = 0.12,
+    g_context::Float64 = 0.3
+)::Tuple{Vector{Probe}, Vector{Probe}}
+
+    # Create deep copies of original probes for reference
+    original_probes = deepcopy(probes)
+    distorted_probes = deepcopy(probes)
+
+    # Calculate linear decrease in distortion probability
+    for i in eachindex(probes)
+        if i <= max_distortion_probes
+            # Linear decrease from base_distortion_prob to 0
+            current_prob = base_distortion_prob * (1 - (i - 1) / max_distortion_probes)
+
+            # Distort features in specified range
+            distorted_count = 0
+            for j in start_idx:end_idx
+                if rand() < current_prob
+                    distorted_probes[i].image.context_features[j] = rand(Geometric(g_context)) + 1
+                    distorted_count += 1
+                end
+            end
+
+            # Add debug marker to word.item if context was distorted
+            if distorted_count > 0
+                original_word = distorted_probes[i].image.word
+                distortion_level = current_prob
+                context_distortion_info = "$(context_type_name)_DISTORTED_pos$(i)_prob$(round(distortion_level, digits=3))_n$(distorted_count)"
+
+                # Check if word.item already has distortion marker
+                if contains(original_word.item, "DISTORTED")
+                    # Append context distortion info
+                    new_item = "$(original_word.item)_$(context_distortion_info)"
+                else
+                    # Add context distortion marker
+                    new_item = "$(original_word.item)_[$(context_distortion_info)]"
+                end
+
+                # Create new Word instance with modified item (since Word is immutable)
+                new_word = Word(new_item, original_word.word_features, original_word.type, original_word.studypos)
+
+                # Replace the word in the EpisodicImage (which is mutable)
+                distorted_probes[i].image.word = new_word
+            end
+        end
+        # For probes beyond max_distortion_probes, no distortion (probability = 0)
+    end
+
+    return distorted_probes, original_probes
+end
+
+# =============================================================================
 # CONTENT DISTORTION FUNCTIONS (from E3)
 # =============================================================================
 

@@ -122,23 +122,69 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
         # The distortion probability starts high for the first probe and linearly decreases to 0
         # after max_distortion_probes. This creates a strong distortion effect
         # for early probes that gradually diminishes for later probes.
-        # 
+        #
         # Keep original probes for foils collection, but distort probes for testing
         # The foils_collection already contains deep copies of the original probes
         # before distortion was applied, so it remains clean and unaffected.
         distorted_probes, original_probes = distort_probes_with_linear_decay(
-            probes, 
+            probes,
             max_distortion_probes;  # Use constant from constants.jl
             base_distortion_prob = base_distortion_prob,  # Use constant from constants.jl
             g_word = g_word  # Use the constant defined in constants.jl
         )
-        
+
         # Replace probes with distorted versions for testing
         probes = distorted_probes
-        
+
         # Note: original_probes are kept for reference but not returned
         # The foils_collection already contains deep copies of the original probes
         # before distortion was applied, so it remains clean
+    end
+
+    # Apply UC (unchanging context) distortion if enabled (Issue #50)
+    if is_UC_drift_between_study_and_test
+        # Apply distortion to UC features (indices 1:nU) with linear decay
+        # This follows the same pattern as content distortion:
+        # - Distortion probability decreases linearly from first to last probe
+        # - foils_collection already contains undistorted context (collected before this step)
+        # - Distorted context will be used for testing and stored in memory
+        # - Undistorted context from foils_collection will go to studied_pool for final test
+        distorted_probes_uc, original_probes_uc = distort_probe_context_range_with_linear_decay(
+            probes,
+            1,  # Start at first UC feature
+            nU,  # End at last UC feature
+            "UC",  # Context type name for debug
+            max_distortion_probes;  # Use same decay rate as content
+            base_distortion_prob = base_distortion_prob,  # Use same distortion probability
+            g_context = g_context  # Use context geometric parameter
+        )
+
+        # Replace probes with UC-distorted versions for testing
+        probes = distorted_probes_uc
+
+        # Note: original_probes_uc are kept for reference but not returned
+        # The foils_collection already contains deep copies with undistorted context
+    end
+
+    # Apply CC (changing context) distortion if enabled (Issue #50)
+    if is_CC_drift_between_study_and_test
+        # Apply distortion to CC features (indices nU+1:nU+nC) with linear decay
+        # This follows the same pattern as content distortion
+        distorted_probes_cc, original_probes_cc = distort_probe_context_range_with_linear_decay(
+            probes,
+            nU + 1,  # Start after UC features
+            nU + nC,  # End at last CC feature
+            "CC",  # Context type name for debug
+            max_distortion_probes;  # Use same decay rate as content
+            base_distortion_prob = base_distortion_prob,  # Use same distortion probability
+            g_context = g_context  # Use context geometric parameter
+        )
+
+        # Replace probes with CC-distorted versions for testing
+        probes = distorted_probes_cc
+
+        # Note: original_probes_cc are kept for reference but not returned
+        # The foils_collection already contains deep copies with undistorted context
     end
 
     return probes, foils_collection
