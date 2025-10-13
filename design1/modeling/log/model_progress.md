@@ -1,5 +1,32 @@
 # Model Progress
 
+## Commit [eaa1a7f](https://github.com/naszhu/REM_E3_model_fixed/commit/eaa1a7f) (branch: `HEAD`)
+**Time:** 2025-10-13 14:34:12  
+**Message:**
+```
+refactor(analysis-e1): redo e3 analysis
+
+- Updated model formulas in multiple analysis scripts to include interaction terms between linear and quadratic predictors with item type, improving model complexity and fit.
+- Adjusted glmer control settings to include gradient convergence checks, addressing potential convergence issues.
+- Added comments regarding optimization warnings and convergence checks to enhance clarity and documentation of model performance.
+
+These changes aim to refine the analytical models and ensure better handling of convergence issues across various analyses.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/03_initial_between_list_analysis.R`  
+- `design3/data_analysis/individual_analyses/04_final_within_study_analysis.R`  
+- `design3/data_analysis/individual_analyses/05_final_within_test_analysis.R`  
+- `design3/data_analysis/individual_analyses/06_final_between_final_order_analysis.R`  
+- `design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+![](../plot_archive/eaa1a7f_20251013_143412_plot1.png)  
+![](../plot_archive/eaa1a7f_20251013_143412_plot2.png)  
+
 ## Commit [e5ecc65](https://github.com/naszhu/REM_E3_model_fixed/commit/e5ecc65) (branch: `HEAD`)
 **Time:** 2025-10-13 11:22:07  
 **Message:**

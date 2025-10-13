@@ -26,6 +26,7 @@ final_e3 <- df_e3 %>%
     initial_study_position = as.numeric(studyPos_appear1_initial),
     initial_test_position = as.numeric(testPos_appear1_initial),
     initial_list_number = as.numeric(listNum_appear1_initial),
+    listNum_appear1_initial = as.numeric(listNum_appear1_initial),
     # Final test position (binned into 10 groups)
     final_test_position = case_when(
       testPos_final <= 49 ~ 1,
@@ -44,6 +45,12 @@ final_e3 <- df_e3 %>%
                         correct == "False" ~ 0,
                         TRUE ~ correct)
   ) %>%
+    mutate(item_type = case_when(
+    initial_list_number == 10 & item_type == "Foil(n), Foil (n+1)" ~ "Foil(n); Appear once",
+    initial_list_number == 10 & item_type == "Studied-only (n); Foil (n+1)" ~ "Studied-only (n); Appear once",
+    initial_list_number == 10 & item_type == "Target: studied and tested at (n), Foil (n+1)" ~ "Target: : started and tested at (n) ; Appear once",
+    TRUE ~ item_type
+  )) %>%
   filter(!is.na(accuracy), !is.na(item_type)) %>%
   # Add polynomial terms
   bind_cols(create_polynomial_terms(., "initial_study_position")) %>%
@@ -53,7 +60,15 @@ final_e3 <- df_e3 %>%
 
 cat("Final test data prepared:", nrow(final_e3), "trials\n")
 
-# Validate position data
+# ggplot(final_e3%>%
+#   group_by(initial_list_number, item_type,participant_id)%>%
+#   summarize(mean_accuracy = mean(accuracy))%>%
+#   group_by(initial_list_number, item_type)%>%
+#   summarize(mean_accuracy = mean(mean_accuracy)), 
+  
+#     aes(x = initial_list_number, y = mean_accuracy, color = item_type)) +
+# geom_point(size=5) +geom_line(size=2)
+# # Validate position data
 validate_position_data(final_e3, "initial_list_number")
 
 # Fit model: Initial List Number × Item Type (with quadratic)
