@@ -1,5 +1,40 @@
 # Model Progress
 
+## Commit [b40df93](https://github.com/naszhu/REM_E3_model_fixed/commit/b40df93) (branch: `HEAD`)
+**Time:** 2025-10-13 11:21:39  
+**Message:**
+```
+refactor(analysis-e1): introduce changelog3.pdf and update analysis reports
+
+I'm not sure why these kept show up in changes though haven't been changed at all
+
+- Added a new changelog document (changelog3.pdf) to track changes and updates.
+- Minor adjustments made to various analysis reports, including the addition of concluding remarks to enhance clarity and summarize key findings.
+
+These updates aim to improve documentation and provide a comprehensive overview of recent changes in the project.
+```
+**Changed Files:**
+- `Docs/changelog3.pdf`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/Asymptotic_Function_Usage_Summary.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/modeling`  
+![](../plot_archive/b40df93_20251013_112139_plot1.png)  
+![](../plot_archive/b40df93_20251013_112139_plot2.png)  
+
 ## Commit [173c874](https://github.com/naszhu/REM_E3_model_fixed/commit/173c874) (branch: `HEAD`)
 **Time:** 2025-10-12 19:47:41  
 **Message:**

@@ -1,5 +1,33 @@
 [
   {
+    "commit": "b40df93",
+    "branch": "HEAD",
+    "message": "refactor(analysis-e1): introduce changelog3.pdf and update analysis reports",
+    "timestamp": "2025-10-13 11:21:39",
+    "plot1": "plot_archive/b40df93_20251013_112139_plot1.png",
+    "plot2": "plot_archive/b40df93_20251013_112139_plot2.png",
+    "changed_files": [
+      "Docs/changelog3.pdf",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md",
+      "design1/modeling/Asymptotic_Function_Usage_Summary.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "173c874",
     "branch": "HEAD",
     "message": "refactor(model-e1): unify asymptotic functions for improved clarity and efficiency",
