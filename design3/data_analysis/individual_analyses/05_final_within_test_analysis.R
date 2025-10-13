@@ -58,12 +58,19 @@ validate_position_data(final_e3, "initial_test_position")
 
 # Fit model: Initial Test Position × Item Type (linear only)
 m_final_within_test_e3 <- glmer(
-  accuracy ~ initial_test_position_lin * item_type +
+  accuracy ~ initial_test_position_lin * item_type + 
+  initial_test_position_quad * item_type +
     (1 | participant_id),
   data = final_e3, family = binomial,
   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
   na.action = na.omit
 )
+
+# === Final Within-Test Model ===
+# Optimization warnings:
+ 
+# Relative gradient: 0.006185551 
+# WARNING: Large relative gradient - model may not have converged
 
 # Check convergence
 cat("\n=== Final Within-Test Model ===\n")

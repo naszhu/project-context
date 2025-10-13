@@ -45,12 +45,29 @@ validate_position_data(initial_e3, "list_number")
 
 # Fit model: List Number × Item Type
 m_init_between_e3 <- glmer(
-  accuracy ~ list_number_lin * item_type + list_number_quad +
+  accuracy ~ list_number_lin * item_type + 
+    list_number_quad * item_type +
     (1 | participant_id),
   data = initial_e3, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
+  control = glmerControl(optimizer = "bobyqa",
+    check.conv.grad = list(action = "ignore", tol = 0.002)
+  ),
   na.action = na.omit
 )
+
+# === Initial Between-List Model ===
+# Optimization warnings:
+ 
+# Relative gradient: 0.002203381 
+
+# m_init_between <- glmer(
+#  accuracy ~ (list_number_lin + list_number_quad) * item_type +
+#    (1 | participant_id) + (0 + list_number_lin | participant_id),
+#  data = initial, family = binomial,
+#  control = glmerControl(optimizer = "bobyqa"),
+#  na.action = na.omit
+# )
+
 
 # Check convergence
 cat("\n=== Initial Between-List Model ===\n")

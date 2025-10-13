@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [e5ecc65](https://github.com/naszhu/REM_E3_model_fixed/commit/e5ecc65) (branch: `HEAD`)
+**Time:** 2025-10-13 11:22:07  
+**Message:**
+```
+finetune(allplot-e1): adjust Y-axis minimum limit for improved plot accuracy
+
+- Updated the Y-axis minimum limit from 0.75 to 0.73 in the combined_all_plots.R script to enhance the accuracy of visual representations.
+- This change aims to provide a more precise scaling of the plots, ensuring better data visualization and interpretation.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e5ecc65_20251013_112207_plot1.png)  
+![](../plot_archive/e5ecc65_20251013_112207_plot2.png)  
+
 ## Commit [b40df93](https://github.com/naszhu/REM_E3_model_fixed/commit/b40df93) (branch: `HEAD`)
 **Time:** 2025-10-13 11:21:39  
 **Message:**

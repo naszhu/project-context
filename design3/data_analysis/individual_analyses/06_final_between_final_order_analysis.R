@@ -58,12 +58,20 @@ validate_position_data(final_e3, "final_test_position")
 
 # Fit model: Final Test Position × Item Type (with quadratic)
 m_final_between_final_e3 <- glmer(
-  accuracy ~ final_test_position_lin * item_type + final_test_position_quad * item_type +
+  accuracy ~ final_test_position_lin * item_type + 
+  final_test_position_quad  +
     (1 | participant_id),
   data = final_e3, family = binomial,
   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 200000)),
   na.action = na.omit
 )
+
+# === Final Between-List (Final Order) Model ===
+# Convergence warnings:
+# Model failed to converge with max|grad| = 0.00593827 (tol = 0.002, component 1) 
+# Optimization warnings:
+ 
+# Relative gradient: 0.006321046 
 
 # Check convergence
 cat("\n=== Final Between-List (Final Order) Model ===\n")

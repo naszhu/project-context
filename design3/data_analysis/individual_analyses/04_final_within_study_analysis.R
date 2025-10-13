@@ -58,12 +58,29 @@ validate_position_data(final_e3, "initial_study_position")
 
 # Fit model: Initial Study Position × Item Type (linear only)
 m_final_within_study_e3 <- glmer(
-  accuracy ~ initial_study_position_lin * item_type +
+  accuracy ~ initial_study_position_lin * item_type + 
+  initial_study_position_quad * item_type +
     (1 | participant_id),
   data = final_e3, family = binomial,
   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
   na.action = na.omit
 )
+
+# === Final Within-Study Model ===
+# Optimization warnings:
+ 
+# Relative gradient: 0.0005252506 
+
+
+# m_final_within_study <- glmer(
+#  accuracy ~ study_position_lin * item_type + study_position_quad * item_type +  # Linear and quadratic
+#    (1 | participant_id),                                                         # Random intercept only
+#  data = final, family = binomial,
+#  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 500000)),
+#  na.action = na.omit
+# )
+
+
 
 # Check convergence
 cat("\n=== Final Within-Study Model ===\n")

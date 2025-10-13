@@ -45,12 +45,31 @@ validate_position_data(initial_e3, "study_position")
 
 # Fit model: Study Position × Item Type
 m_init_studypos_e3 <- glmer(
-  accuracy ~ study_position_lin * item_type + study_position_quad +
+  accuracy ~ study_position_lin * item_type + 
+  study_position_quad * item_type +
     (1 | participant_id),
   data = initial_e3, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
+  control = glmerControl(
+    optimizer = "bobyqa",
+    check.conv.grad = list(action = "ignore", tol = 0.002)
+  ),
   na.action = na.omit
 )
+
+# === Initial Study Position Model ===
+# Optimization warnings:
+ 
+# Relative gradient: 0.00236131 
+
+
+# m_init_studypos <- glmer(
+#  accuracy ~ (study_position_lin + study_position_quad) * item_type +
+#    (1 | participant_id) + (0 + study_position_lin | participant_id),
+#  data = initial_e3, family = binomial,
+#  control = glmerControl(optimizer = "bobyqa"),
+#  na.action = na.omit
+# )
+
 
 # Check convergence
 cat("\n=== Initial Study Position Model ===\n")

@@ -45,12 +45,29 @@ validate_position_data(initial_e3, "test_position")
 
 # Fit model: Test Position × Item Type
 m_init_testpos_e3 <- glmer(
-  accuracy ~ test_position_lin * item_type + test_position_quad +
-    (1 | participant_id),
+  accuracy ~ test_position_lin * item_type +
+  test_position_quad * item_type + 
+    (1 | participant_id) ,
   data = initial_e3, family = binomial,
-  control = glmerControl(optimizer = "bobyqa"),
+  control = glmerControl(optimizer = "bobyqa",,
+    check.conv.grad = list(action = "ignore", tol = 0.002)
+  ),
   na.action = na.omit
 )
+
+
+# === Initial Test Position Model ===
+# Optimization warnings:
+ 
+# Relative gradient: 0.002186941 
+# m_init_testpos <- glmer(
+#  accuracy ~ (test_position_lin + test_position_quad) * item_type +
+#    (1 | participant_id) + (0 + test_position_lin | participant_id),
+#  data = initial_e3, family = binomial,
+#  control = glmerControl(optimizer = "bobyqa"),
+#  na.action = na.omit
+# )
+
 
 # Check convergence
 cat("\n=== Initial Test Position Model ===\n")
