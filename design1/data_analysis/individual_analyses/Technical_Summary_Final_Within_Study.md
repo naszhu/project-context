@@ -139,3 +139,4 @@ Unlike initial test (which showed massive interactions between position and item
 Position × item type interactions in initial test reflect immediate testing dynamics (output interference, accessibility). Their absence in final test suggests these immediate effects don't persist into long-term memory, while the testing benefit itself does persist uniformly.
 
 
+

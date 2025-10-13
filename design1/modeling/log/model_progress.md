@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [173c874](https://github.com/naszhu/REM_E3_model_fixed/commit/173c874) (branch: `HEAD`)
+**Time:** 2025-10-12 19:47:41  
+**Message:**
+```
+refactor(model-e1): unify asymptotic functions for improved clarity and efficiency
+
+- Consolidated multiple asymptotic functions into a core utility function `_asym_core` to streamline the generation of increasing and decreasing asymptotic values.
+- Updated existing functions to utilize the new core utility, enhancing code maintainability and readability.
+- This refactor aims to simplify the implementation of asymptotic behavior in the model, improving overall performance and clarity.
+
+Refs #53
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/173c874_20251012_194741_plot1.png)  
+![](../plot_archive/173c874_20251012_194741_plot2.png)  
+
 ## Commit [e02f887](https://github.com/naszhu/REM_E3_model_fixed/commit/e02f887) (branch: `HEAD`)
 **Time:** 2025-10-12 19:42:43  
 **Message:**
