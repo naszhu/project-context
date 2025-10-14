@@ -92,13 +92,13 @@ function simulate_rem()
             end #end for _ in 1:n_driftStudyTest[list_num]
 
             
-            ## context distortion between study and test
-            # CC_before_drift: drifted context (reinstate toward this)
-            # CC_after_drift: drifted + distorted context (start probes with this if distortion enabled)
-            CC_before_drift = deepcopy(test_list_context)  # Save drifted context as reinstatement target
-            CC_after_drift = deepcopy(test_list_context)   # Will be distorted if enabled
-            if is_CC_drift_between_study_and_test
-                for cf in eachindex(CC_after_drift)
+            ## context and content DISTORTION between study and test (after drift)
+            # CC_before_distort: drifted context (reinstate toward this)
+            # CC_after_distort: drifted + distorted context (start probes with this if distortion enabled)
+            CC_before_distort = deepcopy(test_list_context)  # Save drifted context as reinstatement target
+            CC_after_distort = deepcopy(test_list_context)   # Will be distorted if enabled
+            if is_CC_distort_between_study_and_test
+                for cf in eachindex(CC_after_distort)
                     if rand() < base_distortion_prob_CC
                         CC_after_drift[cf] = rand(Geometric(g_context)) + 1
                     end

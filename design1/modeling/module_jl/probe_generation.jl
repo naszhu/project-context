@@ -1,12 +1,34 @@
 
 """generate probe for inital test for a given list,
-input: studied word list; context features (word_change will modifed from the current list last word's context features)
-Return: probe
+input: studied word list; context features; content features
+Return: probe, foil_collection
 
-list_change_features: REINSTATEMENT TARGET - the drifted context (after drift, before distortion) that probes try to reinstate toward
-test_list_context: CURRENT CHANGING CONTEXT - starts as drifted+distorted context, gets modified (reinstated) during probe sequence
+Parameters:
+- content_before_distort: word list with drifted content (REINSTATEMENT TARGET for content)
+- content_after_distort: word list with drifted+distorted content (CURRENT for content)
+- CC_before_distort: drifted CC context (REINSTATEMENT TARGET for CC)
+- CC_after_distort: drifted+distorted CC context (CURRENT for CC)
+- UC_before_distort: drifted UC context (REINSTATEMENT TARGET for UC)
+- UC_after_distort: drifted+distorted UC context (CURRENT for UC)
+- general_context_features: general context (not modified, legacy parameter)
+- position_code_all: position codes
+- list_num: current list number
+- studied_pool: studied images pool
+
+Reinstatement: probes after the first one will partially reinstate toward "before_distort" versions
 """
-function generate_probes(studied_words::Vector{Word}, list_change_features::Vector{Int64}, test_list_context::Vector{Int64}, general_context_features::Vector{Int64}, test_list_context_unchange::Vector{Int64}, position_code_all::Vector{Vector{Int64}}, list_num::Int64,studied_pool::Vector{EpisodicImage} )::Tuple{Vector{Probe}, Vector{EpisodicImage}}
+function generate_probes(
+    content_before_distort::Vector{Word}, 
+    content_after_distort::Vector{Word},
+    CC_before_distort::Vector{Int64}, 
+    CC_after_distort::Vector{Int64}, 
+    UC_before_distort::Vector{Int64}, 
+    UC_after_distort::Vector{Int64},
+    general_context_features::Vector{Int64}, 
+    position_code_all::Vector{Vector{Int64}}, 
+    list_num::Int64,
+    studied_pool::Vector{EpisodicImage}
+)::Tuple{Vector{Probe}, Vector{EpisodicImage}}
     # here, not deep copy word_change_features is safe because even if it influence the original index, the word-change context features will be disgarded when this list ends  
 
 
@@ -16,7 +38,8 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
     # Initialize foils collection to store new foil probes
     foils_collection = Vector{EpisodicImage}()
 
-    words = filter(word -> word.type == :T_target, studied_words) |> shuffle! |> deepcopy
+    # Use content_after_distort for selecting target words
+    words = filter(word -> word.type == :T_target, content_after_distort) |> shuffle! |> deepcopy
     # println("List $(list_num)")
     # test
     stdpos  = 0;
@@ -43,39 +66,40 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
 
         if i>1 #now the first item is not reinstated
 
-            # reinstate changing context: test_list_context
-            nct = length(test_list_context)
-            for ict in eachindex(test_list_context)
+            # REINSTATE CC (changing context): reinstate from after_distort toward before_distort
+            nct = length(CC_after_distort)
+            for ict in eachindex(CC_after_distort)
                 if ict < Int(round(nct * p_reinstate_context)) #stop reinstate after a certain number of features
-
-                    if (test_list_context[ict] != list_change_features[ict]) & (rand() < p_reinstate_rate)
-                        # println("here")
-                        test_list_context[ict] = list_change_features[ict] #it's ok, change list_change_features[i] won't change left
-                        # test_list_context[ict]=2222 #it's ok, change list_change_features[i] won't change left
+                    if (CC_after_distort[ict] != CC_before_distort[ict]) & (rand() < p_reinstate_rate)
+                        CC_after_distort[ict] = CC_before_distort[ict] # Reinstate toward drifted (before distort) context
                     end
-                else
-                    # test_list_context[ict]=list_change_features[ict] #the rest context doesn't change or reinstate
                 end
-                # println("$(list_change_features)")
             end
 
-
-            # reinstate unchange context test_list_context_unchange
-            if is_UnchangeCtxDriftAndReinstate
-                error("unchange context don't drift")
-                nct = length(test_list_context_unchange)
-                for ict in eachindex(test_list_context_unchange)
+            # REINSTATE UC (unchanging context): reinstate from after_distort toward before_distort
+            if is_UC_distort_between_study_and_test
+                nct = length(UC_after_distort)
+                for ict in eachindex(UC_after_distort)
                     if ict < Int(round(nct * p_reinstate_context))
-
-                        if (test_list_context_unchange[ict] != general_context_features[ict]) & (rand() < p_reinstate_rate)
-                            # println("here")
-                            test_list_context_unchange[ict] = general_context_features[ict] #it's ok, change list_change_features[i] won't change left
-                            # test_list_context[ict]=2222 #it's ok, change list_change_features[i] won't change left
+                        if (UC_after_distort[ict] != UC_before_distort[ict]) & (rand() < p_reinstate_rate)
+                            UC_after_distort[ict] = UC_before_distort[ict] # Reinstate toward drifted (before distort) context
                         end
-                    else
-                        # test_list_context[ict]=list_change_features[ict] #the rest context doesn't change or reinstate
                     end
-                    # println("$(list_change_features)")
+                end
+            end
+
+            # REINSTATE CONTENT: reinstate word features from after_distort toward before_distort
+            if is_content_distort_between_study_and_test
+                for iword in eachindex(content_after_distort)
+                    if content_after_distort[iword].type == :T_target # Only reinstate target words
+                        for ifeature in eachindex(content_after_distort[iword].word_features)
+                            if ifeature <= w_word # Only reinstate normal content features (not Z feature)
+                                if (content_after_distort[iword].word_features[ifeature] != content_before_distort[iword].word_features[ifeature]) & (rand() < p_reinstate_rate)
+                                    content_after_distort[iword].word_features[ifeature] = content_before_distort[iword].word_features[ifeature] # Reinstate toward drifted (before distort) content
+                                end
+                            end
+                        end
+                    end
                 end
             end
 
@@ -95,8 +119,8 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
         current_poscode = probetypes[i] == :target ? position_code_all[current_studypos] : rand(Geometric(g_context), w_positioncode) .+ 1
         # println("currentprobetype is $(probetypes[i]), position is $(current_studypos)")
 
-        current_context_features = fast_concat([deepcopy(test_list_context_unchange), deepcopy(test_list_context), current_poscode]) #here needs a deepcopy, otherwise the front remembered context change with later ones  
-        # current_context_features = deepcopy(test_list_context); #here needs a deepcopy, otherwise the front remembered context change with later ones  
+        # Build context from UC_after_distort and CC_after_distort (which may have been reinstated)
+        current_context_features = fast_concat([deepcopy(UC_after_distort), deepcopy(CC_after_distort), current_poscode]) #here needs a deepcopy, otherwise the front remembered context change with later ones  
 
 
         # probes[i] = Probe(EpisodicImage(target_word, current_context_features, list_num), probetypes[i], target_word.studypos ,i)
@@ -126,7 +150,7 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
 
     
     # Apply content distortion if enabled (from E3)
-    if is_content_drift_between_study_and_test
+    if is_content_distort_between_study_and_test
         error("shouldn't happen")
         # Apply distortion to probes with linear decay in probability
         # The distortion probability starts high for the first probe and linearly decreases to 0
@@ -153,7 +177,7 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
     end
 
     # Apply UC (unchanging context) distortion if enabled (Issue #50)
-    if is_UC_drift_between_study_and_test
+    if is_UC_distort_between_study_and_test
         error("shouldn't happen")
         # Apply distortion to UC features (indices 1:nU) with linear decay
         # This follows the same pattern as content distortion:
