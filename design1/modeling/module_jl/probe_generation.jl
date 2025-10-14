@@ -3,8 +3,8 @@
 input: studied word list; context features (word_change will modifed from the current list last word's context features)
 Return: probe
 
-list_change_features: list feature, same as studied one
-test_list_context: changed RI after study, continuous reinstate in test
+list_change_features: REINSTATEMENT TARGET - the drifted context (after drift, before distortion) that probes try to reinstate toward
+test_list_context: CURRENT CHANGING CONTEXT - starts as drifted+distorted context, gets modified (reinstated) during probe sequence
 """
 function generate_probes(studied_words::Vector{Word}, list_change_features::Vector{Int64}, test_list_context::Vector{Int64}, general_context_features::Vector{Int64}, test_list_context_unchange::Vector{Int64}, position_code_all::Vector{Vector{Int64}}, list_num::Int64,studied_pool::Vector{EpisodicImage} )::Tuple{Vector{Probe}, Vector{EpisodicImage}}
     # here, not deep copy word_change_features is safe because even if it influence the original index, the word-change context features will be disgarded when this list ends  
@@ -41,7 +41,7 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
             error("probetypewrong")
         end
 
-        if i>1
+        if i>1 #now the first item is not reinstated
 
             # reinstate changing context: test_list_context
             nct = length(test_list_context)
@@ -80,6 +80,12 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
             end
 
         end
+
+
+        
+
+
+
         # println("$(test_list_context)")
         current_studypos = probetypes[i] == :target ? target_word.studypos : 0;
 
@@ -117,6 +123,8 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
 
     end
 
+
+    
     # Apply content distortion if enabled (from E3)
     if is_content_drift_between_study_and_test
         error("shouldn't happen")
@@ -171,27 +179,8 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
         # The foils_collection already contains deep copies with undistorted context
     end
 
-    # Apply CC (changing context) distortion if enabled (Issue #50)
-    if is_CC_drift_between_study_and_test
-        error("shouldn't happen")
-        # Apply constant probability distortion to CC features (indices nU+1:nU+nC)
-        # Each feature has the same probability base_distortion_prob_CC of being distorted
-        distorted_probes_cc, original_probes_cc = distort_probe_context_constant_prob(
-            probes,
-            nU + 1,  # Start after UC features
-            nU + nC,  # End at last CC feature
-            "CC",  # Context type name for debug
-            base_distortion_prob_CC,  # Constant distortion probability for each feature
-            g_context  # Use context geometric parameter
-        )
 
-        # Replace probes with CC-distorted versions for testing
-        probes = distorted_probes_cc
-
-        # Note: original_probes_cc are kept for reference but not returned
-        # The foils_collection already contains deep copies with undistorted context
-    end
-
+    ## foil collection will have context before or after drifted to be stored in studypool is both fine becuase final test don't use this only use the content in studied pool, so as long as the content is not drifted
     return probes, foils_collection
 end
 

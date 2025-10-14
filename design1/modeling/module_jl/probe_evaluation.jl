@@ -148,7 +148,7 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         # Debug: Track final test performance by initial position for the flat line issue
         if i <= 10  # Only for first 10 probes to avoid spam
             is_distorted = contains(probes[i].image.word.item, "DISTORTED")
-            println("[DEBUG-FLAT-LINE] Final pos $(i): initial_testpos=$(probes[i].image.initial_testpos_img), Type=$(probes[i].classification), distorted=$(is_distorted), decision=$(decision_isold), odds=$(round(odds, digits=3))")
+            # println("[DEBUG-FLAT-LINE] Final pos $(i): initial_testpos=$(probes[i].image.initial_testpos_img), Type=$(probes[i].classification), distorted=$(is_distorted), decision=$(decision_isold), odds=$(round(odds, digits=3))")
         end
         
         # Debug: Summary of initial test position distribution at end of first list
@@ -166,11 +166,11 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
                 end
             end
             
-            println("\n[DEBUG-FLAT-LINE-SUMMARY] Final test probe distribution:")
+            # println("\n[DEBUG-FLAT-LINE-SUMMARY] Final test probe distribution:")
             for pos in sort(collect(keys(initial_pos_counts)))
                 distorted_count = get(distorted_by_pos, pos, 0)
                 total_count = initial_pos_counts[pos]
-                println("  initial_testpos=$(pos): $(total_count) probes, $(distorted_count) distorted")
+                # println("  initial_testpos=$(pos): $(total_count) probes, $(distorted_count) distorted")
             end
         end
 

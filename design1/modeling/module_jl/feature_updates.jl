@@ -195,6 +195,7 @@ function distort_probe_context_range_with_linear_decay(
     g_context::Float64 = 0.3
 )::Tuple{Vector{Probe}, Vector{Probe}}
 
+error("this is not used")
     # Create deep copies of original probes for reference
     original_probes = deepcopy(probes)
     distorted_probes = deepcopy(probes)
@@ -278,7 +279,7 @@ Returns:
     
 Logic:
     For each probe, distort each feature in [start_idx:end_idx] independently 
-    with constant probability distortion_prob
+    with constant probability base_distortion_prob
 """
 function distort_probe_context_constant_prob(
     probes::Vector{Probe},
@@ -289,6 +290,7 @@ function distort_probe_context_constant_prob(
     g_context::Float64
 )::Tuple{Vector{Probe}, Vector{Probe}}
 
+error("this is not used")
     # Create deep copies of original probes for reference
     original_probes = deepcopy(probes)
     distorted_probes = deepcopy(probes)
@@ -338,6 +340,7 @@ function distort_probes_with_linear_decay(
     g_word::Float64 = 0.3
 )::Tuple{Vector{Probe}, Vector{Probe}}
     
+error("this is not used")
     # Create deep copies of original probes for reference
     original_probes = deepcopy(probes)
     distorted_probes = deepcopy(probes)

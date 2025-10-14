@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [af6fda8](https://github.com/naszhu/REM_E3_model_fixed/commit/af6fda8) (branch: `HEAD`)
+**Time:** 2025-10-14 18:06:48  
+**Message:**
+```
+feat(model-e1): constant context distortion
+
+- Enabled CC (changing context) distortion by setting `is_CC_drift_between_study_and_test` to true.
+- Updated `base_distortion_prob_CC` to 0.7 to enhance the distortion effect for changing context.
+- Introduced a new function `distort_probe_context_constant_prob` to apply constant probability distortion across specified features in probes.
+- Adjusted `p_driftStudyTest` to 0.25 for improved study-test drift handling.
+
+These changes aim to refine the model's distortion mechanisms, enhancing the simulation of context effects in the study.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/af6fda8_20251014_180648_plot1.png)  
+![](../plot_archive/af6fda8_20251014_180648_plot2.png)  
+
 ## Commit [1f9eb3a](https://github.com/naszhu/REM_E3_model_fixed/commit/1f9eb3a) (branch: `HEAD`)
 **Time:** 2025-10-14 18:01:17  
 **Message:**
