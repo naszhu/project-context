@@ -1,5 +1,18 @@
 [
   {
+    "commit": "ac04ee4",
+    "branch": "oct-14-2",
+    "message": "feat(model-e1): add distortion and reinstate for T and UC",
+    "timestamp": "2025-10-14 21:23:47",
+    "plot1": "plot_archive/ac04ee4_20251014_212347_plot1.png",
+    "plot2": "plot_archive/ac04ee4_20251014_212347_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
     "commit": "2f6532a",
     "branch": "oct-14-2",
     "message": "refactor(model-e1):  change names for drift to distort for not confusing actual drift and distort",

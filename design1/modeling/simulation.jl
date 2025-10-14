@@ -115,17 +115,10 @@ function simulate_rem()
                 end
             end
 
+            # Note: Content distortion is now handled INSIDE probe_generation.jl
+            # after both targets and foils are created, so all probe words are distorted together
             content_before_distort = deepcopy(word_list)
-            content_after_distort = deepcopy(word_list)
-            if is_content_distort_between_study_and_test
-                for iword in eachindex(content_after_distort)
-                    for cf in eachindex(content_after_distort[iword].word_features)
-                        if rand() < base_distortion_prob
-                            content_after_distort[iword].word_features[cf] = rand(Geometric(g_word)) + 1
-                        end
-                    end
-                end
-            end
+            content_after_distort = deepcopy(word_list)  # Passed in but distortion happens in probe_generation
 
 
             #studied_pool[:, list_num]

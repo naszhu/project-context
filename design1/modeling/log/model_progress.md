@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [ac04ee4](https://github.com/naszhu/REM_E3_model_fixed/commit/ac04ee4) (branch: `oct-14-2`)
+**Time:** 2025-10-14 21:23:47  
+**Message:**
+```
+feat(model-e1): add distortion and reinstate for T and UC
+
+(last commit included reinstatement for cc accidently, so last commit is partial-mistaken and incomplete but now its adding final part of distortion in simulation file
+
+- Updated the simulation logic to include separate handling for unchanging context (UC) and content distortions, alongside the existing changing context (CC) distortions.
+- Renamed variables for clarity, ensuring consistency in naming conventions across the simulation process.
+- Modified the `generate_probes` function call to accommodate the new distortion parameters, improving the fidelity of the simulation.
+
+These changes aim to provide a more comprehensive simulation of context and content distortions, enhancing the overall model accuracy.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/ac04ee4_20251014_212347_plot1.png)  
+![](../plot_archive/ac04ee4_20251014_212347_plot2.png)  
+
 ## Commit [2f6532a](https://github.com/naszhu/REM_E3_model_fixed/commit/2f6532a) (branch: `oct-14-2`)
 **Time:** 2025-10-14 21:21:26  
 **Message:**
