@@ -20,7 +20,7 @@ R_PLOTTING_DIR <- file.path(MODELING_DIR, "R_ploting")
 # ===== SHARED CONSTANTS =====
 # Colors
 COLOR_FOIL <- "#E08214"
-COLOR_TARGET <- "#1A9850"
+COLOR_TARGET <- "#2166AC"
 COLOR_AVERAGE <- "#2C2C2C"
 
 # Shapes
@@ -223,7 +223,7 @@ cat("Combined initial between-list plot saved as E1_initial_between_list_combine
 # ===== SHARED CONSTANTS =====
 # Colors
 COLOR_FOIL <- "#E08214"
-COLOR_TARGET <- "#1A9850"
+COLOR_TARGET <- "#2166AC"
 COLOR_AVERAGE <- "#2C2C2C"
 
 # Shapes

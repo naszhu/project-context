@@ -1,5 +1,36 @@
 # Model Progress
 
+## Commit [0d4aa8a](https://github.com/naszhu/REM_E3_model_fixed/commit/0d4aa8a) (branch: `oct-14`)
+**Time:** 2025-10-14 20:29:10  
+**Message:**
+```
+chore(analysis-e1): add blank lines for improved readability in analysis result files (why changed again??)
+
+- Inserted blank lines at the end of multiple analysis result files to enhance readability and maintain consistency across documents.
+- This change aims to improve the overall formatting of the analysis outputs, making them easier to navigate and review.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+- `design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design3/modeling`  
+![](../plot_archive/0d4aa8a_20251014_202910_plot1.png)  
+![](../plot_archive/0d4aa8a_20251014_202910_plot2.png)  
+
 ## Commit [fb3329d](https://github.com/naszhu/REM_E3_model_fixed/commit/fb3329d) (branch: `oct-14`)
 **Time:** 2025-10-14 18:39:48  
 **Message:**
