@@ -158,10 +158,11 @@ end
 # =============================================================================
 
 """
-Distort specific range of probe context features with linear decrease in distortion probability.
+Distort specific range of probe context features, then apply gradual recovery.
 
 This flexible function can distort UC, CC, or any range of context features separately:
-- Distortion probability starts high for early probes and linearly decreases
+- All probes distorted at once with constant base_distortion_prob
+- Recovery applied with constant base_recovery_prob for all probes
 - Can be called separately for UC and CC to allow independent control
 - Original context is preserved in foils_collection (for final test)
 - Distorted context is used for testing (and gets stored in memory)
@@ -171,12 +172,17 @@ Args:
     start_idx: Starting index of context features to distort (1-based)
     end_idx: Ending index of context features to distort (inclusive)
     context_type_name: Name for debug messages ("UC", "CC", etc.)
-    max_distortion_probes: Number of probes until distortion probability reaches 0
-    base_distortion_prob: Base probability of distortion for the first probe
+    max_distortion_probes: (Currently unused - kept for compatibility)
+    base_distortion_prob: Probability of distortion applied to all probes
+    base_recovery_prob: Constant probability of recovering each distorted feature
     g_context: Geometric distribution parameter for generating new feature values
 
 Returns:
     Tuple of (distorted_probes, original_probes) where original_probes are deep copies for reference
+    
+Logic:
+    Step 1: Distort all probes at once with base_distortion_prob
+    Step 2: Recover distorted features with constant base_recovery_prob
 """
 function distort_probe_context_range_with_linear_decay(
     probes::Vector{Probe},
@@ -185,6 +191,7 @@ function distort_probe_context_range_with_linear_decay(
     context_type_name::String,
     max_distortion_probes::Int;
     base_distortion_prob::Float64 = 0.12,
+    base_recovery_prob::Float64 = 0.3,
     g_context::Float64 = 0.3
 )::Tuple{Vector{Probe}, Vector{Probe}}
 
@@ -192,50 +199,62 @@ function distort_probe_context_range_with_linear_decay(
     original_probes = deepcopy(probes)
     distorted_probes = deepcopy(probes)
 
-    # Pre-calculate asymptotic decrease in distortion probability using utility function
-    # beta=5.0 controls decay rate - higher values decay faster early, slower later
-    # start, end, beta, max distortion
-    distortion_probs = asym_decrease(base_distortion_prob, 0.0, 5.0, max_distortion_probes)
-
-    # Calculate linear decrease in distortion probability
+    # Step 1: Distort all probes at once with base_distortion_prob
+    # Track which features were distorted for each probe
+    distorted_features = [Set{Int}() for _ in eachindex(probes)]
+    
     for i in eachindex(probes)
-        if i <= max_distortion_probes
-            # Use pre-calculated asymptotic decrease probability
-            current_prob = distortion_probs[i]
-
-            # Distort features in specified range
-            distorted_count = 0
-            for j in start_idx:end_idx
-                if rand() < current_prob
-                    distorted_probes[i].image.context_features[j] = rand(Geometric(g_context)) + 1
-                    distorted_count += 1
-                end
-            end
-
-            # Add debug marker to word.item if context was distorted
-            if distorted_count > 0
-                original_word = distorted_probes[i].image.word
-                distortion_level = current_prob
-                context_distortion_info = "$(context_type_name)_DISTORTED_pos$(i)_prob$(round(distortion_level, digits=3))_n$(distorted_count)"
-
-                # Check if word.item already has distortion marker
-                if contains(original_word.item, "DISTORTED")
-                    # Append context distortion info
-                    new_item = "$(original_word.item)_$(context_distortion_info)"
-                else
-                    # Add context distortion marker
-                    new_item = "$(original_word.item)_[$(context_distortion_info)]"
-                end
-
-                # Create new Word instance with modified item (since Word is immutable)
-                new_word = Word(new_item, original_word.word_features, original_word.type, original_word.studypos)
-
-                # Replace the word in the EpisodicImage (which is mutable)
-                distorted_probes[i].image.word = new_word
+        # Distort features in specified range with constant probability
+        for j in start_idx:end_idx
+            if rand() < base_distortion_prob
+                # Store original value before distortion
+                distorted_probes[i].image.context_features[j] = rand(Geometric(g_context)) + 1
+                push!(distorted_features[i], j)
             end
         end
-        # For probes beyond max_distortion_probes, no distortion (probability = 0)
     end
+
+    # Step 2: Apply recovery - restore some distorted features with constant probability
+    # don't recovery here
+    # for i in eachindex(probes)
+    #     if !isempty(distorted_features[i])
+    #         # Use constant recovery probability for all probes
+            
+    #         # Recover (restore) some distorted features
+    #         recovered_count = 0
+    #         for j in distorted_features[i]
+    #             if (rand() < base_recovery_prob) && (i!=1) #not the first probe
+    #                 # Restore to original feature value
+    #                 distorted_probes[i].image.context_features[j] = original_probes[i].image.context_features[j]
+    #                 recovered_count += 1
+    #             end
+    #         end
+            
+    #         # Track final distorted count (distorted - recovered)
+    #         final_distorted_count = length(distorted_features[i]) - recovered_count
+
+    #         # Add debug marker to word.item if context remains distorted after recovery
+    #         if final_distorted_count > 0
+    #             original_word = distorted_probes[i].image.word
+    #             context_distortion_info = "$(context_type_name)_DISTORTED_pos$(i)_prob$(round(base_distortion_prob, digits=3))_rec$(round(base_recovery_prob, digits=3))_n$(final_distorted_count)"
+
+    #             # Check if word.item already has distortion marker
+    #             if contains(original_word.item, "DISTORTED")
+    #                 # Append context distortion info
+    #                 new_item = "$(original_word.item)_$(context_distortion_info)"
+    #             else
+    #                 # Add context distortion marker
+    #                 new_item = "$(original_word.item)_[$(context_distortion_info)]"
+    #             end
+
+    #             # Create new Word instance with modified item (since Word is immutable)
+    #             new_word = Word(new_item, original_word.word_features, original_word.type, original_word.studypos)
+
+    #             # Replace the word in the EpisodicImage (which is mutable)
+    #             distorted_probes[i].image.word = new_word
+    #         end
+    #     end
+    # end
 
     return distorted_probes, original_probes
 end
@@ -245,24 +264,30 @@ end
 # =============================================================================
 
 """
-Distort probe features with linear decrease in distortion probability from first to last probe.
-The distortion probability starts high for the first probe and linearly decreases to 0 after a specified number of probes.
-
-Distort probe content features
+Distort probe content features, then apply recovery.
+This function implements a two-step process:
+1. Distort all probes at once with base_distortion_prob
+2. Recover distorted features with constant base_recovery_prob
 
 Args:
     probes: Vector of probes to potentially distort
-    max_distortion_probes: Number of probes until distortion probability reaches 0
-    base_distortion_prob: Base probability of distortion for the first probe
+    max_distortion_probes: (Currently unused - kept for compatibility)
+    base_distortion_prob: Probability of distortion applied to all probes
+    base_recovery_prob: Constant probability of recovering each distorted feature
     g_word: Geometric distribution parameter for generating new feature values
 
 Returns:
     Tuple of (distorted_probes, original_probes) where original_probes are deep copies for reference
+
+Logic:
+    Step 1: Distort all probes at once with base_distortion_prob
+    Step 2: Recover distorted features with constant base_recovery_prob
 """
 function distort_probes_with_linear_decay(
     probes::Vector{Probe}, 
     max_distortion_probes::Int; 
     base_distortion_prob::Float64 = 0.8,
+    base_recovery_prob::Float64 = 0.3,
     g_word::Float64 = 0.3
 )::Tuple{Vector{Probe}, Vector{Probe}}
     
@@ -271,61 +296,67 @@ function distort_probes_with_linear_decay(
     distorted_probes = deepcopy(probes)
 
     if is_distort_probes
-        # Pre-calculate asymptotic decrease in distortion probability using utility function
-        # beta=5.0 controls decay rate - higher values decay faster early, slower later
-        distortion_probs = asym_decrease(base_distortion_prob, 0.0, 5.0, max_distortion_probes)
-
-        # Calculate linear decrease in distortion probability
+        # Step 1: Distort all probes at once with base_distortion_prob
+        # Track which features were distorted for each probe
+        distorted_features = [Set{Int}() for _ in eachindex(probes)]
+        
         for i in eachindex(probes)
-            if i <= max_distortion_probes
-                # Use pre-calculated asymptotic decrease probability
-                current_prob = distortion_probs[i]
-                
-                # Debug: Print distortion attempt info for position 1
-                # if i == 1
-                #     println("\n=== TEST POSITION 1 ===")
-                #     println("[DEBUG-DISTORTION-POS1] Attempting distortion - Type: $(probes[i].image.word.type), Item: $(probes[i].image.word.item), Distortion prob: $(round(current_prob, digits=3))")
-                # end
-                
-                # Apply distortion to each feature of the probe's word
-                distorted_features_count = 0
-                # Distort each feature with the current probability
-                for j in eachindex(distorted_probes[i].image.word.word_features)
-                    if j <= w_word #only distort normal content features
-                        if rand() < current_prob
-                            # Generate new feature value using Geometric distribution
-                            distorted_probes[i].image.word.word_features[j] = rand(Geometric(g_word)) + 1
-                            distorted_features_count += 1
-                        end
+            # Distort features with constant probability
+            for j in eachindex(distorted_probes[i].image.word.word_features)
+                if j <= w_word #only distort normal content features
+                    if rand() < base_distortion_prob
+                        # Generate new feature value using Geometric distribution
+                        distorted_probes[i].image.word.word_features[j] = rand(Geometric(g_word)) + 1
+                        push!(distorted_features[i], j)
                     end
                 end
-                    
-                # Add debug marker to word.item indicating distortion
-                if distorted_features_count > 0
-                    original_word = distorted_probes[i].image.word
-                    distortion_level = current_prob
-                    distortion_info = "DISTORTED_pos$(i)_prob$(round(distortion_level, digits=3))_features$(distorted_features_count)"
-                    new_item = "$(original_word.item)_[$(distortion_info)]"
-                    
-                    # Create new Word instance with modified item (since Word is immutable)
-                    new_word = Word(new_item, original_word.word_features, original_word.type, original_word.studypos)
-                    
-                    # Replace the word in the EpisodicImage (which is mutable)
-                    distorted_probes[i].image.word = new_word
-                    
-                    # Debug: Print when distortion actually happens for position 1
-                    # if i == 1
-                    #     println("[DEBUG-DISTORTION-POS1] ✓ DISTORTED - Type: $(new_word.type), Features changed: $(distorted_features_count), Item: $(new_item)")
-                    # end
-                else
-                    # Debug: Print when no features were distorted for position 1
-                    # if i == 1
-                    #     println("[DEBUG-DISTORTION-POS1] ✗ No features distorted - Type: $(distorted_probes[i].image.word.type)")
-                    # end
-                end
             end
-            # For probes beyond max_distortion_probes, no distortion (probability = 0)
-        end #end for loop
+        end
+
+        #don't recovery here
+        # Step 2: Apply recovery - restore some distorted features with constant probability
+        # for i in eachindex(probes)
+        #     if !isempty(distorted_features[i])
+        #         # Use constant recovery probability for all probes
+                
+        #         # Recover (restore) some distorted features
+        #         recovered_count = 0
+        #         for j in distorted_features[i]
+        #             if (rand() < base_recovery_prob) && (i!=1)
+        #                 # Restore to original feature value
+        #                 distorted_probes[i].image.word.word_features[j] = original_probes[i].image.word.word_features[j]
+        #                 recovered_count += 1
+        #             end
+        #         end
+                
+        #         # Track final distorted count (distorted - recovered)
+        #         final_distorted_count = length(distorted_features[i]) - recovered_count
+                    
+        #         # Add debug marker to word.item if features remain distorted after recovery
+        #         if final_distorted_count > 0
+        #             original_word = distorted_probes[i].image.word
+        #             distortion_info = "DISTORTED_pos$(i)_prob$(round(base_distortion_prob, digits=3))_rec$(round(base_recovery_prob, digits=3))_features$(final_distorted_count)"
+        #             new_item = "$(original_word.item)_[$(distortion_info)]"
+                    
+        #             # Create new Word instance with modified item (since Word is immutable)
+        #             new_word = Word(new_item, original_word.word_features, original_word.type, original_word.studypos)
+                    
+        #             # Replace the word in the EpisodicImage (which is mutable)
+        #             distorted_probes[i].image.word = new_word
+                    
+        #             # Debug: Print when distortion actually happens for position 1
+        #             # if i == 1
+        #             #     println("[DEBUG-DISTORTION-POS1] ✓ DISTORTED - Type: $(new_word.type), Features changed: $(final_distorted_count), Item: $(new_item)")
+        #             # end
+        #         else
+        #             # Debug: Print when no features were distorted for position 1
+        #             # if i == 1
+        #             #     println("[DEBUG-DISTORTION-POS1] ✗ No features distorted - Type: $(distorted_probes[i].image.word.type)")
+        #             # end
+        #         end
+        #     end
+        #     # For probes beyond max_distortion_probes, no distortion (probability = 0)
+        # end #end for loop
     end
     
     return distorted_probes, original_probes

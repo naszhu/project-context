@@ -1,5 +1,18 @@
 [
   {
+    "commit": "6240f71",
+    "branch": "HEAD",
+    "message": "fnetune(model-e1): only reinstate but very big shift between study and test",
+    "timestamp": "2025-10-14 17:52:14",
+    "plot1": "plot_archive/6240f71_20251014_175214_plot1.png",
+    "plot2": "plot_archive/6240f71_20251014_175214_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "2849fe3",
     "branch": "HEAD",
     "message": "fix(analysis-e3): final by initial list order last 3 doesn't have a position",

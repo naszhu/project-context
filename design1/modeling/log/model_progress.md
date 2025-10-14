@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [6240f71](https://github.com/naszhu/REM_E3_model_fixed/commit/6240f71) (branch: `HEAD`)
+**Time:** 2025-10-14 17:52:14  
+**Message:**
+```
+fnetune(model-e1): only reinstate but very big shift between study and test
+
+- Set `is_UC_drift_between_study_and_test` and `is_CC_drift_between_study_and_test` to false to disable unchanging and changing context distortions.
+- Adjusted `p_reinstate_rate` to 0.50 and `base_distortion_prob_CC` to 0 for improved control over context reinstatement and distortion effects.
+- Updated `p_driftStudyTest` to 0.85 to reflect new parameters for study-test drift.
+
+These changes aim to refine the model's distortion handling and reinstatement behavior, enhancing simulation accuracy in varying context conditions.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/6240f71_20251014_175214_plot1.png)  
+![](../plot_archive/6240f71_20251014_175214_plot2.png)  
+
 ## Commit [2849fe3](https://github.com/naszhu/REM_E3_model_fixed/commit/2849fe3) (branch: `HEAD`)
 **Time:** 2025-10-13 14:37:33  
 **Message:**
