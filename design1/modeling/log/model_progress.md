@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [1f9eb3a](https://github.com/naszhu/REM_E3_model_fixed/commit/1f9eb3a) (branch: `HEAD`)
+**Time:** 2025-10-14 18:01:17  
+**Message:**
+```
+feat(model-e1):  real change to increment decrease now last one was incorrect
+
+- Changed `is_finaltest` to true, adjusting the number of simulations to 200 for final testing.
+- Disabled content drift between study and test by setting `is_content_drift_between_study_and_test` to false.
+- Introduced new parameters for a linear diminishing criterion, replacing the previous asymptotic function with `generate_asymptotic_values_linear_diminishing`.
+- Updated `base_distortion_prob_CC` to 0.0 for consistency in distortion handling.
+
+These changes aim to enhance the model's testing framework and improve the accuracy of criterion calculations.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/1f9eb3a_20251014_180117_plot1.png)  
+![](../plot_archive/1f9eb3a_20251014_180117_plot2.png)  
+
 ## Commit [cbf148a](https://github.com/naszhu/REM_E3_model_fixed/commit/cbf148a) (branch: `HEAD`)
 **Time:** 2025-10-14 17:53:11  
 **Message:**

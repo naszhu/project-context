@@ -259,6 +259,53 @@ function distort_probe_context_range_with_linear_decay(
     return distorted_probes, original_probes
 end
 
+"""
+Distort probe context features with constant probability across all probes.
+
+This function applies a constant distortion probability to each feature 
+within the specified range for all probes (no linear decay or position effects).
+
+Args:
+    probes: Vector of probes to distort
+    start_idx: Starting index of context features to distort (1-based)
+    end_idx: Ending index of context features to distort (inclusive)
+    context_type_name: Name for debug messages ("UC", "CC", etc.)
+    distortion_prob: Constant probability of distorting each feature
+    g_context: Geometric distribution parameter for generating new feature values
+
+Returns:
+    Tuple of (distorted_probes, original_probes) where original_probes are deep copies for reference
+    
+Logic:
+    For each probe, distort each feature in [start_idx:end_idx] independently 
+    with constant probability distortion_prob
+"""
+function distort_probe_context_constant_prob(
+    probes::Vector{Probe},
+    start_idx::Int64,
+    end_idx::Int64,
+    context_type_name::String,
+    distortion_prob::Float64,
+    g_context::Float64
+)::Tuple{Vector{Probe}, Vector{Probe}}
+
+    # Create deep copies of original probes for reference
+    original_probes = deepcopy(probes)
+    distorted_probes = deepcopy(probes)
+
+    # Distort each feature with constant probability
+    for i in eachindex(probes)
+        for j in start_idx:end_idx
+            if rand() < distortion_prob
+                # Replace with new random feature value
+                distorted_probes[i].image.context_features[j] = rand(Geometric(g_context)) + 1
+            end
+        end
+    end
+
+    return distorted_probes, original_probes
+end
+
 # =============================================================================
 # CONTENT DISTORTION FUNCTIONS (from E3)
 # =============================================================================

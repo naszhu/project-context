@@ -104,7 +104,7 @@ is_content_drift_between_study_and_test = false  # Enable content distortion (fr
 
 # below is the drift done by after probe generation drift all at once and then etc. 
 is_UC_drift_between_study_and_test = false  # Enable UC (unchanging context) distortion (Issue #50)
-is_CC_drift_between_study_and_test = false  # Enable CC (changing context) distortion (Issue #50)
+is_CC_drift_between_study_and_test = true  # Enable CC (changing context) distortion (Issue #50)
 
 # Stage control flags
 is_firststage = true;
@@ -181,7 +181,7 @@ p_reinstate_rate = 0.50 #0.4 #prob of reinstatement #do not reinstate.
 # Distortion probability parameters (Issue #50)
 base_distortion_prob = 0.0  # distortion probability for content
 base_distortion_prob_UC = 0.0  # distortion probability for UC (set higher to test effect)
-base_distortion_prob_CC = 0.0  # distortion probability for CC (set higher to test effect)
+base_distortion_prob_CC = 0.7  # distortion probability for CC (set higher to test effect)
 
 # Recovery probability parameters for context reinstatement during test
 base_recovery_prob = 0.0  # constant probability of recovering distorted features during test
@@ -198,7 +198,7 @@ n_between_listchange = 1 # Changed from 20 to 1
 
 # Separate probability parameters to maintain equivalent overall probabilities
 #const p_driftAndListChange = 0.03; # ORIGINAL: single parameter for both
-const p_driftStudyTest = 0.85; # Equivalent to (1-(1-0.03)^9) for study-test drift
+const p_driftStudyTest = 0.25; # Equivalent to (1-(1-0.03)^9) for study-test drift
 const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-list change
 
 

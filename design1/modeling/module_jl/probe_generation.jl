@@ -62,6 +62,7 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
 
             # reinstate unchange context test_list_context_unchange
             if is_UnchangeCtxDriftAndReinstate
+                error("unchange context don't drift")
                 nct = length(test_list_context_unchange)
                 for ict in eachindex(test_list_context_unchange)
                     if ict < Int(round(nct * p_reinstate_context))
@@ -173,17 +174,15 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
     # Apply CC (changing context) distortion if enabled (Issue #50)
     if is_CC_drift_between_study_and_test
         error("shouldn't happen")
-        # Apply distortion to CC features (indices nU+1:nU+nC) with linear decay
-        # This follows the same pattern as content distortion
-        distorted_probes_cc, original_probes_cc = distort_probe_context_range_with_linear_decay(
+        # Apply constant probability distortion to CC features (indices nU+1:nU+nC)
+        # Each feature has the same probability base_distortion_prob_CC of being distorted
+        distorted_probes_cc, original_probes_cc = distort_probe_context_constant_prob(
             probes,
             nU + 1,  # Start after UC features
             nU + nC,  # End at last CC feature
             "CC",  # Context type name for debug
-            max_distortion_probes;  # Use same decay rate as content
-            base_distortion_prob = base_distortion_prob_CC,  # Use CC-specific distortion probability
-            base_recovery_prob = base_recovery_prob,  # Use constant from constants.jl
-            g_context = g_context  # Use context geometric parameter
+            base_distortion_prob_CC,  # Constant distortion probability for each feature
+            g_context  # Use context geometric parameter
         )
 
         # Replace probes with CC-distorted versions for testing

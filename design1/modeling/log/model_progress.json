@@ -1,5 +1,19 @@
 [
   {
+    "commit": "1f9eb3a",
+    "branch": "HEAD",
+    "message": "feat(model-e1):  real change to increment decrease now last one was incorrect",
+    "timestamp": "2025-10-14 18:01:17",
+    "plot1": "plot_archive/1f9eb3a_20251014_180117_plot1.png",
+    "plot2": "plot_archive/1f9eb3a_20251014_180117_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
     "commit": "cbf148a",
     "branch": "HEAD",
     "message": "refactor(model-e1): A WORKING V BUT NO DISTORTION deleting the asymptotic function use other way",
