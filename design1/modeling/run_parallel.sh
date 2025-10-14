@@ -60,6 +60,7 @@ run_simulation() {
         
         
         include(\"module_jl/feature_updates.jl\")
+        include(\"module_jl/feature_origin.jl\")
         include(\"module_jl/feature_generation.jl\")
         include(\"module_jl/likelihood_calculations.jl\")
         include(\"module_jl/memory_storage.jl\")

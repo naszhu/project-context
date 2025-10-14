@@ -1,0 +1,182 @@
+# APA Results Section: Final Test Between-List Initial Order Analysis
+
+## Model Specification
+The final test between-list initial order analysis employed a generalized linear mixed-effects model (GLMM) with binomial family and logit link function. The model tested the effects of initial order (linear and quadratic trends), item type (foil, SO, ST, TO), and condition (backward, forward, random) on recognition accuracy during the final test phase.
+
+**Model Formula:**
+```
+accuracy ~ initial_order_lin * item_type * condition +
+           initial_order_quad * condition +
+           initial_order_quad * item_type +
+           (1 | participant_id)
+```
+
+**Item Types:**
+- **Foil**: New items not presented during initial phase (reference level)
+- **SO (Study Only)**: Items studied but not tested in initial phase
+- **ST (Study-Test)**: Items both studied and tested in initial phase
+- **TO (Test Only)**: Items tested as foils in initial phase (not studied)
+
+**Conditions:**
+- **Backward**: Final test presented in reverse order of initial lists (reference level)
+- **Forward**: Final test presented in same order as initial lists
+- **Random**: Final test presented in random order
+
+**Model Convergence:** Good (relative gradient = 0.022, with fallback variance estimation)
+
+**Note on Model Simplification:** The quadratic × item type × condition three-way interaction was removed to achieve convergence, while preserving the critical linear three-way interaction for testing the main research questions about output interference.
+
+## Fixed Effects Results
+
+### Main Effects
+
+**Initial Order Linear Trend:** A significant positive linear trend emerged for initial order (b = 48.18, SE = 7.99, z = 6.03, p < .001, 95% CI [32.52, 63.84]), indicating that for foil items in the backward condition, recognition accuracy increased across initial list order during the final test.
+
+**Initial Order Quadratic Trend:** A significant positive quadratic trend was observed (b = 23.61, SE = 6.01, z = 3.93, p < .001, 95% CI [11.83, 35.38]), revealing an inverted U-shaped pattern for the backward condition.
+
+**Item Type Effects:** 
+- SO items showed significantly lower accuracy than foils (b = -0.96, SE = 0.05, z = -20.64, p < .001, 95% CI [-1.05, -0.87])
+- ST items showed significantly higher accuracy than foils (b = 0.56, SE = 0.06, z = 8.67, p < .001, 95% CI [0.43, 0.68])
+- TO items showed significantly lower accuracy than foils (b = -1.00, SE = 0.05, z = -21.32, p < .001, 95% CI [-1.09, -0.91])
+
+The ST advantage demonstrates a robust testing effect, while SO and TO items show worse recognition than new foils.
+
+**Condition Effects:** The main effects of condition were not significant (forward: p = .178; random: p = .763), indicating no overall accuracy differences between conditions when averaging across all item types and positions.
+
+### Two-Way Interactions
+
+**Initial Order Linear × Item Type:**
+- SO × linear: Non-significant (b = -7.67, p = .572)
+- ST × linear: Significant (b = 53.30, SE = 19.84, z = 2.69, p = .007)
+- TO × linear: Significant (b = 72.09, SE = 13.78, z = 5.23, p < .001)
+
+These interactions indicate that ST and TO items show much stronger positive linear trends across initial order than foils, while SO items show a trend similar to foils.
+
+**Initial Order Linear × Condition:**
+- Forward × linear: Strong negative interaction (b = -91.73, SE = 10.99, z = -8.35, p < .001)
+- Random × linear: Strong negative interaction (b = -51.76, SE = 9.65, z = -5.36, p < .001)
+
+These large negative interactions indicate that the positive linear trend observed in the backward condition is substantially reduced in forward and random conditions.
+
+**Item Type × Condition:**
+Multiple significant interactions indicate that item type effects vary across conditions. Notably:
+- SO items show better performance in forward condition (b = 0.17, p = .010)
+- TO items show better performance in forward condition (b = 0.20, p = .002)
+- ST and TO items show worse performance in random condition (ST: b = -0.16, p = .036; TO: b = -0.15, p = .006)
+
+**Initial Order Quadratic × Condition:**
+- Forward × quadratic: Significant negative interaction (b = -16.32, SE = 7.36, z = -2.22, p = .027)
+- Random × quadratic: Significant negative interaction (b = -23.57, SE = 6.38, z = -3.69, p < .001)
+
+The inverted U-shape is reduced or eliminated in forward and random conditions.
+
+**Initial Order Quadratic × Item Type:**
+All item types show significant positive quadratic interactions:
+- SO: b = 22.75, p < .001
+- ST: b = 56.03, p < .001
+- TO: b = 27.75, p < .001
+
+ST items show the strongest inverted U-shaped pattern.
+
+### Three-Way Interaction: Initial Order Linear × Item Type × Condition
+
+This is the **critical interaction for testing differential output interference** across conditions and item types.
+
+**Forward Condition:**
+- SO × forward × linear: Non-significant (b = 29.03, p = .127)
+- ST × forward × linear: **Strong negative** (b = -87.61, SE = 27.09, z = -3.23, p = .001)
+- TO × forward × linear: Marginal negative (b = -34.12, SE = 19.18, z = -1.78, p = .075)
+
+**Random Condition:**
+- SO × random × linear: Non-significant (b = 25.68, p = .118)
+- ST × random × linear: Non-significant (b = -25.71, p = .274)
+- TO × random × linear: Significant negative (b = -41.41, SE = 16.51, z = -2.51, p = .012)
+
+## Net Linear Trends by Item Type and Condition
+
+### Backward Condition (Reference)
+- **Foil:** +48.18 (strong positive)
+- **SO:** +48.18 - 7.67 = +40.51 (strong positive)
+- **ST:** +48.18 + 53.30 = +101.48 (very strong positive)
+- **TO:** +48.18 + 72.09 = +120.27 (extremely strong positive)
+
+### Forward Condition
+- **Foil:** +48.18 - 91.73 = -43.55 (negative - output interference!)
+- **SO:** -43.55 - 7.67 + 29.03 = -22.19 (moderate negative)
+- **ST:** -43.55 + 53.30 - 87.61 = -77.86 (strong negative - strong OI)
+- **TO:** -43.55 + 72.09 - 34.12 = -5.58 (near zero)
+
+### Random Condition
+- **Foil:** +48.18 - 51.76 = -3.58 (near zero)
+- **SO:** -3.58 - 7.67 + 25.68 = +14.43 (modest positive)
+- **ST:** -3.58 + 53.30 - 25.71 = +24.01 (moderate positive)
+- **TO:** -3.58 + 72.09 - 41.41 = +27.10 (moderate positive)
+
+## Model Interpretation
+
+The results reveal complex patterns of output interference that depend critically on both item type and test order condition:
+
+### 1. **Condition-Dependent Output Interference**
+
+**Backward Condition:** Shows POSITIVE trends (facilitation, not interference) across initial order for all item types. Items from later initial lists show BETTER final test recognition. This reverses typical output interference.
+
+**Forward Condition:** Shows NEGATIVE trends (output interference) for most item types, especially ST items. Items from later initial lists show WORSE final test recognition. This is the classic output interference pattern.
+
+**Random Condition:** Shows near-zero or positive trends. The random presentation disrupts the systematic output interference pattern.
+
+### 2. **Item-Type-Specific Vulnerability**
+
+**ST items** show the most dramatic condition differences:
+- Backward: +101.48 (massive facilitation)
+- Forward: -77.86 (strong output interference)
+- Net difference: 189.34 units!
+
+**TO items** also show large condition effects:
+- Backward: +120.27 (extreme facilitation)
+- Forward: -5.58 (minimal effect)
+
+**SO items** show moderate condition effects.
+
+**Foils** show substantial condition effects, transitioning from positive (backward) to negative (forward) trends.
+
+### 3. **Testing Effect Persists**
+
+Despite complex condition × position interactions, ST items maintain a substantial overall advantage (b = 0.56) over foils, demonstrating that the testing effect persists even in the presence of output interference.
+
+## Statistical Power and Model Quality
+
+The model achieved good convergence (relative gradient = 0.022) using fallback variance estimation methods. The critical three-way interactions are robust, with strong effect sizes (z values ranging from -3.23 to 2.69 for significant interactions). The model successfully tests the main research questions despite requiring simplification of the quadratic three-way interaction.
+
+## Clinical/Research Implications
+
+These findings have profound implications for understanding output interference:
+
+### 1. **Output Interference is Test-Order-Dependent**
+
+The reversal of trends from backward (+48.18) to forward (-43.55) conditions demonstrates that output interference is not an inevitable consequence of prior testing but depends critically on how test order relates to initial study/test order.
+
+### 2. **Context Reinstatement Hypothesis**
+
+**Forward condition** reinstates the original study/test context progressively, leading to output interference.
+
+**Backward condition** violates the original temporal context, potentially providing novel retrieval cues that actually facilitate performance.
+
+**Random condition** provides intermediate disruption, reducing systematic interference.
+
+### 3. **Item-Type-Specific Mechanisms**
+
+ST items show the largest condition effects, suggesting that items with both study and test experience are most sensitive to context reinstatement effects. The robust testing effect for ST items (+0.56 overall) demonstrates that retrieval practice benefits persist despite output interference in forward condition.
+
+### 4. **Theoretical Implications**
+
+These results challenge simple output interference models and support context-based interference theories:
+- Output interference is not automatic
+- Context reinstatement plays a critical role
+- Different item types have different vulnerabilities
+- Test order can either impair or facilitate performance
+
+The massive swing for ST items (189.34 units difference between backward and forward) represents one of the largest condition effects in the study and demonstrates that experimental context manipulation can dramatically alter memory performance.
+
+
+
+

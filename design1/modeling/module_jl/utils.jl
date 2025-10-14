@@ -20,124 +20,156 @@ notch_transform(x; α=10.0, μ=0.5, σ=0.2) = x / (1 + α * exp(-((x - μ)^2) / 
 # multiplicative-notch version
 valley_transform(x; α=0.8, μ=0.5, σ=0.2) = x * (1 - α * exp(-((x - μ)^2) / (2*σ^2)))
 
-"""
-   For criterion change across lists: generate a power function that asymptotically increases and flattens out near position 4, here's a simplified version of the code:
-
-   p: # Power exponent for the asymptotic increase; p = 2.0 , roughly stop increasing at 4th position
-
-   currently, this function only have argument inputs p, and though should include arguments of how dimn1 change as well 
-"""
-function generate_asymptotic_values(p::Float64, within_list_start::Float64, within_list_end::Float64,  between_list_start::Float64,  between_list_end::Float64,b_rate::Float64 )::Matrix{Float64}
-    # Generate linearly decreasing dim1 from 6 to 4
-    dim1 = asym_decrease(within_list_start, within_list_end,b_rate, n_probes)
-    
-    # t = LinRange(between_list_start, between_list_end, n_lists)   # Normalized range for column positions (0 to 1)
-    t = asym_decrease(between_list_start, between_list_end,5.0, n_lists)   # Normalized range for column positions (0 to 1)
-    dim2 = t .^ p  # Apply the power-law to create the asymptotic increase
-    
-    # 3) Create the 2D matrix by outer-product of dim1 and dim2
-    M = dim1 .* transpose(dim2)     # M is of size (n_probes, n_lists)
-    
-    return M
+#
+##############################################################
+# Unified Asymptotic Function Core
+###############################################################
+# General kernel for asymptotic increase or decrease
+# f(x) = start + dir * (Δ) * (1 - exp(-rate * x))
+# direction: +1 = increase, -1 = decrease
+###############################################################
+function _asym_core(start::Float64, change::Float64, rate::Float64, n::Int; direction::Int=1)
+    @assert n ≥ 1
+    return [start + direction * change * (1 - exp(-rate * k)) for k in 0:n-1]
 end
-# generate_asymptotic_values(1.0, 0.05, 0.05, 1.0, 1.0, 5.0)
 
 
-# asym_range(start_val, end_val, beta, n)
-# beta 越大越快趋近 end_val
-"""
-This is for calculating help for criterion_initial
-"""
+###############################################################
+# 1. asym_decrease_shift_fj  (κu values, from E3)
+###############################################################
+function asym_decrease_shift_fj(start_at::Float64,
+                                how_much::Float64,
+                                how_fast::Float64,
+                                n::Int)::Vector{Float64}
+    return _asym_core(start_at, how_much, how_fast, n; direction=-1)
+end
+
+
+###############################################################
+# 2. asym_increase_shift_hj  (h_j parameter, from E3)
+###############################################################
+function asym_increase_shift_hj(start_at::Float64,
+                                how_much::Float64,
+                                how_fast::Float64,
+                                n::Int)::Vector{Float64}
+    return _asym_core(start_at, how_much, how_fast, n; direction=+1)
+end
+
+
+###############################################################
+# 3. asym_increase_shift  (general increasing)
+###############################################################
+function asym_increase_shift(start_at::Float64,
+                             how_much::Float64,
+                             how_fast::Float64,
+                             n::Int)::Vector{Float64}
+    return _asym_core(start_at, how_much, how_fast, n; direction=+1)
+end
+
+
+###############################################################
+# 4. asym_decrease_shift  (general decreasing)
+###############################################################
+function asym_decrease_shift(start_at::Float64,
+                             how_much::Float64,
+                             how_fast::Float64,
+                             n::Int)::Vector{Float64}
+    return _asym_core(start_at, how_much, how_fast, n; direction=-1)
+end
+
+
+###############################################################
+# 5. asym_decrease_to_end  (explicit end value)
+###############################################################
+function asym_decrease_to_end(start_at::Float64,
+                              end_at::Float64,
+                              how_fast::Float64,
+                              n::Int)::Vector{Float64}
+    how_much = start_at - end_at
+    return _asym_core(start_at, how_much, how_fast, n; direction=-1)
+end
+
+
+###############################################################
+# 6. asym_decrease  (scaled exponential decrease between two values)
+###############################################################
 function asym_decrease(start_val::Float64,
                        end_val::Float64,
                        beta::Float64,
                        n::Int)::Vector{Float64}
     @assert n ≥ 1
-    [end_val + (start_val - end_val) * exp(-beta * (i - 1) / (n - 1))
-     for i in 1:n]
+    return [end_val + (start_val - end_val) * exp(-beta * (i - 1) / (n - 1))
+            for i in 1:n]
 end
 
 
+###############################################################
+# 7. generate_asymptotic_increase_fixed_start (increase toward 1)
+###############################################################
+function generate_asymptotic_increase_fixed_start(start_at::Float64,
+                                                  rate::Float64,
+                                                  num_values::Int64)::Vector{Float64}
+    return [start_at + (1 - exp(-rate * (i - 1))) * (1 - start_at)
+            for i in 1:num_values]
+end
 
-"""
-the fixed start asympotopically changes vector: gradually decrease the level of increase  
-This is currently being used for p_switch*pOld
-"""
-function generate_asymptotic_increase_fixed_start(start_at::Float64, rate::Float64, num_values::Int64)::Vector{Float64}
-    values = zeros(num_values)
-    for i in 1:num_values
-        values[i] = start_at + (1 - exp(-rate * (i - 1))) * (1 - start_at)
+
+###############################################################
+# 7b. linear_increase_diminishing  (linear diminishing increments)
+# Creates a nonlinear increase where the increment amount itself decreases linearly
+# Each step increases by less than the previous step, with the decrease being constant
+###############################################################
+function linear_increase_diminishing(start_at::Float64,
+                                     initial_increment::Float64,
+                                     decrement_per_step::Float64,
+                                     n::Int)::Vector{Float64}
+    @assert n ≥ 1
+    result = Vector{Float64}(undef, n)
+    result[1] = start_at
+    
+    for k in 2:n
+        # Increment decreases linearly: initial_increment - decrement_per_step * (k-2)
+        current_increment = max(0.0, initial_increment - decrement_per_step * (k - 2))
+        result[k] = result[k-1] + current_increment
     end
-    return values
+    
+    return result
 end
 
 
-# function asym_increase_shift(start_at::Float64,
-#                               how_much::Float64,
-#                               how_fast::Float64,
-#                               n::Int)::Vector{Float64}
-#     @assert n ≥ 1
-#     return [start_at + how_much * (1 - exp(-how_fast * (k))) for k in 0:n-1]
-# end
-
-
-
-
-# Generate κu values using asymptotic decreasing function (from E3)
-function asym_decrease_shift_fj(start_at::Float64,
-    how_much::Float64,
-    how_fast::Float64,
-    n::Int)::Vector{Float64}
-@assert n ≥ 1
-return [start_at - how_much * (1 - exp(-how_fast * k)) for k in 0:n-1]
+###############################################################
+# 8. generate_asymptotic_values (2D matrix, criterion change)
+###############################################################
+function generate_asymptotic_values(p::Float64,
+                                    within_list_start::Float64,
+                                    within_list_end::Float64,
+                                    between_list_start::Float64,
+                                    between_list_end::Float64,
+                                    b_rate::Float64)::Matrix{Float64}
+    # Uses asym_decrease for within-list decay and between-list decay
+    dim1 = asym_decrease(within_list_start, within_list_end, b_rate, n_probes)
+    dim2 = asym_decrease(between_list_start, between_list_end, 5.0, n_lists)
+    dim2 = dim2 .^ p
+    return dim1 .* transpose(dim2)
 end
 
-# κu values will be calculated in main file after constants are loaded
 
-# h_j parameter for Z feature usage probability (from E3)
-# hj_asymptote_increase_val = 0.4
-# hj_rate = 0.85
-# hj_base = 0.6
-
-function asym_increase_shift_hj(start_at::Float64,
-    how_much::Float64,
-    how_fast::Float64,
-    n::Int)::Vector{Float64}
-@assert n ≥ 1
-return [start_at + how_much * (1 - exp(-how_fast * k)) for k in 0:n-1]
-end
-
-# h_j values will be calculated in main file after constants are loaded
-
-
-
-# =============================================================================
-# UTILITY FUNCTIONS
-# =============================================================================
-# Function to generate asymptotic increasing values over lists (from E3)
-function asym_increase_shift(start_at::Float64,
-    how_much::Float64,
-    how_fast::Float64,
-    n::Int)::Vector{Float64}
-@assert n ≥ 1
-return [start_at + how_much * (1 - exp(-how_fast * (k))) for k in 0:n-1]
-end
-
-# Asymptotic decrease function (general version)
-function asym_decrease_shift(start_at::Float64,
-    how_much::Float64,
-    how_fast::Float64,
-    n::Int)::Vector{Float64}
-@assert n ≥ 1
-return [start_at - how_much * (1 - exp(-how_fast * k)) for k in 0:n-1]
-end
-
-# Asymptotic decrease function that reaches a specific end value
-function asym_decrease_to_end(start_at::Float64,
-    end_at::Float64,
-    how_fast::Float64,
-    n::Int)::Vector{Float64}
-@assert n ≥ 1
-how_much = start_at - end_at
-return [start_at - how_much * (1 - exp(-how_fast * k)) for k in 0:n-1]
+###############################################################
+# 8b. generate_asymptotic_values_linear_diminishing (2D matrix with linear diminishing for between-list)
+# Same structure as generate_asymptotic_values but uses linear_increase_diminishing for between-list dimension
+###############################################################
+function generate_asymptotic_values_linear_diminishing(p::Float64,
+                                                       within_list_start::Float64,
+                                                       within_list_end::Float64,
+                                                       between_list_start::Float64,
+                                                       between_list_initial_increment::Float64,
+                                                       between_list_decrement_per_step::Float64)::Matrix{Float64}
+    # dim1 is n_probes long (within-list, rows)
+    # dim2 is n_lists long (between-list, columns)
+    # Result is n_probes x n_lists matrix
+    dim1 = asym_decrease(within_list_start, within_list_end, 5.0, n_probes)
+    dim2 = linear_increase_diminishing(between_list_start, between_list_initial_increment, between_list_decrement_per_step, n_lists)
+    dim2 = dim2 .^ p
+    # transpose(dim2) makes it a row vector, so outer product gives n_probes x n_lists
+    return dim1 .* transpose(dim2)
 end

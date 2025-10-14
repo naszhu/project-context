@@ -67,9 +67,9 @@ function simulate_rem()
             test_list_context = deepcopy(list_change_context_features)
             test_list_context_unchange = deepcopy(general_context_features)
 
-            # list_change_context_features only change between lists, change after each list;
-            # list_change_context_features use as a record, to reinstate in probe generation 
-            # test_list_context change between study and test, & change/reinstate after each test, discard after each list;
+            # list_change_context_features: study context, stored in study_pool & used for final test reconstruction
+            # test_list_context: gets drifted (and possibly distorted), then used for initial test
+            # Probes will reinstate toward the DRIFTED context (not study context)
 
              #context drift below for both 
             for _ in 1:n_driftStudyTest[list_num]
@@ -89,12 +89,29 @@ function simulate_rem()
                         end
                     end
                 end
+            end #end for _ in 1:n_driftStudyTest[list_num]
+
+            
+            ## context distortion between study and test
+            # CC_before_drift: drifted context (reinstate toward this)
+            # CC_after_drift: drifted + distorted context (start probes with this if distortion enabled)
+            CC_before_drift = deepcopy(test_list_context)  # Save drifted context as reinstatement target
+            CC_after_drift = deepcopy(test_list_context)   # Will be distorted if enabled
+            if is_CC_drift_between_study_and_test
+                for cf in eachindex(CC_after_drift)
+                    if rand() < base_distortion_prob_CC
+                        CC_after_drift[cf] = rand(Geometric(g_context)) + 1
+                    end
+                end
             end
+
 
             #studied_pool[:, list_num]
             # studied_pool[j, list_num]
             # println(studied_pool)#studdied pool has length of 30, so only take first 20
-            probes, foil_collections = generate_probes(word_list, list_change_context_features, test_list_context, general_context_features, test_list_context_unchange, position_code_all, list_num, studied_pool[1:n_probes,list_num]) #probe number is current list number, get probes of current list 
+            # Pass CC_before_drift as reinstatement target (drifted context, not study context)
+            # Pass CC_after_drift as current test context (distorted if enabled, otherwise same as CC_before_drift)
+            probes, foil_collections = generate_probes(word_list, CC_before_drift, CC_after_drift, general_context_features, test_list_context_unchange, position_code_all, list_num, studied_pool[1:n_probes,list_num]) 
             
 
             # println("ImagePoolNow", [i.word.item for i in image_pool])

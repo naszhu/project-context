@@ -3,8 +3,8 @@
 input: studied word list; context features (word_change will modifed from the current list last word's context features)
 Return: probe
 
-list_change_features: list feature, same as studied one
-test_list_context: changed RI after study, continuous reinstate in test
+list_change_features: REINSTATEMENT TARGET - the drifted context (after drift, before distortion) that probes try to reinstate toward
+test_list_context: CURRENT CHANGING CONTEXT - starts as drifted+distorted context, gets modified (reinstated) during probe sequence
 """
 function generate_probes(studied_words::Vector{Word}, list_change_features::Vector{Int64}, test_list_context::Vector{Int64}, general_context_features::Vector{Int64}, test_list_context_unchange::Vector{Int64}, position_code_all::Vector{Vector{Int64}}, list_num::Int64,studied_pool::Vector{EpisodicImage} )::Tuple{Vector{Probe}, Vector{EpisodicImage}}
     # here, not deep copy word_change_features is safe because even if it influence the original index, the word-change context features will be disgarded when this list ends  
@@ -41,7 +41,7 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
             error("probetypewrong")
         end
 
-        if i>1
+        if i>1 #now the first item is not reinstated
 
             # reinstate changing context: test_list_context
             nct = length(test_list_context)
@@ -62,6 +62,7 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
 
             # reinstate unchange context test_list_context_unchange
             if is_UnchangeCtxDriftAndReinstate
+                error("unchange context don't drift")
                 nct = length(test_list_context_unchange)
                 for ict in eachindex(test_list_context_unchange)
                     if ict < Int(round(nct * p_reinstate_context))
@@ -79,6 +80,12 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
             end
 
         end
+
+
+        
+
+
+
         # println("$(test_list_context)")
         current_studypos = probetypes[i] == :target ? target_word.studypos : 0;
 
@@ -116,31 +123,64 @@ function generate_probes(studied_words::Vector{Word}, list_change_features::Vect
 
     end
 
+
+    
     # Apply content distortion if enabled (from E3)
     if is_content_drift_between_study_and_test
+        error("shouldn't happen")
         # Apply distortion to probes with linear decay in probability
         # The distortion probability starts high for the first probe and linearly decreases to 0
         # after max_distortion_probes. This creates a strong distortion effect
         # for early probes that gradually diminishes for later probes.
-        # 
+        #
         # Keep original probes for foils collection, but distort probes for testing
         # The foils_collection already contains deep copies of the original probes
         # before distortion was applied, so it remains clean and unaffected.
         distorted_probes, original_probes = distort_probes_with_linear_decay(
-            probes, 
+            probes,
             max_distortion_probes;  # Use constant from constants.jl
             base_distortion_prob = base_distortion_prob,  # Use constant from constants.jl
+            base_recovery_prob = base_recovery_prob,  # Use constant from constants.jl
             g_word = g_word  # Use the constant defined in constants.jl
         )
-        
+
         # Replace probes with distorted versions for testing
         probes = distorted_probes
-        
+
         # Note: original_probes are kept for reference but not returned
         # The foils_collection already contains deep copies of the original probes
         # before distortion was applied, so it remains clean
     end
 
+    # Apply UC (unchanging context) distortion if enabled (Issue #50)
+    if is_UC_drift_between_study_and_test
+        error("shouldn't happen")
+        # Apply distortion to UC features (indices 1:nU) with linear decay
+        # This follows the same pattern as content distortion:
+        # - Distortion probability decreases linearly from first to last probe
+        # - foils_collection already contains undistorted context (collected before this step)
+        # - Distorted context will be used for testing and stored in memory
+        # - Undistorted context from foils_collection will go to studied_pool for final test
+        distorted_probes_uc, original_probes_uc = distort_probe_context_range_with_linear_decay(
+            probes,
+            1,  # Start at first UC feature
+            nU,  # End at last UC feature
+            "UC",  # Context type name for debug
+            max_distortion_probes;  # Use same decay rate as content
+            base_distortion_prob = base_distortion_prob_UC,  # Use UC-specific distortion probability
+            base_recovery_prob = base_recovery_prob,  # Use constant from constants.jl
+            g_context = g_context  # Use context geometric parameter
+        )
+
+        # Replace probes with UC-distorted versions for testing
+        probes = distorted_probes_uc
+
+        # Note: original_probes_uc are kept for reference but not returned
+        # The foils_collection already contains deep copies with undistorted context
+    end
+
+
+    ## foil collection will have context before or after drifted to be stored in studypool is both fine becuase final test don't use this only use the content in studied pool, so as long as the content is not drifted
     return probes, foils_collection
 end
 

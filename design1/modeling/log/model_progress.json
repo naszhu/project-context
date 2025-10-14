@@ -1,5 +1,571 @@
 [
   {
+    "commit": "0d4aa8a",
+    "branch": "oct-14",
+    "message": "chore(analysis-e1): add blank lines for improved readability in analysis result files (why changed again??)",
+    "timestamp": "2025-10-14 20:29:10",
+    "plot1": "plot_archive/0d4aa8a_20251014_202910_plot1.png",
+    "plot2": "plot_archive/0d4aa8a_20251014_202910_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r",
+      "design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "fb3329d",
+    "branch": "oct-14",
+    "message": "feat(model-e1): make the distortion really work make it into simulation",
+    "timestamp": "2025-10-14 18:39:48",
+    "plot1": "plot_archive/fb3329d_20251014_183948_plot1.png",
+    "plot2": "plot_archive/fb3329d_20251014_183948_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "af6fda8",
+    "branch": "HEAD",
+    "message": "feat(model-e1): constant context distortion",
+    "timestamp": "2025-10-14 18:06:48",
+    "plot1": "plot_archive/af6fda8_20251014_180648_plot1.png",
+    "plot2": "plot_archive/af6fda8_20251014_180648_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "1f9eb3a",
+    "branch": "HEAD",
+    "message": "feat(model-e1):  real change to increment decrease now last one was incorrect",
+    "timestamp": "2025-10-14 18:01:17",
+    "plot1": "plot_archive/1f9eb3a_20251014_180117_plot1.png",
+    "plot2": "plot_archive/1f9eb3a_20251014_180117_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
+    "commit": "cbf148a",
+    "branch": "HEAD",
+    "message": "refactor(model-e1): A WORKING V BUT NO DISTORTION deleting the asymptotic function use other way",
+    "timestamp": "2025-10-14 17:53:11",
+    "plot1": "plot_archive/cbf148a_20251014_175311_plot1.png",
+    "plot2": "plot_archive/cbf148a_20251014_175311_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "6240f71",
+    "branch": "HEAD",
+    "message": "fnetune(model-e1): only reinstate but very big shift between study and test",
+    "timestamp": "2025-10-14 17:52:14",
+    "plot1": "plot_archive/6240f71_20251014_175214_plot1.png",
+    "plot2": "plot_archive/6240f71_20251014_175214_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "2849fe3",
+    "branch": "HEAD",
+    "message": "fix(analysis-e3): final by initial list order last 3 doesn't have a position",
+    "timestamp": "2025-10-13 14:37:33",
+    "plot1": "plot_archive/2849fe3_20251013_143733_plot1.png",
+    "plot2": "plot_archive/2849fe3_20251013_143733_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R"
+    ]
+  },
+  {
+    "commit": "eaa1a7f",
+    "branch": "HEAD",
+    "message": "refactor(analysis-e1): redo e3 analysis",
+    "timestamp": "2025-10-13 14:34:12",
+    "plot1": "plot_archive/eaa1a7f_20251013_143412_plot1.png",
+    "plot2": "plot_archive/eaa1a7f_20251013_143412_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R",
+      "design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R",
+      "design3/data_analysis/individual_analyses/03_initial_between_list_analysis.R",
+      "design3/data_analysis/individual_analyses/04_final_within_study_analysis.R",
+      "design3/data_analysis/individual_analyses/05_final_within_test_analysis.R",
+      "design3/data_analysis/individual_analyses/06_final_between_final_order_analysis.R",
+      "design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R"
+    ]
+  },
+  {
+    "commit": "e5ecc65",
+    "branch": "HEAD",
+    "message": "finetune(allplot-e1): adjust Y-axis minimum limit for improved plot accuracy",
+    "timestamp": "2025-10-13 11:22:07",
+    "plot1": "plot_archive/e5ecc65_20251013_112207_plot1.png",
+    "plot2": "plot_archive/e5ecc65_20251013_112207_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "b40df93",
+    "branch": "HEAD",
+    "message": "refactor(analysis-e1): introduce changelog3.pdf and update analysis reports",
+    "timestamp": "2025-10-13 11:21:39",
+    "plot1": "plot_archive/b40df93_20251013_112139_plot1.png",
+    "plot2": "plot_archive/b40df93_20251013_112139_plot2.png",
+    "changed_files": [
+      "Docs/changelog3.pdf",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md",
+      "design1/modeling/Asymptotic_Function_Usage_Summary.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "173c874",
+    "branch": "HEAD",
+    "message": "refactor(model-e1): unify asymptotic functions for improved clarity and efficiency",
+    "timestamp": "2025-10-12 19:47:41",
+    "plot1": "plot_archive/173c874_20251012_194741_plot1.png",
+    "plot2": "plot_archive/173c874_20251012_194741_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
+    "commit": "e02f887",
+    "branch": "HEAD",
+    "message": "refactor(model-e1): Make non-linear recovry rate",
+    "timestamp": "2025-10-12 19:42:43",
+    "plot1": "plot_archive/e02f887_20251012_194243_plot1.png",
+    "plot2": "plot_archive/e02f887_20251012_194243_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "9de758c",
+    "branch": "HEAD",
+    "message": "refactor(model-e1): CC only change and restore",
+    "timestamp": "2025-10-12 19:26:43",
+    "plot1": "plot_archive/9de758c_20251012_192643_plot1.png",
+    "plot2": "plot_archive/9de758c_20251012_192643_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "add0840",
+    "branch": "HEAD",
+    "message": "finetune(model-e1): update reinstatement and distortion probability parameters",
+    "timestamp": "2025-10-12 18:05:58",
+    "plot1": "plot_archive/add0840_20251012_180558_plot1.png",
+    "plot2": "plot_archive/add0840_20251012_180558_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "3f130c9",
+    "branch": "HEAD",
+    "message": "refactor(model-e1): make sure the model is working on distortion for UU and UC",
+    "timestamp": "2025-10-12 16:34:59",
+    "plot1": "plot_archive/3f130c9_20251012_163459_plot1.png",
+    "plot2": "plot_archive/3f130c9_20251012_163459_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "e85ee8f",
+    "branch": "HEAD",
+    "message": "run(data-analysis-e1): add concluding remarks to analysis reports",
+    "timestamp": "2025-10-12 16:33:34",
+    "plot1": "plot_archive/e85ee8f_20251012_163334_plot1.png",
+    "plot2": "plot_archive/e85ee8f_20251012_163334_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "f760931",
+    "branch": "HEAD",
+    "message": "feat(model-e1): implement context distortion features for UC and CC",
+    "timestamp": "2025-10-12 16:08:59",
+    "plot1": "plot_archive/f760931_20251012_160859_plot1.png",
+    "plot2": "plot_archive/f760931_20251012_160859_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "49832cf",
+    "branch": "HEAD",
+    "message": "chore(claude): introduce code modification policy guidelines",
+    "timestamp": "2025-10-12 15:57:39",
+    "plot1": "plot_archive/49832cf_20251012_155739_plot1.png",
+    "plot2": "plot_archive/49832cf_20251012_155739_plot2.png",
+    "changed_files": [
+      ".claude/preference.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "bcbadb0",
+    "branch": "HEAD",
+    "message": "refactor(model-e1): reorganize Z feature functions and update module inclusions",
+    "timestamp": "2025-10-12 15:47:39",
+    "plot1": "plot_archive/bcbadb0_20251012_154739_plot1.png",
+    "plot2": "plot_archive/bcbadb0_20251012_154739_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_origin.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
+    "commit": "b51dd7f",
+    "branch": "HEAD",
+    "message": "refactor(modeling): reorganize Z feature functions and update module inclusions",
+    "timestamp": "2025-10-12 15:47:31",
+    "plot1": "plot_archive/b51dd7f_20251012_154731_plot1.png",
+    "plot2": "plot_archive/b51dd7f_20251012_154731_plot2.png",
+    "changed_files": [
+      "design1/modeling/JL_V6-6_2finalize.jl",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_origin.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/run_parallel.sh"
+    ]
+  },
+  {
+    "commit": "9e6a2ee",
+    "branch": "HEAD",
+    "message": "fix(constants): update simulation parameters and distortion settings",
+    "timestamp": "2025-10-12 15:00:32",
+    "plot1": "plot_archive/9e6a2ee_20251012_150032_plot1.png",
+    "plot2": "plot_archive/9e6a2ee_20251012_150032_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "20f70e1",
+    "branch": "oct-11",
+    "message": "run(data-analysis-e1): remove temporary lock files and add new reports",
+    "timestamp": "2025-10-12 14:59:31",
+    "plot1": "plot_archive/20f70e1_20251012_145931_plot1.png",
+    "plot2": "plot_archive/20f70e1_20251012_145931_plot2.png",
+    "changed_files": [
+      "Docs/.~lock.DataPlot-d3(exp2).docx#",
+      "Docs/.~lock.parameter_values_aug-19.docx#",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt",
+      "design1/data_analysis/individual_analyses/REPORT_Average_Performance_Test_Position.md",
+      "design1/data_analysis/individual_analyses/REPORT_Average_Performance_Test_Position_APA.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "1c6d428",
+    "branch": "oct-11",
+    "message": "feat(data-analysis-e3): add enhanced initial test position analysis script",
+    "timestamp": "2025-10-12 14:59:19",
+    "plot1": "plot_archive/1c6d428_20251012_145919_plot1.png",
+    "plot2": "plot_archive/1c6d428_20251012_145919_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/02_initial_test_position_analysis.R",
+      "design1/data_analysis/individual_analyses/02_initial_test_position_analysis_ENHANCED.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/individual_analyses/00_shared_setup.R",
+      "design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R",
+      "design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R",
+      "design3/data_analysis/individual_analyses/03_initial_between_list_analysis.R",
+      "design3/data_analysis/individual_analyses/04_final_within_study_analysis.R",
+      "design3/data_analysis/individual_analyses/05_final_within_test_analysis.R",
+      "design3/data_analysis/individual_analyses/06_final_between_final_order_analysis.R",
+      "design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R",
+      "design3/data_analysis/individual_analyses/README.md"
+    ]
+  },
+  {
+    "commit": "9a1f780",
+    "branch": "oct-11",
+    "message": "feat(data-analysis): add enhanced initial test position analysis script",
+    "timestamp": "2025-10-12 14:58:32",
+    "plot1": "plot_archive/9a1f780_20251012_145832_plot1.png",
+    "plot2": "plot_archive/9a1f780_20251012_145832_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/02_initial_test_position_analysis.R",
+      "design1/data_analysis/individual_analyses/02_initial_test_position_analysis_ENHANCED.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/individual_analyses/00_shared_setup.R",
+      "design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R",
+      "design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R",
+      "design3/data_analysis/individual_analyses/03_initial_between_list_analysis.R",
+      "design3/data_analysis/individual_analyses/04_final_within_study_analysis.R",
+      "design3/data_analysis/individual_analyses/05_final_within_test_analysis.R",
+      "design3/data_analysis/individual_analyses/06_final_between_final_order_analysis.R",
+      "design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R",
+      "design3/data_analysis/individual_analyses/README.md"
+    ]
+  },
+  {
+    "commit": "d6976b4",
+    "branch": "oct-11",
+    "message": "feat(data-analysis): add individual analysis scripts and shared setup",
+    "timestamp": "2025-10-12 01:42:02",
+    "plot1": "plot_archive/d6976b4_20251012_014202_plot1.png",
+    "plot2": "plot_archive/d6976b4_20251012_014202_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/00_shared_setup.R",
+      "design1/data_analysis/individual_analyses/01_initial_study_position_analysis.R",
+      "design1/data_analysis/individual_analyses/02_initial_test_position_analysis.R",
+      "design1/data_analysis/individual_analyses/03_initial_between_list_analysis.R",
+      "design1/data_analysis/individual_analyses/04_final_within_study_analysis.R",
+      "design1/data_analysis/individual_analyses/05_final_within_test_analysis.R",
+      "design1/data_analysis/individual_analyses/06_final_between_final_order_analysis.R",
+      "design1/data_analysis/individual_analyses/06_final_between_final_order_analysis_FAST.R",
+      "design1/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R",
+      "design1/data_analysis/individual_analyses/07_final_between_initial_order_analysis_FAST.R",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Study_Position_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt",
+      "design1/data_analysis/individual_analyses/README.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "fdae3c1",
+    "branch": "oct-11",
+    "message": "refactor(data-analysis):  Move initial plots to the front",
+    "timestamp": "2025-10-11 17:52:06",
+    "plot1": "plot_archive/fdae3c1_20251011_175206_plot1.png",
+    "plot2": "plot_archive/fdae3c1_20251011_175206_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "3d91bb1",
+    "branch": "oct-11",
+    "message": "feat(data-analysis): enhance comprehensive analysis and model outputs",
+    "timestamp": "2025-10-11 17:41:35",
+    "plot1": "plot_archive/3d91bb1_20251011_174135_plot1.png",
+    "plot2": "plot_archive/3d91bb1_20251011_174135_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "05c6406",
+    "branch": "oct-11",
+    "message": "feat(data-analysis): add initial test between-list results and comprehensive analysis outputs",
+    "timestamp": "2025-10-11 17:41:02",
+    "plot1": "plot_archive/05c6406_20251011_174102_plot1.png",
+    "plot2": "plot_archive/05c6406_20251011_174102_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Initial_Between_Results.txt",
+      "design1/data_analysis/MASTER_ANALYSIS_SUMMARY.md",
+      "design1/data_analysis/SUMMARY_initial_between_model.md",
+      "design1/data_analysis/between_final_analysis_output.txt",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/init_between_analysis_output.txt",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "185b1a3",
+    "branch": "oct-11",
+    "message": "fix(allplot-e1): filter reaction times for performance calculations",
+    "timestamp": "2025-10-11 15:49:44",
+    "plot1": "plot_archive/185b1a3_20251011_154944_plot1.png",
+    "plot2": "plot_archive/185b1a3_20251011_154944_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "0f67eac",
+    "branch": "oct-11",
+    "message": "fix(allplot-e1): bug not filter out null for initial between",
+    "timestamp": "2025-10-11 15:41:23",
+    "plot1": "plot_archive/0f67eac_20251011_154123_plot1.png",
+    "plot2": "plot_archive/0f67eac_20251011_154123_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "74aca5d",
+    "branch": "oct-11",
+    "message": "feat(analysis-e1): final between by intial order",
+    "timestamp": "2025-10-11 14:46:36",
+    "plot1": "plot_archive/74aca5d_20251011_144636_plot1.png",
+    "plot2": "plot_archive/74aca5d_20251011_144636_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Between_Initial_Results_Comprehensive.txt",
+      "design1/data_analysis/APA_Results_Brief_Between_Initial.txt",
+      "design1/data_analysis/Between_Initial_Results_Summary_Tables.md",
+      "design1/data_analysis/CHANGES_SUMMARY_between_initial_model.md",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "a167ccd",
+    "branch": "oct-11",
+    "message": "refactor(analysis-e1): final test within-list analysis redo",
+    "timestamp": "2025-10-11 14:09:34",
+    "plot1": "plot_archive/a167ccd_20251011_140934_plot1.png",
+    "plot2": "plot_archive/a167ccd_20251011_140934_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/APA_Results_Brief_Within_List.txt",
+      "design1/data_analysis/APA_Within_List_Results_Comprehensive.txt",
+      "design1/data_analysis/CHANGES_SUMMARY_within_list_models.md",
+      "design1/data_analysis/Within_List_Results_Summary_Tables.md",
+      "design1/data_analysis/experiment1_comprehensive_analysis.R",
+      "design1/data_analysis/within_list_analysis_output.txt",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "81567f6",
+    "branch": "oct-11",
+    "message": "merge(all): Merge branch 'oct-6'",
+    "timestamp": "2025-10-11 13:41:33",
+    "plot1": "plot_archive/81567f6_20251011_134133_plot1.png",
+    "plot2": "plot_archive/81567f6_20251011_134133_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "f9ec50d",
     "branch": "oct-6",
     "message": "refactor(rt-analysis): use median RT",

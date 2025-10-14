@@ -1,0 +1,90 @@
+# APA Results Section: Final Test Within-List Study Position Analysis
+
+## Model Specification
+The final test within-list study position analysis employed a generalized linear mixed-effects model (GLMM) with binomial family and logit link function. The model tested the effects of study position (linear and quadratic trends) and item type (SO vs. ST) on recognition accuracy during the final test phase for items that were studied during the initial phase.
+
+**Model Formula:**
+```
+accuracy ~ study_position_lin * item_type + study_position_quad * item_type + 
+           (1 | participant_id)
+```
+
+**Item Types:**
+- **SO (Study Only)**: Items studied but not tested in the initial phase
+- **ST (Study-Test)**: Items both studied and tested in the initial phase
+
+**Model Convergence:** Very good (relative gradient = 0.0013)
+
+## Fixed Effects Results
+
+### Main Effects
+
+**Study Position Linear Trend:** A significant negative linear trend emerged for study position (b = -5.48, SE = 2.63, z = -2.09, p = .037, 95% CI [-10.62, -0.33]), indicating that recognition accuracy decreased from early to late study positions for SO items. This pattern reflects within-list output interference or encoding position effects.
+
+**Study Position Quadratic Trend:** A significant positive quadratic trend was observed (b = 10.39, SE = 2.48, z = 4.18, p < .001, 95% CI [5.52, 15.26]), revealing an inverted U-shaped pattern where accuracy was higher for early and late study positions compared to middle positions. This indicates both primacy and recency effects within study lists.
+
+**Item Type Effect:** ST items showed substantially higher recognition accuracy than SO items (b = 1.43, SE = 0.03, z = 42.92, p < .001, 95% CI [1.37, 1.50]). This large effect demonstrates a robust testing effect: items that were both studied and tested in the initial phase were recognized much better in the final test than items that were only studied.
+
+### Interaction Effects
+
+**Study Position Linear × Item Type:** The interaction was not significant (b = -1.46, SE = 3.77, z = -0.39, p = .699, 95% CI [-8.84, 5.93]), indicating that the linear decline across study positions did not differ significantly between SO and ST items. Both item types show similar rates of decline across study positions.
+
+**Study Position Quadratic × Item Type:** The interaction was not significant (b = -5.15, SE = 3.47, z = -1.49, p = .137, 95% CI [-11.95, 1.64]), indicating that the inverted U-shaped pattern did not differ significantly between SO and ST items. Both item types show similar primacy and recency effects within study lists.
+
+## Random Effects Structure
+
+The model included:
+- Random intercepts for participants (1 | participant_id)
+
+This structure accounts for individual differences in baseline accuracy. Random slopes were not included due to model complexity considerations for the final test data.
+
+## Item-Type-Specific Patterns
+
+**SO (Study Only) Items:**
+- Show a modest negative linear trend (b = -5.48)
+- Show an inverted U-shaped pattern (b = 10.39)
+- Represent baseline recognition for studied items without testing benefit
+
+**ST (Study-Test) Items:**
+- Show a similar negative linear trend (-5.48 - 1.46 = -6.94, ns interaction)
+- Show a similar inverted U-shaped pattern (10.39 - 5.15 = 5.24, ns interaction)
+- Show substantially higher overall accuracy (+1.43 in log-odds)
+- The testing effect is additive: ST items maintain the same advantage across all study positions
+
+## Model Interpretation
+
+The results reveal important patterns of retention and testing effects:
+
+1. **Testing Effect:** The large main effect for ST items (b = 1.43, z = 42.92) demonstrates a robust testing effect. Items that were tested during the initial phase show substantially better retention in the final test, regardless of their study position.
+
+2. **Within-List Position Effects:** Both item types show within-list position effects (linear decline and inverted U-shape), indicating that encoding position within a list affects long-term retention measured in the final test.
+
+3. **Uniform Testing Benefit:** The non-significant interactions indicate that the testing effect is uniform across study positions. Testing benefits items equally whether they appeared early, middle, or late in study lists.
+
+4. **Primacy and Recency in Long-Term Memory:** The inverted U-shaped pattern (b = 10.39) indicates that within-list primacy and recency effects observed during encoding persist into the final test, affecting long-term recognition.
+
+5. **Output Interference Within Lists:** The negative linear trend (b = -5.48) suggests that items appearing later in study lists suffer from within-list interference, possibly due to encoding interference or resource depletion effects.
+
+## Statistical Power and Model Quality
+
+The model achieved very good convergence (relative gradient = 0.0013), indicating reliable parameter estimates. The item type main effect is extremely large (z = 42.92), demonstrating a highly robust testing effect. The position effects, while smaller in magnitude, are statistically reliable for the main effects, though the interactions did not reach significance.
+
+## Clinical/Research Implications
+
+These findings have important implications for learning and memory:
+
+1. **Testing Enhances Learning:** The robust testing effect (b = 1.43) provides strong evidence that retrieval practice enhances long-term retention, consistent with the "testing effect" literature.
+
+2. **Position-Independent Testing Benefit:** The testing effect operates independently of study position, suggesting that retrieval practice benefits all items equally regardless of when they were studied in a list.
+
+3. **Within-List Organization Persists:** The inverted U-shaped pattern indicates that within-list organizational effects (primacy/recency) established during encoding persist into long-term memory measured days or weeks later.
+
+4. **Educational Implications:** These results support the use of retrieval practice in educational settings and suggest that the benefits of testing are not limited to items in particular list positions.
+
+5. **Memory Consolidation:** The preserved position effects in the final test suggest that list-level contextual information is encoded and retained along with item information, influencing later retrieval.
+
+The absence of significant interactions suggests that study position effects and testing effects operate through independent mechanisms, with testing providing an additive benefit that does not interact with encoding position effects.
+
+
+
+

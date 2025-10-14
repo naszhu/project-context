@@ -1,0 +1,17 @@
+RESULTS (Brief Version for Manuscript)
+
+Within-List Position Effects
+
+Two Generalized Linear Mixed Models (GLMMs) examined within-list position effects on final test performance. The first model analyzed study position effects for ST and SO items; the second analyzed test position effects for ST and TO items. Both models included linear and quadratic orthogonal polynomial terms, item type, their interactions, and random intercepts for participants (N = 196).
+
+Study Position Effects
+
+ST items (M = 0.90) showed significantly higher accuracy than SO items (M = 0.68), b = 1.43, SE = 0.03, z = 42.93, p < .001, 95% CI [1.37, 1.50]. A significant negative linear trend emerged for SO items (b = -5.49, SE = 2.37, z = -2.32, p = .021), indicating primacy effects. A significant positive quadratic trend for SO items (b = 10.39, SE = 2.31, z = 4.50, p < .001) revealed a U-shaped pattern, with enhanced performance for both early and late study positions. ST items showed a similar but non-significant linear decline (b = -6.49, SE = 3.59, p = .070) and weaker quadratic curvature (b = 4.52, SE = 3.44, p = .187). Position × item type interactions were not significant (ps > .08).
+
+Test Position Effects
+
+ST items (M = 0.90) showed significantly higher accuracy than TO items (M = 0.65), b = 1.51, SE = 0.03, z = 45.61, p < .001, 95% CI [1.45, 1.57]. Significant positive linear trends emerged for both ST items (b = 22.78, SE = 4.40, z = 5.17, p < .001) and TO items (b = 27.13, SE = 3.07, z = 8.84, p < .001), indicating facilitation for items tested later in the initial test. Significant negative quadratic trends for ST items (b = -10.04, SE = 4.45, z = -2.26, p = .024) and TO items (b = -13.02, SE = 3.05, z = -4.27, p < .001) revealed inverted-U patterns, with peak performance for middle test positions. Position × item type interactions were not significant (ps > .41).
+
+Summary
+
+Within-list position effects showed contrasting patterns: study position produced primacy effects (with recency for SO items), while test position produced facilitation effects with peak performance at middle positions. ST items consistently outperformed SO and TO items. Both models showed acceptable convergence (relative gradients < 0.01).

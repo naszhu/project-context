@@ -95,22 +95,32 @@ d1ta_study = df_rt_pl %>%
   filter(task == "initialTest_response") %>%
   mutate(
     type_comment = typecomment_in,
+
+    # study_pos_choice = suppressWarnings(as.numeric(studyPos_appear0_initial)),
     study_pos_primary = suppressWarnings(as.numeric(studyPos_appear0_initial)),
     study_pos_alternate = suppressWarnings(as.numeric(studyPos_appear1_initial)),
     study_pos_choice = case_when(
-      type_comment %in% c(
+      # the following is becuase studied only and target actaully had study position as well. Their study position were from last trial. so studypos1
+      type_comment %in% c( 
         "Inherented Foil - Last Studied Only",
         "Inherented Foil - Last Target"
-      ) & !is.na(study_pos_alternate) & study_pos_alternate > 0 ~ study_pos_alternate,
-      TRUE ~ study_pos_primary
+      ) & !is.na(study_pos_alternate) & study_pos_alternate > 0 ~ study_pos_alternate, #this assigns alternate for the two types
+      TRUE ~ study_pos_primary #all others keep the original
     ),
-    study_position_group = ceiling(study_pos_choice / 3)
+    study_pos_choice = ceiling(study_pos_choice / 3)
   ) %>%
-  group_by(task, condition, type_comment, study_position_group, subject_id) %>%
+  group_by(task, condition, type_comment, study_pos_choice, subject_id) %>%
   summarise(crs = mean(correct)) %>%
-  group_by(task, condition, type_comment, study_position_group) %>%
+  group_by(task, condition, type_comment, study_pos_choice) %>%
   summarise(cr = mean(crs), se = sd(crs) / sqrt(n()), .groups = "drop") %>%
-  mutate(position_type = "Study Position", position = study_position_group)
+  mutate(position_type = "Study Position", position = study_pos_choice)
+
+d1ta_study %>% filter(type_comment=="Inherented Foil - Last Studied Only")%>% select(study_pos_choice)
+
+x=df_rt_pl %>% filter(task=="initialTest_response")%>% 
+filter(typecomment_in=="Inherented Foil - Last Studied Only")%>% 
+select(studyPos_appear1_initial)
+sum(x$studyPos_appear1_initial==1)
 
 # Combine both datasets
 d1ta_combined = bind_rows(d1ta_test, d1ta_study)

@@ -1,0 +1,110 @@
+# APA Results Section: Final Test Within-List Test Position Analysis
+
+## Model Specification
+The final test within-list test position analysis employed a generalized linear mixed-effects model (GLMM) with binomial family and logit link function. The model tested the effects of test position (linear and quadratic trends) and item type (TO vs. ST) on recognition accuracy during the final test phase for items that were tested during the initial phase.
+
+**Model Formula:**
+```
+accuracy ~ test_position_lin * item_type + test_position_quad * item_type + 
+           (1 | participant_id)
+```
+
+**Item Types:**
+- **ST (Study-Test)**: Items both studied and tested in the initial phase
+- **TO (Test Only)**: Items tested but not studied in the initial phase (foils from initial test)
+
+**Model Convergence:** Very good (relative gradient = 0.0018)
+
+## Fixed Effects Results
+
+### Main Effects
+
+**Test Position Linear Trend:** A significant positive linear trend emerged for test position (b = 22.54, SE = 2.48, z = 9.10, p < .001, 95% CI [17.68, 27.39]), indicating that recognition accuracy increased systematically from early to late test positions for ST items during the final test. This unexpected positive trend contrasts with typical output interference patterns and may reflect practice effects or strategic shifts during the final test.
+
+**Test Position Quadratic Trend:** A significant negative quadratic trend was observed (b = -10.45, SE = 2.29, z = -4.56, p < .001, 95% CI [-14.94, -5.96]), revealing a U-shaped pattern where accuracy was lower for middle test positions compared to early and late positions. This pattern suggests that output interference builds up during the middle of testing but is mitigated at the extremes.
+
+**Item Type Effect:** TO items showed substantially lower recognition accuracy than ST items (b = -1.51, SE = 0.03, z = -45.70, p < .001, 95% CI [-1.58, -1.45]). This large effect is expected, as ST items benefit from both initial study and initial test exposure, while TO items were only tested (as foils) during the initial phase and were not studied.
+
+### Interaction Effects
+
+**Test Position Linear × Item Type:** The interaction was marginally non-significant (b = 4.70, SE = 2.76, z = 1.71, p = .088, 95% CI [-0.70, 10.10]). This marginal interaction suggests a trend toward TO items showing an even stronger positive linear trend than ST items, though this difference does not reach conventional significance levels.
+
+**Test Position Quadratic × Item Type:** The interaction was not significant (b = -2.58, SE = 2.66, z = -0.97, p = .332, 95% CI [-7.79, 2.63]), indicating that the U-shaped pattern across test positions did not differ significantly between ST and TO items. Both item types show similar curvilinear patterns during final testing.
+
+## Random Effects Structure
+
+The model included:
+- Random intercepts for participants (1 | participant_id)
+
+This structure accounts for individual differences in baseline accuracy.
+
+## Item-Type-Specific Patterns
+
+**ST (Study-Test) Items - Reference Level:**
+- Show a strong positive linear trend (b = 22.54)
+- Show a U-shaped pattern (b = -10.45)
+- Represent items with full initial exposure (study + test)
+
+**TO (Test Only) Items:**
+- Show an even stronger positive linear trend (22.54 + 4.70 = 27.24, interaction p = .088)
+- Show a similar U-shaped pattern (-10.45 - 2.58 = -13.03, interaction ns)
+- Show substantially lower overall accuracy (-1.51 in log-odds)
+- Represent items with partial initial exposure (test only, as foils)
+
+## Model Interpretation
+
+The results reveal unusual and theoretically interesting patterns:
+
+1. **Positive Output Interference Trend:** Unlike typical output interference patterns that show declining accuracy, both item types show increasing accuracy across test positions during the final test. This reversal may reflect:
+   - Practice effects during the lengthy final test
+   - Strategic adaptation or criterion shifts
+   - Reduced proactive interference as participants settle into the task
+   - Possible warm-up effects
+
+2. **U-Shaped Pattern:** The negative quadratic trend (U-shape) indicates that middle test positions show relatively worse performance, suggesting that:
+   - Output interference accumulates during the middle of testing
+   - Early and late positions benefit from reduced interference or special processing
+   - Multiple mechanisms operate simultaneously (positive linear trend + U-shaped pattern)
+
+3. **Prior Exposure Effects:** The large main effect for item type (b = -1.51) demonstrates that even minimal prior exposure (being tested as a foil) provides less benefit than full study + test experience.
+
+4. **Marginal Interaction:** The trend toward a stronger positive slope for TO items (p = .088) suggests that items with less prior exposure may benefit more from practice effects during the final test, partially compensating for their weaker initial encoding.
+
+## Statistical Power and Model Quality
+
+The model achieved very good convergence (relative gradient = 0.0018), indicating reliable parameter estimates. The item type main effect is extremely large (z = -45.70), demonstrating a highly robust difference between ST and TO items. The linear and quadratic position effects are both substantial (z = 9.10, z = -4.56), indicating strong and reliable position effects during final testing.
+
+## Clinical/Research Implications
+
+These findings have important and somewhat surprising implications:
+
+1. **Practice Effects in Recognition:** The positive linear trend suggests that recognition testing itself can produce practice effects, with performance improving as participants progress through the final test. This contrasts with output interference models that predict uniform decline.
+
+2. **Final Test Dynamics Differ from Initial Test:** The positive trends in final test contrast sharply with the negative trends observed in initial test analyses, suggesting that:
+   - Output interference operates differently in immediate vs. delayed testing
+   - Long-term memory retrieval may be less susceptible to output interference
+   - Strategic factors may differ between initial and final testing
+
+3. **Prior Exposure Benefits:** Even minimal prior exposure (being tested as a foil) provides significant benefits in later recognition, though not as much as full study + test exposure. This supports theories of multiple exposure benefits.
+
+4. **Multiple Mechanisms:** The combination of positive linear and negative quadratic trends indicates that multiple processes operate during final testing:
+   - Overall improvement across the test (practice/adaptation)
+   - Within-test interference affecting middle positions more
+   - These mechanisms operate simultaneously and additively
+
+5. **Test Length Considerations:** The positive trend suggests that test length may affect performance patterns, with longer tests potentially benefiting from practice effects that offset output interference.
+
+## Comparison to Initial Test
+
+The final test shows a **reversed pattern** compared to initial test:
+- **Initial test:** Negative linear trends (output interference)
+- **Final test:** Positive linear trends (practice/adaptation effects)
+
+This reversal suggests fundamentally different retrieval dynamics for immediate vs. delayed testing, possibly reflecting:
+- Reduced vulnerability to output interference in long-term memory
+- Greater role of practice effects in delayed testing
+- Different strategic approaches to immediate vs. delayed recognition
+
+
+
+

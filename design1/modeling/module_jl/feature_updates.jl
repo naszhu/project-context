@@ -151,314 +151,161 @@ function strengthen_features!(target_features::Vector{Int}, source_features::Vec
     end # for _ in 1:n_units_time_restore
 end
 
-########### Z feature functions here (aligned with E3)
-function update_Z_feature_study!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        # κ parameters start from list 2, so κ[1] = list 2, κ[2] = list 3, etc.
-        # For list 1, use base κu value (no asymptotic effect yet)
-        if list_number === 1
-            κ_value = ku_base # this number doesn't matter because first list won't use Z
-        else
-            κ_index = list_number - 1
-            κ_value = κu[κ_index]
-        end
-        
-        # Set Z feature value based on κu probability
-        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
-    end
-    return nothing
-end
+########### Z feature functions moved to feature_origin.jl
 
-function get_Z_feature_value(word::Word)::Int64
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        return word.word_features[tested_before_feature_pos]
-    else
-        return 0
-    end
-end
-
-function set_Z_feature_value!(word::Word, value::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        word.word_features[tested_before_feature_pos] = value
-    end
-    return nothing
-end
+# =============================================================================
+# CONTEXT DISTORTION FUNCTIONS (Issue #50)
+# =============================================================================
 
 """
-Update Z feature for recalled+new case (confusing foil - list version used).
-For strengthened trace: Replace Z=0 with KB, keep Z=1 as is
-"""
-function update_Z_feature_recalled_new_strengthen!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        current_z = word.word_features[tested_before_feature_pos]
-        
-        # If Z = 0 (incorrect/missing) → Replace with KB
-        if current_z == 0
-            # κ parameters: for list 1 use base, else use array
-            if list_number === 1 || list_number === 0
-                κ_value = kb_base
-            else
-                κ_index = list_number - 1
-                κ_value = κb[κ_index]
-            end
-            
-            # Only replace if original value is 0, keep 1 if it was already 1
-            if word.word_features[tested_before_feature_pos] == 0
-                word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
-            end
-        end
-        # If Z = 1 → Keep as 1 (no change needed)
-    end
-    return nothing
-end
+Distort specific range of probe context features, then apply gradual recovery.
 
-"""
-Update Z feature for recalled+new case when adding new trace.
-Store Z = 1 with probability KB
-"""
-function update_Z_feature_recalled_new_add_trace!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        # κ parameters: for list 1 use base, else use array
-        if list_number === 1 || list_number === 0
-            κ_value = kb_base
-        else
-            κ_index = list_number - 1
-            κ_value = κb[κ_index]
-        end
-        
-        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
-    end
-    return nothing
-end
+This flexible function can distort UC, CC, or any range of context features separately:
+- All probes distorted at once with constant base_distortion_prob
+- Recovery applied with constant base_recovery_prob for all probes
+- Can be called separately for UC and CC to allow independent control
+- Original context is preserved in foils_collection (for final test)
+- Distorted context is used for testing (and gets stored in memory)
 
-"""
-Update Z feature for recalled+old case.
-Store Z = 1 with probability KB (both strengthening and adding trace)
-"""
-function update_Z_feature_recalled_old!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        # κ parameters: for list 1 use base, else use array
-        if list_number === 1 || list_number === 0
-            κ_value = kb_base
-        else
-            κ_index = list_number - 1
-            κ_value = κb[κ_index]
-        end
-        
-        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
-    end
-    return nothing
-end
+Args:
+    probes: Vector of probes to potentially distort context
+    start_idx: Starting index of context features to distort (1-based)
+    end_idx: Ending index of context features to distort (inclusive)
+    context_type_name: Name for debug messages ("UC", "CC", etc.)
+    max_distortion_probes: (Currently unused - kept for compatibility)
+    base_distortion_prob: Probability of distortion applied to all probes
+    base_recovery_prob: Constant probability of recovering each distorted feature
+    g_context: Geometric distribution parameter for generating new feature values
 
-"""
-Update Z feature for not recalled+new case (really new foil).
-Add new trace with Z = 1 with probability KT
-"""
-function update_Z_feature_not_recalled_new!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        # κ parameters: for list 1 use base, else use array
-        if list_number === 1 || list_number === 0
-            κ_value = kt_base
-        else
-            κ_index = list_number - 1
-            κ_value = κt[κ_index]
-        end
-        
-        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
-    end
-    return nothing
-end
-
-"""
-Update Z feature for not recalled+old case (target with no trace recalled).
-Add trace with Z = 1 with probability KB
-"""
-function update_Z_feature_not_recalled_old!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        # κ parameters: for list 1 use base, else use array
-        if list_number === 1 || list_number === 0
-            κ_value = kb_base
-        else
-            κ_index = list_number - 1
-            κ_value = κb[κ_index]
-        end
-        
-        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
-    end
-    return nothing
-end
-
-"""
-Update Z features for all studied-only items between lists.
-This function identifies items that appeared only once in previous lists (studied-only)
-and excludes items that appeared multiple times (double-appeared = studied + tested before).
-Only studied-only items get Z=1 with probability KS.
-"""
-function update_Z_features_single_appearance_studied_items!(
-    image_pool::Vector{EpisodicImage}, 
-    studied_pool::Vector{Vector{EpisodicImage}}, 
-    list_num::Int64, 
-    n_studyitem::Int64
-)::Nothing
+Returns:
+    Tuple of (distorted_probes, original_probes) where original_probes are deep copies for reference
     
-    for img in image_pool
-        # Check if this image is from the current list (not a foil)
-        if img.list_number == list_num
-            # Check if this is a studied item (not a foil) by looking at its position in studied_pool
-            # Studied items are in positions 1:n_studyitem
-            is_studied_item = false
-            for j in 1:n_studyitem
-                if !isnothing(studied_pool[list_num][j]) && 
-                   studied_pool[list_num][j].word.item == img.word.item
-                    is_studied_item = true
-                    break
-                end
-            end
-            
-            # If it's a studied item, check how many times it appeared
-            if is_studied_item
-                appearance_count = 0
-                for list_idx in 1:list_num
-                    if !isnothing(studied_pool[list_idx])
-                        for item in studied_pool[list_idx]
-                            if !isnothing(item) && item.word.item == img.word.item
-                                appearance_count += 1
-                            end
-                        end
-                    end
-                end
-                
-                # If the item appears only once (studied-only, not double-appeared), update its Z feature
-                if appearance_count == 1
-                    update_Z_feature_between_lists_studied_only!(img.word, list_num)
-                end
-            end
-        end
-    end
+Logic:
+    Step 1: Distort all probes at once with base_distortion_prob
+    Step 2: Recover distorted features with constant base_recovery_prob
+"""
+function distort_probe_context_range_with_linear_decay(
+    probes::Vector{Probe},
+    start_idx::Int64,
+    end_idx::Int64,
+    context_type_name::String,
+    max_distortion_probes::Int;
+    base_distortion_prob::Float64 = 0.12,
+    base_recovery_prob::Float64 = 0.3,
+    g_context::Float64 = 0.3
+)::Tuple{Vector{Probe}, Vector{Probe}}
+
+error("this is not used")
+    # Create deep copies of original probes for reference
+    original_probes = deepcopy(probes)
+    distorted_probes = deepcopy(probes)
+
+    # Step 1: Distort all probes at once with base_distortion_prob
+    # Track which features were distorted for each probe
+    distorted_features = [Set{Int}() for _ in eachindex(probes)]
     
-    return nothing
-end
-
-"""
-Update Z features for studied-only items between lists.
-All studied-only features are updated with Z=1 with probability KS.
-"""
-function update_Z_feature_between_lists_studied_only!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        # Use KS parameter for studied-only items between lists
-        if list_number === 1 || list_number === 0
-            κ_value = ks_base
-        else
-            κ_index = list_number - 1
-            κ_value = κs[κ_index]
+    for i in eachindex(probes)
+        # Distort features in specified range with constant probability
+        for j in start_idx:end_idx
+            if rand() < base_distortion_prob
+                # Store original value before distortion
+                distorted_probes[i].image.context_features[j] = rand(Geometric(g_context)) + 1
+                push!(distorted_features[i], j)
+            end
         end
-        
-        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
     end
-    return nothing
+
+    # Step 2: Apply recovery - restore some distorted features with constant probability
+    # don't recovery here
+    # for i in eachindex(probes)
+    #     if !isempty(distorted_features[i])
+    #         # Use constant recovery probability for all probes
+            
+    #         # Recover (restore) some distorted features
+    #         recovered_count = 0
+    #         for j in distorted_features[i]
+    #             if (rand() < base_recovery_prob) && (i!=1) #not the first probe
+    #                 # Restore to original feature value
+    #                 distorted_probes[i].image.context_features[j] = original_probes[i].image.context_features[j]
+    #                 recovered_count += 1
+    #             end
+    #         end
+            
+    #         # Track final distorted count (distorted - recovered)
+    #         final_distorted_count = length(distorted_features[i]) - recovered_count
+
+    #         # Add debug marker to word.item if context remains distorted after recovery
+    #         if final_distorted_count > 0
+    #             original_word = distorted_probes[i].image.word
+    #             context_distortion_info = "$(context_type_name)_DISTORTED_pos$(i)_prob$(round(base_distortion_prob, digits=3))_rec$(round(base_recovery_prob, digits=3))_n$(final_distorted_count)"
+
+    #             # Check if word.item already has distortion marker
+    #             if contains(original_word.item, "DISTORTED")
+    #                 # Append context distortion info
+    #                 new_item = "$(original_word.item)_$(context_distortion_info)"
+    #             else
+    #                 # Add context distortion marker
+    #                 new_item = "$(original_word.item)_[$(context_distortion_info)]"
+    #             end
+
+    #             # Create new Word instance with modified item (since Word is immutable)
+    #             new_word = Word(new_item, original_word.word_features, original_word.type, original_word.studypos)
+
+    #             # Replace the word in the EpisodicImage (which is mutable)
+    #             distorted_probes[i].image.word = new_word
+    #         end
+    #     end
+    # end
+
+    return distorted_probes, original_probes
 end
 
 """
-Update Z feature for target restoration (same as recalled+old case).
-Store Z=1 with probability KB.
-"""
-function update_Z_feature_target_restoration!(word::Word, list_number::Int64)::Nothing
-    update_Z_feature_recalled_old!(word, list_number)
-    return nothing
-end
+Distort probe context features with constant probability across all probes.
 
+This function applies a constant distortion probability to each feature 
+within the specified range for all probes (no linear decay or position effects).
 
+Args:
+    probes: Vector of probes to distort
+    start_idx: Starting index of context features to distort (1-based)
+    end_idx: Ending index of context features to distort (inclusive)
+    context_type_name: Name for debug messages ("UC", "CC", etc.)
+    distortion_prob: Constant probability of distorting each feature
+    g_context: Geometric distribution parameter for generating new feature values
+
+Returns:
+    Tuple of (distorted_probes, original_probes) where original_probes are deep copies for reference
+    
+Logic:
+    For each probe, distort each feature in [start_idx:end_idx] independently 
+    with constant probability base_distortion_prob
 """
-Update Z feature for recalled+new case when adding new trace.
-Store Z = 1 with probability KB
-"""
-function update_Z_feature_recalled_new_add_trace!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        # κ parameters: for list 1 use base, else use array
-        if list_number === 1 || list_number === 0
-            κ_value = kb_base
-        else
-            κ_index = list_number - 1
-            κ_value = κb[κ_index]
+function distort_probe_context_constant_prob(
+    probes::Vector{Probe},
+    start_idx::Int64,
+    end_idx::Int64,
+    context_type_name::String,
+    distortion_prob::Float64,
+    g_context::Float64
+)::Tuple{Vector{Probe}, Vector{Probe}}
+
+error("this is not used")
+    # Create deep copies of original probes for reference
+    original_probes = deepcopy(probes)
+    distorted_probes = deepcopy(probes)
+
+    # Distort each feature with constant probability
+    for i in eachindex(probes)
+        for j in start_idx:end_idx
+            if rand() < distortion_prob
+                # Replace with new random feature value
+                distorted_probes[i].image.context_features[j] = rand(Geometric(g_context)) + 1
+            end
         end
-        
-        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
     end
-    return nothing
-end
 
-"""
-Update Z feature for recalled+old case.
-Store Z = 1 with probability KB (both strengthening and adding trace)
-"""
-function update_Z_feature_recalled_old!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        # κ parameters: for list 1 use base, else use array
-        if list_number === 1 || list_number === 0
-            κ_value = kb_base
-        else
-            κ_index = list_number - 1
-            κ_value = κb[κ_index]
-        end
-        
-        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
-    end
-    return nothing
-end
-
-"""
-Update Z feature for not recalled+new case (really new foil).
-Add new trace with Z = 1 with probability KT
-"""
-function update_Z_feature_not_recalled_new!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        # κ parameters: for list 1 use base, else use array
-        if list_number === 1 || list_number === 0
-            κ_value = kt_base
-        else
-            κ_index = list_number - 1
-            κ_value = κt[κ_index]
-        end
-        
-        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
-    end
-    return nothing
-end
-
-"""
-Update Z feature for not recalled+old case (target with no trace recalled).
-Add trace with Z = 1 with probability KB
-"""
-function update_Z_feature_not_recalled_old!(word::Word, list_number::Int64)::Nothing
-    if use_Z_feature && length(word.word_features) >= tested_before_feature_pos
-        # κ parameters: for list 1 use base, else use array
-        if list_number === 1 || list_number === 0
-            κ_value = kb_base
-        else
-            κ_index = list_number - 1
-            κ_value = κb[κ_index]
-        end
-        
-        word.word_features[tested_before_feature_pos] = rand() < κ_value ? 1 : 0
-    end
-    return nothing
-end
-
-function update_Z_feature_for_decision!(word::Word, recalled::Bool, answer_old::Bool, is_target::Bool, list_number::Int64)::Nothing
-    if recalled && !answer_old
-        # Case 1: RECALLED + Answer NEW (confusing foil)
-        update_Z_feature_recalled_new_add_trace!(word, list_number)
-    elseif recalled && answer_old
-        # Case 2: RECALLED + Answer OLD
-        update_Z_feature_recalled_old!(word, list_number)
-    elseif !recalled && !answer_old
-        # Case 3: NOT RECALLED + Answer NEW (really new foil)
-        update_Z_feature_not_recalled_new!(word, list_number)
-    elseif !recalled && answer_old
-        # Case 4: NOT RECALLED + Answer OLD (target with no trace recalled)
-        update_Z_feature_not_recalled_old!(word, list_number)
-    end
-    return nothing
+    return distorted_probes, original_probes
 end
 
 # =============================================================================
@@ -466,83 +313,100 @@ end
 # =============================================================================
 
 """
-Distort probe features with linear decrease in distortion probability from first to last probe.
-The distortion probability starts high for the first probe and linearly decreases to 0 after a specified number of probes.
-
-Distort probe content features
+Distort probe content features, then apply recovery.
+This function implements a two-step process:
+1. Distort all probes at once with base_distortion_prob
+2. Recover distorted features with constant base_recovery_prob
 
 Args:
     probes: Vector of probes to potentially distort
-    max_distortion_probes: Number of probes until distortion probability reaches 0
-    base_distortion_prob: Base probability of distortion for the first probe
+    max_distortion_probes: (Currently unused - kept for compatibility)
+    base_distortion_prob: Probability of distortion applied to all probes
+    base_recovery_prob: Constant probability of recovering each distorted feature
     g_word: Geometric distribution parameter for generating new feature values
 
 Returns:
     Tuple of (distorted_probes, original_probes) where original_probes are deep copies for reference
+
+Logic:
+    Step 1: Distort all probes at once with base_distortion_prob
+    Step 2: Recover distorted features with constant base_recovery_prob
 """
 function distort_probes_with_linear_decay(
     probes::Vector{Probe}, 
     max_distortion_probes::Int; 
     base_distortion_prob::Float64 = 0.8,
+    base_recovery_prob::Float64 = 0.3,
     g_word::Float64 = 0.3
 )::Tuple{Vector{Probe}, Vector{Probe}}
     
+error("this is not used")
     # Create deep copies of original probes for reference
     original_probes = deepcopy(probes)
     distorted_probes = deepcopy(probes)
-    
+
     if is_distort_probes
-        # Calculate linear decrease in distortion probability
+        # Step 1: Distort all probes at once with base_distortion_prob
+        # Track which features were distorted for each probe
+        distorted_features = [Set{Int}() for _ in eachindex(probes)]
+        
         for i in eachindex(probes)
-            if i <= max_distortion_probes
-                # Linear decrease from base_distortion_prob to 0
-                current_prob = base_distortion_prob * (1 - (i - 1) / max_distortion_probes)
-                
-                # Debug: Print distortion attempt info for position 1
-                # if i == 1
-                #     println("\n=== TEST POSITION 1 ===")
-                #     println("[DEBUG-DISTORTION-POS1] Attempting distortion - Type: $(probes[i].image.word.type), Item: $(probes[i].image.word.item), Distortion prob: $(round(current_prob, digits=3))")
-                # end
-                
-                # Apply distortion to each feature of the probe's word
-                distorted_features_count = 0
-                # Distort each feature with the current probability
-                for j in eachindex(distorted_probes[i].image.word.word_features)
-                    if j <= w_word #only distort normal content features
-                        if rand() < current_prob
-                            # Generate new feature value using Geometric distribution
-                            distorted_probes[i].image.word.word_features[j] = rand(Geometric(g_word)) + 1
-                            distorted_features_count += 1
-                        end
+            # Distort features with constant probability
+            for j in eachindex(distorted_probes[i].image.word.word_features)
+                if j <= w_word #only distort normal content features
+                    if rand() < base_distortion_prob
+                        # Generate new feature value using Geometric distribution
+                        distorted_probes[i].image.word.word_features[j] = rand(Geometric(g_word)) + 1
+                        push!(distorted_features[i], j)
                     end
                 end
-                    
-                # Add debug marker to word.item indicating distortion
-                if distorted_features_count > 0
-                    original_word = distorted_probes[i].image.word
-                    distortion_level = current_prob
-                    distortion_info = "DISTORTED_pos$(i)_prob$(round(distortion_level, digits=3))_features$(distorted_features_count)"
-                    new_item = "$(original_word.item)_[$(distortion_info)]"
-                    
-                    # Create new Word instance with modified item (since Word is immutable)
-                    new_word = Word(new_item, original_word.word_features, original_word.type, original_word.studypos)
-                    
-                    # Replace the word in the EpisodicImage (which is mutable)
-                    distorted_probes[i].image.word = new_word
-                    
-                    # Debug: Print when distortion actually happens for position 1
-                    # if i == 1
-                    #     println("[DEBUG-DISTORTION-POS1] ✓ DISTORTED - Type: $(new_word.type), Features changed: $(distorted_features_count), Item: $(new_item)")
-                    # end
-                else
-                    # Debug: Print when no features were distorted for position 1
-                    # if i == 1
-                    #     println("[DEBUG-DISTORTION-POS1] ✗ No features distorted - Type: $(distorted_probes[i].image.word.type)")
-                    # end
-                end
             end
-            # For probes beyond max_distortion_probes, no distortion (probability = 0)
-        end #end for loop
+        end
+
+        #don't recovery here
+        # Step 2: Apply recovery - restore some distorted features with constant probability
+        # for i in eachindex(probes)
+        #     if !isempty(distorted_features[i])
+        #         # Use constant recovery probability for all probes
+                
+        #         # Recover (restore) some distorted features
+        #         recovered_count = 0
+        #         for j in distorted_features[i]
+        #             if (rand() < base_recovery_prob) && (i!=1)
+        #                 # Restore to original feature value
+        #                 distorted_probes[i].image.word.word_features[j] = original_probes[i].image.word.word_features[j]
+        #                 recovered_count += 1
+        #             end
+        #         end
+                
+        #         # Track final distorted count (distorted - recovered)
+        #         final_distorted_count = length(distorted_features[i]) - recovered_count
+                    
+        #         # Add debug marker to word.item if features remain distorted after recovery
+        #         if final_distorted_count > 0
+        #             original_word = distorted_probes[i].image.word
+        #             distortion_info = "DISTORTED_pos$(i)_prob$(round(base_distortion_prob, digits=3))_rec$(round(base_recovery_prob, digits=3))_features$(final_distorted_count)"
+        #             new_item = "$(original_word.item)_[$(distortion_info)]"
+                    
+        #             # Create new Word instance with modified item (since Word is immutable)
+        #             new_word = Word(new_item, original_word.word_features, original_word.type, original_word.studypos)
+                    
+        #             # Replace the word in the EpisodicImage (which is mutable)
+        #             distorted_probes[i].image.word = new_word
+                    
+        #             # Debug: Print when distortion actually happens for position 1
+        #             # if i == 1
+        #             #     println("[DEBUG-DISTORTION-POS1] ✓ DISTORTED - Type: $(new_word.type), Features changed: $(final_distorted_count), Item: $(new_item)")
+        #             # end
+        #         else
+        #             # Debug: Print when no features were distorted for position 1
+        #             # if i == 1
+        #             #     println("[DEBUG-DISTORTION-POS1] ✗ No features distorted - Type: $(distorted_probes[i].image.word.type)")
+        #             # end
+        #         end
+        #     end
+        #     # For probes beyond max_distortion_probes, no distortion (probability = 0)
+        # end #end for loop
     end
     
     return distorted_probes, original_probes

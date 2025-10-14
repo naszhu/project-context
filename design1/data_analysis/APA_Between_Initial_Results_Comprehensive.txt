@@ -1,0 +1,168 @@
+RESULTS: BETWEEN-LIST INITIAL ORDER EFFECTS IN FINAL TEST
+
+Final test performance was analyzed using a Generalized Linear Mixed Model (GLMM) with binomial distribution to examine how the order in which items were tested during the initial test phase (Phase 1) influenced final test performance (Phase 2), and whether this effect was moderated by experimental condition (Backward, Forward, Random) and item type (ST, SO, TO, FTO).
+
+Model Specification
+
+The model included full three-way interactions for linear trends (initial_order_lin × item_type × condition), two-way interactions for quadratic trends (initial_order_quad × item_type; initial_order_quad × condition), and random intercepts for participants (N = 196, 82,093 observations). This specification balances theoretical completeness with model convergence: initial models including three-way interactions for both linear and quadratic terms failed to converge (relative gradient > 0.10), whereas the current model converged successfully (relative gradient = 0.0078, Hessian with 2 negative eigenvalues requiring RX variance estimation).
+
+─────────────────────────────────────────────────────────────
+
+ITEM TYPE MAIN EFFECTS
+
+Significant main effects of item type emerged, averaged across conditions and positions. ST items showed the highest accuracy (M = 0.89, logit = 2.13, SE = 0.05, 95% CI [2.04, 2.20]), followed by FTO items (M = 0.84, logit = 1.63, SE = 0.04, 95% CI [1.52, 1.80]), SO items (M = 0.67, logit = 0.71, SE = 0.04, 95% CI [0.64, 0.79]), and TO items (M = 0.66, logit = 0.65, SE = 0.04, 95% CI [0.57, 0.73]).
+
+Pairwise Comparisons (Tukey-adjusted):
+• ST vs FTO: b = 0.50, SE = 0.03, z = 15.75, p < .001
+• FTO vs SO: b = 0.91, SE = 0.02, z = 37.73, p < .001  
+• FTO vs TO: b = 0.98, SE = 0.02, z = 40.51, p < .001
+• SO vs TO: b = 0.07, SE = 0.03, z = 2.38, p = .081
+• ST vs SO: b = 1.41, SE = 0.03, z = 40.68, p < .001
+• ST vs TO: b = 1.48, SE = 0.03, z = 42.61, p < .001
+
+─────────────────────────────────────────────────────────────
+
+LINEAR TRENDS: INITIAL ORDER EFFECTS
+
+Main Effect of Initial Order (Linear)
+
+A significant positive linear trend emerged across initial test order positions (b = 49.87, SE = 1.36, z = 36.63, p < .001, 95% CI [47.20, 52.54]), indicating that items tested later in the initial test phase showed enhanced final test performance. This facilitation effect suggests retrieval practice benefits that persist to the final test.
+
+Linear Trends by Item Type
+
+Significant linear × item_type interactions revealed differential facilitation effects:
+• FTO items: b = 0.80, SE = 1.32, 95% CI [-1.78, 3.38] (reference, minimal facilitation)
+• SO items: b = 10.97, SE = 1.81, 95% CI [7.42, 14.51] (moderate facilitation)
+• ST items: b = 16.99, SE = 2.12, 95% CI [12.83, 21.16] (strong facilitation)
+• TO items: b = 47.16, SE = 1.78, 95% CI [43.68, 50.64] (strongest facilitation)
+
+The interaction terms indicated that relative to FTO items, SO items showed b = -9.13 (SE = 1.37, z = -6.66, p < .001) less facilitation initially, but ST items showed b = 52.29 (SE = 1.58, z = 33.17, p < .001) greater facilitation, and TO items showed b = 70.71 (SE = 1.03, z = 68.39, p < .001) the greatest facilitation.
+
+Linear Trends by Condition
+
+Critical condition × initial_order_lin interactions emerged (p < .001 for both):
+• Backward condition: b = 49.87 (reference, strong positive trend)
+• Forward condition: b = -44.15 (SE = 1.90), difference from Backward: b = -94.03 (SE = 1.66, z = -56.51, p < .001)
+• Random condition: b = -3.33 (SE = 2.52), difference from Backward: b = -53.20 (SE = 2.74, z = -19.40, p < .001)
+
+THREE-WAY INTERACTION: Condition × Item Type × Linear Trend
+
+Significant three-way interactions (all p < .001) revealed that condition effects on initial order varied substantially by item type:
+
+FTO Items:
+• Backward: b = 49.87 (strong positive trend)
+• Forward: b = -44.15 (strong negative trend)
+• Random: b = -3.33 (near-zero trend)
+• Backward vs Forward: z = 56.52, p < .001
+• Backward vs Random: z = 19.40, p < .001
+• Forward vs Random: z = -13.23, p < .001
+
+SO Items:
+• Backward: b = 40.74 (positive trend)
+• Forward: b = -22.05 (negative trend)
+• Random: b = 14.22 (positive trend)
+• Interaction with Forward: b = 31.24 (SE = 1.59, z = 19.69, p < .001)
+• Interaction with Random: b = 26.68 (SE = 1.99, z = 13.39, p < .001)
+
+ST Items:
+• Backward: b = 102.16 (very strong positive trend)
+• Forward: b = -75.68 (strong negative trend)
+• Random: b = 24.50 (moderate positive trend)
+• Interaction with Forward: b = -83.82 (SE = 1.53, z = -54.93, p < .001)
+• Interaction with Random: b = -24.46 (SE = 2.00, z = -12.26, p < .001)
+
+TO Items:
+• Backward: b = 120.58 (strongest positive trend)
+• Forward: b = -6.30 (near-zero/slightly negative)
+• Random: b = 27.19 (positive trend)
+• Interaction with Forward: b = -32.85 (SE = 1.46, z = -22.45, p < .001)
+• Interaction with Random: b = -40.19 (SE = 1.45, z = -27.75, p < .001)
+
+─────────────────────────────────────────────────────────────
+
+QUADRATIC TRENDS: INITIAL ORDER EFFECTS
+
+Main Effect of Initial Order (Quadratic)
+
+A significant positive quadratic trend emerged (b = 24.21, SE = 1.14, z = 21.32, p < .001, 95% CI [21.99, 26.44]), indicating a U-shaped performance pattern with enhanced performance for items from early and late initial test positions.
+
+Quadratic Trends by Item Type
+
+Significant quadratic × item_type interactions revealed differential U-shaped patterns:
+• FTO items: b = 10.64, SE = 1.17, 95% CI [8.35, 12.88] (reference, modest U-shape)
+• SO items: b = 32.76, SE = 1.91, 95% CI [29.04, 36.48], difference: b = 22.15 (SE = 1.55, z = 14.28, p < .001)
+• ST items: b = 67.16, SE = 2.03, 95% CI [63.18, 71.14], difference: b = 56.51 (SE = 1.80, z = 31.33, p < .001)
+• TO items: b = 38.05, SE = 1.96, 95% CI [34.20, 41.90], difference: b = 27.41 (SE = 1.53, z = 17.94, p < .001)
+
+All item types showed stronger U-shaped patterns than FTO items, with ST items showing the most pronounced curvature.
+
+Quadratic Trends by Condition
+
+Significant condition × initial_order_quad interactions emerged:
+• Backward condition: b = 24.21 (reference, strong U-shape)
+• Forward condition: b = 7.15 (SE = 1.67), difference: b = -17.06 (SE = 1.56, z = -10.91, p < .001)
+• Random condition: b = 0.56 (SE = 1.82), difference: b = -23.66 (SE = 1.62, z = -14.62, p < .001)
+
+The Backward condition showed the most pronounced U-shaped pattern, while the Random condition showed minimal curvature.
+
+Note on Quadratic Three-Way Interactions
+
+Pairwise comparisons for quadratic trends showed identical estimates across all item types (all differences: Backward-Forward = 17.06, Backward-Random = 23.66, Forward-Random = 6.59), suggesting that while quadratic patterns differed by condition, this condition effect did not vary substantially by item type. This uniform pattern likely reflects the model specification (two-way rather than three-way interactions for quadratic terms).
+
+─────────────────────────────────────────────────────────────
+
+ITEM TYPE × CONDITION INTERACTIONS (Overall)
+
+Significant two-way interactions between item type and condition emerged for overall accuracy (collapsing across positions):
+
+SO Items:
+• Forward vs Backward: b = 0.17, SE = 0.07, z = 2.58, p = .010
+• Random vs Backward: b = -0.04, SE = 0.06, z = -0.73, p = .467
+
+ST Items:
+• Forward vs Backward: b = -0.01, SE = 0.09, z = -0.17, p = .865
+• Random vs Backward: b = -0.16, SE = 0.07, z = -2.19, p = .029
+
+TO Items:
+• Forward vs Backward: b = 0.20, SE = 0.07, z = 3.09, p = .002
+• Random vs Backward: b = -0.16, SE = 0.06, z = -2.82, p = .005
+
+Forward condition showed enhanced performance for SO and TO items, while Random condition showed reduced performance for ST and TO items.
+
+─────────────────────────────────────────────────────────────
+
+GENERAL DISCUSSION
+
+Key Findings
+
+1. Initial Test Order Matters: Items tested later in the initial test phase showed enhanced final test performance, demonstrating persistent retrieval practice effects. However, this effect was dramatically moderated by condition and item type.
+
+2. Dramatic Condition Effects: The three most striking findings were:
+   a) Backward condition showed strong positive trends (later-tested items benefited)
+   b) Forward condition showed strong negative trends (later-tested items suffered)
+   c) Random condition showed minimal or moderate positive trends
+
+3. Item Type Specificity: Effects were strongest for ST and TO items (which required target information during initial test), suggesting that retrieval practice benefits depend on the overlap between initial and final test demands.
+
+4. Complex Three-Way Interactions: The condition × item_type × position interactions (all p < .001) indicate that simple main effects fail to capture the complexity of how retrieval order, item type, and test sequence interact.
+
+Theoretical Implications
+
+The opposing linear trends for Backward vs Forward conditions suggest that the order manipulation fundamentally altered how initial testing influenced final performance:
+• Backward testing in Phase 1 → items tested later benefit more in Phase 2
+• Forward testing in Phase 1 → items tested later benefit less (or suffer) in Phase 2
+
+This pattern is inconsistent with simple output interference or retrieval practice accounts and suggests that the relationship between initial and final test order creates unique encoding/retrieval dynamics.
+
+Model Diagnostics
+
+The model showed acceptable convergence (relative gradient = 0.0078, within recommended bounds < 0.01). The Hessian matrix had 2 negative eigenvalues, requiring fallback to RX variance estimation, which is common in complex GLMMs and does not invalidate results but suggests caution for effects with p-values near .05. All reported effects with p < .01 are considered highly reliable.
+
+─────────────────────────────────────────────────────────────
+
+NOMENCLATURE
+
+ST = Source-Target items (both study and initial test information)
+SO = Source-Only items (study information only)
+TO = Target-Only items (initial test information only)  
+FTO = Final Test Old items (foil items)

@@ -1,5 +1,816 @@
 # Model Progress
 
+## Commit [0d4aa8a](https://github.com/naszhu/REM_E3_model_fixed/commit/0d4aa8a) (branch: `oct-14`)
+**Time:** 2025-10-14 20:29:10  
+**Message:**
+```
+chore(analysis-e1): add blank lines for improved readability in analysis result files (why changed again??)
+
+- Inserted blank lines at the end of multiple analysis result files to enhance readability and maintain consistency across documents.
+- This change aims to improve the overall formatting of the analysis outputs, making them easier to navigate and review.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+- `design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design3/modeling`  
+![](../plot_archive/0d4aa8a_20251014_202910_plot1.png)  
+![](../plot_archive/0d4aa8a_20251014_202910_plot2.png)  
+
+## Commit [fb3329d](https://github.com/naszhu/REM_E3_model_fixed/commit/fb3329d) (branch: `oct-14`)
+**Time:** 2025-10-14 18:39:48  
+**Message:**
+```
+feat(model-e1): make the distortion really work make it into simulation
+
+- Updated comments in `simulation.jl` to clarify the roles of `list_change_context_features` and `test_list_context` in the simulation process.
+- Adjusted `p_reinstate_rate` to 0.30 and `p_driftStudyTest` to 0.1 for improved control over context reinstatement and study-test drift.
+- Removed unused distortion functions in `feature_updates.jl` and updated `generate_probes` to reflect changes in context handling.
+- Commented out debug print statements in `probe_evaluation.jl` to reduce console output during testing.
+
+These changes aim to refine the model's context management and enhance the clarity of the simulation logic.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/fb3329d_20251014_183948_plot1.png)  
+![](../plot_archive/fb3329d_20251014_183948_plot2.png)  
+
+## Commit [af6fda8](https://github.com/naszhu/REM_E3_model_fixed/commit/af6fda8) (branch: `HEAD`)
+**Time:** 2025-10-14 18:06:48  
+**Message:**
+```
+feat(model-e1): constant context distortion
+
+- Enabled CC (changing context) distortion by setting `is_CC_drift_between_study_and_test` to true.
+- Updated `base_distortion_prob_CC` to 0.7 to enhance the distortion effect for changing context.
+- Introduced a new function `distort_probe_context_constant_prob` to apply constant probability distortion across specified features in probes.
+- Adjusted `p_driftStudyTest` to 0.25 for improved study-test drift handling.
+
+These changes aim to refine the model's distortion mechanisms, enhancing the simulation of context effects in the study.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/af6fda8_20251014_180648_plot1.png)  
+![](../plot_archive/af6fda8_20251014_180648_plot2.png)  
+
+## Commit [1f9eb3a](https://github.com/naszhu/REM_E3_model_fixed/commit/1f9eb3a) (branch: `HEAD`)
+**Time:** 2025-10-14 18:01:17  
+**Message:**
+```
+feat(model-e1):  real change to increment decrease now last one was incorrect
+
+- Changed `is_finaltest` to true, adjusting the number of simulations to 200 for final testing.
+- Disabled content drift between study and test by setting `is_content_drift_between_study_and_test` to false.
+- Introduced new parameters for a linear diminishing criterion, replacing the previous asymptotic function with `generate_asymptotic_values_linear_diminishing`.
+- Updated `base_distortion_prob_CC` to 0.0 for consistency in distortion handling.
+
+These changes aim to enhance the model's testing framework and improve the accuracy of criterion calculations.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/1f9eb3a_20251014_180117_plot1.png)  
+![](../plot_archive/1f9eb3a_20251014_180117_plot2.png)  
+
+## Commit [cbf148a](https://github.com/naszhu/REM_E3_model_fixed/commit/cbf148a) (branch: `HEAD`)
+**Time:** 2025-10-14 17:53:11  
+**Message:**
+```
+refactor(model-e1): A WORKING V BUT NO DISTORTION deleting the asymptotic function use other way
+
+- Modified the `distort_probe_context_range_with_linear_decay` and `distort_probes_with_linear_decay` functions to apply distortion and recovery using constant probabilities for all probes.
+- Removed the linear decrease in distortion probability, simplifying the distortion logic.
+- Updated function documentation to reflect the new two-step process of distortion followed by recovery.
+- Ensured compatibility with existing parameters in the `generate_probes` function by adding `base_recovery_prob`.
+
+These changes aim to enhance the clarity and efficiency of the distortion process, improving the model's performance in simulating context effects.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/cbf148a_20251014_175311_plot1.png)  
+![](../plot_archive/cbf148a_20251014_175311_plot2.png)  
+
+## Commit [6240f71](https://github.com/naszhu/REM_E3_model_fixed/commit/6240f71) (branch: `HEAD`)
+**Time:** 2025-10-14 17:52:14  
+**Message:**
+```
+fnetune(model-e1): only reinstate but very big shift between study and test
+
+- Set `is_UC_drift_between_study_and_test` and `is_CC_drift_between_study_and_test` to false to disable unchanging and changing context distortions.
+- Adjusted `p_reinstate_rate` to 0.50 and `base_distortion_prob_CC` to 0 for improved control over context reinstatement and distortion effects.
+- Updated `p_driftStudyTest` to 0.85 to reflect new parameters for study-test drift.
+
+These changes aim to refine the model's distortion handling and reinstatement behavior, enhancing simulation accuracy in varying context conditions.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/6240f71_20251014_175214_plot1.png)  
+![](../plot_archive/6240f71_20251014_175214_plot2.png)  
+
+## Commit [2849fe3](https://github.com/naszhu/REM_E3_model_fixed/commit/2849fe3) (branch: `HEAD`)
+**Time:** 2025-10-13 14:37:33  
+**Message:**
+```
+fix(analysis-e3): final by initial list order last 3 doesn't have a position
+
+- Added a new numeric conversion for `listNum_appear1_initial` to ensure consistent data types.
+- Introduced a `mutate` step to categorize `item_type` based on `initial_list_number`, improving clarity in item classification.
+- Updated filtering to exclude NA values for `accuracy` and `item_type`, ensuring cleaner data for analysis.
+- Commented out a ggplot section for future validation of position data, maintaining code organization.
+
+These changes aim to refine the data preparation process and enhance the clarity of item categorization in the analysis pipeline.
+
+Refs #48
+Fixes #44
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+![](../plot_archive/2849fe3_20251013_143733_plot1.png)  
+![](../plot_archive/2849fe3_20251013_143733_plot2.png)  
+
+## Commit [eaa1a7f](https://github.com/naszhu/REM_E3_model_fixed/commit/eaa1a7f) (branch: `HEAD`)
+**Time:** 2025-10-13 14:34:12  
+**Message:**
+```
+refactor(analysis-e1): redo e3 analysis
+
+- Updated model formulas in multiple analysis scripts to include interaction terms between linear and quadratic predictors with item type, improving model complexity and fit.
+- Adjusted glmer control settings to include gradient convergence checks, addressing potential convergence issues.
+- Added comments regarding optimization warnings and convergence checks to enhance clarity and documentation of model performance.
+
+These changes aim to refine the analytical models and ensure better handling of convergence issues across various analyses.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/03_initial_between_list_analysis.R`  
+- `design3/data_analysis/individual_analyses/04_final_within_study_analysis.R`  
+- `design3/data_analysis/individual_analyses/05_final_within_test_analysis.R`  
+- `design3/data_analysis/individual_analyses/06_final_between_final_order_analysis.R`  
+- `design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+![](../plot_archive/eaa1a7f_20251013_143412_plot1.png)  
+![](../plot_archive/eaa1a7f_20251013_143412_plot2.png)  
+
+## Commit [e5ecc65](https://github.com/naszhu/REM_E3_model_fixed/commit/e5ecc65) (branch: `HEAD`)
+**Time:** 2025-10-13 11:22:07  
+**Message:**
+```
+finetune(allplot-e1): adjust Y-axis minimum limit for improved plot accuracy
+
+- Updated the Y-axis minimum limit from 0.75 to 0.73 in the combined_all_plots.R script to enhance the accuracy of visual representations.
+- This change aims to provide a more precise scaling of the plots, ensuring better data visualization and interpretation.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e5ecc65_20251013_112207_plot1.png)  
+![](../plot_archive/e5ecc65_20251013_112207_plot2.png)  
+
+## Commit [b40df93](https://github.com/naszhu/REM_E3_model_fixed/commit/b40df93) (branch: `HEAD`)
+**Time:** 2025-10-13 11:21:39  
+**Message:**
+```
+refactor(analysis-e1): introduce changelog3.pdf and update analysis reports
+
+I'm not sure why these kept show up in changes though haven't been changed at all
+
+- Added a new changelog document (changelog3.pdf) to track changes and updates.
+- Minor adjustments made to various analysis reports, including the addition of concluding remarks to enhance clarity and summarize key findings.
+
+These updates aim to improve documentation and provide a comprehensive overview of recent changes in the project.
+```
+**Changed Files:**
+- `Docs/changelog3.pdf`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/Asymptotic_Function_Usage_Summary.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/modeling`  
+![](../plot_archive/b40df93_20251013_112139_plot1.png)  
+![](../plot_archive/b40df93_20251013_112139_plot2.png)  
+
+## Commit [173c874](https://github.com/naszhu/REM_E3_model_fixed/commit/173c874) (branch: `HEAD`)
+**Time:** 2025-10-12 19:47:41  
+**Message:**
+```
+refactor(model-e1): unify asymptotic functions for improved clarity and efficiency
+
+- Consolidated multiple asymptotic functions into a core utility function `_asym_core` to streamline the generation of increasing and decreasing asymptotic values.
+- Updated existing functions to utilize the new core utility, enhancing code maintainability and readability.
+- This refactor aims to simplify the implementation of asymptotic behavior in the model, improving overall performance and clarity.
+
+Refs #53
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/173c874_20251012_194741_plot1.png)  
+![](../plot_archive/173c874_20251012_194741_plot2.png)  
+
+## Commit [e02f887](https://github.com/naszhu/REM_E3_model_fixed/commit/e02f887) (branch: `HEAD`)
+**Time:** 2025-10-12 19:42:43  
+**Message:**
+```
+refactor(model-e1): Make non-linear recovry rate
+
+- Introduced a utility function to pre-calculate asymptotic decrease in distortion probability, enhancing the efficiency of the distortion process.
+- Updated the `distort_probe_context_range_with_linear_decay` and `distort_probes_with_linear_decay` functions to utilize the new pre-calculated probabilities, replacing the previous linear decrease method.
+- These changes aim to improve the accuracy and performance of the model's distortion handling, ensuring more effective simulations in varying context conditions.
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/e02f887_20251012_194243_plot1.png)  
+![](../plot_archive/e02f887_20251012_194243_plot2.png)  
+
+## Commit [9de758c](https://github.com/naszhu/REM_E3_model_fixed/commit/9de758c) (branch: `HEAD`)
+**Time:** 2025-10-12 19:26:43  
+**Message:**
+```
+refactor(model-e1): CC only change and restore
+
+- Set `base_distortion_prob` and `base_distortion_prob_UC` to 0.0 for consistency in distortion handling.
+- Increased `base_distortion_prob_CC` to 0.52 to enhance context distortion effects.
+- Updated `max_distortion_probes` from 10 to 20 to allow for more extensive probing before reaching distortion limits.
+
+These changes aim to refine the model's distortion parameters, improving the accuracy and effectiveness of simulations in varying context conditions.
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/9de758c_20251012_192643_plot1.png)  
+![](../plot_archive/9de758c_20251012_192643_plot2.png)  
+
+## Commit [add0840](https://github.com/naszhu/REM_E3_model_fixed/commit/add0840) (branch: `HEAD`)
+**Time:** 2025-10-12 18:05:58  
+**Message:**
+```
+finetune(model-e1): update reinstatement and distortion probability parameters
+
+- Set `p_reinstate_rate` to 0.00 to prevent reinstatement.
+- Adjusted `base_distortion_prob` and `base_distortion_prob_UC` to 0 for consistency in distortion handling.
+- Updated `p_driftStudyTest` to 0.15 to reflect new distortion settings.
+
+These changes aim to refine the model's parameters for better alignment with intended behavior and improve the accuracy of simulations.
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/add0840_20251012_180558_plot1.png)  
+![](../plot_archive/add0840_20251012_180558_plot2.png)  
+
+## Commit [3f130c9](https://github.com/naszhu/REM_E3_model_fixed/commit/3f130c9) (branch: `HEAD`)
+**Time:** 2025-10-12 16:34:59  
+**Message:**
+```
+refactor(model-e1): make sure the model is working on distortion for UU and UC
+
+- Revised `p_reinstate_rate` to 0.12 for consistency with model requirements.
+- Introduced new distortion probability parameters: `base_distortion_prob_UC` and `base_distortion_prob_CC` for unchanging and changing contexts, respectively.
+- Updated `generate_probes` function to utilize context-specific distortion probabilities, enhancing model accuracy in simulating varying context conditions.
+
+These changes aim to refine the model's handling of distortion probabilities and improve the simulation of context effects.
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/3f130c9_20251012_163459_plot1.png)  
+![](../plot_archive/3f130c9_20251012_163459_plot2.png)  
+
+## Commit [e85ee8f](https://github.com/naszhu/REM_E3_model_fixed/commit/e85ee8f) (branch: `HEAD`)
+**Time:** 2025-10-12 16:33:34  
+**Message:**
+```
+run(data-analysis-e1): add concluding remarks to analysis reports
+
+- Added final remarks to several analysis reports, summarizing key findings and implications for memory performance.
+- Enhanced clarity by including additional insights on the mechanisms of interference and retrieval dynamics across different test conditions.
+
+These updates aim to provide a comprehensive overview of the analyses conducted and their significance in understanding memory processes.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/e85ee8f_20251012_163334_plot1.png)  
+![](../plot_archive/e85ee8f_20251012_163334_plot2.png)  
+
+## Commit [f760931](https://github.com/naszhu/REM_E3_model_fixed/commit/f760931) (branch: `HEAD`)
+**Time:** 2025-10-12 16:08:59  
+**Message:**
+```
+feat(model-e1): implement context distortion features for UC and CC
+
+- Added flags for unchanging context (UC) and changing context (CC) distortion in `constants.jl` to enable new distortion functionalities.
+- Introduced a new function `distort_probe_context_range_with_linear_decay` in `feature_updates.jl` to handle context distortion with a linear decay in probability.
+- Updated `generate_probes` in `probe_generation.jl` to apply UC and CC distortions based on the new flags, ensuring independent control over context types during testing.
+
+These enhancements aim to improve the model's ability to simulate varying context conditions
+
+Refs #50.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design3/modeling`  
+![](../plot_archive/f760931_20251012_160859_plot1.png)  
+![](../plot_archive/f760931_20251012_160859_plot2.png)  
+
+## Commit [49832cf](https://github.com/naszhu/REM_E3_model_fixed/commit/49832cf) (branch: `HEAD`)
+**Time:** 2025-10-12 15:57:39  
+**Message:**
+```
+chore(claude): introduce code modification policy guidelines
+
+- Created a new document outlining the code modification policy, emphasizing the importance of making only minimal and essential changes when requested.
+- Included specific guidelines to preserve existing formatting, style, and structure, aiming to reduce unnecessary reformatting and improve code review clarity.
+
+This addition aims to establish clear expectations for code modifications, enhancing maintainability and review processes.
+```
+**Changed Files:**
+- `.claude/preference.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/49832cf_20251012_155739_plot1.png)  
+![](../plot_archive/49832cf_20251012_155739_plot2.png)  
+
+## Commit [bcbadb0](https://github.com/naszhu/REM_E3_model_fixed/commit/bcbadb0) (branch: `HEAD`)
+**Time:** 2025-10-12 15:47:39  
+**Message:**
+```
+refactor(model-e1): reorganize Z feature functions and update module inclusions
+
+- Moved Z feature functions from `feature_updates.jl` to a new file `feature_origin.jl` for better modularity and clarity.
+- Updated module inclusions in `JL_V6-6_2finalize.jl` and `run_parallel.sh` to reflect the new file structure, ensuring proper functionality.
+- This refactor aims to streamline the codebase and enhance maintainability by separating concerns related to Z feature handling.
+
+Refs #52
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_origin.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/bcbadb0_20251012_154739_plot1.png)  
+![](../plot_archive/bcbadb0_20251012_154739_plot2.png)  
+
+## Commit [b51dd7f](https://github.com/naszhu/REM_E3_model_fixed/commit/b51dd7f) (branch: `HEAD`)
+**Time:** 2025-10-12 15:47:31  
+**Message:**
+```
+refactor(modeling): reorganize Z feature functions and update module inclusions
+
+- Moved Z feature functions from `feature_updates.jl` to a new file `feature_origin.jl` for better modularity and clarity.
+- Updated module inclusions in `JL_V6-6_2finalize.jl` and `run_parallel.sh` to reflect the new file structure, ensuring proper functionality.
+- This refactor aims to streamline the codebase and enhance maintainability by separating concerns related to Z feature handling.
+
+Refs #52
+```
+**Changed Files:**
+- `design1/modeling/JL_V6-6_2finalize.jl`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_origin.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/run_parallel.sh`  
+![](../plot_archive/b51dd7f_20251012_154731_plot1.png)  
+![](../plot_archive/b51dd7f_20251012_154731_plot2.png)  
+
+## Commit [9e6a2ee](https://github.com/naszhu/REM_E3_model_fixed/commit/9e6a2ee) (branch: `HEAD`)
+**Time:** 2025-10-12 15:00:32  
+**Message:**
+```
+fix(constants): update simulation parameters and distortion settings
+
+- Changed `is_finaltest` to false and adjusted `n_simulations` to 1000 for broader testing.
+- Modified advantage parameters `u_star_adv` and `c_adv` to 0.0 for consistency with E3.
+- Updated `nnnow` value to 0.77 for better alignment with model behavior.
+- Revised `criterion_initial` generation parameters to enhance asymptotic value calculations.
+- Introduced `base_distortion_prob` and `max_distortion_probes` for improved content distortion handling.
+- Adjusted `p_driftStudyTest` to reflect the new base distortion probability.
+
+These changes aim to refine the simulation setup and improve the accuracy of model predictions.
+
+This is to make the context drift more obvious or limited , whatever
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/9e6a2ee_20251012_150032_plot1.png)  
+![](../plot_archive/9e6a2ee_20251012_150032_plot2.png)  
+
+## Commit [20f70e1](https://github.com/naszhu/REM_E3_model_fixed/commit/20f70e1) (branch: `oct-11`)
+**Time:** 2025-10-12 14:59:31  
+**Message:**
+```
+run(data-analysis-e1): remove temporary lock files and add new reports
+
+- Deleted temporary lock files for `DataPlot-d3(exp2).docx` and `parameter_values_aug-19.docx` to clean up the repository.
+- Added two new reports: `REPORT_Average_Performance_Test_Position_APA.md` and `REPORT_Average_Performance_Test_Position.md`, detailing average performance across test positions with comprehensive analyses and results.
+- Enhanced documentation and structure in the new reports to facilitate understanding of test position effects on recognition performance.
+
+These changes aim to streamline the repository and provide clearer insights into performance trends across test positions.
+```
+**Changed Files:**
+- `Docs/.~lock.DataPlot-d3(exp2).docx#`  
+- `Docs/.~lock.parameter_values_aug-19.docx#`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/REPORT_Average_Performance_Test_Position.md`  
+- `design1/data_analysis/individual_analyses/REPORT_Average_Performance_Test_Position_APA.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/20f70e1_20251012_145931_plot1.png)  
+![](../plot_archive/20f70e1_20251012_145931_plot2.png)  
+
+## Commit [1c6d428](https://github.com/naszhu/REM_E3_model_fixed/commit/1c6d428) (branch: `oct-11`)
+**Time:** 2025-10-12 14:59:19  
+**Message:**
+```
+feat(data-analysis-e3): add enhanced initial test position analysis script
+
+- Introduced a new R script for enhanced analysis of test position effects during the initial test, incorporating both item-specific and averaged trends.
+- Implemented data preparation steps, including filtering and polynomial term creation for study and test positions.
+- Fitted a Generalized Linear Mixed Model (GLMM) to analyze the interaction between test position and item type, providing insights into performance trends.
+- Added functions for model diagnostics and convergence checks, ensuring robust model fitting.
+- Generated output files for model summaries and results, facilitating further analysis and interpretation.
+
+This addition aims to improve the analytical framework for understanding test position effects on performance, enhancing the overall analysis pipeline.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design1/data_analysis/individual_analyses/02_initial_test_position_analysis_ENHANCED.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/individual_analyses/00_shared_setup.R`  
+- `design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/03_initial_between_list_analysis.R`  
+- `design3/data_analysis/individual_analyses/04_final_within_study_analysis.R`  
+- `design3/data_analysis/individual_analyses/05_final_within_test_analysis.R`  
+- `design3/data_analysis/individual_analyses/06_final_between_final_order_analysis.R`  
+- `design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+- `design3/data_analysis/individual_analyses/README.md`  
+![](../plot_archive/1c6d428_20251012_145919_plot1.png)  
+![](../plot_archive/1c6d428_20251012_145919_plot2.png)  
+
+## Commit [9a1f780](https://github.com/naszhu/REM_E3_model_fixed/commit/9a1f780) (branch: `oct-11`)
+**Time:** 2025-10-12 14:58:32  
+**Message:**
+```
+feat(data-analysis): add enhanced initial test position analysis script
+
+- Introduced a new R script for enhanced analysis of test position effects during the initial test, incorporating both item-specific and averaged trends.
+- Implemented data preparation steps, including filtering and polynomial term creation for study and test positions.
+- Fitted a Generalized Linear Mixed Model (GLMM) to analyze the interaction between test position and item type, providing insights into performance trends.
+- Added functions for model diagnostics and convergence checks, ensuring robust model fitting.
+- Generated output files for model summaries and results, facilitating further analysis and interpretation.
+
+This addition aims to improve the analytical framework for understanding test position effects on performance, enhancing the overall analysis pipeline.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design1/data_analysis/individual_analyses/02_initial_test_position_analysis_ENHANCED.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/individual_analyses/00_shared_setup.R`  
+- `design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/03_initial_between_list_analysis.R`  
+- `design3/data_analysis/individual_analyses/04_final_within_study_analysis.R`  
+- `design3/data_analysis/individual_analyses/05_final_within_test_analysis.R`  
+- `design3/data_analysis/individual_analyses/06_final_between_final_order_analysis.R`  
+- `design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+- `design3/data_analysis/individual_analyses/README.md`  
+![](../plot_archive/9a1f780_20251012_145832_plot1.png)  
+![](../plot_archive/9a1f780_20251012_145832_plot2.png)  
+
+## Commit [d6976b4](https://github.com/naszhu/REM_E3_model_fixed/commit/d6976b4) (branch: `oct-11`)
+**Time:** 2025-10-12 01:42:02  
+**Message:**
+```
+feat(data-analysis): add individual analysis scripts and shared setup
+
+- Introduced a series of individual R scripts for various analyses, including initial study position, test position, between-list, and within-list analyses, enhancing modularity and clarity.
+- Created a shared setup script (`00_shared_setup.R`) to load common libraries and define helper functions, streamlining the analysis process across all scripts.
+- Each analysis script includes data loading, preparation, model fitting using Generalized Linear Mixed Models (GLMMs), and output generation for model summaries and results.
+- Enhanced documentation within scripts to clarify the purpose and methodology of each analysis, facilitating easier navigation and understanding for future users.
+
+These additions aim to provide a comprehensive framework for analyzing test performance across different conditions and item types, improving the overall structure and usability of the analysis pipeline.
+
+Reds #48
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/00_shared_setup.R`  
+- `design1/data_analysis/individual_analyses/01_initial_study_position_analysis.R`  
+- `design1/data_analysis/individual_analyses/02_initial_test_position_analysis.R`  
+- `design1/data_analysis/individual_analyses/03_initial_between_list_analysis.R`  
+- `design1/data_analysis/individual_analyses/04_final_within_study_analysis.R`  
+- `design1/data_analysis/individual_analyses/05_final_within_test_analysis.R`  
+- `design1/data_analysis/individual_analyses/06_final_between_final_order_analysis.R`  
+- `design1/data_analysis/individual_analyses/06_final_between_final_order_analysis_FAST.R`  
+- `design1/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+- `design1/data_analysis/individual_analyses/07_final_between_initial_order_analysis_FAST.R`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Study_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/README.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Study_Position.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/d6976b4_20251012_014202_plot1.png)  
+![](../plot_archive/d6976b4_20251012_014202_plot2.png)  
+
+## Commit [fdae3c1](https://github.com/naszhu/REM_E3_model_fixed/commit/fdae3c1) (branch: `oct-11`)
+**Time:** 2025-10-11 17:52:06  
+**Message:**
+```
+refactor(data-analysis):  Move initial plots to the front
+
+- Revised plot titles and labels to reflect the transition from initial to final test analyses, enhancing clarity in visual representations.
+- Improved data processing steps to ensure accurate filtering and summarization of performance metrics across different test conditions.
+- Enhanced styling and formatting of plots for better readability and presentation, including adjustments to color schemes and legend placements.
+- Updated the combined plot generation to reflect the new naming conventions and ensure consistency across outputs.
+
+These changes aim to provide a clearer and more accurate representation of test performance across various conditions and item types.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/fdae3c1_20251011_175206_plot1.png)  
+![](../plot_archive/fdae3c1_20251011_175206_plot2.png)  
+
+## Commit [3d91bb1](https://github.com/naszhu/REM_E3_model_fixed/commit/3d91bb1) (branch: `oct-11`)
+**Time:** 2025-10-11 17:41:35  
+**Message:**
+```
+feat(data-analysis): enhance comprehensive analysis and model outputs
+
+BUT WRONG SOMEWHERE? MY MIND IS BLOWING
+
+- Updated data loading and filtering processes to improve data integrity by removing invalid responses.
+- Refined the filtering criteria for reaction times to ensure only valid data is included in analyses.
+- Activated and documented Generalized Linear Mixed Models (GLMMs) for both initial and final test analyses, incorporating linear and quadratic trends across item types and conditions.
+- Generated comprehensive output files for model summaries, item type trends, and condition interactions, facilitating a clearer understanding of performance metrics.
+- Improved reporting of significant findings and trends, enhancing the overall clarity and robustness of the analysis framework.
+
+These enhancements aim to provide a more thorough and accurate analysis of test performance across various conditions and item types.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/3d91bb1_20251011_174135_plot1.png)  
+![](../plot_archive/3d91bb1_20251011_174135_plot2.png)  
+
+## Commit [05c6406](https://github.com/naszhu/REM_E3_model_fixed/commit/05c6406) (branch: `oct-11`)
+**Time:** 2025-10-11 17:41:02  
+**Message:**
+```
+feat(data-analysis): add initial test between-list results and comprehensive analysis outputs
+
+- Introduced new files for initial test between-list results and analysis outputs, detailing performance metrics across item types and list numbers.
+- Implemented a Generalized Linear Mixed Model (GLMM) to analyze the effects of list number and item type on recognition accuracy, revealing significant proactive interference and U-shaped patterns in target recognition.
+- Enhanced data preparation scripts to filter out invalid responses and ensure comprehensive analysis of performance metrics.
+- Generated summary tables and visual representations to facilitate understanding of key findings and trends.
+
+These additions aim to provide a robust framework for analyzing initial test performance and its implications for subsequent phases.
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Initial_Between_Results.txt`  
+- `design1/data_analysis/MASTER_ANALYSIS_SUMMARY.md`  
+- `design1/data_analysis/SUMMARY_initial_between_model.md`  
+- `design1/data_analysis/between_final_analysis_output.txt`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/init_between_analysis_output.txt`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/05c6406_20251011_174102_plot1.png)  
+![](../plot_archive/05c6406_20251011_174102_plot2.png)  
+
+## Commit [185b1a3](https://github.com/naszhu/REM_E3_model_fixed/commit/185b1a3) (branch: `oct-11`)
+**Time:** 2025-10-11 15:49:44  
+**Message:**
+```
+fix(allplot-e1): filter reaction times for performance calculations
+
+- Updated data selection to include reaction time (rt) in multiple data frames, ensuring comprehensive analysis of performance metrics.
+- Added filtering criteria to exclude outliers based on reaction time (rt < 150 or rt > 3500) for FOIL and non-FOIL performance calculations.
+- Improved data integrity by ensuring that only valid responses are considered in the analysis.
+
+These changes aim to refine the data analysis process and enhance the accuracy of performance evaluations.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/185b1a3_20251011_154944_plot1.png)  
+![](../plot_archive/185b1a3_20251011_154944_plot2.png)  
+
+## Commit [0f67eac](https://github.com/naszhu/REM_E3_model_fixed/commit/0f67eac) (branch: `oct-11`)
+**Time:** 2025-10-11 15:41:23  
+**Message:**
+```
+fix(allplot-e1): bug not filter out null for initial between
+
+- Updated the data filtering process in `df_initialtestbyinitial` to exclude null responses, ensuring cleaner data for analysis.
+- Adjusted comments for clarity and consistency in the script.
+
+These changes aim to enhance data integrity and improve the accuracy of subsequent analyses.
+
+Closes #49
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/0f67eac_20251011_154123_plot1.png)  
+![](../plot_archive/0f67eac_20251011_154123_plot2.png)  
+
+## Commit [74aca5d](https://github.com/naszhu/REM_E3_model_fixed/commit/74aca5d) (branch: `oct-11`)
+**Time:** 2025-10-11 14:46:36  
+**Message:**
+```
+feat(analysis-e1): final between by intial order
+
+- Activated a Generalized Linear Mixed Model (GLMM) to analyze the effects of initial test order on final test performance, incorporating linear and quadratic trends across item types (ST, SO, TO, FTO) and conditions (Backward, Forward, Random).
+- Deactivated previous within-list models to focus on between-list analyses, ensuring clarity in the reporting of results.
+- Updated analysis scripts to reflect the new model structure, including condition-specific interactions and comprehensive output files for model summaries and item type trends.
+- Generated summary tables detailing significant findings, including accuracy comparisons and trend analyses, highlighting the complex interactions between initial test order and final performance.
+
+These changes aim to enhance the understanding of how initial testing order influences final test outcomes, providing a robust framework for future analyses.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Between_Initial_Results_Comprehensive.txt`  
+- `design1/data_analysis/APA_Results_Brief_Between_Initial.txt`  
+- `design1/data_analysis/Between_Initial_Results_Summary_Tables.md`  
+- `design1/data_analysis/CHANGES_SUMMARY_between_initial_model.md`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/74aca5d_20251011_144636_plot1.png)  
+![](../plot_archive/74aca5d_20251011_144636_plot2.png)  
+
+## Commit [a167ccd](https://github.com/naszhu/REM_E3_model_fixed/commit/a167ccd) (branch: `oct-11`)
+**Time:** 2025-10-11 14:09:34  
+**Message:**
+```
+refactor(analysis-e1): final test within-list analysis redo
+
+- Activated two Generalized Linear Mixed Models (GLMMs) to analyze within-list position effects on final test performance: one for study position effects (ST vs SO) and another for test position effects (ST vs TO).
+- Deactivated the previous between-list model to focus on within-list analyses.
+- Updated analysis scripts to include linear and quadratic terms for both models, enhancing the robustness of the findings.
+- Generated new output files for within-list model summaries and item type trends, replacing previous outputs.
+- Added comprehensive results and summary tables detailing significant findings, including accuracy comparisons and trend analyses.
+
+These changes aim to refine the analysis of within-list position effects and improve the clarity of reporting results.
+
+Refs #48
+```
+**Changed Files:**
+- `design1/data_analysis/APA_Results_Brief_Within_List.txt`  
+- `design1/data_analysis/APA_Within_List_Results_Comprehensive.txt`  
+- `design1/data_analysis/CHANGES_SUMMARY_within_list_models.md`  
+- `design1/data_analysis/Within_List_Results_Summary_Tables.md`  
+- `design1/data_analysis/experiment1_comprehensive_analysis.R`  
+- `design1/data_analysis/within_list_analysis_output.txt`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/a167ccd_20251011_140934_plot1.png)  
+![](../plot_archive/a167ccd_20251011_140934_plot2.png)  
+
+## Commit [81567f6](https://github.com/naszhu/REM_E3_model_fixed/commit/81567f6) (branch: `oct-11`)
+**Time:** 2025-10-11 13:41:33  
+**Message:**
+```
+merge(all): Merge branch 'oct-6'
+```
+![](../plot_archive/81567f6_20251011_134133_plot1.png)  
+![](../plot_archive/81567f6_20251011_134133_plot2.png)  
+
 ## Commit [f9ec50d](https://github.com/naszhu/REM_E3_model_fixed/commit/f9ec50d) (branch: `oct-6`)
 **Time:** 2025-10-11 13:40:07  
 **Message:**

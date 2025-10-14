@@ -1,7 +1,7 @@
 
 
 is_finaltest = true
-n_simulations = is_finaltest ? 200 : 500;
+n_simulations = is_finaltest ? 200 : 1000;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -51,8 +51,8 @@ adv_u_star_strengthen = 0.00# 0.06 no adv during strenghtening for now
 adv_c_strenghten = 0.0# 0.1
 
 # Additional advantage parameters from E3
-u_star_adv = 0.4  # 0.06 in E3
-c_adv = 0.15  # 0.06 in E3
+u_star_adv = 0.0  # 0.06 in E3
+c_adv = 0.0  # 0.06 in E3
 
 # u_star_context parameters
 # u_star_context=vcat(0.08, ones(n_lists-1)*0.045)
@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.8 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.77 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -94,13 +94,17 @@ is_test_changecontext2 = false #is testing only change context in final test
 
 # Restoration flags
 is_restore_initial = true
-is_UnchangeCtxDriftAndReinstate = false  # Disable UC distortion (align with E3)
+is_UnchangeCtxDriftAndReinstate = false  #  do not reinstate UC 
 is_distort_probes = true
 const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
 is_restore_context = true # currently don't want to restore context features, only add new context features tarce
-is_content_drift_between_study_and_test = true  # Enable content distortion (from E3)
+is_content_drift_between_study_and_test = false  # Enable content distortion (from E3)
+
+# below is the drift done by after probe generation drift all at once and then etc. 
+is_UC_drift_between_study_and_test = false  # Enable UC (unchanging context) distortion (Issue #50)
+is_CC_drift_between_study_and_test = true  # Enable CC (changing context) distortion (Issue #50)
 
 # Stage control flags
 is_firststage = true;
@@ -118,7 +122,13 @@ power_taken = 1  # raise to 1/11 power for sampling
 # v_criterion_initial = 0.1^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
-criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.15, 0.55, 5.0)
+# Parameters for linear diminishing criterion (between-list dimension)
+criterion_between_list_start = 0.35  # starting value for between-list criterion
+criterion_between_list_initial_increment = 0.135  # initial increment across lists
+criterion_between_list_decrement_per_step = 0.029  # how much increment decreases each list
+
+# criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
+criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
 
 recall_odds_threshold = 0.08^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
@@ -165,8 +175,19 @@ context_tau = 100 #foil odds should lower than this
 LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
-# CATION: uh, this needs to be 1 for E3 as well. 
-p_reinstate_rate = 0.3 #0.4 #prob of reinstatement
+# CATION: uh, this needs to be 1 for E3 as well.
+p_reinstate_rate = 0.30 #0.4 #prob of reinstatement #do not reinstate. 
+
+# Distortion probability parameters (Issue #50)
+base_distortion_prob = 0.0  # distortion probability for content
+base_distortion_prob_UC = 0.0  # distortion probability for UC (set higher to test effect)
+base_distortion_prob_CC = 0.7  # distortion probability for CC (set higher to test effect)
+
+# Recovery probability parameters for context reinstatement during test
+base_recovery_prob = 0.0  # constant probability of recovering distorted features during test
+
+# Content distortion parameters (from E3) for content drift between study and test
+max_distortion_probes = 20  # Number of probes until distortion probability reaches 0
 
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
 #n_driftStudyTest = round.(Int, ones(10) * 9) #7 # ORIGINAL: was 9 steps
@@ -177,12 +198,9 @@ n_between_listchange = 1 # Changed from 20 to 1
 
 # Separate probability parameters to maintain equivalent overall probabilities
 #const p_driftAndListChange = 0.03; # ORIGINAL: single parameter for both
-const p_driftStudyTest = 0.2396; # Equivalent to (1-(1-0.03)^9) for study-test drift
+const p_driftStudyTest = 0.1; # Equivalent to (1-(1-0.03)^9) for study-test drift
 const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-list change
 
-# Content distortion parameters (from E3) for content drift between study and test
-max_distortion_probes = 15  # Number of probes until distortion probability reaches 0
-base_distortion_prob = 0.16  # Base probability of distortion for the first probe 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
 
@@ -215,7 +233,7 @@ const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
 
 # Original criterion_final (commented out to try asymptotic version)
-criterion_final = LinRange((0.09+0.18)^power_taken, 0.27-0.07^power_taken, 10)
+criterion_final = LinRange((0.09+0.18)^power_taken, 0.27+0.07^power_taken, 10)
 # Generate asymptotic criterion_final using asym_increase_shift for nonlinear behavior
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
