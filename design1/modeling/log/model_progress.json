@@ -1,5 +1,20 @@
 [
   {
+    "commit": "a0d74fd",
+    "branch": "oct-14-2",
+    "message": "refactor(model-e1):  make distortion and reinstate into functions",
+    "timestamp": "2025-10-14 21:43:56",
+    "plot1": "plot_archive/a0d74fd_20251014_214356_plot1.png",
+    "plot2": "plot_archive/a0d74fd_20251014_214356_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
     "commit": "5275d1c",
     "branch": "oct-14-2",
     "message": "feat(model-e1): refactored the distortion place",

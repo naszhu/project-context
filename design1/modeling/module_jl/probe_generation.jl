@@ -115,8 +115,16 @@ function generate_probes(
         probes[i] = Probe(EpisodicImage(target_word, current_context_features, list_num, current_testpos), probetypes[i] ,current_testpos)
         
         # Collect foils for the foils collection
+        # IMPORTANT: Use NON-DISTORTED word for foils_collection (for final test)
+        # Context can be before or after distortion/reinstatement (doesn't affect final test per comment line 143)
         if probetypes[i] == :foil
-            push!(foils_collection, deepcopy(probes[i].image)) # Append a deep copy of the foil to the collection
+            non_distorted_foil = EpisodicImage(
+                probe_words_before_distort[i],  # NON-DISTORTED word content
+                current_context_features,        # Context (doesn't matter for final test)
+                list_num,
+                current_testpos
+            )
+            push!(foils_collection, deepcopy(non_distorted_foil))
         end
         
         if probetypes[i] == :target

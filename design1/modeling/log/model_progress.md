@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [a0d74fd](https://github.com/naszhu/REM_E3_model_fixed/commit/a0d74fd) (branch: `oct-14-2`)
+**Time:** 2025-10-14 21:43:56  
+**Message:**
+```
+refactor(model-e1):  make distortion and reinstate into functions
+
+- Introduced new functions for distorting context features and reinstating both context and content features during the probe generation process.
+- Refactored the `simulate_rem` and `generate_probes` functions to utilize these new distortion and reinstatement functions, improving code clarity and maintainability.
+- Removed outdated loop-based distortion logic in favor of the new functions, enhancing the overall structure of the simulation framework.
+
+These changes aim to streamline the distortion and reinstatement processes, ensuring a more cohesive and efficient simulation model.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/a0d74fd_20251014_214356_plot1.png)  
+![](../plot_archive/a0d74fd_20251014_214356_plot2.png)  
+
 ## Commit [5275d1c](https://github.com/naszhu/REM_E3_model_fixed/commit/5275d1c) (branch: `oct-14-2`)
 **Time:** 2025-10-14 21:35:42  
 **Message:**
