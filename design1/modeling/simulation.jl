@@ -100,7 +100,29 @@ function simulate_rem()
             if is_CC_distort_between_study_and_test
                 for cf in eachindex(CC_after_distort)
                     if rand() < base_distortion_prob_CC
-                        CC_after_drift[cf] = rand(Geometric(g_context)) + 1
+                        CC_after_distort[cf] = rand(Geometric(g_context)) + 1
+                    end
+                end
+            end
+
+            UC_before_distort = deepcopy(test_list_context_unchange) 
+            UC_after_distort = deepcopy(test_list_context_unchange)
+            if is_UC_distort_between_study_and_test
+                for cf in eachindex(UC_after_distort)
+                    if rand() < base_distortion_prob_UC
+                        UC_after_distort[cf] = rand(Geometric(g_context)) + 1
+                    end
+                end
+            end
+
+            content_before_distort = deepcopy(word_list)
+            content_after_distort = deepcopy(word_list)
+            if is_content_distort_between_study_and_test
+                for iword in eachindex(content_after_distort)
+                    for cf in eachindex(content_after_distort[iword].word_features)
+                        if rand() < base_distortion_prob
+                            content_after_distort[iword].word_features[cf] = rand(Geometric(g_word)) + 1
+                        end
                     end
                 end
             end
@@ -109,9 +131,14 @@ function simulate_rem()
             #studied_pool[:, list_num]
             # studied_pool[j, list_num]
             # println(studied_pool)#studdied pool has length of 30, so only take first 20
-            # Pass CC_before_drift as reinstatement target (drifted context, not study context)
-            # Pass CC_after_drift as current test context (distorted if enabled, otherwise same as CC_before_drift)
-            probes, foil_collections = generate_probes(word_list, CC_before_drift, CC_after_drift, general_context_features, test_list_context_unchange, position_code_all, list_num, studied_pool[1:n_probes,list_num]) 
+            # Pass before_distort as reinstatement targets (drifted, not study context)
+            # Pass after_distort as current test contexts (distorted if enabled, otherwise same as before_distort)
+            probes, foil_collections = generate_probes(
+                content_before_distort, content_after_distort,
+                CC_before_distort, CC_after_distort, 
+                UC_before_distort, UC_after_distort,
+                general_context_features, position_code_all, list_num, studied_pool[1:n_probes,list_num]
+            ) 
             
 
             # println("ImagePoolNow", [i.word.item for i in image_pool])

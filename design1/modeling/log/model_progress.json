@@ -1,5 +1,20 @@
 [
   {
+    "commit": "2f6532a",
+    "branch": "oct-14-2",
+    "message": "refactor(model-e1):  change names for drift to distort for not confusing actual drift and distort",
+    "timestamp": "2025-10-14 21:21:26",
+    "plot1": "plot_archive/2f6532a_20251014_212126_plot1.png",
+    "plot2": "plot_archive/2f6532a_20251014_212126_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
     "commit": "381182f",
     "branch": "oct-14-2",
     "message": "merge(oct-14): Merge branch 'oct-14'",

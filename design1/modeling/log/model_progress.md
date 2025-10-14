@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [2f6532a](https://github.com/naszhu/REM_E3_model_fixed/commit/2f6532a) (branch: `oct-14-2`)
+**Time:** 2025-10-14 21:21:26  
+**Message:**
+```
+refactor(model-e1):  change names for drift to distort for not confusing actual drift and distort
+
+- Updated the simulation logic to include separate handling for context and content distortion between study and test phases.
+- Renamed variables for clarity, changing `CC_before_drift` and `CC_after_drift` to `CC_before_distort` and `CC_after_distort`, respectively.
+- Introduced new flags for controlling distortion behavior and updated the `generate_probes` function to accommodate these changes.
+- Enhanced documentation to clarify the roles of various parameters in the distortion process.
+
+These changes aim to improve the model's ability to simulate realistic context and content distortions, enhancing the overall fidelity of the simulation.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/2f6532a_20251014_212126_plot1.png)  
+![](../plot_archive/2f6532a_20251014_212126_plot2.png)  
+
 ## Commit [381182f](https://github.com/naszhu/REM_E3_model_fixed/commit/381182f) (branch: `oct-14-2`)
 **Time:** 2025-10-14 21:12:08  
 **Message:**
