@@ -49,7 +49,7 @@ m_init_testpos_e3 <- glmer(
   test_position_quad * item_type + 
     (1 | participant_id) ,
   data = initial_e3, family = binomial,
-  control = glmerControl(optimizer = "bobyqa",,
+  control = glmerControl(optimizer = "bobyqa",
     check.conv.grad = list(action = "ignore", tol = 0.002)
   ),
   na.action = na.omit

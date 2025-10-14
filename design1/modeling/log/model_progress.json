@@ -1,5 +1,22 @@
 [
   {
+    "commit": "fb3329d",
+    "branch": "oct-14",
+    "message": "feat(model-e1): make the distortion really work make it into simulation",
+    "timestamp": "2025-10-14 18:39:48",
+    "plot1": "plot_archive/fb3329d_20251014_183948_plot1.png",
+    "plot2": "plot_archive/fb3329d_20251014_183948_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
     "commit": "af6fda8",
     "branch": "HEAD",
     "message": "feat(model-e1): constant context distortion",

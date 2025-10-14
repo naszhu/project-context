@@ -1,5 +1,31 @@
 # Model Progress
 
+## Commit [fb3329d](https://github.com/naszhu/REM_E3_model_fixed/commit/fb3329d) (branch: `oct-14`)
+**Time:** 2025-10-14 18:39:48  
+**Message:**
+```
+feat(model-e1): make the distortion really work make it into simulation
+
+- Updated comments in `simulation.jl` to clarify the roles of `list_change_context_features` and `test_list_context` in the simulation process.
+- Adjusted `p_reinstate_rate` to 0.30 and `p_driftStudyTest` to 0.1 for improved control over context reinstatement and study-test drift.
+- Removed unused distortion functions in `feature_updates.jl` and updated `generate_probes` to reflect changes in context handling.
+- Commented out debug print statements in `probe_evaluation.jl` to reduce console output during testing.
+
+These changes aim to refine the model's context management and enhance the clarity of the simulation logic.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/fb3329d_20251014_183948_plot1.png)  
+![](../plot_archive/fb3329d_20251014_183948_plot2.png)  
+
 ## Commit [af6fda8](https://github.com/naszhu/REM_E3_model_fixed/commit/af6fda8) (branch: `HEAD`)
 **Time:** 2025-10-14 18:06:48  
 **Message:**
