@@ -1,6 +1,6 @@
 
 
-is_finaltest = false
+is_finaltest = true
 n_simulations = is_finaltest ? 200 : 1000;
 
 # =============================================================================
@@ -100,7 +100,7 @@ const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
 is_restore_context = true # currently don't want to restore context features, only add new context features tarce
-is_content_drift_between_study_and_test = true  # Enable content distortion (from E3)
+is_content_drift_between_study_and_test = false  # Enable content distortion (from E3)
 
 # below is the drift done by after probe generation drift all at once and then etc. 
 is_UC_drift_between_study_and_test = false  # Enable UC (unchanging context) distortion (Issue #50)
@@ -122,7 +122,13 @@ power_taken = 1  # raise to 1/11 power for sampling
 # v_criterion_initial = 0.1^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
-criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
+# Parameters for linear diminishing criterion (between-list dimension)
+criterion_between_list_start = 0.35  # starting value for between-list criterion
+criterion_between_list_initial_increment = 0.135  # initial increment across lists
+criterion_between_list_decrement_per_step = 0.029  # how much increment decreases each list
+
+# criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
+criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
 
 recall_odds_threshold = 0.08^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
@@ -175,7 +181,7 @@ p_reinstate_rate = 0.50 #0.4 #prob of reinstatement #do not reinstate.
 # Distortion probability parameters (Issue #50)
 base_distortion_prob = 0.0  # distortion probability for content
 base_distortion_prob_UC = 0.0  # distortion probability for UC (set higher to test effect)
-base_distortion_prob_CC = 0  # distortion probability for CC (set higher to test effect)
+base_distortion_prob_CC = 0.0  # distortion probability for CC (set higher to test effect)
 
 # Recovery probability parameters for context reinstatement during test
 base_recovery_prob = 0.0  # constant probability of recovering distorted features during test

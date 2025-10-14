@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [cbf148a](https://github.com/naszhu/REM_E3_model_fixed/commit/cbf148a) (branch: `HEAD`)
+**Time:** 2025-10-14 17:53:11  
+**Message:**
+```
+refactor(model-e1): A WORKING V BUT NO DISTORTION deleting the asymptotic function use other way
+
+- Modified the `distort_probe_context_range_with_linear_decay` and `distort_probes_with_linear_decay` functions to apply distortion and recovery using constant probabilities for all probes.
+- Removed the linear decrease in distortion probability, simplifying the distortion logic.
+- Updated function documentation to reflect the new two-step process of distortion followed by recovery.
+- Ensured compatibility with existing parameters in the `generate_probes` function by adding `base_recovery_prob`.
+
+These changes aim to enhance the clarity and efficiency of the distortion process, improving the model's performance in simulating context effects.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/cbf148a_20251014_175311_plot1.png)  
+![](../plot_archive/cbf148a_20251014_175311_plot2.png)  
+
 ## Commit [6240f71](https://github.com/naszhu/REM_E3_model_fixed/commit/6240f71) (branch: `HEAD`)
 **Time:** 2025-10-14 17:52:14  
 **Message:**

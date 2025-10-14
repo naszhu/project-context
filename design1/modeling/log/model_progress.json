@@ -1,5 +1,19 @@
 [
   {
+    "commit": "cbf148a",
+    "branch": "HEAD",
+    "message": "refactor(model-e1): A WORKING V BUT NO DISTORTION deleting the asymptotic function use other way",
+    "timestamp": "2025-10-14 17:53:11",
+    "plot1": "plot_archive/cbf148a_20251014_175311_plot1.png",
+    "plot2": "plot_archive/cbf148a_20251014_175311_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
     "commit": "6240f71",
     "branch": "HEAD",
     "message": "fnetune(model-e1): only reinstate but very big shift between study and test",

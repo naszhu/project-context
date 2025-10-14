@@ -115,6 +115,29 @@ end
 
 
 ###############################################################
+# 7b. linear_increase_diminishing  (linear diminishing increments)
+# Creates a nonlinear increase where the increment amount itself decreases linearly
+# Each step increases by less than the previous step, with the decrease being constant
+###############################################################
+function linear_increase_diminishing(start_at::Float64,
+                                     initial_increment::Float64,
+                                     decrement_per_step::Float64,
+                                     n::Int)::Vector{Float64}
+    @assert n ≥ 1
+    result = Vector{Float64}(undef, n)
+    result[1] = start_at
+    
+    for k in 2:n
+        # Increment decreases linearly: initial_increment - decrement_per_step * (k-2)
+        current_increment = max(0.0, initial_increment - decrement_per_step * (k - 2))
+        result[k] = result[k-1] + current_increment
+    end
+    
+    return result
+end
+
+
+###############################################################
 # 8. generate_asymptotic_values (2D matrix, criterion change)
 ###############################################################
 function generate_asymptotic_values(p::Float64,
@@ -127,5 +150,26 @@ function generate_asymptotic_values(p::Float64,
     dim1 = asym_decrease(within_list_start, within_list_end, b_rate, n_probes)
     dim2 = asym_decrease(between_list_start, between_list_end, 5.0, n_lists)
     dim2 = dim2 .^ p
+    return dim1 .* transpose(dim2)
+end
+
+
+###############################################################
+# 8b. generate_asymptotic_values_linear_diminishing (2D matrix with linear diminishing for between-list)
+# Same structure as generate_asymptotic_values but uses linear_increase_diminishing for between-list dimension
+###############################################################
+function generate_asymptotic_values_linear_diminishing(p::Float64,
+                                                       within_list_start::Float64,
+                                                       within_list_end::Float64,
+                                                       between_list_start::Float64,
+                                                       between_list_initial_increment::Float64,
+                                                       between_list_decrement_per_step::Float64)::Matrix{Float64}
+    # dim1 is n_probes long (within-list, rows)
+    # dim2 is n_lists long (between-list, columns)
+    # Result is n_probes x n_lists matrix
+    dim1 = asym_decrease(within_list_start, within_list_end, 5.0, n_probes)
+    dim2 = linear_increase_diminishing(between_list_start, between_list_initial_increment, between_list_decrement_per_step, n_lists)
+    dim2 = dim2 .^ p
+    # transpose(dim2) makes it a row vector, so outer product gives n_probes x n_lists
     return dim1 .* transpose(dim2)
 end
