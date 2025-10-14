@@ -98,21 +98,13 @@ function simulate_rem()
             CC_before_distort = deepcopy(test_list_context)  # Save drifted context as reinstatement target
             CC_after_distort = deepcopy(test_list_context)   # Will be distorted if enabled
             if is_CC_distort_between_study_and_test
-                for cf in eachindex(CC_after_distort)
-                    if rand() < base_distortion_prob_CC
-                        CC_after_distort[cf] = rand(Geometric(g_context)) + 1
-                    end
-                end
+                distort_context_range!(CC_after_distort, 1, nC, base_distortion_prob_CC, g_context)
             end
 
             UC_before_distort = deepcopy(test_list_context_unchange) 
             UC_after_distort = deepcopy(test_list_context_unchange)
             if is_UC_distort_between_study_and_test
-                for cf in eachindex(UC_after_distort)
-                    if rand() < base_distortion_prob_UC
-                        UC_after_distort[cf] = rand(Geometric(g_context)) + 1
-                    end
-                end
+                distort_context_range!(UC_after_distort, 1, nU, base_distortion_prob_UC, g_context)
             end
 
             # Note: Content distortion is now handled INSIDE probe_generation.jl

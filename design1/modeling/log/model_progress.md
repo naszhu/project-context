@@ -1,5 +1,30 @@
 # Model Progress
 
+## Commit [5275d1c](https://github.com/naszhu/REM_E3_model_fixed/commit/5275d1c) (branch: `oct-14-2`)
+**Time:** 2025-10-14 21:35:42  
+**Message:**
+```
+feat(model-e1): refactored the distortion place
+
+SIMULATION RAN BUT THE FINAL DATA PREDICTION IS WRONG SOMEWHERE IS WRONG
+
+- Moved content distortion logic from `simulation.jl` to `probe_generation.jl`, allowing for simultaneous distortion of all probe words (targets and foils).
+- Updated comments to clarify the new structure and flow of the distortion process.
+- Removed outdated distortion code from `simulation.jl` to enhance clarity and maintainability.
+
+These changes aim to improve the organization of the distortion logic, ensuring a more cohesive simulation framework.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+- `design3/modeling`  
+![](../plot_archive/5275d1c_20251014_213542_plot1.png)  
+![](../plot_archive/5275d1c_20251014_213542_plot2.png)  
+
 ## Commit [ac04ee4](https://github.com/naszhu/REM_E3_model_fixed/commit/ac04ee4) (branch: `oct-14-2`)
 **Time:** 2025-10-14 21:23:47  
 **Message:**

@@ -69,15 +69,7 @@ function generate_probes(
     probe_words_after_distort = deepcopy(probe_words)   # Will be distorted
     
     if is_content_distort_between_study_and_test
-        for iword in eachindex(probe_words_after_distort)
-            for cf in eachindex(probe_words_after_distort[iword].word_features)
-                if cf <= w_word  # Only distort normal content features (not Z feature)
-                    if rand() < base_distortion_prob
-                        probe_words_after_distort[iword].word_features[cf] = rand(Geometric(g_word)) + 1
-                    end
-                end
-            end
-        end
+        distort_probe_words_content!(probe_words_after_distort, base_distortion_prob, g_word, w_word)
     end
     
     # STEP 3: Now iterate through probes, applying reinstatement and creating probes
@@ -87,37 +79,16 @@ function generate_probes(
         if i>1 #now the first item is not reinstated
 
             # REINSTATE CC (changing context): reinstate from after_distort toward before_distort
-            # FIXME: the if flag is missing here but exists for later UU and T but actually isn't correct there either, should have a flag specifically for reinstate, but i'll leave it for now
-            nct = length(CC_after_distort)
-            for ict in eachindex(CC_after_distort)
-                if ict < Int(round(nct * p_reinstate_context)) #stop reinstate after a certain number of features
-                    if (CC_after_distort[ict] != CC_before_distort[ict]) & (rand() < p_reinstate_rate)
-                        CC_after_distort[ict] = CC_before_distort[ict] # Reinstate toward drifted (before distort) context
-                    end
-                end
-            end
+            reinstate_context_duringTest!(CC_after_distort, CC_before_distort, p_reinstate_context, p_reinstate_rate)
 
             # REINSTATE UC (unchanging context): reinstate from after_distort toward before_distort
             if is_UC_distort_between_study_and_test
-                nct = length(UC_after_distort)
-                for ict in eachindex(UC_after_distort)
-                    if ict < Int(round(nct * p_reinstate_context))
-                        if (UC_after_distort[ict] != UC_before_distort[ict]) & (rand() < p_reinstate_rate)
-                            UC_after_distort[ict] = UC_before_distort[ict] # Reinstate toward drifted (before distort) context
-                        end
-                    end
-                end
+                reinstate_context_duringTest!(UC_after_distort, UC_before_distort, p_reinstate_context, p_reinstate_rate)
             end
 
             # REINSTATE CONTENT: reinstate THIS probe's word features from after_distort toward before_distort
             if is_content_distort_between_study_and_test
-                for ifeature in eachindex(target_word.word_features)
-                    if ifeature <= w_word # Only reinstate normal content features (not Z feature)
-                        if (target_word.word_features[ifeature] != probe_words_before_distort[i].word_features[ifeature]) & (rand() < p_reinstate_rate)
-                            target_word.word_features[ifeature] = probe_words_before_distort[i].word_features[ifeature] # Reinstate toward before distort content
-                        end
-                    end
-                end
+                reinstate_word_content_duringTest!(target_word, probe_words_before_distort[i], p_reinstate_rate, w_word)
             end
 
         end
