@@ -1,5 +1,18 @@
 [
   {
+    "commit": "2849fe3",
+    "branch": "HEAD",
+    "message": "fix(analysis-e3): final by initial list order last 3 doesn't have a position",
+    "timestamp": "2025-10-13 14:37:33",
+    "plot1": "plot_archive/2849fe3_20251013_143733_plot1.png",
+    "plot2": "plot_archive/2849fe3_20251013_143733_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R"
+    ]
+  },
+  {
     "commit": "eaa1a7f",
     "branch": "HEAD",
     "message": "refactor(analysis-e1): redo e3 analysis",

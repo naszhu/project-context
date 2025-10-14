@@ -94,15 +94,17 @@ is_test_changecontext2 = false #is testing only change context in final test
 
 # Restoration flags
 is_restore_initial = true
-is_UnchangeCtxDriftAndReinstate = false  # Disable UC distortion (align with E3)
+is_UnchangeCtxDriftAndReinstate = false  #  do not reinstate UC 
 is_distort_probes = true
 const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
 is_restore_context = true # currently don't want to restore context features, only add new context features tarce
 is_content_drift_between_study_and_test = true  # Enable content distortion (from E3)
-is_UC_drift_between_study_and_test = true  # Enable UC (unchanging context) distortion (Issue #50)
-is_CC_drift_between_study_and_test = true  # Enable CC (changing context) distortion (Issue #50)
+
+# below is the drift done by after probe generation drift all at once and then etc. 
+is_UC_drift_between_study_and_test = false  # Enable UC (unchanging context) distortion (Issue #50)
+is_CC_drift_between_study_and_test = false  # Enable CC (changing context) distortion (Issue #50)
 
 # Stage control flags
 is_firststage = true;
@@ -168,12 +170,15 @@ LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well.
-p_reinstate_rate = 0.00 #0.4 #prob of reinstatement #do not reinstate. 
+p_reinstate_rate = 0.50 #0.4 #prob of reinstatement #do not reinstate. 
 
 # Distortion probability parameters (Issue #50)
 base_distortion_prob = 0.0  # distortion probability for content
 base_distortion_prob_UC = 0.0  # distortion probability for UC (set higher to test effect)
-base_distortion_prob_CC = 0.52  # distortion probability for CC (set higher to test effect)
+base_distortion_prob_CC = 0  # distortion probability for CC (set higher to test effect)
+
+# Recovery probability parameters for context reinstatement during test
+base_recovery_prob = 0.0  # constant probability of recovering distorted features during test
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 20  # Number of probes until distortion probability reaches 0
@@ -187,7 +192,7 @@ n_between_listchange = 1 # Changed from 20 to 1
 
 # Separate probability parameters to maintain equivalent overall probabilities
 #const p_driftAndListChange = 0.03; # ORIGINAL: single parameter for both
-const p_driftStudyTest = 0.15; # Equivalent to (1-(1-0.03)^9) for study-test drift
+const p_driftStudyTest = 0.85; # Equivalent to (1-(1-0.03)^9) for study-test drift
 const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-list change
 
 

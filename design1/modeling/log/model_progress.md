@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [2849fe3](https://github.com/naszhu/REM_E3_model_fixed/commit/2849fe3) (branch: `HEAD`)
+**Time:** 2025-10-13 14:37:33  
+**Message:**
+```
+fix(analysis-e3): final by initial list order last 3 doesn't have a position
+
+- Added a new numeric conversion for `listNum_appear1_initial` to ensure consistent data types.
+- Introduced a `mutate` step to categorize `item_type` based on `initial_list_number`, improving clarity in item classification.
+- Updated filtering to exclude NA values for `accuracy` and `item_type`, ensuring cleaner data for analysis.
+- Commented out a ggplot section for future validation of position data, maintaining code organization.
+
+These changes aim to refine the data preparation process and enhance the clarity of item categorization in the analysis pipeline.
+
+Refs #48
+Fixes #44
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+![](../plot_archive/2849fe3_20251013_143733_plot1.png)  
+![](../plot_archive/2849fe3_20251013_143733_plot2.png)  
+
 ## Commit [eaa1a7f](https://github.com/naszhu/REM_E3_model_fixed/commit/eaa1a7f) (branch: `HEAD`)
 **Time:** 2025-10-13 14:34:12  
 **Message:**
