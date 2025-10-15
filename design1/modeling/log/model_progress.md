@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [491a10f](https://github.com/naszhu/REM_E3_model_fixed/commit/491a10f) (branch: `oct-15-debug2-worked`)
+**Time:** 2025-10-15 21:51:29  
+**Message:**
+```
+fix(model-e1):  make base_distortion >0
+
+- Changed `p_reinstate_context` from 1 to 1.0 for clarity in context reinstatement.
+- Updated `base_distortion_prob` and `base_distortion_prob_UC` from 0.0 to 0.2 to enhance distortion effects for content and unchanging context.
+- These modifications aim to improve the accuracy of the simulation by refining the parameters governing context reinstatement and distortion probabilities.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/491a10f_20251015_215129_plot1.png)  
+![](../plot_archive/491a10f_20251015_215129_plot2.png)  
+
 ## Commit [7ad590b](https://github.com/naszhu/REM_E3_model_fixed/commit/7ad590b) (branch: `oct-15-debug2-worked`)
 **Time:** 2025-10-14 21:49:30  
 **Message:**

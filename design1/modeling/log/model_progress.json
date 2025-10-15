@@ -1,5 +1,18 @@
 [
   {
+    "commit": "491a10f",
+    "branch": "oct-15-debug2-worked",
+    "message": "fix(model-e1):  make base_distortion >0",
+    "timestamp": "2025-10-15 21:51:29",
+    "plot1": "plot_archive/491a10f_20251015_215129_plot1.png",
+    "plot2": "plot_archive/491a10f_20251015_215129_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "7ad590b",
     "branch": "oct-15-debug2-worked",
     "message": "fix(model-e1): foil collection should store NON-DISTORTED foils for final test use",
