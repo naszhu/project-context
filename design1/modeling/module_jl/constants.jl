@@ -103,7 +103,7 @@ is_restore_context = true # currently don't want to restore context features, on
 
 # DISTORTION FLAGS (applied after drift, before initial test)
 # These control whether features are distorted between study and test
-is_content_distort_between_study_and_test = false  # Enable content distortion (from E3)
+is_content_distort_between_study_and_test = true  # Enable content distortion (from E3)
 is_UC_distort_between_study_and_test = true  # CHANGED Enable UC (unchanging context) distortion (Issue #50)
 is_CC_distort_between_study_and_test = true  # CHANGED Enable CC (changing context) distortion (Issue #50)
 

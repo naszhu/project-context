@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [711a197](https://github.com/naszhu/REM_E3_model_fixed/commit/711a197) (branch: `oct-15-debug2-worked`)
+**Time:** 2025-10-15 22:01:14  
+**Message:**
+```
+refactor(model-e1): commented out the other sampling -- sampling isn't the issue
+
+- Refactored the sampling logic in the `probe_evaluation` function by uncommenting relevant sections to enhance clarity and maintain functionality.
+- This change aims to simplify the code structure while ensuring that the sampling method is clearly defined and operational, facilitating future development and debugging.
+
+These modifications contribute to a more organized and understandable implementation of the probe evaluation process.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/711a197_20251015_220114_plot1.png)  
+![](../plot_archive/711a197_20251015_220114_plot2.png)  
+
 ## Commit [20e1295](https://github.com/naszhu/REM_E3_model_fixed/commit/20e1295) (branch: `oct-15-debug2-worked`)
 **Time:** 2025-10-15 21:56:03  
 **Message:**

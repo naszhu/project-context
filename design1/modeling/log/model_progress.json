@@ -1,5 +1,18 @@
 [
   {
+    "commit": "711a197",
+    "branch": "oct-15-debug2-worked",
+    "message": "refactor(model-e1): commented out the other sampling -- sampling isn't the issue",
+    "timestamp": "2025-10-15 22:01:14",
+    "plot1": "plot_archive/711a197_20251015_220114_plot1.png",
+    "plot2": "plot_archive/711a197_20251015_220114_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
     "commit": "20e1295",
     "branch": "oct-15-debug2-worked",
     "message": "refactor(model-e1): comment out sampling logic in probe evaluation",
