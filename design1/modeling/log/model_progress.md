@@ -1,5 +1,29 @@
 # Model Progress
 
+## Commit [79c2319](https://github.com/naszhu/REM_E3_model_fixed/commit/79c2319) (branch: `oct-14-2`)
+**Time:** 2025-10-15 19:02:01  
+**Message:**
+```
+fix(model-e1): duplicated part in function. BUG on should store non-distorted for test & forgot to set prob distort >0!!
+
+- Added debug checks in `simulate_rem` and `generate_probes` to verify that foils in the studied pool are non-distorted when content distortion is enabled.
+- Updated distortion flags in `constants.jl` to enable content distortion and adjusted base distortion probabilities for improved testing fidelity.
+- Refactored sampling logic in `probe_evaluation` to ensure valid probabilities are used during item selection, enhancing the robustness of the evaluation process.
+
+These changes aim to improve the accuracy of distortion handling and ensure the integrity of the simulation outcomes.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/79c2319_20251015_190201_plot1.png)  
+![](../plot_archive/79c2319_20251015_190201_plot2.png)  
+
 ## Commit [7ad590b](https://github.com/naszhu/REM_E3_model_fixed/commit/7ad590b) (branch: `oct-14-2`)
 **Time:** 2025-10-14 21:49:30  
 **Message:**

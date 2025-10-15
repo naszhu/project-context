@@ -1,5 +1,21 @@
 [
   {
+    "commit": "79c2319",
+    "branch": "oct-14-2",
+    "message": "fix(model-e1): duplicated part in function. BUG on should store non-distorted for test & forgot to set prob distort >0!!",
+    "timestamp": "2025-10-15 19:02:01",
+    "plot1": "plot_archive/79c2319_20251015_190201_plot1.png",
+    "plot2": "plot_archive/79c2319_20251015_190201_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
     "commit": "7ad590b",
     "branch": "oct-14-2",
     "message": "fix(model-e1): foil collection should store NON-DISTORTED foils for final test use",
