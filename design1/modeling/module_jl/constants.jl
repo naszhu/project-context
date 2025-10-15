@@ -103,7 +103,7 @@ is_restore_context = true # currently don't want to restore context features, on
 
 # DISTORTION FLAGS (applied after drift, before initial test)
 # These control whether features are distorted between study and test
-is_content_distort_between_study_and_test = false  # Enable content distortion (from E3)
+is_content_distort_between_study_and_test = true  # CHANGED Enable content distortion (from E3)
 is_UC_distort_between_study_and_test = true  # CHANGED Enable UC (unchanging context) distortion (Issue #50)
 is_CC_distort_between_study_and_test = true  # CHANGED Enable CC (changing context) distortion (Issue #50)
 
@@ -175,14 +175,14 @@ context_tau = 100 #foil odds should lower than this
 κ_update_between_list = 0.0;
 LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
-p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
+p_reinstate_context = 1.0 #stop reinstate after how much features, 1.0 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well.
-p_reinstate_rate = 0.30 #0.4 #prob of reinstatement #do not reinstate. 
+p_reinstate_rate = 0.10 #0.4 #prob of reinstatement #do not reinstate. 
 
 # Distortion probability parameters (Issue #50)
-base_distortion_prob = 0.0  # distortion probability for content
-base_distortion_prob_UC = 0.0  # distortion probability for UC (set higher to test effect)
-base_distortion_prob_CC = 0.7  # distortion probability for CC (set higher to test effect)
+base_distortion_prob = 0.2  # distortion probability for content
+base_distortion_prob_UC = 0.2  # distortion probability for UC (set higher to test effect)
+base_distortion_prob_CC = 0.2  # distortion probability for CC (set higher to test effect)
 
 # Recovery probability parameters for context reinstatement during test
 base_recovery_prob = 0.0  # constant probability of recovering distorted features during test

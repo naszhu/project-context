@@ -118,6 +118,32 @@ function generate_probes(
         # IMPORTANT: Use NON-DISTORTED word for foils_collection (for final test)
         # Context can be before or after distortion/reinstatement (doesn't affect final test per comment line 143)
         if probetypes[i] == :foil
+            # Verify that probe_words_before_distort is actually non-distorted
+            # by checking it differs from probe_words_after_distort when distortion is enabled
+            if is_content_distort_between_study_and_test && i == 1
+                # Check first foil to verify distortion/non-distortion separation is working
+                are_different = false
+                for feat_idx in 1:min(w_word, length(probe_words_before_distort[i].word_features))
+                    if probe_words_before_distort[i].word_features[feat_idx] != probe_words_after_distort[i].word_features[feat_idx]
+                        are_different = true
+                        break
+                    end
+                end
+                # If distortion is enabled and first probe is a foil, they should differ (unless distortion randomly didn't change any features)
+                # This is a sanity check - if they're identical, distortion may not be working
+            end
+
+            # DEBUG: Verify non-distorted word is actually different from distorted
+            if is_content_distort_between_study_and_test && list_num == 1 && i == 1
+                # Check first foil of first list
+                num_diff = sum(probe_words_before_distort[i].word_features[j] != probe_words_after_distort[i].word_features[j] for j in 1:min(w_word, length(probe_words_before_distort[i].word_features)))
+                if num_diff == 0
+                    println("[WARNING] Foil at position $i: before_distort and after_distort are IDENTICAL! Distortion may not be working or arrays are shared!")
+                else
+                    println("[OK] Foil at position $i: $num_diff features differ between before/after distort")
+                end
+            end
+
             non_distorted_foil = EpisodicImage(
                 probe_words_before_distort[i],  # NON-DISTORTED word content
                 current_context_features,        # Context (doesn't matter for final test)

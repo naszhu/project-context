@@ -5,32 +5,7 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
     results = Array{Any}(undef, length(probes))
     # println("now#$(length(probes))")
     for i in eachindex(probes)
-        
-        # Debug: Track final test evaluation for position 1 probes
-        # if i == 1
-        #     println("\n=== FINAL TEST POSITION 1 ===")
-        #     println("[DEBUG-FINAL-TEST-POS1] Testing probe - Type: $(probes[i].image.word.type), Item: $(probes[i].image.word.item)")
-        #     
-        #     # Check how many traces in memory have distortion markers
-        #     distorted_traces = filter(img -> contains(img.word.item, "DISTORTED"), image_pool)
-        #     println("[DEBUG-FINAL-TEST-POS1] Memory pool size: $(length(image_pool)), Distorted traces: $(length(distorted_traces))")
-        #     
-        #     if length(distorted_traces) > 0
-        #         println("[DEBUG-FINAL-TEST-POS1] Sample distorted traces:")
-        #         for (idx, trace) in enumerate(distorted_traces[1:min(3, length(distorted_traces))])
-        #             println("  $(idx): Type $(trace.word.type) - $(trace.word.item) - From initial pos: $(trace.initial_testpos_img)")
-        #         end
-        #         
-        #         # Track initial test positions of all distorted traces
-        #         distorted_positions = [img.initial_testpos_img for img in distorted_traces]
-        #         println("[DEBUG-FINAL-TEST-POS1] Distorted traces from initial positions: $(sort(unique(distorted_positions)))")
-        #     end
-        #     
-        #     # Track initial test positions of all traces being used in likelihood calculation
-        #     all_positions = [img.initial_testpos_img for img in image_pool]
-        #     println("[DEBUG-FINAL-TEST-POS1] All memory traces from initial positions: $(sort(unique(all_positions)))")
-        #     println("[DEBUG-FINAL-TEST-POS1] Total memory traces: $(length(image_pool))")
-        # end
+
 
         # _, likelihood_ratios = [calculate_two_step_likelihoods(probes[i].image, image) for image in image_pool] 
         if i == 1
@@ -38,51 +13,14 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         else
             index = searchsortedfirst(range_breaks_finalt, i) - 1
         end
-        # println(index)
-        # if index != -1
-        #     P = P_s[index]
-        # else
-        #     error("Value out of range.")
-        # end
-
 
         _, likelihood_ratios_org = calculate_two_step_likelihoods2(probes[i].image, image_pool, 1.0, i)
         likelihood_ratios = likelihood_ratios_org |> x -> filter(e -> e != 344523466743, x)
         #    if ii==1 println(size(image_pool),"of", size(likelihood_ratios)) end
 
-        # Debug: Check which traces are being matched during final test position 1
-        # if i == 1
-        #     # Find traces that passed the likelihood filter (not 344523466743)
-        #     passing_indices = findall(x -> x != 344523466743, likelihood_ratios_org)
-        #     passing_traces = image_pool[passing_indices]
-        #     distorted_passing = filter(img -> contains(img.word.item, "DISTORTED"), passing_traces)
-        #     
-        #     println("[DEBUG-FINAL-TEST-POS1] Likelihood calculation results:")
-        #     println("  Total traces: $(length(image_pool))")
-        #     println("  Traces passing filter: $(length(passing_traces))")
-        #     println("  Distorted traces passing: $(length(distorted_passing))")
-        #     
-        #     if length(distorted_passing) > 0
-        #         println("  Distorted traces that passed filter:")
-        #         for (idx, trace) in enumerate(distorted_passing[1:min(3, length(distorted_passing))])
-        #             trace_idx = findfirst(x -> x === trace, image_pool)
-        #             likelihood_val = likelihood_ratios_org[trace_idx]
-        #             println("    $(idx): Type $(trace.word.type) - $(trace.word.item) (likelihood: $(likelihood_val))")
-        #         end
-        #     end
-        # end
 
         # println(likelihood_ratios)
         odds = (1 / length(likelihood_ratios) * sum(likelihood_ratios))^power_taken
-        # println(round(odds, digits=3), " some llikelihood ", likelihood_ratios[1], " ", likelihood_ratios[2], ", Ndenom: ", length(likelihood_ratios));
-        # round(odds, digits=3)
-        # for ill in likelihood_ratios
-        #     if ill > 1e5
-        #         println("$(ill)")
-        #         break
-        #     end
-        # end            
-        # println(" ")
 
         crrchunk = ceil(Int, i / 42)
         criterion_final_i = criterion_final[crrchunk] #this need to be changed if 
@@ -99,20 +37,22 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         is_sampled = false    # Initialize is_sampled
         if (odds > criterion_final_i) && (odds > recall_odds_threshold)
             is_sampled = true
-            
+
             if sampling_method
-                # Use sampling probabilities
-                cdf_each_boral_sets = Categorical(sampling_probabilities)
-                index_sampled = rand(cdf_each_boral_sets)
-                sampled_item = image_pool[index_sampled]
-                
-                # Check if the sampled item is the same as the probe being tested
-                is_same_item = sampled_item.word.item == probes[i].image.word.item
+                # Use sampling probabilities - check if we have valid probabilities
+                if sum(sampling_probabilities) > 0
+                    cdf_each_boral_sets = Categorical(sampling_probabilities)
+                    index_sampled = rand(cdf_each_boral_sets)
+                    sampled_item = image_pool[index_sampled]
+
+                    # Check if the sampled item is the same as the probe being tested
+                    is_same_item = sampled_item.word.item == probes[i].image.word.item
+                end
             else
                 # Pick the image with maximum content_LL_ratios value
                 imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org])
                 sampled_item = image_pool[imax]
-                
+
                 # Check if the sampled item is the same as the probe being tested
                 is_same_item = sampled_item.word.item == probes[i].image.word.item
             end
@@ -306,28 +246,28 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         #criterion change by test position
 
         # Sample or select item BEFORE decision logic (following E3 pattern)
-        sampled_item = nothing
-        is_same_item = false  # Initialize is_same_item
-        is_sampled = false    # Initialize is_sampled
+        # sampled_item = nothing
+        # is_same_item = false  # Initialize is_same_item
+        # is_sampled = false    # Initialize is_sampled
         # if (odds > criterion_initial[i_testpos, ilist_probe]) && (odds > recall_odds_threshold)
-            is_sampled = true
+        #     is_sampled = true
             
-            if sampling_method
-                # Use sampling probabilities
-                cdf_each_boral_sets = Categorical(sampling_probabilities)
-                index_sampled = rand(cdf_each_boral_sets)
-                sampled_item = image_pool_currentlist[index_sampled]
+        #     if sampling_method
+        #         # Use sampling probabilities
+        #         cdf_each_boral_sets = Categorical(sampling_probabilities)
+        #         index_sampled = rand(cdf_each_boral_sets)
+        #         sampled_item = image_pool_currentlist[index_sampled]
                 
-                # Check if the sampled item is the same as the probe being tested
-                is_same_item = sampled_item.word.item == probes[i].image.word.item
-            else
-                # Pick the image with maximum content_LL_ratios value
-                imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org])
-                sampled_item = image_pool_currentlist[imax]
+        #         # Check if the sampled item is the same as the probe being tested
+        #         is_same_item = sampled_item.word.item == probes[i].image.word.item
+        #     else
+        #         # Pick the image with maximum content_LL_ratios value
+        #         imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org])
+        #         sampled_item = image_pool_currentlist[imax]
                 
-                # Check if the sampled item is the same as the probe being tested
-                is_same_item = sampled_item.word.item == probes[i].image.word.item
-            end
+        #         # Check if the sampled item is the same as the probe being tested
+        #         is_same_item = sampled_item.word.item == probes[i].image.word.item
+        #     end
         # end
 
         # decision_isold = odds > criterion_initial[i_testpos] ? 1 : 0;

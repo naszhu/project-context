@@ -136,6 +136,19 @@ function simulate_rem()
             #    println(studied_pool[list_num,21])
             studied_pool[n_words+1:n_words+Int(n_words / 2), list_num] = foil_collections
 
+            # DEBUG: Verify foils in studied_pool are actually non-distorted
+            if is_content_distort_between_study_and_test && list_num == 1
+                # Check first foil in studied_pool against first foil from probes
+                first_foil_studied = studied_pool[n_words+1, list_num]
+                first_foil_probe = filter(p -> p.classification == :foil, probes)[1]
+                num_diff = sum(first_foil_studied.word.word_features[j] != first_foil_probe.image.word.word_features[j] for j in 1:min(w_word, length(first_foil_studied.word.word_features)))
+                if num_diff > 0
+                    println("[OK] List $list_num: studied_pool foil differs from probe foil in $num_diff features (non-distorted storage working)")
+                else
+                    println("[WARNING] List $list_num: studied_pool foil IDENTICAL to probe foil! May be storing distorted version!")
+                end
+            end
+
             # Store original CC for this list (before it changes between lists) for final test reconstruction
             original_list_CC_by_list[list_num] = deepcopy(list_change_context_features)
 
