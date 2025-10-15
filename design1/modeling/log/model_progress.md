@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [20e1295](https://github.com/naszhu/REM_E3_model_fixed/commit/20e1295) (branch: `oct-15-debug2-worked`)
+**Time:** 2025-10-15 21:56:03  
+**Message:**
+```
+refactor(model-e1): comment out sampling logic in probe evaluation
+
+- Commented out the sampling logic in the `probe_evaluation` function to simplify the code and focus on the Z feature implementation.
+- Added an error message indicating that the Z feature is not implemented for E1, improving clarity for future development.
+
+These changes aim to streamline the probe evaluation process while highlighting areas for further implementation.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+![](../plot_archive/20e1295_20251015_215603_plot1.png)  
+![](../plot_archive/20e1295_20251015_215603_plot2.png)  
+
 ## Commit [491a10f](https://github.com/naszhu/REM_E3_model_fixed/commit/491a10f) (branch: `oct-15-debug2-worked`)
 **Time:** 2025-10-15 21:51:29  
 **Message:**

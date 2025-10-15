@@ -1,5 +1,18 @@
 [
   {
+    "commit": "20e1295",
+    "branch": "oct-15-debug2-worked",
+    "message": "refactor(model-e1): comment out sampling logic in probe evaluation",
+    "timestamp": "2025-10-15 21:56:03",
+    "plot1": "plot_archive/20e1295_20251015_215603_plot1.png",
+    "plot2": "plot_archive/20e1295_20251015_215603_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_evaluation.jl"
+    ]
+  },
+  {
     "commit": "491a10f",
     "branch": "oct-15-debug2-worked",
     "message": "fix(model-e1):  make base_distortion >0",

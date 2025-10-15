@@ -249,20 +249,20 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
             if odds > recall_odds_threshold
                 is_sampled = true
                 
-                # if sampling_method
-                #     # Use sampling probabilities to select an item
-                #     if sum(sampling_probabilities) > 0  # Check if we have valid probabilities
-                #         cdf_each_boral_sets = Categorical(sampling_probabilities)
-                #         index_sampled = rand(cdf_each_boral_sets)
-                #         sampled_item = image_pool_currentlist[index_sampled]
-                #         is_same_item = sampled_item.word.item == probes[i].image.word.item
-                #     end
-                # else
-                #     # Pick the image with maximum likelihood ratio
-                #     imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org])
-                #     sampled_item = image_pool_currentlist[imax]
-                #     is_same_item = sampled_item.word.item == probes[i].image.word.item
-                # end
+                if sampling_method
+                    # Use sampling probabilities to select an item
+                    if sum(sampling_probabilities) > 0  # Check if we have valid probabilities
+                        cdf_each_boral_sets = Categorical(sampling_probabilities)
+                        index_sampled = rand(cdf_each_boral_sets)
+                        sampled_item = image_pool_currentlist[index_sampled]
+                        is_same_item = sampled_item.word.item == probes[i].image.word.item
+                    end
+                else
+                    # Pick the image with maximum likelihood ratio
+                    imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org])
+                    sampled_item = image_pool_currentlist[imax]
+                    is_same_item = sampled_item.word.item == probes[i].image.word.item
+                end
                 
                 # Apply Z feature logic for E1 (simplified - only targets, no confusing foils)
                 if ilist_probe != 1 && use_Z_feature && !isnothing(sampled_item)
@@ -307,28 +307,28 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         #criterion change by test position
 
         # Sample or select item BEFORE decision logic (following E3 pattern)
-        sampled_item = nothing
-        is_same_item = false  # Initialize is_same_item
-        is_sampled = false    # Initialize is_sampled
-        # if (odds > criterion_initial[i_testpos, ilist_probe]) && (odds > recall_odds_threshold)
-            is_sampled = true
+        # sampled_item = nothing
+        # is_same_item = false  # Initialize is_same_item
+        # is_sampled = false    # Initialize is_sampled
+        # # if (odds > criterion_initial[i_testpos, ilist_probe]) && (odds > recall_odds_threshold)
+        #     is_sampled = true
             
-            if sampling_method
-                # Use sampling probabilities
-                cdf_each_boral_sets = Categorical(sampling_probabilities)
-                index_sampled = rand(cdf_each_boral_sets)
-                sampled_item = image_pool_currentlist[index_sampled]
+        #     if sampling_method
+        #         # Use sampling probabilities
+        #         cdf_each_boral_sets = Categorical(sampling_probabilities)
+        #         index_sampled = rand(cdf_each_boral_sets)
+        #         sampled_item = image_pool_currentlist[index_sampled]
                 
-                # Check if the sampled item is the same as the probe being tested
-                is_same_item = sampled_item.word.item == probes[i].image.word.item
-            else
-                # Pick the image with maximum content_LL_ratios value
-                imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org])
-                sampled_item = image_pool_currentlist[imax]
+        #         # Check if the sampled item is the same as the probe being tested
+        #         is_same_item = sampled_item.word.item == probes[i].image.word.item
+        #     else
+        #         # Pick the image with maximum content_LL_ratios value
+        #         imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org])
+        #         sampled_item = image_pool_currentlist[imax]
                 
-                # Check if the sampled item is the same as the probe being tested
-                is_same_item = sampled_item.word.item == probes[i].image.word.item
-            end
+        #         # Check if the sampled item is the same as the probe being tested
+        #         is_same_item = sampled_item.word.item == probes[i].image.word.item
+        #     end
         # end
 
         # decision_isold = odds > criterion_initial[i_testpos] ? 1 : 0;
