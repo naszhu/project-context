@@ -120,7 +120,7 @@ is_onlytest_currentlist = false; #this is discarded currently
 power_taken = 1  # raise to 1/11 power for sampling
 
 # this is [0.148] in E3
-# v_criterion_initial = 0.1^power_taken
+v_criterion_initial = 0.1^power_taken
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 # Parameters for linear diminishing criterion (between-list dimension)
@@ -175,7 +175,7 @@ context_tau = 100 #foil odds should lower than this
 κ_update_between_list = 0.0;
 LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
-p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
+p_reinstate_context = 1.0 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well.
 p_reinstate_rate = 0.30 #0.4 #prob of reinstatement #do not reinstate. 
 
