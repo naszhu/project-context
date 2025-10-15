@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [025f06e](https://github.com/naszhu/REM_E3_model_fixed/commit/025f06e) (branch: `oct-15-debug2-worked`)
+**Time:** 2025-10-15 22:02:52  
+**Message:**
+```
+debug(model-e1): flag content=true distortion isn't the porblem either
+
+- Updated the `is_content_distort_between_study_and_test` flag from false to true to enable content distortion during the simulation process.
+- This change aims to enhance the model's ability to simulate realistic variations in content between study and test phases, contributing to more accurate experimental outcome
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/025f06e_20251015_220252_plot1.png)  
+![](../plot_archive/025f06e_20251015_220252_plot2.png)  
+
 ## Commit [711a197](https://github.com/naszhu/REM_E3_model_fixed/commit/711a197) (branch: `oct-15-debug2-worked`)
 **Time:** 2025-10-15 22:01:14  
 **Message:**

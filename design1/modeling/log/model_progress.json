@@ -1,5 +1,18 @@
 [
   {
+    "commit": "025f06e",
+    "branch": "oct-15-debug2-worked",
+    "message": "debug(model-e1): flag content=true distortion isn't the porblem either",
+    "timestamp": "2025-10-15 22:02:52",
+    "plot1": "plot_archive/025f06e_20251015_220252_plot1.png",
+    "plot2": "plot_archive/025f06e_20251015_220252_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "711a197",
     "branch": "oct-15-debug2-worked",
     "message": "refactor(model-e1): commented out the other sampling -- sampling isn't the issue",

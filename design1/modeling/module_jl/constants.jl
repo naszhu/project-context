@@ -94,8 +94,10 @@ is_test_changecontext2 = false #is testing only change context in final test
 
 # Restoration flags
 is_restore_initial = true
-is_UnchangeCtxDriftAndReinstate = false  #  do not reinstate UC 
-is_distort_probes = true
+
+is_UnchangeCtxDriftAndReinstate = false  #  do not reinstate UC This shouldn't matter FIXME
+is_distort_probes = true #this is not used
+
 const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
