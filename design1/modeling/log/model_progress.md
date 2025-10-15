@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [7ad590b](https://github.com/naszhu/REM_E3_model_fixed/commit/7ad590b) (branch: `oct-15-debug2-worked`)
+**Time:** 2025-10-14 21:49:30  
+**Message:**
+```
+fix(model-e1): foil collection should store NON-DISTORTED foils for final test use
+
+- Modified the `generate_probes` function to ensure that non-distorted words are used for the foils collection during the final test.
+- Introduced a new variable to hold the non-distorted foil image, improving the accuracy of the foil collection process.
+- Updated comments to clarify the importance of using non-distorted words for foils, enhancing code readability.
+
+These changes aim to ensure the integrity of the foil images used in testing, contributing to more reliable simulation outcomes.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/7ad590b_20251014_214930_plot1.png)  
+![](../plot_archive/7ad590b_20251014_214930_plot2.png)  
+
 ## Commit [a0d74fd](https://github.com/naszhu/REM_E3_model_fixed/commit/a0d74fd) (branch: `oct-14-2`)
 **Time:** 2025-10-14 21:43:56  
 **Message:**

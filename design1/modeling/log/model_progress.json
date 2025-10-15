@@ -1,5 +1,18 @@
 [
   {
+    "commit": "7ad590b",
+    "branch": "oct-15-debug2-worked",
+    "message": "fix(model-e1): foil collection should store NON-DISTORTED foils for final test use",
+    "timestamp": "2025-10-14 21:49:30",
+    "plot1": "plot_archive/7ad590b_20251014_214930_plot1.png",
+    "plot2": "plot_archive/7ad590b_20251014_214930_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
     "commit": "a0d74fd",
     "branch": "oct-14-2",
     "message": "refactor(model-e1):  make distortion and reinstate into functions",
