@@ -1,7 +1,7 @@
 
 
-is_finaltest = true
-n_simulations = is_finaltest ? 200 : 1000;
+is_finaltest = false
+n_simulations = is_finaltest ? 200 : 500;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -185,7 +185,7 @@ base_distortion_prob_UC = 0.2  # distortion probability for UC (set higher to te
 base_distortion_prob_CC = 0.2  # distortion probability for CC (set higher to test effect)
 
 # Recovery probability parameters for context reinstatement during test
-base_recovery_prob = 0.0  # constant probability of recovering distorted features during test
+base_recovery_prob = 0.1  # constant probability of recovering distorted features during test
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 20  # Number of probes until distortion probability reaches 0

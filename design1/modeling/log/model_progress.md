@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [dec8df2](https://github.com/naszhu/REM_E3_model_fixed/commit/dec8df2) (branch: `oct-14-2`)
+**Time:** 2025-10-15 21:29:01  
+**Message:**
+```
+feat(all-analysis-e1): final between reanalyze
+
+- Introduced a new R script for the final test of combined between-list order analysis, integrating initial and final order effects across different conditions (forward, backward, random).
+- Implemented data preparation steps, including loading data, creating lookup tables, and generating final test datasets with appropriate ordering types.
+- Developed a main model to analyze the interaction between condition and ordering type, with provisions for polynomial terms and convergence checks.
+- Added functionality for item-type-specific trends and pairwise comparisons, enhancing the analysis of the results.
+- Included saving mechanisms for model outputs and summaries, ensuring reproducibility and accessibility of results.
+
+These changes aim to provide a comprehensive framework for analyzing between-list order effects in the context of the study.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/dec8df2_20251015_212901_plot1.png)  
+![](../plot_archive/dec8df2_20251015_212901_plot2.png)  
+
 ## Commit [79c2319](https://github.com/naszhu/REM_E3_model_fixed/commit/79c2319) (branch: `oct-14-2`)
 **Time:** 2025-10-15 19:02:01  
 **Message:**

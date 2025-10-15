@@ -1,5 +1,18 @@
 [
   {
+    "commit": "dec8df2",
+    "branch": "oct-14-2",
+    "message": "feat(all-analysis-e1): final between reanalyze",
+    "timestamp": "2025-10-15 21:29:01",
+    "plot1": "plot_archive/dec8df2_20251015_212901_plot1.png",
+    "plot2": "plot_archive/dec8df2_20251015_212901_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "79c2319",
     "branch": "oct-14-2",
     "message": "fix(model-e1): duplicated part in function. BUG on should store non-distorted for test & forgot to set prob distort >0!!",

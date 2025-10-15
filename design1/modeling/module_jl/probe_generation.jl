@@ -79,16 +79,16 @@ function generate_probes(
         if i>1 #now the first item is not reinstated
 
             # REINSTATE CC (changing context): reinstate from after_distort toward before_distort
-            reinstate_context_duringTest!(CC_after_distort, CC_before_distort, p_reinstate_context, p_reinstate_rate)
+            reinstate_context_duringTest!(CC_after_distort, CC_before_distort, p_reinstate_context, base_recovery_prob)
 
             # REINSTATE UC (unchanging context): reinstate from after_distort toward before_distort
             if is_UC_distort_between_study_and_test
-                reinstate_context_duringTest!(UC_after_distort, UC_before_distort, p_reinstate_context, p_reinstate_rate)
+                reinstate_context_duringTest!(UC_after_distort, UC_before_distort, p_reinstate_context, base_recovery_prob)
             end
 
             # REINSTATE CONTENT: reinstate THIS probe's word features from after_distort toward before_distort
             if is_content_distort_between_study_and_test
-                reinstate_word_content_duringTest!(target_word, probe_words_before_distort[i], p_reinstate_rate, w_word)
+                reinstate_word_content_duringTest!(target_word, probe_words_before_distort[i], base_recovery_prob, w_word)
             end
 
         end
