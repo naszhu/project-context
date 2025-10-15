@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [c96b4df](https://github.com/naszhu/REM_E3_model_fixed/commit/c96b4df) (branch: `oct-15-debug2-worked`)
+**Time:** 2025-10-15 22:04:22  
+**Message:**
+```
+refactor(model-e1): added some comments
+
+- Added comments to clarify the purpose of `is_UnchangeCtxDriftAndReinstate` and `is_distort_probes` flags, indicating their current state and relevance.
+- These modifications aim to enhance code readability and ensure that the flags are well-documented for future reference.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c96b4df_20251015_220422_plot1.png)  
+![](../plot_archive/c96b4df_20251015_220422_plot2.png)  
+
 ## Commit [025f06e](https://github.com/naszhu/REM_E3_model_fixed/commit/025f06e) (branch: `oct-15-debug2-worked`)
 **Time:** 2025-10-15 22:02:52  
 **Message:**

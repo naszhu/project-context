@@ -182,9 +182,9 @@ p_reinstate_context = 1.0 #stop reinstate after how much features, 1.9 means a h
 p_reinstate_rate = 0.30 #0.4 #prob of reinstatement #do not reinstate. 
 
 # Distortion probability parameters (Issue #50)
-base_distortion_prob = 0.2  # distortion probability for content
-base_distortion_prob_UC = 0.2  # distortion probability for UC (set higher to test effect)
-base_distortion_prob_CC = 0.7  # distortion probability for CC (set higher to test effect)
+base_distortion_prob = 0.6  # distortion probability for content
+base_distortion_prob_UC = 0.6  # distortion probability for UC (set higher to test effect)
+base_distortion_prob_CC = 0.6  # distortion probability for CC (set higher to test effect)
 
 # Recovery probability parameters for context reinstatement during test
 base_recovery_prob = 0.0  # constant probability of recovering distorted features during test
