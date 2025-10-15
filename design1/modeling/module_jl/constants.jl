@@ -222,7 +222,7 @@ chunk_size_final_change = 42;
 
 # Context reconstruction flags for final test (between-list)
 is_reconstruct_finaltest_forward = true   # Enable CC reconstruction for forward condition
-is_reconstruct_finaltest_backward = false  # Disable CC reconstruction for backward condition
+is_reconstruct_finaltest_backward = true  # Disable CC reconstruction for backward condition
 # is_reconstruct_finaltest_random = false   # never do reconstruction for random condition
 p_reinstate_rate_finaltest = 0.3          # Probability of reinstating original CC features in final test 
 

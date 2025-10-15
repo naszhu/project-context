@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [cdeaece](https://github.com/naszhu/REM_E3_model_fixed/commit/cdeaece) (branch: `oct-14-2`)
+**Time:** 2025-10-15 22:21:40  
+**Message:**
+```
+feat(all-analysis-e1): more tries, update glmer model specifications for accuracy analysis
+
+- Added new model specifications for the combined between-list order analysis, refining the interaction terms to better capture the effects of list order, item type, condition, and ordering type.
+- Included additional comments and relative gradient outputs to enhance clarity and facilitate future analysis.
+- These changes aim to improve the robustness of the model and ensure accurate representation of the data relationships.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/cdeaece_20251015_222140_plot1.png)  
+![](../plot_archive/cdeaece_20251015_222140_plot2.png)  
+
 ## Commit [806f1e3](https://github.com/naszhu/REM_E3_model_fixed/commit/806f1e3) (branch: `oct-14-2`)
 **Time:** 2025-10-15 21:29:25  
 **Message:**

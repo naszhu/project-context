@@ -1,5 +1,18 @@
 [
   {
+    "commit": "cdeaece",
+    "branch": "oct-14-2",
+    "message": "feat(all-analysis-e1): more tries, update glmer model specifications for accuracy analysis",
+    "timestamp": "2025-10-15 22:21:40",
+    "plot1": "plot_archive/cdeaece_20251015_222140_plot1.png",
+    "plot2": "plot_archive/cdeaece_20251015_222140_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "806f1e3",
     "branch": "oct-14-2",
     "message": "fix(model-e1): parameter was wrong and tehre is a bug right now in runing.",
