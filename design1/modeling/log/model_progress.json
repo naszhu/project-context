@@ -1,5 +1,20 @@
 [
   {
+    "commit": "806f1e3",
+    "branch": "oct-14-2",
+    "message": "fix(model-e1): parameter was wrong and tehre is a bug right now in runing.",
+    "timestamp": "2025-10-15 21:29:25",
+    "plot1": "plot_archive/806f1e3_20251015_212925_plot1.png",
+    "plot2": "plot_archive/806f1e3_20251015_212925_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "dec8df2",
     "branch": "oct-14-2",
     "message": "feat(all-analysis-e1): final between reanalyze",

@@ -133,6 +133,7 @@ validate_position_data(final_combined, "list_order")
 #   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 500000)),
 #   na.action = na.omit
 # )
+# Relative gradient: 0.4693594 
 
 # version on the right
 
@@ -146,6 +147,35 @@ validate_position_data(final_combined, "list_order")
 #   data = final_combined, family = binomial,
 #   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 500000)),
 #   na.action = na.omit)
+# Relative gradient: 0.1293612 
+
+# #3
+# m_combined <- glmer(
+#   accuracy ~ list_order_lin * item_type * condition * ordering_type +
+#              list_order_lin * ordering_type +
+#              list_order_quad * item_type  +
+#              list_order_quad * ordering_type +
+#     (1 | participant_id),
+#   data = final_combined, family = binomial,
+#   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 500000)),
+#   na.action = na.omit
+# )
+
+
+#4
+
+
+m_combined <- glmer(
+  accuracy ~ list_order_lin * item_type * condition  +
+             list_order_lin * ordering_type +
+             list_order_quad * item_type  +
+             list_order_quad * ordering_type +
+    (1 | participant_id),
+  data = final_combined, family = binomial,
+  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 500000)),
+  na.action = na.omit
+)
+
 
 
 # Check convergence

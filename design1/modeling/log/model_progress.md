@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [806f1e3](https://github.com/naszhu/REM_E3_model_fixed/commit/806f1e3) (branch: `oct-14-2`)
+**Time:** 2025-10-15 21:29:25  
+**Message:**
+```
+fix(model-e1): parameter was wrong and tehre is a bug right now in runing.
+
+- Changed `is_finaltest` to false and adjusted `n_simulations` to 500 for improved testing conditions.
+- Updated `base_recovery_prob` from 0.0 to 0.1 to enhance recovery probability during tests.
+- Refactored `generate_probes` function to utilize the updated `base_recovery_prob` for reinstatement processes.
+
+These changes aim to refine the simulation setup and improve the accuracy of recovery during testing.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design3/modeling`  
+![](../plot_archive/806f1e3_20251015_212925_plot1.png)  
+![](../plot_archive/806f1e3_20251015_212925_plot2.png)  
+
 ## Commit [dec8df2](https://github.com/naszhu/REM_E3_model_fixed/commit/dec8df2) (branch: `oct-14-2`)
 **Time:** 2025-10-15 21:29:01  
 **Message:**
