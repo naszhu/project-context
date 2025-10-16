@@ -244,7 +244,7 @@ BASE_FONT_SIZE <- 32
 POINT_SIZE <- 6.5
 LINE_WIDTH <- 2.2
 AVERAGE_LINE_WIDTH <- 2.8
-RIBBON_ALPHA <- 0.25
+RIBBON_ALPHA <- 0.4
 LINE_ALPHA <- 0.85
 
 # Y-axis limits and breaks
@@ -391,7 +391,7 @@ prediction_plot <- ggplot(data = df_combined, aes(x = position, y = meanx, group
     geom_point(aes(color = is_target, shape = is_target), size = POINT_SIZE) +
     # Add black average line ONLY for test position
     geom_line(data = df_combined %>% filter(position_type == "Initial Test Pos"),
-              aes(x = position, y = meanx_m), color = COLOR_AVERAGE, linewidth = AVERAGE_LINE_WIDTH, linetype = "solid") +
+              aes(x = position, y = meanx_m), color = COLOR_AVERAGE, linewidth = AVERAGE_LINE_WIDTH, linetype = "dashed") +
     # Add black square points for the average line - COMMENTED OUT to show only line
     # geom_point(data = df_combined %>% filter(position_type == "Initial Test Pos"),
     #            aes(x = position, y = meanx_m), color = COLOR_AVERAGE, shape = 15, size = 4) +
@@ -491,7 +491,7 @@ STRIP_BORDER_WIDTH <- 0.4
 
 # Point styling
 POINT_ALPHA <- 1
-POINT_STROKE <- 1.2
+POINT_STROKE <- 2
 LINE_ALPHA <- 1
 RIBBON_ALPHA <- 0.25
 

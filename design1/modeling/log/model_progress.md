@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [1701b0a](https://github.com/naszhu/REM_E3_model_fixed/commit/1701b0a) (branch: `main`)
+**Time:** 2025-10-16 21:25:19  
+**Message:**
+```
+refactor(allplots-e1): update plot aesthetics and data labels
+
+- Increased RIBBON_ALPHA for better visibility in plots.
+- Standardized position type labels to "Initial Test Pos" and "Initial Study Pos" for consistency.
+- Adjusted point stroke size for improved clarity in visual representation.
+- Modified plot dimensions for better layout in combined plots.
+
+These changes aim to enhance the visual quality and consistency of the plots generated in the analysis.
+
+Refs #56
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/1701b0a_20251016_212519_plot1.png)  
+![](../plot_archive/1701b0a_20251016_212519_plot2.png)  
+
 ## Commit [7e72fdd](https://github.com/naszhu/REM_E3_model_fixed/commit/7e72fdd) (branch: `main`)
 **Time:** 2025-10-16 21:09:07  
 **Message:**
