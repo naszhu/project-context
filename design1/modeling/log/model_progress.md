@@ -1,6 +1,10 @@
 # Model Progress
 
+<<<<<<< HEAD
 ## Commit [9e380f1](https://github.com/naszhu/REM_E3_model_fixed/commit/9e380f1) (branch: `HEAD`)
+=======
+## Commit [9e380f1](https://github.com/naszhu/REM_E3_model_fixed/commit/9e380f1) (branch: `main`)
+>>>>>>> b497732 (doc(analysis-e1): comment out unnecessary term in GLMM and update result files)
 **Time:** 2025-10-16 21:04:06  
 **Message:**
 ```

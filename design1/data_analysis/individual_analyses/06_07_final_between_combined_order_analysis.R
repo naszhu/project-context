@@ -170,7 +170,7 @@ m_combined <- glmer(
             list_order_lin * item_type +
              list_order_lin * ordering_type +
              list_order_quad * item_type  +
-             list_order_quad * ordering_type +
+            #  list_order_quad * ordering_type +
     (1 | participant_id),
   data = final_combined, family = binomial,
   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 500000)),
