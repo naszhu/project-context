@@ -159,14 +159,15 @@ validate_position_data(final_combined, "list_order")
 #   data = final_combined, family = binomial,
 #   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 500000)),
 #   na.action = na.omit
-# )
+# ) #Relative gradient: 0.1293612 
 
 
 #4
 
 
 m_combined <- glmer(
-  accuracy ~ list_order_lin * item_type * condition  +
+  accuracy ~ list_order_lin * condition  +
+            list_order_lin * item_type +
              list_order_lin * ordering_type +
              list_order_quad * item_type  +
              list_order_quad * ordering_type +
@@ -174,7 +175,7 @@ m_combined <- glmer(
   data = final_combined, family = binomial,
   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 500000)),
   na.action = na.omit
-)
+) #Relative gradient: 0.07150574 
 
 
 

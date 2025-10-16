@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [280dd35](https://github.com/naszhu/REM_E3_model_fixed/commit/280dd35) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:05:19  
+**Message:**
+```
+finetune(model-e1): a good working version. adjust simulation parameters for improved accuracy
+
+- Decreased `nnnow` to 0.87 to modify the initial differences between T and F.
+- Increased `criterion_between_list_start`, `criterion_between_list_initial_increment`, and `criterion_between_list_decrement_per_step` for finer control over the linear diminishing criterion.
+- Adjusted `p_reinstate_rate` to 0.12 and lowered `base_distortion_prob` to 0.18 for better content distortion handling.
+- Commented out `total_probe_L1`, `total_probe_Ln`, and `nItemPerUnit_final` for clarity in the final test parameters.
+
+These changes aim to refine the simulation setup, enhancing the accuracy and reliability of the results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/280dd35_20251016_100519_plot1.png)  
+![](../plot_archive/280dd35_20251016_100519_plot2.png)  
+
 ## Commit [5e9f64d](https://github.com/naszhu/REM_E3_model_fixed/commit/5e9f64d) (branch: `oct-14-2`)
 **Time:** 2025-10-16 09:45:18  
 **Message:**
