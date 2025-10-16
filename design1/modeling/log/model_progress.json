@@ -1,5 +1,14 @@
 [
   {
+    "commit": "996b8fd",
+    "branch": "main",
+    "message": "merge(oct-14-2): Merge branch 'oct-14-2'",
+    "timestamp": "2025-10-16 11:25:01",
+    "plot1": "plot_archive/996b8fd_20251016_112501_plot1.png",
+    "plot2": "plot_archive/996b8fd_20251016_112501_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "56e0b41",
     "branch": "oct-14-2",
     "message": "finetune(model-e1): set `is_finaltest` to true for final testing conditions",

@@ -1,5 +1,14 @@
 # Model Progress
 
+## Commit [996b8fd](https://github.com/naszhu/REM_E3_model_fixed/commit/996b8fd) (branch: `main`)
+**Time:** 2025-10-16 11:25:01  
+**Message:**
+```
+merge(oct-14-2): Merge branch 'oct-14-2'
+```
+![](../plot_archive/996b8fd_20251016_112501_plot1.png)  
+![](../plot_archive/996b8fd_20251016_112501_plot2.png)  
+
 ## Commit [56e0b41](https://github.com/naszhu/REM_E3_model_fixed/commit/56e0b41) (branch: `oct-14-2`)
 **Time:** 2025-10-16 11:21:44  
 **Message:**

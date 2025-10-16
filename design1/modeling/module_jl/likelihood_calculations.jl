@@ -68,10 +68,11 @@ function calculate_two_step_likelihoods(probe::EpisodicImage, image_pool::Vector
 
                 # currently goes here
 
-                # Combine nC and a portion of nU based on a probability
-                U_ctx = nU_in
-                C_ctx = nC_in
-    
+                # Combine nC and a portion of nU based on list number (dynamic weighting)
+                # Use list-specific UC and CC weights (ilist is probe.list_number from line 44)
+                U_ctx = nU_in[ilist]
+                C_ctx = nC_in[ilist]
+
                 #CHANGED: !! should start from nU!! careful here!
                 probe_context_adjusted = fast_concat([probe_context[1 : U_ctx], probe_context[(nU +1) : (nU + C_ctx)]]) #take the first half
                 image_context_adjusted = fast_concat([image_context[1 : U_ctx], image_context[(nU +1) : (nU + C_ctx)]]) #ohoh, this is not wrong, its chunking the context of the image trace in memory...
