@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [2887933](https://github.com/naszhu/REM_E3_model_fixed/commit/2887933) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:33:34  
+**Message:**
+```
+bug(model-e1): final test bad now study only and foil initial test diverge now
+
+- Set `is_finaltest` to true, adjusting `n_simulations` to 200 for final testing conditions.
+- Modified the `criterion_final` calculation to enhance alignment with testing objectives, improving the model's sensitivity to variations.
+
+These changes aim to optimize the simulation parameters for the final test, ensuring more accurate and reliable results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/2887933_20251016_103334_plot1.png)  
+![](../plot_archive/2887933_20251016_103334_plot2.png)  
+
 ## Commit [5b200f8](https://github.com/naszhu/REM_E3_model_fixed/commit/5b200f8) (branch: `oct-14-2`)
 **Time:** 2025-10-16 10:29:48  
 **Message:**

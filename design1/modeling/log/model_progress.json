@@ -1,5 +1,18 @@
 [
   {
+    "commit": "2887933",
+    "branch": "oct-14-2",
+    "message": "bug(model-e1): final test bad now study only and foil initial test diverge now",
+    "timestamp": "2025-10-16 10:33:34",
+    "plot1": "plot_archive/2887933_20251016_103334_plot1.png",
+    "plot2": "plot_archive/2887933_20251016_103334_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "5b200f8",
     "branch": "oct-14-2",
     "message": "fix(model-e1): Don't need to have the part of judging chunk in final restore.",

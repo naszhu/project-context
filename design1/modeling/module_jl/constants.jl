@@ -101,11 +101,7 @@ is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
 is_restore_context = true # currently don't want to restore context features, only add new context features tarce
 
-# DISTORTION FLAGS (applied after drift, before initial test)
-# These control whether features are distorted between study and test
-is_content_distort_between_study_and_test = true  # CHANGED Enable content distortion (from E3)
-is_UC_distort_between_study_and_test = true  # CHANGED Enable UC (unchanging context) distortion (Issue #50)
-is_CC_distort_between_study_and_test = true  # CHANGED Enable CC (changing context) distortion (Issue #50)
+
 
 # Stage control flags
 is_firststage = true;
@@ -179,6 +175,12 @@ p_reinstate_context = 1.0 #stop reinstate after how much features, 1.0 means a h
 # CATION: uh, this needs to be 1 for E3 as well.
 p_reinstate_rate = 0.12 #0.4 #prob of reinstatement #do not reinstate. 
 base_recovery_prob = p_reinstate_rate  # constant probability of recovering distorted features during test
+
+# DISTORTION FLAGS (applied after drift, before initial test)
+# These control whether features are distorted between study and test
+is_content_distort_between_study_and_test = false  # CHANGED Enable content distortion (from E3)
+is_UC_distort_between_study_and_test = true  # CHANGED Enable UC (unchanging context) distortion (Issue #50)
+is_CC_distort_between_study_and_test = true  # CHANGED Enable CC (changing context) distortion (Issue #50)
 
 # Distortion probability parameters (Issue #50)
 base_distortion_prob = 0.18  # distortion probability for content
