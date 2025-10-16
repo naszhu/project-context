@@ -1,6 +1,6 @@
 
 
-is_finaltest = false
+is_finaltest = true
 n_simulations = is_finaltest ? 200 : 500;
 
 # =============================================================================
@@ -120,7 +120,7 @@ power_taken = 1  # raise to 1/11 power for sampling
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 # Parameters for linear diminishing criterion (between-list dimension)
-criterion_between_list_start = 0.1#0.35  # starting value for between-list criterion
+criterion_between_list_start = 0.14#0.35  # starting value for between-list criterion
 criterion_between_list_initial_increment = 0.2  # initial increment across lists
 criterion_between_list_decrement_per_step = 0.05  # how much increment decreases each list
 
@@ -235,7 +235,7 @@ range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 b
 # const nItemPerUnit_final = 2;  # items per unit in final test
 
 # Original criterion_final (commented out to try asymptotic version)
-criterion_final = LinRange((0.09+0.18)^power_taken, 0.27-0.1^power_taken, 10)
+criterion_final = LinRange((0.09+0.18+0.1)^power_taken, 0.27^power_taken, 10)
 # Generate asymptotic criterion_final using asym_increase_shift for nonlinear behavior
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)

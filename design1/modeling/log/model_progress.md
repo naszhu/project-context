@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [ddafe7b](https://github.com/naszhu/REM_E3_model_fixed/commit/ddafe7b) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:51:27  
+**Message:**
+```
+finetune(model-e1): update simulation parameters for improved model accuracy
+
+- Set `is_finaltest` to false, adjusting `n_simulations` to 500 for standard testing conditions.
+- Decreased `nnnow` to 0.78 to modify the initial differences between T and F.
+- Increased `criterion_between_list_start`, `criterion_between_list_initial_increment`, and `criterion_between_list_decrement_per_step` for finer control over the linear diminishing criterion.
+- Adjusted `base_distortion_prob_UC` and `base_distortion_prob_CC` to 0.19 to enhance content distortion handling.
+
+These changes aim to refine the simulation setup, improving the accuracy and reliability of the results.
+
+Refs #54
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/ddafe7b_20251016_105127_plot1.png)  
+![](../plot_archive/ddafe7b_20251016_105127_plot2.png)  
+
 ## Commit [454a4f6](https://github.com/naszhu/REM_E3_model_fixed/commit/454a4f6) (branch: `oct-14-2`)
 **Time:** 2025-10-16 10:40:46  
 **Message:**
