@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [72e72e6](https://github.com/naszhu/REM_E3_model_fixed/commit/72e72e6) (branch: `main`)
+**Time:** 2025-10-16 21:32:56  
+**Message:**
+```
+refactor(allplots-e3): enhance plot titles and formatting
+
+- Increased font sizes for plot titles and super titles to improve visibility.
+- Centered plot titles for better alignment and aesthetics.
+- Updated line types and point shapes for clearer distinction in visual representation.
+
+These changes aim to enhance the overall visual quality and clarity of the plots generated in the analysis.
+
+Refs #56
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/72e72e6_20251016_213256_plot1.png)  
+![](../plot_archive/72e72e6_20251016_213256_plot2.png)  
+
 ## Commit [819bb6a](https://github.com/naszhu/REM_E3_model_fixed/commit/819bb6a) (branch: `main`)
 **Time:** 2025-10-16 21:25:30  
 **Message:**

@@ -64,9 +64,9 @@ PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
     strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
     axis.line = element_line(color = "black", linewidth = 0.5),
-    strip.background = element_rect(fill = "grey90", color = NA)
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
+    panel.border = element_rect(color = "black", linewidth = 0.5, fill = NA)
   )
 
 #########################  DATA  ##############################
@@ -315,9 +315,9 @@ PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
     strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
     axis.line = element_line(color = "black", linewidth = 0.5),
-    strip.background = element_rect(fill = "grey90", color = NA)
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
+    panel.border = element_rect(color = "black", linewidth = 0.5, fill = NA)
   )
 
 
@@ -534,9 +534,9 @@ PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
     strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
     axis.line = element_line(color = "black", linewidth = 0.5),
-    strip.background = element_rect(fill = "grey90", color = NA)
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
+    panel.border = element_rect(color = "black", linewidth = 0.5, fill = NA)
   )
 
 #########################  DATA FINAL TEST WITHIN LIST  ##############################
@@ -768,9 +768,9 @@ PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
     strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
     axis.line = element_line(color = "black", linewidth = 0.5),
-    strip.background = element_rect(fill = "grey90", color = NA)
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
+    panel.border = element_rect(color = "black", linewidth = 0.5, fill = NA)
   )
 
 #########################  DATA FINAL TEST BETWEEN LIST   ##############################
