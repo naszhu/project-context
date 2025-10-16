@@ -1,6 +1,6 @@
 
 
-is_finaltest = true
+is_finaltest = false
 n_simulations = is_finaltest ? 200 : 500;
 
 # =============================================================================
@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.78 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.77 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -120,7 +120,7 @@ power_taken = 1  # raise to 1/11 power for sampling
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 # Parameters for linear diminishing criterion (between-list dimension)
-criterion_between_list_start = 0.14#0.35  # starting value for between-list criterion
+criterion_between_list_start = 0.22#0.35  # starting value for between-list criterion
 criterion_between_list_initial_increment = 0.2  # initial increment across lists
 criterion_between_list_decrement_per_step = 0.05  # how much increment decreases each list
 
@@ -173,7 +173,7 @@ LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1.0 #stop reinstate after how much features, 1.0 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well.
-p_reinstate_rate = 0.12 #0.4 #prob of reinstatement #do not reinstate. 
+p_reinstate_rate = 0.15 #0.4 #prob of reinstatement #do not reinstate. 
 base_recovery_prob = p_reinstate_rate  # constant probability of recovering distorted features during test
 
 # DISTORTION FLAGS (applied after drift, before initial test)

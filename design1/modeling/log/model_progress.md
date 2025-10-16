@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [474209a](https://github.com/naszhu/REM_E3_model_fixed/commit/474209a) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:56:15  
+**Message:**
+```
+finetune(model-e1): relarively good final
+
+- Set `is_finaltest` to true, adjusting `n_simulations` to 200 for final testing conditions.
+- Increased `criterion_between_list_start` to 0.14 for improved control over the linear diminishing criterion.
+- Modified `criterion_final` calculation to include an additional term, enhancing alignment with testing objectives.
+
+These changes aim to optimize the simulation setup for the final test, ensuring more accurate and reliable results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/474209a_20251016_105615_plot1.png)  
+![](../plot_archive/474209a_20251016_105615_plot2.png)  
+
 ## Commit [ddafe7b](https://github.com/naszhu/REM_E3_model_fixed/commit/ddafe7b) (branch: `oct-14-2`)
 **Time:** 2025-10-16 10:51:27  
 **Message:**
