@@ -63,9 +63,10 @@ cat("Loaded dfchanged data from dfchanged.csv\n")
 
 # Create df_initialtestbyinitial (from the RMD file) - EXACT COPY FROM ORIGINAL
 df_initialtestbyinitial = dfchanged%>%
-  filter(task=="pretest_response", response != "null")%>%
+  # filter(task=="pretest_response", response != "null")%>%
+  filter(task=="pretest_response")%>%
   select(trialnum,ip,correct,probetype,rt)%>%
-  filter(!(rt < 150 | rt > 3500))%>%
+  # filter(!(rt < 150 | rt > 3500))%>%
   group_by(trialnum,ip,probetype)%>%
   summarize(meancr1=mean(correct))%>%
   group_by(trialnum,probetype)%>%

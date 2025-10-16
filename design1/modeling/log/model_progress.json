@@ -1,5 +1,18 @@
 [
   {
+    "commit": "468b7a8",
+    "branch": "oct-14-2",
+    "message": "refactor(model-e1): final bewteen re-analysis",
+    "timestamp": "2025-10-16 10:06:23",
+    "plot1": "plot_archive/468b7a8_20251016_100623_plot1.png",
+    "plot2": "plot_archive/468b7a8_20251016_100623_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "280dd35",
     "branch": "oct-14-2",
     "message": "finetune(model-e1): a good working version. adjust simulation parameters for improved accuracy",

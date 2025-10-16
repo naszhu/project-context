@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [468b7a8](https://github.com/naszhu/REM_E3_model_fixed/commit/468b7a8) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:06:23  
+**Message:**
+```
+refactor(model-e1): final bewteen re-analysis
+
+- Modified the interaction terms in the glmer model to focus on `list_order_lin`, `item_type`, and `condition`, enhancing the model's ability to capture relevant effects.
+- Updated comments to include relative gradient outputs for better clarity in model performance assessment.
+
+These changes aim to refine the model specifications, improving the accuracy and interpretability of the analysis results.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/468b7a8_20251016_100623_plot1.png)  
+![](../plot_archive/468b7a8_20251016_100623_plot2.png)  
+
 ## Commit [280dd35](https://github.com/naszhu/REM_E3_model_fixed/commit/280dd35) (branch: `oct-14-2`)
 **Time:** 2025-10-16 10:05:19  
 **Message:**
