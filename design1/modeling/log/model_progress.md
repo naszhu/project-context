@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [acb6a77](https://github.com/naszhu/REM_E3_model_fixed/commit/acb6a77) (branch: `main`)
+**Time:** 2025-10-16 17:15:07  
+**Message:**
+```
+explore(model-e1): why initial between list update dynamic weighting for UC and CC across lists
+
+- Adjusted the calculation of unchanging context (UC) and changing context (CC) ratios to be dynamic based on list number, improving the model's adaptability.
+- Moved the calculation of `criterion_initial` to occur after including `utils.jl` for proper function access.
+- Updated the likelihood calculations to utilize list-specific UC and CC weights, enhancing the accuracy of context adjustments during processing.
+
+These changes aim to refine the model's performance and ensure more accurate context handling across multiple lists.
+
+Refs #55
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/likelihood_calculations.jl`  
+![](../plot_archive/acb6a77_20251016_171507_plot1.png)  
+![](../plot_archive/acb6a77_20251016_171507_plot2.png)  
+
 ## Commit [996b8fd](https://github.com/naszhu/REM_E3_model_fixed/commit/996b8fd) (branch: `main`)
 **Time:** 2025-10-16 11:25:01  
 **Message:**

@@ -1,5 +1,19 @@
 [
   {
+    "commit": "acb6a77",
+    "branch": "main",
+    "message": "explore(model-e1): why initial between list update dynamic weighting for UC and CC across lists",
+    "timestamp": "2025-10-16 17:15:07",
+    "plot1": "plot_archive/acb6a77_20251016_171507_plot1.png",
+    "plot2": "plot_archive/acb6a77_20251016_171507_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/likelihood_calculations.jl"
+    ]
+  },
+  {
     "commit": "996b8fd",
     "branch": "main",
     "message": "merge(oct-14-2): Merge branch 'oct-14-2'",

@@ -124,6 +124,10 @@ criterion_between_list_start = 0.1#0.35  # starting value for between-list crite
 criterion_between_list_initial_increment = 0.2  # initial increment across lists
 criterion_between_list_decrement_per_step = 0.05  # how much increment decreases each list
 
+# Calculate criterion_initial (must be after utils.jl include)
+criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
+
+
 # NOTE: criterion_initial calculation moved after utils.jl include (see below line ~335)
 
 recall_odds_threshold = 0.08^power_taken;
@@ -209,16 +213,30 @@ const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-li
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
 # Dynamic weighting scheme for CC and UC across lists (based on Shiffrin's suggestion)
-# At list 1: weight CC more and UC less → increases both Hs and CRs due to small number of activated traces
-# Over several lists: UC increases and CC decreases by the same amount → reaches usual level
+# At list 1: weight UC more and CC less → increases both Hs and CRs due to small number of activated traces
+# Over several lists: UC decreases and CC increases by the same amount → reaches usual level
 
-# UC (Unchanging Context) parameters - starts low, increases with diminishing increments
-UC_ratio_list1 = 0.2  # Starting ratio for UC at list 1 (lower than usual)
-UC_initial_increment = 0.1  # Initial increment per list
-UC_decrement_per_step = 0.05  # How much the increment decreases each step
+# UC (Unchanging Context) parameters - starts high, decreases with diminishing increments
+UC_ratio_list1 = 1.0  # Starting ratio for UC at list 1 (using all UC features)
+UC_initial_decrement = 0.1  # Initial decrement per list
+UC_decrement_per_step = 0.05  # How much the decrement decreases each step
 
-# CC (Changing Context) parameters - starts high, decreases by same amount UC increases
-CC_ratio_list1 = 1.0  # Starting ratio for CC at list 1 (using all CC features)
+# CC (Changing Context) parameters - starts low, increases by same amount UC decreases
+CC_ratio_list1 = 0.2  # Starting ratio for CC at list 1 (lower than usual)
+
+# Generate UC and CC ratio vectors (must be after utils.jl include)
+# UC DECREASES from list1 with diminishing decrements
+ratio_unchanging_to_itself_init = linear_decrease_diminishing(
+    UC_ratio_list1,
+    UC_initial_decrement,
+    UC_decrement_per_step,
+    n_lists
+)
+
+# CC increases by the same amount UC decreases (complementary)
+UC_change = UC_ratio_list1 .- ratio_unchanging_to_itself_init  # How much UC decreased from start
+ratio_changing_to_itself_init = CC_ratio_list1 .+ UC_change  # CC increases by same amount
+
 
 # NOTE: UC and CC calculations must happen AFTER utils.jl is included (see below line ~331)
 
@@ -313,25 +331,11 @@ hj_base = 0.3; #higher this value higher CF starting point
 # Include utils.jl to get asymptotic functions
 include("utils.jl")
 
-# Generate UC and CC ratio vectors (must be after utils.jl include)
-# UC increases from list1 with diminishing increments
-ratio_unchanging_to_itself_init = linear_increase_diminishing(
-    UC_ratio_list1,
-    UC_initial_increment,
-    UC_decrement_per_step,
-    n_lists
-)
-
-# CC decreases by the same amount UC increases (complementary)
-UC_change = ratio_unchanging_to_itself_init .- UC_ratio_list1  # How much UC increased from start
-ratio_changing_to_itself_init = CC_ratio_list1 .- UC_change  # CC decreases by same amount
 
 # Create vectors for number of features to use per list
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)
 nC_in = round.(Int, nC .* ratio_changing_to_itself_init)
 
-# Calculate criterion_initial (must be after utils.jl include)
-criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
 
 h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
 
