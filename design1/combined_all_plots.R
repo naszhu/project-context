@@ -262,7 +262,7 @@ TITLE_SIZE <- TITLE_SIZE+5
 SUPER_TITLE_SIZE <- TITLE_SIZE+5
 AXIS_TITLE_SIZE <- 32
 AXIS_TEXT_SIZE <- 30
-STRIP_TEXT_SIZE <- 40  # Added for facet panel text
+STRIP_TEXT_SIZE <- BASE_TEXT_SIZE  # Added for facet panel text
 LEGEND_POSITION <- "none"  # Hide legends
 
 # Load the preprocessed data for data plot - EXACT COPY FROM ORIGINAL
@@ -283,8 +283,8 @@ dfserial=dfchanged%>%
   summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
   mutate(probetype=case_when(probetype=="TARGET_foil"~"Foil - Correct rejection",
                              probetype=="TARGET_target"~"Target - Hits"))%>%
-  mutate(position_type=case_when(position_type=="testpos"~"Initial Test Position",
-                                 TRUE~"Initial Study Position"))
+  mutate(position_type=case_when(position_type=="testpos"~"Initial Test Pos",
+                                 TRUE~"Initial Study Pos"))
 
 dfserial_meandf=dfchanged%>%
   filter(task=="pretest_response")%>%
@@ -295,7 +295,7 @@ dfserial_meandf=dfchanged%>%
   summarize(meancr1=mean(correct))%>%
   group_by(testpos)%>%
   summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
-  mutate(position_type="Initial Test Position",position=testpos,probetype="Average")%>%
+  mutate(position_type="Initial Test Pos",position=testpos,probetype="Average")%>%
   select(position,position_type,probetype,meancr,se)
 
 dfserial_all=rbind(dfserial,dfserial_meandf)
@@ -382,7 +382,7 @@ df_combined$is_target <- factor(df_combined$is_target,
 
 df_combined$position_type <- factor(df_combined$position_type,
                                    levels = c("Study", "Test"),
-                                   labels = c("Initial Study Position", "Initial Test Position"))
+                                   labels = c("Initial Study Pos", "Initial Test Pos"))
 
 # Create the prediction plot
 prediction_plot <- ggplot(data = df_combined, aes(x = position, y = meanx, group = is_target)) +
@@ -390,10 +390,10 @@ prediction_plot <- ggplot(data = df_combined, aes(x = position, y = meanx, group
     geom_line(aes(color = is_target, linetype = is_target), linewidth = LINE_WIDTH) +
     geom_point(aes(color = is_target, shape = is_target), size = POINT_SIZE) +
     # Add black average line ONLY for test position
-    geom_line(data = df_combined %>% filter(position_type == "Initial Test Position"),
+    geom_line(data = df_combined %>% filter(position_type == "Initial Test Pos"),
               aes(x = position, y = meanx_m), color = COLOR_AVERAGE, linewidth = AVERAGE_LINE_WIDTH, linetype = "solid") +
     # Add black square points for the average line - COMMENTED OUT to show only line
-    # geom_point(data = df_combined %>% filter(position_type == "Initial Test Position"),
+    # geom_point(data = df_combined %>% filter(position_type == "Initial Test Pos"),
     #            aes(x = position, y = meanx_m), color = COLOR_AVERAGE, shape = 15, size = 4) +
     facet_grid(~ position_type, scales = "free_x") +
     scale_color_manual(values = c("Foil - Correct rejection" = COLOR_FOIL,
@@ -811,12 +811,12 @@ cat("Combined final test between-list plot saved as E1_final_test_between_list_c
 ## Constants for styling - UNIFIED FORMATTING
 #####################################3
 # Unified constants for both plots
-BASE_FONT_SIZE <- 45
-POINT_SIZE <- 9
-LINE_WIDTH <- 3.5
-TITLE_SIZE <- BASE_FONT_SIZE + 5
+BASE_FONT_SIZE <- 35
+POINT_SIZE <- 5
+LINE_WIDTH <- 2
+TITLE_SIZE <- BASE_FONT_SIZE 
 SUPER_TITLE_SIZE <- BASE_FONT_SIZE + 5
-STRIP_TEXT_SIZE <- BASE_FONT_SIZE -1
+STRIP_TEXT_SIZE <- BASE_FONT_SIZE 
 AXIS_TITLE_SIZE <- BASE_FONT_SIZE + 6
 AXIS_TEXT_SIZE <- BASE_FONT_SIZE
 CAPTION_SIZE <- 20
@@ -907,7 +907,7 @@ df_finalwithin_nonfoil = df_final %>%
   group_by(position, position_type, probetype) %>%
   summarize(meancr = mean(meancr1), sd = sd(meancr1), se = sd/sqrt(n()))
 
-# Add overall performance for non-tested items in Initial Test Position facet
+# Add overall performance for non-tested items in Initial Test Pos facet
 nontarget_performance <- df_final %>%
   filter(probetype == "TARGET_nontarget") %>%
   group_by(ip, probetype) %>%
@@ -915,7 +915,7 @@ nontarget_performance <- df_final %>%
   summarize(meancr1 = mean(correct)) %>%
   group_by(probetype) %>%
   summarize(meancr = mean(meancr1), sd = sd(meancr1), se = sd/sqrt(n())) %>%
-  mutate(position = 0, position_type = "Initial Test Position")
+  mutate(position = 0, position_type = "Initial Test Pos")
 
 # Combine and create duplicate FOIL rows for both facets (like pivot_longer does)
 df_finalwithin = df_finalwithin_nonfoil %>%
@@ -925,21 +925,21 @@ df_finalwithin = df_finalwithin_nonfoil %>%
     probetype == "TARGET_nontarget" ~ "Target, Studied only - HITS"
   )) %>%
   mutate(position_type = case_when(
-    position_type == "testpos" ~ "Initial Test Position",
-    position_type == "prespos" ~ "Initial Study Position"
+    position_type == "testpos" ~ "Initial Test Pos",
+    position_type == "prespos" ~ "Initial Study Pos"
   )) %>%
   # Add FOIL data for both facets
   bind_rows(
     foil_performance %>%
-      mutate(position_type = "Initial Study Position", probetype = "FOIL") %>%
+      mutate(position_type = "Initial Study Pos", probetype = "FOIL") %>%
       select(position, position_type, probetype, meancr, sd, se)
   ) %>%
   bind_rows(
     foil_performance %>%
-      mutate(position_type = "Initial Test Position", probetype = "FOIL") %>%
+      mutate(position_type = "Initial Test Pos", probetype = "FOIL") %>%
       select(position, position_type, probetype, meancr, sd, se)
   ) %>%
-  # Add non-target performance for Initial Test Position facet
+  # Add non-target performance for Initial Test Pos facet
   bind_rows(
     nontarget_performance %>%
       mutate(probetype = "Target, Studied only - HITS") %>%
@@ -1054,8 +1054,8 @@ prediction_plot <- ggplot(data=DF_fbyi,aes(x=posSum,meanx))+
   geom_point(aes(color=target_type, shape=target_type), size=POINT_SIZE, alpha=POINT_ALPHA, stroke=POINT_STROKE)+
   geom_line(aes(color=target_type, linetype=target_type), linewidth=LINE_WIDTH, alpha=LINE_ALPHA)+
   facet_grid(.~pos_factor,
-             labeller = labeller(pos_factor = c("initial_studypos" = "Initial Study Position",
-                                              "initial_testpos" = "Initial Test Position")))+
+             labeller = labeller(pos_factor = c("initial_studypos" = "Initial Study Pos",
+                                              "initial_testpos" = "Initial Test Pos")))+
   labs(title="E1 Final Test Within List PREDICTION",
        x="Position",
        y="Hit Rate",
@@ -1118,14 +1118,14 @@ ggsave(file.path(DESIGN1_DIR, "temp_prediction_plot.png"), prediction_plot, widt
 # Create combined plot using grid.arrange
 combined_plot <- grid.arrange(
   data_plot, prediction_plot,
-  ncol = 1,
+  ncol = 2,
   top = textGrob("E1 Final Test Within List: DATA vs PREDICTION",
                  gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )
 
 # Save the combined plot
 ggsave(file.path(DESIGN1_DIR, "E1_final_test_within_list_combined.png"), combined_plot,
-       width = 24/2+10, height = 9*2+10, dpi = 300, bg = "white")
+       width = 24, height = 9, dpi = 300, bg = "white")
 
 # Display the plot using eog
 

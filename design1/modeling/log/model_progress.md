@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [7e72fdd](https://github.com/naszhu/REM_E3_model_fixed/commit/7e72fdd) (branch: `main`)
+**Time:** 2025-10-16 21:09:07  
+**Message:**
+```
+restore(model-e1): restore to version before issue #55
+
+- Adjusted the starting value for the between-list criterion to improve model performance.
+- Simplified the calculation of unchanging context (UC) and changing context (CC) ratios by removing dynamic weighting based on list number.
+- Updated the likelihood calculations to use overall context values instead of list-specific weights, enhancing consistency.
+- Removed commented-out code and unnecessary functions to clean up the implementation.
+
+These changes aim to refine the model's adaptability and maintain clarity in the code structure.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/likelihood_calculations.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/7e72fdd_20251016_210907_plot1.png)  
+![](../plot_archive/7e72fdd_20251016_210907_plot2.png)  
+
 <<<<<<< HEAD
 <<<<<<< HEAD
 ## Commit [9e380f1](https://github.com/naszhu/REM_E3_model_fixed/commit/9e380f1) (branch: `HEAD`)
