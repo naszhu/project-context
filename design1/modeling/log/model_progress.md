@@ -1,5 +1,43 @@
 # Model Progress
 
+## Commit [c4648d9](https://github.com/naszhu/REM_E3_model_fixed/commit/c4648d9) (branch: `oct-14-2`)
+**Time:** 2025-10-16 09:00:46  
+**Message:**
+```
+finetune(model-e3): a final test finaltune for temporal urgent use
+
+- Set `is_finaltest` to true and updated `n_simulations` to 200 for final test conditions.
+- Increased `p_reinstate_rate` to 0.30 to enhance reinstatement probability.
+- Modified `base_distortion_prob`, `base_distortion_prob_UC`, and `base_distortion_prob_CC` to 0.6 to improve content distortion handling.
+- Adjusted `criterion_final` calculation for better alignment with testing objectives.
+
+These changes aim to refine the simulation parameters for the final test, enhancing the accuracy and reliability of the results.
+
+Closes #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c4648d9_20251016_090046_plot1.png)  
+![](../plot_archive/c4648d9_20251016_090046_plot2.png)  
+
+## Commit [f8b12d2](https://github.com/naszhu/REM_E3_model_fixed/commit/f8b12d2) (branch: `oct-14-2`)
+**Time:** 2025-10-15 22:22:13  
+**Message:**
+```
+explore(model-e1): enable backward reconstruction for final test
+
+- Updated the `is_reconstruct_finaltest_backward` flag to true, allowing for context reconstruction during the backward condition in the final test.
+- This change aims to enhance the testing framework by enabling a more comprehensive analysis of context effects across different conditions.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/f8b12d2_20251015_222213_plot1.png)  
+![](../plot_archive/f8b12d2_20251015_222213_plot2.png)  
+
 ## Commit [cdeaece](https://github.com/naszhu/REM_E3_model_fixed/commit/cdeaece) (branch: `oct-14-2`)
 **Time:** 2025-10-15 22:21:40  
 **Message:**

@@ -1,6 +1,6 @@
 
 
-is_finaltest = false
+is_finaltest = true
 n_simulations = is_finaltest ? 200 : 500;
 
 # =============================================================================
@@ -177,12 +177,12 @@ LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1.0 #stop reinstate after how much features, 1.0 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well.
-p_reinstate_rate = 0.10 #0.4 #prob of reinstatement #do not reinstate. 
+p_reinstate_rate = 0.30 #0.4 #prob of reinstatement #do not reinstate. 
 
 # Distortion probability parameters (Issue #50)
-base_distortion_prob = 0.2  # distortion probability for content
-base_distortion_prob_UC = 0.2  # distortion probability for UC (set higher to test effect)
-base_distortion_prob_CC = 0.2  # distortion probability for CC (set higher to test effect)
+base_distortion_prob = 0.6  # distortion probability for content
+base_distortion_prob_UC = 0.6  # distortion probability for UC (set higher to test effect)
+base_distortion_prob_CC = 0.6  # distortion probability for CC (set higher to test effect)
 
 # Recovery probability parameters for context reinstatement during test
 base_recovery_prob = 0.1  # constant probability of recovering distorted features during test
@@ -234,7 +234,7 @@ const total_probe_Ln = 12;  # total probes in other lists
 const nItemPerUnit_final = 2;  # items per unit in final test
 
 # Original criterion_final (commented out to try asymptotic version)
-criterion_final = LinRange((0.09+0.18)^power_taken, 0.27+0.07^power_taken, 10)
+criterion_final = LinRange((0.09+0.18+0.1)^power_taken, 0.27+0.07-0.1^power_taken, 10)
 # Generate asymptotic criterion_final using asym_increase_shift for nonlinear behavior
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
