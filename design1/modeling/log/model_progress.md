@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [c16e3ca](https://github.com/naszhu/REM_E3_model_fixed/commit/c16e3ca) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:06:42  
+**Message:**
+```
+explore(analysis-all-e1):check why update filtering logic in df_initialtestbyinitial
+
+- Commented out the filtering conditions for `response` and `rt` in the `df_initialtestbyinitial` data frame creation, simplifying the data selection process.
+- This change aims to enhance clarity in the data preparation steps while maintaining the focus on the `task` variable for analysis.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/c16e3ca_20251016_100642_plot1.png)  
+![](../plot_archive/c16e3ca_20251016_100642_plot2.png)  
+
 ## Commit [468b7a8](https://github.com/naszhu/REM_E3_model_fixed/commit/468b7a8) (branch: `oct-14-2`)
 **Time:** 2025-10-16 10:06:23  
 **Message:**

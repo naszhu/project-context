@@ -1,5 +1,18 @@
 [
   {
+    "commit": "c16e3ca",
+    "branch": "oct-14-2",
+    "message": "explore(analysis-all-e1):check why update filtering logic in df_initialtestbyinitial",
+    "timestamp": "2025-10-16 10:06:42",
+    "plot1": "plot_archive/c16e3ca_20251016_100642_plot1.png",
+    "plot2": "plot_archive/c16e3ca_20251016_100642_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "468b7a8",
     "branch": "oct-14-2",
     "message": "refactor(model-e1): final bewteen re-analysis",

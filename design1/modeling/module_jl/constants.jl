@@ -126,7 +126,7 @@ power_taken = 1  # raise to 1/11 power for sampling
 # Parameters for linear diminishing criterion (between-list dimension)
 criterion_between_list_start = 0.04#0.35  # starting value for between-list criterion
 criterion_between_list_initial_increment = 0.06  # initial increment across lists
-criterion_between_list_decrement_per_step = 0.015  # how much increment decreases each list
+criterion_between_list_decrement_per_step = 0.017  # how much increment decreases each list
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
 criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
