@@ -92,26 +92,38 @@ function simulate_rem()
             end #end for _ in 1:n_driftStudyTest[list_num]
 
             
-            ## context distortion between study and test
-            # CC_before_drift: drifted context (reinstate toward this)
-            # CC_after_drift: drifted + distorted context (start probes with this if distortion enabled)
-            CC_before_drift = deepcopy(test_list_context)  # Save drifted context as reinstatement target
-            CC_after_drift = deepcopy(test_list_context)   # Will be distorted if enabled
-            if is_CC_drift_between_study_and_test
-                for cf in eachindex(CC_after_drift)
-                    if rand() < base_distortion_prob_CC
-                        CC_after_drift[cf] = rand(Geometric(g_context)) + 1
-                    end
-                end
+            ## context and content DISTORTION between study and test (after drift)
+            # CC_before_distort: drifted context (reinstate toward this)
+            # CC_after_distort: drifted + distorted context (start probes with this if distortion enabled)
+            CC_before_distort = deepcopy(test_list_context)  # Save drifted context as reinstatement target
+            CC_after_distort = deepcopy(test_list_context)   # Will be distorted if enabled
+            if is_CC_distort_between_study_and_test
+                distort_context_range!(CC_after_distort, 1, nC, base_distortion_prob_CC, g_context)
             end
+
+            UC_before_distort = deepcopy(test_list_context_unchange) 
+            UC_after_distort = deepcopy(test_list_context_unchange)
+            if is_UC_distort_between_study_and_test
+                distort_context_range!(UC_after_distort, 1, nU, base_distortion_prob_UC, g_context)
+            end
+
+            # Note: Content distortion is now handled INSIDE probe_generation.jl
+            # after both targets and foils are created, so all probe words are distorted together
+            content_before_distort = deepcopy(word_list)
+            content_after_distort = deepcopy(word_list)  # Passed in but distortion happens in probe_generation
 
 
             #studied_pool[:, list_num]
             # studied_pool[j, list_num]
             # println(studied_pool)#studdied pool has length of 30, so only take first 20
-            # Pass CC_before_drift as reinstatement target (drifted context, not study context)
-            # Pass CC_after_drift as current test context (distorted if enabled, otherwise same as CC_before_drift)
-            probes, foil_collections = generate_probes(word_list, CC_before_drift, CC_after_drift, general_context_features, test_list_context_unchange, position_code_all, list_num, studied_pool[1:n_probes,list_num]) 
+            # Pass before_distort as reinstatement targets (drifted, not study context)
+            # Pass after_distort as current test contexts (distorted if enabled, otherwise same as before_distort)
+            probes, foil_collections = generate_probes(
+                content_before_distort, content_after_distort,
+                CC_before_distort, CC_after_distort, 
+                UC_before_distort, UC_after_distort,
+                general_context_features, position_code_all, list_num, studied_pool[1:n_probes,list_num]
+            ) 
             
 
             # println("ImagePoolNow", [i.word.item for i in image_pool])
@@ -123,6 +135,19 @@ function simulate_rem()
             #    println(studied_pool[list_num,20])
             #    println(studied_pool[list_num,21])
             studied_pool[n_words+1:n_words+Int(n_words / 2), list_num] = foil_collections
+
+            # DEBUG: Verify foils in studied_pool are actually non-distorted
+            if is_content_distort_between_study_and_test && list_num == 1
+                # Check first foil in studied_pool against first foil from probes
+                first_foil_studied = studied_pool[n_words+1, list_num]
+                first_foil_probe = filter(p -> p.classification == :foil, probes)[1]
+                num_diff = sum(first_foil_studied.word.word_features[j] != first_foil_probe.image.word.word_features[j] for j in 1:min(w_word, length(first_foil_studied.word.word_features)))
+                if num_diff > 0
+                    println("[OK] List $list_num: studied_pool foil differs from probe foil in $num_diff features (non-distorted storage working)")
+                else
+                    println("[WARNING] List $list_num: studied_pool foil IDENTICAL to probe foil! May be storing distorted version!")
+                end
+            end
 
             # Store original CC for this list (before it changes between lists) for final test reconstruction
             original_list_CC_by_list[list_num] = deepcopy(list_change_context_features)

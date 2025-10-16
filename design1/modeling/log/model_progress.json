@@ -1,5 +1,352 @@
 [
   {
+    "commit": "56e0b41",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1): set `is_finaltest` to true for final testing conditions",
+    "timestamp": "2025-10-16 11:21:44",
+    "plot1": "plot_archive/56e0b41_20251016_112144_plot1.png",
+    "plot2": "plot_archive/56e0b41_20251016_112144_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "ff273c1",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1): adjust simulation parameters for final testing conditions",
+    "timestamp": "2025-10-16 11:18:16",
+    "plot1": "plot_archive/ff273c1_20251016_111816_plot1.png",
+    "plot2": "plot_archive/ff273c1_20251016_111816_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "474209a",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1): relarively good final",
+    "timestamp": "2025-10-16 10:56:15",
+    "plot1": "plot_archive/474209a_20251016_105615_plot1.png",
+    "plot2": "plot_archive/474209a_20251016_105615_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "ddafe7b",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1): update simulation parameters for improved model accuracy",
+    "timestamp": "2025-10-16 10:51:27",
+    "plot1": "plot_archive/ddafe7b_20251016_105127_plot1.png",
+    "plot2": "plot_archive/ddafe7b_20251016_105127_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "454a4f6",
+    "branch": "oct-14-2",
+    "message": "fix(model-e1): it is the content distortion that is causing the problem",
+    "timestamp": "2025-10-16 10:40:46",
+    "plot1": "plot_archive/454a4f6_20251016_104046_plot1.png",
+    "plot2": "plot_archive/454a4f6_20251016_104046_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "2887933",
+    "branch": "oct-14-2",
+    "message": "bug(model-e1): final test bad now study only and foil initial test diverge now",
+    "timestamp": "2025-10-16 10:33:34",
+    "plot1": "plot_archive/2887933_20251016_103334_plot1.png",
+    "plot2": "plot_archive/2887933_20251016_103334_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "5b200f8",
+    "branch": "oct-14-2",
+    "message": "fix(model-e1): Don't need to have the part of judging chunk in final restore.",
+    "timestamp": "2025-10-16 10:29:48",
+    "plot1": "plot_archive/5b200f8_20251016_102948_plot1.png",
+    "plot2": "plot_archive/5b200f8_20251016_102948_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
+    "commit": "5dcb07e",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1): adjust decrement parameter for linear diminishing criterion",
+    "timestamp": "2025-10-16 10:23:40",
+    "plot1": "plot_archive/5dcb07e_20251016_102340_plot1.png",
+    "plot2": "plot_archive/5dcb07e_20251016_102340_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "c16e3ca",
+    "branch": "oct-14-2",
+    "message": "explore(analysis-all-e1):check why update filtering logic in df_initialtestbyinitial",
+    "timestamp": "2025-10-16 10:06:42",
+    "plot1": "plot_archive/c16e3ca_20251016_100642_plot1.png",
+    "plot2": "plot_archive/c16e3ca_20251016_100642_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "468b7a8",
+    "branch": "oct-14-2",
+    "message": "refactor(model-e1): final bewteen re-analysis",
+    "timestamp": "2025-10-16 10:06:23",
+    "plot1": "plot_archive/468b7a8_20251016_100623_plot1.png",
+    "plot2": "plot_archive/468b7a8_20251016_100623_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "280dd35",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1): a good working version. adjust simulation parameters for improved accuracy",
+    "timestamp": "2025-10-16 10:05:19",
+    "plot1": "plot_archive/280dd35_20251016_100519_plot1.png",
+    "plot2": "plot_archive/280dd35_20251016_100519_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "5e9f64d",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1):almost there! adjust simulation parameters for improved testing fidelity",
+    "timestamp": "2025-10-16 09:45:18",
+    "plot1": "plot_archive/5e9f64d_20251016_094518_plot1.png",
+    "plot2": "plot_archive/5e9f64d_20251016_094518_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "2643a05",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1):almost there! adjust simulation parameters for improved testing fidelity",
+    "timestamp": "2025-10-16 09:43:34",
+    "plot1": "plot_archive/2643a05_20251016_094334_plot1.png",
+    "plot2": "plot_archive/2643a05_20251016_094334_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "8075119",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1): a final test finaltune for temporal urgent use",
+    "timestamp": "2025-10-16 09:43:18",
+    "plot1": "plot_archive/8075119_20251016_094318_plot1.png",
+    "plot2": "plot_archive/8075119_20251016_094318_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "c4648d9",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e3): a final test finaltune for temporal urgent use",
+    "timestamp": "2025-10-16 09:00:46",
+    "plot1": "plot_archive/c4648d9_20251016_090046_plot1.png",
+    "plot2": "plot_archive/c4648d9_20251016_090046_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "f8b12d2",
+    "branch": "oct-14-2",
+    "message": "explore(model-e1): enable backward reconstruction for final test",
+    "timestamp": "2025-10-15 22:22:13",
+    "plot1": "plot_archive/f8b12d2_20251015_222213_plot1.png",
+    "plot2": "plot_archive/f8b12d2_20251015_222213_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "cdeaece",
+    "branch": "oct-14-2",
+    "message": "feat(all-analysis-e1): more tries, update glmer model specifications for accuracy analysis",
+    "timestamp": "2025-10-15 22:21:40",
+    "plot1": "plot_archive/cdeaece_20251015_222140_plot1.png",
+    "plot2": "plot_archive/cdeaece_20251015_222140_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "806f1e3",
+    "branch": "oct-14-2",
+    "message": "fix(model-e1): parameter was wrong and tehre is a bug right now in runing.",
+    "timestamp": "2025-10-15 21:29:25",
+    "plot1": "plot_archive/806f1e3_20251015_212925_plot1.png",
+    "plot2": "plot_archive/806f1e3_20251015_212925_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "dec8df2",
+    "branch": "oct-14-2",
+    "message": "feat(all-analysis-e1): final between reanalyze",
+    "timestamp": "2025-10-15 21:29:01",
+    "plot1": "plot_archive/dec8df2_20251015_212901_plot1.png",
+    "plot2": "plot_archive/dec8df2_20251015_212901_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "79c2319",
+    "branch": "oct-14-2",
+    "message": "fix(model-e1): duplicated part in function. BUG on should store non-distorted for test & forgot to set prob distort >0!!",
+    "timestamp": "2025-10-15 19:02:01",
+    "plot1": "plot_archive/79c2319_20251015_190201_plot1.png",
+    "plot2": "plot_archive/79c2319_20251015_190201_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "7ad590b",
+    "branch": "oct-14-2",
+    "message": "fix(model-e1): foil collection should store NON-DISTORTED foils for final test use",
+    "timestamp": "2025-10-14 21:49:30",
+    "plot1": "plot_archive/7ad590b_20251014_214930_plot1.png",
+    "plot2": "plot_archive/7ad590b_20251014_214930_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
+    "commit": "a0d74fd",
+    "branch": "oct-14-2",
+    "message": "refactor(model-e1):  make distortion and reinstate into functions",
+    "timestamp": "2025-10-14 21:43:56",
+    "plot1": "plot_archive/a0d74fd_20251014_214356_plot1.png",
+    "plot2": "plot_archive/a0d74fd_20251014_214356_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "5275d1c",
+    "branch": "oct-14-2",
+    "message": "feat(model-e1): refactored the distortion place",
+    "timestamp": "2025-10-14 21:35:42",
+    "plot1": "plot_archive/5275d1c_20251014_213542_plot1.png",
+    "plot2": "plot_archive/5275d1c_20251014_213542_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "ac04ee4",
+    "branch": "oct-14-2",
+    "message": "feat(model-e1): add distortion and reinstate for T and UC",
+    "timestamp": "2025-10-14 21:23:47",
+    "plot1": "plot_archive/ac04ee4_20251014_212347_plot1.png",
+    "plot2": "plot_archive/ac04ee4_20251014_212347_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "2f6532a",
+    "branch": "oct-14-2",
+    "message": "refactor(model-e1):  change names for drift to distort for not confusing actual drift and distort",
+    "timestamp": "2025-10-14 21:21:26",
+    "plot1": "plot_archive/2f6532a_20251014_212126_plot1.png",
+    "plot2": "plot_archive/2f6532a_20251014_212126_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "381182f",
+    "branch": "oct-14-2",
+    "message": "merge(oct-14): Merge branch 'oct-14'",
+    "timestamp": "2025-10-14 21:12:08",
+    "plot1": "plot_archive/381182f_20251014_211208_plot1.png",
+    "plot2": "plot_archive/381182f_20251014_211208_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "0d4aa8a",
     "branch": "oct-14",
     "message": "chore(analysis-e1): add blank lines for improved readability in analysis result files (why changed again??)",

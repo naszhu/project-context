@@ -197,12 +197,14 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
             # Issue 12, 13(ambigiou use const array)
             # this problem occur u_star_context[probe_img.list_number] has problem here because should not use probe's list number but final test order list number, but I don't have that in my structure right now
 
-            iprobe_chunk_boundaries = cumsum([total_probe_L1 * nItemPerUnit_final * 2; fill(total_probe_Ln * nItemPerUnit_final * 2, 9)])  # First chunk has 15*2*2 items, rest 9 chunks have 12*2*2 items
+            # Use hard-coded chunk boundaries: each list has 42 items, so first: 1-42, next: 43-84, and so on
+            # n_items_per_list = 42
+            # iprobe_chunk_boundaries = collect(n_items_per_list:n_items_per_list:n_items_per_list*10)
 
             # Determine the chunk index for the current probe
-            iprobe_chunk = findfirst(x -> finaltest_pos <= x, iprobe_chunk_boundaries)  
+            # iprobe_chunk = findfirst(x -> finaltest_pos <= x, iprobe_chunk_boundaries)  
 
-            add_feature_during_restore!(iimage_toadd.context_features, iprobe_img.context_features, u_star_context[iprobe_chunk], c_context_c[end], g_context, iprobe_img.list_number; cu=c_context_un[end]); #TODO: use last big ctx?
+            add_feature_during_restore!(iimage_toadd.context_features, iprobe_img.context_features, u_star_context[end], c_context_c[end], g_context, iprobe_img.list_number; cu=c_context_un[end]); #TODO: use last big ctx?
             # else
                 # add_features_from_empty!(iimage.context_features, iprobe_img.context_features, u_star_context[end]+u_advFoilInitialT+0.1, c_context_ilist, g_context)
             

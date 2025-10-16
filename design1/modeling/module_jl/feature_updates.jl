@@ -411,3 +411,114 @@ error("this is not used")
     
     return distorted_probes, original_probes
 end
+
+# =============================================================================
+# DISTORTION AND REINSTATEMENT FUNCTIONS FOR PROBE GENERATION
+# =============================================================================
+
+"""
+Distort context features with constant probability.
+Applies distortion to a range of features in a context vector.
+
+Args:
+    context_vector: Context vector to distort (will be modified in place)
+    start_idx: Starting index of features to distort (1-based)
+    end_idx: Ending index of features to distort (inclusive)
+    distortion_prob: Probability of distorting each feature
+    g_context: Geometric distribution parameter for new values
+"""
+function distort_context_range!(
+    context_vector::Vector{Int64},
+    start_idx::Int64,
+    end_idx::Int64,
+    distortion_prob::Float64,
+    g_context::Float64
+)::Nothing
+    for j in start_idx:end_idx
+        if rand() < distortion_prob
+            context_vector[j] = rand(Geometric(g_context)) + 1
+        end
+    end
+    return nothing
+end
+
+"""
+Distort all content features of all probe words with constant probability.
+Applies to all word types (targets and foils).
+
+Args:
+    probe_words: Vector of Word objects to distort (will be modified in place)
+    distortion_prob: Probability of distorting each feature
+    g_word: Geometric distribution parameter for new values
+    max_feature_idx: Maximum feature index to distort (to avoid distorting Z feature)
+"""
+function distort_probe_words_content!(
+    probe_words::Vector{Word},
+    distortion_prob::Float64,
+    g_word::Float64,
+    max_feature_idx::Int64
+)::Nothing
+    for iword in eachindex(probe_words)
+        for cf in eachindex(probe_words[iword].word_features)
+            if cf <= max_feature_idx  # Only distort normal content features (not Z feature)
+                if rand() < distortion_prob
+                    probe_words[iword].word_features[cf] = rand(Geometric(g_word)) + 1
+                end
+            end
+        end
+    end
+    return nothing
+end
+
+"""
+Reinstate context features from dynamic array back toward reference array.
+Used during initial test to partially restore drifted/distorted context.
+
+Args:
+    context_array: Current context vector (will be modified in place)
+    reference_array: Reference context vector to reinstate toward
+    p_reinstate_context: Proportion of features to consider for reinstatement
+    p_reinstate_rate: Probability of reinstating each mismatched feature
+"""
+function reinstate_context_duringTest!(
+    context_array::Vector{Int64}, 
+    reference_array::Vector{Int64},
+    p_reinstate_context::Float64,
+    p_reinstate_rate::Float64
+)::Nothing
+    # nct = length(context_array)
+    for ict in eachindex(context_array)
+        # if ict < Int(round(nct * p_reinstate_context)) #disable this, don't need to have this
+            if (context_array[ict] != reference_array[ict]) & (rand() < p_reinstate_rate)
+                context_array[ict] = reference_array[ict]
+            end
+        # end
+    end
+    return nothing
+end
+
+"""
+Reinstate content features of a single word back toward reference word.
+Used during initial test to partially restore distorted word features.
+
+Args:
+    word: Word object to reinstate (will be modified in place)
+    reference_word: Reference word object to reinstate toward
+    p_reinstate_rate: Probability of reinstating each mismatched feature
+    max_feature_idx: Maximum feature index to reinstate (to avoid reinstating Z feature)
+"""
+function reinstate_word_content_duringTest!(
+    word::Word,
+    reference_word::Word,
+    p_reinstate_rate::Float64,
+    max_feature_idx::Int64
+)::Nothing
+    for ifeature in eachindex(word.word_features)
+        if ifeature <= max_feature_idx  # Only reinstate normal content features (not Z feature)
+            if (word.word_features[ifeature] != reference_word.word_features[ifeature]) & (rand() < p_reinstate_rate)
+                word.word_features[ifeature] = reference_word.word_features[ifeature]
+            end
+        end
+    end
+    return nothing
+end

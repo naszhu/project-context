@@ -1,5 +1,518 @@
 # Model Progress
 
+## Commit [56e0b41](https://github.com/naszhu/REM_E3_model_fixed/commit/56e0b41) (branch: `oct-14-2`)
+**Time:** 2025-10-16 11:21:44  
+**Message:**
+```
+finetune(model-e1): set `is_finaltest` to true for final testing conditions
+
+- Changed `is_finaltest` to true, adjusting `n_simulations` to 200 for final testing.
+- This update aligns the simulation parameters with the requirements for final testing, ensuring accurate and reliable results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/56e0b41_20251016_112144_plot1.png)  
+![](../plot_archive/56e0b41_20251016_112144_plot2.png)  
+
+## Commit [ff273c1](https://github.com/naszhu/REM_E3_model_fixed/commit/ff273c1) (branch: `oct-14-2`)
+**Time:** 2025-10-16 11:18:16  
+**Message:**
+```
+finetune(model-e1): adjust simulation parameters for final testing conditions
+
+- Set `is_finaltest` to false, changing `n_simulations` to 500 for standard testing.
+- Decreased `nnnow` to 0.77 to modify initial differences between T and F.
+- Increased `criterion_between_list_start` to 0.22 for improved control over the linear diminishing criterion.
+- Adjusted `p_reinstate_rate` to 0.15 to refine the probability of reinstatement.
+
+These changes aim to optimize the simulation setup, ensuring more accurate and reliable results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/ff273c1_20251016_111816_plot1.png)  
+![](../plot_archive/ff273c1_20251016_111816_plot2.png)  
+
+## Commit [474209a](https://github.com/naszhu/REM_E3_model_fixed/commit/474209a) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:56:15  
+**Message:**
+```
+finetune(model-e1): relarively good final
+
+- Set `is_finaltest` to true, adjusting `n_simulations` to 200 for final testing conditions.
+- Increased `criterion_between_list_start` to 0.14 for improved control over the linear diminishing criterion.
+- Modified `criterion_final` calculation to include an additional term, enhancing alignment with testing objectives.
+
+These changes aim to optimize the simulation setup for the final test, ensuring more accurate and reliable results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/474209a_20251016_105615_plot1.png)  
+![](../plot_archive/474209a_20251016_105615_plot2.png)  
+
+## Commit [ddafe7b](https://github.com/naszhu/REM_E3_model_fixed/commit/ddafe7b) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:51:27  
+**Message:**
+```
+finetune(model-e1): update simulation parameters for improved model accuracy
+
+- Set `is_finaltest` to false, adjusting `n_simulations` to 500 for standard testing conditions.
+- Decreased `nnnow` to 0.78 to modify the initial differences between T and F.
+- Increased `criterion_between_list_start`, `criterion_between_list_initial_increment`, and `criterion_between_list_decrement_per_step` for finer control over the linear diminishing criterion.
+- Adjusted `base_distortion_prob_UC` and `base_distortion_prob_CC` to 0.19 to enhance content distortion handling.
+
+These changes aim to refine the simulation setup, improving the accuracy and reliability of the results.
+
+Refs #54
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/ddafe7b_20251016_105127_plot1.png)  
+![](../plot_archive/ddafe7b_20251016_105127_plot2.png)  
+
+## Commit [454a4f6](https://github.com/naszhu/REM_E3_model_fixed/commit/454a4f6) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:40:46  
+**Message:**
+```
+fix(model-e1): it is the content distortion that is causing the problem
+
+- Adjusted distortion flags to control feature distortion between study and test phases, enabling content distortion while maintaining UC and CC distortions.
+- These changes aim to enhance the model's fidelity in simulating study-test conditions, ensuring more accurate representation of feature dynamics.
+
+Fixes #54
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/454a4f6_20251016_104046_plot1.png)  
+![](../plot_archive/454a4f6_20251016_104046_plot2.png)  
+
+## Commit [2887933](https://github.com/naszhu/REM_E3_model_fixed/commit/2887933) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:33:34  
+**Message:**
+```
+bug(model-e1): final test bad now study only and foil initial test diverge now
+
+- Set `is_finaltest` to true, adjusting `n_simulations` to 200 for final testing conditions.
+- Modified the `criterion_final` calculation to enhance alignment with testing objectives, improving the model's sensitivity to variations.
+
+These changes aim to optimize the simulation parameters for the final test, ensuring more accurate and reliable results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/2887933_20251016_103334_plot1.png)  
+![](../plot_archive/2887933_20251016_103334_plot2.png)  
+
+## Commit [5b200f8](https://github.com/naszhu/REM_E3_model_fixed/commit/5b200f8) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:29:48  
+**Message:**
+```
+fix(model-e1): Don't need to have the part of judging chunk in final restore.
+
+- Commented out the previous chunk boundary calculation and replaced it with a hard-coded approach for clarity, ensuring each list has a consistent item count.
+- Adjusted the feature addition logic to utilize the last context instead of the probe's list number, improving the accuracy of feature restoration during the process.
+
+These changes aim to enhance the clarity and reliability of the memory restoration function.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/5b200f8_20251016_102948_plot1.png)  
+![](../plot_archive/5b200f8_20251016_102948_plot2.png)  
+
+## Commit [5dcb07e](https://github.com/naszhu/REM_E3_model_fixed/commit/5dcb07e) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:23:40  
+**Message:**
+```
+finetune(model-e1): adjust decrement parameter for linear diminishing criterion
+
+- Increased `criterion_between_list_decrement_per_step` from 0.015 to 0.017 to refine the decrement rate in the linear diminishing criterion.
+- This change aims to enhance the model's sensitivity to variations in the between-list dimension, improving overall simulation accuracy.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/5dcb07e_20251016_102340_plot1.png)  
+![](../plot_archive/5dcb07e_20251016_102340_plot2.png)  
+
+## Commit [c16e3ca](https://github.com/naszhu/REM_E3_model_fixed/commit/c16e3ca) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:06:42  
+**Message:**
+```
+explore(analysis-all-e1):check why update filtering logic in df_initialtestbyinitial
+
+- Commented out the filtering conditions for `response` and `rt` in the `df_initialtestbyinitial` data frame creation, simplifying the data selection process.
+- This change aims to enhance clarity in the data preparation steps while maintaining the focus on the `task` variable for analysis.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/c16e3ca_20251016_100642_plot1.png)  
+![](../plot_archive/c16e3ca_20251016_100642_plot2.png)  
+
+## Commit [468b7a8](https://github.com/naszhu/REM_E3_model_fixed/commit/468b7a8) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:06:23  
+**Message:**
+```
+refactor(model-e1): final bewteen re-analysis
+
+- Modified the interaction terms in the glmer model to focus on `list_order_lin`, `item_type`, and `condition`, enhancing the model's ability to capture relevant effects.
+- Updated comments to include relative gradient outputs for better clarity in model performance assessment.
+
+These changes aim to refine the model specifications, improving the accuracy and interpretability of the analysis results.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/468b7a8_20251016_100623_plot1.png)  
+![](../plot_archive/468b7a8_20251016_100623_plot2.png)  
+
+## Commit [280dd35](https://github.com/naszhu/REM_E3_model_fixed/commit/280dd35) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:05:19  
+**Message:**
+```
+finetune(model-e1): a good working version. adjust simulation parameters for improved accuracy
+
+- Decreased `nnnow` to 0.87 to modify the initial differences between T and F.
+- Increased `criterion_between_list_start`, `criterion_between_list_initial_increment`, and `criterion_between_list_decrement_per_step` for finer control over the linear diminishing criterion.
+- Adjusted `p_reinstate_rate` to 0.12 and lowered `base_distortion_prob` to 0.18 for better content distortion handling.
+- Commented out `total_probe_L1`, `total_probe_Ln`, and `nItemPerUnit_final` for clarity in the final test parameters.
+
+These changes aim to refine the simulation setup, enhancing the accuracy and reliability of the results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/280dd35_20251016_100519_plot1.png)  
+![](../plot_archive/280dd35_20251016_100519_plot2.png)  
+
+## Commit [5e9f64d](https://github.com/naszhu/REM_E3_model_fixed/commit/5e9f64d) (branch: `oct-14-2`)
+**Time:** 2025-10-16 09:45:18  
+**Message:**
+```
+finetune(model-e1):almost there! adjust simulation parameters for improved testing fidelity
+
+- Set `is_finaltest` to false and updated `n_simulations` to 500 for standard testing conditions.
+- Increased `nnnow` to 0.95 to modify the initial differences between T and F.
+- Reduced `criterion_between_list_start`, `criterion_between_list_initial_increment`, and `criterion_between_list_decrement_per_step` for finer control over the linear diminishing criterion.
+- Lowered `p_reinstate_rate` to 0.1 and adjusted `base_distortion_prob` to 0.2 for better content distortion handling.
+- Updated `ratio_unchanging_to_itself_init` to start from 0.46 for consistency in unchanging context handling.
+
+These changes aim to refine the simulation setup, enhancing the accuracy and reliability of the results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/5e9f64d_20251016_094518_plot1.png)  
+![](../plot_archive/5e9f64d_20251016_094518_plot2.png)  
+
+## Commit [2643a05](https://github.com/naszhu/REM_E3_model_fixed/commit/2643a05) (branch: `oct-14-2`)
+**Time:** 2025-10-16 09:43:34  
+**Message:**
+```
+finetune(model-e1):almost there! adjust simulation parameters for improved testing fidelity
+
+- Set `is_finaltest` to false and updated `n_simulations` to 500 for standard testing conditions.
+- Increased `nnnow` to 0.95 to modify the initial differences between T and F.
+- Reduced `criterion_between_list_start`, `criterion_between_list_initial_increment`, and `criterion_between_list_decrement_per_step` for finer control over the linear diminishing criterion.
+- Lowered `p_reinstate_rate` to 0.1 and adjusted `base_distortion_prob` to 0.2 for better content distortion handling.
+- Updated `ratio_unchanging_to_itself_init` to start from 0.46 for consistency in unchanging context handling.
+
+These changes aim to refine the simulation setup, enhancing the accuracy and reliability of the results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/2643a05_20251016_094334_plot1.png)  
+![](../plot_archive/2643a05_20251016_094334_plot2.png)  
+
+## Commit [8075119](https://github.com/naszhu/REM_E3_model_fixed/commit/8075119) (branch: `oct-14-2`)
+**Time:** 2025-10-16 09:43:18  
+**Message:**
+```
+finetune(model-e1): a final test finaltune for temporal urgent use
+
+- Set `is_finaltest` to true and updated `n_simulations` to 200 for final test conditions.
+- Increased `p_reinstate_rate` to 0.30 to enhance reinstatement probability.
+- Modified `base_distortion_prob`, `base_distortion_prob_UC`, and `base_distortion_prob_CC` to 0.6 to improve content distortion handling.
+- Adjusted `criterion_final` calculation for better alignment with testing objectives.
+
+These changes aim to refine the simulation parameters for the final test, enhancing the accuracy and reliability of the results.
+
+Closes #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/8075119_20251016_094318_plot1.png)  
+![](../plot_archive/8075119_20251016_094318_plot2.png)  
+
+## Commit [c4648d9](https://github.com/naszhu/REM_E3_model_fixed/commit/c4648d9) (branch: `oct-14-2`)
+**Time:** 2025-10-16 09:00:46  
+**Message:**
+```
+finetune(model-e3): a final test finaltune for temporal urgent use
+
+- Set `is_finaltest` to true and updated `n_simulations` to 200 for final test conditions.
+- Increased `p_reinstate_rate` to 0.30 to enhance reinstatement probability.
+- Modified `base_distortion_prob`, `base_distortion_prob_UC`, and `base_distortion_prob_CC` to 0.6 to improve content distortion handling.
+- Adjusted `criterion_final` calculation for better alignment with testing objectives.
+
+These changes aim to refine the simulation parameters for the final test, enhancing the accuracy and reliability of the results.
+
+Closes #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/c4648d9_20251016_090046_plot1.png)  
+![](../plot_archive/c4648d9_20251016_090046_plot2.png)  
+
+## Commit [f8b12d2](https://github.com/naszhu/REM_E3_model_fixed/commit/f8b12d2) (branch: `oct-14-2`)
+**Time:** 2025-10-15 22:22:13  
+**Message:**
+```
+explore(model-e1): enable backward reconstruction for final test
+
+- Updated the `is_reconstruct_finaltest_backward` flag to true, allowing for context reconstruction during the backward condition in the final test.
+- This change aims to enhance the testing framework by enabling a more comprehensive analysis of context effects across different conditions.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/f8b12d2_20251015_222213_plot1.png)  
+![](../plot_archive/f8b12d2_20251015_222213_plot2.png)  
+
+## Commit [cdeaece](https://github.com/naszhu/REM_E3_model_fixed/commit/cdeaece) (branch: `oct-14-2`)
+**Time:** 2025-10-15 22:21:40  
+**Message:**
+```
+feat(all-analysis-e1): more tries, update glmer model specifications for accuracy analysis
+
+- Added new model specifications for the combined between-list order analysis, refining the interaction terms to better capture the effects of list order, item type, condition, and ordering type.
+- Included additional comments and relative gradient outputs to enhance clarity and facilitate future analysis.
+- These changes aim to improve the robustness of the model and ensure accurate representation of the data relationships.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/cdeaece_20251015_222140_plot1.png)  
+![](../plot_archive/cdeaece_20251015_222140_plot2.png)  
+
+## Commit [806f1e3](https://github.com/naszhu/REM_E3_model_fixed/commit/806f1e3) (branch: `oct-14-2`)
+**Time:** 2025-10-15 21:29:25  
+**Message:**
+```
+fix(model-e1): parameter was wrong and tehre is a bug right now in runing.
+
+- Changed `is_finaltest` to false and adjusted `n_simulations` to 500 for improved testing conditions.
+- Updated `base_recovery_prob` from 0.0 to 0.1 to enhance recovery probability during tests.
+- Refactored `generate_probes` function to utilize the updated `base_recovery_prob` for reinstatement processes.
+
+These changes aim to refine the simulation setup and improve the accuracy of recovery during testing.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design3/modeling`  
+![](../plot_archive/806f1e3_20251015_212925_plot1.png)  
+![](../plot_archive/806f1e3_20251015_212925_plot2.png)  
+
+## Commit [dec8df2](https://github.com/naszhu/REM_E3_model_fixed/commit/dec8df2) (branch: `oct-14-2`)
+**Time:** 2025-10-15 21:29:01  
+**Message:**
+```
+feat(all-analysis-e1): final between reanalyze
+
+- Introduced a new R script for the final test of combined between-list order analysis, integrating initial and final order effects across different conditions (forward, backward, random).
+- Implemented data preparation steps, including loading data, creating lookup tables, and generating final test datasets with appropriate ordering types.
+- Developed a main model to analyze the interaction between condition and ordering type, with provisions for polynomial terms and convergence checks.
+- Added functionality for item-type-specific trends and pairwise comparisons, enhancing the analysis of the results.
+- Included saving mechanisms for model outputs and summaries, ensuring reproducibility and accessibility of results.
+
+These changes aim to provide a comprehensive framework for analyzing between-list order effects in the context of the study.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/dec8df2_20251015_212901_plot1.png)  
+![](../plot_archive/dec8df2_20251015_212901_plot2.png)  
+
+## Commit [79c2319](https://github.com/naszhu/REM_E3_model_fixed/commit/79c2319) (branch: `oct-14-2`)
+**Time:** 2025-10-15 19:02:01  
+**Message:**
+```
+fix(model-e1): duplicated part in function. BUG on should store non-distorted for test & forgot to set prob distort >0!!
+
+- Added debug checks in `simulate_rem` and `generate_probes` to verify that foils in the studied pool are non-distorted when content distortion is enabled.
+- Updated distortion flags in `constants.jl` to enable content distortion and adjusted base distortion probabilities for improved testing fidelity.
+- Refactored sampling logic in `probe_evaluation` to ensure valid probabilities are used during item selection, enhancing the robustness of the evaluation process.
+
+These changes aim to improve the accuracy of distortion handling and ensure the integrity of the simulation outcomes.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/79c2319_20251015_190201_plot1.png)  
+![](../plot_archive/79c2319_20251015_190201_plot2.png)  
+
+## Commit [7ad590b](https://github.com/naszhu/REM_E3_model_fixed/commit/7ad590b) (branch: `oct-14-2`)
+**Time:** 2025-10-14 21:49:30  
+**Message:**
+```
+fix(model-e1): foil collection should store NON-DISTORTED foils for final test use
+
+- Modified the `generate_probes` function to ensure that non-distorted words are used for the foils collection during the final test.
+- Introduced a new variable to hold the non-distorted foil image, improving the accuracy of the foil collection process.
+- Updated comments to clarify the importance of using non-distorted words for foils, enhancing code readability.
+
+These changes aim to ensure the integrity of the foil images used in testing, contributing to more reliable simulation outcomes.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/7ad590b_20251014_214930_plot1.png)  
+![](../plot_archive/7ad590b_20251014_214930_plot2.png)  
+
+## Commit [a0d74fd](https://github.com/naszhu/REM_E3_model_fixed/commit/a0d74fd) (branch: `oct-14-2`)
+**Time:** 2025-10-14 21:43:56  
+**Message:**
+```
+refactor(model-e1):  make distortion and reinstate into functions
+
+- Introduced new functions for distorting context features and reinstating both context and content features during the probe generation process.
+- Refactored the `simulate_rem` and `generate_probes` functions to utilize these new distortion and reinstatement functions, improving code clarity and maintainability.
+- Removed outdated loop-based distortion logic in favor of the new functions, enhancing the overall structure of the simulation framework.
+
+These changes aim to streamline the distortion and reinstatement processes, ensuring a more cohesive and efficient simulation model.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/a0d74fd_20251014_214356_plot1.png)  
+![](../plot_archive/a0d74fd_20251014_214356_plot2.png)  
+
+## Commit [5275d1c](https://github.com/naszhu/REM_E3_model_fixed/commit/5275d1c) (branch: `oct-14-2`)
+**Time:** 2025-10-14 21:35:42  
+**Message:**
+```
+feat(model-e1): refactored the distortion place
+
+SIMULATION RAN BUT THE FINAL DATA PREDICTION IS WRONG SOMEWHERE IS WRONG
+
+- Moved content distortion logic from `simulation.jl` to `probe_generation.jl`, allowing for simultaneous distortion of all probe words (targets and foils).
+- Updated comments to clarify the new structure and flow of the distortion process.
+- Removed outdated distortion code from `simulation.jl` to enhance clarity and maintainability.
+
+These changes aim to improve the organization of the distortion logic, ensuring a more cohesive simulation framework.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+- `design3/modeling`  
+![](../plot_archive/5275d1c_20251014_213542_plot1.png)  
+![](../plot_archive/5275d1c_20251014_213542_plot2.png)  
+
+## Commit [ac04ee4](https://github.com/naszhu/REM_E3_model_fixed/commit/ac04ee4) (branch: `oct-14-2`)
+**Time:** 2025-10-14 21:23:47  
+**Message:**
+```
+feat(model-e1): add distortion and reinstate for T and UC
+
+(last commit included reinstatement for cc accidently, so last commit is partial-mistaken and incomplete but now its adding final part of distortion in simulation file
+
+- Updated the simulation logic to include separate handling for unchanging context (UC) and content distortions, alongside the existing changing context (CC) distortions.
+- Renamed variables for clarity, ensuring consistency in naming conventions across the simulation process.
+- Modified the `generate_probes` function call to accommodate the new distortion parameters, improving the fidelity of the simulation.
+
+These changes aim to provide a more comprehensive simulation of context and content distortions, enhancing the overall model accuracy.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/ac04ee4_20251014_212347_plot1.png)  
+![](../plot_archive/ac04ee4_20251014_212347_plot2.png)  
+
+## Commit [2f6532a](https://github.com/naszhu/REM_E3_model_fixed/commit/2f6532a) (branch: `oct-14-2`)
+**Time:** 2025-10-14 21:21:26  
+**Message:**
+```
+refactor(model-e1):  change names for drift to distort for not confusing actual drift and distort
+
+- Updated the simulation logic to include separate handling for context and content distortion between study and test phases.
+- Renamed variables for clarity, changing `CC_before_drift` and `CC_after_drift` to `CC_before_distort` and `CC_after_distort`, respectively.
+- Introduced new flags for controlling distortion behavior and updated the `generate_probes` function to accommodate these changes.
+- Enhanced documentation to clarify the roles of various parameters in the distortion process.
+
+These changes aim to improve the model's ability to simulate realistic context and content distortions, enhancing the overall fidelity of the simulation.
+
+Refs #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/2f6532a_20251014_212126_plot1.png)  
+![](../plot_archive/2f6532a_20251014_212126_plot2.png)  
+
+## Commit [381182f](https://github.com/naszhu/REM_E3_model_fixed/commit/381182f) (branch: `oct-14-2`)
+**Time:** 2025-10-14 21:12:08  
+**Message:**
+```
+merge(oct-14): Merge branch 'oct-14'
+```
+![](../plot_archive/381182f_20251014_211208_plot1.png)  
+![](../plot_archive/381182f_20251014_211208_plot2.png)  
+
 ## Commit [0d4aa8a](https://github.com/naszhu/REM_E3_model_fixed/commit/0d4aa8a) (branch: `oct-14`)
 **Time:** 2025-10-14 20:29:10  
 **Message:**

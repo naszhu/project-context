@@ -1,7 +1,7 @@
 
 
 is_finaltest = true
-n_simulations = is_finaltest ? 200 : 1000;
+n_simulations = is_finaltest ? 200 : 500;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -100,11 +100,8 @@ const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
 is_restore_context = true # currently don't want to restore context features, only add new context features tarce
-is_content_drift_between_study_and_test = false  # Enable content distortion (from E3)
 
-# below is the drift done by after probe generation drift all at once and then etc. 
-is_UC_drift_between_study_and_test = false  # Enable UC (unchanging context) distortion (Issue #50)
-is_CC_drift_between_study_and_test = true  # Enable CC (changing context) distortion (Issue #50)
+
 
 # Stage control flags
 is_firststage = true;
@@ -123,9 +120,9 @@ power_taken = 1  # raise to 1/11 power for sampling
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 # Parameters for linear diminishing criterion (between-list dimension)
-criterion_between_list_start = 0.35  # starting value for between-list criterion
-criterion_between_list_initial_increment = 0.135  # initial increment across lists
-criterion_between_list_decrement_per_step = 0.029  # how much increment decreases each list
+criterion_between_list_start = 0.22#0.35  # starting value for between-list criterion
+criterion_between_list_initial_increment = 0.2  # initial increment across lists
+criterion_between_list_decrement_per_step = 0.05  # how much increment decreases each list
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
 criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
@@ -174,17 +171,22 @@ context_tau = 100 #foil odds should lower than this
 κ_update_between_list = 0.0;
 LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
-p_reinstate_context = 1 #stop reinstate after how much features, 1.9 means a hundrad percent of features are reinstated
+p_reinstate_context = 1.0 #stop reinstate after how much features, 1.0 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well.
-p_reinstate_rate = 0.30 #0.4 #prob of reinstatement #do not reinstate. 
+p_reinstate_rate = 0.15 #0.4 #prob of reinstatement #do not reinstate. 
+base_recovery_prob = p_reinstate_rate  # constant probability of recovering distorted features during test
+
+# DISTORTION FLAGS (applied after drift, before initial test)
+# These control whether features are distorted between study and test
+is_content_distort_between_study_and_test = false  # CHANGED Enable content distortion (from E3)
+is_UC_distort_between_study_and_test = true  # CHANGED Enable UC (unchanging context) distortion (Issue #50)
+is_CC_distort_between_study_and_test = true  # CHANGED Enable CC (changing context) distortion (Issue #50)
 
 # Distortion probability parameters (Issue #50)
-base_distortion_prob = 0.0  # distortion probability for content
-base_distortion_prob_UC = 0.0  # distortion probability for UC (set higher to test effect)
-base_distortion_prob_CC = 0.7  # distortion probability for CC (set higher to test effect)
+base_distortion_prob = 0.18  # distortion probability for content
+base_distortion_prob_UC = 0.19  # distortion probability for UC (set higher to test effect)
+base_distortion_prob_CC = 0.19  # distortion probability for CC (set higher to test effect)
 
-# Recovery probability parameters for context reinstatement during test
-base_recovery_prob = 0.0  # constant probability of recovering distorted features during test
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 20  # Number of probes until distortion probability reaches 0
@@ -207,7 +209,7 @@ const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-li
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
-ratio_unchanging_to_itself_init = LinRange(1, 0.46, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(0.46, 0.46, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
@@ -221,19 +223,19 @@ chunk_size_final_change = 42;
 
 # Context reconstruction flags for final test (between-list)
 is_reconstruct_finaltest_forward = true   # Enable CC reconstruction for forward condition
-is_reconstruct_finaltest_backward = false  # Disable CC reconstruction for backward condition
+is_reconstruct_finaltest_backward = true  # Disable CC reconstruction for backward condition
 # is_reconstruct_finaltest_random = false   # never do reconstruction for random condition
 p_reinstate_rate_finaltest = 0.3          # Probability of reinstating original CC features in final test 
 
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
 
 # E3 final test chunk parameters this part is wrong, M1 don't have this
-const total_probe_L1 = 15;  # total probes in list 1
-const total_probe_Ln = 12;  # total probes in other lists
-const nItemPerUnit_final = 2;  # items per unit in final test
+# const total_probe_L1 = 15;  # total probes in list 1
+# const total_probe_Ln = 12;  # total probes in other lists
+# const nItemPerUnit_final = 2;  # items per unit in final test
 
 # Original criterion_final (commented out to try asymptotic version)
-criterion_final = LinRange((0.09+0.18)^power_taken, 0.27+0.07^power_taken, 10)
+criterion_final = LinRange((0.09+0.18+0.1)^power_taken, 0.27^power_taken, 10)
 # Generate asymptotic criterion_final using asym_increase_shift for nonlinear behavior
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
