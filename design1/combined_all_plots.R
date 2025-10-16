@@ -66,7 +66,7 @@ df_initialtestbyinitial = dfchanged%>%
   # filter(task=="pretest_response", response != "null")%>%
   filter(task=="pretest_response")%>%
   select(trialnum,ip,correct,probetype,rt)%>%
-  # filter(!(rt < 150 | rt > 3500))%>%
+  filter(!(rt < 150 | rt > 3500))%>%
   group_by(trialnum,ip,probetype)%>%
   summarize(meancr1=mean(correct))%>%
   group_by(trialnum,probetype)%>%
@@ -837,6 +837,9 @@ POINT_STROKE <- 1.2
 LINE_ALPHA <- 1
 RIBBON_ALPHA <- 0.5
 
+Y_LIMIT <- c(0.5, 0.98)
+X_LIMIT <- c(0, 20)
+
 # Load the preprocessed data for data plot - EXACT COPY FROM ORIGINAL
 dfchanged <- read_csv(file.path(DATA_ANALYSIS_DIR, "dfchanged.csv"))
 cat("Loaded dfchanged data from dfchanged.csv\n")
@@ -1008,7 +1011,7 @@ data_plot <- ggplot(data=df_finalwithin,
     color = "none",
     shape = "none",
     linetype = "none"
-  )
+  )+ylim(Y_LIMIT)+xlim(X_LIMIT)
 
 # Save data plot
 ggsave(file.path(DESIGN1_DIR, "temp_data_plot.png"), data_plot, width = 10, height = 9, dpi = 300, bg = "white")
@@ -1092,7 +1095,7 @@ prediction_plot <- ggplot(data=DF_fbyi,aes(x=posSum,meanx))+
   guides(
     color = "none",
     shape = "none"
-  )
+  )+ylim(Y_LIMIT)+xlim(X_LIMIT)
 
 # Save prediction plot
 ggsave(file.path(DESIGN1_DIR, "temp_prediction_plot.png"), prediction_plot, width = 10, height = 9, dpi = 300, bg = "white")

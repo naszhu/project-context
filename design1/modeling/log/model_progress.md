@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [56e0b41](https://github.com/naszhu/REM_E3_model_fixed/commit/56e0b41) (branch: `oct-14-2`)
+**Time:** 2025-10-16 11:21:44  
+**Message:**
+```
+finetune(model-e1): set `is_finaltest` to true for final testing conditions
+
+- Changed `is_finaltest` to true, adjusting `n_simulations` to 200 for final testing.
+- This update aligns the simulation parameters with the requirements for final testing, ensuring accurate and reliable results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/56e0b41_20251016_112144_plot1.png)  
+![](../plot_archive/56e0b41_20251016_112144_plot2.png)  
+
 ## Commit [ff273c1](https://github.com/naszhu/REM_E3_model_fixed/commit/ff273c1) (branch: `oct-14-2`)
 **Time:** 2025-10-16 11:18:16  
 **Message:**
