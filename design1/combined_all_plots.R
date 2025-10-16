@@ -130,7 +130,7 @@ data_plot <- ggplot(data=plot_data, aes(position,meancr,group=interaction(positi
   theme(
           plot.title = element_text(hjust = 0.5, size = TITLE_SIZE, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5, size = 18, face = "bold", color = "blue"),
-        panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8),
+        panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         legend.position = LEGEND_POSITION,
@@ -189,7 +189,7 @@ prediction_plot <- ggplot(data = df_between, aes(x = list_number, y = meanx, gro
     theme(
         plot.title = element_text(hjust = 0.5, size = TITLE_SIZE, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5, size = 18, face = "bold", color = "blue"),
-        panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8),
+        panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         legend.position = LEGEND_POSITION,
@@ -336,7 +336,7 @@ data_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction(pos
   theme(
         plot.title = element_text(hjust = 0.5, size = TITLE_SIZE, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5, size = 18, face = "bold", color = "blue"),
-        panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8),
+        panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         legend.position = LEGEND_POSITION,
@@ -421,7 +421,7 @@ prediction_plot <- ggplot(data = df_combined, aes(x = position, y = meanx, group
     theme(
         plot.title = element_text(hjust = 0.5, size = TITLE_SIZE, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5, size = 18, face = "bold", color = "blue"),
-        panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.8),
+        panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         legend.position = LEGEND_POSITION,
@@ -486,8 +486,8 @@ GRID_MINOR_COLOR <- "grey85"
 GRID_MINOR_WIDTH <- 0.2
 PANEL_BORDER_WIDTH <- 0.5
 PANEL_BACKGROUND <- "grey98"
-STRIP_BACKGROUND <- "grey90"
-STRIP_BORDER_WIDTH <- 0.4
+STRIP_BACKGROUND <- "white"
+STRIP_BORDER_WIDTH <- 1
 
 # Point styling
 POINT_ALPHA <- 1
@@ -609,7 +609,7 @@ data_plot <- ggplot(data=dfserial, aes(position,meancr,group=interaction(positio
     panel.border = element_rect(color = "black", fill = NA, linewidth = PANEL_BORDER_WIDTH),
     plot.background = element_rect(fill = "white", color = NA),
     panel.background = element_rect(fill = PANEL_BACKGROUND, color = NA),
-    strip.background = element_rect(fill = STRIP_BACKGROUND, color = "black", linewidth = STRIP_BORDER_WIDTH),
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
     strip.text = element_text(face = "bold", size = STRIP_TEXT_SIZE)
   ) +
   guides(
@@ -759,7 +759,7 @@ prediction_plot <- ggplot(data = df_allfinal_filtered,
         panel.border = element_rect(color = "black", fill = NA, linewidth = PANEL_BORDER_WIDTH),
         plot.background = element_rect(fill = "white", color = NA),
         panel.background = element_rect(fill = PANEL_BACKGROUND, color = NA),
-        strip.background = element_rect(fill = STRIP_BACKGROUND, color = "black", linewidth = STRIP_BORDER_WIDTH),
+        strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
         strip.text = element_text(face = "bold", size = STRIP_TEXT_SIZE)
     ) +
     ylim(c(0.5, 1)) +
@@ -836,8 +836,8 @@ GRID_MINOR_COLOR <- "grey85"
 GRID_MINOR_WIDTH <- 0.2
 PANEL_BORDER_WIDTH <- 0.5
 PANEL_BACKGROUND <- "grey98"
-STRIP_BACKGROUND <- "grey90"
-STRIP_BORDER_WIDTH <- 0.4
+STRIP_BACKGROUND <- "white"
+STRIP_BORDER_WIDTH <- 1
 
 # Point styling
 POINT_ALPHA <- 0.8
@@ -1011,7 +1011,7 @@ data_plot <- ggplot(data=df_finalwithin,
     panel.border = element_rect(color = "black", fill = NA, linewidth = PANEL_BORDER_WIDTH),
     plot.background = element_rect(fill = "white", color = NA),
     panel.background = element_rect(fill = PANEL_BACKGROUND, color = NA),
-    strip.background = element_rect(fill = STRIP_BACKGROUND, color = "black", linewidth = STRIP_BORDER_WIDTH),
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
     strip.text = element_text(face = "bold", size = STRIP_TEXT_SIZE, color = "black")
   ) +
   guides(
@@ -1085,7 +1085,7 @@ prediction_plot <- ggplot(data=DF_fbyi,aes(x=posSum,meanx))+
     panel.border = element_rect(color = "black", fill = NA, linewidth = PANEL_BORDER_WIDTH),
     plot.background = element_rect(fill = "white", color = NA),
     panel.background = element_rect(fill = PANEL_BACKGROUND, color = NA),
-    strip.background = element_rect(fill = STRIP_BACKGROUND, color = "black", linewidth = STRIP_BORDER_WIDTH),
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
     strip.text = element_text(face = "bold", size = STRIP_TEXT_SIZE, color = "black")
   )+
   scale_color_manual(values=c(
