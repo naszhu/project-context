@@ -135,7 +135,7 @@ data_plot <- ggplot(data=plot_data, aes(position,meancr,group=interaction(positi
         panel.grid.minor = element_blank(),
         legend.position = LEGEND_POSITION,
         text = element_text(size = BASE_TEXT_SIZE),
-        axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+        axis.title = element_text(size = AXIS_TITLE_SIZE),
         axis.text = element_text(size = AXIS_TEXT_SIZE)
   )
 
@@ -194,7 +194,7 @@ prediction_plot <- ggplot(data = df_between, aes(x = list_number, y = meanx, gro
         panel.grid.minor = element_blank(),
         legend.position = LEGEND_POSITION,
         text = element_text(size = BASE_TEXT_SIZE),
-        axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+        axis.title = element_text(size = AXIS_TITLE_SIZE),
         axis.text = element_text(size = AXIS_TEXT_SIZE)
     )
 
@@ -341,7 +341,7 @@ data_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction(pos
         panel.grid.minor = element_blank(),
         legend.position = LEGEND_POSITION,
         text = element_text(size = BASE_TEXT_SIZE),
-        axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+        axis.title = element_text(size = AXIS_TITLE_SIZE),
         axis.text = element_text(size = AXIS_TEXT_SIZE),
         strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
   )
@@ -426,7 +426,7 @@ prediction_plot <- ggplot(data = df_combined, aes(x = position, y = meanx, group
         panel.grid.minor = element_blank(),
         legend.position = LEGEND_POSITION,
         text = element_text(size = BASE_TEXT_SIZE),
-        axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+        axis.title = element_text(size = AXIS_TITLE_SIZE),
         axis.text = element_text(size = AXIS_TEXT_SIZE),
         strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
     )
@@ -562,6 +562,7 @@ data_plot <- ggplot(data=dfserial, aes(position,meancr,group=interaction(positio
 
   # Set x-axis to include position 0
   scale_x_continuous(breaks = 0:10, labels = 0:10) +
+  scale_y_continuous(limits = c(0.5, 1)) +
 
   # Enhanced color palette with high contrast
   scale_color_manual(values=c("Average"="#2C2C2C",
@@ -593,10 +594,10 @@ data_plot <- ggplot(data=dfserial, aes(position,meancr,group=interaction(positio
     plot.margin = margin(t = PLOT_MARGIN_TOP, r = PLOT_MARGIN_RIGHT, b = PLOT_MARGIN_BOTTOM, l = PLOT_MARGIN_LEFT),
     text = element_text(size = BASE_FONT_SIZE),
     axis.text = element_text(size = AXIS_TEXT_SIZE, color = "black"),
-    axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold", color = "black"),
+    axis.title = element_text(size = AXIS_TITLE_SIZE, color = "black"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-  legend.position="none",
+    legend.position="none",
     # legend.position = "bottom",
     # legend.title = element_text(face = "bold", size = BASE_FONT_SIZE, margin = margin(b = 5)),
     # legend.text = element_text(size = BASE_FONT_SIZE - 2),
@@ -743,7 +744,7 @@ prediction_plot <- ggplot(data = df_allfinal_filtered,
         plot.margin = margin(t = PLOT_MARGIN_TOP, r = PLOT_MARGIN_RIGHT, b = PLOT_MARGIN_BOTTOM, l = PLOT_MARGIN_LEFT),
         text = element_text(size = BASE_FONT_SIZE),
         axis.text = element_text(size = AXIS_TEXT_SIZE, color = "black"),
-        axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold", color = "black"),
+        axis.title = element_text(size = AXIS_TITLE_SIZE, color = "black"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
         # legend.position = "bottom",
@@ -994,7 +995,7 @@ data_plot <- ggplot(data=df_finalwithin,
     plot.margin = margin(t = PLOT_MARGIN_TOP, r = PLOT_MARGIN_RIGHT, b = PLOT_MARGIN_BOTTOM, l = PLOT_MARGIN_LEFT),
     text = element_text(size = BASE_FONT_SIZE),
     axis.text = element_text(size = AXIS_TEXT_SIZE, color = "black"),
-    axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold", color = "black"),
+    axis.title = element_text(size = AXIS_TITLE_SIZE, color = "black"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     legend.position = "none",
@@ -1069,7 +1070,7 @@ prediction_plot <- ggplot(data=DF_fbyi,aes(x=posSum,meanx))+
     plot.margin = margin(t = PLOT_MARGIN_TOP, r = PLOT_MARGIN_RIGHT, b = PLOT_MARGIN_BOTTOM, l = PLOT_MARGIN_LEFT),
     text = element_text(size = BASE_FONT_SIZE),
     axis.text = element_text(size = AXIS_TEXT_SIZE, color = "black"),
-    axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold", color = "black"),
+    axis.title = element_text(size = AXIS_TITLE_SIZE, color = "black"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     legend.position = "none",

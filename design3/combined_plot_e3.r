@@ -56,8 +56,8 @@ Y_BREAKS <- seq(0.4, 0.9, by = 0.1)
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold", hjust = 0.5),
-    axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
-    axis.title.y = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+    axis.title.x = element_text(size = AXIS_TITLE_SIZE),
+    axis.title.y = element_text(size = AXIS_TITLE_SIZE),
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
     axis.text.y = element_text(size = AXIS_TEXT_SIZE),
     legend.position = "none",
@@ -307,8 +307,8 @@ Y_BREAKS <- seq(0.4, 0.9, by = 0.1)
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold", hjust = 0.5),
-    axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
-    axis.title.y = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+    axis.title.x = element_text(size = AXIS_TITLE_SIZE),
+    axis.title.y = element_text(size = AXIS_TITLE_SIZE),
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
     axis.text.y = element_text(size = AXIS_TEXT_SIZE),
     legend.position = "none",
@@ -526,8 +526,8 @@ Y_BREAKS <- seq(0.5, 1.0, by = 0.1)
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold", hjust = 0.5),
-    axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
-    axis.title.y = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+    axis.title.x = element_text(size = AXIS_TITLE_SIZE),
+    axis.title.y = element_text(size = AXIS_TITLE_SIZE),
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
     axis.text.y = element_text(size = AXIS_TEXT_SIZE),
     legend.position = "none",
@@ -760,8 +760,8 @@ Y_BREAKS <- seq(0.5, 1.0, by = 0.1)
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold", hjust = 0.5),
-    axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
-    axis.title.y = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
+    axis.title.x = element_text(size = AXIS_TITLE_SIZE),
+    axis.title.y = element_text(size = AXIS_TITLE_SIZE),
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
     axis.text.y = element_text(size = AXIS_TEXT_SIZE),
     legend.position = "none",
