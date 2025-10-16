@@ -126,36 +126,13 @@ function linear_increase_diminishing(start_at::Float64,
     @assert n ≥ 1
     result = Vector{Float64}(undef, n)
     result[1] = start_at
-
+    
     for k in 2:n
         # Increment decreases linearly: initial_increment - decrement_per_step * (k-2)
         current_increment = max(0.0, initial_increment - decrement_per_step * (k - 2))
         result[k] = result[k-1] + current_increment
     end
-
-    return result
-end
-
-
-###############################################################
-# 7c. linear_decrease_diminishing  (linear diminishing decrements)
-# Creates a nonlinear decrease where the decrement amount itself decreases linearly
-# Each step decreases by less than the previous step, with the decrease being constant
-###############################################################
-function linear_decrease_diminishing(start_at::Float64,
-                                     initial_decrement::Float64,
-                                     decrement_per_step::Float64,
-                                     n::Int)::Vector{Float64}
-    @assert n ≥ 1
-    result = Vector{Float64}(undef, n)
-    result[1] = start_at
-
-    for k in 2:n
-        # Decrement decreases linearly: initial_decrement - decrement_per_step * (k-2)
-        current_decrement = max(0.0, initial_decrement - decrement_per_step * (k - 2))
-        result[k] = result[k-1] - current_decrement
-    end
-
+    
     return result
 end
 

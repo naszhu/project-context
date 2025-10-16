@@ -120,15 +120,12 @@ power_taken = 1  # raise to 1/11 power for sampling
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 # Parameters for linear diminishing criterion (between-list dimension)
-criterion_between_list_start = 0.1#0.35  # starting value for between-list criterion
+criterion_between_list_start = 0.22#0.35  # starting value for between-list criterion
 criterion_between_list_initial_increment = 0.2  # initial increment across lists
 criterion_between_list_decrement_per_step = 0.05  # how much increment decreases each list
 
-# Calculate criterion_initial (must be after utils.jl include)
+# criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
 criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
-
-
-# NOTE: criterion_initial calculation moved after utils.jl include (see below line ~335)
 
 recall_odds_threshold = 0.08^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
@@ -212,33 +209,11 @@ const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-li
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
-# Dynamic weighting scheme for CC and UC across lists (based on Shiffrin's suggestion)
-# At list 1: weight UC more and CC less → increases both Hs and CRs due to small number of activated traces
-# Over several lists: UC decreases and CC increases by the same amount → reaches usual level
+ratio_unchanging_to_itself_init = LinRange(0.46, 0.46, n_lists) # if use no unchanging
+ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
-# UC (Unchanging Context) parameters - starts high, decreases with diminishing increments
-UC_ratio_list1 = 1.0  # Starting ratio for UC at list 1 (using all UC features)
-UC_initial_decrement = 0.1  # Initial decrement per list
-UC_decrement_per_step = 0.05  # How much the decrement decreases each step
-
-# CC (Changing Context) parameters - starts low, increases by same amount UC decreases
-CC_ratio_list1 = 0.2  # Starting ratio for CC at list 1 (lower than usual)
-
-# Generate UC and CC ratio vectors (must be after utils.jl include)
-# UC DECREASES from list1 with diminishing decrements
-ratio_unchanging_to_itself_init = linear_decrease_diminishing(
-    UC_ratio_list1,
-    UC_initial_decrement,
-    UC_decrement_per_step,
-    n_lists
-)
-
-# CC increases by the same amount UC decreases (complementary)
-UC_change = UC_ratio_list1 .- ratio_unchanging_to_itself_init  # How much UC decreased from start
-ratio_changing_to_itself_init = CC_ratio_list1 .+ UC_change  # CC increases by same amount
-
-
-# NOTE: UC and CC calculations must happen AFTER utils.jl is included (see below line ~331)
+nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]
+nC_in = round.(Int, nC .* ratio_changing_to_itself_init)[1]
 
 # =============================================================================
 # FINAL TEST PARAMETERS
@@ -332,11 +307,6 @@ hj_base = 0.3; #higher this value higher CF starting point
 include("utils.jl")
 
 
-# Create vectors for number of features to use per list
-nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)
-nC_in = round.(Int, nC .* ratio_changing_to_itself_init)
-
-
 h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
 
 # the following equals to ks*f(j), 
@@ -372,14 +342,5 @@ println("prob of feature change after 4 lists $(1-(aa)^8)")
 # Note: With n=1, the probability formulas simplify to just the p values themselves
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 println("The actual u_star after nsteps is", 1-(1-u_star[1])^n_units_time)
-
-# Dynamic UC/CC weighting debug output
-println("\n=== Dynamic UC/CC Weighting Across Lists ===")
-println("List | UC_ratio | CC_ratio | nU_in | nC_in")
-for i in 1:n_lists
-    println("$(lpad(i, 4)) | $(rpad(round(ratio_unchanging_to_itself_init[i], digits=3), 8)) | $(rpad(round(ratio_changing_to_itself_init[i], digits=3), 8)) | $(lpad(nU_in[i], 5)) | $(lpad(nC_in[i], 5))")
-end
-println("(nU total = $nU, nC total = $nC)")
-println("==========================================\n")
 
 

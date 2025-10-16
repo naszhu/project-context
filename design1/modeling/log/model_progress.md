@@ -1,8 +1,42 @@
 # Model Progress
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Commit [9e380f1](https://github.com/naszhu/REM_E3_model_fixed/commit/9e380f1) (branch: `HEAD`)
 =======
+=======
+## Commit [b497732](https://github.com/naszhu/REM_E3_model_fixed/commit/b497732) (branch: `main`)
+**Time:** 2025-10-16 21:04:18  
+**Message:**
+```
+doc(analysis-e1): comment out unnecessary term in GLMM and update result files
+
+- Commented out the `list_order_quad * ordering_type` term in the GLMM to streamline the model.
+- Added empty lines to several result text files for improved readability and formatting.
+
+These changes aim to enhance the clarity of the analysis and maintain a clean structure in the output files.
+```
+**Changed Files:**
+- `design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt`  
+- `design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md`  
+- `design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/modeling`  
+![](../plot_archive/b497732_20251016_210418_plot1.png)  
+![](../plot_archive/b497732_20251016_210418_plot2.png)  
+
+>>>>>>> 0addcd4 (restore(model-e1): restore to version before issue #55)
 ## Commit [9e380f1](https://github.com/naszhu/REM_E3_model_fixed/commit/9e380f1) (branch: `main`)
 >>>>>>> b497732 (doc(analysis-e1): comment out unnecessary term in GLMM and update result files)
 **Time:** 2025-10-16 21:04:06  

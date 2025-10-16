@@ -1,5 +1,31 @@
 [
   {
+    "commit": "b497732",
+    "branch": "main",
+    "message": "doc(analysis-e1): comment out unnecessary term in GLMM and update result files",
+    "timestamp": "2025-10-16 21:04:18",
+    "plot1": "plot_archive/b497732_20251016_210418_plot1.png",
+    "plot2": "plot_archive/b497732_20251016_210418_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Final_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Between_Initial_Order_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Study_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Final_Within_Test_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Between_List_Results.txt",
+      "design1/data_analysis/individual_analyses/APA_Initial_Test_Position_Results.txt",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Final_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Between_Initial_Order.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Study.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Final_Within_Test.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Between_List.md",
+      "design1/data_analysis/individual_analyses/Technical_Summary_Initial_Test_Position.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "9e380f1",
 <<<<<<< HEAD
     "branch": "HEAD",
