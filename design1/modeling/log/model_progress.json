@@ -1,5 +1,31 @@
 [
   {
+    "commit": "9e380f1",
+    "branch": "HEAD",
+    "message": "chore(settings): create settings.json for permission configuration",
+    "timestamp": "2025-10-16 21:04:06",
+    "plot1": "plot_archive/9e380f1_20251016_210406_plot1.png",
+    "plot2": "plot_archive/9e380f1_20251016_210406_plot2.png",
+    "changed_files": [
+      ".claude/settings.json",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "b3784ca",
+    "branch": "main",
+    "message": "refactor(allplots-e1): make plots better",
+    "timestamp": "2025-10-16 21:03:55",
+    "plot1": "plot_archive/b3784ca_20251016_210355_plot1.png",
+    "plot2": "plot_archive/b3784ca_20251016_210355_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "d076546",
     "branch": "main",
     "message": "explore(model-e1): try to fix intial betwen list but doesn't work very well",

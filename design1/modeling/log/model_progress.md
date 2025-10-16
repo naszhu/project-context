@@ -1,5 +1,48 @@
 # Model Progress
 
+## Commit [9e380f1](https://github.com/naszhu/REM_E3_model_fixed/commit/9e380f1) (branch: `HEAD`)
+**Time:** 2025-10-16 21:04:06  
+**Message:**
+```
+chore(settings): create settings.json for permission configuration
+
+- Introduced a new settings.json file to define permissions for editing, writing, reading, and executing commands.
+- This addition establishes a structured approach to manage user permissions within the application.
+
+Refs #57
+```
+**Changed Files:**
+- `.claude/settings.json`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/9e380f1_20251016_210406_plot1.png)  
+![](../plot_archive/9e380f1_20251016_210406_plot2.png)  
+
+## Commit [b3784ca](https://github.com/naszhu/REM_E3_model_fixed/commit/b3784ca) (branch: `main`)
+**Time:** 2025-10-16 21:03:55  
+**Message:**
+```
+refactor(allplots-e1): make plots better
+
+Enhance plot aesthetics and dimensions in combined_all_plots.R
+
+- Increased font sizes and point sizes for improved readability across plots.
+- Adjusted line widths and stroke sizes for better visual distinction.
+- Updated plot dimensions for combined plots to enhance presentation.
+- Commented out unnecessary point plotting for average lines to streamline visuals.
+- Added strip text size for facet panels to improve clarity.
+
+These changes aim to enhance the overall visual quality and clarity of the plots generated in the analysis.
+
+Refs #56
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/b3784ca_20251016_210355_plot1.png)  
+![](../plot_archive/b3784ca_20251016_210355_plot2.png)  
+
 ## Commit [d076546](https://github.com/naszhu/REM_E3_model_fixed/commit/d076546) (branch: `main`)
 **Time:** 2025-10-16 20:12:47  
 **Message:**
