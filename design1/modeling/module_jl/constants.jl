@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.95 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.87 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -124,9 +124,9 @@ power_taken = 1  # raise to 1/11 power for sampling
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 # Parameters for linear diminishing criterion (between-list dimension)
-criterion_between_list_start = 0.005#0.35  # starting value for between-list criterion
-criterion_between_list_initial_increment = 0.01  # initial increment across lists
-criterion_between_list_decrement_per_step = 0.008  # how much increment decreases each list
+criterion_between_list_start = 0.04#0.35  # starting value for between-list criterion
+criterion_between_list_initial_increment = 0.06  # initial increment across lists
+criterion_between_list_decrement_per_step = 0.015  # how much increment decreases each list
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
 criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
@@ -177,11 +177,11 @@ LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1.0 #stop reinstate after how much features, 1.0 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well.
-p_reinstate_rate = 0.1 #0.4 #prob of reinstatement #do not reinstate. 
+p_reinstate_rate = 0.12 #0.4 #prob of reinstatement #do not reinstate. 
 base_recovery_prob = p_reinstate_rate  # constant probability of recovering distorted features during test
 
 # Distortion probability parameters (Issue #50)
-base_distortion_prob = 0.2  # distortion probability for content
+base_distortion_prob = 0.18  # distortion probability for content
 base_distortion_prob_UC = base_distortion_prob  # distortion probability for UC (set higher to test effect)
 base_distortion_prob_CC = base_distortion_prob  # distortion probability for CC (set higher to test effect)
 
@@ -228,9 +228,9 @@ p_reinstate_rate_finaltest = 0.3          # Probability of reinstating original 
 range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 breaks)
 
 # E3 final test chunk parameters this part is wrong, M1 don't have this
-const total_probe_L1 = 15;  # total probes in list 1
-const total_probe_Ln = 12;  # total probes in other lists
-const nItemPerUnit_final = 2;  # items per unit in final test
+# const total_probe_L1 = 15;  # total probes in list 1
+# const total_probe_Ln = 12;  # total probes in other lists
+# const nItemPerUnit_final = 2;  # items per unit in final test
 
 # Original criterion_final (commented out to try asymptotic version)
 criterion_final = LinRange((0.09+0.18+0.1)^power_taken, 0.27+0.07-0.1^power_taken, 10)

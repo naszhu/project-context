@@ -1,5 +1,19 @@
 [
   {
+    "commit": "5e9f64d",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1):almost there! adjust simulation parameters for improved testing fidelity",
+    "timestamp": "2025-10-16 09:45:18",
+    "plot1": "plot_archive/5e9f64d_20251016_094518_plot1.png",
+    "plot2": "plot_archive/5e9f64d_20251016_094518_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
     "commit": "2643a05",
     "branch": "oct-14-2",
     "message": "finetune(model-e1):almost there! adjust simulation parameters for improved testing fidelity",
