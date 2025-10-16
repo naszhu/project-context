@@ -1,5 +1,18 @@
 [
   {
+    "commit": "454a4f6",
+    "branch": "oct-14-2",
+    "message": "fix(model-e1): it is the content distortion that is causing the problem",
+    "timestamp": "2025-10-16 10:40:46",
+    "plot1": "plot_archive/454a4f6_20251016_104046_plot1.png",
+    "plot2": "plot_archive/454a4f6_20251016_104046_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "2887933",
     "branch": "oct-14-2",
     "message": "bug(model-e1): final test bad now study only and foil initial test diverge now",

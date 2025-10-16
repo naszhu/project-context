@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [454a4f6](https://github.com/naszhu/REM_E3_model_fixed/commit/454a4f6) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:40:46  
+**Message:**
+```
+fix(model-e1): it is the content distortion that is causing the problem
+
+- Adjusted distortion flags to control feature distortion between study and test phases, enabling content distortion while maintaining UC and CC distortions.
+- These changes aim to enhance the model's fidelity in simulating study-test conditions, ensuring more accurate representation of feature dynamics.
+
+Fixes #54
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/454a4f6_20251016_104046_plot1.png)  
+![](../plot_archive/454a4f6_20251016_104046_plot2.png)  
+
 ## Commit [2887933](https://github.com/naszhu/REM_E3_model_fixed/commit/2887933) (branch: `oct-14-2`)
 **Time:** 2025-10-16 10:33:34  
 **Message:**

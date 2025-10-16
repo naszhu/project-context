@@ -1,6 +1,6 @@
 
 
-is_finaltest = true
+is_finaltest = false
 n_simulations = is_finaltest ? 200 : 500;
 
 # =============================================================================
@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.87 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.78 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -120,9 +120,9 @@ power_taken = 1  # raise to 1/11 power for sampling
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 # Parameters for linear diminishing criterion (between-list dimension)
-criterion_between_list_start = 0.04#0.35  # starting value for between-list criterion
-criterion_between_list_initial_increment = 0.06  # initial increment across lists
-criterion_between_list_decrement_per_step = 0.017  # how much increment decreases each list
+criterion_between_list_start = 0.1#0.35  # starting value for between-list criterion
+criterion_between_list_initial_increment = 0.2  # initial increment across lists
+criterion_between_list_decrement_per_step = 0.05  # how much increment decreases each list
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
 criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
@@ -184,8 +184,8 @@ is_CC_distort_between_study_and_test = true  # CHANGED Enable CC (changing conte
 
 # Distortion probability parameters (Issue #50)
 base_distortion_prob = 0.18  # distortion probability for content
-base_distortion_prob_UC = base_distortion_prob  # distortion probability for UC (set higher to test effect)
-base_distortion_prob_CC = base_distortion_prob  # distortion probability for CC (set higher to test effect)
+base_distortion_prob_UC = 0.19  # distortion probability for UC (set higher to test effect)
+base_distortion_prob_CC = 0.19  # distortion probability for CC (set higher to test effect)
 
 
 # Content distortion parameters (from E3) for content drift between study and test
