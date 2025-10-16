@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [ff273c1](https://github.com/naszhu/REM_E3_model_fixed/commit/ff273c1) (branch: `oct-14-2`)
+**Time:** 2025-10-16 11:18:16  
+**Message:**
+```
+finetune(model-e1): adjust simulation parameters for final testing conditions
+
+- Set `is_finaltest` to false, changing `n_simulations` to 500 for standard testing.
+- Decreased `nnnow` to 0.77 to modify initial differences between T and F.
+- Increased `criterion_between_list_start` to 0.22 for improved control over the linear diminishing criterion.
+- Adjusted `p_reinstate_rate` to 0.15 to refine the probability of reinstatement.
+
+These changes aim to optimize the simulation setup, ensuring more accurate and reliable results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/ff273c1_20251016_111816_plot1.png)  
+![](../plot_archive/ff273c1_20251016_111816_plot2.png)  
+
 ## Commit [474209a](https://github.com/naszhu/REM_E3_model_fixed/commit/474209a) (branch: `oct-14-2`)
 **Time:** 2025-10-16 10:56:15  
 **Message:**
