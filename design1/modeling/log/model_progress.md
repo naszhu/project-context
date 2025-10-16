@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [5dcb07e](https://github.com/naszhu/REM_E3_model_fixed/commit/5dcb07e) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:23:40  
+**Message:**
+```
+finetune(model-e1): adjust decrement parameter for linear diminishing criterion
+
+- Increased `criterion_between_list_decrement_per_step` from 0.015 to 0.017 to refine the decrement rate in the linear diminishing criterion.
+- This change aims to enhance the model's sensitivity to variations in the between-list dimension, improving overall simulation accuracy.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/5dcb07e_20251016_102340_plot1.png)  
+![](../plot_archive/5dcb07e_20251016_102340_plot2.png)  
+
 ## Commit [c16e3ca](https://github.com/naszhu/REM_E3_model_fixed/commit/c16e3ca) (branch: `oct-14-2`)
 **Time:** 2025-10-16 10:06:42  
 **Message:**
