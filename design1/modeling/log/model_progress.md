@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [819bb6a](https://github.com/naszhu/REM_E3_model_fixed/commit/819bb6a) (branch: `main`)
+**Time:** 2025-10-16 21:25:30  
+**Message:**
+```
+refactor(allplots-e1): enhance plot aesthetics and clarity
+
+- Increased RIBBON_ALPHA for improved visibility in plots.
+- Changed average line linetype to dashed for better distinction.
+- Adjusted POINT_STROKE size for enhanced clarity in visual representation.
+
+These changes aim to further improve the visual quality and clarity of the plots generated in the analysis.
+
+Refs #56
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/819bb6a_20251016_212530_plot1.png)  
+![](../plot_archive/819bb6a_20251016_212530_plot2.png)  
+
 ## Commit [1701b0a](https://github.com/naszhu/REM_E3_model_fixed/commit/1701b0a) (branch: `main`)
 **Time:** 2025-10-16 21:25:19  
 **Message:**

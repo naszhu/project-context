@@ -32,6 +32,7 @@ df_rt_pl=read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 
 ###############################################################
 # Plot formatting constants
 PLOT_TITLE_SIZE <- 30
+SUPER_TITLE_SIZE <- 35
 AXIS_TITLE_SIZE <- 30
 AXIS_TEXT_SIZE <- 30
 STRIP_TEXT_SIZE <- 30
@@ -54,7 +55,7 @@ Y_BREAKS <- seq(0.4, 0.9, by = 0.1)
 
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
-    plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
+    plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold", hjust = 0.5),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
     axis.title.y = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
@@ -265,8 +266,8 @@ p1_p = ggplot(data=df1_combined, aes(x=position, y=meanx, group=is_target)) +
 combined_plot <- grid.arrange(
   p1_d, p1_p,
   ncol = 2,
-  top = textGrob("E3 Initial Within List: DATA vs PREDICTION", 
-                 gp = gpar(fontsize = 28, fontface = "bold"))
+  top = textGrob("E3 Initial Within List: DATA vs PREDICTION",
+                 gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )
 
 ggsave("E3_initial_within_list_combined.png", combined_plot, 
@@ -283,7 +284,8 @@ ggsave("E3_initial_within_list_combined.png", combined_plot,
 
 
 # Plot formatting constants
-PLOT_TITLE_SIZE <- 26
+PLOT_TITLE_SIZE <- 30
+SUPER_TITLE_SIZE <- 35
 AXIS_TITLE_SIZE <- 30
 AXIS_TEXT_SIZE <- 30
 STRIP_TEXT_SIZE <- 30
@@ -304,7 +306,7 @@ Y_BREAKS <- seq(0.4, 0.9, by = 0.1)
 
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
-    plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
+    plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold", hjust = 0.5),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
     axis.title.y = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
@@ -483,8 +485,8 @@ p2_p = ggplot(data = DF2, aes(x = list_number, y = meanx, group = is_target)) +
 combined_plot <- grid.arrange(
   p2_d, p2_p,
   ncol = 2,
-  top = textGrob("E3 Initial Between List: DATA vs PREDICTION", 
-                 gp = gpar(fontsize = 28, fontface = "bold"))
+  top = textGrob("E3 Initial Between List: DATA vs PREDICTION",
+                 gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )
 
 # Save the combined plot
@@ -502,6 +504,7 @@ ggsave("E3_initial_between_list_combined.png", combined_plot,
 
 # Plot formatting constants
 PLOT_TITLE_SIZE <- 35
+SUPER_TITLE_SIZE <- 40
 AXIS_TITLE_SIZE <- 35
 AXIS_TEXT_SIZE <- 35
 STRIP_TEXT_SIZE <- 35
@@ -522,7 +525,7 @@ Y_BREAKS <- seq(0.5, 1.0, by = 0.1)
 
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
-    plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
+    plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold", hjust = 0.5),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
     axis.title.y = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
@@ -610,14 +613,14 @@ p3_d = ggplot(data=d1taf_combined)+
       "Studied-only (n); Appear once" = 16,  # solid circle
       "Foil(n), Foil (n+1)" = 2,                      # open triangle
       "Foil(n); Appear once" = 17,                                # solid triangle
-      "Final Foil" = 8                                           # star
+      "Final Foil" = 4                                           # cross
     ),
     breaks = levelsStr_fn
   )+
   PLOT_THEME +
   labs(
-    x = POSITION_LABEL, 
-    y = CORRECT_RATE_LABEL, 
+    x = POSITION_LABEL,
+    y = CORRECT_RATE_LABEL,
     title = "Final Test Within List DATA"
   ) +
   scale_x_continuous(breaks = seq(0, 10, by = 1)) +
@@ -682,7 +685,7 @@ if (has_final_predictions) {
     ) +
     scale_shape_manual(
       values = c("F" = 17,
-                "FF" = 8,
+                "FF" = 4,
                 "Fn_p1" = 2,
                 "SO" = 16,
                 "SOn_p1" = 1,
@@ -690,13 +693,13 @@ if (has_final_predictions) {
                 "Tn_p1" = 0) #open square
     ) +
     scale_linetype_manual(
-      values = c("F" = "dashed",
+      values = c("F" = "solid",
                 "FF" = "solid",
                 "Fn_p1" = "dashed",
                 "SO" = "dashed",
                 "SOn_p1" = "dashed",
                 "T" = "solid",
-                "Tn_p1" = "solid")
+                "Tn_p1" = "dashed")
     ) +
     PLOT_THEME +
     labs(
@@ -711,8 +714,8 @@ if (has_final_predictions) {
   combined_plot <- grid.arrange(
     p3_d, pf3_p,
     ncol = 2,
-    top = textGrob("E3 Final Test Within List: DATA vs PREDICTION", 
-                   gp = gpar(fontsize = 28, fontface = "bold"))
+    top = textGrob("E3 Final Test Within List: DATA vs PREDICTION",
+                   gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
   )
 
   # Save the combined plot
@@ -735,6 +738,7 @@ if (has_final_predictions) {
 if (has_final_predictions) {
 # Plot formatting constants
 PLOT_TITLE_SIZE <- 30
+SUPER_TITLE_SIZE <- 35
 AXIS_TITLE_SIZE <- 30
 AXIS_TEXT_SIZE <- 30
 STRIP_TEXT_SIZE <- 35
@@ -755,7 +759,7 @@ Y_BREAKS <- seq(0.5, 1.0, by = 0.1)
 
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
-    plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
+    plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold", hjust = 0.5),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
     axis.title.y = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
     axis.text.x = element_text(size = AXIS_TEXT_SIZE),
@@ -871,15 +875,15 @@ p4_d <- ggplot(data=d1taf_combined)+
       "Studied-only (n); Appear once" = 16,  # solid circle
       "Foil(n), Foil (n+1)" = 2,                      # open triangle
       "Foil(n); Appear once" = 17,                                # solid triangle
-      "Final Foil" = 8                                           # star
+      "Final Foil" = 4                                           # cross
     ),
     breaks = levelsStr_fn
   ) +
   scale_linetype_discrete(breaks=levelsStr_fn) +
   PLOT_THEME +
   labs(
-    x = POSITION_LABEL, 
-    y = CORRECT_RATE_LABEL, 
+    x = POSITION_LABEL,
+    y = CORRECT_RATE_LABEL,
     title = "Final Test Between List DATA"
   ) +
   scale_x_continuous(breaks = seq(0, 10, by = 1)) +
@@ -974,7 +978,7 @@ pf4_p = ggplot(data=df_allfinal, aes(test_position_group, val, group=interaction
               "Fn" = 2,                     # open triangle
               "F" = 17,                     # solid triangle
               "SO" = 16,                    # solid circle
-              "FF" = 8)                     # star
+              "FF" = 4)                     # cross
   ) +
   scale_linetype_manual(
     values = c("Tn" = "dashed",
@@ -982,7 +986,7 @@ pf4_p = ggplot(data=df_allfinal, aes(test_position_group, val, group=interaction
               "T" = "solid",
               "Fn" = "dashed",
               "F" = "solid",
-              "SO" = "solid",
+              "SO" = "dashed",
               "FF" = "solid")
   ) +
   PLOT_THEME +
@@ -999,8 +1003,8 @@ pf4_p = ggplot(data=df_allfinal, aes(test_position_group, val, group=interaction
 combined_plot <- grid.arrange(
   p4_d, pf4_p,
   ncol = 2,
-  top = textGrob("E3 Final Test Between List: DATA vs PREDICTION", 
-                 gp = gpar(fontsize = 28, fontface = "bold"))
+  top = textGrob("E3 Final Test Between List: DATA vs PREDICTION",
+                 gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )}
 
 # Save the combined plot
