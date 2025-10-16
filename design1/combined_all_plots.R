@@ -34,10 +34,10 @@ LINETYPE_TARGET <- "longdash"
 ylabsname <- "Correct Response Rate"
 
 # Sizes
-BASE_FONT_SIZE <- 24
-POINT_SIZE <- 4.5
-LINE_WIDTH <- 1.8
-AVERAGE_LINE_WIDTH <- 2.2
+BASE_FONT_SIZE <- 32
+POINT_SIZE <- 6.5
+LINE_WIDTH <- 2.2
+AVERAGE_LINE_WIDTH <- 2.8
 RIBBON_ALPHA <- 0.25
 LINE_ALPHA <- 0.85
 
@@ -51,10 +51,11 @@ X_BREAKS <- 1:10
 X_LABELS <- as.character(X_BREAKS)
 
 # Theme settings
-BASE_TEXT_SIZE <- 24
-TITLE_SIZE <- 25
-AXIS_TITLE_SIZE <- 25
-AXIS_TEXT_SIZE <- 25
+BASE_TEXT_SIZE <- 32
+TITLE_SIZE <- BASE_FONT_SIZE - 2
+SUPER_TITLE_SIZE <- TITLE_SIZE +5
+AXIS_TITLE_SIZE <- 32
+AXIS_TEXT_SIZE <- 30
 LEGEND_POSITION <- "none"  # Hide legends
 
 # Load the preprocessed data for data plot - EXACT COPY FROM ORIGINAL
@@ -97,7 +98,7 @@ plot_data <- df_initialtestbyinitial%>%
 data_plot <- ggplot(data=plot_data, aes(position,meancr,group=interaction(position_type,conditionnow)))+
   # Enhanced points with different shapes for each probetype
   geom_point(aes(color=probetype, shape=probetype, group=probetype),
-             size=POINT_SIZE, alpha=0.9, stroke=1.5) +
+             size=POINT_SIZE, alpha=1, stroke=2.5) +
   # Enhanced lines with different line types
   geom_line(aes(color=probetype, linetype=probetype, group=probetype),
             linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
@@ -202,12 +203,12 @@ combined_plot <- grid.arrange(
   data_plot, prediction_plot,
   ncol = 2,
   top = textGrob("E1 Initial Between List: DATA vs PREDICTION",
-                 gp = gpar(fontsize = 28, fontface = "bold"))
+                 gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )
 
 # Save the combined plot
 ggsave(file.path(DESIGN1_DIR, "E1_initial_between_list_combined.png"), combined_plot,
-       width = 18, height = 8, dpi = 300, bg = "white")
+       width = 20, height = 9, dpi = 300, bg = "white")
 
 # Display the plot using eog
 
@@ -239,10 +240,10 @@ ylabsname <- "Correct Response Rate"
 xaxisname <- "Position"
 
 # Sizes
-BASE_FONT_SIZE <- 28
-POINT_SIZE <- 4.5
-LINE_WIDTH <- 1.8
-AVERAGE_LINE_WIDTH <- 2.2
+BASE_FONT_SIZE <- 32
+POINT_SIZE <- 6.5
+LINE_WIDTH <- 2.2
+AVERAGE_LINE_WIDTH <- 2.8
 RIBBON_ALPHA <- 0.25
 LINE_ALPHA <- 0.85
 
@@ -256,10 +257,12 @@ X_BREAKS <- seq(0, 20, by = 5)
 X_LABELS <- as.character(X_BREAKS)
 
 # Theme settings
-BASE_TEXT_SIZE <- 28
-TITLE_SIZE <- 28
-AXIS_TITLE_SIZE <- 28
-AXIS_TEXT_SIZE <- 28
+BASE_TEXT_SIZE <- 32
+TITLE_SIZE <- TITLE_SIZE+5
+SUPER_TITLE_SIZE <- TITLE_SIZE+5
+AXIS_TITLE_SIZE <- 32
+AXIS_TEXT_SIZE <- 30
+STRIP_TEXT_SIZE <- 40  # Added for facet panel text
 LEGEND_POSITION <- "none"  # Hide legends
 
 # Load the preprocessed data for data plot - EXACT COPY FROM ORIGINAL
@@ -299,8 +302,9 @@ dfserial_all=rbind(dfserial,dfserial_meandf)
 
 # Create the data plot
 data_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction(position_type)))+
-  # Enhanced points with different shapes for each probetype
-  geom_point(aes(color=probetype, shape=probetype, group=probetype),
+  # Enhanced points with different shapes for each probetype (exclude Average)
+  geom_point(data=dfserial_all %>% filter(probetype != "Average"),
+             aes(color=probetype, shape=probetype, group=probetype),
              size=POINT_SIZE, alpha=0.9, stroke=1.2) +
   # Enhanced lines with different line types
   geom_line(aes(color=probetype, linetype=probetype, group=probetype),
@@ -338,7 +342,8 @@ data_plot <- ggplot(data=dfserial_all, aes(position,meancr,group=interaction(pos
         legend.position = LEGEND_POSITION,
         text = element_text(size = BASE_TEXT_SIZE),
         axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
-        axis.text = element_text(size = AXIS_TEXT_SIZE)
+        axis.text = element_text(size = AXIS_TEXT_SIZE),
+        strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
   )
 
 # Load data for prediction plot - EXACT COPY FROM ORIGINAL
@@ -387,9 +392,9 @@ prediction_plot <- ggplot(data = df_combined, aes(x = position, y = meanx, group
     # Add black average line ONLY for test position
     geom_line(data = df_combined %>% filter(position_type == "Initial Test Position"),
               aes(x = position, y = meanx_m), color = COLOR_AVERAGE, linewidth = AVERAGE_LINE_WIDTH, linetype = "solid") +
-    # Add black square points for the average line
-    geom_point(data = df_combined %>% filter(position_type == "Initial Test Position"),
-               aes(x = position, y = meanx_m), color = COLOR_AVERAGE, shape = 15, size = 4) +
+    # Add black square points for the average line - COMMENTED OUT to show only line
+    # geom_point(data = df_combined %>% filter(position_type == "Initial Test Position"),
+    #            aes(x = position, y = meanx_m), color = COLOR_AVERAGE, shape = 15, size = 4) +
     facet_grid(~ position_type, scales = "free_x") +
     scale_color_manual(values = c("Foil - Correct rejection" = COLOR_FOIL,
                                  "Target - Hits" = COLOR_TARGET),
@@ -422,7 +427,8 @@ prediction_plot <- ggplot(data = df_combined, aes(x = position, y = meanx, group
         legend.position = LEGEND_POSITION,
         text = element_text(size = BASE_TEXT_SIZE),
         axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
-        axis.text = element_text(size = AXIS_TEXT_SIZE)
+        axis.text = element_text(size = AXIS_TEXT_SIZE),
+        strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
     )
 
 # Create combined plot using grid.arrange
@@ -430,12 +436,12 @@ combined_plot <- grid.arrange(
   data_plot, prediction_plot,
   ncol = 2,
   top = textGrob("E1 Initial Within List: DATA vs PREDICTION",
-                 gp = gpar(fontsize = 28, fontface = "bold"))
+                 gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )
 
 # Save the combined plot
 ggsave(file.path(DESIGN1_DIR, "E1_initial_within_list_combined.png"), combined_plot,
-       width = 22, height = 7, dpi = 300, bg = "white")
+       width = 24, height = 8, dpi = 300, bg = "white")
 
 # Display the plot using eog
 
@@ -455,14 +461,15 @@ cat("Combined initial within-list plot saved as E1_initial_within_list_combined.
 ## Constants for styling - UNIFIED FORMATTING
 #####################################3
 # Unified constants for both plots
-BASE_FONT_SIZE <- 24
-POINT_SIZE <- 8
-LINE_WIDTH <- 1.5
-TITLE_SIZE <- BASE_FONT_SIZE + 6
-STRIP_TEXT_SIZE <- BASE_FONT_SIZE + 4
+BASE_FONT_SIZE <- 32
+POINT_SIZE <- 6.5
+LINE_WIDTH <- 2.2
+TITLE_SIZE <- BASE_FONT_SIZE +5 
+SUPER_TITLE_SIZE <- BASE_FONT_SIZE +5 
+STRIP_TEXT_SIZE <- BASE_FONT_SIZE + 8
 AXIS_TITLE_SIZE <- BASE_FONT_SIZE + 6
 AXIS_TEXT_SIZE <- BASE_FONT_SIZE
-CAPTION_SIZE <- 15
+CAPTION_SIZE <- 20
 
 # Margins and spacing
 PLOT_MARGIN_TOP <- 15
@@ -568,11 +575,11 @@ data_plot <- ggplot(data=dfserial, aes(position,meancr,group=interaction(positio
                              "TARGET_nontarget  - Hits"="#1A9850",
                              "TARGET_target  - Hits"="#2166AC")) +
   scale_shape_manual(values=c("Average"=15, #doens't matter because avereage is hidden here
-                              "Foil - Correct rejection"=8,   # star for foil-correctrejection (F)
+                              "Foil - Correct rejection"=4,   # cross for foil-correctrejection (F)
                               "TARGET_foil  - Hits"=17,                                # solid triangle
                               "TARGET_nontarget  - Hits"=16,  # solid circle
                               "TARGET_target  - Hits"=15  # solid square
-                              )) +  # square, star, diamond, triangle, filled square
+                              )) +  # square, cross, diamond, triangle, filled square
   scale_linetype_manual(values=c("Average"="dashed",
                                  "Foil - Correct rejection"="solid",
                                  "TARGET_foil  - Hits"="dotted",
@@ -614,7 +621,7 @@ data_plot <- ggplot(data=dfserial, aes(position,meancr,group=interaction(positio
 
 # Save data plot
 data_plot_path <- file.path(DATA_ANALYSIS_DIR, "temp_data_plot.png")
-ggsave(data_plot_path, data_plot, width = 9+3, height = 13+4, dpi = 300, bg = "white")
+ggsave(data_plot_path, data_plot, width = 13, height = 18, dpi = 300, bg = "white")
 
 ###################################3333
 ## prediction
@@ -716,7 +723,7 @@ prediction_plot <- ggplot(data = df_allfinal_filtered,
                                 "T_nontarget" = "TARGET_nontarget - Hits",
                                 "T_target" = "TARGET_target - Hits")) +
     scale_shape_manual(values = c(
-        "F" = 8,            # star
+        "F" = 4,            # cross
         "T_foil" = 17,      # solid triangle
         "T_nontarget" = 16, # solid circle
         "T_target" = 15     # solid square
@@ -725,7 +732,7 @@ prediction_plot <- ggplot(data = df_allfinal_filtered,
                                 "T_foil" = "TARGET_foil - Hits",
                                 "T_nontarget" = "TARGET_nontarget - Hits",
                                 "T_target" = "TARGET_target - Hits")) +
-    scale_linetype_manual(values = c("F" = "solid", "T_foil" = "dotted", "T_nontarget" = "solid", "T_target" = "dashed"),
+    scale_linetype_manual(values = c("F" = "solid", "T_foil" = "dotted", "T_nontarget" = "twodash", "T_target" = "longdash"),
                           labels = c("F" = "Foil - Correct rejection",
                                    "T_foil" = "TARGET_foil - Hits",
                                    "T_nontarget" = "TARGET_nontarget - Hits",
@@ -768,7 +775,7 @@ prediction_plot <- ggplot(data = df_allfinal_filtered,
 # Save prediction plot
 prediction_plot_path <- file.path(R_PLOTTING_DIR, "temp_prediction_plot.png")
 ggsave(prediction_plot_path, plot = prediction_plot,
-       width = 12, height = 17, dpi = 300, bg = "white")
+       width = 13, height = 18, dpi = 300, bg = "white")
 
 # Load the saved plots as images
 data_img <- readPNG(data_plot_path)
@@ -783,12 +790,12 @@ combined_plot <- grid.arrange(
   data_grob, prediction_grob,
   ncol = 2,
   top = textGrob("E1 Final Test Between List: DATA vs PREDICTION",
-                 gp = gpar(fontsize = 28, fontface = "bold"))
+                 gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )
 
 # Save the combined plot
 ggsave(file.path(DESIGN1_DIR, "E1_final_test_between_list_combined.png"), combined_plot,
-       width = 24, height = 17, dpi = 300, bg = "white")
+       width = 26, height = 18, dpi = 300, bg = "white")
 
 # Clean up temporary files
 file.remove(data_plot_path)
@@ -804,14 +811,15 @@ cat("Combined final test between-list plot saved as E1_final_test_between_list_c
 ## Constants for styling - UNIFIED FORMATTING
 #####################################3
 # Unified constants for both plots
-BASE_FONT_SIZE <- 24
-POINT_SIZE <- 5
-LINE_WIDTH <- 1.5
-TITLE_SIZE <- BASE_FONT_SIZE + 6
-STRIP_TEXT_SIZE <- BASE_FONT_SIZE + 4
+BASE_FONT_SIZE <- 45
+POINT_SIZE <- 9
+LINE_WIDTH <- 3.5
+TITLE_SIZE <- BASE_FONT_SIZE + 5
+SUPER_TITLE_SIZE <- BASE_FONT_SIZE + 5
+STRIP_TEXT_SIZE <- BASE_FONT_SIZE -1
 AXIS_TITLE_SIZE <- BASE_FONT_SIZE + 6
 AXIS_TEXT_SIZE <- BASE_FONT_SIZE
-CAPTION_SIZE <- 15
+CAPTION_SIZE <- 20
 
 # Margins and spacing
 PLOT_MARGIN_TOP <- 15
@@ -832,12 +840,12 @@ STRIP_BACKGROUND <- "grey90"
 STRIP_BORDER_WIDTH <- 0.4
 
 # Point styling
-POINT_ALPHA <- 1
-POINT_STROKE <- 1.2
+POINT_ALPHA <- 0.8
+POINT_STROKE <- 2.5
 LINE_ALPHA <- 1
 RIBBON_ALPHA <- 0.5
 
-Y_LIMIT <- c(0.5, 0.98)
+Y_LIMIT <- c(0.47, 0.98)
 X_LIMIT <- c(0, 20)
 
 # Load the preprocessed data for data plot - EXACT COPY FROM ORIGINAL
@@ -972,12 +980,12 @@ data_plot <- ggplot(data=df_finalwithin,
     "Foil, neither studied nor tested  - Correct rejection" = 17,                                # solid triangle
     "Target, Studied and tested - HITS" = 15,                      # solid square
     "Target, Studied only - HITS" = 16,
-    "FOIL"=8                             # solid circle
+    "FOIL"=4                             # cross
   )) +
                                # circle, triangle, square
-  scale_linetype_manual(values=c("Foil, neither studied nor tested  - Correct rejection"="solid",
+  scale_linetype_manual(values=c("Foil, neither studied nor tested  - Correct rejection"="dotted",
                                  "Target, Studied and tested - HITS"="longdash",
-                                 "Target, Studied only - HITS"="dotted","FOIL"="dotted")) +
+                                 "Target, Studied only - HITS"="twodash","FOIL"="solid")) +
 
   # Enhanced theme with improved readability and larger legend
   theme_bw(base_size = BASE_FONT_SIZE) +
@@ -1004,7 +1012,7 @@ data_plot <- ggplot(data=df_finalwithin,
     plot.background = element_rect(fill = "white", color = NA),
     panel.background = element_rect(fill = PANEL_BACKGROUND, color = NA),
     strip.background = element_rect(fill = STRIP_BACKGROUND, color = "black", linewidth = STRIP_BORDER_WIDTH),
-    strip.text = element_text(face = "bold", size = STRIP_TEXT_SIZE)
+    strip.text = element_text(face = "bold", size = STRIP_TEXT_SIZE, color = "black")
   ) +
   guides(
     fill = "none",
@@ -1014,7 +1022,7 @@ data_plot <- ggplot(data=df_finalwithin,
   )+ylim(Y_LIMIT)+xlim(X_LIMIT)
 
 # Save data plot
-ggsave(file.path(DESIGN1_DIR, "temp_data_plot.png"), data_plot, width = 10, height = 9, dpi = 300, bg = "white")
+ggsave(file.path(DESIGN1_DIR, "temp_data_plot.png"), data_plot, width = 12, height = 9, dpi = 300, bg = "white")
 
 # Load data for prediction plot - USING CORRECT MODEL DATA
 all_results <- read.csv(file.path(PROJECT_ROOT, "all_results.csv"))
@@ -1044,7 +1052,7 @@ DF_fbyi = allresf %>%
 # Create the prediction plot using the CORRECT structure
 prediction_plot <- ggplot(data=DF_fbyi,aes(x=posSum,meanx))+
   geom_point(aes(color=target_type, shape=target_type), size=POINT_SIZE, alpha=POINT_ALPHA, stroke=POINT_STROKE)+
-  geom_line(aes(color=target_type), linewidth=LINE_WIDTH, alpha=LINE_ALPHA)+
+  geom_line(aes(color=target_type, linetype=target_type), linewidth=LINE_WIDTH, alpha=LINE_ALPHA)+
   facet_grid(.~pos_factor,
              labeller = labeller(pos_factor = c("initial_studypos" = "Initial Study Position",
                                               "initial_testpos" = "Initial Test Position")))+
@@ -1078,7 +1086,7 @@ prediction_plot <- ggplot(data=DF_fbyi,aes(x=posSum,meanx))+
     plot.background = element_rect(fill = "white", color = NA),
     panel.background = element_rect(fill = PANEL_BACKGROUND, color = NA),
     strip.background = element_rect(fill = STRIP_BACKGROUND, color = "black", linewidth = STRIP_BORDER_WIDTH),
-    strip.text = element_text(face = "bold", size = STRIP_TEXT_SIZE)
+    strip.text = element_text(face = "bold", size = STRIP_TEXT_SIZE, color = "black")
   )+
   scale_color_manual(values=c(
     "Target, Studied and tested - HITS"="#2166AC",   # solid square - blue
@@ -1090,27 +1098,34 @@ prediction_plot <- ggplot(data=DF_fbyi,aes(x=posSum,meanx))+
     "Target, Studied and tested - HITS"=15,   # solid square
     "Target, Studied only - HITS"=16,         # solid circle
     "Foil, neither studied nor tested - Correct rejection"=17, # solid triangle
-    "F"=8                                  # asterisk
+    "F"=4                                  # cross
+  ))+
+  scale_linetype_manual(values=c(
+    "Target, Studied and tested - HITS"="longdash",
+    "Target, Studied only - HITS"="twodash",
+    "Foil, neither studied nor tested - Correct rejection"="dotted",
+    "F"="solid"
   ))+
   guides(
     color = "none",
-    shape = "none"
+    shape = "none",
+    linetype = "none"
   )+ylim(Y_LIMIT)+xlim(X_LIMIT)
 
 # Save prediction plot
-ggsave(file.path(DESIGN1_DIR, "temp_prediction_plot.png"), prediction_plot, width = 10, height = 9, dpi = 300, bg = "white")
+ggsave(file.path(DESIGN1_DIR, "temp_prediction_plot.png"), prediction_plot, width = 12, height = 9, dpi = 300, bg = "white")
 
 # Create combined plot using grid.arrange
 combined_plot <- grid.arrange(
   data_plot, prediction_plot,
-  ncol = 2,
+  ncol = 1,
   top = textGrob("E1 Final Test Within List: DATA vs PREDICTION",
-                 gp = gpar(fontsize = 28, fontface = "bold"))
+                 gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )
 
 # Save the combined plot
 ggsave(file.path(DESIGN1_DIR, "E1_final_test_within_list_combined.png"), combined_plot,
-       width = 23, height = 9, dpi = 300, bg = "white")
+       width = 24/2+10, height = 9*2+10, dpi = 300, bg = "white")
 
 # Display the plot using eog
 

@@ -1,5 +1,19 @@
 [
   {
+    "commit": "d076546",
+    "branch": "main",
+    "message": "explore(model-e1): try to fix intial betwen list but doesn't work very well",
+    "timestamp": "2025-10-16 20:12:47",
+    "plot1": "plot_archive/d076546_20251016_201247_plot1.png",
+    "plot2": "plot_archive/d076546_20251016_201247_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
     "commit": "acb6a77",
     "branch": "main",
     "message": "explore(model-e1): why initial between list update dynamic weighting for UC and CC across lists",

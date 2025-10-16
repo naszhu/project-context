@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [d076546](https://github.com/naszhu/REM_E3_model_fixed/commit/d076546) (branch: `main`)
+**Time:** 2025-10-16 20:12:47  
+**Message:**
+```
+explore(model-e1): try to fix intial betwen list but doesn't work very well
+
+- Introduced a new function `linear_decrease_diminishing` to calculate UC ratios that decrease with diminishing increments, improving the model's adaptability across lists.
+- Updated the initialization of `criterion_initial` to ensure it is calculated after including `utils.jl`, maintaining proper function access.
+- Adjusted the logic for CC ratios to complement the new UC calculations, ensuring a balanced dynamic weighting scheme.
+
+These changes aim to refine the model's performance and enhance context handling across multiple lists.
+
+Refs #55
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/d076546_20251016_201247_plot1.png)  
+![](../plot_archive/d076546_20251016_201247_plot2.png)  
+
 ## Commit [acb6a77](https://github.com/naszhu/REM_E3_model_fixed/commit/acb6a77) (branch: `main`)
 **Time:** 2025-10-16 17:15:07  
 **Message:**
