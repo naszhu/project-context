@@ -486,13 +486,13 @@ function reinstate_context_duringTest!(
     p_reinstate_context::Float64,
     p_reinstate_rate::Float64
 )::Nothing
-    nct = length(context_array)
+    # nct = length(context_array)
     for ict in eachindex(context_array)
-        if ict < Int(round(nct * p_reinstate_context))
+        # if ict < Int(round(nct * p_reinstate_context)) #disable this, don't need to have this
             if (context_array[ict] != reference_array[ict]) & (rand() < p_reinstate_rate)
                 context_array[ict] = reference_array[ict]
             end
-        end
+        # end
     end
     return nothing
 end

@@ -1,6 +1,6 @@
 
 
-is_finaltest = true
+is_finaltest = false
 n_simulations = is_finaltest ? 200 : 500;
 
 # =============================================================================
@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.77 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.95 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -124,9 +124,9 @@ power_taken = 1  # raise to 1/11 power for sampling
 # criterion_initial will be calculated in main file after utils.jl is loaded 
 
 # Parameters for linear diminishing criterion (between-list dimension)
-criterion_between_list_start = 0.35  # starting value for between-list criterion
-criterion_between_list_initial_increment = 0.135  # initial increment across lists
-criterion_between_list_decrement_per_step = 0.029  # how much increment decreases each list
+criterion_between_list_start = 0.005#0.35  # starting value for between-list criterion
+criterion_between_list_initial_increment = 0.01  # initial increment across lists
+criterion_between_list_decrement_per_step = 0.008  # how much increment decreases each list
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
 criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
@@ -177,15 +177,14 @@ LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1.0 #stop reinstate after how much features, 1.0 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well.
-p_reinstate_rate = 0.30 #0.4 #prob of reinstatement #do not reinstate. 
+p_reinstate_rate = 0.1 #0.4 #prob of reinstatement #do not reinstate. 
+base_recovery_prob = p_reinstate_rate  # constant probability of recovering distorted features during test
 
 # Distortion probability parameters (Issue #50)
-base_distortion_prob = 0.6  # distortion probability for content
-base_distortion_prob_UC = 0.6  # distortion probability for UC (set higher to test effect)
-base_distortion_prob_CC = 0.6  # distortion probability for CC (set higher to test effect)
+base_distortion_prob = 0.2  # distortion probability for content
+base_distortion_prob_UC = base_distortion_prob  # distortion probability for UC (set higher to test effect)
+base_distortion_prob_CC = base_distortion_prob  # distortion probability for CC (set higher to test effect)
 
-# Recovery probability parameters for context reinstatement during test
-base_recovery_prob = 0.1  # constant probability of recovering distorted features during test
 
 # Content distortion parameters (from E3) for content drift between study and test
 max_distortion_probes = 20  # Number of probes until distortion probability reaches 0
@@ -208,7 +207,7 @@ const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-li
 # =============================================================================
 # RATIO PARAMETERS FOR INITIAL AND FINAL TESTS
 # =============================================================================
-ratio_unchanging_to_itself_init = LinRange(1, 0.46, n_lists) # if use no unchanging
+ratio_unchanging_to_itself_init = LinRange(0.46, 0.46, n_lists) # if use no unchanging
 ratio_changing_to_itself_init = LinRange(1, 1, n_lists) # if use no unchanging
 
 nU_in = round.(Int, nU .* ratio_unchanging_to_itself_init)[1]

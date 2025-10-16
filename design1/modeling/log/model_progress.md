@@ -1,5 +1,49 @@
 # Model Progress
 
+## Commit [2643a05](https://github.com/naszhu/REM_E3_model_fixed/commit/2643a05) (branch: `oct-14-2`)
+**Time:** 2025-10-16 09:43:34  
+**Message:**
+```
+finetune(model-e1):almost there! adjust simulation parameters for improved testing fidelity
+
+- Set `is_finaltest` to false and updated `n_simulations` to 500 for standard testing conditions.
+- Increased `nnnow` to 0.95 to modify the initial differences between T and F.
+- Reduced `criterion_between_list_start`, `criterion_between_list_initial_increment`, and `criterion_between_list_decrement_per_step` for finer control over the linear diminishing criterion.
+- Lowered `p_reinstate_rate` to 0.1 and adjusted `base_distortion_prob` to 0.2 for better content distortion handling.
+- Updated `ratio_unchanging_to_itself_init` to start from 0.46 for consistency in unchanging context handling.
+
+These changes aim to refine the simulation setup, enhancing the accuracy and reliability of the results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+![](../plot_archive/2643a05_20251016_094334_plot1.png)  
+![](../plot_archive/2643a05_20251016_094334_plot2.png)  
+
+## Commit [8075119](https://github.com/naszhu/REM_E3_model_fixed/commit/8075119) (branch: `oct-14-2`)
+**Time:** 2025-10-16 09:43:18  
+**Message:**
+```
+finetune(model-e1): a final test finaltune for temporal urgent use
+
+- Set `is_finaltest` to true and updated `n_simulations` to 200 for final test conditions.
+- Increased `p_reinstate_rate` to 0.30 to enhance reinstatement probability.
+- Modified `base_distortion_prob`, `base_distortion_prob_UC`, and `base_distortion_prob_CC` to 0.6 to improve content distortion handling.
+- Adjusted `criterion_final` calculation for better alignment with testing objectives.
+
+These changes aim to refine the simulation parameters for the final test, enhancing the accuracy and reliability of the results.
+
+Closes #70
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/8075119_20251016_094318_plot1.png)  
+![](../plot_archive/8075119_20251016_094318_plot2.png)  
+
 ## Commit [c4648d9](https://github.com/naszhu/REM_E3_model_fixed/commit/c4648d9) (branch: `oct-14-2`)
 **Time:** 2025-10-16 09:00:46  
 **Message:**

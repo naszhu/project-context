@@ -1,5 +1,32 @@
 [
   {
+    "commit": "2643a05",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1):almost there! adjust simulation parameters for improved testing fidelity",
+    "timestamp": "2025-10-16 09:43:34",
+    "plot1": "plot_archive/2643a05_20251016_094334_plot1.png",
+    "plot2": "plot_archive/2643a05_20251016_094334_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl"
+    ]
+  },
+  {
+    "commit": "8075119",
+    "branch": "oct-14-2",
+    "message": "finetune(model-e1): a final test finaltune for temporal urgent use",
+    "timestamp": "2025-10-16 09:43:18",
+    "plot1": "plot_archive/8075119_20251016_094318_plot1.png",
+    "plot2": "plot_archive/8075119_20251016_094318_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "c4648d9",
     "branch": "oct-14-2",
     "message": "finetune(model-e3): a final test finaltune for temporal urgent use",
