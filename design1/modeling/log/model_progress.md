@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [5b200f8](https://github.com/naszhu/REM_E3_model_fixed/commit/5b200f8) (branch: `oct-14-2`)
+**Time:** 2025-10-16 10:29:48  
+**Message:**
+```
+fix(model-e1): Don't need to have the part of judging chunk in final restore.
+
+- Commented out the previous chunk boundary calculation and replaced it with a hard-coded approach for clarity, ensuring each list has a consistent item count.
+- Adjusted the feature addition logic to utilize the last context instead of the probe's list number, improving the accuracy of feature restoration during the process.
+
+These changes aim to enhance the clarity and reliability of the memory restoration function.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+![](../plot_archive/5b200f8_20251016_102948_plot1.png)  
+![](../plot_archive/5b200f8_20251016_102948_plot2.png)  
+
 ## Commit [5dcb07e](https://github.com/naszhu/REM_E3_model_fixed/commit/5dcb07e) (branch: `oct-14-2`)
 **Time:** 2025-10-16 10:23:40  
 **Message:**

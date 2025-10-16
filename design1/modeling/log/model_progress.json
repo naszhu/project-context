@@ -1,5 +1,18 @@
 [
   {
+    "commit": "5b200f8",
+    "branch": "oct-14-2",
+    "message": "fix(model-e1): Don't need to have the part of judging chunk in final restore.",
+    "timestamp": "2025-10-16 10:29:48",
+    "plot1": "plot_archive/5b200f8_20251016_102948_plot1.png",
+    "plot2": "plot_archive/5b200f8_20251016_102948_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/memory_restorage.jl"
+    ]
+  },
+  {
     "commit": "5dcb07e",
     "branch": "oct-14-2",
     "message": "finetune(model-e1): adjust decrement parameter for linear diminishing criterion",
