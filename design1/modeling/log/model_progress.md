@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [d967a17](https://github.com/naszhu/REM_E3_model_fixed/commit/d967a17) (branch: `main`)
+**Time:** 2025-10-16 21:45:35  
+**Message:**
+```
+refactor(allplots): standardize axis title formatting across plots
+
+- Removed bold formatting from axis titles in multiple plot definitions for a cleaner appearance.
+- Ensured consistent axis title styling across various plot themes to enhance visual uniformity.
+
+These changes aim to improve the overall aesthetic consistency of the plots generated in the analysis.
+
+Refs #56
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/d967a17_20251016_214535_plot1.png)  
+![](../plot_archive/d967a17_20251016_214535_plot2.png)  
+
 ## Commit [bcdcf1b](https://github.com/naszhu/REM_E3_model_fixed/commit/bcdcf1b) (branch: `main`)
 **Time:** 2025-10-16 21:36:56  
 **Message:**
