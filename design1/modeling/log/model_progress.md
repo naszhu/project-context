@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [bef751a](https://github.com/naszhu/REM_E3_model_fixed/commit/bef751a) (branch: `main`)
+**Time:** 2025-10-18 18:01:52  
+**Message:**
+```
+docs(docs-e1): add detailed results for Experiment 1 and Experiment 2
+
+- Introduced comprehensive results documentation for Experiment 1, including data exclusion criteria, model predictions, statistical modeling, and organization of results.
+- Added results for Experiment 2, detailing participant data, data quality screening, and recognition accuracy analyses.
+- Included visual representations and statistical trends for within-list and between-list effects, as well as final test performance based on initial study and test positions.
+
+These additions aim to provide a thorough overview of experimental findings and enhance the clarity of results for future reference.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/results intro.`  
+- `design1/results_writing.txt`  
+![](../plot_archive/bef751a_20251018_180152_plot1.png)  
+![](../plot_archive/bef751a_20251018_180152_plot2.png)  
+
 ## Commit [d967a17](https://github.com/naszhu/REM_E3_model_fixed/commit/d967a17) (branch: `main`)
 **Time:** 2025-10-16 21:45:35  
 **Message:**

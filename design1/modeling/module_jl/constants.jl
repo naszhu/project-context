@@ -183,7 +183,7 @@ is_UC_distort_between_study_and_test = true  # CHANGED Enable UC (unchanging con
 is_CC_distort_between_study_and_test = true  # CHANGED Enable CC (changing context) distortion (Issue #50)
 
 # Distortion probability parameters (Issue #50)
-base_distortion_prob = 0.18  # distortion probability for content
+base_distortion_prob = 0.19  # distortion probability for content
 base_distortion_prob_UC = 0.19  # distortion probability for UC (set higher to test effect)
 base_distortion_prob_CC = 0.19  # distortion probability for CC (set higher to test effect)
 

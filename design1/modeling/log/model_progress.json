@@ -1,5 +1,19 @@
 [
   {
+    "commit": "bef751a",
+    "branch": "main",
+    "message": "docs(docs-e1): add detailed results for Experiment 1 and Experiment 2",
+    "timestamp": "2025-10-18 18:01:52",
+    "plot1": "plot_archive/bef751a_20251018_180152_plot1.png",
+    "plot2": "plot_archive/bef751a_20251018_180152_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/results intro.",
+      "design1/results_writing.txt"
+    ]
+  },
+  {
     "commit": "d967a17",
     "branch": "main",
     "message": "refactor(allplots): standardize axis title formatting across plots",
