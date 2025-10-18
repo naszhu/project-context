@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [a4907e5](https://github.com/naszhu/REM_E3_model_fixed/commit/a4907e5) (branch: `main`)
+**Time:** 2025-10-18 20:48:20  
+**Message:**
+```
+feat(model-e1): use new asumpto function
+
+- Added new parameters for formula-based asymptotic criterion, including base value and rate of approach.
+- Implemented `asym_increase_formula` and `generate_asymptotic_values_formula` functions to calculate asymptotic increases, mimicking E3's behavior.
+- Updated `criterion_initial` to utilize the new formula-based approach, enhancing model accuracy for between-list dimensions.
+
+These changes aim to improve the modeling of asymptotic behavior in the analysis.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/a4907e5_20251018_204820_plot1.png)  
+![](../plot_archive/a4907e5_20251018_204820_plot2.png)  
+
 ## Commit [808ca6e](https://github.com/naszhu/REM_E3_model_fixed/commit/808ca6e) (branch: `main`)
 **Time:** 2025-10-18 18:02:12  
 **Message:**

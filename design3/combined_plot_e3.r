@@ -266,7 +266,7 @@ p1_p = ggplot(data=df1_combined, aes(x=position, y=meanx, group=is_target)) +
 combined_plot <- grid.arrange(
   p1_d, p1_p,
   ncol = 2,
-  top = textGrob("E3 Initial Within List: DATA vs PREDICTION",
+  top = textGrob("E2 Initial Within List: DATA vs PREDICTION",
                  gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )
 
@@ -485,7 +485,7 @@ p2_p = ggplot(data = DF2, aes(x = list_number, y = meanx, group = is_target)) +
 combined_plot <- grid.arrange(
   p2_d, p2_p,
   ncol = 2,
-  top = textGrob("E3 Initial Between List: DATA vs PREDICTION",
+  top = textGrob("E2 Initial Between List: DATA vs PREDICTION",
                  gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )
 
@@ -519,9 +519,9 @@ POSITION_LABEL <- "Position"
 CORRECT_RATE_LABEL <- "Correct Response Rate"
 
 # Y-axis scale constants
-Y_MIN <- 0.5
+Y_MIN <- 0.45
 Y_MAX <- 1.0
-Y_BREAKS <- seq(0.5, 1.0, by = 0.1)
+Y_BREAKS <- seq(0.45, 1.0, by = 0.1)
 
 PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
   theme(
@@ -714,7 +714,7 @@ if (has_final_predictions) {
   combined_plot <- grid.arrange(
     p3_d, pf3_p,
     ncol = 2,
-    top = textGrob("E3 Final Test Within List: DATA vs PREDICTION",
+    top = textGrob("E2 Final Test Within List: DATA vs PREDICTION",
                    gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
   )
 
@@ -1003,7 +1003,7 @@ pf4_p = ggplot(data=df_allfinal, aes(test_position_group, val, group=interaction
 combined_plot <- grid.arrange(
   p4_d, pf4_p,
   ncol = 2,
-  top = textGrob("E3 Final Test Between List: DATA vs PREDICTION",
+  top = textGrob("E2 Final Test Between List: DATA vs PREDICTION",
                  gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )}
 

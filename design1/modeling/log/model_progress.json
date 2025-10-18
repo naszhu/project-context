@@ -1,5 +1,19 @@
 [
   {
+    "commit": "a4907e5",
+    "branch": "main",
+    "message": "feat(model-e1): use new asumpto function",
+    "timestamp": "2025-10-18 20:48:20",
+    "plot1": "plot_archive/a4907e5_20251018_204820_plot1.png",
+    "plot2": "plot_archive/a4907e5_20251018_204820_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
     "commit": "808ca6e",
     "branch": "main",
     "message": "finetune(model-e1): update base distortion probability for content",

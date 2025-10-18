@@ -7,6 +7,33 @@ library(gridExtra)
 library(png)
 library(grid)
 
+# ===== SHARED CONSTANTS =====
+# Font sizes
+BASE_FONT_SIZE <- 20
+TITLE_SIZE <- 25
+SUPER_TITLE_SIZE <- 28
+
+# Plot styling
+POINT_SIZE <- 1
+POINT_ALPHA <- 0.7
+POINT_COLOR <- "black"
+
+# Margins and spacing
+PLOT_MARGIN_TOP <- 20
+PLOT_MARGIN_RIGHT <- 20
+PLOT_MARGIN_BOTTOM <- 40
+PLOT_MARGIN_LEFT <- 20
+TITLE_MARGIN_BOTTOM <- 20
+
+# Panel styling
+PANEL_BORDER_WIDTH <- 0.5
+PANEL_BACKGROUND <- "white"
+PLOT_BACKGROUND <- "white"
+
+# Y-axis limits
+Y_MIN <- 0
+Y_MAX <- 1
+
 # Load the aggregated data
 df_rt_pl <- read_csv("/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context/design3/data/E3_AGGREGATED.csv")
 cat("Loaded aggregated data from E3_AGGREGATED.csv\n")
@@ -48,36 +75,32 @@ cat("Participant performance data saved to participant_performance_data_e3.csv\n
 # Create Initial Test plot
 initial_plot <- ggplot(initial_participant_performance,
                       aes(x = participant_rank, y = overall_performance)) +
-  geom_point(size = 1, alpha = 0.7, color = "black") +
+  geom_point(size = POINT_SIZE, alpha = POINT_ALPHA, color = POINT_COLOR) +
   # geom_line(alpha = 0.5, color = "black", linewidth = 0.8) +
 
   # Styling and labels
   labs(x = "Participant (ordered worst to best)",
-       y = "Overall Performance", # (Proportion Correct)",
-       title = "Initial Test - Individual Participant Performance"
-       # caption = "Each point represents one participant's overall performance, ordered from lowest to highest"
+       y = "Overall Performance",
+       title = "E2 Initial Test "
        ) +
 
   # Set y-axis to show full range
-  ylim(0, 1) +
+  ylim(Y_MIN, Y_MAX) +
 
   # Enhanced theme
   theme_classic() +
   theme(
+    plot.title = element_text(face = "bold", hjust = 0.5, size = TITLE_SIZE, margin = margin(b = TITLE_MARGIN_BOTTOM)),
+    plot.margin = margin(t = PLOT_MARGIN_TOP, r = PLOT_MARGIN_RIGHT, b = PLOT_MARGIN_BOTTOM, l = PLOT_MARGIN_LEFT),
+    text = element_text(size = BASE_FONT_SIZE),
+    axis.text = element_text(size = BASE_FONT_SIZE, color = "black"),
+    axis.title = element_text(size = BASE_FONT_SIZE, color = "black"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     panel.grid = element_blank(),
-    plot.title = element_text(face = "bold", hjust = 0.5, size = 16, margin = margin(b = 20)),
-    plot.caption = element_text(hjust = 0, size = 12, color = "darkblue", margin = margin(t = 15)),
-    plot.margin = margin(t = 20, r = 20, b = 40, l = 20),
-    text = element_text(size = 20),
-    axis.text = element_text(size = 20, color = "black"),
-    axis.title = element_text(size = 20, face = "bold", color = "black"),
-    # panel.grid.major = element_line(color = "grey75", linewidth = 0.4),
-    # panel.grid.minor = element_line(color = "grey85", linewidth = 0.2),
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.6),
-    plot.background = element_rect(fill = "white", color = NA),
-    panel.background = element_rect(fill = "grey98", color = NA),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = PANEL_BORDER_WIDTH),
+    plot.background = element_rect(fill = PLOT_BACKGROUND, color = NA),
+    panel.background = element_rect(fill = PANEL_BACKGROUND, color = NA),
     axis.text.x = element_blank(),  # Remove participant labels for anonymity
     axis.ticks.x = element_line(color = "black")  # Keep tick marks
   )
@@ -86,36 +109,32 @@ initial_plot <- ggplot(initial_participant_performance,
 final_plot <- ggplot(final_participant_performance,
                     aes(x = participant_rank, y = overall_performance)) +
   # geom_point(size = 3, alpha = 0.7, color = "#D73027") +
-  geom_point(size = 1, alpha = 0.7, color = "black") +
+  geom_point(size = POINT_SIZE, alpha = POINT_ALPHA, color = POINT_COLOR) +
   # geom_line(alpha = 0.5, color = "#D73027", linewidth = 0.8) +
 
   # Styling and labels
   labs(x = "Participant (ordered worst to best)",
-       y = "Overall Performance", # (Proportion Correct)",
-       title = "Final Test - Individual Participant Performance"
-       # caption = "Each point represents one participant's overall performance, ordered from lowest to highest"
+       y = "Overall Performance",
+       title = "E2 Final Test "
        ) +
 
   # Set y-axis to show full range
-  ylim(0, 1) +
+  ylim(Y_MIN, Y_MAX) +
 
   # Enhanced theme
   theme_classic() +
   theme(
-    plot.title = element_text(face = "bold", hjust = 0.5, size = 16, margin = margin(b = 20)),
-    plot.caption = element_text(hjust = 0, size = 12, color = "darkblue", margin = margin(t = 15)),
-    plot.margin = margin(t = 20, r = 20, b = 40, l = 20),
-    text = element_text(size = 35),
-    axis.text = element_text(size = 20, color = "black"),
-    axis.title = element_text(size = 20, face = "bold", color = "black"),
-    # panel.grid.major = element_line(color = "grey75", linewidth = 0.4),
-    # panel.grid.minor = element_line(color = "grey85", linewidth = 0.2),
+    plot.title = element_text(face = "bold", hjust = 0.5, size = TITLE_SIZE, margin = margin(b = TITLE_MARGIN_BOTTOM)),
+    plot.margin = margin(t = PLOT_MARGIN_TOP, r = PLOT_MARGIN_RIGHT, b = PLOT_MARGIN_BOTTOM, l = PLOT_MARGIN_LEFT),
+    text = element_text(size = BASE_FONT_SIZE),
+    axis.text = element_text(size = BASE_FONT_SIZE, color = "black"),
+    axis.title = element_text(size = BASE_FONT_SIZE, color = "black"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     panel.grid = element_blank(),
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.6),
-    plot.background = element_rect(fill = "white", color = NA),
-    panel.background = element_rect(fill = "grey98", color = NA),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = PANEL_BORDER_WIDTH),
+    plot.background = element_rect(fill = PLOT_BACKGROUND, color = NA),
+    panel.background = element_rect(fill = PANEL_BACKGROUND, color = NA),
     axis.text.x = element_blank(),  # Remove participant labels for anonymity
     axis.ticks.x = element_line(color = "black")  # Keep tick marks
   )
@@ -134,8 +153,8 @@ final_plot <- ggplot(final_participant_performance,
 combined_plot <- grid.arrange(
   initial_plot, final_plot,
   ncol = 2,
-  top = textGrob("Participant Performance",
-                 gp = gpar(fontsize = 28, fontface = "bold"))
+  top = textGrob("E2 Individual Performance",
+                 gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
 )
 
 # Save the combined plot
