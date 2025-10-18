@@ -1,5 +1,18 @@
 [
   {
+    "commit": "808ca6e",
+    "branch": "main",
+    "message": "finetune(model-e1): update base distortion probability for content",
+    "timestamp": "2025-10-18 18:02:12",
+    "plot1": "plot_archive/808ca6e_20251018_180212_plot1.png",
+    "plot2": "plot_archive/808ca6e_20251018_180212_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "bef751a",
     "branch": "main",
     "message": "docs(docs-e1): add detailed results for Experiment 1 and Experiment 2",

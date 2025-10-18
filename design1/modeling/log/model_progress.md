@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [808ca6e](https://github.com/naszhu/REM_E3_model_fixed/commit/808ca6e) (branch: `main`)
+**Time:** 2025-10-18 18:02:12  
+**Message:**
+```
+finetune(model-e1): update base distortion probability for content
+
+- Increased the base distortion probability for content from 0.18 to 0.19 to enhance model accuracy.
+- This change addresses the distortion parameters related to content, ensuring better alignment with experimental requirements.
+
+Refs #50
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/808ca6e_20251018_180212_plot1.png)  
+![](../plot_archive/808ca6e_20251018_180212_plot2.png)  
+
 ## Commit [bef751a](https://github.com/naszhu/REM_E3_model_fixed/commit/bef751a) (branch: `main`)
 **Time:** 2025-10-18 18:01:52  
 **Message:**

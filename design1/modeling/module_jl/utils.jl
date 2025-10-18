@@ -173,3 +173,48 @@ function generate_asymptotic_values_linear_diminishing(p::Float64,
     # transpose(dim2) makes it a row vector, so outer product gives n_probes x n_lists
     return dim1 .* transpose(dim2)
 end
+
+
+###############################################################
+# 8c. asym_increase_formula (formula-based asymptotic increase like E3's h_j)
+# Creates an asymptotic increase using the formula Z(j) = 1 - [1-Z] R^(j-2)
+# where Z is the base value and R controls the rate of approach to 1
+###############################################################
+function asym_increase_formula(z_base::Float64,
+                              r_rate::Float64,
+                              n::Int)::Vector{Float64}
+    @assert n ≥ 1
+    @assert 0.0 ≤ z_base ≤ 1.0 "z_base must be between 0 and 1"
+    @assert r_rate > 0.0 "r_rate must be positive"
+    
+    result = Vector{Float64}(undef, n)
+    result[1] = z_base
+    
+    for j in 2:n
+        # Z(j) = 1 - [1-Z] R^(j-2)
+        result[j] = 1.0 - (1.0 - z_base) * (r_rate^(j-2))
+    end
+    
+    return result
+end
+
+
+###############################################################
+# 8d. generate_asymptotic_values_formula (2D matrix with formula-based increase for between-list)
+# Same structure as generate_asymptotic_values_linear_diminishing but uses formula-based asymptotic for between-list dimension
+# This mimics E3's h_j asymptotic behavior for criterion_initial's list dimension
+###############################################################
+function generate_asymptotic_values_formula(p::Float64,
+                                           within_list_start::Float64,
+                                           within_list_end::Float64,
+                                           between_list_base::Float64,
+                                           between_list_r_rate::Float64)::Matrix{Float64}
+    # dim1 is n_probes long (within-list, rows) - kept same as before
+    # dim2 is n_lists long (between-list, columns) - uses E3-style formula
+    # Result is n_probes x n_lists matrix
+    dim1 = asym_decrease(within_list_start, within_list_end, 5.0, n_probes)
+    dim2 = asym_increase_formula(between_list_base, between_list_r_rate, n_lists)
+    dim2 = dim2 .^ p
+    # transpose(dim2) makes it a row vector, so outer product gives n_probes x n_lists
+    return dim1 .* transpose(dim2)
+end
