@@ -17,8 +17,13 @@ library(grid)
 PROJECT_ROOT <- "/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 2022-09-04 14:28/IUB/Project-context"
 DESIGN1_DIR <- file.path(PROJECT_ROOT, "design1")
 DATA_ANALYSIS_DIR <- file.path(DESIGN1_DIR, "data_analysis")
-# MODELING_DIR <- file.path(DESIGN1_DIR, "modeling")
-# R_PLOTTING_DIR <- file.path(MODELING_DIR, "R_ploting")
+RT_RESULTS_DIR <- file.path(DATA_ANALYSIS_DIR, "rt_results")
+
+# Create rt_results directory if it doesn't exist
+if (!dir.exists(RT_RESULTS_DIR)) {
+  dir.create(RT_RESULTS_DIR, recursive = TRUE)
+  cat("Created rt_results directory\n")
+}
 
 ############################################################
 ## E1 Final Test Between List: DATA vs PREDICTION
@@ -51,9 +56,9 @@ GRID_MAJOR_WIDTH <- 0.3
 GRID_MINOR_COLOR <- "grey85"
 GRID_MINOR_WIDTH <- 0.2
 PANEL_BORDER_WIDTH <- 0.5
-PANEL_BACKGROUND <- "grey98"
-STRIP_BACKGROUND <- "grey90"
-STRIP_BORDER_WIDTH <- 0.4
+PANEL_BACKGROUND <- "white"
+STRIP_BACKGROUND <- "white"
+STRIP_BORDER_WIDTH <- 1
 
 # Point styling
 POINT_ALPHA <- 1
@@ -106,7 +111,7 @@ data_plot <- ggplot(data=dfserial, aes(position,meanrt,group=interaction(positio
   # Enhanced points with different shapes for each probetype (exclude Average)
   geom_point(
              aes(color=probetype, shape=probetype),
-             size=POINT_SIZE, alpha=POINT_ALPHA, stroke=POINT_STROKE) +
+             size=POINT_SIZE, alpha=POINT_ALPHA, stroke=POINT_STROKE, fill="red") +
   # Enhanced lines with different line types (exclude Average)
   geom_line(data=dfserial %>% filter(probetype != "Average"),
             aes(color=probetype, linetype=probetype),
@@ -141,7 +146,7 @@ data_plot <- ggplot(data=dfserial, aes(position,meanrt,group=interaction(positio
                              "TARGET_nontarget  - Hits"="#1A9850",
                              "TARGET_target  - Hits"="#2166AC")) +
   scale_shape_manual(values=c("Average"=15, #doens't matter because avereage is hidden here
-                              "Foil - Correct rejection"=8,   # star for foil-correctrejection (F)
+                              "Foil - Correct rejection"=4,   # red cross for foil-correctrejection (F)
                               "TARGET_foil  - Hits"=17,                                # solid triangle
                               "TARGET_nontarget  - Hits"=16,  # solid circle
                               "TARGET_target  - Hits"=15  # solid square
@@ -174,8 +179,8 @@ data_plot <- ggplot(data=dfserial, aes(position,meanrt,group=interaction(positio
     plot.title = element_text(face = "bold", hjust = 0.5, size = TITLE_SIZE, margin = margin(b = TITLE_MARGIN_BOTTOM)),
     panel.border = element_rect(color = "black", fill = NA, linewidth = PANEL_BORDER_WIDTH),
     plot.background = element_rect(fill = "white", color = NA),
-    panel.background = element_rect(fill = PANEL_BACKGROUND, color = NA),
-    strip.background = element_rect(fill = STRIP_BACKGROUND, color = "black", linewidth = STRIP_BORDER_WIDTH),
+    panel.background = element_rect(fill = "white", color = NA),
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
     strip.text = element_text(face = "bold", size = STRIP_TEXT_SIZE)
   ) +
   guides(
@@ -186,7 +191,7 @@ data_plot <- ggplot(data=dfserial, aes(position,meanrt,group=interaction(positio
   )
 
 # Save data plot
-data_plot_path <- file.path(DATA_ANALYSIS_DIR, "E1_final_between_rt.png")
+data_plot_path <- file.path(RT_RESULTS_DIR, "E1_final_between_rt.png")
 ggsave(data_plot_path, data_plot, width = 9+3, height = 13+4, dpi = 300, bg = "white")
 
 ############################################################
@@ -223,9 +228,9 @@ GRID_MAJOR_WIDTH <- 0.3
 GRID_MINOR_COLOR <- "grey85"
 GRID_MINOR_WIDTH <- 0.2
 PANEL_BORDER_WIDTH <- 0.5
-PANEL_BACKGROUND <- "grey98"
-STRIP_BACKGROUND <- "grey90"
-STRIP_BORDER_WIDTH <- 0.4
+PANEL_BACKGROUND <- "white"
+STRIP_BACKGROUND <- "white"
+STRIP_BORDER_WIDTH <- 1
 
 # Point styling
 POINT_ALPHA <- 1
@@ -332,7 +337,7 @@ data_plot <- ggplot(data=df_finalwithin,
                         aes(position,meanrt,group=interaction(position_type)))+
   # Enhanced points with different shapes for each probetype
   geom_point(aes(color=probetype, shape=probetype, group=probetype),
-             size=POINT_SIZE, alpha=POINT_ALPHA, stroke=POINT_STROKE) +
+             size=POINT_SIZE, alpha=POINT_ALPHA, stroke=POINT_STROKE, fill="red") +
   # Enhanced lines with different line types
   geom_line(aes(color=probetype, linetype=probetype, group=probetype),
             linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
@@ -360,7 +365,7 @@ data_plot <- ggplot(data=df_finalwithin,
     "Foil, neither studied nor tested  - Correct rejection" = 17,                                # solid triangle
     "Target, Studied and tested - HITS" = 15,                      # solid square
     "Target, Studied only - HITS" = 16,
-    "FOIL"=8                             # solid circle
+    "FOIL"=4                             # red cross for FOIL
   )) +
                                # circle, triangle, square
   scale_linetype_manual(values=c("Foil, neither studied nor tested  - Correct rejection"="solid",
@@ -390,8 +395,8 @@ data_plot <- ggplot(data=df_finalwithin,
     plot.title = element_text(face = "bold", hjust = 0.5, size = TITLE_SIZE, margin = margin(b = TITLE_MARGIN_BOTTOM)),
     panel.border = element_rect(color = "black", fill = NA, linewidth = PANEL_BORDER_WIDTH),
     plot.background = element_rect(fill = "white", color = NA),
-    panel.background = element_rect(fill = PANEL_BACKGROUND, color = NA),
-    strip.background = element_rect(fill = STRIP_BACKGROUND, color = "black", linewidth = STRIP_BORDER_WIDTH),
+    panel.background = element_rect(fill = "white", color = NA),
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
     strip.text = element_text(face = "bold", size = STRIP_TEXT_SIZE)
   ) +
   guides(
@@ -402,7 +407,7 @@ data_plot <- ggplot(data=df_finalwithin,
   )
 
 # Save data plot
-ggsave(file.path(DATA_ANALYSIS_DIR, "E1_final_within_rt.png"), data_plot, width = 19/3*2, height = 7.5, dpi = 300, bg = "white")
+ggsave(file.path(RT_RESULTS_DIR, "E1_final_within_rt.png"), data_plot, width = 19/3*2, height = 7.5, dpi = 300, bg = "white")
 
 
 
@@ -414,7 +419,7 @@ ggsave(file.path(DATA_ANALYSIS_DIR, "E1_final_within_rt.png"), data_plot, width 
 # ===== SHARED CONSTANTS =====
 # Colors
 COLOR_FOIL <- "#E08214"
-COLOR_TARGET <- "#1A9850"
+COLOR_TARGET <- "#2166AC"
 COLOR_AVERAGE <- "#2C2C2C"
 
 # Shapes
@@ -491,7 +496,7 @@ plot_data <- df_initialtestbyinitial%>%
 data_plot <- ggplot(data=plot_data, aes(position,meanrt,group=interaction(position_type,conditionnow)))+
   # Enhanced points with different shapes for each probetype
   geom_point(aes(color=probetype, shape=probetype, group=probetype),
-             size=POINT_SIZE, alpha=0.9, stroke=1.5) +
+             size=POINT_SIZE, alpha=0.9, stroke=1.5, fill="red") +
   # Enhanced lines with different line types
   geom_line(aes(color=probetype, linetype=probetype, group=probetype),
             linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
@@ -531,16 +536,21 @@ data_plot <- ggplot(data=plot_data, aes(position,meanrt,group=interaction(positi
   )
 
 
-ggsave(file.path(DATA_ANALYSIS_DIR, "E1_initial_between_rt.png"), data_plot, width = 10, height = 9, dpi = 300, bg = "white")
+ggsave(file.path(RT_RESULTS_DIR, "E1_initial_between_rt.png"), data_plot, width = 10, height = 9, dpi = 300, bg = "white")
 
 ############################################################
 ## E1 Initial Within
 ############################################################
 
+  # scale_color_manual(values=c("Foil, neither studied nor tested  - Correct rejection"="#E08214",
+  #                             "Target, Studied and tested - HITS"="#2166AC",
+  #                             "Target, Studied only - HITS"="#1A9850",
+  #                             "FOIL"="red" )) +
+
 # ===== SHARED CONSTANTS =====
 # Colors
 COLOR_FOIL <- "#E08214"
-COLOR_TARGET <- "#1A9850"
+COLOR_TARGET <- "#2166AC"
 COLOR_AVERAGE <- "#2C2C2C"
 
 # Shapes
@@ -617,7 +627,7 @@ dfserial_all=rbind(dfserial,dfserial_meandf)
 data_plot <- ggplot(data=dfserial_all, aes(position,meanrt,group=interaction(position_type)))+
   # Enhanced points with different shapes for each probetype
   geom_point(aes(color=probetype, shape=probetype, group=probetype),
-             size=POINT_SIZE, alpha=0.9, stroke=1.2) +
+             size=POINT_SIZE, alpha=0.9, stroke=1.2, fill="red") +
   # Enhanced lines with different line types
   geom_line(aes(color=probetype, linetype=probetype, group=probetype),
             linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
@@ -656,7 +666,7 @@ data_plot <- ggplot(data=dfserial_all, aes(position,meanrt,group=interaction(pos
   )
 
 
-ggsave(file.path(DATA_ANALYSIS_DIR, "E1_initial_within_rt.png"), data_plot, width = 19/3*2, height = 6.5, dpi = 300, bg = "white")
+ggsave(file.path(RT_RESULTS_DIR, "E1_initial_within_rt.png"), data_plot, width = 19/3*2, height = 6.5, dpi = 300, bg = "white")
 
 
 ############################################################
@@ -699,7 +709,7 @@ final_participant_rt <- dfchanged %>%
 all_participant_rt <- rbind(initial_participant_rt, final_participant_rt)
 
 # Save the data for reference
-write_csv(all_participant_rt, file.path(DATA_ANALYSIS_DIR, "participant_rt_data.csv"))
+write_csv(all_participant_rt, file.path(RT_RESULTS_DIR, "participant_rt_data.csv"))
 cat("Participant RT data saved to participant_rt_data.csv\n")
 
 # Identify the highest mean RTs for each test
@@ -787,7 +797,7 @@ combined_rt_plot <- grid.arrange(
 )
 
 # Save the combined plot
-ggsave(file.path(DATA_ANALYSIS_DIR, "E1_participant_mean_rt.png"), combined_rt_plot, 
+ggsave(file.path(RT_RESULTS_DIR, "E1_participant_mean_rt.png"), combined_rt_plot, 
        width = 13, height = 6, dpi = 300, bg = "white")
 
 # 5. SUMMARY STATISTICS
@@ -812,9 +822,11 @@ cat(sprintf("Range: %.3f - %.3f s\n",
     max(final_participant_rt$mean_rt)))
 
 cat("\n=== RT PLOTS CREATED SUCCESSFULLY! ===\n")
-cat("Files created:\n")
+cat("Files created in rt_results folder:\n")
 cat("• participant_rt_data.csv - Raw RT data\n")
-# cat("• E1_initial_participant_rt.png - Initial test RT plot\n")
-# cat("• E1_final_participant_rt.png - Final test RT plot\n")
-cat("• E1_participant_mean_rt.png - Combined RT plot\n")
+cat("• E1_final_between_rt.png - Final Between List RT plot\n")
+cat("• E1_final_within_rt.png - Final Within List RT plot\n")
+cat("• E1_initial_between_rt.png - Initial Between List RT plot\n")
+cat("• E1_initial_within_rt.png - Initial Within List RT plot\n")
+cat("• E1_participant_mean_rt.png - Combined participant RT plot\n")
 

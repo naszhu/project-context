@@ -1,5 +1,19 @@
 [
   {
+    "commit": "9d83368",
+    "branch": "main",
+    "message": "finetune(model-e1): update model parameters for final test and distortion probability",
+    "timestamp": "2025-10-19 19:50:29",
+    "plot1": "plot_archive/9d83368_20251019_195029_plot1.png",
+    "plot2": "plot_archive/9d83368_20251019_195029_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
     "commit": "fd9b6f1",
     "branch": "main",
     "message": "feat(docs): add new appendix tables and data generation scripts for Experiment 2",

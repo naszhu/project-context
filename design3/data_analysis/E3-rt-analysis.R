@@ -9,6 +9,13 @@ PROJECT_ROOT <- "/home/lea/Insync/naszhu@gmail.com/Google Drive/shulai@iu.edu 20
 DESIGN3_DIR <- file.path(PROJECT_ROOT, "design3")
 DATA_DIR <- file.path(DESIGN3_DIR, "data")
 DATA_ANALYSIS_DIR <- file.path(DESIGN3_DIR, "data_analysis")
+RT_RESULTS_DIR <- file.path(DATA_ANALYSIS_DIR, "rt_results")
+
+# Create rt_results directory if it doesn't exist
+if (!dir.exists(RT_RESULTS_DIR)) {
+  dir.create(RT_RESULTS_DIR, recursive = TRUE)
+  cat("Created rt_results directory\n")
+}
 
 RT_MIN_MS <- 180
 RT_MAX_MS <- 3000
@@ -26,16 +33,16 @@ AXIS_TITLE_SIZE <- 30
 AXIS_TEXT_SIZE <- 30
 STRIP_TEXT_SIZE <- 30
 BASE_SIZE <- 30
-POINT_SIZE <- 6
-POINT_STROKE <- 2
-LINE_WIDTH <- 2
-PLOT_WIDTH <- 18/3*2
-PLOT_HEIGHT <- 6.5
+POINT_SIZE <- 5
+POINT_STROKE <- 1.2
+LINE_WIDTH <- 1.5
+PLOT_WIDTH <- 19/3*2
+PLOT_HEIGHT <- 7.5
 PLOT_DPI <- 300
 POSITION_LABEL <- "Position"
 RT_LABEL <- "Response Time (ms)"
 
-PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
+PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
@@ -46,9 +53,10 @@ PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
     strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
-    axis.line = element_line(color = "black", linewidth = 0.5),
-    strip.background = element_rect(fill = "grey90", color = NA)
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1)
   )
 
 initial_within_test_rt <- df_rt_pl %>%
@@ -178,7 +186,7 @@ initial_within_rt_plot <- ggplot(initial_within_rt) +
   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
 ggsave(
-  file.path(DATA_ANALYSIS_DIR, "Exp. 2_initial_within_rt.png"),
+  file.path(RT_RESULTS_DIR, "E3_initial_within_rt.png"),
   initial_within_rt_plot,
   width = PLOT_WIDTH,
   height = PLOT_HEIGHT,
@@ -190,18 +198,18 @@ ggsave(
 # Exp. 2 Initial Test Between List RT DATA
 # ------------------------------------------------------------
 
-PLOT_TITLE_SIZE <- 26
-AXIS_TITLE_SIZE <- 30
-AXIS_TEXT_SIZE <- 30
-STRIP_TEXT_SIZE <- 30
-BASE_SIZE <- 30
-POINT_SIZE <- 8
-LINE_WIDTH <- 2
-PLOT_WIDTH <- 16/3*1.5
-PLOT_HEIGHT <- 8
+PLOT_TITLE_SIZE <- 25
+AXIS_TITLE_SIZE <- 25
+AXIS_TEXT_SIZE <- 25
+STRIP_TEXT_SIZE <- 25
+BASE_SIZE <- 24
+POINT_SIZE <- 4.5
+LINE_WIDTH <- 1.8
+PLOT_WIDTH <- 10
+PLOT_HEIGHT <- 9
 PLOT_DPI <- 300
 
-PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
+PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
@@ -212,9 +220,10 @@ PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
     strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
-    axis.line = element_line(color = "black", linewidth = 0.5),
-    strip.background = element_rect(fill = "grey90", color = NA)
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1)
   )
 
 levelsStr <- c(
@@ -321,7 +330,7 @@ initial_between_rt_plot <- ggplot(initial_between_rt) +
   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
 ggsave(
-  file.path(DATA_ANALYSIS_DIR, "Exp. 2_initial_between_rt.png"),
+  file.path(RT_RESULTS_DIR, "E3_initial_between_rt.png"),
   initial_between_rt_plot,
   width = PLOT_WIDTH,
   height = PLOT_HEIGHT,
@@ -333,19 +342,19 @@ ggsave(
 # Exp. 2 Final Test Within List RT DATA
 # ------------------------------------------------------------
 
-PLOT_TITLE_SIZE <- 35
-AXIS_TITLE_SIZE <- 35
-AXIS_TEXT_SIZE <- 35
-STRIP_TEXT_SIZE <- 35
-BASE_SIZE <- 35
-POINT_STROKE <- 2
-POINT_SIZE <- 7
-LINE_WIDTH <- 2
-PLOT_WIDTH <- 18/3*2
-PLOT_HEIGHT <- 6.5
+PLOT_TITLE_SIZE <- 30
+AXIS_TITLE_SIZE <- 30
+AXIS_TEXT_SIZE <- 30
+STRIP_TEXT_SIZE <- 30
+BASE_SIZE <- 24
+POINT_STROKE <- 1.2
+POINT_SIZE <- 5
+LINE_WIDTH <- 1.5
+PLOT_WIDTH <- 19/3*2
+PLOT_HEIGHT <- 7.5
 PLOT_DPI <- 300
 
-PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
+PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
@@ -356,9 +365,10 @@ PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
     strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
-    axis.line = element_line(color = "black", linewidth = 0.5),
-    strip.background = element_rect(fill = "grey90", color = NA)
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1)
   )
 
 levelsStr_fn <- levels(as.factor(df_rt_pl$type_comment_fn))
@@ -463,7 +473,7 @@ final_within_rt_plot <- ggplot(final_within_rt) +
     "Studied-only (n); Appear once" = 16,
     "Foil(n), Foil (n+1)" = 2,
     "Foil(n); Appear once" = 17,
-    "Final Foil" = 8
+    "Final Foil" = 4
   ), breaks = levelsStr_fn) +
   PLOT_THEME +
   labs(
@@ -474,7 +484,7 @@ final_within_rt_plot <- ggplot(final_within_rt) +
   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
 ggsave(
-  file.path(DATA_ANALYSIS_DIR, "Exp. 2_final_within_rt.png"),
+  file.path(RT_RESULTS_DIR, "E3_final_within_rt.png"),
   final_within_rt_plot,
   width = PLOT_WIDTH,
   height = PLOT_HEIGHT,
@@ -489,16 +499,16 @@ ggsave(
 PLOT_TITLE_SIZE <- 30
 AXIS_TITLE_SIZE <- 30
 AXIS_TEXT_SIZE <- 30
-STRIP_TEXT_SIZE <- 35
-BASE_SIZE <- 25
-POINT_SIZE <- 6
-POINT_STROKE <- 2
-LINE_WIDTH <- 2
-PLOT_WIDTH <- 11
-PLOT_HEIGHT <- 6.5
+STRIP_TEXT_SIZE <- 28
+BASE_SIZE <- 24
+POINT_SIZE <- 8
+POINT_STROKE <- 1.2
+LINE_WIDTH <- 1.5
+PLOT_WIDTH <- 12
+PLOT_HEIGHT <- (13+4)/3+1.2
 PLOT_DPI <- 300
 
-PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
+PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +
   theme(
     plot.title = element_text(size = PLOT_TITLE_SIZE, face = "bold"),
     axis.title.x = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
@@ -509,9 +519,10 @@ PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
     strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.border = element_blank(),
-    axis.line = element_line(color = "black", linewidth = 0.5),
-    strip.background = element_rect(fill = "grey90", color = NA)
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    strip.background = element_rect(fill = "white", color = "black", linewidth = 1)
   )
 
 levelsStr_fn <- levels(as.factor(df_rt_pl$type_comment_fn))
@@ -635,7 +646,7 @@ final_between_rt_plot <- ggplot(final_between_rt) +
     "Studied-only (n); Appear once" = 16,
     "Foil(n), Foil (n+1)" = 2,
     "Foil(n); Appear once" = 17,
-    "Final Foil" = 8
+    "Final Foil" = 4
   ), breaks = levelsStr_fn) +
   PLOT_THEME +
   labs(
@@ -646,7 +657,7 @@ final_between_rt_plot <- ggplot(final_between_rt) +
   scale_x_continuous(breaks = seq(0, 10, by = 1))
 
 ggsave(
-  file.path(DATA_ANALYSIS_DIR, "Exp. 2_final_between_rt.png"),
+  file.path(RT_RESULTS_DIR, "E3_final_between_rt.png"),
   final_between_rt_plot,
   width = PLOT_WIDTH,
   height = PLOT_HEIGHT,
@@ -687,9 +698,9 @@ participant_rt_data <- bind_rows(initial_participant_rt, final_participant_rt)
 
 write_csv(
   participant_rt_data,
-  file.path(DATA_ANALYSIS_DIR, "participant_rt_data_Exp. 2.csv")
+  file.path(RT_RESULTS_DIR, "participant_rt_data_E3.csv")
 )
-cat("Participant RT data saved to participant_rt_data_Exp. 2.csv\n")
+cat("Participant RT data saved to participant_rt_data_E3.csv\n")
 
 initial_rt_plot <- ggplot(initial_participant_rt, aes(participant_rank, mean_rt)) +
   geom_point(size = 1, alpha = 0.7, color = "black") +
@@ -752,7 +763,7 @@ combined_rt_plot <- grid.arrange(
 )
 
 ggsave(
-  file.path(DATA_ANALYSIS_DIR, "Exp. 2_participant_mean_rt.png"),
+  file.path(RT_RESULTS_DIR, "E3_participant_mean_rt.png"),
   combined_rt_plot,
   width = 13,
   height = 6,
@@ -785,8 +796,12 @@ cat(sprintf(
 ))
 
 cat("\n=== RT PLOTS CREATED SUCCESSFULLY! ===\n")
-cat("Files created:\n")
-cat("• participant_rt_data_Exp. 2.csv - Raw RT data\n")
-cat("• Exp. 2_participant_mean_rt.png - Combined RT plot\n")
+cat("Files created in rt_results folder:\n")
+cat("• participant_rt_data_E3.csv - Raw RT data\n")
+cat("• E3_initial_within_rt.png - Initial Within List RT plot\n")
+cat("• E3_initial_between_rt.png - Initial Between List RT plot\n")
+cat("• E3_final_within_rt.png - Final Within List RT plot\n")
+cat("• E3_final_between_rt.png - Final Between List RT plot\n")
+cat("• E3_participant_mean_rt.png - Combined participant RT plot\n")
 
 

@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [9d83368](https://github.com/naszhu/REM_E3_model_fixed/commit/9d83368) (branch: `main`)
+**Time:** 2025-10-19 19:50:29  
+**Message:**
+```
+finetune(model-e1): update model parameters for final test and distortion probability
+
+- Changed `is_finaltest` from true to false to adjust simulation settings.
+- Updated `nnnow` from 0.77 to 0.76 to refine model behavior.
+- Adjusted `criterion_between_list_base` from 0.22 to 0.21 and `criterion_between_list_r_rate` from 0.9 to 0.75 for improved asymptotic modeling.
+- Increased `p_reinstate_rate` from 0.15 to 0.16 to enhance the probability of reinstatement.
+
+These changes aim to fine-tune model parameters for better alignment with experimental conditions.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/9d83368_20251019_195029_plot1.png)  
+![](../plot_archive/9d83368_20251019_195029_plot2.png)  
+
 ## Commit [fd9b6f1](https://github.com/naszhu/REM_E3_model_fixed/commit/fd9b6f1) (branch: `main`)
 **Time:** 2025-10-18 20:49:38  
 **Message:**
