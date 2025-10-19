@@ -1,6 +1,6 @@
 
 
-is_finaltest = true
+is_finaltest = false
 n_simulations = is_finaltest ? 200 : 500;
 
 # =============================================================================
@@ -67,7 +67,7 @@ n_units_time_restore_t = n_units_time_restore  # -3
 n_units_time_restore_f = n_units_time_restore_t # -3
 # n_units_time_restore = n_units_time + 10
 
-nnnow = 0.77 #lower this value, the differences between T and F bigger at beginning, smaller later
+nnnow = 0.76 #lower this value, the differences between T and F bigger at beginning, smaller later
 const c = nnnow #copying parameter - aligned with E3 
 const c_storeintest = fill(c, n_lists)  # Make this an array to match usage
 const c_context = fill(c, n_lists)
@@ -95,7 +95,7 @@ is_test_changecontext2 = false #is testing only change context in final test
 # Restoration flags
 is_restore_initial = true
 is_UnchangeCtxDriftAndReinstate = false  #  do not reinstate UC 
-is_distort_probes = true
+is_distort_probes = true #true false doens't matter
 const is_store_mismatch = true; #if mismatched value is restored during test
 is_restore_final = true #followed by the next
 is_onlyaddtrace_final = false
@@ -125,13 +125,13 @@ criterion_between_list_initial_increment = 0.2  # initial increment across lists
 criterion_between_list_decrement_per_step = 0.05  # how much increment decreases each list
 
 # Parameters for formula-based asymptotic criterion (between-list dimension, E3-style)
-criterion_between_list_base = 0.22  # base value for between-list criterion (Z in formula)
-criterion_between_list_r_rate = 0.9  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
+criterion_between_list_base = 0.21  # base value for between-list criterion (Z in formula)
+criterion_between_list_r_rate = 0.75  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
+criterion_initial = generate_asymptotic_values_formula(1.0, 1.0, 1.0, criterion_between_list_base, criterion_between_list_r_rate)
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
 # criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
 # Formula-based asymptotic increase for between-list dimension (mimics E3's h_j behavior):
-criterion_initial = generate_asymptotic_values_formula(1.0, 1.0, 1.0, criterion_between_list_base, criterion_between_list_r_rate)
 
 recall_odds_threshold = 0.08^power_taken;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
@@ -179,7 +179,7 @@ LLpower = 1 #power of likelihood for changing context
 p_poscode_change = 0.1 #this won't be used
 p_reinstate_context = 1.0 #stop reinstate after how much features, 1.0 means a hundrad percent of features are reinstated
 # CATION: uh, this needs to be 1 for E3 as well.
-p_reinstate_rate = 0.15 #0.4 #prob of reinstatement #do not reinstate. 
+p_reinstate_rate = 0.16 #0.4 #prob of reinstatement #do not reinstate. 
 base_recovery_prob = p_reinstate_rate  # constant probability of recovering distorted features during test
 
 # DISTORTION FLAGS (applied after drift, before initial test)

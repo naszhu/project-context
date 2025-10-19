@@ -190,9 +190,9 @@ function asym_increase_formula(z_base::Float64,
     result = Vector{Float64}(undef, n)
     result[1] = z_base
     
-    for j in 2:n
+    for j in 1:n
         # Z(j) = 1 - [1-Z] R^(j-2)
-        result[j] = 1.0 - (1.0 - z_base) * (r_rate^(j-2))
+        result[j] = 1.0 - (1.0 - z_base) * (r_rate^(j-1))
     end
     
     return result

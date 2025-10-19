@@ -1,5 +1,30 @@
 [
   {
+    "commit": "fd9b6f1",
+    "branch": "main",
+    "message": "feat(docs): add new appendix tables and data generation scripts for Experiment 2",
+    "timestamp": "2025-10-18 20:49:38",
+    "plot1": "plot_archive/fd9b6f1_20251018_204938_plot1.png",
+    "plot2": "plot_archive/fd9b6f1_20251018_204938_plot2.png",
+    "changed_files": [
+      "Docs/appendix prepare/README_E3_Tables.md",
+      "Docs/appendix prepare/appendix_table_e3.md",
+      "Docs/appendix prepare/generate_e3_appendix_markdown.R",
+      "Docs/appendix prepare/generate_e3_appendix_tables.R",
+      "Docs/appendix prepare/paper2_appendix.docx",
+      "Docs/appendix_table.md",
+      "Docs/final-write-up/citations_list.md",
+      "Docs/final-write-up/write_up_oct17.md",
+      "design1/data_analysis/E1-participant-performance-plots.R",
+      "design1/data_analysis/generate_data.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r",
+      "design3/data_analysis/E3-participant-performance-plots.r",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "a4907e5",
     "branch": "main",
     "message": "feat(model-e1): use new asumpto function",

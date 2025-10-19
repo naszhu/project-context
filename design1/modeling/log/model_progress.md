@@ -1,5 +1,36 @@
 # Model Progress
 
+## Commit [fd9b6f1](https://github.com/naszhu/REM_E3_model_fixed/commit/fd9b6f1) (branch: `main`)
+**Time:** 2025-10-18 20:49:38  
+**Message:**
+```
+feat(docs): add new appendix tables and data generation scripts for Experiment 2
+
+- Introduced new markdown files for Appendix B and Experiment 2 (E3) tables, detailing accuracy and standard errors by condition and position.
+- Added R scripts to generate markdown tables and aggregate data for Experiment 2, enhancing documentation and data analysis capabilities.
+- Included a comprehensive list of citations and a write-up for the final report, ensuring thorough documentation of research findings.
+
+These additions aim to improve the clarity and accessibility of experimental results and methodologies for future reference.
+```
+**Changed Files:**
+- `Docs/appendix prepare/README_E3_Tables.md`  
+- `Docs/appendix prepare/appendix_table_e3.md`  
+- `Docs/appendix prepare/generate_e3_appendix_markdown.R`  
+- `Docs/appendix prepare/generate_e3_appendix_tables.R`  
+- `Docs/appendix prepare/paper2_appendix.docx`  
+- `Docs/appendix_table.md`  
+- `Docs/final-write-up/citations_list.md`  
+- `Docs/final-write-up/write_up_oct17.md`  
+- `design1/data_analysis/E1-participant-performance-plots.R`  
+- `design1/data_analysis/generate_data.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+- `design3/data_analysis/E3-participant-performance-plots.r`  
+- `design3/modeling`  
+![](../plot_archive/fd9b6f1_20251018_204938_plot1.png)  
+![](../plot_archive/fd9b6f1_20251018_204938_plot2.png)  
+
 ## Commit [a4907e5](https://github.com/naszhu/REM_E3_model_fixed/commit/a4907e5) (branch: `main`)
 **Time:** 2025-10-18 20:48:20  
 **Message:**
