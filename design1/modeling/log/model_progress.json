@@ -1,5 +1,47 @@
 [
   {
+    "commit": "7843951",
+    "branch": "main",
+    "message": "finetune(model-e1): Update simulation parameters for final test configuration",
+    "timestamp": "2025-10-21 10:58:19",
+    "plot1": "plot_archive/7843951_20251021_105819_plot1.png",
+    "plot2": "plot_archive/7843951_20251021_105819_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "7843951",
+    "branch": "main",
+    "message": "finetune(model-e1): Update simulation parameters for final test configuration",
+    "timestamp": "2025-10-21 10:58:19",
+    "plot1": "plot_archive/7843951_20251021_105819_plot1.png",
+    "plot2": "plot_archive/7843951_20251021_105819_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "3c9564c",
+    "branch": "main",
+    "message": "feat(rt-analysis-all): refine rt plots",
+    "timestamp": "2025-10-19 22:40:25",
+    "plot1": "plot_archive/3c9564c_20251019_224025_plot1.png",
+    "plot2": "plot_archive/3c9564c_20251019_224025_plot2.png",
+    "changed_files": [
+      "Docs/caption_figure.md",
+      "Docs/caption_figure_RT.md",
+      "design1/data_analysis/E1-rt-analysis.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3-rt-analysis.R"
+    ]
+  },
+  {
     "commit": "9d83368",
     "branch": "main",
     "message": "finetune(model-e1): update model parameters for final test and distortion probability",

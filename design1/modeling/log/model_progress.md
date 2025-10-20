@@ -1,5 +1,47 @@
 # Model Progress
 
+## Commit [7843951](https://github.com/naszhu/REM_E3_model_fixed/commit/7843951) (branch: `main`)
+**Time:** 2025-10-21 10:58:19  
+**Message:**
+```
+finetune(model-e1): Update simulation parameters for final test configuration
+
+- Set `is_finaltest` to true to enable final test mode.
+- Increased `n_simulations` from 500 to 1000 for more extensive testing.
+- Adjusted `recall_odds_threshold` from 0.08 to 1.0 for improved model behavior.
+- Modified `criterion_final` to use a new base value of 0.37, enhancing the asymptotic modeling approach.
+
+These changes aim to refine the simulation settings and improve the accuracy of the model's performance in final testing scenarios.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/7843951_20251021_105819_plot1.png)  
+![](../plot_archive/7843951_20251021_105819_plot2.png)  
+
+## Commit [3c9564c](https://github.com/naszhu/REM_E3_model_fixed/commit/3c9564c) (branch: `main`)
+**Time:** 2025-10-19 22:40:25  
+**Message:**
+```
+feat(rt-analysis-all): refine rt plots
+
+- Added functionality to create an `rt_results` directory if it doesn't exist for storing response time analysis outputs.
+- Updated paths for saving generated plots and data files to the new `rt_results` directory for better organization.
+- Adjusted plot aesthetics, including background colors and border widths, to enhance visual clarity across analyses.
+
+These changes aim to streamline the output management and improve the visual consistency of the response time analysis plots.
+```
+**Changed Files:**
+- `Docs/caption_figure.md`  
+- `Docs/caption_figure_RT.md`  
+- `design1/data_analysis/E1-rt-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3-rt-analysis.R`  
+![](../plot_archive/3c9564c_20251019_224025_plot1.png)  
+![](../plot_archive/3c9564c_20251019_224025_plot2.png)  
+
 ## Commit [9d83368](https://github.com/naszhu/REM_E3_model_fixed/commit/9d83368) (branch: `main`)
 **Time:** 2025-10-19 19:50:29  
 **Message:**
