@@ -13,10 +13,6 @@ restore content and/or context, here, context include change,unchange, and posit
 # function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, imax::Int64, probetype::Symbol, list_change_features::Vector{Int64}, general_context_features::Vector{Int64}, odds::Float64, likelihood_ratios::Vector{Float64}, simu_i::Int64, initial_testpos::Int64)
 function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, content_LL_ratios::Vector{Float64}, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64, test_position::Int64=0)::Nothing
 
-
-    if is_onlyaddtrace
-        error("not coded here")
-    end
     #is_onlyaddtrace is false
     # println("nothere")
 
@@ -84,19 +80,16 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
     if ((odds > criterion) & (odds > recall_odds_threshold) )
 
         # println(iprobe_img.word.type)
-        if is_strengthen_contextandcontent #true
-            strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
+        # is_strengthen_contextandcontent is true
+        strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
 
-            strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
-            
-            # Use E3 Z-update rules based on decision type
-            if decision_isold == 0  # Recalled + New (confusing foil)
-                update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Recalled + Old
-                update_Z_feature_recalled_old!(iimage_tostrenghten.word, iprobe_img.list_number)
-            end
-        else
-            # error("should strenghen here")
+        strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
+        
+        # Use E3 Z-update rules based on decision type
+        if decision_isold == 0  # Recalled + New (confusing foil)
+            update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
+        else  # decision_isold == 1, Recalled + Old
+            update_Z_feature_recalled_old!(iimage_tostrenghten.word, iprobe_img.list_number)
         end
 
         # the following makes sure that we actually must need to restore context.
@@ -231,21 +224,16 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
         #single parameter for missing or replacing
         # WARNING: rand(Geometric(g_word)) + 1) is not used here, there is no chance of an incorrect random value storage when judging old 
 
-        if !is_store_mismatch
-            error("current prog is not written when doesn't store mismatch")
-        end
+        # is_strengthen_contextandcontent is true
+        strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
 
-        if is_strengthen_contextandcontent
-            strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
-
-            strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
-            
-            # Use E3 Z-update rules based on decision type
-            if decision_isold == 0  # Recalled + New (confusing foil)
-                update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Recalled + Old
-                update_Z_feature_recalled_old!(iimage_tostrenghten.word, iprobe_img.list_number)
-            end
+        strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
+        
+        # Use E3 Z-update rules based on decision type
+        if decision_isold == 0  # Recalled + New (confusing foil)
+            update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
+        else  # decision_isold == 1, Recalled + Old
+            update_Z_feature_recalled_old!(iimage_tostrenghten.word, iprobe_img.list_number)
         end
 
         !is_restore_context ? error("context restored in initial is not well written this part") : nothing

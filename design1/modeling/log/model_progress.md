@@ -1,5 +1,14 @@
 # Model Progress
 
+## Commit [21a2bc7](https://github.com/naszhu/REM_E3_model_fixed/commit/21a2bc7) (branch: `oct-21-cleanning`)
+**Time:** 2025-10-21 11:02:14  
+**Message:**
+```
+merge(oct19): Merge branch 'oct-19-docs-side' into oct-21-cleanning
+```
+![](../plot_archive/21a2bc7_20251021_110214_plot1.png)  
+![](../plot_archive/21a2bc7_20251021_110214_plot2.png)  
+
 ## Commit [d4c72ee](https://github.com/naszhu/REM_E3_model_fixed/commit/d4c72ee) (branch: `oct-21-cleanning`)
 **Time:** 2025-10-21 11:00:55  
 **Message:**

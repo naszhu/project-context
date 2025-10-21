@@ -147,13 +147,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
     for i in eachindex(probes)
 
-
-        if is_onlytest_currentlist
-            error("can't test only current list")
-            image_pool_currentlist = filter(img -> img.list_number == currentlist, image_pool)#it's ok even when new probe were add to the image pool, because new probe has current list numebr as well. It will be kept
-        else
-            image_pool_currentlist = image_pool
-        end
+        image_pool_currentlist = image_pool
         # println("this is list $(currentlist),there are $(length(image_pool_currentlist)) images in the current pool")
 
         # calculate_two_step_likelihoods_rule2(probes[i].image, image_pool);

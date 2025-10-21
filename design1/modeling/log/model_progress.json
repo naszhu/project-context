@@ -1,5 +1,14 @@
 [
   {
+    "commit": "21a2bc7",
+    "branch": "oct-21-cleanning",
+    "message": "merge(oct19): Merge branch 'oct-19-docs-side' into oct-21-cleanning",
+    "timestamp": "2025-10-21 11:02:14",
+    "plot1": "plot_archive/21a2bc7_20251021_110214_plot1.png",
+    "plot2": "plot_archive/21a2bc7_20251021_110214_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "d4c72ee",
     "branch": "oct-21-cleanning",
     "message": "feat(docs): add new constants for modeling parameters",
