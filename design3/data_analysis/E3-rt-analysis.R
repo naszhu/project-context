@@ -198,15 +198,15 @@ ggsave(
 # Exp. 2 Initial Test Between List RT DATA
 # ------------------------------------------------------------
 
-PLOT_TITLE_SIZE <- 25
+PLOT_TITLE_SIZE <- 19
 AXIS_TITLE_SIZE <- 25
 AXIS_TEXT_SIZE <- 25
 STRIP_TEXT_SIZE <- 25
 BASE_SIZE <- 24
 POINT_SIZE <- 4.5
 LINE_WIDTH <- 1.8
-PLOT_WIDTH <- 10
-PLOT_HEIGHT <- 9
+PLOT_WIDTH <- 7
+PLOT_HEIGHT <- 6.5
 PLOT_DPI <- 300
 
 PLOT_THEME <- theme_bw(base_size = BASE_SIZE) +

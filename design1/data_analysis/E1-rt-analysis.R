@@ -451,7 +451,7 @@ X_LABELS <- as.character(X_BREAKS)
 
 # Theme settings
 BASE_TEXT_SIZE <- 24
-TITLE_SIZE <- 25
+TITLE_SIZE <- 20
 AXIS_TITLE_SIZE <- 25
 AXIS_TEXT_SIZE <- 25
 LEGEND_POSITION <- "none"  # Hide legends
@@ -532,11 +532,13 @@ data_plot <- ggplot(data=plot_data, aes(position,meanrt,group=interaction(positi
         legend.position = LEGEND_POSITION,
         text = element_text(size = BASE_TEXT_SIZE),
         axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
-        axis.text = element_text(size = AXIS_TEXT_SIZE)
+        axis.text = element_text(size = AXIS_TEXT_SIZE),
+        strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
+        strip.text = element_text(face = "bold", size = BASE_TEXT_SIZE)
   )
 
 
-ggsave(file.path(RT_RESULTS_DIR, "E1_initial_between_rt.png"), data_plot, width = 10, height = 9, dpi = 300, bg = "white")
+ggsave(file.path(RT_RESULTS_DIR, "E1_initial_between_rt.png"), data_plot, width = 7, height = 6, dpi = 300, bg = "white")
 
 ############################################################
 ## E1 Initial Within
@@ -662,7 +664,9 @@ data_plot <- ggplot(data=dfserial_all, aes(position,meanrt,group=interaction(pos
         legend.position = LEGEND_POSITION,
         text = element_text(size = BASE_TEXT_SIZE),
         axis.title = element_text(size = AXIS_TITLE_SIZE, face = "bold"),
-        axis.text = element_text(size = AXIS_TEXT_SIZE)
+        axis.text = element_text(size = AXIS_TEXT_SIZE),
+        strip.background = element_rect(fill = "white", color = "black", linewidth = 1),
+        strip.text = element_text(face = "bold", size = BASE_TEXT_SIZE)
   )
 
 

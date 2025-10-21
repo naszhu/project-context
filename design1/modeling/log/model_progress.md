@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [caf92ae](https://github.com/naszhu/REM_E3_model_fixed/commit/caf92ae) (branch: `main`)
+**Time:** 2025-10-21 10:59:58  
+**Message:**
+```
+finetune(model-e1): Update simulation parameters for final test configuration
+
+- Set `is_finaltest` to true to enable final test mode.
+- Increased `n_simulations` from 500 to 1000 for more extensive testing.
+- Adjusted `recall_odds_threshold` from 0.08 to 1.0 for improved model behavior.
+- Modified `criterion_final` to use a new base value of 0.37, enhancing the asymptotic modeling approach.
+
+These changes aim to refine the simulation settings and improve the accuracy of the model's performance in final testing scenarios.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/caf92ae_20251021_105958_plot1.png)  
+![](../plot_archive/caf92ae_20251021_105958_plot2.png)  
+
 ## Commit [7843951](https://github.com/naszhu/REM_E3_model_fixed/commit/7843951) (branch: `main`)
 **Time:** 2025-10-21 10:58:19  
 **Message:**
