@@ -18,11 +18,6 @@ function generate_study_list(list_num::Int)::Vector{Word}
 
         features = rand(Geometric(g_word), w_word) .+ 1
         
-        # Add Z feature if enabled (initialize as 0 like in E3)
-        if use_Z_feature
-            push!(features, 0)  # Z feature starts as 0 (not tested before)
-        end
-        
         word_list[i] = Word("Word$(i)L$(list_num)", features, types[i], i)
     end
 

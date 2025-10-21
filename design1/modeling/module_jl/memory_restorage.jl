@@ -84,13 +84,6 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
         strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
 
         strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
-        
-        # Use E3 Z-update rules based on decision type
-        if decision_isold == 0  # Recalled + New (confusing foil)
-            update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
-        else  # decision_isold == 1, Recalled + Old
-            update_Z_feature_recalled_old!(iimage_tostrenghten.word, iprobe_img.list_number)
-        end
 
         # the following makes sure that we actually must need to restore context.
          
@@ -101,23 +94,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
 
     is_strenghten = (odds > recall_odds_threshold) 
 
-    if (odds < criterion) || ((odds > criterion) && (odds < recall_odds_threshold))|| ((odds > criterion) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold)) 
-        
-        if is_strenghten #Add trace while strengthening is also happening.
-            # Use E3 Z-update rules based on decision type
-            if decision_isold == 0  # Recalled + New (confusing foil)
-                update_Z_feature_recalled_new_add_trace!(iimage_toadd.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Recalled + Old
-                update_Z_feature_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
-            end
-        else  
-            # Not recalled cases - add trace only
-            if decision_isold == 0  # Not recalled + New (really new foil)
-                update_Z_feature_not_recalled_new!(iimage_toadd.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Not recalled + Old (target with no trace recalled)
-                update_Z_feature_not_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
-            end
-        end
+    if (odds < criterion) || ((odds > criterion) && (odds < recall_odds_threshold))|| ((odds > criterion) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold))
         
         # Debug: Print word.item when adding new trace to memory (initial test) - only for items judged NEW at position 1
         # if decision_isold == 0 && test_position == 1
@@ -228,13 +205,6 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
         strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
 
         strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
-        
-        # Use E3 Z-update rules based on decision type
-        if decision_isold == 0  # Recalled + New (confusing foil)
-            update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
-        else  # decision_isold == 1, Recalled + Old
-            update_Z_feature_recalled_old!(iimage_tostrenghten.word, iprobe_img.list_number)
-        end
 
         !is_restore_context ? error("context restored in initial is not well written this part") : nothing
 
@@ -243,23 +213,7 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
 
     is_strenghten = (odds > recall_odds_threshold) 
 
-    if (odds <= criterion) || ((odds > criterion) && (odds < recall_odds_threshold))|| ((odds > criterion) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold)) 
-        
-        if is_strenghten #Add trace while strengthening is also happening.
-            # Use E3 Z-update rules based on decision type
-            if decision_isold == 0  # Recalled + New (confusing foil)
-                update_Z_feature_recalled_new_add_trace!(iimage_toadd.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Recalled + Old
-                update_Z_feature_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
-            end
-        else  
-            # Not recalled cases - add trace only
-            if decision_isold == 0  # Not recalled + New (really new foil)
-                update_Z_feature_not_recalled_new!(iimage_toadd.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Not recalled + Old (target with no trace recalled)
-                update_Z_feature_not_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
-            end
-        end
+    if (odds <= criterion) || ((odds > criterion) && (odds < recall_odds_threshold))|| ((odds > criterion) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold))
         
         # Debug: Print word.item when adding new trace to memory (final test) - only for items judged NEW at position 1
         # if decision_isold == 0 && test_position == 1

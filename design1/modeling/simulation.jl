@@ -122,7 +122,7 @@ function simulate_rem()
                 content_before_distort, content_after_distort,
                 CC_before_distort, CC_after_distort, 
                 UC_before_distort, UC_after_distort,
-                general_context_features, position_code_all, list_num, studied_pool[1:n_probes,list_num]
+                position_code_all, list_num, studied_pool[1:n_probes,list_num]
             ) 
             
 
@@ -152,7 +152,7 @@ function simulate_rem()
             # Store original CC for this list (before it changes between lists) for final test reconstruction
             original_list_CC_by_list[list_num] = deepcopy(list_change_context_features)
 
-            results = probe_evaluation(image_pool, probes, list_change_context_features, general_context_features, sim_num)
+            results = probe_evaluation(image_pool, probes)
             # println("ImagePoolNow", [i.word.item for i in image_pool])
             
 

@@ -1,5 +1,22 @@
 [
   {
+    "commit": "5631afb",
+    "branch": "oct-21-cleanning",
+    "message": "refactor(model-e1): remove legacy parameters in functions",
+    "timestamp": "2025-10-21 11:21:31",
+    "plot1": "plot_archive/5631afb_20251021_112131_plot1.png",
+    "plot2": "plot_archive/5631afb_20251021_112131_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_origin.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/probe_generation.jl"
+    ]
+  },
+  {
     "commit": "968f23e",
     "branch": "oct-21-cleanning",
     "message": "refactor(modeling): clean up unused functions and streamline code",

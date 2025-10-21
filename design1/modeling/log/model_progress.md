@@ -1,5 +1,28 @@
 # Model Progress
 
+## Commit [5631afb](https://github.com/naszhu/REM_E3_model_fixed/commit/5631afb) (branch: `oct-21-cleanning`)
+**Time:** 2025-10-21 11:21:31  
+**Message:**
+```
+refactor(model-e1): remove legacy parameters in functions
+
+- Updated function signatures in `feature_origin.jl`, `feature_updates.jl`, `memory_restorage.jl`, and `probe_evaluation.jl` to remove unused parameters and simplify calls, enhancing code clarity.
+- Eliminated the `general_context_features` parameter from `generate_probes` and adjusted reinstatement functions to improve consistency and reduce complexity.
+- These changes aim to improve maintainability and readability of the modeling codebase.
+
+Refs #60
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_origin.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/5631afb_20251021_112131_plot1.png)  
+![](../plot_archive/5631afb_20251021_112131_plot2.png)  
+
 ## Commit [968f23e](https://github.com/naszhu/REM_E3_model_fixed/commit/968f23e) (branch: `oct-21-cleanning`)
 **Time:** 2025-10-21 11:15:41  
 **Message:**

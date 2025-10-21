@@ -72,31 +72,20 @@ function add_feature_during_restore!(target_features::Vector{Int}, probe_feature
 
     for i in eachindex(probe_features)
 
-         # Special handling for OT feature (last feature) - only if enabled
-        # skip the OT feature here, this will be specifically handled later
-        # if use_ot_feature && i === tested_before_feature_pos && is_content
-        if use_Z_feature && (i === tested_before_feature_pos) && is_content
-            # OT feature: use κs probability for incorrect test info
-             #do nothing for when OT feature here,this will be specifically handled later
+        if is_content #cu?==0.0? this means when this is a content (so no cu will be inputed)
+            c_param = cc
+        else     
 
-        else#when feature i is not OT feature, or all other else situations
-            # Normal features: use existing geometric distribution logic
-
-            if is_content #cu?==0.0? this means when this is a content (so no cu will be inputed)
+            if i > nU #FIXME: fast workaround here
                 c_param = cc
-            else     
-
-                if i > nU #FIXME: fast workaround here
-                    c_param = cc
-                else
-                    c_param = cu
-                end
+            else
+                c_param = cu
             end
-            
-            j = target_features[i]
-            if j === 0
-                target_features[i] = rand() < u_star ? (rand() < c_param ? probe_features[i] : rand(Geometric(g_param)) + 1) : j
-            end
+        end
+        
+        j = target_features[i]
+        if j === 0
+            target_features[i] = rand() < u_star ? (rand() < c_param ? probe_features[i] : rand(Geometric(g_param)) + 1) : j
         end
         
     end
@@ -117,36 +106,28 @@ function strengthen_features!(target_features::Vector{Int}, source_features::Vec
             current_value = target_features[i]
             source_value = source_features[i]
 
-            if use_Z_feature && (i === tested_before_feature_pos) && !is_ctx
-                # Z feature: use κs probability for incorrect test info during restoration
-                # have tested this does happen               
-            else
-                 # Normal features: use existing logic
+            if is_ctx
+                @assert length(target_features)==nU+nC "not same length"
+                if i>nU # for CC
 
-                if is_ctx
-                    @assert length(target_features)==nU+nC "not same length"
-                    if i>nU # for CC
-
-                        @assert all(c_context_c .== c_context_c[1]) "c_context_c should not change by list"
-                        @assert all(c_context_un .== c_context_un[1]) "c_context_un should not change by list"
-                        @assert all(u_star_context .== u_star_context[1]) "u_star_context should not change by list"
-                        c_usenow = c_context_c[1] #, perfect storage 
-                        u_star_now = u_star_context[1] + u_advFoilInitialT #u_advFoilInitialT is the adv for foil (judged new, add trace) in initial test, to see if final test p overlappsss....u_advFoilInitialT=0 currently
-                    else # for unchanging 
-                        c_usenow =c_context_c[1]
-                        u_star_now = u_star_context[1] + u_advFoilInitialT 
-                    end
-                else #if content
-                    c_usenow = c[1] 
-                    u_star_now = u_star[1] + u_advFoilInitialT 
+                    @assert all(c_context_c .== c_context_c[1]) "c_context_c should not change by list"
+                    @assert all(c_context_un .== c_context_un[1]) "c_context_un should not change by list"
+                    @assert all(u_star_context .== u_star_context[1]) "u_star_context should not change by list"
+                    c_usenow = c_context_c[1] #, perfect storage 
+                    u_star_now = u_star_context[1] + u_advFoilInitialT #u_advFoilInitialT is the adv for foil (judged new, add trace) in initial test, to see if final test p overlappsss....u_advFoilInitialT=0 currently
+                else # for unchanging 
+                    c_usenow =c_context_c[1]
+                    u_star_now = u_star_context[1] + u_advFoilInitialT 
                 end
-            
-                #is_store_mismatch is false now so no mismatch stored
-                if (current_value === 0) || ((current_value !== 0) && (current_value !== source_value) && is_store_mismatch)
-                    target_features[i] = rand() < u_star_now[1]+u_star_adv ? (rand() < c_usenow[1]+c_adv ? source_value : rand(Geometric(g_context)) + 1) : current_value
-                end
-
-            end #end of the Z feature judgement
+            else #if content
+                c_usenow = c[1] 
+                u_star_now = u_star[1] + u_advFoilInitialT 
+            end
+        
+            #is_store_mismatch is false now so no mismatch stored
+            if (current_value === 0) || ((current_value !== 0) && (current_value !== source_value) && is_store_mismatch)
+                target_features[i] = rand() < u_star_now[1]+u_star_adv ? (rand() < c_usenow[1]+c_adv ? source_value : rand(Geometric(g_context)) + 1) : current_value
+            end
         end 
     end # for _ in 1:n_units_time_restore
 end
