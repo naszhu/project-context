@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [3120e9b](https://github.com/naszhu/REM_E3_model_fixed/commit/3120e9b) (branch: `main`)
+**Time:** 2025-10-21 11:00:41  
+**Message:**
+```
+refactor(plot-aesthetics): adjust plot dimensions and text sizes for improved clarity
+
+- Increased Y-axis maximum limit in combined_all_plots.R for better data representation.
+- Decreased TITLE_SIZE in E1-rt-analysis.R for a more balanced layout.
+- Updated plot dimensions in E1-rt-analysis.R and E3-rt-analysis.R to enhance visual consistency across outputs.
+
+These changes aim to refine the aesthetics and readability of the plots generated in the analysis.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/data_analysis/E1-rt-analysis.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3-rt-analysis.R`  
+![](../plot_archive/3120e9b_20251021_110041_plot1.png)  
+![](../plot_archive/3120e9b_20251021_110041_plot2.png)  
+
 ## Commit [caf92ae](https://github.com/naszhu/REM_E3_model_fixed/commit/caf92ae) (branch: `main`)
 **Time:** 2025-10-21 10:59:58  
 **Message:**
