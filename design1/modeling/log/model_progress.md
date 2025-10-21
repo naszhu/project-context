@@ -1,5 +1,32 @@
 # Model Progress
 
+## Commit [968f23e](https://github.com/naszhu/REM_E3_model_fixed/commit/968f23e) (branch: `oct-21-cleanning`)
+**Time:** 2025-10-21 11:15:41  
+**Message:**
+```
+refactor(modeling): clean up unused functions and streamline code
+
+- Removed several unused functions related to Z feature updates and context distortion from `feature_origin.jl`, `feature_updates.jl`, and `likelihood_calculations.jl` to improve code clarity and maintainability.
+- Simplified the `restore_intest` function in `memory_restorage.jl` by eliminating redundant checks and consolidating logic for strengthening features.
+- Updated `probe_evaluation` to ensure consistent handling of image pools without unnecessary error checks.
+
+These changes aim to enhance the overall structure and readability of the modeling codebase.
+
+Refs #59
+```
+**Changed Files:**
+- `Docs/appendix prepare/.~lock.E3_All_Tables_Combined.csv#`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_origin.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/likelihood_calculations.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design3/modeling`  
+![](../plot_archive/968f23e_20251021_111541_plot1.png)  
+![](../plot_archive/968f23e_20251021_111541_plot2.png)  
+
 ## Commit [21a2bc7](https://github.com/naszhu/REM_E3_model_fixed/commit/21a2bc7) (branch: `oct-21-cleanning`)
 **Time:** 2025-10-21 11:02:14  
 **Message:**

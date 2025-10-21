@@ -10,7 +10,6 @@ Parameters:
 - CC_after_distort: drifted+distorted CC context (CURRENT for CC)
 - UC_before_distort: drifted UC context (REINSTATEMENT TARGET for UC)
 - UC_after_distort: drifted+distorted UC context (CURRENT for UC)
-- general_context_features: general context (not modified, legacy parameter)
 - position_code_all: position codes
 - list_num: current list number
 - studied_pool: studied images pool
@@ -24,7 +23,6 @@ function generate_probes(
     CC_after_distort::Vector{Int64}, 
     UC_before_distort::Vector{Int64}, 
     UC_after_distort::Vector{Int64},
-    general_context_features::Vector{Int64}, 
     position_code_all::Vector{Vector{Int64}}, 
     list_num::Int64,
     studied_pool::Vector{EpisodicImage}
@@ -79,11 +77,11 @@ function generate_probes(
         if i>1 #now the first item is not reinstated
 
             # REINSTATE CC (changing context): reinstate from after_distort toward before_distort
-            reinstate_context_duringTest!(CC_after_distort, CC_before_distort, p_reinstate_context, base_recovery_prob)
+            reinstate_context_duringTest!(CC_after_distort, CC_before_distort, base_recovery_prob)
 
             # REINSTATE UC (unchanging context): reinstate from after_distort toward before_distort
             if is_UC_distort_between_study_and_test
-                reinstate_context_duringTest!(UC_after_distort, UC_before_distort, p_reinstate_context, base_recovery_prob)
+                reinstate_context_duringTest!(UC_after_distort, UC_before_distort, base_recovery_prob)
             end
 
             # REINSTATE CONTENT: reinstate THIS probe's word features from after_distort toward before_distort

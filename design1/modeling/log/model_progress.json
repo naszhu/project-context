@@ -1,5 +1,24 @@
 [
   {
+    "commit": "968f23e",
+    "branch": "oct-21-cleanning",
+    "message": "refactor(modeling): clean up unused functions and streamline code",
+    "timestamp": "2025-10-21 11:15:41",
+    "plot1": "plot_archive/968f23e_20251021_111541_plot1.png",
+    "plot2": "plot_archive/968f23e_20251021_111541_plot2.png",
+    "changed_files": [
+      "Docs/appendix prepare/.~lock.E3_All_Tables_Combined.csv#",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_origin.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/likelihood_calculations.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "21a2bc7",
     "branch": "oct-21-cleanning",
     "message": "merge(oct19): Merge branch 'oct-19-docs-side' into oct-21-cleanning",

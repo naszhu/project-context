@@ -215,7 +215,7 @@ function update_Z_feature_target_restoration!(word::Word, list_number::Int64)::N
 end
 
 
-function update_Z_feature_for_decision!(word::Word, recalled::Bool, answer_old::Bool, is_target::Bool, list_number::Int64)::Nothing
+function update_Z_feature_for_decision!(word::Word, recalled::Bool, answer_old::Bool, list_number::Int64)::Nothing
     if recalled && !answer_old
         # Case 1: RECALLED + Answer NEW (confusing foil)
         update_Z_feature_recalled_new_add_trace!(word, list_number)

@@ -64,7 +64,7 @@ Helper functions for feature updates in memory restorage
 assume read nU from constant.jl
 cu and cc is copying parameter value
 """
-function add_feature_during_restore!(target_features::Vector{Int}, probe_features::Vector{Int}, u_star::Float64, cc::Float64, g_param::Float64, list_number::Int64; u_adv=0.0, cu::Float64=0.0)::Nothing
+function add_feature_during_restore!(target_features::Vector{Int}, probe_features::Vector{Int}, u_star::Float64, cc::Float64, g_param::Float64, list_number::Int64; cu::Float64=0.0)::Nothing
 
     @assert length(target_features) == length(probe_features) "LENGTH NOT MATCH"
 
@@ -229,13 +229,11 @@ Used during initial test to partially restore drifted/distorted context.
 Args:
     context_array: Current context vector (will be modified in place)
     reference_array: Reference context vector to reinstate toward
-    p_reinstate_context: Proportion of features to consider for reinstatement
     p_reinstate_rate: Probability of reinstating each mismatched feature
 """
 function reinstate_context_duringTest!(
     context_array::Vector{Int64}, 
     reference_array::Vector{Int64},
-    p_reinstate_context::Float64,
     p_reinstate_rate::Float64
 )::Nothing
     # nct = length(context_array)

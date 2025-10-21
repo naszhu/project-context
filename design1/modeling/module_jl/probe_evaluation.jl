@@ -119,7 +119,7 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org]);
         # restore_intest(image_pool,probes[i].image, decision_isold, argmax(likelihood_ratios));
         if is_restore_final
-            restore_intest_final(image_pool, probes[i].image, decision_isold, odds, i, likelihood_ratios_org, sampled_item, criterion_final[currchunk], i)
+            restore_intest_final(image_pool, probes[i].image, decision_isold, odds, sampled_item, criterion_final[currchunk])
         end
         
         # Debug: Close final test position 1 section
@@ -137,7 +137,7 @@ end
 First stage
 ,test_list_context::Vector{Int64}
 """
-function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Probe}, list_change_features::Vector{Int64}, general_context_features::Vector{Int64},simu_i::Int64)::Array{Any}
+function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Probe})::Array{Any}
 
     unique_list_numbers = unique([image.list_number for image in image_pool])
     n_listimagepool = length(unique_list_numbers)
@@ -298,7 +298,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
 
         if is_restore_initial
-            restore_intest(image_pool, probes[i].image, decision_isold, odds, likelihood_ratios_org, sampled_item, criterion_initial[i_testpos, ilist_probe], i_testpos) 
+            restore_intest(image_pool, probes[i].image, decision_isold, odds, sampled_item, criterion_initial[i_testpos, ilist_probe]) 
         end
 
         # println("i, $i, i_testpos, $i_testpos")
