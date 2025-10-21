@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [d4c72ee](https://github.com/naszhu/REM_E3_model_fixed/commit/d4c72ee) (branch: `oct-21-cleanning`)
+**Time:** 2025-10-21 11:00:55  
+**Message:**
+```
+feat(docs): add new constants for modeling parameters
+
+- Introduced a new file `constants_save.jl.jl` containing various constants for modeling, including context parameters, geometric rates, and distortion probabilities.
+- Defined parameters such as `w_context`, `g_word`, and `criterion_initial_between_list_base` to facilitate model configuration and enhance simulation accuracy.
+- Established initial values for parameters related to reinstatement rates and chunk sizes to support future testing scenarios.
+
+These additions aim to provide a structured approach to managing model constants, improving clarity and maintainability in the simulation framework.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants_save.jl.jl`  
+![](../plot_archive/d4c72ee_20251021_110055_plot1.png)  
+![](../plot_archive/d4c72ee_20251021_110055_plot2.png)  
+
+<<<<<<< HEAD
 ## Commit [3120e9b](https://github.com/naszhu/REM_E3_model_fixed/commit/3120e9b) (branch: `main`)
 **Time:** 2025-10-21 11:00:41  
 **Message:**
@@ -156,6 +176,9 @@ These changes aim to improve the modeling of asymptotic behavior in the analysis
 ![](../plot_archive/a4907e5_20251018_204820_plot2.png)  
 
 ## Commit [808ca6e](https://github.com/naszhu/REM_E3_model_fixed/commit/808ca6e) (branch: `main`)
+=======
+## Commit [808ca6e](https://github.com/naszhu/REM_E3_model_fixed/commit/808ca6e) (branch: `HEAD`)
+>>>>>>> oct-19-docs-side
 **Time:** 2025-10-18 18:02:12  
 **Message:**
 ```
