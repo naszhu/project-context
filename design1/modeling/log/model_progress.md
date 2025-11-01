@@ -1,5 +1,34 @@
 # Model Progress
 
+## Commit [70e9b5c](https://github.com/naszhu/REM_E3_model_fixed/commit/70e9b5c) (branch: `oct-21-cleanning`)
+**Time:** 2025-11-01 13:32:46  
+**Message:**
+```
+refactor(model-e1): streamline context feature handling and remove unused parameters
+
+- Removed position code handling from `simulate_rem` and `generate_probes` functions to simplify context feature management.
+- Updated `restore_intest` and `memory_storage` to eliminate redundant checks and improve clarity in feature storage logic.
+- Adjusted odds calculation in `probe_evaluation` to enhance consistency across evaluations.
+
+These changes aim to enhance the maintainability and readability of the modeling codebase.
+
+Refs #61
+```
+**Changed Files:**
+- `Docs/thesis presentation.txt`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/memory_storage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+- `design3/modeling`  
+![](../plot_archive/70e9b5c_20251101_133246_plot1.png)  
+![](../plot_archive/70e9b5c_20251101_133246_plot2.png)  
+
 ## Commit [b728227](https://github.com/naszhu/REM_E3_model_fixed/commit/b728227) (branch: `oct-21-cleanning`)
 **Time:** 2025-10-21 12:33:10  
 **Message:**

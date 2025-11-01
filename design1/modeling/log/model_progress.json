@@ -1,5 +1,47 @@
 [
   {
+    "commit": "70e9b5c",
+    "branch": "oct-21-cleanning",
+    "message": "refactor(model-e1): streamline context feature handling and remove unused parameters",
+    "timestamp": "2025-11-01 13:32:46",
+    "plot1": "plot_archive/70e9b5c_20251101_133246_plot1.png",
+    "plot2": "plot_archive/70e9b5c_20251101_133246_plot2.png",
+    "changed_files": [
+      "Docs/thesis presentation.txt",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/memory_storage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "70e9b5c",
+    "branch": "oct-21-cleanning",
+    "message": "refactor(model-e1): streamline context feature handling and remove unused parameters",
+    "timestamp": "2025-11-01 13:32:46",
+    "plot1": "plot_archive/70e9b5c_20251101_133246_plot1.png",
+    "plot2": "plot_archive/70e9b5c_20251101_133246_plot2.png",
+    "changed_files": [
+      "Docs/thesis presentation.txt",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/memory_storage.jl",
+      "design1/modeling/module_jl/probe_evaluation.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "b728227",
     "branch": "oct-21-cleanning",
     "message": "refactor(modeling): remoeved all the unused flag",
