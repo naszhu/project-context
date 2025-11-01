@@ -1,5 +1,23 @@
 [
   {
+    "commit": "b728227",
+    "branch": "oct-21-cleanning",
+    "message": "refactor(modeling): remoeved all the unused flag",
+    "timestamp": "2025-10-21 12:33:10",
+    "plot1": "plot_archive/b728227_20251021_123310_plot1.png",
+    "plot2": "plot_archive/b728227_20251021_123310_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/feature_generation.jl",
+      "design1/modeling/module_jl/feature_updates.jl",
+      "design1/modeling/module_jl/memory_restorage.jl",
+      "design1/modeling/module_jl/memory_storage.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
     "commit": "5631afb",
     "branch": "oct-21-cleanning",
     "message": "refactor(model-e1): remove legacy parameters in functions",

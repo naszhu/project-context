@@ -114,19 +114,19 @@ function strengthen_features!(target_features::Vector{Int}, source_features::Vec
                     @assert all(c_context_un .== c_context_un[1]) "c_context_un should not change by list"
                     @assert all(u_star_context .== u_star_context[1]) "u_star_context should not change by list"
                     c_usenow = c_context_c[1] #, perfect storage 
-                    u_star_now = u_star_context[1] + u_advFoilInitialT #u_advFoilInitialT is the adv for foil (judged new, add trace) in initial test, to see if final test p overlappsss....u_advFoilInitialT=0 currently
+                    u_star_now = u_star_context[1]
                 else # for unchanging 
                     c_usenow =c_context_c[1]
-                    u_star_now = u_star_context[1] + u_advFoilInitialT 
+                    u_star_now = u_star_context[1]
                 end
             else #if content
                 c_usenow = c[1] 
-                u_star_now = u_star[1] + u_advFoilInitialT 
+                u_star_now = u_star[1] 
             end
         
-            #is_store_mismatch is false now so no mismatch stored
+            #is_store_mismatch is true
             if (current_value === 0) || ((current_value !== 0) && (current_value !== source_value) && is_store_mismatch)
-                target_features[i] = rand() < u_star_now[1]+u_star_adv ? (rand() < c_usenow[1]+c_adv ? source_value : rand(Geometric(g_context)) + 1) : current_value
+                target_features[i] = rand() < u_star_now[1] ? (rand() < c_usenow[1] ? source_value : rand(Geometric(g_context)) + 1) : current_value
             end
         end 
     end # for _ in 1:n_units_time_restore

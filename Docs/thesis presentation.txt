@@ -1,0 +1,236 @@
+The Cognitive Processes of Recognition Memory: Context, Strengthening, and Recall 
+Lea (Shuchun) Lai 
+Indiana University
+Dissertation defense: November 4th.
+Slide 1: Title Slide 
+
+I will be giving a 30 minute review of my thesis research. 
+Even limiting discussion to the recent two studies and the modeling of their  results, 30 minutes is insufficient to do more than give a superficial summary of the most important results and their causes. 
+Let me apologize at the outset for this limitation in today’s exposition. 
+
+Introduction: The Recognition Problem 
+What is recognition memory?
+It's the process of judging a current event as "familiar" or "seen before."
+This judgment relies on multiple processes, including familiarity, recall, and context.
+The Core Challenge: Context
+When you see the word "TABLE," how do you know if you saw it on the list you just studied versus the thousands of other times you've seen it in your life?
+The answer is Context: the background information that binds an event to a specific time and place.
+Slide 2: Introduction: The Recognition Problem 
+
+Defining Content vs. Context 
+Content: "What"
+The specific information that distinguishes one event from another.
+Example: The word "TABLE" — its letters, its shape, its meaning. This distinguishes it from "BOOK" on the same list.
+Context: "When & Where"
+The background information surrounding an event when it was stored.
+Example: The room you were in, the computer screen, your mood, and critically, which list it was on.
+Context's Role: It is essential for focusing retrieval on the specific memory episode of interest.
+Slide 3: Defining Content vs. Context 
+
+The Modeling Framework: Basic REM (bREM) 
+I have built a model starting with the simplest form of the Retrieving
+Effectively from Memory model (REM) of Shiffrin & Steyvers, 1997, 
+termed bREM. This modeling decision is justified by the remarkable ability
+of bREM to explain the major phenomena of recognition studies.
+Slide 4: The Modeling Framework: Basic REM (bREM) 
+
+bREM: 
+bREM is a familiarity-based model.
+It assumes decisions are based on a "global match" process.
+How it Works (Simplified):
+A test item (e.g., "TABLE") is matched against all memory traces in parallel.
+This produces a single "familiarity" value (or "odds").
+A decision is made: If Familiarity > Criterion, respond "Old."
+bREM is very simple (3 parameters) but successfully predicts many classic findings (list length, list strength, etc.).
+
+
+
+The Gap: What's Missing from bREM? 
+bREM is powerful, but its simplicity is a limitation. It's missing key processes that humans use:
+Context vs. Content: bREM treats all features the same. It doesn't have a special mechanism for "context."
+Storage at Test: The model doesn't account for the act of testing itself creating a new memory trace.
+Trace Strengthening: It doesn't fully model how recalling a trace (during study or test) might strengthen or change it.
+Recall-to-Reject: bREM has no way to say "This is very familiar, but I know it's from the wrong list, so I'll respond 'New'."
+My Goal: Design experiments to isolate these missing processes and build an Augmented REM model.
+Slide 5: The Gap: What's Missing from bREM? 
+
+bREM is powerful, but its simplicity is a limitation. It's missing key processes that humans use:
+
+Experiment 1: Design 
+Goal: Investigate context change, storage at test, and trace strengthening.
+Phase 1: Initial Study-Test (10 Lists)
+Study: View 20 pictures.
+Distractor: Arithmetic task.
+Test: Judge 20 pictures.
+10 Targets: From the current list.
+10 Foils: Completely new pictures.
+This process creates three types of "seen" items for later testing:
+ST: Studied & Tested (as a target)
+SO: Studied Only (was in the study list, but not selected for test)
+TO: Tested Only (was a foil)
+Slide 6: Experiment 1: Design 
+
+Phase 2: Final Recognition Test
+A single, long, continuous test of 420 pictures.
+Final Targets (210): All pictures ever seen in Phase 1.
+All ST items
+All SO items
+All TO items
+Final Foils (210): Completely new pictures (FTOs).
+Key Manipulation (Between-Subjects): Participants were told the list of origin for targets.
+Forward Group: "Targets are from List 1," then "Targets are from List 2..."
+Backward Group: "Targets are from List 10," then "Targets are from List 9..."
+Random Group: All targets and foils from all lists are mixed randomly.
+Question: Does knowing the original context (the list) help retrieval?
+
+Slide 7: Experiment 1: The Final "Test-All" Phase 
+
+1. Between-List Effects (Proactive Interference)
+Hits (ST): Accuracy decreased across the 10 lists.
+Correct Rejections (TO): Remained high and stable.
+This is known as Output Interference (OI).
+Interpretation: Traces from prior lists interfere, making new targets harder to identify. 
+
+Slide 8: Experiment 1: Key Results (Initial Lists) 
+
+ Within-List Test Position Effects (Surprising!)
+Hits (ST): Increased from the start to the end of the test.
+Correct Rejections (TO): Decreased from the start to the end of the test.
+This is the opposite of simple Output Interference. 
+Interpretation: It suggests a complex process, like a criterion shift or trace dynamics, happening during the test.
+Slide 8: Experiment 1: Key Results (Initial Lists) 
+
+Experiment 1:  Final Test Results 
+1. The "Testing Effect"
+Accuracy: ST > SO ≈ TO
+Items that were Studied and Tested (ST) were remembered far better than items that were only Studied (SO).
+Crucially: Items seen only as a foil (TO) were remembered just as well as items that were studied (SO).
+Conclusion: Testing is a storage event. The act of being tested (even as a foil) creates a durable memory trace.
+2. Context & Order Effects
+All groups showed significant Output Interference (performance dropped during the long final test).
+The Backward and Forward groups showed different patterns, suggesting participants were able to use the list information to help (or hinder) context reconstruction.
+
+Slide 9: Experiment 1: Key Results (Final Test) 
+
+Experiment 1: 
+Key Results (Final Test) 
+ Within-List Effects 
+Vanishing Study Position: The primacy/recency effects from the initial study list disappeared in the final test.
+Interpretation: This suggests the initial effects were due to temporary context, not permanent trace strength.
+Puzzling Test Position: Final test accuracy increased for items tested later in their initial list (for both ST and TO items). This is a complex finding, opposite the initial trend for TOs.
+
+
+Exploring Familiarity vs. Recall 
+Experiment 1 Takeaway: Context and storage-at-test are critical. The ST > SO result shows that retrieval (testing) strengthens memory.
+The Problem: In Exp 1, familiarity and recall are correlated. A strong trace (like ST) is both more familiar and easier to recall.
+How can we separate them?
+We need a situation where high familiarity leads to the wrong answer.
+This forces a participant to rely on pure recall to override familiarity.
+
+Slide 10: The Next Problem: Familiarity vs. Recall 
+
+Experiment 2: Design 
+Goal: Isolate Recall-to-Reject.
+Phase 1: Initial Study-Test (10 Lists)
+Study 30 pictures (List n).
+Test 30 pictures.
+The Crucial Manipulation: The composition of the test list.
+Targets: From the current list (List n).
+Foils:
+Some are new (like Exp 1).
+Most are "Confusing Foils": Pictures from the prior list (List n-1).
+
+ST(n-1) (Confusing Foil): A study and test item on list n-1 but tested as foil on list n.
+SO(n-1) (Confusing Foil):A study only test item on list n-1 but tested as foil on list n.
+TO(n-1) (Confusing Foil): A test only item on list n-1 but tested as foil on list n.
+Slide 11: Experiment 2: Design 
+
+Experiment 2: Design 
+The Dilemma: A "confusing foil" (e.g., an ST from List n-1) is HIGHLY FAMILIAR.
+A familiarity (bREM) process would say "Old" (a False Alarm).
+The task requires a "New" response (it wasn't on the current list).
+To be correct, you must use recall: "I remember this... but I remember it from the last list. Therefore, the answer for this list is 'New'."
+
+Slide 11: Experiment 2: Design 
+
+Experiment 2: Key Results (Recall-to-Reject) 
+ Confusing Foils = Many Errors
+As expected, participants made many false alarms to the confusing foils. This confirms they were highly familiar.
+2. The Recall-to-Reject Signature
+However... the most familiar items (ST(n-1)) did NOT have the most false alarms.
+Participants were better at correctly rejecting the strong ST(n-1) traces than the weaker SO(n-1) traces.
+Why? The stronger ST(n-1) trace was easier to recall. This easier recall allowed them to retrieve its context (List n-1) and successfully reject it.
+3. Learning to Reject
+Across the 10 lists, Correct Rejections for confusing foils improved.
+At the same time, Hits for true targets decreased.
+Interpretation: Participants learned the strategic trade-off. They started using recall-to-reject more, which helped reject familiar foils but sometimes led them to accidentally reject true targets.
+Slide 12: Experiment 2: Key Results (Recall-to-Reject) 
+
+Experiment 2: Key Results 
+Initial Test Within-List
+ The Strategic Trade-Off 
+Across lists: Participants learned the strategy.
+Foil performance: Correct Rejections for confusing foils improved (they got better at rejecting).
+Target performance: At the same time, Hits for true targets (ST) decreased.
+Interpretation: Participants learned a strategic trade-off. They used recall-to-reject more, which helped reject familiar foils but sometimes led them to accidentally reject true targets.
+
+
+Experiment 2 Results: Final Test 
+ Exposure & Strengthening Effects
+Testing Effect: The ST > SO effect was replicated and robust, confirming retrieval strengthens memory.
+Dose-dependent memory: More exposure = better memory.
+Items seen twice (e.g., STn-1) were remembered better than items seen once (e.g., ST).
+2. Vanishing Serial Position Effects
+Key replication: The initial study-position effects (primacy/recency) from the initial test (Fig 7) disappeared in the final test.
+Interpretation: This confirms the initial serial position effects were likely due to temporary context, not a permanent difference in trace strength.
+
+
+Experiment 2 Results: Final Test (Between-List)
+Massive Output Interference
+Key replication: Just like the "Random" group in Exp 1, performance for all item types (targets and foils) declined steadily during the long 492-trial final test.
+This provides strong evidence for output interference as a general mechanism.
+2. Exposure & Recency Effects
+Exposure: Performance was clearly ordered by total exposure (e.g., STn-1 > ST > SO > TO).
+Recency: A modest recency effect was observed (Fig 10.b), with items from the most recent lists (e.g., 8, 9, 10) being slightly better remembered than items from the middle lists.
+
+
+The Solution: An Augmented REM Model 
+The results of Exp 1 & 2 are very complex. I explain them with an Augmented REM model that includes:
+Context Features:
+The model now has separate features for Content (T) and Context (Changing/Unchanging).
+Context acts as a filter to find the right traces.
+Context Change:
+Context "drifts" between lists, from study-to-test, and during the test block.
+Storage of Test Traces:
+Every test, (target or foil), creates a new trace. (Explains why TO ≈ SO).
+Trace Strengthening:
+Recalling a trace during test strengthens it by adding/correcting features. (Explains why ST >> SO).
+Recall-to-Reject:
+A parallel recall process is added. If a trace is recalled, its context (list of origin) is checked. If it doesn't match the current list, the model responds "New," even if familiarity is high. (Explains Exp 2).
+
+Slide 13: The Solution: An Augmented REM Model 
+
+The results of Exp 1 & 2 cannot be explained by basic REM. We must build an
+
+Modeling Discussion: Assessment & Key Issues
+Qualitative, Not Quantitative: The model's goal is to predict the patterns and trends of the data, not the exact numbers. The large individual differences (seen in Figs 6 & 11 in the thesis) make precise fitting impractical.
+Auxiliary Assumptions: To fit the complex data, other assumptions were needed.
+Criterion Change: The decision criterion (familiarity threshold) was not fixed. It was assumed to change during the initial tests of Exp 1 to explain the rising Hits and falling CRs.
+Context Distortion: A temporary "distortion" of context at the start of each test was needed to explain poor performance on the first few test items.
+Causal vs. Descriptive: The augmented REM is a causal, mechanistic model. Unlike standard Signal Detection Theory (SDT) which describes data with distributions, REM explains why those distributions have the shape they do.
+
+
+Summary & Conclusion 
+Recognition is not a single, simple process. It is a complex interaction of:
+Familiarity: A rapid, global-matching "feeling of oldness."
+Contextual Retrieval: Using "when" and "where" to find the right memory.
+Storage & Strengthening: Retrieval is not passive; the act of testing changes memory, creating new traces and strengthening old ones.
+Strategic Recall: Using active recall to check the content and context of a memory to override a misleading feeling of familiarity (Recall-to-Reject).
+These experiments were designed to "break" simple models and provide the data needed to build a more complete, mechanistic model of human recognition.
+
+Slide 14: Summary & Conclusion 
+
+Recognition is not a single, simple process. It is a complex interaction of:
+
+Thank You 
+Slide 15: Thank You 

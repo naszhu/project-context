@@ -32,21 +32,10 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
                 # stored_val =(rand() < u_star_context[word.studypos] ? 1 : 0)*context_features[ic];
                 if (list_num == 1) & (ic>nU) #only for changing; special u_star store only for change & list 1
                     # println("?")
-                    if (word.studypos==1) & (ic>nU)
-                        stored_val = (rand() < u_star_context[list_num]+init_pos1_ustar_ctx_adv ? 1 : 0) * context_features[ic]
-                    else
-                    
-                    
-                        stored_val = (rand() < u_star_context[list_num] ? 1 : 0) * context_features[ic]
-                    end
+                    stored_val = (rand() < u_star_context[list_num] ? 1 : 0) * context_features[ic]
                     # stored_val = (rand() < u_star_context[word.studypos] ? 1 : 0) * context_features[ic]
                 else
-                    if (word.studypos==1) & (ic>nU)
-                        stored_val = (rand() < u_star_context[end]+init_pos1_ustar_ctx_adv ? 1 : 0) * context_features[ic]
-                    else
-                        
-                        stored_val = (rand() < u_star_context[end] ? 1 : 0) * context_features[ic]
-                    end
+                    stored_val = (rand() < u_star_context[end] ? 1 : 0) * context_features[ic]
                     # stored_val = (rand() < u_star_context[word.studypos] ? 1 : 0) * context_features[ic]
 
                 end

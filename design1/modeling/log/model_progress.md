@@ -1,5 +1,31 @@
 # Model Progress
 
+## Commit [b728227](https://github.com/naszhu/REM_E3_model_fixed/commit/b728227) (branch: `oct-21-cleanning`)
+**Time:** 2025-10-21 12:33:10  
+**Message:**
+```
+refactor(modeling): remoeved all the unused flag
+
+- Removed unused parameters from `simulate_rem` and `probe_evaluation` functions to enhance clarity and reduce complexity.
+- Eliminated legacy Z feature handling from `feature_generation.jl`, `memory_restorage.jl`, and `probe_generation.jl`, simplifying the codebase.
+- Adjusted logic in `restore_intest` and `generate_probes` to improve consistency and maintainability.
+
+These changes aim to refine the modeling framework and improve overall code readability.
+
+Refs #61
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_generation.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/memory_storage.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/b728227_20251021_123310_plot1.png)  
+![](../plot_archive/b728227_20251021_123310_plot2.png)  
+
 ## Commit [5631afb](https://github.com/naszhu/REM_E3_model_fixed/commit/5631afb) (branch: `oct-21-cleanning`)
 **Time:** 2025-10-21 11:21:31  
 **Message:**

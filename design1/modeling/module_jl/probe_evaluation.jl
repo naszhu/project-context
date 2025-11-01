@@ -20,16 +20,15 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
 
 
         # println(likelihood_ratios)
-        odds = (1 / length(likelihood_ratios) * sum(likelihood_ratios))^power_taken
+        odds = 1 / length(likelihood_ratios) * sum(likelihood_ratios)
 
         crrchunk = ceil(Int, i / 42)
         criterion_final_i = criterion_final[crrchunk] #this need to be changed if 
 
         # Calculate sampling probabilities early (following E3 pattern)
         filtered_content_LL_ratios_inOriginalLength = likelihood_ratios_org |> x -> map(e -> e == 344523466743 ? 0 : e, x)
-        filtered_content_LL_ratios_inOriginalLength_to_11thpower = filtered_content_LL_ratios_inOriginalLength .^ power_taken
-        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength_to_11thpower)
-        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength_to_11thpower)) : [filtered_content_LL_ratios_inOriginalLength_to_11thpower[i_LL_proportion] ./ total_sum_LL for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength_to_11thpower)]
+        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength)
+        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength)) : [filtered_content_LL_ratios_inOriginalLength[i_LL_proportion] ./ total_sum_LL for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength)]
 
         # Sample or select item BEFORE decision logic (following E3 pattern)
         sampled_item = nothing
@@ -161,7 +160,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         i_testpos = probes[i].initial_testpos#1:20
 
         nl = length(likelihood_ratios)
-        odds = (1 / nl * sum(likelihood_ratios))^power_taken
+        odds = 1 / nl * sum(likelihood_ratios)
 
         if (isnan(odds))
             println("Current context_tau is too high, there are some simulations that have no tarce passing context filter in first step", nl, likelihood_ratios)
@@ -169,9 +168,8 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
         # Calculate sampling probabilities early (following E3 pattern)
         filtered_content_LL_ratios_inOriginalLength = likelihood_ratios_org |> x -> map(e -> e == 344523466743 ? 0 : e, x)
-        filtered_content_LL_ratios_inOriginalLength_to_11thpower= filtered_content_LL_ratios_inOriginalLength .^ power_taken
-        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength_to_11thpower)
-        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength_to_11thpower)) : [filtered_content_LL_ratios_inOriginalLength_to_11thpower[i_LL_proportion] ./ total_sum_LL  for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength_to_11thpower)]
+        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength)
+        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength)) : [filtered_content_LL_ratios_inOriginalLength[i_LL_proportion] ./ total_sum_LL  for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength)]
         
         # E1 New Z Feature Logic (adapted from E3)
         # Sample or select item BEFORE decision logic

@@ -26,28 +26,13 @@ function simulate_rem()
 
         for list_num in 1:n_lists
 
-            position_code_all = [fill(0, w_positioncode) for _ in 1:n_words]
-
-
             word_list = generate_study_list(list_num) #::Vector{Word}
             # word_change_context_features = rand(Geometric(g_context),div(w_context, 2)) .+ 1;
 
             for j in eachindex(word_list)
 
-                if j == 1
-                    position_code_features_study = rand(Geometric(g_context), w_positioncode) .+ 1
-                else
-                    position_code_features_study = deepcopy(position_code_all[j-1])
-                    for ij in 1:w_positioncode
-                        if rand() < p_poscode_change * (j - 1) #cf.change_probability # this equals p_change
-                            position_code_features_study[ij] = rand(Geometric(g_context)) + 1
-                        end
-                    end
-                    # println("previous code$(position_code_all[j-1]),current code$(position_code_features_study)")
-                end
-
-                position_code_all[j] = position_code_features_study
-                current_context_features = fast_concat([deepcopy(general_context_features), deepcopy(list_change_context_features), position_code_features_study])
+                # w_positioncode = 0, so no position codes
+                current_context_features = fast_concat([deepcopy(general_context_features), deepcopy(list_change_context_features)])
                 episodic_image = EpisodicImage(word_list[j], current_context_features, list_num, 0)
 
                 # study in here
@@ -122,7 +107,7 @@ function simulate_rem()
                 content_before_distort, content_after_distort,
                 CC_before_distort, CC_after_distort, 
                 UC_before_distort, UC_after_distort,
-                position_code_all, list_num, studied_pool[1:n_probes,list_num]
+                list_num, studied_pool[1:n_probes,list_num]
             ) 
             
 

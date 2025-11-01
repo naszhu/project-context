@@ -68,9 +68,8 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
             @assert length(iprobe_img.context_features) == length(iimage_toadd.context_features) "context features should be the same length"
 
             # Update context features
-            # u_advFoilInitialT is the adv for foil (judged new, add trace) in initial test, to see if final test p overlappsss....u_advFoilInitialT=0 currently
             @assert u_star_context[end] == u_star_context[1] "u_star_context is not well defined to be used in restore_intest for intial test, final test is dependant on u_star_context[ilist], but not yet like that in inital test, initial doens't have a u_star_context difference right now, notice"
-            add_feature_during_restore!(iimage_toadd.context_features, iprobe_img.context_features, u_star_context[end] + u_advFoilInitialT, c_context_ilist_cc, g_context, iprobe_img.list_number; cu = c_context_ilist_cu) 
+            add_feature_during_restore!(iimage_toadd.context_features, iprobe_img.context_features, u_star_context[end], c_context_ilist_cc, g_context, iprobe_img.list_number; cu = c_context_ilist_cu) 
         end
 
 
@@ -94,7 +93,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
 
     is_strenghten = (odds > recall_odds_threshold) 
 
-    if (odds < criterion) || ((odds > criterion) && (odds < recall_odds_threshold))|| ((odds > criterion) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold))
+    if (odds < criterion) || ((odds > criterion) && (odds < recall_odds_threshold))
         
         # Debug: Print word.item when adding new trace to memory (initial test) - only for items judged NEW at position 1
         # if decision_isold == 0 && test_position == 1
@@ -213,7 +212,7 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
 
     is_strenghten = (odds > recall_odds_threshold) 
 
-    if (odds <= criterion) || ((odds > criterion) && (odds < recall_odds_threshold))|| ((odds > criterion) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold))
+    if (odds <= criterion) || ((odds > criterion) && (odds < recall_odds_threshold))
         
         # Debug: Print word.item when adding new trace to memory (final test) - only for items judged NEW at position 1
         # if decision_isold == 0 && test_position == 1

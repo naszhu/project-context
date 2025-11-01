@@ -10,7 +10,6 @@ Parameters:
 - CC_after_distort: drifted+distorted CC context (CURRENT for CC)
 - UC_before_distort: drifted UC context (REINSTATEMENT TARGET for UC)
 - UC_after_distort: drifted+distorted UC context (CURRENT for UC)
-- position_code_all: position codes
 - list_num: current list number
 - studied_pool: studied images pool
 
@@ -23,7 +22,6 @@ function generate_probes(
     CC_after_distort::Vector{Int64}, 
     UC_before_distort::Vector{Int64}, 
     UC_after_distort::Vector{Int64},
-    position_code_all::Vector{Vector{Int64}}, 
     list_num::Int64,
     studied_pool::Vector{EpisodicImage}
 )::Tuple{Vector{Probe}, Vector{EpisodicImage}}
@@ -84,12 +82,9 @@ function generate_probes(
 
         current_testpos = i; 
 
-
-        current_poscode = probetypes[i] == :target ? position_code_all[current_studypos] : rand(Geometric(g_context), w_positioncode) .+ 1
-        # println("currentprobetype is $(probetypes[i]), position is $(current_studypos)")
-
         # Build context from UC_after_distort and CC_after_distort (which may have been reinstated)
-        current_context_features = fast_concat([deepcopy(UC_after_distort), deepcopy(CC_after_distort), current_poscode]) #here needs a deepcopy, otherwise the front remembered context change with later ones  
+        # w_positioncode = 0, so no position codes appended
+        current_context_features = fast_concat([deepcopy(UC_after_distort), deepcopy(CC_after_distort)]) #here needs a deepcopy, otherwise the front remembered context change with later ones  
 
 
         # probes[i] = Probe(EpisodicImage(target_word, current_context_features, list_num), probetypes[i], target_word.studypos ,i)
