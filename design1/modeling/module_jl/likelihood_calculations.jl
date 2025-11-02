@@ -113,13 +113,18 @@ end
 
 function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vector{EpisodicImage}, p::Float64, iprobe::Int64)::Tuple{Vector{Float64},Vector{Float64}}
 
-    nU_fs =nU_f[1];
-    nC_fs =nC_f[1];        
+    # Calculate which chunk this probe belongs to (each chunk has 42 probes)
+    currchunk = ceil(Int, iprobe / chunk_size_final_change)
+    # Ensure chunk index doesn't exceed array bounds
+    currchunk = min(currchunk, length(nU_f))
+    
+    nU_fs = nU_f[currchunk]
+    nC_fs = nC_f[currchunk]        
     
     context_likelihoods = Vector{Float64}(undef, length(image_pool))
     word_likelihoods = Vector{Float64}(undef, length(image_pool))
     probe_context = probe.context_features
-    probe_context_f = fast_concat([probe_context[1 : (nU_fs)], probe_context[(nU_fs + 1):(nU_fs + nC_fs)]]) #
+    probe_context_f = fast_concat([probe_context[1 : nU_fs], probe_context[(nU + 1) : (nU + nC_fs)]]) #
 
     for ii in eachindex(image_pool)
         image = image_pool[ii]
@@ -127,7 +132,7 @@ function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vecto
 
         if firststg_allctx2 #false
             if is_test_allcontext2  #here is secon  stage would be wrong
-                image_context_f = fast_concat([image_context[1:nU_fs], image_context[nU_fs+1:nU_fs+nC_fs]])
+                image_context_f = fast_concat([image_context[1:nU_fs], image_context[(nU + 1) : (nU + nC_fs)]])
                 context_likelihood = calculate_likelihood_ratio(fast_concat([probe.word.word_features, probe_context_f]), fast_concat([image.word.word_features, image_context_f]), g_context, c)  # .#  Context calculation
             elseif is_test_changecontext2
                 context_likelihood = calculate_likelihood_ratio(fast_concat([probe.word.word_features, probe_context[nU+1:end]]), fast_concat([image.word.word_features, image_context[nU+1:end]]), g_context, c)
@@ -136,7 +141,7 @@ function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vecto
             end
         else #is_test_allcontext2 true
             if is_test_allcontext2  #true; currently goes here
-                image_context_f = fast_concat([image_context[1:nU_fs], image_context[nU_fs+1:nU_fs+nC_fs]])
+                image_context_f = fast_concat([image_context[1:nU_fs], image_context[(nU + 1) : (nU + nC_fs)]])
                 context_likelihood = calculate_likelihood_ratio(probe_context_f, image_context_f, g_context, c)  # .#  Context calculation
             elseif is_test_changecontext2 #false
                 context_likelihood = calculate_likelihood_ratio(probe_context[nU+1:end], image_context[nU+1:end], g_context, c)
