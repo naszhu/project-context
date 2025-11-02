@@ -3,15 +3,7 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
     # new_image = EpisodicImage(word, copy(context_features)) # Start with a copy
     # println(length(context_features))
     # intial_testpos_img, initilaize with 0, change whatever it is in probe creating. Well, the probe is created independently anyways
-    # Ensure word features include space for Z feature if enabled
-    if use_Z_feature
-        # Always ensure we have space for the Z feature
-        word_features_size = max(length(word.word_features), tested_before_feature_pos)
-        new_image = EpisodicImage(Word(word.item, zeros(Int64, word_features_size), word.type, word.studypos), zeros(length(context_features)), list_num, 0) # Zero word features
-        update_Z_feature_study!(new_image.word, list_num)
-    else
-        new_image = EpisodicImage(Word(word.item, zeros(Int64, length(word.word_features)), word.type, word.studypos), zeros(length(context_features)), list_num, 0) # Zero word features
-    end
+    new_image = EpisodicImage(Word(word.item, zeros(Int64, length(word.word_features)), word.type, word.studypos), zeros(length(context_features)), list_num, 0) # Zero word features
 
     for _ in 1:n_units_time
         for i in eachindex(new_image.word.word_features)
@@ -40,21 +32,10 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
                 # stored_val =(rand() < u_star_context[word.studypos] ? 1 : 0)*context_features[ic];
                 if (list_num == 1) & (ic>nU) #only for changing; special u_star store only for change & list 1
                     # println("?")
-                    if (word.studypos==1) & (ic>nU)
-                        stored_val = (rand() < u_star_context[list_num]+init_pos1_ustar_ctx_adv ? 1 : 0) * context_features[ic]
-                    else
-                    
-                    
-                        stored_val = (rand() < u_star_context[list_num] ? 1 : 0) * context_features[ic]
-                    end
+                    stored_val = (rand() < u_star_context[list_num] ? 1 : 0) * context_features[ic]
                     # stored_val = (rand() < u_star_context[word.studypos] ? 1 : 0) * context_features[ic]
                 else
-                    if (word.studypos==1) & (ic>nU)
-                        stored_val = (rand() < u_star_context[end]+init_pos1_ustar_ctx_adv ? 1 : 0) * context_features[ic]
-                    else
-                        
-                        stored_val = (rand() < u_star_context[end] ? 1 : 0) * context_features[ic]
-                    end
+                    stored_val = (rand() < u_star_context[end] ? 1 : 0) * context_features[ic]
                     # stored_val = (rand() < u_star_context[word.studypos] ? 1 : 0) * context_features[ic]
 
                 end

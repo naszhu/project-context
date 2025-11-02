@@ -20,16 +20,15 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
 
 
         # println(likelihood_ratios)
-        odds = (1 / length(likelihood_ratios) * sum(likelihood_ratios))^power_taken
+        odds = 1 / length(likelihood_ratios) * sum(likelihood_ratios)
 
         crrchunk = ceil(Int, i / 42)
         criterion_final_i = criterion_final[crrchunk] #this need to be changed if 
 
         # Calculate sampling probabilities early (following E3 pattern)
         filtered_content_LL_ratios_inOriginalLength = likelihood_ratios_org |> x -> map(e -> e == 344523466743 ? 0 : e, x)
-        filtered_content_LL_ratios_inOriginalLength_to_11thpower = filtered_content_LL_ratios_inOriginalLength .^ power_taken
-        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength_to_11thpower)
-        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength_to_11thpower)) : [filtered_content_LL_ratios_inOriginalLength_to_11thpower[i_LL_proportion] ./ total_sum_LL for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength_to_11thpower)]
+        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength)
+        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength)) : [filtered_content_LL_ratios_inOriginalLength[i_LL_proportion] ./ total_sum_LL for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength)]
 
         # Sample or select item BEFORE decision logic (following E3 pattern)
         sampled_item = nothing
@@ -119,7 +118,7 @@ function probe_evaluation2(image_pool::Vector{EpisodicImage}, probes::Vector{Pro
         imax = argmax([ill==344523466743 ? -Inf : ill for ill in likelihood_ratios_org]);
         # restore_intest(image_pool,probes[i].image, decision_isold, argmax(likelihood_ratios));
         if is_restore_final
-            restore_intest_final(image_pool, probes[i].image, decision_isold, odds, i, likelihood_ratios_org, sampled_item, criterion_final[currchunk], i)
+            restore_intest_final(image_pool, probes[i].image, decision_isold, odds, sampled_item, criterion_final[currchunk])
         end
         
         # Debug: Close final test position 1 section
@@ -137,7 +136,7 @@ end
 First stage
 ,test_list_context::Vector{Int64}
 """
-function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Probe}, list_change_features::Vector{Int64}, general_context_features::Vector{Int64},simu_i::Int64)::Array{Any}
+function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Probe})::Array{Any}
 
     unique_list_numbers = unique([image.list_number for image in image_pool])
     n_listimagepool = length(unique_list_numbers)
@@ -147,13 +146,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
     for i in eachindex(probes)
 
-
-        if is_onlytest_currentlist
-            error("can't test only current list")
-            image_pool_currentlist = filter(img -> img.list_number == currentlist, image_pool)#it's ok even when new probe were add to the image pool, because new probe has current list numebr as well. It will be kept
-        else
-            image_pool_currentlist = image_pool
-        end
+        image_pool_currentlist = image_pool
         # println("this is list $(currentlist),there are $(length(image_pool_currentlist)) images in the current pool")
 
         # calculate_two_step_likelihoods_rule2(probes[i].image, image_pool);
@@ -167,7 +160,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         i_testpos = probes[i].initial_testpos#1:20
 
         nl = length(likelihood_ratios)
-        odds = (1 / nl * sum(likelihood_ratios))^power_taken
+        odds = 1 / nl * sum(likelihood_ratios)
 
         if (isnan(odds))
             println("Current context_tau is too high, there are some simulations that have no tarce passing context filter in first step", nl, likelihood_ratios)
@@ -175,9 +168,8 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
         # Calculate sampling probabilities early (following E3 pattern)
         filtered_content_LL_ratios_inOriginalLength = likelihood_ratios_org |> x -> map(e -> e == 344523466743 ? 0 : e, x)
-        filtered_content_LL_ratios_inOriginalLength_to_11thpower= filtered_content_LL_ratios_inOriginalLength .^ power_taken
-        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength_to_11thpower)
-        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength_to_11thpower)) : [filtered_content_LL_ratios_inOriginalLength_to_11thpower[i_LL_proportion] ./ total_sum_LL  for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength_to_11thpower)]
+        total_sum_LL = sum(filtered_content_LL_ratios_inOriginalLength)
+        sampling_probabilities = total_sum_LL == 0 ? zeros(length(filtered_content_LL_ratios_inOriginalLength)) : [filtered_content_LL_ratios_inOriginalLength[i_LL_proportion] ./ total_sum_LL  for i_LL_proportion in eachindex(filtered_content_LL_ratios_inOriginalLength)]
         
         # E1 New Z Feature Logic (adapted from E3)
         # Sample or select item BEFORE decision logic
@@ -304,7 +296,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
 
 
         if is_restore_initial
-            restore_intest(image_pool, probes[i].image, decision_isold, odds, likelihood_ratios_org, sampled_item, criterion_initial[i_testpos, ilist_probe], i_testpos) 
+            restore_intest(image_pool, probes[i].image, decision_isold, odds, sampled_item, criterion_initial[i_testpos, ilist_probe]) 
         end
 
         # println("i, $i, i_testpos, $i_testpos")

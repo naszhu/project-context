@@ -11,12 +11,8 @@ restore content and/or context, here, context include change,unchange, and posit
 # end
 
 # function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, imax::Int64, probetype::Symbol, list_change_features::Vector{Int64}, general_context_features::Vector{Int64}, odds::Float64, likelihood_ratios::Vector{Float64}, simu_i::Int64, initial_testpos::Int64)
-function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, content_LL_ratios::Vector{Float64}, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64, test_position::Int64=0)::Nothing
+function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64)::Nothing
 
-
-    if is_onlyaddtrace
-        error("not coded here")
-    end
     #is_onlyaddtrace is false
     # println("nothere")
 
@@ -72,9 +68,8 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
             @assert length(iprobe_img.context_features) == length(iimage_toadd.context_features) "context features should be the same length"
 
             # Update context features
-            # u_advFoilInitialT is the adv for foil (judged new, add trace) in initial test, to see if final test p overlappsss....u_advFoilInitialT=0 currently
             @assert u_star_context[end] == u_star_context[1] "u_star_context is not well defined to be used in restore_intest for intial test, final test is dependant on u_star_context[ilist], but not yet like that in inital test, initial doens't have a u_star_context difference right now, notice"
-            add_feature_during_restore!(iimage_toadd.context_features, iprobe_img.context_features, u_star_context[end] + u_advFoilInitialT, c_context_ilist_cc, g_context, iprobe_img.list_number; cu = c_context_ilist_cu) 
+            add_feature_during_restore!(iimage_toadd.context_features, iprobe_img.context_features, u_star_context[end], c_context_ilist_cc, g_context, iprobe_img.list_number; cu = c_context_ilist_cu) 
         end
 
 
@@ -84,20 +79,10 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
     if ((odds > criterion) & (odds > recall_odds_threshold) )
 
         # println(iprobe_img.word.type)
-        if is_strengthen_contextandcontent #true
-            strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
+        # is_strengthen_contextandcontent is true
+        strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
 
-            strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
-            
-            # Use E3 Z-update rules based on decision type
-            if decision_isold == 0  # Recalled + New (confusing foil)
-                update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Recalled + Old
-                update_Z_feature_recalled_old!(iimage_tostrenghten.word, iprobe_img.list_number)
-            end
-        else
-            # error("should strenghen here")
-        end
+        strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
 
         # the following makes sure that we actually must need to restore context.
          
@@ -108,23 +93,7 @@ function restore_intest(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicI
 
     is_strenghten = (odds > recall_odds_threshold) 
 
-    if (odds < criterion) || ((odds > criterion) && (odds < recall_odds_threshold))|| ((odds > criterion) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold)) 
-        
-        if is_strenghten #Add trace while strengthening is also happening.
-            # Use E3 Z-update rules based on decision type
-            if decision_isold == 0  # Recalled + New (confusing foil)
-                update_Z_feature_recalled_new_add_trace!(iimage_toadd.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Recalled + Old
-                update_Z_feature_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
-            end
-        else  
-            # Not recalled cases - add trace only
-            if decision_isold == 0  # Not recalled + New (really new foil)
-                update_Z_feature_not_recalled_new!(iimage_toadd.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Not recalled + Old (target with no trace recalled)
-                update_Z_feature_not_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
-            end
-        end
+    if (odds < criterion) || ((odds > criterion) && (odds < recall_odds_threshold))
         
         # Debug: Print word.item when adding new trace to memory (initial test) - only for items judged NEW at position 1
         # if decision_isold == 0 && test_position == 1
@@ -150,7 +119,7 @@ end
 
 
 
-function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, finaltest_pos::Int64, content_LL_ratios::Vector{Float64}, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64, test_position::Int64=0)::Nothing
+function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::EpisodicImage, decision_isold::Int64, odds::Float64, sampled_item::Union{EpisodicImage, Nothing}, criterion::Float64)::Nothing
 #     iimage = decision_isold == 1 ? image_pool[imax] : EpisodicImage(Word(iprobe_img.word.item, fill(0, length(iprobe_img.word.word_features)), iprobe_img.word.type, iprobe_img.word.studypos), zeros(length(iprobe_img.context_features)), iprobe_img.list_number, iprobe_img.initial_testpos_img)
 # # println(iimage.initial_testpos_img)
 
@@ -231,22 +200,10 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
         #single parameter for missing or replacing
         # WARNING: rand(Geometric(g_word)) + 1) is not used here, there is no chance of an incorrect random value storage when judging old 
 
-        if !is_store_mismatch
-            error("current prog is not written when doesn't store mismatch")
-        end
+        # is_strengthen_contextandcontent is true
+        strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
 
-        if is_strengthen_contextandcontent
-            strengthen_features!(iimage_tostrenghten.word.word_features, iprobe_img.word.word_features, p_recallFeatureStore, iprobe_img.list_number)
-
-            strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
-            
-            # Use E3 Z-update rules based on decision type
-            if decision_isold == 0  # Recalled + New (confusing foil)
-                update_Z_feature_recalled_new_strengthen!(iimage_tostrenghten.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Recalled + Old
-                update_Z_feature_recalled_old!(iimage_tostrenghten.word, iprobe_img.list_number)
-            end
-        end
+        strengthen_features!(iimage_tostrenghten.context_features, iprobe_img.context_features, p_recallFeatureStore, iprobe_img.list_number, is_ctx=true)
 
         !is_restore_context ? error("context restored in initial is not well written this part") : nothing
 
@@ -255,23 +212,7 @@ function restore_intest_final(image_pool::Vector{EpisodicImage}, iprobe_img::Epi
 
     is_strenghten = (odds > recall_odds_threshold) 
 
-    if (odds <= criterion) || ((odds > criterion) && (odds < recall_odds_threshold))|| ((odds > criterion) && (odds > recall_odds_threshold) && (odds<recall_to_addtrace_threshold)) 
-        
-        if is_strenghten #Add trace while strengthening is also happening.
-            # Use E3 Z-update rules based on decision type
-            if decision_isold == 0  # Recalled + New (confusing foil)
-                update_Z_feature_recalled_new_add_trace!(iimage_toadd.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Recalled + Old
-                update_Z_feature_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
-            end
-        else  
-            # Not recalled cases - add trace only
-            if decision_isold == 0  # Not recalled + New (really new foil)
-                update_Z_feature_not_recalled_new!(iimage_toadd.word, iprobe_img.list_number)
-            else  # decision_isold == 1, Not recalled + Old (target with no trace recalled)
-                update_Z_feature_not_recalled_old!(iimage_toadd.word, iprobe_img.list_number)
-            end
-        end
+    if (odds <= criterion) || ((odds > criterion) && (odds < recall_odds_threshold))
         
         # Debug: Print word.item when adding new trace to memory (final test) - only for items judged NEW at position 1
         # if decision_isold == 0 && test_position == 1

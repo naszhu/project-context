@@ -1,5 +1,139 @@
 # Model Progress
 
+## Commit [70e9b5c](https://github.com/naszhu/REM_E3_model_fixed/commit/70e9b5c) (branch: `oct-21-cleanning`)
+**Time:** 2025-11-01 13:32:46  
+**Message:**
+```
+refactor(model-e1): streamline context feature handling and remove unused parameters
+
+- Removed position code handling from `simulate_rem` and `generate_probes` functions to simplify context feature management.
+- Updated `restore_intest` and `memory_storage` to eliminate redundant checks and improve clarity in feature storage logic.
+- Adjusted odds calculation in `probe_evaluation` to enhance consistency across evaluations.
+
+These changes aim to enhance the maintainability and readability of the modeling codebase.
+
+Refs #61
+```
+**Changed Files:**
+- `Docs/thesis presentation.txt`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/memory_storage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+- `design3/modeling`  
+![](../plot_archive/70e9b5c_20251101_133246_plot1.png)  
+![](../plot_archive/70e9b5c_20251101_133246_plot2.png)  
+
+## Commit [b728227](https://github.com/naszhu/REM_E3_model_fixed/commit/b728227) (branch: `oct-21-cleanning`)
+**Time:** 2025-10-21 12:33:10  
+**Message:**
+```
+refactor(modeling): remoeved all the unused flag
+
+- Removed unused parameters from `simulate_rem` and `probe_evaluation` functions to enhance clarity and reduce complexity.
+- Eliminated legacy Z feature handling from `feature_generation.jl`, `memory_restorage.jl`, and `probe_generation.jl`, simplifying the codebase.
+- Adjusted logic in `restore_intest` and `generate_probes` to improve consistency and maintainability.
+
+These changes aim to refine the modeling framework and improve overall code readability.
+
+Refs #61
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_generation.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/memory_storage.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/b728227_20251021_123310_plot1.png)  
+![](../plot_archive/b728227_20251021_123310_plot2.png)  
+
+## Commit [5631afb](https://github.com/naszhu/REM_E3_model_fixed/commit/5631afb) (branch: `oct-21-cleanning`)
+**Time:** 2025-10-21 11:21:31  
+**Message:**
+```
+refactor(model-e1): remove legacy parameters in functions
+
+- Updated function signatures in `feature_origin.jl`, `feature_updates.jl`, `memory_restorage.jl`, and `probe_evaluation.jl` to remove unused parameters and simplify calls, enhancing code clarity.
+- Eliminated the `general_context_features` parameter from `generate_probes` and adjusted reinstatement functions to improve consistency and reduce complexity.
+- These changes aim to improve maintainability and readability of the modeling codebase.
+
+Refs #60
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_origin.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+![](../plot_archive/5631afb_20251021_112131_plot1.png)  
+![](../plot_archive/5631afb_20251021_112131_plot2.png)  
+
+## Commit [968f23e](https://github.com/naszhu/REM_E3_model_fixed/commit/968f23e) (branch: `oct-21-cleanning`)
+**Time:** 2025-10-21 11:15:41  
+**Message:**
+```
+refactor(modeling): clean up unused functions and streamline code
+
+- Removed several unused functions related to Z feature updates and context distortion from `feature_origin.jl`, `feature_updates.jl`, and `likelihood_calculations.jl` to improve code clarity and maintainability.
+- Simplified the `restore_intest` function in `memory_restorage.jl` by eliminating redundant checks and consolidating logic for strengthening features.
+- Updated `probe_evaluation` to ensure consistent handling of image pools without unnecessary error checks.
+
+These changes aim to enhance the overall structure and readability of the modeling codebase.
+
+Refs #59
+```
+**Changed Files:**
+- `Docs/appendix prepare/.~lock.E3_All_Tables_Combined.csv#`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/feature_origin.jl`  
+- `design1/modeling/module_jl/feature_updates.jl`  
+- `design1/modeling/module_jl/likelihood_calculations.jl`  
+- `design1/modeling/module_jl/memory_restorage.jl`  
+- `design1/modeling/module_jl/probe_evaluation.jl`  
+- `design3/modeling`  
+![](../plot_archive/968f23e_20251021_111541_plot1.png)  
+![](../plot_archive/968f23e_20251021_111541_plot2.png)  
+
+## Commit [21a2bc7](https://github.com/naszhu/REM_E3_model_fixed/commit/21a2bc7) (branch: `oct-21-cleanning`)
+**Time:** 2025-10-21 11:02:14  
+**Message:**
+```
+merge(oct19): Merge branch 'oct-19-docs-side' into oct-21-cleanning
+```
+![](../plot_archive/21a2bc7_20251021_110214_plot1.png)  
+![](../plot_archive/21a2bc7_20251021_110214_plot2.png)  
+
+## Commit [d4c72ee](https://github.com/naszhu/REM_E3_model_fixed/commit/d4c72ee) (branch: `oct-21-cleanning`)
+**Time:** 2025-10-21 11:00:55  
+**Message:**
+```
+feat(docs): add new constants for modeling parameters
+
+- Introduced a new file `constants_save.jl.jl` containing various constants for modeling, including context parameters, geometric rates, and distortion probabilities.
+- Defined parameters such as `w_context`, `g_word`, and `criterion_initial_between_list_base` to facilitate model configuration and enhance simulation accuracy.
+- Established initial values for parameters related to reinstatement rates and chunk sizes to support future testing scenarios.
+
+These additions aim to provide a structured approach to managing model constants, improving clarity and maintainability in the simulation framework.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants_save.jl.jl`  
+![](../plot_archive/d4c72ee_20251021_110055_plot1.png)  
+![](../plot_archive/d4c72ee_20251021_110055_plot2.png)  
+
+<<<<<<< HEAD
 ## Commit [3120e9b](https://github.com/naszhu/REM_E3_model_fixed/commit/3120e9b) (branch: `main`)
 **Time:** 2025-10-21 11:00:41  
 **Message:**
@@ -156,6 +290,9 @@ These changes aim to improve the modeling of asymptotic behavior in the analysis
 ![](../plot_archive/a4907e5_20251018_204820_plot2.png)  
 
 ## Commit [808ca6e](https://github.com/naszhu/REM_E3_model_fixed/commit/808ca6e) (branch: `main`)
+=======
+## Commit [808ca6e](https://github.com/naszhu/REM_E3_model_fixed/commit/808ca6e) (branch: `HEAD`)
+>>>>>>> oct-19-docs-side
 **Time:** 2025-10-18 18:02:12  
 **Message:**
 ```

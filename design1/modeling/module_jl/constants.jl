@@ -133,7 +133,7 @@ criterion_initial = generate_asymptotic_values_formula(1.0, 1.0, 1.0, criterion_
 # criterion_initial = generate_asymptotic_values_linear_diminishing(1.0, 1.0, 1.0, criterion_between_list_start, criterion_between_list_initial_increment, criterion_between_list_decrement_per_step)
 # Formula-based asymptotic increase for between-list dimension (mimics E3's h_j behavior):
 
-recall_odds_threshold = 1.0^power_taken;
+recall_odds_threshold = 1.0;
 recall_to_addtrace_threshold = Inf;  # E3 parameter for adding traces even when recalling
 p_recallFeatureStore = 0.85;
 
@@ -242,7 +242,7 @@ range_breaks_finalt = range(1, stop=420, length=11)  # Create 10 intervals (11 b
 
 # Original criterion_final (commented out to try asymptotic version)
 # Original criterion_final (commented out to try asymptotic version)
-criterion_final = LinRange((0.37)^power_taken, 0.27^power_taken, 10)
+criterion_final = LinRange(0.37, 0.27, 10)
 # criterion_final = LinRange((0.09+0.18+0.1)^power_taken, 0.27^power_taken, 10)
 # Generate asymptotic criterion_final using asym_increase_shift for nonlinear behavior
 # criterion_final = asym_decrease_to_end((0.09+0.18)^power_taken, 0.27+0.02^power_taken, 0.3, 10)
