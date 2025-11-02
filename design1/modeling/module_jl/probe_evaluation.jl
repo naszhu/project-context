@@ -166,6 +166,8 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         ilist_probe = probes[i].image.list_number
         i_testpos = probes[i].initial_testpos#1:20
 
+        println(ilist_probe, " ", i_testpos, " ", criterion_initial[i_testpos, ilist_probe])
+        
         nl = length(likelihood_ratios)
         odds = (1 / nl * sum(likelihood_ratios))^power_taken
 
@@ -185,7 +187,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
         is_same_item = false
         is_sampled = false
         
-        if odds > criterion_initial[i_testpos,ilist_probe]
+        if odds > criterion_initial[i_testpos, ilist_probe]
             if odds > recall_odds_threshold
                 is_sampled = true
                 
@@ -241,7 +243,7 @@ function probe_evaluation(image_pool::Vector{EpisodicImage}, probes::Vector{Prob
             decision_isold = 0  # Didn't pass threshold, judge as new
         end
         
-        diff = 1 / (abs(odds - criterion_initial[i_testpos,ilist_probe]) + 1e-10)
+        diff = 1 / (abs(odds - criterion_initial[i_testpos, ilist_probe]) + 1e-10)
 
         #criterion change by test position
 

@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [fc9edcc](https://github.com/naszhu/REM_E3_model_fixed/commit/fc9edcc) (branch: `nov-2-issue-fix`)
+**Time:** 2025-11-02 19:10:30  
+**Message:**
+```
+restore(model-e1): change back final ratios for unchanging and changing elements
+
+- Adjusted `ratio_unchanging_to_itself_final` to 1.0 and `ratio_changing_to_itself_final` to 0.15 to correct the final test configuration.
+- These changes aim to enhance the accuracy of the model's behavior in the final testing phase.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/fc9edcc_20251102_191030_plot1.png)  
+![](../plot_archive/fc9edcc_20251102_191030_plot2.png)  
+
 ## Commit [141eff6](https://github.com/naszhu/REM_E3_model_fixed/commit/141eff6) (branch: `HEAD`)
 **Time:** 2025-11-02 19:06:46  
 **Message:**

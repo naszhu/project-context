@@ -1,5 +1,18 @@
 [
   {
+    "commit": "fc9edcc",
+    "branch": "nov-2-issue-fix",
+    "message": "restore(model-e1): change back final ratios for unchanging and changing elements",
+    "timestamp": "2025-11-02 19:10:30",
+    "plot1": "plot_archive/fc9edcc_20251102_191030_plot1.png",
+    "plot2": "plot_archive/fc9edcc_20251102_191030_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "141eff6",
     "branch": "HEAD",
     "message": "fix(model-e1): correct ratio calculations and indexing in likelihood function",

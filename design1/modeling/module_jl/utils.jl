@@ -188,10 +188,10 @@ function asym_increase_formula(z_base::Float64,
     @assert r_rate > 0.0 "r_rate must be positive"
     
     result = Vector{Float64}(undef, n)
-    result[1] = z_base
     
+    # All lists (1-10) use the asymptotic formula: Z(j) = 1 - [1-Z] R^(j-1)
+    # This ensures all positions are influenced by the formula, including list 1
     for j in 1:n
-        # Z(j) = 1 - [1-Z] R^(j-2)
         result[j] = 1.0 - (1.0 - z_base) * (r_rate^(j-1))
     end
     

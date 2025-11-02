@@ -126,7 +126,7 @@ criterion_between_list_decrement_per_step = 0.05  # how much increment decreases
 
 # Parameters for formula-based asymptotic criterion (between-list dimension, E3-style)
 criterion_between_list_base = 0.21  # base value for between-list criterion (Z in formula)
-criterion_between_list_r_rate = 0.75  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
+criterion_between_list_r_rate = 0.21  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
 criterion_initial = generate_asymptotic_values_formula(1.0, 1.0, 1.0, criterion_between_list_base, criterion_between_list_r_rate)
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
@@ -250,8 +250,8 @@ criterion_final = LinRange((0.37)^power_taken, 0.27^power_taken, 10)
 final_gap_change = 0.1; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
 p_ListChange_finaltest = ones(10) * 0.013 #0.8 in E3, but undecided as well in E3
-ratio_unchanging_to_itself_final = LinRange(1.0,1.0, n_lists) # if use no unchanging
-ratio_changing_to_itself_final = LinRange(0.15,0.15, n_lists) # if use no unchanging 
+ratio_unchanging_to_itself_final = LinRange(0.15,0.15, n_lists) # if use no unchanging
+ratio_changing_to_itself_final = LinRange(1,1, n_lists) # if use no unchanging 
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)

@@ -124,6 +124,7 @@ function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vecto
     context_likelihoods = Vector{Float64}(undef, length(image_pool))
     word_likelihoods = Vector{Float64}(undef, length(image_pool))
     probe_context = probe.context_features
+    #CHANGED: !! should start from nU!! careful here! (Bug fix: CC starts at nU+1, not nU_fs+1)
     probe_context_f = fast_concat([probe_context[1 : nU_fs], probe_context[(nU + 1) : (nU + nC_fs)]]) #
 
     for ii in eachindex(image_pool)
@@ -132,6 +133,7 @@ function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vecto
 
         if firststg_allctx2 #false
             if is_test_allcontext2  #here is secon  stage would be wrong
+                #CHANGED: !! should start from nU!! (Bug fix: CC starts at nU+1, not nU_fs+1)
                 image_context_f = fast_concat([image_context[1:nU_fs], image_context[(nU + 1) : (nU + nC_fs)]])
                 context_likelihood = calculate_likelihood_ratio(fast_concat([probe.word.word_features, probe_context_f]), fast_concat([image.word.word_features, image_context_f]), g_context, c)  # .#  Context calculation
             elseif is_test_changecontext2
@@ -141,6 +143,7 @@ function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vecto
             end
         else #is_test_allcontext2 true
             if is_test_allcontext2  #true; currently goes here
+                #CHANGED: !! should start from nU!! (Bug fix: CC starts at nU+1, not nU_fs+1)
                 image_context_f = fast_concat([image_context[1:nU_fs], image_context[(nU + 1) : (nU + nC_fs)]])
                 context_likelihood = calculate_likelihood_ratio(probe_context_f, image_context_f, g_context, c)  # .#  Context calculation
             elseif is_test_changecontext2 #false
