@@ -250,8 +250,8 @@ criterion_final = LinRange(0.37, 0.27, 10)
 final_gap_change = 0.1; #0.16 in E3 
 context_tau_final = 100 #0.20.2 above if this is 10
 p_ListChange_finaltest = ones(10) * 0.013 #0.8 in E3, but undecided as well in E3
-ratio_unchanging_to_itself_final = LinRange(1.0,1.0, n_lists) # if use no unchanging
-ratio_changing_to_itself_final = LinRange(0.15,0.15, n_lists) # if use no unchanging 
+ratio_unchanging_to_itself_final = LinRange(1,1, n_lists) # if use no unchanging
+ratio_changing_to_itself_final = LinRange(0,0, n_lists) # if use no unchanging 
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)

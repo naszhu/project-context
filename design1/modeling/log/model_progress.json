@@ -1,5 +1,14 @@
 [
   {
+    "commit": "36341be",
+    "branch": "nov-2",
+    "message": "Merge branch 'oct-21-cleanning'",
+    "timestamp": "2025-11-02 17:32:47",
+    "plot1": "plot_archive/36341be_20251102_173247_plot1.png",
+    "plot2": "plot_archive/36341be_20251102_173247_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "70e9b5c",
     "branch": "oct-21-cleanning",
     "message": "refactor(model-e1): streamline context feature handling and remove unused parameters",

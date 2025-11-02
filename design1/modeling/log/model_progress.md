@@ -1,5 +1,14 @@
 # Model Progress
 
+## Commit [36341be](https://github.com/naszhu/REM_E3_model_fixed/commit/36341be) (branch: `nov-2`)
+**Time:** 2025-11-02 17:32:47  
+**Message:**
+```
+Merge branch 'oct-21-cleanning'
+```
+![](../plot_archive/36341be_20251102_173247_plot1.png)  
+![](../plot_archive/36341be_20251102_173247_plot2.png)  
+
 ## Commit [70e9b5c](https://github.com/naszhu/REM_E3_model_fixed/commit/70e9b5c) (branch: `oct-21-cleanning`)
 **Time:** 2025-11-01 13:32:46  
 **Message:**
