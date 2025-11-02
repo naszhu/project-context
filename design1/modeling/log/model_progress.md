@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [141eff6](https://github.com/naszhu/REM_E3_model_fixed/commit/141eff6) (branch: `HEAD`)
+**Time:** 2025-11-02 19:06:46  
+**Message:**
+```
+fix(model-e1): correct ratio calculations and indexing in likelihood function
+
+- Updated `ratio_unchanging_to_itself_final` and `ratio_changing_to_itself_final` to reflect correct values for unchanging and changing ratios.
+- Adjusted indexing in `calculate_two_step_likelihoods2` to ensure proper chunk handling and prevent out-of-bounds errors.
+- Enhanced context likelihood calculations by refining the concatenation of probe and image context features.
+
+These changes aim to improve the accuracy and reliability of the likelihood calculations in the model.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/likelihood_calculations.jl`  
+- `design3/modeling`  
+![](../plot_archive/141eff6_20251102_190646_plot1.png)  
+![](../plot_archive/141eff6_20251102_190646_plot2.png)  
+
 ## Commit [3120e9b](https://github.com/naszhu/REM_E3_model_fixed/commit/3120e9b) (branch: `HEAD`)
 **Time:** 2025-10-21 11:00:41  
 **Message:**

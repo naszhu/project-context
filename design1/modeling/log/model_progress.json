@@ -1,5 +1,20 @@
 [
   {
+    "commit": "141eff6",
+    "branch": "HEAD",
+    "message": "fix(model-e1): correct ratio calculations and indexing in likelihood function",
+    "timestamp": "2025-11-02 19:06:46",
+    "plot1": "plot_archive/141eff6_20251102_190646_plot1.png",
+    "plot2": "plot_archive/141eff6_20251102_190646_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/likelihood_calculations.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "3120e9b",
     "branch": "HEAD",
     "message": "refactor(plot-aesthetics): adjust plot dimensions and text sizes for improved clarity",
