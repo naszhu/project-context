@@ -1,5 +1,18 @@
 [
   {
+    "commit": "4b826dd",
+    "branch": "nov-2",
+    "message": "feat(plotting): add combined data and prediction plots for E1 initial within-list analysis",
+    "timestamp": "2025-11-03 21:02:44",
+    "plot1": "plot_archive/4b826dd_20251103_210244_plot1.png",
+    "plot2": "plot_archive/4b826dd_20251103_210244_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "e70ae4e",
     "branch": "nov-2",
     "message": "feat(data-analysis): add E1 and E3 accuracy distribution analysis scripts",

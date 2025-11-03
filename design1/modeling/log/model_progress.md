@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [4b826dd](https://github.com/naszhu/REM_E3_model_fixed/commit/4b826dd) (branch: `nov-2`)
+**Time:** 2025-11-03 21:02:44  
+**Message:**
+```
+feat(plotting): add combined data and prediction plots for E1 initial within-list analysis
+
+- Introduced a new section in `combined_all_plots.R` to create and save combined plots comparing data and predictions for the E1 initial within-list analysis.
+- Enhanced data processing to include list numbers and improved visualization with faceting, custom color palettes, and refined themes.
+- The new plots provide a comprehensive view of participant performance across different positions and types, facilitating better insights into the experimental results.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/4b826dd_20251103_210244_plot1.png)  
+![](../plot_archive/4b826dd_20251103_210244_plot2.png)  
+
 ## Commit [e70ae4e](https://github.com/naszhu/REM_E3_model_fixed/commit/e70ae4e) (branch: `nov-2`)
 **Time:** 2025-11-03 20:13:20  
 **Message:**

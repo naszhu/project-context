@@ -47,7 +47,7 @@ function calculate_two_step_likelihoods(probe::EpisodicImage, image_pool::Vector
         context_likelihoods[ii] = context_likelihood
 
         # second stage
-        if context_likelihood > context_tau # if pass context criterion 
+        if context_likelihood > context_tau[ilist] # if pass context criterion 
 
             word_likelihoods[ii] = calculate_likelihood_ratio(probe.word.word_features[1:round(Int, w_word * p)], image.word.word_features[1:round(Int, w_word * p)], g_word, c)
 
