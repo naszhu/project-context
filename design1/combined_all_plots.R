@@ -451,7 +451,209 @@ ggsave(file.path(DESIGN1_DIR, "E1_initial_within_list_combined.png"), combined_p
 
 cat("Combined initial within-list plot saved as E1_initial_within_list_combined.png\n")
 
+############################################################
+## E1 Initial Within List by List: DATA vs PREDICTION
+############################################################
 
+# ===== SHARED CONSTANTS =====
+# Colors
+COLOR_FOIL <- "#E08214"
+COLOR_TARGET <- "#2166AC"
+COLOR_AVERAGE <- "#2C2C2C"
+
+# Shapes
+SHAPE_FOIL <- 17                             # solid triangle
+SHAPE_TARGET <- 15                      # solid square
+
+# Line types
+LINETYPE_FOIL <- "solid"
+LINETYPE_TARGET <- "longdash"
+
+ylabsname <- "Correct Response Rate"
+xaxisname <- "Position"
+
+# Sizes
+BASE_FONT_SIZE <- 32
+POINT_SIZE <- 5
+LINE_WIDTH <- 2.0
+AVERAGE_LINE_WIDTH <- 2.8
+RIBBON_ALPHA <- 0.4
+LINE_ALPHA <- 0.85
+
+# Y-axis limits and breaks
+Y_MIN <- 0.70
+Y_MAX <- 1.00
+Y_BREAKS <- seq(Y_MIN, Y_MAX, by = 0.05)
+
+# X-axis breaks
+X_BREAKS <- seq(0, 20, by = 5)
+X_LABELS <- as.character(X_BREAKS)
+
+# Theme settings
+BASE_TEXT_SIZE <- 32
+TITLE_SIZE <- BASE_FONT_SIZE + 3
+SUPER_TITLE_SIZE <- TITLE_SIZE + 5
+AXIS_TITLE_SIZE <- 28
+AXIS_TEXT_SIZE <- 24
+STRIP_TEXT_SIZE <- 22  # Smaller text for facet labels
+LEGEND_POSITION <- "none"  # Hide legends
+
+# Load the preprocessed data for data plot
+dfchanged <- read_csv(file.path(DATA_ANALYSIS_DIR, "dfchanged.csv"))
+cat("Loaded dfchanged data from dfchanged.csv\n")
+
+# Create dfserial data for within-list analysis BY LIST - MODIFIED TO INCLUDE LIST NUMBER
+dfserial_by_list=dfchanged%>%
+  filter(task=="pretest_response")%>%
+  filter(response!="null")%>%
+  mutate(trialnum = as.numeric(trialnum)) %>%  # Ensure trialnum is numeric
+  pivot_longer(cols=c(testpos,prespos),names_to="position_type",values_to="position")%>%
+  select(position,ip,position_type,correct,probetype, rt, trialnum)%>%
+  filter(!(rt < 150 | rt > 3500))%>%
+  group_by(position,ip,position_type,probetype, trialnum)%>%
+  summarize(meancr1=mean(correct))%>%
+  group_by(position,position_type,probetype, trialnum)%>%
+  summarize(meancr=mean(meancr1),sd=sd(meancr1),se=sd/sqrt(n()))%>%
+  mutate(probetype=case_when(probetype=="TARGET_foil"~"Foil - Correct rejection",
+                             probetype=="TARGET_target"~"Target - Hits"))%>%
+  mutate(position_type=case_when(position_type=="testpos"~"Initial Test Pos",
+                                 TRUE~"Initial Study Pos"))%>%
+  mutate(list_number = trialnum)
+
+# Create the data plot with faceting by list_number
+data_plot <- ggplot(data=dfserial_by_list, aes(position,meancr,group=interaction(position_type)))+
+  # Enhanced points with different shapes for each probetype
+  geom_point(aes(color=probetype, shape=probetype, group=probetype),
+             size=POINT_SIZE, alpha=0.9, stroke=1.2) +
+  # Enhanced lines with different line types
+  geom_line(aes(color=probetype, linetype=probetype, group=probetype),
+            linewidth=LINE_WIDTH, alpha=LINE_ALPHA) +
+  # Enhanced ribbon with better visibility
+  geom_ribbon(aes(ymin=meancr-se,ymax=meancr+se,fill=probetype,group=probetype),
+              alpha=RIBBON_ALPHA) +
+  # Facet by list_number and position_type
+  facet_grid(list_number ~ position_type) +
+  scale_y_continuous(limits = c(Y_MIN, Y_MAX),
+                      breaks = Y_BREAKS,
+                      name = ylabsname) +
+
+  # Enhanced styling and labels
+  labs(x=xaxisname,
+       y=ylabsname,
+       title="E1 Initial Within List by List DATA",
+       color="Type", fill="Type", shape="Type", linetype="Type") +
+
+  # Enhanced color palette with high contrast
+  scale_color_manual(values=c("Foil - Correct rejection"=COLOR_FOIL, "Target - Hits"=COLOR_TARGET)) +
+  scale_fill_manual(values=c("Foil - Correct rejection"=COLOR_FOIL, "Target - Hits"=COLOR_TARGET)) +
+  scale_shape_manual(values=c("Foil - Correct rejection"=SHAPE_FOIL, "Target - Hits"=SHAPE_TARGET)) +
+  scale_linetype_manual(values=c("Foil - Correct rejection"=LINETYPE_FOIL, "Target - Hits"=LINETYPE_TARGET)) +
+
+  # Enhanced theme with improved readability
+  theme_bw(base_size = BASE_FONT_SIZE) +
+  theme(
+        plot.title = element_text(hjust = 0.5, size = TITLE_SIZE, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 18, face = "bold", color = "blue"),
+        panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = LEGEND_POSITION,
+        text = element_text(size = BASE_TEXT_SIZE),
+        axis.title = element_text(size = AXIS_TITLE_SIZE),
+        axis.text = element_text(size = AXIS_TEXT_SIZE),
+        strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
+  )
+
+# Load data for prediction plot
+all_results <- read.csv(file.path(PROJECT_ROOT, "all_results.csv"))
+
+# Create prediction data BY LIST NUMBER
+df_study_by_list <- all_results %>%
+    mutate(is_target = case_when(is_target == "true" ~ 1, TRUE ~ 0),
+           correct = decision_isold == is_target,
+           list_number = as.numeric(list_number)) %>%
+    group_by(study_position, is_target, list_number, simulation_number) %>%
+    summarize(meanx = mean(correct), .groups = "drop") %>%
+    group_by(study_position, is_target, list_number) %>%
+    summarize(meanx = mean(meanx), .groups = "drop") %>%
+    mutate(is_target = as.factor(is_target),
+           position_type = "Study") %>%
+    rename(position = study_position)
+
+df_test_by_list <- all_results %>%
+    mutate(is_target = case_when(is_target == "true" ~ 1, TRUE ~ 0),
+           correct = decision_isold == is_target,
+           list_number = as.numeric(list_number)) %>%
+    group_by(test_position, is_target, list_number, simulation_number) %>%
+    summarize(meanx = mean(correct), .groups = "drop") %>%
+    group_by(test_position, is_target, list_number) %>%
+    summarize(meanx = mean(meanx), .groups = "drop") %>%
+    mutate(is_target = as.factor(is_target),
+           position_type = "Test") %>%
+    rename(position = test_position)
+
+df_combined_by_list <- rbind(df_study_by_list, df_test_by_list)
+
+df_combined_by_list$is_target <- factor(df_combined_by_list$is_target,
+                               levels = c("0", "1"),
+                               labels = c("Foil - Correct rejection", "Target - Hits"))
+
+df_combined_by_list$position_type <- factor(df_combined_by_list$position_type,
+                                   levels = c("Study", "Test"),
+                                   labels = c("Initial Study Pos", "Initial Test Pos"))
+
+# Create the prediction plot with faceting by list_number
+prediction_plot <- ggplot(data = df_combined_by_list, aes(x = position, y = meanx, group = is_target)) +
+    geom_line(aes(color = is_target, linetype = is_target), linewidth = LINE_WIDTH) +
+    geom_point(aes(color = is_target, shape = is_target), size = POINT_SIZE) +
+    facet_grid(list_number ~ position_type, scales = "free_x") +
+    scale_color_manual(values = c("Foil - Correct rejection" = COLOR_FOIL,
+                                 "Target - Hits" = COLOR_TARGET),
+                      name = "Type") +
+    scale_fill_manual(values = c("Foil - Correct rejection" = COLOR_FOIL,
+                                "Target - Hits" = COLOR_TARGET),
+                     name = "Type") +
+    scale_shape_manual(values = c("Foil - Correct rejection" = SHAPE_FOIL,
+                                 "Target - Hits" = SHAPE_TARGET),
+                      name = "Type") +
+    scale_linetype_manual(values = c("Foil - Correct rejection" = LINETYPE_FOIL,
+                                    "Target - Hits" = LINETYPE_TARGET),
+                         name = "Type") +
+    scale_y_continuous(limits = c(Y_MIN, Y_MAX),
+                      breaks = Y_BREAKS,
+                      name = ylabsname) +
+    scale_x_continuous(breaks = X_BREAKS,
+                      name = xaxisname) +
+    labs(
+        title = "E1 Initial Within List by List PREDICTION"
+    ) +
+    theme_bw(base_size = BASE_FONT_SIZE) +
+    theme(
+        plot.title = element_text(hjust = 0.5, size = TITLE_SIZE, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 18, face = "bold", color = "blue"),
+        panel.border = element_rect(color = "black", fill = NA, linewidth = 0.5),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = LEGEND_POSITION,
+        text = element_text(size = BASE_TEXT_SIZE),
+        axis.title = element_text(size = AXIS_TITLE_SIZE),
+        axis.text = element_text(size = AXIS_TEXT_SIZE),
+        strip.text = element_text(size = STRIP_TEXT_SIZE, face = "bold")
+    )
+
+# Create combined plot using grid.arrange
+combined_plot <- grid.arrange(
+  data_plot, prediction_plot,
+  ncol = 2,
+  top = textGrob("E1 Initial Within List by List: DATA vs PREDICTION",
+                 gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
+)
+
+# Save the combined plot
+ggsave(file.path(DESIGN1_DIR, "E1_initial_within_list_by_list_combined.png"), combined_plot,
+       width = 24, height = 40, dpi = 300, bg = "white")
+
+cat("Combined initial within-list by list plot saved as E1_initial_within_list_by_list_combined.png\n")
 
 ##################################################### x#######
 ## E1 Final Test Between List: DATA vs PREDICTION

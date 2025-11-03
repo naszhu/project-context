@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [e70ae4e](https://github.com/naszhu/REM_E3_model_fixed/commit/e70ae4e) (branch: `nov-2`)
+**Time:** 2025-11-03 20:13:20  
+**Message:**
+```
+feat(data-analysis): add E1 and E3 accuracy distribution analysis scripts
+
+- Introduced new R scripts for analyzing initial and final test accuracy distributions for experiments E1 and E3.
+- Each script includes data loading, processing, and visualization of accuracy distributions using density plots.
+- Summary statistics for accuracy distributions are generated and saved as PNG files for both experiments.
+- The scripts enhance the analysis framework by providing structured insights into participant performance across different test types.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-rt-distribution.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3-rt-distribution.R`  
+![](../plot_archive/e70ae4e_20251103_201320_plot1.png)  
+![](../plot_archive/e70ae4e_20251103_201320_plot2.png)  
+
 ## Commit [967aefa](https://github.com/naszhu/REM_E3_model_fixed/commit/967aefa) (branch: `nov-2`)
 **Time:** 2025-11-02 18:42:54  
 **Message:**
