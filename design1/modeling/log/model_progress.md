@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [967aefa](https://github.com/naszhu/REM_E3_model_fixed/commit/967aefa) (branch: `nov-2`)
+**Time:** 2025-11-02 18:42:54  
+**Message:**
+```
+explore(model-e1): check final test no CC
+
+- Adjusted `ratio_unchanging_to_itself_final` and `ratio_changing_to_itself_final` to use integer values instead of floating-point, enhancing clarity in parameter definitions.
+- These changes aim to improve the consistency and readability of the constants used in the modeling framework.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/967aefa_20251102_184254_plot1.png)  
+![](../plot_archive/967aefa_20251102_184254_plot2.png)  
+
 ## Commit [36341be](https://github.com/naszhu/REM_E3_model_fixed/commit/36341be) (branch: `nov-2`)
 **Time:** 2025-11-02 17:32:47  
 **Message:**

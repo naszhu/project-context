@@ -1,5 +1,18 @@
 [
   {
+    "commit": "967aefa",
+    "branch": "nov-2",
+    "message": "explore(model-e1): check final test no CC",
+    "timestamp": "2025-11-02 18:42:54",
+    "plot1": "plot_archive/967aefa_20251102_184254_plot1.png",
+    "plot2": "plot_archive/967aefa_20251102_184254_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "36341be",
     "branch": "nov-2",
     "message": "Merge branch 'oct-21-cleanning'",
