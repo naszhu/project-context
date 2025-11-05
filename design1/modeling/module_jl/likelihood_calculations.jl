@@ -71,20 +71,27 @@ end
 
 function calculate_two_step_likelihoods2(probe::EpisodicImage, image_pool::Vector{EpisodicImage}, p::Float64, iprobe::Int64)::Tuple{Vector{Float64},Vector{Float64}}
 
-    nU_fs =nU_f[1];
-    nC_fs =nC_f[1];        
+    # Calculate which chunk this probe belongs to (each chunk has 42 probes)
+    currchunk = ceil(Int, iprobe / chunk_size_final_change)
+    # Ensure chunk index doesn't exceed array bounds
+    currchunk = min(currchunk, length(nU_f))
+    
+    nU_fs = nU_f[currchunk]
+    nC_fs = nC_f[currchunk]        
     
     context_likelihoods = Vector{Float64}(undef, length(image_pool))
     word_likelihoods = Vector{Float64}(undef, length(image_pool))
     probe_context = probe.context_features
-    probe_context_f = fast_concat([probe_context[1 : (nU_fs)], probe_context[(nU_fs + 1):(nU_fs + nC_fs)]]) #
+    #CHANGED: !! should start from nU!! careful here! (Bug fix: CC starts at nU+1, not nU_fs+1)
+    probe_context_f = fast_concat([probe_context[1 : nU_fs], probe_context[(nU + 1) : (nU + nC_fs)]]) #
 
     for ii in eachindex(image_pool)
         image = image_pool[ii]
         image_context = image.context_features
 
         #is_test_allcontext2 true; currently goes here
-        image_context_f = fast_concat([image_context[1:nU_fs], image_context[nU_fs+1:nU_fs+nC_fs]])
+        #CHANGED: !! should start from nU!! (Bug fix: CC starts at nU+1, not nU_fs+1)
+        image_context_f = fast_concat([image_context[1:nU_fs], image_context[(nU + 1) : (nU + nC_fs)]])
         context_likelihood = calculate_likelihood_ratio(probe_context_f, image_context_f, g_context, c)  # .#  Context calculation
 
         context_likelihoods[ii] = context_likelihood

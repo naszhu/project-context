@@ -1,5 +1,27 @@
 # Model Progress
 
+## Commit [c2f28be](https://github.com/naszhu/REM_E3_model_fixed/commit/c2f28be) (branch: `nov-2`)
+**Time:** 2025-11-03 21:28:12  
+**Message:**
+```
+explore(model-e1): context treshold vary by list
+
+- Changed `is_finaltest` from true to false to modify simulation behavior.
+- Updated `criterion_between_list_base` and `criterion_between_list_r_rate` values to enhance model accuracy.
+- Adjusted `context_tau` to use a vector for improved context likelihood handling in calculations.
+
+These changes aim to refine the modeling parameters and improve the context evaluation logic.
+
+Closes #63
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/likelihood_calculations.jl`  
+![](../plot_archive/c2f28be_20251103_212812_plot1.png)  
+![](../plot_archive/c2f28be_20251103_212812_plot2.png)  
+
 ## Commit [4b826dd](https://github.com/naszhu/REM_E3_model_fixed/commit/4b826dd) (branch: `nov-2`)
 **Time:** 2025-11-03 21:02:44  
 **Message:**

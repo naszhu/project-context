@@ -1,5 +1,19 @@
 [
   {
+    "commit": "c2f28be",
+    "branch": "nov-2",
+    "message": "explore(model-e1): context treshold vary by list",
+    "timestamp": "2025-11-03 21:28:12",
+    "plot1": "plot_archive/c2f28be_20251103_212812_plot1.png",
+    "plot2": "plot_archive/c2f28be_20251103_212812_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/likelihood_calculations.jl"
+    ]
+  },
+  {
     "commit": "4b826dd",
     "branch": "nov-2",
     "message": "feat(plotting): add combined data and prediction plots for E1 initial within-list analysis",
