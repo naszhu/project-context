@@ -1,5 +1,88 @@
 # Model Progress
 
+## Commit [c2f28be](https://github.com/naszhu/REM_E3_model_fixed/commit/c2f28be) (branch: `nov-2`)
+**Time:** 2025-11-03 21:28:12  
+**Message:**
+```
+explore(model-e1): context treshold vary by list
+
+- Changed `is_finaltest` from true to false to modify simulation behavior.
+- Updated `criterion_between_list_base` and `criterion_between_list_r_rate` values to enhance model accuracy.
+- Adjusted `context_tau` to use a vector for improved context likelihood handling in calculations.
+
+These changes aim to refine the modeling parameters and improve the context evaluation logic.
+
+Closes #63
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/likelihood_calculations.jl`  
+![](../plot_archive/c2f28be_20251103_212812_plot1.png)  
+![](../plot_archive/c2f28be_20251103_212812_plot2.png)  
+
+## Commit [4b826dd](https://github.com/naszhu/REM_E3_model_fixed/commit/4b826dd) (branch: `nov-2`)
+**Time:** 2025-11-03 21:02:44  
+**Message:**
+```
+feat(plotting): add combined data and prediction plots for E1 initial within-list analysis
+
+- Introduced a new section in `combined_all_plots.R` to create and save combined plots comparing data and predictions for the E1 initial within-list analysis.
+- Enhanced data processing to include list numbers and improved visualization with faceting, custom color palettes, and refined themes.
+- The new plots provide a comprehensive view of participant performance across different positions and types, facilitating better insights into the experimental results.
+```
+**Changed Files:**
+- `design1/combined_all_plots.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/4b826dd_20251103_210244_plot1.png)  
+![](../plot_archive/4b826dd_20251103_210244_plot2.png)  
+
+## Commit [e70ae4e](https://github.com/naszhu/REM_E3_model_fixed/commit/e70ae4e) (branch: `nov-2`)
+**Time:** 2025-11-03 20:13:20  
+**Message:**
+```
+feat(data-analysis): add E1 and E3 accuracy distribution analysis scripts
+
+- Introduced new R scripts for analyzing initial and final test accuracy distributions for experiments E1 and E3.
+- Each script includes data loading, processing, and visualization of accuracy distributions using density plots.
+- Summary statistics for accuracy distributions are generated and saved as PNG files for both experiments.
+- The scripts enhance the analysis framework by providing structured insights into participant performance across different test types.
+```
+**Changed Files:**
+- `design1/data_analysis/E1-rt-distribution.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3-rt-distribution.R`  
+![](../plot_archive/e70ae4e_20251103_201320_plot1.png)  
+![](../plot_archive/e70ae4e_20251103_201320_plot2.png)  
+
+## Commit [967aefa](https://github.com/naszhu/REM_E3_model_fixed/commit/967aefa) (branch: `nov-2`)
+**Time:** 2025-11-02 18:42:54  
+**Message:**
+```
+explore(model-e1): check final test no CC
+
+- Adjusted `ratio_unchanging_to_itself_final` and `ratio_changing_to_itself_final` to use integer values instead of floating-point, enhancing clarity in parameter definitions.
+- These changes aim to improve the consistency and readability of the constants used in the modeling framework.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/967aefa_20251102_184254_plot1.png)  
+![](../plot_archive/967aefa_20251102_184254_plot2.png)  
+
+## Commit [36341be](https://github.com/naszhu/REM_E3_model_fixed/commit/36341be) (branch: `nov-2`)
+**Time:** 2025-11-02 17:32:47  
+**Message:**
+```
+Merge branch 'oct-21-cleanning'
+```
+![](../plot_archive/36341be_20251102_173247_plot1.png)  
+![](../plot_archive/36341be_20251102_173247_plot2.png)  
+
 ## Commit [70e9b5c](https://github.com/naszhu/REM_E3_model_fixed/commit/70e9b5c) (branch: `oct-21-cleanning`)
 **Time:** 2025-11-01 13:32:46  
 **Message:**

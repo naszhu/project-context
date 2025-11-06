@@ -1,5 +1,68 @@
 [
   {
+    "commit": "c2f28be",
+    "branch": "nov-2",
+    "message": "explore(model-e1): context treshold vary by list",
+    "timestamp": "2025-11-03 21:28:12",
+    "plot1": "plot_archive/c2f28be_20251103_212812_plot1.png",
+    "plot2": "plot_archive/c2f28be_20251103_212812_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/likelihood_calculations.jl"
+    ]
+  },
+  {
+    "commit": "4b826dd",
+    "branch": "nov-2",
+    "message": "feat(plotting): add combined data and prediction plots for E1 initial within-list analysis",
+    "timestamp": "2025-11-03 21:02:44",
+    "plot1": "plot_archive/4b826dd_20251103_210244_plot1.png",
+    "plot2": "plot_archive/4b826dd_20251103_210244_plot2.png",
+    "changed_files": [
+      "design1/combined_all_plots.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "e70ae4e",
+    "branch": "nov-2",
+    "message": "feat(data-analysis): add E1 and E3 accuracy distribution analysis scripts",
+    "timestamp": "2025-11-03 20:13:20",
+    "plot1": "plot_archive/e70ae4e_20251103_201320_plot1.png",
+    "plot2": "plot_archive/e70ae4e_20251103_201320_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1-rt-distribution.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3-rt-distribution.R"
+    ]
+  },
+  {
+    "commit": "967aefa",
+    "branch": "nov-2",
+    "message": "explore(model-e1): check final test no CC",
+    "timestamp": "2025-11-02 18:42:54",
+    "plot1": "plot_archive/967aefa_20251102_184254_plot1.png",
+    "plot2": "plot_archive/967aefa_20251102_184254_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "36341be",
+    "branch": "nov-2",
+    "message": "Merge branch 'oct-21-cleanning'",
+    "timestamp": "2025-11-02 17:32:47",
+    "plot1": "plot_archive/36341be_20251102_173247_plot1.png",
+    "plot2": "plot_archive/36341be_20251102_173247_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "70e9b5c",
     "branch": "oct-21-cleanning",
     "message": "refactor(model-e1): streamline context feature handling and remove unused parameters",
