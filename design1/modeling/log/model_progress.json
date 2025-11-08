@@ -1,5 +1,14 @@
 [
   {
+    "commit": "0bbf49e",
+    "branch": "main",
+    "message": "merge(nov2/-fix): ours merge. Merge branch 'nov-2-issue-fix'",
+    "timestamp": "2025-11-06 19:40:59",
+    "plot1": "plot_archive/0bbf49e_20251106_194059_plot1.png",
+    "plot2": "plot_archive/0bbf49e_20251106_194059_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "c2f28be",
     "branch": "nov-2",
     "message": "explore(model-e1): context treshold vary by list",

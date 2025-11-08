@@ -1,5 +1,14 @@
 # Model Progress
 
+## Commit [0bbf49e](https://github.com/naszhu/REM_E3_model_fixed/commit/0bbf49e) (branch: `main`)
+**Time:** 2025-11-06 19:40:59  
+**Message:**
+```
+merge(nov2/-fix): ours merge. Merge branch 'nov-2-issue-fix'
+```
+![](../plot_archive/0bbf49e_20251106_194059_plot1.png)  
+![](../plot_archive/0bbf49e_20251106_194059_plot2.png)  
+
 ## Commit [c2f28be](https://github.com/naszhu/REM_E3_model_fixed/commit/c2f28be) (branch: `nov-2`)
 **Time:** 2025-11-03 21:28:12  
 **Message:**
