@@ -1,5 +1,20 @@
 [
   {
+    "commit": "c7ec861",
+    "branch": "main",
+    "message": "feat(data-analysis-e1-e3): add E1 and E3 study position interaction analysis scripts",
+    "timestamp": "2025-11-08 12:33:08",
+    "plot1": "plot_archive/c7ec861_20251108_123308_plot1.png",
+    "plot2": "plot_archive/c7ec861_20251108_123308_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1_study_test_position_interaction.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/data_analysis/E3_study_test_position_interaction.R",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "0bbf49e",
     "branch": "main",
     "message": "merge(nov2/-fix): ours merge. Merge branch 'nov-2-issue-fix'",

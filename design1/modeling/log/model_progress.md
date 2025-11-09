@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [c7ec861](https://github.com/naszhu/REM_E3_model_fixed/commit/c7ec861) (branch: `main`)
+**Time:** 2025-11-08 12:33:08  
+**Message:**
+```
+feat(data-analysis-e1-e3): add E1 and E3 study position interaction analysis scripts
+
+- Introduced new R scripts for analyzing the interaction between study position and accuracy in both initial and final tests for experiments E1 and E3.
+- Each script includes data loading, processing, and visualization of accuracy metrics using ggplot2, with detailed customization for clarity and aesthetics.
+- Plots are saved as PNG files, providing visual insights into participant performance across different test positions and item types.
+- This addition enhances the analytical framework by offering structured visual representations of the experimental results.
+```
+**Changed Files:**
+- `design1/data_analysis/E1_study_test_position_interaction.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_study_test_position_interaction.R`  
+- `design3/modeling`  
+![](../plot_archive/c7ec861_20251108_123308_plot1.png)  
+![](../plot_archive/c7ec861_20251108_123308_plot2.png)  
+
 ## Commit [0bbf49e](https://github.com/naszhu/REM_E3_model_fixed/commit/0bbf49e) (branch: `main`)
 **Time:** 2025-11-06 19:40:59  
 **Message:**
