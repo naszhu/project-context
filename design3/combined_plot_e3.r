@@ -551,8 +551,16 @@ PLOT_THEME <- theme_minimal(base_size = BASE_SIZE) +
 
 levelsStr_fn = levels(as.factor(df_rt_pl$type_comment_fn))
 
-################33 Within plot 1 - Test position
-d1taf_test = df_rt_pl%>%
+# Identify confusing foil types (those with "(n+1)" in the name)
+confusing_foil_types = c(
+  "Target: studied and tested at (n), Foil (n+1)",
+  "Studied-only (n); Foil (n+1)",
+  "Foil(n), Foil (n+1)"
+)
+
+#################### ROW 1: First Appearance Test Position ####################
+# Within plot 1 - Test position (using first appearance: testPos_appear1_initial)
+d1taf_test_row1 = df_rt_pl%>%
     mutate(correct=case_when(correct=="True"~1,
                            correct=="False"~0,
                            TRUE ~ correct))%>%
@@ -563,11 +571,10 @@ d1taf_test = df_rt_pl%>%
          summarise(crs = mean(correct))%>%
          group_by(task, condition,type_comment, testPos_appear1_initial )%>%
          summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop')%>%
-  mutate(position_type = "Test Position", position = testPos_appear1_initial)
+  mutate(position_type = "Test Position", position = testPos_appear1_initial, row_type = "First Appearance")
 
-##############################
-###########3 Within plot 2 - Study position
-d1taf_study = df_rt_pl%>%
+# Within plot 2 - Study position (always use first appearance: studyPos_appear1_initial)
+d1taf_study_row1 = df_rt_pl%>%
   filter(task=="finalTest")%>%
   mutate(correct=case_when(correct=="True"~1,
                            correct=="False"~0,
@@ -578,13 +585,139 @@ d1taf_study = df_rt_pl%>%
          summarise(crs = mean(correct))%>%
          group_by(task, condition,type_comment, listNum_infinalOrder)%>%
          summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop')%>%
-  mutate(position_type = "Study Position", position = listNum_infinalOrder)
+  mutate(position_type = "Study Position", position = listNum_infinalOrder, row_type = "First Appearance")
 
-# Combine both datasets
-d1taf_combined = bind_rows(d1taf_test, d1taf_study)
+# Combine both datasets for row 1
+d1taf_combined_row1 = bind_rows(d1taf_test_row1, d1taf_study_row1)
 
-# Create combined plot
-p3_d = ggplot(data=d1taf_combined)+
+# Create original single-row plot (using row 1 data)
+p3_d = ggplot(data=d1taf_combined_row1)+
+  geom_ribbon(aes(x=position, ymin= cr - se, ymax= cr + se, group=interaction(task,type_comment), fill= type_comment), alpha=0.3)+
+  geom_line(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+
+    geom_point(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=POINT_SIZE, stroke=POINT_STROKE)+
+  facet_grid(.~position_type)+
+  scale_color_manual(values=c(
+            "Target: studied and tested at (n), Foil (n+1)"="#2166AC",
+            "Studied-only (n); Foil (n+1)"="#1A9850",
+             "Target: : started and tested at (n) ; Appear once" ="#2166AC",
+             "Foil(n), Foil (n+1)" ="#E08214",
+             "Foil(n); Appear once" ="#E08214",
+             "Studied-only (n); Appear once" = "#1A9850",
+             "Final Foil"="red" ),breaks=levelsStr_fn )+
+  scale_fill_manual(values=c(
+            "Target: studied and tested at (n), Foil (n+1)"="#2166AC",
+            "Studied-only (n); Foil (n+1)"="#1A9850",
+             "Target: : started and tested at (n) ; Appear once" ="#2166AC",
+             "Foil(n), Foil (n+1)" ="#E08214",
+             "Foil(n); Appear once" ="#E08214",
+             "Studied-only (n); Appear once" = "#1A9850",
+             "Final Foil"="red" ),breaks=levelsStr_fn )+
+  scale_shape_manual(
+    values = c(
+      "Target: studied and tested at (n), Foil (n+1)" = 0,      # open square
+      "Target: : started and tested at (n) ; Appear once" = 15,  # solid square
+      "Studied-only (n); Foil (n+1)" = 1,                      # open circle
+      "Studied-only (n); Appear once" = 16,  # solid circle
+      "Foil(n), Foil (n+1)" = 2,                      # open triangle
+      "Foil(n); Appear once" = 17,                                # solid triangle
+      "Final Foil" = 4                                           # cross
+    ),
+    breaks = levelsStr_fn
+  )+
+  PLOT_THEME +
+  labs(
+    x = POSITION_LABEL,
+    y = CORRECT_RATE_LABEL,
+    title = "Final Test Within List DATA"
+  ) +
+  scale_x_continuous(breaks = seq(0, 10, by = 1)) +
+  scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
+
+# Create combined plot for row 1 (for new 4-plot version)
+p3_d_row1 = ggplot(data=d1taf_combined_row1)+
+  geom_ribbon(aes(x=position, ymin= cr - se, ymax= cr + se, group=interaction(task,type_comment), fill= type_comment), alpha=0.3)+
+  geom_line(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+
+    geom_point(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=POINT_SIZE, stroke=POINT_STROKE)+
+  facet_grid(.~position_type)+
+  scale_color_manual(values=c(
+            "Target: studied and tested at (n), Foil (n+1)"="#2166AC",
+            "Studied-only (n); Foil (n+1)"="#1A9850",
+             "Target: : started and tested at (n) ; Appear once" ="#2166AC",
+             "Foil(n), Foil (n+1)" ="#E08214",
+             "Foil(n); Appear once" ="#E08214",
+             "Studied-only (n); Appear once" = "#1A9850",
+             "Final Foil"="red" ),breaks=levelsStr_fn )+
+  scale_fill_manual(values=c(
+            "Target: studied and tested at (n), Foil (n+1)"="#2166AC",
+            "Studied-only (n); Foil (n+1)"="#1A9850",
+             "Target: : started and tested at (n) ; Appear once" ="#2166AC",
+             "Foil(n), Foil (n+1)" ="#E08214",
+             "Foil(n); Appear once" ="#E08214",
+             "Studied-only (n); Appear once" = "#1A9850",
+             "Final Foil"="red" ),breaks=levelsStr_fn )+
+  scale_shape_manual(
+    values = c(
+      "Target: studied and tested at (n), Foil (n+1)" = 0,      # open square
+      "Target: : started and tested at (n) ; Appear once" = 15,  # solid square
+      "Studied-only (n); Foil (n+1)" = 1,                      # open circle
+      "Studied-only (n); Appear once" = 16,  # solid circle
+      "Foil(n), Foil (n+1)" = 2,                      # open triangle
+      "Foil(n); Appear once" = 17,                                # solid triangle
+      "Final Foil" = 4                                           # cross
+    ),
+    breaks = levelsStr_fn
+  )+
+  PLOT_THEME +
+  labs(
+    x = POSITION_LABEL,
+    y = CORRECT_RATE_LABEL,
+    title = "Final Test Within List DATA"
+  ) +
+  scale_x_continuous(breaks = seq(0, 10, by = 1)) +
+  scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
+
+#################### ROW 2: Confusing Foil Test Position ####################
+# For confusing foils: use testPos_appear2_initial (when they appeared as confusing foils)
+# For non-confusing foils: use testPos_appear1_initial (first appearance)
+d1taf_test_row2 = df_rt_pl%>%
+    mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  mutate(type_comment=type_comment_fn)%>%
+  mutate(
+    # For confusing foils, use testPos_appear2_initial; for others, use testPos_appear1_initial
+    testPos_choice = case_when(
+      type_comment %in% confusing_foil_types & !is.na(testPos_appear2_initial) & as.numeric(testPos_appear2_initial) > 0 ~ as.numeric(testPos_appear2_initial),
+      TRUE ~ as.numeric(testPos_appear1_initial)
+    ),
+    testPos_choice = ceiling(testPos_choice / 3)
+  )%>%
+  filter(task=="finalTest", !is.na(testPos_choice), testPos_choice > 0)%>%
+   group_by(task, condition,type_comment, testPos_choice, subject_id)%>%
+         summarise(crs = mean(correct))%>%
+         group_by(task, condition,type_comment, testPos_choice )%>%
+         summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop')%>%
+  mutate(position_type = "Test Position", position = testPos_choice, row_type = "Confusing Foil Test Position")
+
+# Study position (always use first appearance: studyPos_appear1_initial)
+d1taf_study_row2 = df_rt_pl%>%
+  filter(task=="finalTest")%>%
+  mutate(correct=case_when(correct=="True"~1,
+                           correct=="False"~0,
+                           TRUE ~ correct))%>%
+  mutate(type_comment=type_comment_fn)%>%
+    mutate( listNum_infinalOrder=as.numeric(studyPos_appear1_initial),listNum_infinalOrder=ceiling(listNum_infinalOrder/3))%>%
+     group_by(task, condition,type_comment, listNum_infinalOrder, subject_id)%>%
+         summarise(crs = mean(correct))%>%
+         group_by(task, condition,type_comment, listNum_infinalOrder)%>%
+         summarise(cr = mean(crs), se = sd(crs)/sqrt(n()), .groups = 'drop')%>%
+  mutate(position_type = "Study Position", position = listNum_infinalOrder, row_type = "Confusing Foil Test Position")
+
+# Combine both datasets for row 2
+d1taf_combined_row2 = bind_rows(d1taf_test_row2, d1taf_study_row2)
+
+# Create combined plot for row 2
+p3_d_row2 = ggplot(data=d1taf_combined_row2)+
   geom_ribbon(aes(x=position, ymin= cr - se, ymax= cr + se, group=interaction(task,type_comment), fill= type_comment), alpha=0.3)+
   geom_line(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,linetype=type_comment))+
     geom_point(aes(x=position, y= cr ,group=interaction(task,type_comment ),color= type_comment,shape=type_comment),size=POINT_SIZE, stroke=POINT_STROKE)+
@@ -638,8 +771,9 @@ p3_d = ggplot(data=d1taf_combined)+
 
 
 if (has_final_predictions) {
-  # Data processing for prediction plot - Test Position
-  df1_test = allresf %>% 
+  #################### ROW 1: First Appearance Test Position - PREDICTION ####################
+  # Data processing for prediction plot - Test Position (using first appearance)
+  df1_test_row1 = allresf %>% 
     mutate(correct = case_when( 
       (decision_isold==1) & (is_target=="true") ~ 1, 
       decision_isold==0 & is_target=="false" ~ 1,
@@ -650,10 +784,10 @@ if (has_final_predictions) {
     summarize(meanx = mean(correct)) %>%
     group_by(test_position_grouped, is_target) %>%
     summarize(meanx = mean(meanx)) %>%
-    mutate(position_type = "Test Position", position = test_position_grouped)
+    mutate(position_type = "Test Position", position = test_position_grouped, row_type = "First Appearance")
 
   # Data processing for prediction plot - Study Position  
-  df1_study = allresf %>% 
+  df1_study_row1 = allresf %>% 
     mutate(correct = case_when( 
       (decision_isold==1) & (is_target=="true") ~ 1, 
       decision_isold==0 & is_target=="false" ~ 1,
@@ -664,13 +798,13 @@ if (has_final_predictions) {
     summarize(meanx = mean(correct)) %>%
     group_by(study_position_grouped, is_target) %>%
     summarize(meanx = mean(meanx)) %>%
-    mutate(position_type = "Study Position", position = study_position_grouped)
+    mutate(position_type = "Study Position", position = study_position_grouped, row_type = "First Appearance")
 
-  # Combine both datasets
-  df1_combined = bind_rows(df1_test, df1_study)
+  # Combine both datasets for row 1
+  df1_combined_row1 = bind_rows(df1_test_row1, df1_study_row1)
 
-  # Create combined plot with facet_grid
-  pf3_p = ggplot(data=df1_combined, aes(x=position, y=meanx, group=is_target)) +
+  # Create original single-row prediction plot (using row 1 data)
+  pf3_p = ggplot(data=df1_combined_row1, aes(x=position, y=meanx, group=is_target)) +
     geom_line(aes(color=is_target, linetype=is_target), linewidth=LINE_WIDTH) +
     geom_point(aes(color=is_target, shape=is_target), size=POINT_SIZE, stroke=POINT_STROKE) +
     facet_grid(.~position_type) +
@@ -710,19 +844,170 @@ if (has_final_predictions) {
     scale_x_continuous(breaks = seq(0, 10, by = 1)) +
     scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
 
-  # Create combined plot using grid.arrange
-  combined_plot <- grid.arrange(
+  # Create combined plot with facet_grid for row 1 (for new 4-plot version)
+  pf3_p_row1 = ggplot(data=df1_combined_row1, aes(x=position, y=meanx, group=is_target)) +
+    geom_line(aes(color=is_target, linetype=is_target), linewidth=LINE_WIDTH) +
+    geom_point(aes(color=is_target, shape=is_target), size=POINT_SIZE, stroke=POINT_STROKE) +
+    facet_grid(.~position_type) +
+    scale_color_manual(
+      values = c("F" = "#E08214",
+                "FF" = "red",
+                "Fn_p1" = "#E08214",
+                "SO" = "#1A9850",
+                "SOn_p1" = "#1A9850",
+                "T" = "#2166AC",
+                "Tn_p1" = "#2166AC")
+    ) +
+    scale_shape_manual(
+      values = c("F" = 17,
+                "FF" = 4,
+                "Fn_p1" = 2,
+                "SO" = 16,
+                "SOn_p1" = 1,
+                "T" = 15, #solid square
+                "Tn_p1" = 0) #open square
+    ) +
+    scale_linetype_manual(
+      values = c("F" = "solid",
+                "FF" = "solid",
+                "Fn_p1" = "dashed",
+                "SO" = "dashed",
+                "SOn_p1" = "dashed",
+                "T" = "solid",
+                "Tn_p1" = "dashed")
+    ) +
+    PLOT_THEME +
+    labs(
+      x = POSITION_LABEL, 
+      y = CORRECT_RATE_LABEL, 
+      title = "Final Test Within List PREDICTION"
+    ) +
+    scale_x_continuous(breaks = seq(0, 10, by = 1)) +
+    scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
+
+  #################### ROW 2: Confusing Foil Test Position - PREDICTION ####################
+  # Note: For predictions, we need to check if the model outputs have confusing foil test positions
+  # If not available, we'll use the same as row 1 but note this limitation
+  # For now, using initial_testpos for all (assuming model doesn't distinguish)
+  # TODO: Update when model outputs confusing foil test positions separately
+  
+  # Data processing for prediction plot - Test Position (using confusing foil position for confusing foils)
+  # Note: This assumes the model uses initial_testpos which may need to be updated based on model output
+  df1_test_row2 = allresf %>% 
+    mutate(correct = case_when( 
+      (decision_isold==1) & (is_target=="true") ~ 1, 
+      decision_isold==0 & is_target=="false" ~ 1,
+      TRUE ~ 0)) %>%
+    mutate(is_target = sub('"[^"]*$', '', type_specific)) %>%
+    # For confusing foils (SOn_p1, Tn_p1, Fn_p1), we would ideally use their confusing foil test position
+    # But since model may not output this separately, we use initial_testpos for now
+    mutate(test_position_grouped = ceiling(as.numeric(initial_testpos) / 3)) %>%
+    group_by(test_position_grouped, is_target, simulation_number) %>%
+    summarize(meanx = mean(correct)) %>%
+    group_by(test_position_grouped, is_target) %>%
+    summarize(meanx = mean(meanx)) %>%
+    mutate(position_type = "Test Position", position = test_position_grouped, row_type = "Confusing Foil Test Position")
+
+  # Data processing for prediction plot - Study Position (always first appearance)
+  df1_study_row2 = allresf %>% 
+    mutate(correct = case_when( 
+      (decision_isold==1) & (is_target=="true") ~ 1, 
+      decision_isold==0 & is_target=="false" ~ 1,
+      TRUE ~ 0)) %>%
+    mutate(is_target = sub('"[^"]*$', '', type_specific)) %>%
+    mutate(study_position_grouped = ceiling(as.numeric(initial_studypos) / 3)) %>%
+    group_by(study_position_grouped, is_target, simulation_number) %>%
+    summarize(meanx = mean(correct)) %>%
+    group_by(study_position_grouped, is_target) %>%
+    summarize(meanx = mean(meanx)) %>%
+    mutate(position_type = "Study Position", position = study_position_grouped, row_type = "Confusing Foil Test Position")
+
+  # Combine both datasets for row 2
+  df1_combined_row2 = bind_rows(df1_test_row2, df1_study_row2)
+
+  # Create combined plot with facet_grid for row 2
+  pf3_p_row2 = ggplot(data=df1_combined_row2, aes(x=position, y=meanx, group=is_target)) +
+    geom_line(aes(color=is_target, linetype=is_target), linewidth=LINE_WIDTH) +
+    geom_point(aes(color=is_target, shape=is_target), size=POINT_SIZE, stroke=POINT_STROKE) +
+    facet_grid(.~position_type) +
+    scale_color_manual(
+      values = c("F" = "#E08214",
+                "FF" = "red",
+                "Fn_p1" = "#E08214",
+                "SO" = "#1A9850",
+                "SOn_p1" = "#1A9850",
+                "T" = "#2166AC",
+                "Tn_p1" = "#2166AC")
+    ) +
+    scale_shape_manual(
+      values = c("F" = 17,
+                "FF" = 4,
+                "Fn_p1" = 2,
+                "SO" = 16,
+                "SOn_p1" = 1,
+                "T" = 15, #solid square
+                "Tn_p1" = 0) #open square
+    ) +
+    scale_linetype_manual(
+      values = c("F" = "solid",
+                "FF" = "solid",
+                "Fn_p1" = "dashed",
+                "SO" = "dashed",
+                "SOn_p1" = "dashed",
+                "T" = "solid",
+                "Tn_p1" = "dashed")
+    ) +
+    PLOT_THEME +
+    labs(
+      x = POSITION_LABEL, 
+      y = CORRECT_RATE_LABEL, 
+      title = "Final Test Within List PREDICTION"
+    ) +
+    scale_x_continuous(breaks = seq(0, 10, by = 1)) +
+    scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
+
+  # Create original combined plot using grid.arrange (1 row x 2 columns)
+  combined_plot_original <- grid.arrange(
     p3_d, pf3_p,
     ncol = 2,
-    top = textGrob("E2 Final Test Within List: DATA vs PREDICTION",
+    top = textGrob("E3 Final Test Within List: DATA vs PREDICTION",
                    gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
   )
 
-  # Save the combined plot
-  ggsave("E3_final_test_within_list_combined.png", combined_plot, 
+  # Save the original combined plot
+  ggsave("E3_final_test_within_list_combined.png", combined_plot_original, 
          width = 24, height = 8, dpi = 300, bg = "white")
+
+  # Create new combined plot using grid.arrange - 2 rows x 2 columns
+  combined_plot_new <- grid.arrange(
+    p3_d_row1, pf3_p_row1,
+    p3_d_row2, pf3_p_row2,
+    ncol = 2, nrow = 2,
+    top = textGrob("E3 Final Test Within List: DATA vs PREDICTION (First Appearance vs Confusing Foil Position)",
+                   gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
+  )
+
+  # Save the new combined plot with 4 plots
+  ggsave("E3_final_test_within_list_combined_4plots.png", combined_plot_new, 
+         width = 24, height = 16, dpi = 300, bg = "white")
 } else {
   cat("Final test not predicted\n")
+  
+  # Save original data plot
+  ggsave("E3_final_test_within_list_combined.png", p3_d, 
+         width = 12, height = 6, dpi = 300, bg = "white")
+  
+  # Even without predictions, create a 2-row plot with just data
+  combined_plot_data <- grid.arrange(
+    p3_d_row1,
+    p3_d_row2,
+    ncol = 1, nrow = 2,
+    top = textGrob("E3 Final Test Within List: DATA",
+                   gp = gpar(fontsize = SUPER_TITLE_SIZE, fontface = "bold"))
+  )
+  
+  ggsave("E3_final_test_within_list_combined_4plots.png", combined_plot_data, 
+         width = 12, height = 16, dpi = 300, bg = "white")
 }
 
 

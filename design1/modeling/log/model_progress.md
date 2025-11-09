@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [5722576](https://github.com/naszhu/REM_E3_model_fixed/commit/5722576) (branch: `main`)
+**Time:** 2025-11-09 11:08:14  
+**Message:**
+```
+refactor(data-analysis-e1): update E1 E3 study position interaction script for lag analysis
+
+- Renamed the initial test analysis to focus on lag plots, reflecting the relationship between test position and study position.
+- Streamlined data processing by removing redundant code and enhancing clarity in variable naming.
+- Introduced a new lag plot visualizing accuracy against the temporal distance between study and test positions, improving insights into participant performance.
+- Updated plot aesthetics and saved the output as a new PNG file for better representation of the results.
+
+Refs #64
+```
+**Changed Files:**
+- `design1/data_analysis/E1_study_test_position_interaction.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/data_analysis/E3_study_test_position_interaction.R`  
+![](../plot_archive/5722576_20251109_110814_plot1.png)  
+![](../plot_archive/5722576_20251109_110814_plot2.png)  
+
 ## Commit [c7ec861](https://github.com/naszhu/REM_E3_model_fixed/commit/c7ec861) (branch: `main`)
 **Time:** 2025-11-08 12:33:08  
 **Message:**
