@@ -685,14 +685,30 @@ d1taf_test_row2 = df_rt_pl%>%
                            TRUE ~ correct))%>%
   mutate(type_comment=type_comment_fn)%>%
   mutate(
-    # For confusing foils, use testPos_appear2_initial; for others, use testPos_appear1_initial
-    testPos_choice = case_when(
-      type_comment %in% confusing_foil_types & !is.na(testPos_appear2_initial) & as.numeric(testPos_appear2_initial) > 0 ~ as.numeric(testPos_appear2_initial),
-      TRUE ~ as.numeric(testPos_appear1_initial)
+    testPos_appear0_num = suppressWarnings(as.numeric(testPos_appear0_initial)),
+    testPos_appear1_num = suppressWarnings(as.numeric(testPos_appear1_initial)),
+    testPos_appear2_num = suppressWarnings(as.numeric(testPos_appear2_initial)),
+    testPos_confusing = case_when(
+      type_comment %in% confusing_foil_types &
+        !is.na(testPos_appear2_num) & testPos_appear2_num > 0 ~ testPos_appear2_num,
+      type_comment %in% confusing_foil_types &
+        !is.na(testPos_appear0_num) & testPos_appear0_num > 0 ~ testPos_appear0_num,
+      TRUE ~ NA_real_
     ),
-    testPos_choice = ceiling(testPos_choice / 3)
+    # For confusing foils, use confusing position; for others, use first appearance
+    testPos_choice_raw = case_when(
+      type_comment %in% c("Final Foil", "Studied-only (n); Appear once") ~ 0,
+      type_comment %in% confusing_foil_types ~ testPos_confusing,
+      !is.na(testPos_appear1_num) & testPos_appear1_num > 0 ~ testPos_appear1_num,
+      TRUE ~ NA_real_
+    ),
+    testPos_choice = case_when(
+      is.na(testPos_choice_raw) ~ NA_real_,
+      testPos_choice_raw > 0 ~ ceiling(testPos_choice_raw / 3),
+      TRUE ~ 0
+    )
   )%>%
-  filter(task=="finalTest", !is.na(testPos_choice), testPos_choice > 0)%>%
+  filter(task=="finalTest", !is.na(testPos_choice))%>%
    group_by(task, condition,type_comment, testPos_choice, subject_id)%>%
          summarise(crs = mean(correct))%>%
          group_by(task, condition,type_comment, testPos_choice )%>%

@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [9dd21a7](https://github.com/naszhu/REM_E3_model_fixed/commit/9dd21a7) (branch: `main`)
+**Time:** 2025-11-09 22:39:01  
+**Message:**
+```
+restore(analysis-e3): restore from dumb ass wtf idk
+
+- Developed detailed data processing for both final tests within and between lists, ensuring accurate handling of test positions and conditions.
+- Created combined plots for data and predictions, enhancing visual representation and facilitating comparison across different test scenarios.
+- Improved clarity in the analysis by incorporating numeric conversions and streamlined filtering, allowing for better insights into participant performance.
+- Saved outputs as PNG files for both original and new combined plots, providing structured visual insights into the experimental results.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/9dd21a7_20251109_223901_plot1.png)  
+![](../plot_archive/9dd21a7_20251109_223901_plot2.png)  
+
 ## Commit [b865d6e](https://github.com/naszhu/REM_E3_model_fixed/commit/b865d6e) (branch: `main`)
 **Time:** 2025-11-09 21:49:01  
 **Message:**
