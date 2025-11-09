@@ -1,5 +1,22 @@
 # Model Progress
 
+## Commit [38ac557](https://github.com/naszhu/REM_E3_model_fixed/commit/38ac557) (branch: `main`)
+**Time:** 2025-11-09 20:43:56  
+**Message:**
+```
+refactor(analysis-e3): 1. replot prediction final, debug final within data
+
+- Enhanced the data processing for test positions by introducing numeric conversions for initial and confusing foil test positions, improving clarity and accuracy in the analysis.
+- Updated the logic for determining test positions to ensure that confusing foils are handled correctly, allowing for better representation in plots.
+- Streamlined filtering and grouping operations to maintain consistency in the final test analysis, ensuring only relevant data is included.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/38ac557_20251109_204356_plot1.png)  
+![](../plot_archive/38ac557_20251109_204356_plot2.png)  
+
 ## Commit [bad46f0](https://github.com/naszhu/REM_E3_model_fixed/commit/bad46f0) (branch: `main`)
 **Time:** 2025-11-09 11:10:45  
 **Message:**

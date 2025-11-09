@@ -84,7 +84,7 @@ final_random_final <- final %>%
   )
 
 final_random_initial <- final %>%
-  filter(condition == "random") %>%
+  filter(condition == "random", item_type != "FTO") %>%
   mutate(
     list_order = initial_order,
     ordering_type = "by_initial_order"

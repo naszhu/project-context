@@ -1,5 +1,18 @@
 [
   {
+    "commit": "38ac557",
+    "branch": "main",
+    "message": "refactor(analysis-e3): 1. replot prediction final, debug final within data",
+    "timestamp": "2025-11-09 20:43:56",
+    "plot1": "plot_archive/38ac557_20251109_204356_plot1.png",
+    "plot2": "plot_archive/38ac557_20251109_204356_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r"
+    ]
+  },
+  {
     "commit": "bad46f0",
     "branch": "main",
     "message": "fix(analysis-e3):combined plot final within, some slight bug on missing test position for study only confusing foils",

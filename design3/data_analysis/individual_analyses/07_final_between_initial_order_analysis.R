@@ -51,6 +51,7 @@ final_e3 <- df_e3 %>%
     initial_list_number == 10 & item_type == "Target: studied and tested at (n), Foil (n+1)" ~ "Target: : started and tested at (n) ; Appear once",
     TRUE ~ item_type
   )) %>%
+  filter(item_type != "Final Foil") %>%
   filter(!is.na(accuracy), !is.na(item_type)) %>%
   # Add polynomial terms
   bind_cols(create_polynomial_terms(., "initial_study_position")) %>%

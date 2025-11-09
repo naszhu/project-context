@@ -24,10 +24,10 @@ initial <- dfchanged %>%
       TRUE ~ NA_character_
     )
   ) %>%
-  mutate(item_type = factor(item_type, levels = c("foil","target"))) %>%
+  filter(item_type == "target") %>%
   bind_cols(create_polynomial_terms(., "study_position")) %>%
   bind_cols(create_polynomial_terms(., "test_position")) %>%
-  bind_cols(create_polynomial_terms(., "list_number"))%>%
+  bind_cols(create_polynomial_terms(., "list_number")) %>%
   filter(!(rt < 150 | rt > 3500))
 
 cat("Initial test data prepared:", nrow(initial), "trials\n")
@@ -35,9 +35,9 @@ cat("Initial test data prepared:", nrow(initial), "trials\n")
 # Validate position data
 validate_position_data(initial, "study_position")
 
-# Fit model: Study Position × Item Type
+# Fit model: Study Position effects for studied (target) items only
 m_init_studypos <- glmer(
-  accuracy ~ (study_position_lin + study_position_quad) * item_type +
+  accuracy ~ study_position_lin + study_position_quad +
     (1 | participant_id) + (0 + study_position_lin | participant_id),
   data = initial, family = binomial,
   control = glmerControl(optimizer = "bobyqa"),
@@ -51,33 +51,28 @@ check_convergence_issues(m_init_studypos)
 # Get fixed effects summary
 results <- broom.mixed::tidy(m_init_studypos, effects = "fixed", conf.int = TRUE)
 
-# Get item-type-specific trends
-cat("\n=== Item-Type-Specific Trends ===\n")
-studypos_lin_trend <- emtrends(m_init_studypos, ~ item_type, var = "study_position_lin")
-studypos_quad_trend <- emtrends(m_init_studypos, ~ item_type, var = "study_position_quad")
-print("Linear Trends:")
+# Get overall trend estimates
+cat("\n=== Overall Study Position Trends (Targets) ===\n")
+studypos_lin_trend <- emtrends(m_init_studypos, ~ 1, var = "study_position_lin")
+studypos_quad_trend <- emtrends(m_init_studypos, ~ 1, var = "study_position_quad")
+print("Linear Trend:")
 print(studypos_lin_trend)
-print("Quadratic Trends:")
+print("Quadratic Trend:")
 print(studypos_quad_trend)
 
-# Get marginal means and pairwise comparisons
-cat("\n=== Item Type Comparisons ===\n")
-studypos_emmeans <- emmeans(m_init_studypos, ~ item_type)
-studypos_pairs <- pairs(studypos_emmeans, adjust = "tukey")
-print("Estimated Marginal Means:")
-print(as.data.frame(studypos_emmeans))
-print("\nPairwise Comparisons:")
-print(studypos_pairs)
+# Get overall marginal mean
+cat("\n=== Overall Accuracy (Targets) ===\n")
+studypos_emmean <- emmeans(m_init_studypos, ~ 1)
+print(as.data.frame(studypos_emmean))
 
 # Save results
 saveRDS(
   list(
     model = m_init_studypos,
     summary = results,
-    linear_trends = as.data.frame(studypos_lin_trend),
-    quadratic_trends = as.data.frame(studypos_quad_trend),
-    emmeans = as.data.frame(studypos_emmeans),
-    pairwise = as.data.frame(studypos_pairs)
+    linear_trend = as.data.frame(studypos_lin_trend),
+    quadratic_trend = as.data.frame(studypos_quad_trend),
+    emmean = as.data.frame(studypos_emmean)
   ),
   "init_studypos_model.rds"
 )

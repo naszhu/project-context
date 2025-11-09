@@ -31,9 +31,23 @@ initial_e3 <- df_e3 %>%
     ),
     test_position = as.numeric(testPos_appear0_initial),
     list_number = as.numeric(listNum_appear0_initial),
-    accuracy = correct
   ) %>%
-  filter(!is.na(accuracy), !is.na(item_type)) %>%
+  filter(
+    item_type %in% c(
+      "Target",
+      "Inherented Foil - Last Studied Only",
+      "Inherented Foil - Last Target"
+    )
+  ) %>%
+  mutate(
+    item_type = forcats::fct_relevel(
+      item_type,
+      "Target",
+      "Inherented Foil - Last Studied Only",
+      "Inherented Foil - Last Target"
+    )
+  ) %>%
+  filter(!is.na(accuracy), !is.na(item_type), !is.na(study_position)) %>%
   bind_cols(create_polynomial_terms(., "study_position")) %>%
   bind_cols(create_polynomial_terms(., "test_position")) %>%
   bind_cols(create_polynomial_terms(., "list_number"))

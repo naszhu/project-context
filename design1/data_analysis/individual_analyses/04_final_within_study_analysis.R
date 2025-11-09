@@ -57,6 +57,7 @@ final <- dfchanged %>%
     final_order    = as.numeric(cut_number(as.numeric(testpos), 10, labels = 1:10)),
     initial_order  = as.numeric(prespos_itrial)
   ) %>%
+  filter(!item_type %in% c("FTO", "TO")) %>%
   select(participant_id, accuracy, item_type, study_position, test_position, final_order, initial_order, condition, rt)%>%
   filter(!(rt < 150 | rt > 3500))
 

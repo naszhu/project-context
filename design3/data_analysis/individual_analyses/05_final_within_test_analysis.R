@@ -21,10 +21,21 @@ final_e3 <- df_e3 %>%
   filter(task == "finalTest") %>%
   mutate(
     participant_id = factor(subject_id),
-    item_type = factor(type_comment_fn),
+    item_type_raw = type_comment_fn,
     # Position variables from initial exposure
     initial_study_position = as.numeric(studyPos_appear1_initial),
-    initial_test_position = as.numeric(testPos_appear1_initial),
+    initial_test_position_primary = suppressWarnings(as.numeric(testPos_appear1_initial)),
+    initial_test_position_confusing = suppressWarnings(as.numeric(testPos_appear2_initial)),
+    is_confusing_foil = item_type_raw %in% c(
+      "Target: studied and tested at (n), Foil (n+1)",
+      "Studied-only (n); Foil (n+1)",
+      "Foil(n), Foil (n+1)"
+    ),
+    initial_test_position = case_when(
+      is_confusing_foil & !is.na(initial_test_position_confusing) & initial_test_position_confusing > 0 ~
+        initial_test_position_confusing,
+      TRUE ~ initial_test_position_primary
+    ),
     initial_list_number = as.numeric(listNum_appear1_initial),
     # Final test position (binned into 10 groups)
     final_test_position = case_when(
@@ -40,11 +51,44 @@ final_e3 <- df_e3 %>%
       testPos_final <= 492 ~ 10,
       TRUE ~ NA_real_
     ),
-    accuracy = case_when(correct == "True" ~ 1,
-                        correct == "False" ~ 0,
-                        TRUE ~ correct)
+    accuracy = case_when(
+      correct == "True" ~ 1,
+      correct == "False" ~ 0,
+      TRUE ~ correct
+    ),
+    item_type = case_when(
+      item_type_raw == "Target: : started and tested at (n) ; Appear once" ~ "ST",
+      item_type_raw == "Target: studied and tested at (n), Foil (n+1)" ~ "ST(n)",
+      item_type_raw == "Foil(n); Appear once" ~ "TO",
+      item_type_raw == "Foil(n), Foil (n+1)" ~ "TO(n)",
+      item_type_raw == "Studied-only (n); Foil (n+1)" ~ "SO(n)",
+      TRUE ~ NA_character_
+    )
   ) %>%
-  filter(!is.na(accuracy), !is.na(item_type)) %>%
+  filter(
+    !item_type_raw %in% c(
+      "Final Foil",
+      "Studied-only (n); Appear once"
+    )
+  ) %>%
+  filter(
+    !is.na(accuracy),
+    !is.na(item_type),
+    !is.na(initial_test_position),
+    initial_test_position > 0
+  ) %>%
+  mutate(
+    item_type = factor(item_type, levels = c("ST", "ST(n)", "TO", "TO(n)", "SO(n)"))
+  ) %>%
+  select(
+    participant_id,
+    item_type,
+    accuracy,
+    initial_study_position,
+    initial_test_position,
+    initial_list_number,
+    final_test_position
+  ) %>%
   # Add polynomial terms
   bind_cols(create_polynomial_terms(., "initial_study_position")) %>%
   bind_cols(create_polynomial_terms(., "initial_test_position")) %>%

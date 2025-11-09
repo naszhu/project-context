@@ -44,6 +44,13 @@ final_e3 <- df_e3 %>%
                         correct == "False" ~ 0,
                         TRUE ~ correct)
   ) %>%
+  filter(
+    !item_type %in% c(
+      "Final Foil",
+      "Foil(n); Appear once",
+      "Foil(n), Foil (n+1)"
+    )
+  ) %>%
   filter(!is.na(accuracy), !is.na(item_type)) %>%
   # Add polynomial terms
   bind_cols(create_polynomial_terms(., "initial_study_position")) %>%
