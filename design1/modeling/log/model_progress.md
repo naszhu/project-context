@@ -1,5 +1,31 @@
 # Model Progress
 
+## Commit [b865d6e](https://github.com/naszhu/REM_E3_model_fixed/commit/b865d6e) (branch: `main`)
+**Time:** 2025-11-09 21:49:01  
+**Message:**
+```
+another temp save
+```
+**Changed Files:**
+- `design1/data_analysis/E1_study_test_position_interaction.R`  
+- `design1/data_analysis/individual_analyses/01_initial_study_position_analysis.R`  
+- `design1/data_analysis/individual_analyses/03_initial_between_list_analysis.R`  
+- `design1/data_analysis/individual_analyses/04_final_within_study_analysis.R`  
+- `design1/data_analysis/individual_analyses/05_final_within_test_analysis.R`  
+- `design1/data_analysis/individual_analyses/06_07_final_between_combined_order_analysis.R`  
+- `design1/data_analysis/individual_analyses/REVISED_INITIAL_STUDY_POSITION.md`  
+- `design1/data_analysis/individual_analyses/REWRITTEN_PARAGRAPH.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/README_DATA_STRUCTURE.md`  
+- `design3/combined_plot_e3.r`  
+- `design3/data_analysis/individual_analyses/01_initial_study_position_analysis.R`  
+- `design3/data_analysis/individual_analyses/04_final_within_study_analysis.R`  
+- `design3/data_analysis/individual_analyses/05_final_within_test_analysis.R`  
+- `design3/data_analysis/individual_analyses/07_final_between_initial_order_analysis.R`  
+![](../plot_archive/b865d6e_20251109_214901_plot1.png)  
+![](../plot_archive/b865d6e_20251109_214901_plot2.png)  
+
 ## Commit [38ac557](https://github.com/naszhu/REM_E3_model_fixed/commit/38ac557) (branch: `main`)
 **Time:** 2025-11-09 20:43:56  
 **Message:**
