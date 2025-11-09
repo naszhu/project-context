@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [bad46f0](https://github.com/naszhu/REM_E3_model_fixed/commit/bad46f0) (branch: `main`)
+**Time:** 2025-11-09 11:10:45  
+**Message:**
+```
+fix(analysis-e3):combined plot final within, some slight bug on missing test position for study only confusing foils
+
+- Updated the data processing for both test and study positions to include first appearance and confusing foil positions, improving clarity in the analysis.
+- Created separate datasets and plots for two rows, allowing for a more detailed comparison of data and predictions.
+- Enhanced visualization with customized aesthetics and saved outputs for both original and new combined plots, facilitating better insights into participant performance.
+- The changes provide a comprehensive view of accuracy metrics across different test conditions.
+
+Refs #65
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/bad46f0_20251109_111045_plot1.png)  
+![](../plot_archive/bad46f0_20251109_111045_plot2.png)  
+
 ## Commit [5722576](https://github.com/naszhu/REM_E3_model_fixed/commit/5722576) (branch: `main`)
 **Time:** 2025-11-09 11:08:14  
 **Message:**

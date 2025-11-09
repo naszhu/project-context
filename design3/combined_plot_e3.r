@@ -685,14 +685,19 @@ d1taf_test_row2 = df_rt_pl%>%
                            TRUE ~ correct))%>%
   mutate(type_comment=type_comment_fn)%>%
   mutate(
-    # For confusing foils, use testPos_appear2_initial; for others, use testPos_appear1_initial
-    testPos_choice = case_when(
-      type_comment %in% confusing_foil_types & !is.na(testPos_appear2_initial) & as.numeric(testPos_appear2_initial) > 0 ~ as.numeric(testPos_appear2_initial),
-      TRUE ~ as.numeric(testPos_appear1_initial)
+    testPos_appear1_num = as.numeric(testPos_appear1_initial),
+    testPos_appear2_num = as.numeric(testPos_appear2_initial),
+    # For confusing foils, use testPos_appear2_initial; for others, use testPos_appear1_initial.
+    # Final-test-only and non-confusing studied-only items should still appear in the plot at position 0.
+    testPos_choice_raw = case_when(
+      type_comment %in% c("Final Foil", "Studied-only (n); Appear once") ~ 0,
+      type_comment %in% confusing_foil_types & !is.na(testPos_appear2_num) & testPos_appear2_num > 0 ~ testPos_appear2_num,
+      !is.na(testPos_appear1_num) & testPos_appear1_num > 0 ~ testPos_appear1_num,
+      TRUE ~ 0
     ),
-    testPos_choice = ceiling(testPos_choice / 3)
+    testPos_choice = if_else(testPos_choice_raw > 0, ceiling(testPos_choice_raw / 3), 0)
   )%>%
-  filter(task=="finalTest", !is.na(testPos_choice), testPos_choice > 0)%>%
+  filter(task=="finalTest", !is.na(testPos_choice))%>%
    group_by(task, condition,type_comment, testPos_choice, subject_id)%>%
          summarise(crs = mean(correct))%>%
          group_by(task, condition,type_comment, testPos_choice )%>%
@@ -886,22 +891,23 @@ if (has_final_predictions) {
     scale_y_continuous(breaks = Y_BREAKS, limits = c(Y_MIN, Y_MAX))
 
   #################### ROW 2: Confusing Foil Test Position - PREDICTION ####################
-  # Note: For predictions, we need to check if the model outputs have confusing foil test positions
-  # If not available, we'll use the same as row 1 but note this limitation
-  # For now, using initial_testpos for all (assuming model doesn't distinguish)
-  # TODO: Update when model outputs confusing foil test positions separately
-  
-  # Data processing for prediction plot - Test Position (using confusing foil position for confusing foils)
-  # Note: This assumes the model uses initial_testpos which may need to be updated based on model output
+  # Data processing for prediction plot - Test Position (using confusing foil position for confusing foils when available)
   df1_test_row2 = allresf %>% 
     mutate(correct = case_when( 
       (decision_isold==1) & (is_target=="true") ~ 1, 
       decision_isold==0 & is_target=="false" ~ 1,
       TRUE ~ 0)) %>%
-    mutate(is_target = sub('"[^"]*$', '', type_specific)) %>%
-    # For confusing foils (SOn_p1, Tn_p1, Fn_p1), we would ideally use their confusing foil test position
-    # But since model may not output this separately, we use initial_testpos for now
-    mutate(test_position_grouped = ceiling(as.numeric(initial_testpos) / 3)) %>%
+    mutate(
+      is_target = sub('"[^"]*$', '', type_specific),
+      initial_testpos_numeric = suppressWarnings(as.numeric(initial_testpos)),
+      confusing_testpos_numeric = suppressWarnings(as.numeric(confusing_testpos)),
+      test_position_choice = case_when(
+        is_target %in% c("Fn_p1", "SOn_p1", "Tn_p1", "Fn", "SOn", "Tn") &
+          !is.na(confusing_testpos_numeric) & confusing_testpos_numeric > 0 ~ confusing_testpos_numeric,
+        TRUE ~ initial_testpos_numeric
+      ),
+      test_position_grouped = ceiling(test_position_choice / 3)
+    ) %>%
     group_by(test_position_grouped, is_target, simulation_number) %>%
     summarize(meanx = mean(correct)) %>%
     group_by(test_position_grouped, is_target) %>%

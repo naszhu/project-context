@@ -1,5 +1,18 @@
 [
   {
+    "commit": "bad46f0",
+    "branch": "main",
+    "message": "fix(analysis-e3):combined plot final within, some slight bug on missing test position for study only confusing foils",
+    "timestamp": "2025-11-09 11:10:45",
+    "plot1": "plot_archive/bad46f0_20251109_111045_plot1.png",
+    "plot2": "plot_archive/bad46f0_20251109_111045_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r"
+    ]
+  },
+  {
     "commit": "5722576",
     "branch": "main",
     "message": "refactor(data-analysis-e1): update E1 E3 study position interaction script for lag analysis",
