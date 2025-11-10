@@ -1,5 +1,34 @@
 [
   {
+    "commit": "f9404b1",
+    "branch": "main",
+    "message": "docs(all): writing of the analysis section",
+    "timestamp": "2025-11-11 15:58:21",
+    "plot1": "plot_archive/f9404b1_20251111_155821_plot1.png",
+    "plot2": "plot_archive/f9404b1_20251111_155821_plot2.png",
+    "changed_files": [
+      "Docs/final-write-up/Appendix_E_Detailed_Statistical_Results.md",
+      "Docs/final-write-up/resultall.md",
+      "Docs/final-write-up/resultall_backup.md",
+      "Docs/final-write-up/resultall_full_detail.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
+    "commit": "eac019b",
+    "branch": "main",
+    "message": "fix(plot-e3): fix plot to have dots for STO and SO",
+    "timestamp": "2025-11-09 22:46:11",
+    "plot1": "plot_archive/eac019b_20251109_224611_plot1.png",
+    "plot2": "plot_archive/eac019b_20251109_224611_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/combined_plot_e3.r"
+    ]
+  },
+  {
     "commit": "9dd21a7",
     "branch": "main",
     "message": "restore(analysis-e3): restore from dumb ass wtf idk",

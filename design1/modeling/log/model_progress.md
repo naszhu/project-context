@@ -1,5 +1,43 @@
 # Model Progress
 
+## Commit [f9404b1](https://github.com/naszhu/REM_E3_model_fixed/commit/f9404b1) (branch: `main`)
+**Time:** 2025-11-11 15:58:21  
+**Message:**
+```
+docs(all): writing of the analysis section
+
+- Introduced a new appendix detailing comprehensive statistical methods and results for recognition accuracy analyses, including model specifications and fixed effects structures.
+- Added a backup document containing statistical analysis methods and results for Experiment 1, ensuring clarity in data processing and model diagnostics.
+- Included a full detail document with extensive results from Experiment 1, covering data exclusion criteria, quality control, and analysis overview.
+- Enhanced the organization of results across multiple documents to facilitate better understanding of recognition accuracy across different phases and position types.
+```
+**Changed Files:**
+- `Docs/final-write-up/Appendix_E_Detailed_Statistical_Results.md`  
+- `Docs/final-write-up/resultall.md`  
+- `Docs/final-write-up/resultall_backup.md`  
+- `Docs/final-write-up/resultall_full_detail.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/f9404b1_20251111_155821_plot1.png)  
+![](../plot_archive/f9404b1_20251111_155821_plot2.png)  
+
+## Commit [eac019b](https://github.com/naszhu/REM_E3_model_fixed/commit/eac019b) (branch: `main`)
+**Time:** 2025-11-09 22:46:11  
+**Message:**
+```
+fix(plot-e3): fix plot to have dots for STO and SO
+
+- Introduced numeric conversions for test position variables to improve clarity and accuracy in data processing.
+- Updated the logic for determining test positions, particularly for confusing foils, ensuring correct handling and representation in analysis.
+- Streamlined filtering criteria to maintain relevant data in final test analysis, enhancing overall data integrity and insights.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/combined_plot_e3.r`  
+![](../plot_archive/eac019b_20251109_224611_plot1.png)  
+![](../plot_archive/eac019b_20251109_224611_plot2.png)  
+
 ## Commit [9dd21a7](https://github.com/naszhu/REM_E3_model_fixed/commit/9dd21a7) (branch: `main`)
 **Time:** 2025-11-09 22:39:01  
 **Message:**
