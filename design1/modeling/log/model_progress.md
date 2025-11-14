@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [8626ebc](https://github.com/naszhu/REM_E3_model_fixed/commit/8626ebc) (branch: `main`)
+**Time:** 2025-11-11 15:58:53  
+**Message:**
+```
+docs(all): writing of the analysis section
+
+- Introduced a new appendix detailing comprehensive statistical methods and results for recognition accuracy analyses, including model specifications and fixed effects structures.
+- Added a backup document containing statistical analysis methods and results for Experiment 1, ensuring clarity in data processing and model diagnostics.
+- Included a full detail document with extensive results from Experiment 1, covering data exclusion criteria, quality control, and analysis overview.
+- Enhanced the organization of results across multiple documents to facilitate better understanding of recognition accuracy across different phases and position types.
+```
+**Changed Files:**
+- `Docs/final-write-up/Appendix_E_Detailed_Statistical_Results.md`  
+- `Docs/final-write-up/resultall.md`  
+- `Docs/final-write-up/resultall_backup.md`  
+- `Docs/final-write-up/resultall_full_detail.md`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+![](../plot_archive/8626ebc_20251111_155853_plot1.png)  
+![](../plot_archive/8626ebc_20251111_155853_plot2.png)  
+
 ## Commit [f9404b1](https://github.com/naszhu/REM_E3_model_fixed/commit/f9404b1) (branch: `main`)
 **Time:** 2025-11-11 15:58:21  
 **Message:**

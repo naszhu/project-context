@@ -1,5 +1,21 @@
 [
   {
+    "commit": "8626ebc",
+    "branch": "main",
+    "message": "docs(all): writing of the analysis section",
+    "timestamp": "2025-11-11 15:58:53",
+    "plot1": "plot_archive/8626ebc_20251111_155853_plot1.png",
+    "plot2": "plot_archive/8626ebc_20251111_155853_plot2.png",
+    "changed_files": [
+      "Docs/final-write-up/Appendix_E_Detailed_Statistical_Results.md",
+      "Docs/final-write-up/resultall.md",
+      "Docs/final-write-up/resultall_backup.md",
+      "Docs/final-write-up/resultall_full_detail.md",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md"
+    ]
+  },
+  {
     "commit": "f9404b1",
     "branch": "main",
     "message": "docs(all): writing of the analysis section",
