@@ -1,5 +1,20 @@
 [
   {
+    "commit": "03d4ec7",
+    "branch": "nov-24-primacy-recency",
+    "message": "feat(model-e1): implement linear drop in storage probabilities based on study position",
+    "timestamp": "2025-11-24 12:53:15",
+    "plot1": "plot_archive/03d4ec7_20251124_125315_plot1.png",
+    "plot2": "plot_archive/03d4ec7_20251124_125315_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_storage.jl",
+      "design3/modeling"
+    ]
+  },
+  {
     "commit": "04b32ed",
     "branch": "nov-24-primacy-recency",
     "message": "feat(model-e1): add context drift between studied items",

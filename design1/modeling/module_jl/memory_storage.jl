@@ -11,8 +11,8 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
 
             # copystore_process(new_image,j,u_star,)
             if j == 0 # if nothing is stored
-                # Slightly higher probability at early positions, then linear drop
-                p_store_word = clamp(u_star_store_content_base - u_star_store_drop * (word.studypos - 1), 0.0, 1.0)
+                # Higher at early positions, dropping asymptotically
+                p_store_word = u_star_store_content_by_pos[word.studypos]
                 stored_val = (rand() < p_store_word ? 1 : 0) * word.word_features[i]
                 # if list_num==1
                 #     stored_val =(rand() < u_star[word.studypos]-0.02 ? 1 : 0)*word.word_features[i];
@@ -31,9 +31,8 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
             j = new_image.context_features[ic]
 
             if j == 0 # if nothing is stored
-                # Separate UC/CC storage probabilities (linear drop with study position)
-                p_store_ctx_base = ic <= nU ? u_star_store_UC_base : u_star_store_CC_base
-                p_store_ctx = clamp(p_store_ctx_base - u_star_store_drop * (word.studypos - 1), 0.0, 1.0)
+                # Separate UC/CC storage probabilities (same asymptotic curve)
+                p_store_ctx = ic <= nU ? u_star_store_UC_by_pos[word.studypos] : u_star_store_CC_by_pos[word.studypos]
                 stored_val = (rand() < p_store_ctx ? 1 : 0) * context_features[ic]
                 if stored_val != 0 #if sucessfully stored do the folowing, else keep the same value
                     copied_val = rand() < c_context[list_num] ? stored_val : rand(Geometric(g_context)) + 1

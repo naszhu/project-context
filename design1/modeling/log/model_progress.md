@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [03d4ec7](https://github.com/naszhu/REM_E3_model_fixed/commit/03d4ec7) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-24 12:53:15  
+**Message:**
+```
+feat(model-e1): implement linear drop in storage probabilities based on study position
+
+- Introduced separate storage probabilities for encoding content, UC, and CC, starting slightly above the base value and decreasing linearly with study position.
+- Updated the storage logic in the `store_episodic_image` function to reflect these new probabilities, enhancing the model's realism in simulating memory storage dynamics.
+- Cleaned up commented-out code for clarity and maintainability.
+
+Refs #66
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_storage.jl`  
+- `design3/modeling`  
+![](../plot_archive/03d4ec7_20251124_125315_plot1.png)  
+![](../plot_archive/03d4ec7_20251124_125315_plot2.png)  
+
 ## Commit [04b32ed](https://github.com/naszhu/REM_E3_model_fixed/commit/04b32ed) (branch: `nov-24-primacy-recency`)
 **Time:** 2025-11-24 12:31:47  
 **Message:**
