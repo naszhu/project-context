@@ -1,5 +1,14 @@
 [
   {
+    "commit": "bc06c42",
+    "branch": "nov-24-primacy-recency",
+    "message": "merge(oct11): ours merge. Merge branch 'oct-11'",
+    "timestamp": "2025-11-14 23:07:08",
+    "plot1": "plot_archive/bc06c42_20251114_230708_plot1.png",
+    "plot2": "plot_archive/bc06c42_20251114_230708_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "8626ebc",
     "branch": "main",
     "message": "docs(all): writing of the analysis section",
