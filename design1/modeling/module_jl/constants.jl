@@ -47,6 +47,14 @@ u_star_v = 0.4#1-(1-0.04)^13 #0.04
 u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
 
+# Separate storage probabilities for encoding (content / UC / CC).
+# Start slightly above base u_star and drop linearly with study position.
+u_star_store_base = u_star_v + 0.01
+u_star_store_drop = 0.002
+u_star_store_content_base = u_star_store_base
+u_star_store_UC_base = u_star_store_base
+u_star_store_CC_base = u_star_store_base
+
 adv_u_star_strengthen = 0.00# 0.06 no adv during strenghtening for now
 adv_c_strenghten = 0.0# 0.1
 
@@ -352,4 +360,3 @@ println("prob of feature change after 4 lists $(1-(aa)^8)")
 # Note: With n=1, the probability formulas simplify to just the p values themselves
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 println("The actual u_star after nsteps is", 1-(1-u_star[1])^n_units_time)
-

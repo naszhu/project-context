@@ -1,5 +1,25 @@
 # Model Progress
 
+## Commit [04b32ed](https://github.com/naszhu/REM_E3_model_fixed/commit/04b32ed) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-24 12:31:47  
+**Message:**
+```
+feat(model-e1): add context drift between studied items
+
+- Added functionality to introduce context drift between consecutive studied items during simulation, enhancing the realism of the study process.
+- Updated constants to define the number of drift steps and the probability of context change, allowing for more controlled experimental conditions.
+- Set the final test flag to true, adjusting the number of simulations accordingly.
+
+Refs #66
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/04b32ed_20251124_123147_plot1.png)  
+![](../plot_archive/04b32ed_20251124_123147_plot2.png)  
+
 ## Commit [51b1113](https://github.com/naszhu/REM_E3_model_fixed/commit/51b1113) (branch: `nov-24-primacy-recency`)
 **Time:** 2025-11-24 11:40:16  
 **Message:**

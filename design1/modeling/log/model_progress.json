@@ -1,5 +1,19 @@
 [
   {
+    "commit": "04b32ed",
+    "branch": "nov-24-primacy-recency",
+    "message": "feat(model-e1): add context drift between studied items",
+    "timestamp": "2025-11-24 12:31:47",
+    "plot1": "plot_archive/04b32ed_20251124_123147_plot1.png",
+    "plot2": "plot_archive/04b32ed_20251124_123147_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
     "commit": "51b1113",
     "branch": "nov-24-primacy-recency",
     "message": "chore(analysis): clean up whitespace in R script and README",
