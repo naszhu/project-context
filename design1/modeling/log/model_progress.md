@@ -1,5 +1,21 @@
 # Model Progress
 
+## Commit [51b1113](https://github.com/naszhu/REM_E3_model_fixed/commit/51b1113) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-24 11:40:16  
+**Message:**
+```
+chore(analysis): clean up whitespace in R script and README
+
+- Removed unnecessary blank lines in E1_study_test_position_interaction.R and README_DATA_STRUCTURE.md to improve code readability and maintainability.
+```
+**Changed Files:**
+- `design1/data_analysis/E1_study_test_position_interaction.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/README_DATA_STRUCTURE.md`  
+![](../plot_archive/51b1113_20251124_114016_plot1.png)  
+![](../plot_archive/51b1113_20251124_114016_plot2.png)  
+
 ## Commit [bc06c42](https://github.com/naszhu/REM_E3_model_fixed/commit/bc06c42) (branch: `nov-24-primacy-recency`)
 **Time:** 2025-11-14 23:07:08  
 **Message:**

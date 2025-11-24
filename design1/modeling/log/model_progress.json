@@ -1,5 +1,19 @@
 [
   {
+    "commit": "51b1113",
+    "branch": "nov-24-primacy-recency",
+    "message": "chore(analysis): clean up whitespace in R script and README",
+    "timestamp": "2025-11-24 11:40:16",
+    "plot1": "plot_archive/51b1113_20251124_114016_plot1.png",
+    "plot2": "plot_archive/51b1113_20251124_114016_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1_study_test_position_interaction.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/README_DATA_STRUCTURE.md"
+    ]
+  },
+  {
     "commit": "bc06c42",
     "branch": "nov-24-primacy-recency",
     "message": "merge(oct11): ours merge. Merge branch 'oct-11'",

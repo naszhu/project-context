@@ -1,6 +1,6 @@
 
 
-is_finaltest = false
+is_finaltest = true
 n_simulations = is_finaltest ? 200 : 1000;
 
 # =============================================================================
@@ -200,6 +200,7 @@ max_distortion_probes = 20  # Number of probes until distortion probability reac
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
 #n_driftStudyTest = round.(Int, ones(10) * 9) #7 # ORIGINAL: was 9 steps
 n_driftStudyTest = round.(Int, ones(10) * 1) # Changed from 9 to 1
+const n_drift_between_study_items = 1  # CC drift steps between studied items within a list
 
 #n_between_listchange = 20 #20 in E3 #25 originally # ORIGINAL: was 20 steps
 n_between_listchange = 1 # Changed from 20 to 1
@@ -208,6 +209,7 @@ n_between_listchange = 1 # Changed from 20 to 1
 #const p_driftAndListChange = 0.03; # ORIGINAL: single parameter for both
 const p_driftStudyTest = 0.1; # Equivalent to (1-(1-0.03)^9) for study-test drift
 const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-list change
+const p_drift_between_study_items = 0.01;  # Reuse study-test drift rate within study
 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
@@ -350,5 +352,4 @@ println("prob of feature change after 4 lists $(1-(aa)^8)")
 # Note: With n=1, the probability formulas simplify to just the p values themselves
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 println("The actual u_star after nsteps is", 1-(1-u_star[1])^n_units_time)
-
 
