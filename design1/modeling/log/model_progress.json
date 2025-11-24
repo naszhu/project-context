@@ -1,5 +1,20 @@
 [
   {
+    "commit": "5fa2d47",
+    "branch": "nov-24-primacy-recency",
+    "message": "feat(model-e1): use asymptotic drop for u star",
+    "timestamp": "2025-11-24 13:17:56",
+    "plot1": "plot_archive/5fa2d47_20251124_131756_plot1.png",
+    "plot2": "plot_archive/5fa2d47_20251124_131756_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_storage.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
     "commit": "03d4ec7",
     "branch": "nov-24-primacy-recency",
     "message": "feat(model-e1): implement linear drop in storage probabilities based on study position",

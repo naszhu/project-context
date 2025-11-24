@@ -134,8 +134,8 @@ criterion_between_list_initial_increment = 0.2  # initial increment across lists
 criterion_between_list_decrement_per_step = 0.05  # how much increment decreases each list
 
 # Parameters for formula-based asymptotic criterion (between-list dimension, E3-style)
-criterion_between_list_base = 0.35  # base value for between-list criterion (Z in formula)
-criterion_between_list_r_rate = 0.95  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
+criterion_between_list_base = 0.2  # base value for between-list criterion (Z in formula)
+criterion_between_list_r_rate = 0.85  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
 criterion_initial = generate_asymptotic_values_formula(1.0, 1.0, 1.0, criterion_between_list_base, criterion_between_list_r_rate)
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
@@ -176,7 +176,7 @@ p_recallFeatureStore = 0.85;
 # CONTEXT TESTING PARAMETERS  
 # =============================================================================
 # Context testing flags
-context_tau = vcat(0.1, ones(n_lists-1) * 100) #foil odds should lower than this - first list very low (0.1), rest 100
+context_tau = vcat(100, ones(n_lists-1) * 100) #foil odds should lower than this - first list very low (0.1), rest 100
 
 # =============================================================================
 # DRIFT AND CHANGE PARAMETERS

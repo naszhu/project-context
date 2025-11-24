@@ -1,5 +1,26 @@
 # Model Progress
 
+## Commit [5fa2d47](https://github.com/naszhu/REM_E3_model_fixed/commit/5fa2d47) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-24 13:17:56  
+**Message:**
+```
+feat(model-e1): use asymptotic drop for u star
+
+- Updated storage probabilities for content, UC, and CC to decrease asymptotically based on study position, enhancing the model's realism in simulating memory dynamics.
+- Introduced a new utility function for calculating asymptotic decreases, improving code modularity and clarity.
+- Adjusted related logic in the `store_episodic_image` function to utilize the new asymptotic probabilities.
+
+Refs #66
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_storage.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/5fa2d47_20251124_131756_plot1.png)  
+![](../plot_archive/5fa2d47_20251124_131756_plot2.png)  
+
 ## Commit [03d4ec7](https://github.com/naszhu/REM_E3_model_fixed/commit/03d4ec7) (branch: `nov-24-primacy-recency`)
 **Time:** 2025-11-24 12:53:15  
 **Message:**
