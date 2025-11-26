@@ -60,6 +60,7 @@ function simulate_rem()
             end
 
             # study_list_context = deepcopy(list_change_context_features);
+            # The testlist context is the context after all drifts of initial test 
             test_list_context = deepcopy(list_change_context_features)
             test_list_context_unchange = deepcopy(general_context_features)
 
@@ -67,7 +68,10 @@ function simulate_rem()
             # test_list_context: gets drifted (and possibly distorted), then used for initial test
             # Probes will reinstate toward the DRIFTED context (not study context)
 
-             #context drift below for both 
+            ########################### 
+            #context drift below for both between study and test
+            # Only do drift for changing context, not unchanging context
+             ###########################
             for _ in 1:n_driftStudyTest[list_num]
 
                 # drift for changing context
@@ -79,6 +83,7 @@ function simulate_rem()
 
                 # drift for unchanging context
                 if is_UnchangeCtxDriftAndReinstate
+                    error("UnchangeCtxDriftAndReinstate is not supported in design1")
                     for cf in eachindex(test_list_context_unchange)
                         if rand() < p_driftStudyTest
                             test_list_context_unchange[cf] = rand(Geometric(g_context)) + 1
@@ -88,6 +93,10 @@ function simulate_rem()
             end #end for _ in 1:n_driftStudyTest[list_num]
 
             
+            ########################### 
+            #context distortion below for both between study and test
+            # Do this for both changing context and unchanging context
+             ###########################
             ## context and content DISTORTION between study and test (after drift)
             # CC_before_distort: drifted context (reinstate toward this)
             # CC_after_distort: drifted + distorted context (start probes with this if distortion enabled)

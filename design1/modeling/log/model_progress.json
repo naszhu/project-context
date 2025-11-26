@@ -1,5 +1,18 @@
 [
   {
+    "commit": "8aa45ff",
+    "branch": "nov26-test",
+    "message": "explore(nov24): addback context threshold different for first list",
+    "timestamp": "2025-11-26 16:45:44",
+    "plot1": "plot_archive/8aa45ff_20251126_164544_plot1.png",
+    "plot2": "plot_archive/8aa45ff_20251126_164544_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "d2e9e01",
     "branch": "nov26-test",
     "message": "merge(nov24): Merge branch 'nov-24-primacy-recency'",
