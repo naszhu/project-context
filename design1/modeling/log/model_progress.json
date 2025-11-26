@@ -1,5 +1,18 @@
 [
   {
+    "commit": "eaed102",
+    "branch": "nov-24-primacy-recency",
+    "message": "finetune(constants): turn down context threshold vary for between list, tune criterion initial",
+    "timestamp": "2025-11-24 13:22:32",
+    "plot1": "plot_archive/eaed102_20251124_132232_plot1.png",
+    "plot2": "plot_archive/eaed102_20251124_132232_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
     "commit": "5fa2d47",
     "branch": "nov-24-primacy-recency",
     "message": "feat(model-e1): use asymptotic drop for u star",

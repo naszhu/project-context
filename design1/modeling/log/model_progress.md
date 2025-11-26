@@ -1,5 +1,23 @@
 # Model Progress
 
+## Commit [eaed102](https://github.com/naszhu/REM_E3_model_fixed/commit/eaed102) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-24 13:22:32  
+**Message:**
+```
+finetune(constants): turn down context threshold vary for between list, tune criterion initial
+
+- Updated the base value and rate for the between-list criterion to enhance the model's realism in simulating memory dynamics.
+- Modified context_tau to ensure appropriate foil odds, improving the accuracy of context testing parameters.
+
+Refs #66
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/eaed102_20251124_132232_plot1.png)  
+![](../plot_archive/eaed102_20251124_132232_plot2.png)  
+
 ## Commit [5fa2d47](https://github.com/naszhu/REM_E3_model_fixed/commit/5fa2d47) (branch: `nov-24-primacy-recency`)
 **Time:** 2025-11-24 13:17:56  
 **Message:**

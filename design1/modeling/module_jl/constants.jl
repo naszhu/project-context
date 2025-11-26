@@ -50,11 +50,13 @@ u_star_storeintest = u_star #for word # ratio of this and the next is key for T_
 # Separate storage probabilities for encoding (content / UC / CC).
 # Start slightly above base u_star and drop linearly with study position.
 u_star_store_asymptote = u_star_v        # L in formula (target/base)
-u_star_store_start = u_star_v + 0.07      # zbase (start > base)
-u_star_store_r = 0.6                     # quick early drop
-u_star_store_content_by_pos = asym_decrease_to_L(u_star_store_start, u_star_store_asymptote, u_star_store_r, n_words)
-u_star_store_UC_by_pos = u_star_store_content_by_pos
-u_star_store_CC_by_pos = u_star_store_content_by_pos
+u_star_store_start = u_star_v + 0.6      # zbase (start > base)
+u_star_store_r = 0.5 #If r bigger, drop slower                # quick early drop
+u_use=asym_decrease_to_L(u_star_store_start, u_star_store_asymptote, u_star_store_r, n_words);
+
+u_star_store_content_by_pos = fill(u_star_v, n_words)
+u_star_store_UC_by_pos = fill(u_star_v, n_words)
+u_star_store_CC_by_pos = u_use
 
 adv_u_star_strengthen = 0.00# 0.06 no adv during strenghtening for now
 adv_c_strenghten = 0.0# 0.1
@@ -135,7 +137,7 @@ criterion_between_list_decrement_per_step = 0.05  # how much increment decreases
 
 # Parameters for formula-based asymptotic criterion (between-list dimension, E3-style)
 criterion_between_list_base = 0.2  # base value for between-list criterion (Z in formula)
-criterion_between_list_r_rate = 0.85  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
+criterion_between_list_r_rate = 0.88  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
 criterion_initial = generate_asymptotic_values_formula(1.0, 1.0, 1.0, criterion_between_list_base, criterion_between_list_r_rate)
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
@@ -218,7 +220,7 @@ n_between_listchange = 1 # Changed from 20 to 1
 #const p_driftAndListChange = 0.03; # ORIGINAL: single parameter for both
 const p_driftStudyTest = 0.1; # Equivalent to (1-(1-0.03)^9) for study-test drift
 const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-list change
-const p_drift_between_study_items = 0.01;  # Reuse study-test drift rate within study
+const p_drift_between_study_items = 0.008;  # Reuse study-test drift rate within study
 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
