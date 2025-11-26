@@ -11,7 +11,9 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
 
             # copystore_process(new_image,j,u_star,)
             if j == 0 # if nothing is stored
-                stored_val = (rand() < u_star[list_num] ? 1 : 0) * word.word_features[i]
+                # Higher at early positions, dropping asymptotically
+                p_store_word = u_star_store_content_by_pos[word.studypos]
+                stored_val = (rand() < p_store_word ? 1 : 0) * word.word_features[i]
                 # if list_num==1
                 #     stored_val =(rand() < u_star[word.studypos]-0.02 ? 1 : 0)*word.word_features[i];
                 # else stored_val =(rand() < u_star[word.studypos] ? 1 : 0)*word.word_features[i];
@@ -29,16 +31,9 @@ function store_episodic_image(image_pool::Vector{EpisodicImage}, word::Word, con
             j = new_image.context_features[ic]
 
             if j == 0 # if nothing is stored
-                # stored_val =(rand() < u_star_context[word.studypos] ? 1 : 0)*context_features[ic];
-                if (list_num == 1) & (ic>nU) #only for changing; special u_star store only for change & list 1
-                    # println("?")
-                    stored_val = (rand() < u_star_context[list_num] ? 1 : 0) * context_features[ic]
-                    # stored_val = (rand() < u_star_context[word.studypos] ? 1 : 0) * context_features[ic]
-                else
-                    stored_val = (rand() < u_star_context[end] ? 1 : 0) * context_features[ic]
-                    # stored_val = (rand() < u_star_context[word.studypos] ? 1 : 0) * context_features[ic]
-
-                end
+                # Separate UC/CC storage probabilities (same asymptotic curve)
+                p_store_ctx = ic <= nU ? u_star_store_UC_by_pos[word.studypos] : u_star_store_CC_by_pos[word.studypos]
+                stored_val = (rand() < p_store_ctx ? 1 : 0) * context_features[ic]
                 if stored_val != 0 #if sucessfully stored do the folowing, else keep the same value
                     copied_val = rand() < c_context[list_num] ? stored_val : rand(Geometric(g_context)) + 1
                     new_image.context_features[ic] = copied_val

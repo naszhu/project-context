@@ -13,6 +13,17 @@ function fast_concat(vectors::Vector{Vector{T}}) where {T}
 end
 
 
+# Exponential decrease toward asymptote using Z(j)=L + (zbase - L) * r^(j-1)
+function asym_decrease_to_L(z_start::Float64, L::Float64, r::Float64, n::Int)::Vector{Float64}
+    @assert n ≥ 1
+    @assert r > 0.0 "r must be positive"
+    result = Vector{Float64}(undef, n)
+    for j in 1:n
+        result[j] = L + (z_start - L) * r^(j - 1)
+    end
+    return result
+end
+
 log_transform(x; k=10) = log1p(k*x) / log1p(k)
 # “Notch” or band-stop style transform: strong suppression in mid-range, mild/no suppression at extremes
 notch_transform(x; α=10.0, μ=0.5, σ=0.2) = x / (1 + α * exp(-((x - μ)^2) / (2*σ^2)))

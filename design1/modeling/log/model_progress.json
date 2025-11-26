@@ -1,5 +1,139 @@
 [
   {
+    "commit": "c405632",
+    "branch": "main",
+    "message": "Merge branch 'nov-24-primacy-recency'",
+    "timestamp": "2025-11-26 09:44:26",
+    "plot1": "plot_archive/c405632_20251126_094426_plot1.png",
+    "plot2": "plot_archive/c405632_20251126_094426_plot2.png",
+    "changed_files": []
+  },
+  {
+    "commit": "eb167bd",
+    "branch": "main",
+    "message": "Merge branch 'nov-24-primacy-recency'",
+    "timestamp": "2025-11-26 09:43:17",
+    "plot1": "plot_archive/eb167bd_20251126_094317_plot1.png",
+    "plot2": "plot_archive/eb167bd_20251126_094317_plot2.png",
+    "changed_files": []
+  },
+  {
+    "commit": "f2a1bd6",
+    "branch": "main",
+    "message": "Merge branch 'nov-24-primacy-recency'",
+    "timestamp": "2025-11-26 09:43:07",
+    "plot1": "plot_archive/f2a1bd6_20251126_094307_plot1.png",
+    "plot2": "plot_archive/f2a1bd6_20251126_094307_plot2.png",
+    "changed_files": []
+  },
+  {
+    "commit": "daea28b",
+    "branch": "main",
+    "message": "Merge branch 'nov-24-primacy-recency'",
+    "timestamp": "2025-11-26 09:39:56",
+    "plot1": "plot_archive/daea28b_20251126_093956_plot1.png",
+    "plot2": "plot_archive/daea28b_20251126_093956_plot2.png",
+    "changed_files": []
+  },
+  {
+    "commit": "612d182",
+    "branch": "main",
+    "message": "Merge branch 'nov-24-primacy-recency'",
+    "timestamp": "2025-11-26 09:37:25",
+    "plot1": "plot_archive/612d182_20251126_093725_plot1.png",
+    "plot2": "plot_archive/612d182_20251126_093725_plot2.png",
+    "changed_files": []
+  },
+  {
+    "commit": "0d5f44e",
+    "branch": "main",
+    "message": "Merge branch 'nov-24-primacy-recency'",
+    "timestamp": "2025-11-26 09:37:09",
+    "plot1": "plot_archive/0d5f44e_20251126_093709_plot1.png",
+    "plot2": "plot_archive/0d5f44e_20251126_093709_plot2.png",
+    "changed_files": []
+  },
+  {
+    "commit": "eaed102",
+    "branch": "nov-24-primacy-recency",
+    "message": "finetune(constants): turn down context threshold vary for between list, tune criterion initial",
+    "timestamp": "2025-11-24 13:22:32",
+    "plot1": "plot_archive/eaed102_20251124_132232_plot1.png",
+    "plot2": "plot_archive/eaed102_20251124_132232_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "5fa2d47",
+    "branch": "nov-24-primacy-recency",
+    "message": "feat(model-e1): use asymptotic drop for u star",
+    "timestamp": "2025-11-24 13:17:56",
+    "plot1": "plot_archive/5fa2d47_20251124_131756_plot1.png",
+    "plot2": "plot_archive/5fa2d47_20251124_131756_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_storage.jl",
+      "design1/modeling/module_jl/utils.jl"
+    ]
+  },
+  {
+    "commit": "03d4ec7",
+    "branch": "nov-24-primacy-recency",
+    "message": "feat(model-e1): implement linear drop in storage probabilities based on study position",
+    "timestamp": "2025-11-24 12:53:15",
+    "plot1": "plot_archive/03d4ec7_20251124_125315_plot1.png",
+    "plot2": "plot_archive/03d4ec7_20251124_125315_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/memory_storage.jl",
+      "design3/modeling"
+    ]
+  },
+  {
+    "commit": "04b32ed",
+    "branch": "nov-24-primacy-recency",
+    "message": "feat(model-e1): add context drift between studied items",
+    "timestamp": "2025-11-24 12:31:47",
+    "plot1": "plot_archive/04b32ed_20251124_123147_plot1.png",
+    "plot2": "plot_archive/04b32ed_20251124_123147_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "51b1113",
+    "branch": "nov-24-primacy-recency",
+    "message": "chore(analysis): clean up whitespace in R script and README",
+    "timestamp": "2025-11-24 11:40:16",
+    "plot1": "plot_archive/51b1113_20251124_114016_plot1.png",
+    "plot2": "plot_archive/51b1113_20251124_114016_plot2.png",
+    "changed_files": [
+      "design1/data_analysis/E1_study_test_position_interaction.R",
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design3/README_DATA_STRUCTURE.md"
+    ]
+  },
+  {
+    "commit": "bc06c42",
+    "branch": "nov-24-primacy-recency",
+    "message": "merge(oct11): ours merge. Merge branch 'oct-11'",
+    "timestamp": "2025-11-14 23:07:08",
+    "plot1": "plot_archive/bc06c42_20251114_230708_plot1.png",
+    "plot2": "plot_archive/bc06c42_20251114_230708_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "8626ebc",
     "branch": "main",
     "message": "docs(all): writing of the analysis section",

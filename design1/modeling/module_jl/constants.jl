@@ -1,6 +1,6 @@
 
 
-is_finaltest = false
+is_finaltest = true
 n_simulations = is_finaltest ? 200 : 1000;
 
 # =============================================================================
@@ -46,6 +46,17 @@ const n_units_time = 1 #number of steps
 u_star_v = 0.4#1-(1-0.04)^13 #0.04
 u_star = vcat(u_star_v, ones(n_lists-1) * u_star_v)
 u_star_storeintest = u_star #for word # ratio of this and the next is key for T_nt > T_t, when that for storage and test is seperatly added, also influence
+
+# Separate storage probabilities for encoding (content / UC / CC).
+# Start slightly above base u_star and drop linearly with study position.
+u_star_store_asymptote = u_star_v        # L in formula (target/base)
+u_star_store_start = u_star_v + 0.6      # zbase (start > base)
+u_star_store_r = 0.5 #If r bigger, drop slower                # quick early drop
+u_use=asym_decrease_to_L(u_star_store_start, u_star_store_asymptote, u_star_store_r, n_words);
+
+u_star_store_content_by_pos = fill(u_star_v, n_words)
+u_star_store_UC_by_pos = fill(u_star_v, n_words)
+u_star_store_CC_by_pos = u_use
 
 adv_u_star_strengthen = 0.00# 0.06 no adv during strenghtening for now
 adv_c_strenghten = 0.0# 0.1
@@ -125,8 +136,8 @@ criterion_between_list_initial_increment = 0.2  # initial increment across lists
 criterion_between_list_decrement_per_step = 0.05  # how much increment decreases each list
 
 # Parameters for formula-based asymptotic criterion (between-list dimension, E3-style)
-criterion_between_list_base = 0.4  # base value for between-list criterion (Z in formula)
-criterion_between_list_r_rate = 0.95  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
+criterion_between_list_base = 0.2  # base value for between-list criterion (Z in formula)
+criterion_between_list_r_rate = 0.88  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
 criterion_initial = generate_asymptotic_values_formula(1.0, 1.0, 1.0, criterion_between_list_base, criterion_between_list_r_rate)
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
@@ -167,7 +178,7 @@ p_recallFeatureStore = 0.85;
 # CONTEXT TESTING PARAMETERS  
 # =============================================================================
 # Context testing flags
-context_tau = vcat(0.1, ones(n_lists-1) * 100) #foil odds should lower than this - first list very low (0.1), rest 100
+context_tau = vcat(100, ones(n_lists-1) * 100) #foil odds should lower than this - first list very low (0.1), rest 100
 
 # =============================================================================
 # DRIFT AND CHANGE PARAMETERS
@@ -200,6 +211,7 @@ max_distortion_probes = 20  # Number of probes until distortion probability reac
 #this number is 12 in E3, i theoretically should keep this the same, but very hard
 #n_driftStudyTest = round.(Int, ones(10) * 9) #7 # ORIGINAL: was 9 steps
 n_driftStudyTest = round.(Int, ones(10) * 1) # Changed from 9 to 1
+const n_drift_between_study_items = 1  # CC drift steps between studied items within a list
 
 #n_between_listchange = 20 #20 in E3 #25 originally # ORIGINAL: was 20 steps
 n_between_listchange = 1 # Changed from 20 to 1
@@ -208,6 +220,7 @@ n_between_listchange = 1 # Changed from 20 to 1
 #const p_driftAndListChange = 0.03; # ORIGINAL: single parameter for both
 const p_driftStudyTest = 0.1; # Equivalent to (1-(1-0.03)^9) for study-test drift
 const p_driftBetweenList = 0.456; # Equivalent to (1-(1-0.03)^20) for between-list change
+const p_drift_between_study_items = 0.008;  # Reuse study-test drift rate within study
 
 
 # p_ratio_unchanging_between_list = 0.2 #0.3 #prob of unchanging context probing each list
@@ -311,10 +324,6 @@ hj_asymptote_increase_val = 0.6
 hj_rate = 0.8
 hj_base = 0.3; #higher this value higher CF starting point
 
-# Include utils.jl to get asymptotic functions
-include("utils.jl")
-
-
 h_j = asym_increase_shift_hj(hj_base, hj_asymptote_increase_val, hj_rate, n_lists - 1)
 
 # the following equals to ks*f(j), 
@@ -350,5 +359,3 @@ println("prob of feature change after 4 lists $(1-(aa)^8)")
 # Note: With n=1, the probability formulas simplify to just the p values themselves
 println("prob of each all features had reinstate after 3 $(1-(1-p_reinstate_rate)^3)")
 println("The actual u_star after nsteps is", 1-(1-u_star[1])^n_units_time)
-
-

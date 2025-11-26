@@ -46,6 +46,17 @@ function simulate_rem()
 
                 # target and nontarget stored into studied pool 
                 studied_pool[j, list_num] = episodic_image
+
+                # Drift changing context between consecutive studied items
+                if j < length(word_list)
+                    for _ in 1:n_drift_between_study_items
+                        for cf in eachindex(list_change_context_features)
+                            if rand() < p_drift_between_study_items # only change CC
+                                list_change_context_features[cf] = rand(Geometric(g_context)) + 1
+                            end
+                        end
+                    end
+                end
             end
 
             # study_list_context = deepcopy(list_change_context_features);

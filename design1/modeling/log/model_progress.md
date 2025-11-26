@@ -1,5 +1,164 @@
 # Model Progress
 
+## Commit [c405632](https://github.com/naszhu/REM_E3_model_fixed/commit/c405632) (branch: `main`)
+**Time:** 2025-11-26 09:44:26  
+**Message:**
+```
+Merge branch 'nov-24-primacy-recency'
+```
+![](../plot_archive/c405632_20251126_094426_plot1.png)  
+![](../plot_archive/c405632_20251126_094426_plot2.png)  
+
+## Commit [eb167bd](https://github.com/naszhu/REM_E3_model_fixed/commit/eb167bd) (branch: `main`)
+**Time:** 2025-11-26 09:43:17  
+**Message:**
+```
+Merge branch 'nov-24-primacy-recency'
+```
+![](../plot_archive/eb167bd_20251126_094317_plot1.png)  
+![](../plot_archive/eb167bd_20251126_094317_plot2.png)  
+
+## Commit [f2a1bd6](https://github.com/naszhu/REM_E3_model_fixed/commit/f2a1bd6) (branch: `main`)
+**Time:** 2025-11-26 09:43:07  
+**Message:**
+```
+Merge branch 'nov-24-primacy-recency'
+```
+![](../plot_archive/f2a1bd6_20251126_094307_plot1.png)  
+![](../plot_archive/f2a1bd6_20251126_094307_plot2.png)  
+
+## Commit [daea28b](https://github.com/naszhu/REM_E3_model_fixed/commit/daea28b) (branch: `main`)
+**Time:** 2025-11-26 09:39:56  
+**Message:**
+```
+Merge branch 'nov-24-primacy-recency'
+```
+![](../plot_archive/daea28b_20251126_093956_plot1.png)  
+![](../plot_archive/daea28b_20251126_093956_plot2.png)  
+
+## Commit [612d182](https://github.com/naszhu/REM_E3_model_fixed/commit/612d182) (branch: `main`)
+**Time:** 2025-11-26 09:37:25  
+**Message:**
+```
+Merge branch 'nov-24-primacy-recency'
+```
+![](../plot_archive/612d182_20251126_093725_plot1.png)  
+![](../plot_archive/612d182_20251126_093725_plot2.png)  
+
+## Commit [0d5f44e](https://github.com/naszhu/REM_E3_model_fixed/commit/0d5f44e) (branch: `main`)
+**Time:** 2025-11-26 09:37:09  
+**Message:**
+```
+Merge branch 'nov-24-primacy-recency'
+```
+![](../plot_archive/0d5f44e_20251126_093709_plot1.png)  
+![](../plot_archive/0d5f44e_20251126_093709_plot2.png)  
+
+## Commit [eaed102](https://github.com/naszhu/REM_E3_model_fixed/commit/eaed102) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-24 13:22:32  
+**Message:**
+```
+finetune(constants): turn down context threshold vary for between list, tune criterion initial
+
+- Updated the base value and rate for the between-list criterion to enhance the model's realism in simulating memory dynamics.
+- Modified context_tau to ensure appropriate foil odds, improving the accuracy of context testing parameters.
+
+Refs #66
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/eaed102_20251124_132232_plot1.png)  
+![](../plot_archive/eaed102_20251124_132232_plot2.png)  
+
+## Commit [5fa2d47](https://github.com/naszhu/REM_E3_model_fixed/commit/5fa2d47) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-24 13:17:56  
+**Message:**
+```
+feat(model-e1): use asymptotic drop for u star
+
+- Updated storage probabilities for content, UC, and CC to decrease asymptotically based on study position, enhancing the model's realism in simulating memory dynamics.
+- Introduced a new utility function for calculating asymptotic decreases, improving code modularity and clarity.
+- Adjusted related logic in the `store_episodic_image` function to utilize the new asymptotic probabilities.
+
+Refs #66
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_storage.jl`  
+- `design1/modeling/module_jl/utils.jl`  
+![](../plot_archive/5fa2d47_20251124_131756_plot1.png)  
+![](../plot_archive/5fa2d47_20251124_131756_plot2.png)  
+
+## Commit [03d4ec7](https://github.com/naszhu/REM_E3_model_fixed/commit/03d4ec7) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-24 12:53:15  
+**Message:**
+```
+feat(model-e1): implement linear drop in storage probabilities based on study position
+
+- Introduced separate storage probabilities for encoding content, UC, and CC, starting slightly above the base value and decreasing linearly with study position.
+- Updated the storage logic in the `store_episodic_image` function to reflect these new probabilities, enhancing the model's realism in simulating memory storage dynamics.
+- Cleaned up commented-out code for clarity and maintainability.
+
+Refs #66
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/memory_storage.jl`  
+- `design3/modeling`  
+![](../plot_archive/03d4ec7_20251124_125315_plot1.png)  
+![](../plot_archive/03d4ec7_20251124_125315_plot2.png)  
+
+## Commit [04b32ed](https://github.com/naszhu/REM_E3_model_fixed/commit/04b32ed) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-24 12:31:47  
+**Message:**
+```
+feat(model-e1): add context drift between studied items
+
+- Added functionality to introduce context drift between consecutive studied items during simulation, enhancing the realism of the study process.
+- Updated constants to define the number of drift steps and the probability of context change, allowing for more controlled experimental conditions.
+- Set the final test flag to true, adjusting the number of simulations accordingly.
+
+Refs #66
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/04b32ed_20251124_123147_plot1.png)  
+![](../plot_archive/04b32ed_20251124_123147_plot2.png)  
+
+## Commit [51b1113](https://github.com/naszhu/REM_E3_model_fixed/commit/51b1113) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-24 11:40:16  
+**Message:**
+```
+chore(analysis): clean up whitespace in R script and README
+
+- Removed unnecessary blank lines in E1_study_test_position_interaction.R and README_DATA_STRUCTURE.md to improve code readability and maintainability.
+```
+**Changed Files:**
+- `design1/data_analysis/E1_study_test_position_interaction.R`  
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design3/README_DATA_STRUCTURE.md`  
+![](../plot_archive/51b1113_20251124_114016_plot1.png)  
+![](../plot_archive/51b1113_20251124_114016_plot2.png)  
+
+## Commit [bc06c42](https://github.com/naszhu/REM_E3_model_fixed/commit/bc06c42) (branch: `nov-24-primacy-recency`)
+**Time:** 2025-11-14 23:07:08  
+**Message:**
+```
+merge(oct11): ours merge. Merge branch 'oct-11'
+```
+![](../plot_archive/bc06c42_20251114_230708_plot1.png)  
+![](../plot_archive/bc06c42_20251114_230708_plot2.png)  
+
 ## Commit [8626ebc](https://github.com/naszhu/REM_E3_model_fixed/commit/8626ebc) (branch: `main`)
 **Time:** 2025-11-11 15:58:53  
 **Message:**
