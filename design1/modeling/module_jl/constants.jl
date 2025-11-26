@@ -1,7 +1,7 @@
 
 
 is_finaltest = true
-n_simulations = is_finaltest ? 200 : 1000;
+n_simulations = is_finaltest ? 200 : 300;
 
 # =============================================================================
 # SIMULATION CONTROL FLAGS
@@ -136,8 +136,8 @@ criterion_between_list_initial_increment = 0.2  # initial increment across lists
 criterion_between_list_decrement_per_step = 0.05  # how much increment decreases each list
 
 # Parameters for formula-based asymptotic criterion (between-list dimension, E3-style)
-criterion_between_list_base = 0.2  # base value for between-list criterion (Z in formula)
-criterion_between_list_r_rate = 0.88  # R parameter controlling asymptotic approach to 1 (0 < R < 1)
+criterion_between_list_base = 0.23  # base value for between-list criterion (Z in formula)
+criterion_between_list_r_rate = 0.9  # R parameter controlling asymptotic approach to 1 (0 < R < 1), the higher, the slower the increase
 criterion_initial = generate_asymptotic_values_formula(1.0, 1.0, 1.0, criterion_between_list_base, criterion_between_list_r_rate)
 
 # criterion_initial = generate_asymptotic_values(1.0, 1.0, 1.0, 0.35, 0.75, 5.0)
@@ -178,7 +178,7 @@ p_recallFeatureStore = 0.85;
 # CONTEXT TESTING PARAMETERS  
 # =============================================================================
 # Context testing flags
-context_tau = vcat(100, ones(n_lists-1) * 100) #foil odds should lower than this - first list very low (0.1), rest 100
+context_tau = vcat(0.1, ones(n_lists-1) * 100) #foil odds should lower than this - first list very low (0.1), rest 100
 
 # =============================================================================
 # DRIFT AND CHANGE PARAMETERS
@@ -264,7 +264,7 @@ final_gap_change = 0.1; #0.16 in E3
 context_tau_final = 100 #0.20.2 above if this is 10
 p_ListChange_finaltest = ones(10) * 0.013 #0.8 in E3, but undecided as well in E3
 ratio_unchanging_to_itself_final = LinRange(1,1, n_lists) # if use no unchanging
-ratio_changing_to_itself_final = LinRange(0,0, n_lists) # if use no unchanging 
+ratio_changing_to_itself_final = LinRange(0.15, 0.15, n_lists) # if use no unchanging 
 
 nU_f = round.(Int, nU .* ratio_unchanging_to_itself_final)
 nC_f = round.(Int, nC .* ratio_changing_to_itself_final)

@@ -1,5 +1,14 @@
 # Model Progress
 
+## Commit [d2e9e01](https://github.com/naszhu/REM_E3_model_fixed/commit/d2e9e01) (branch: `nov26-test`)
+**Time:** 2025-11-26 09:45:02  
+**Message:**
+```
+merge(nov24): Merge branch 'nov-24-primacy-recency'
+```
+![](../plot_archive/d2e9e01_20251126_094502_plot1.png)  
+![](../plot_archive/d2e9e01_20251126_094502_plot2.png)  
+
 ## Commit [c405632](https://github.com/naszhu/REM_E3_model_fixed/commit/c405632) (branch: `main`)
 **Time:** 2025-11-26 09:44:26  
 **Message:**

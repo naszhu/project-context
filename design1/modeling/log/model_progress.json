@@ -1,5 +1,14 @@
 [
   {
+    "commit": "d2e9e01",
+    "branch": "nov26-test",
+    "message": "merge(nov24): Merge branch 'nov-24-primacy-recency'",
+    "timestamp": "2025-11-26 09:45:02",
+    "plot1": "plot_archive/d2e9e01_20251126_094502_plot1.png",
+    "plot2": "plot_archive/d2e9e01_20251126_094502_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "c405632",
     "branch": "main",
     "message": "Merge branch 'nov-24-primacy-recency'",
