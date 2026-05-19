@@ -1,5 +1,24 @@
 # Model Progress
 
+## Commit [e9e23b3](https://github.com/naszhu/REM_E3_model_fixed/commit/e9e23b3) (branch: `nov26-test`)
+**Time:** 2025-11-26 16:46:31  
+**Message:**
+```
+chore(mode): added some comment in explaining the logic
+
+- Added comments to improve understanding of context drift and distortion processes between study and test phases.
+- Included an error message for unsupported unchanging context drift reinstatement.
+- Cleaned up whitespace in the probe generation module for better readability.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/e9e23b3_20251126_164631_plot1.png)  
+![](../plot_archive/e9e23b3_20251126_164631_plot2.png)  
+
 ## Commit [8aa45ff](https://github.com/naszhu/REM_E3_model_fixed/commit/8aa45ff) (branch: `nov26-test`)
 **Time:** 2025-11-26 16:45:44  
 **Message:**
