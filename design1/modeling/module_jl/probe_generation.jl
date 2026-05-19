@@ -187,7 +187,7 @@ function generate_finalt_probes(studied_pool::Array{EpisodicImage}, condition::S
                 drift_between_lists_final!(generalcg, icount)
             end
         end
-
+            
 
         # for cf in eachindex(generalcg)
         #     if rand() < 0.01 #cf.change_probability # this equals p_change

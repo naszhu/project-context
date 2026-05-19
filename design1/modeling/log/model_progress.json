@@ -1,5 +1,42 @@
 [
   {
+    "commit": "e9e23b3",
+    "branch": "nov26-test",
+    "message": "chore(mode): added some comment in explaining the logic",
+    "timestamp": "2025-11-26 16:46:31",
+    "plot1": "plot_archive/e9e23b3_20251126_164631_plot1.png",
+    "plot2": "plot_archive/e9e23b3_20251126_164631_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl",
+      "design1/modeling/module_jl/probe_generation.jl",
+      "design1/modeling/simulation.jl"
+    ]
+  },
+  {
+    "commit": "8aa45ff",
+    "branch": "nov26-test",
+    "message": "explore(nov24): addback context threshold different for first list",
+    "timestamp": "2025-11-26 16:45:44",
+    "plot1": "plot_archive/8aa45ff_20251126_164544_plot1.png",
+    "plot2": "plot_archive/8aa45ff_20251126_164544_plot2.png",
+    "changed_files": [
+      "design1/modeling/log/model_progress.json",
+      "design1/modeling/log/model_progress.md",
+      "design1/modeling/module_jl/constants.jl"
+    ]
+  },
+  {
+    "commit": "d2e9e01",
+    "branch": "nov26-test",
+    "message": "merge(nov24): Merge branch 'nov-24-primacy-recency'",
+    "timestamp": "2025-11-26 09:45:02",
+    "plot1": "plot_archive/d2e9e01_20251126_094502_plot1.png",
+    "plot2": "plot_archive/d2e9e01_20251126_094502_plot2.png",
+    "changed_files": []
+  },
+  {
     "commit": "c405632",
     "branch": "main",
     "message": "Merge branch 'nov-24-primacy-recency'",

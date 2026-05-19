@@ -1,5 +1,53 @@
 # Model Progress
 
+## Commit [e9e23b3](https://github.com/naszhu/REM_E3_model_fixed/commit/e9e23b3) (branch: `nov26-test`)
+**Time:** 2025-11-26 16:46:31  
+**Message:**
+```
+chore(mode): added some comment in explaining the logic
+
+- Added comments to improve understanding of context drift and distortion processes between study and test phases.
+- Included an error message for unsupported unchanging context drift reinstatement.
+- Cleaned up whitespace in the probe generation module for better readability.
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+- `design1/modeling/module_jl/probe_generation.jl`  
+- `design1/modeling/simulation.jl`  
+![](../plot_archive/e9e23b3_20251126_164631_plot1.png)  
+![](../plot_archive/e9e23b3_20251126_164631_plot2.png)  
+
+## Commit [8aa45ff](https://github.com/naszhu/REM_E3_model_fixed/commit/8aa45ff) (branch: `nov26-test`)
+**Time:** 2025-11-26 16:45:44  
+**Message:**
+```
+explore(nov24): addback context threshold different for first list
+
+- Adjusted the number of simulations for final tests from 1000 to 300 to optimize performance.
+- Increased the base value for the between-list criterion from 0.2 to 0.23 and the rate from 0.88 to 0.9 for improved asymptotic behavior.
+- Modified context_tau to start at 0.1 for better alignment with foil odds.
+- Updated the ratio_changing_to_itself_final to 0.15 for enhanced model accuracy.
+
+Refs #66
+```
+**Changed Files:**
+- `design1/modeling/log/model_progress.json`  
+- `design1/modeling/log/model_progress.md`  
+- `design1/modeling/module_jl/constants.jl`  
+![](../plot_archive/8aa45ff_20251126_164544_plot1.png)  
+![](../plot_archive/8aa45ff_20251126_164544_plot2.png)  
+
+## Commit [d2e9e01](https://github.com/naszhu/REM_E3_model_fixed/commit/d2e9e01) (branch: `nov26-test`)
+**Time:** 2025-11-26 09:45:02  
+**Message:**
+```
+merge(nov24): Merge branch 'nov-24-primacy-recency'
+```
+![](../plot_archive/d2e9e01_20251126_094502_plot1.png)  
+![](../plot_archive/d2e9e01_20251126_094502_plot2.png)  
+
 ## Commit [c405632](https://github.com/naszhu/REM_E3_model_fixed/commit/c405632) (branch: `main`)
 **Time:** 2025-11-26 09:44:26  
 **Message:**
