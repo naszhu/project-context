@@ -1,3 +1,10 @@
+# Local editor / workspace (machine-specific)
+.vscode/settings.json
+Project-context.code-workspace
+
+# IRB attachment downloads (not versioned here)
+Docs/irb/
+
 design2-cuedrecall/
 *.csv
 design1/data_analysis/SAVED_data_initialtest.RData
